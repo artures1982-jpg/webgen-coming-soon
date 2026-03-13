@@ -64,6 +64,7 @@
     transition: transform 0.15s ease-out, width 0.3s, height 0.3s;
   }
   body:hover .cursor { opacity: 1; }
+  *, *::before, *::after { cursor: none !important; }
 
   /* NOISE OVERLAY */
   body::before {
@@ -522,8 +523,8 @@
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor" id="cursor" style="opacity:0"></div>
+<div class="cursor-ring" id="cursorRing" style="opacity:0"></div>
 
 <div class="orb orb-1"></div>
 <div class="orb orb-2"></div>
