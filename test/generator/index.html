@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Webgen — Stwórz swoją stronę</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080A0F;--s1:#0D1117;--s2:#131720;--s3:#1A1F2E;
+  --green:#00E5A0;--green2:#00C98A;--blue:#0066FF;--purple:#7B4FFF;
+  --text:#F0F2F7;--muted:#8892AA;
+  --border:rgba(240,242,247,.07);--border2:rgba(240,242,247,.14);
+  --red:#F87171;
+  --head:'Bricolage Grotesque',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --grad:linear-gradient(135deg,var(--green),var(--blue),var(--purple));
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--head);background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* NAV */
+nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(8,10,15,.9);backdrop-filter:blur(16px);z-index:100}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none}
+.logo-mark{width:28px;height:28px;border-radius:7px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;font-weight:700;color:#fff}
+.logo-name{font-size:17px;font-weight:700;color:var(--text)}
+.logo-name span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-back{font-size:13px;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+.nav-back:hover{color:var(--text)}
+
+/* LAYOUT */
+.app{display:grid;grid-template-columns:340px 1fr;min-height:calc(100vh - 60px)}
+
+/* SIDEBAR */
+.sidebar{background:var(--s1);border-right:1px solid var(--border);padding:32px 28px;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;display:flex;flex-direction:column;gap:32px}
+.steps-label{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:16px}
+.steps{display:flex;flex-direction:column;gap:2px}
+.step{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;cursor:pointer;transition:background .2s}
+.step.active{background:rgba(0,229,160,.08)}
+.step.done{cursor:default}
+.step-num{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;font-weight:700;flex-shrink:0;border:1px solid var(--border2);color:var(--muted);transition:all .2s}
+.step.active .step-num{background:var(--green);color:#080A0F;border-color:var(--green)}
+.step.done .step-num{background:rgba(0,229,160,.15);color:var(--green);border-color:rgba(0,229,160,.3)}
+.step.done .step-num::after{content:'✓'}
+.step-label{font-size:14px;font-weight:600;color:var(--muted);transition:color .2s}
+.step.active .step-label{color:var(--text)}
+.step.done .step-label{color:var(--muted)}
+
+.sidebar-tip{background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.1);border-radius:10px;padding:16px}
+.tip-label{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.tip-text{font-size:13px;color:var(--muted);line-height:1.65}
+
+.cost-preview{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:16px}
+.cp-label{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.cp-plan{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px}
+.cp-price{font-family:var(--mono);font-size:24px;font-weight:700;color:var(--green)}
+.cp-price sub{font-size:13px;color:var(--muted)}
+.cp-note{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5}
+
+/* MAIN CONTENT */
+.main{padding:48px 56px;max-width:800px}
+
+/* STEP PANELS */
+.step-panel{display:none}
+.step-panel.active{display:block}
+
+.sp-header{margin-bottom:36px}
+.sp-eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:10px}
+.sp-title{font-size:clamp(24px,3vw,36px);font-weight:800;line-height:1.1;letter-spacing:-.03em;color:var(--text);margin-bottom:10px}
+.sp-sub{font-size:15px;color:var(--muted);line-height:1.6}
+
+/* FORM ELEMENTS */
+.form-grid{display:grid;gap:20px}
+.form-grid.cols2{grid-template-columns:1fr 1fr}
+.field{display:flex;flex-direction:column;gap:7px}
+.field label{font-size:13px;font-weight:600;color:var(--text)}
+.field label .req{color:var(--green);margin-left:2px}
+.field label .opt{font-family:var(--mono);font-size:10px;color:var(--muted);margin-left:6px;font-weight:400}
+.field input,.field select,.field textarea{background:var(--s2);border:1px solid var(--border2);border-radius:8px;padding:11px 14px;font-size:14px;color:var(--text);font-family:var(--head);outline:none;transition:border-color .2s;width:100%}
+.field input::placeholder,.field textarea::placeholder{color:var(--muted)}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green)}
+.field select option{background:var(--s2)}
+.field textarea{resize:vertical;min-height:80px}
+.field-hint{font-size:12px;color:var(--muted);margin-top:2px}
+
+/* BRANŻA SELECTOR */
+.branza-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.branza-btn{background:var(--s2);border:1.5px solid var(--border);border-radius:10px;padding:16px 14px;cursor:pointer;transition:all .2s;text-align:left;display:flex;flex-direction:column;gap:6px}
+.branza-btn:hover{border-color:var(--border2)}
+.branza-btn.selected{border-color:var(--green);background:rgba(0,229,160,.06)}
+.branza-icon{font-size:22px}
+.branza-name{font-size:13px;font-weight:700;color:var(--text)}
+.branza-desc{font-size:11px;color:var(--muted)}
+
+/* PLAN SELECTOR */
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px}
+.plan-card{background:var(--s2);border:1.5px solid var(--border);border-radius:12px;padding:24px 20px;cursor:pointer;transition:all .2s;position:relative}
+.plan-card:hover{border-color:var(--border2)}
+.plan-card.selected{border-color:var(--green);background:rgba(0,229,160,.05)}
+.plan-card.featured-card{border-color:rgba(0,229,160,.3)}
+.plan-badge{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--green);color:#080A0F;font-family:var(--mono);font-size:9px;font-weight:700;padding:3px 10px;border-radius:10px;white-space:nowrap;letter-spacing:.08em}
+.pc-name{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.pc-price{font-size:28px;font-weight:800;color:var(--text);letter-spacing:-.03em}
+.pc-price sub{font-size:13px;font-weight:400;color:var(--muted)}
+.pc-desc{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.55}
+.pc-features{margin-top:14px;display:flex;flex-direction:column;gap:6px}
+.pcf{font-size:12px;color:var(--muted);display:flex;align-items:flex-start;gap:6px}
+.pcf-check{color:var(--green);font-weight:700;flex-shrink:0}
+
+/* GENERATE BUTTON */
+.btn-generate{background:var(--green);color:#080A0F;padding:15px 36px;border-radius:10px;border:none;font-size:16px;font-weight:800;cursor:pointer;font-family:var(--head);transition:all .2s;display:flex;align-items:center;gap:10px;margin-top:32px}
+.btn-generate:hover{background:var(--green2);transform:translateY(-1px)}
+.btn-generate:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn-generate svg{width:20px;height:20px}
+
+/* NAVIGATION BUTTONS */
+.nav-btns{display:flex;gap:12px;margin-top:36px}
+.btn-next{background:var(--green);color:#080A0F;padding:12px 28px;border-radius:8px;border:none;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--head);transition:all .2s}
+.btn-next:hover{background:var(--green2)}
+.btn-prev{background:transparent;color:var(--muted);padding:12px 20px;border-radius:8px;border:1px solid var(--border2);font-size:15px;font-weight:600;cursor:pointer;font-family:var(--head);transition:all .2s}
+.btn-prev:hover{color:var(--text);border-color:var(--border2)}
+
+/* GENERATING STATE */
+.generating{display:none;flex-direction:column;align-items:center;justify-content:center;padding:80px 40px;text-align:center}
+.generating.active{display:flex}
+.gen-spinner{width:56px;height:56px;border:3px solid var(--border2);border-top-color:var(--green);border-radius:50%;animation:spin 1s linear infinite;margin-bottom:24px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.gen-title{font-size:20px;font-weight:700;color:var(--text);margin-bottom:8px}
+.gen-sub{font-size:14px;color:var(--muted)}
+.gen-log{font-family:var(--mono);font-size:12px;color:var(--green);margin-top:20px;opacity:.7}
+
+/* PREVIEW STATE */
+.preview-panel{display:none}
+.preview-panel.active{display:block}
+.preview-toolbar{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:var(--s2);border:1px solid var(--border);border-radius:12px;margin-bottom:24px}
+.pt-info{}
+.pt-label{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:4px}
+.pt-url{font-size:14px;color:var(--text);font-weight:600}
+.pt-btns{display:flex;gap:10px}
+.btn-download{background:transparent;border:1px solid var(--border2);color:var(--muted);padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--head);transition:all .2s}
+.btn-download:hover{color:var(--text);border-color:var(--text)}
+.btn-activate{background:var(--green);color:#080A0F;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--head);border:none;transition:background .2s}
+.btn-activate:hover{background:var(--green2)}
+.preview-frame{width:100%;height:700px;border:1px solid var(--border);border-radius:12px;background:var(--s1)}
+
+/* CHECKOUT MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(8,10,15,.85);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
+.modal-overlay.active{display:flex}
+.modal{background:var(--s2);border:1px solid var(--border2);border-radius:16px;padding:40px;max-width:480px;width:90%;position:relative}
+.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:6px;transition:background .2s}
+.modal-close:hover{background:rgba(255,255,255,.06)}
+.modal h3{font-size:22px;font-weight:800;color:var(--text);margin-bottom:6px}
+.modal p{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.6}
+.modal-plan{background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.2);border-radius:10px;padding:16px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center}
+.mp-name{font-size:15px;font-weight:700;color:var(--text)}
+.mp-price{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--green)}
+.modal-input{background:var(--s1);border:1px solid var(--border2);border-radius:8px;padding:11px 14px;font-size:14px;color:var(--text);font-family:var(--head);outline:none;width:100%;margin-bottom:14px;transition:border-color .2s}
+.modal-input:focus{border-color:var(--green)}
+.modal-input::placeholder{color:var(--muted)}
+.btn-checkout{background:var(--green);color:#080A0F;padding:14px;border-radius:10px;border:none;font-size:15px;font-weight:800;cursor:pointer;font-family:var(--head);width:100%;transition:background .2s}
+.btn-checkout:hover{background:var(--green2)}
+.modal-note{font-size:12px;color:var(--muted);text-align:center;margin-top:12px;line-height:1.5}
+
+@media(max-width:900px){
+  .app{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .main{padding:32px 20px}
+  .branza-grid,.plan-grid{grid-template-columns:1fr 1fr}
+  .form-grid.cols2{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">
+    <div class="logo-mark">W</div>
+    <div class="logo-name">web<span>gen</span></div>
+  </a>
+  <a href="/" class="nav-back">← Wróć do strony głównej</a>
+</nav>
+
+<div class="app">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div>
+      <div class="steps-label">Postęp</div>
+      <div class="steps">
+        <div class="step active" data-step="1" onclick="goToStep(1)">
+          <div class="step-num">1</div>
+          <div class="step-label">Branża i lokalizacja</div>
+        </div>
+        <div class="step" data-step="2">
+          <div class="step-num">2</div>
+          <div class="step-label">Dane firmy</div>
+        </div>
+        <div class="step" data-step="3">
+          <div class="step-num">3</div>
+          <div class="step-label">Social media</div>
+        </div>
+        <div class="step" data-step="4">
+          <div class="step-num">4</div>
+          <div class="step-label">Wybierz plan</div>
+        </div>
+        <div class="step" data-step="5">
+          <div class="step-num">5</div>
+          <div class="step-label">Podgląd i aktywacja</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-tip">
+      <div class="tip-label">// Pro tip</div>
+      <div class="tip-text" id="sidebar-tip-text">Wypełnij jak najwięcej pól — AI wygeneruje lepszą treść. Minimum: nazwa, branża, miasto, telefon.</div>
+    </div>
+
+    <div class="cost-preview">
+      <div class="cp-label">Wybrany plan</div>
+      <div class="cp-plan" id="cp-plan-name">Managed START</div>
+      <div class="cp-price">249 <sub>zł/mies.</sub></div>
+      <div class="cp-note">Wszystko wliczone. Rezygnacja w każdej chwili.</div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- STEP 1: BRANŻA -->
+    <div class="step-panel active" id="panel-1">
+      <div class="sp-header">
+        <div class="sp-eyebrow">// Krok 1 z 4</div>
+        <h1 class="sp-title">Jaka branża<br>i gdzie działasz?</h1>
+        <p class="sp-sub">Wybierz branżę — AI dobierze odpowiednie kolory, fonty i treści.</p>
+      </div>
+
+      <div class="branza-grid" id="branza-grid">
+        <button class="branza-btn" onclick="selectBranza(this,'Remonty i wykończenia')">
+          <span class="branza-icon">🔨</span>
+          <span class="branza-name">Remonty</span>
+          <span class="branza-desc">Wykończenia, budowlanka</span>
+        </button>
+        <button class="branza-btn" onclick="selectBranza(this,'Hydraulika')">
+          <span class="branza-icon">🔧</span>
+          <span class="branza-name">Hydraulika</span>
+          <span class="branza-desc">Instalacje wod-kan</span>
+        </button>
+        <button class="branza-btn" onclick="selectBranza(this,'Elektryka')">
+          <span class="branza-icon">⚡</span>
+          <span class="branza-name">Elektryka</span>
+          <span class="branza-desc">Instalacje elektryczne</span>
+        </button>
+        <button class="branza-btn" onclick="selectBranza(this,'Salon piękności')">
+          <span class="branza-icon">✂️</span>
+          <span class="branza-name">Salon piękności</span>
+          <span class="branza-desc">Fryzjer, kosmetyczka</span>
+        </button>
+        <button class="branza-btn" onclick="selectBranza(this,'Sprzątanie')">
+          <span class="branza-icon">🧹</span>
+          <span class="branza-name">Sprzątanie</span>
+          <span class="branza-desc">Domy, biura, obiekty</span>
+        </button>
+        <button class="branza-btn" onclick="selectBranza(this,'Ogrodnictwo')">
+          <span class="branza-icon">🌿</span>
+          <span class="branza-name">Ogrodnik</span>
+          <span class="branza-desc">Pielęgnacja zieleni</span>
+        </button>
+        <button class="branza-btn" onclick="selectBranza(this,'Malowanie')">
+          <span class="branza-icon">🖌️</span>
+          <span class="branza-name">Malowanie</span>
+          <span class="branza-desc">Malarz, tynkarz</span>
+        </button>
+        <button class="branza-btn" onclick="selectBranza(this,'Gastronomia')">
+          <span class="branza-icon">🍕</span>
+          <span class="branza-name">Gastronomia</span>
+          <span class="branza-desc">Restauracja, kawiarnia</span>
+        </button>
+        <button class="branza-btn" onclick="selectBranza(this,'Inna')">
+          <span class="branza-icon">⚙️</span>
+          <span class="branza-name">Inna branża</span>
+          <span class="branza-desc">Dowolna usługa</span>
+        </button>
+      </div>
+
+      <div class="form-grid cols2" style="margin-top:28px">
+        <div class="field">
+          <label>Miasto <span class="req">*</span></label>
+          <input type="text" id="f-miasto" placeholder="np. Warszawa" required>
+        </div>
+        <div class="field">
+          <label>Dzielnica <span class="opt">opcjonalnie</span></label>
+          <input type="text" id="f-dzielnica" placeholder="np. Mokotów">
+        </div>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn-next" onclick="nextStep(1)">Dalej →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: DANE FIRMY -->
+    <div class="step-panel" id="panel-2">
+      <div class="sp-header">
+        <div class="sp-eyebrow">// Krok 2 z 4</div>
+        <h1 class="sp-title">Dane kontaktowe<br>firmy</h1>
+        <p class="sp-sub">Te informacje trafią na stronę i do Google.</p>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-grid cols2">
+          <div class="field">
+            <label>Nazwa firmy <span class="req">*</span></label>
+            <input type="text" id="f-nazwa" placeholder="np. Remonty Kowalski">
+          </div>
+          <div class="field">
+            <label>Telefon <span class="req">*</span></label>
+            <input type="tel" id="f-telefon" placeholder="np. 600 100 200">
+          </div>
+        </div>
+        <div class="form-grid cols2">
+          <div class="field">
+            <label>Email <span class="req">*</span></label>
+            <input type="email" id="f-email" placeholder="kontakt@firma.pl">
+          </div>
+          <div class="field">
+            <label>Adres <span class="opt">opcjonalnie</span></label>
+            <input type="text" id="f-adres" placeholder="np. ul. Puławska 10">
+          </div>
+        </div>
+        <div class="form-grid cols2">
+          <div class="field">
+            <label>Godziny Pon–Pt <span class="opt">opcjonalnie</span></label>
+            <input type="text" id="f-godz-pon-pt" placeholder="8:00–18:00">
+          </div>
+          <div class="field">
+            <label>Godziny Sobota <span class="opt">opcjonalnie</span></label>
+            <input type="text" id="f-godz-sob" placeholder="9:00–14:00">
+          </div>
+        </div>
+        <div class="form-grid cols2">
+          <div class="field">
+            <label>Lat doświadczenia <span class="opt">opcjonalnie</span></label>
+            <input type="number" id="f-lata" placeholder="np. 10" min="1" max="50">
+          </div>
+          <div class="field">
+            <label>Liczba realizacji <span class="opt">opcjonalnie</span></label>
+            <input type="number" id="f-realizacje" placeholder="np. 250" min="1">
+          </div>
+        </div>
+        <div class="field">
+          <label>Krótki opis firmy <span class="opt">opcjonalnie — AI uzupełni</span></label>
+          <textarea id="f-opis" placeholder="np. Jesteśmy ekipą remontową z Mokotowa..."></textarea>
+          <div class="field-hint">Jeśli zostawisz puste — AI sam napisze opis na podstawie branży i lokalizacji.</div>
+        </div>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn-prev" onclick="prevStep(2)">← Wróć</button>
+        <button class="btn-next" onclick="nextStep(2)">Dalej →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: SOCIAL -->
+    <div class="step-panel" id="panel-3">
+      <div class="sp-header">
+        <div class="sp-eyebrow">// Krok 3 z 4</div>
+        <h1 class="sp-title">Social media<br>i rezerwacje</h1>
+        <p class="sp-sub">Wszystkie opcjonalne — wpisz te które masz.</p>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-grid cols2">
+          <div class="field">
+            <label>Facebook URL <span class="opt">opcjonalnie</span></label>
+            <input type="url" id="f-facebook" placeholder="https://facebook.com/twojafirma">
+          </div>
+          <div class="field">
+            <label>Instagram URL <span class="opt">opcjonalnie</span></label>
+            <input type="url" id="f-instagram" placeholder="https://instagram.com/twojafirma">
+          </div>
+        </div>
+        <div class="form-grid cols2">
+          <div class="field">
+            <label>TikTok URL <span class="opt">opcjonalnie</span></label>
+            <input type="url" id="f-tiktok" placeholder="https://tiktok.com/@twojafirma">
+          </div>
+          <div class="field">
+            <label>WhatsApp (numer) <span class="opt">opcjonalnie</span></label>
+            <input type="tel" id="f-whatsapp" placeholder="np. 600100200 (bez +48)">
+            <div class="field-hint">Pojawi się jako floating button</div>
+          </div>
+        </div>
+        <div class="form-grid cols2">
+          <div class="field">
+            <label>Booksy / Calendly URL <span class="opt">opcjonalnie</span></label>
+            <input type="url" id="f-booksy" placeholder="https://booksy.com/...">
+          </div>
+          <div class="field">
+            <label>Google Maps URL <span class="opt">opcjonalnie</span></label>
+            <input type="url" id="f-maps" placeholder="https://maps.google.com/...">
+          </div>
+        </div>
+        <div class="form-grid cols2">
+          <div class="field">
+            <label>Google ocena <span class="opt">opcjonalnie</span></label>
+            <input type="number" id="f-google-ocena" placeholder="np. 4.9" min="1" max="5" step="0.1">
+          </div>
+          <div class="field">
+            <label>Liczba opinii Google <span class="opt">opcjonalnie</span></label>
+            <input type="number" id="f-google-opinie" placeholder="np. 87" min="1">
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn-prev" onclick="prevStep(3)">← Wróć</button>
+        <button class="btn-next" onclick="nextStep(3)">Dalej →</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: PLAN -->
+    <div class="step-panel" id="panel-4">
+      <div class="sp-header">
+        <div class="sp-eyebrow">// Krok 4 z 4</div>
+        <h1 class="sp-title">Wybierz plan</h1>
+        <p class="sp-sub">Możesz zmienić w każdej chwili. Aktywacja po wygenerowaniu strony.</p>
+      </div>
+
+      <div class="plan-grid">
+        <div class="plan-card" onclick="selectPlan(this,'free','Free','0')">
+          <div class="pc-name">Free</div>
+          <div class="pc-price">0 <sub>zł/mies.</sub></div>
+          <div class="pc-desc">Przetestuj przez 30 dni na subdomenie webgen.pl</div>
+          <div class="pc-features">
+            <div class="pcf"><span class="pcf-check">✓</span>Strona AI wygenerowana</div>
+            <div class="pcf"><span class="pcf-check">✓</span>30 dni online</div>
+            <div class="pcf" style="opacity:.4"><span>–</span> Własna domena</div>
+            <div class="pcf" style="opacity:.4"><span>–</span> Lokalne SEO</div>
+          </div>
+        </div>
+        <div class="plan-card featured-card selected" onclick="selectPlan(this,'managed_start','Managed START','249')">
+          <div class="plan-badge">NAJPOPULARNIEJSZY</div>
+          <div class="pc-name">Managed START</div>
+          <div class="pc-price">249 <sub>zł/mies.</sub></div>
+          <div class="pc-desc">My robimy wszystko — Ty odbierasz telefony</div>
+          <div class="pc-features">
+            <div class="pcf"><span class="pcf-check">✓</span>Własna domena</div>
+            <div class="pcf"><span class="pcf-check">✓</span>Lokalne SEO</div>
+            <div class="pcf"><span class="pcf-check">✓</span>Aktualizacje przez email</div>
+            <div class="pcf"><span class="pcf-check">✓</span>PageSpeed 90+</div>
+          </div>
+        </div>
+        <div class="plan-card" onclick="selectPlan(this,'managed_pro','Managed PRO','399')">
+          <div class="pc-name">Managed PRO</div>
+          <div class="pc-price">399 <sub>zł/mies.</sub></div>
+          <div class="pc-desc">START + raporty SEO + blog + aktywna optymalizacja</div>
+          <div class="pc-features">
+            <div class="pcf"><span class="pcf-check">✓</span>Wszystko z START</div>
+            <div class="pcf"><span class="pcf-check">✓</span>Raporty SEO miesięcznie</div>
+            <div class="pcf"><span class="pcf-check">✓</span>Blog 2 wpisy/mies.</div>
+            <div class="pcf"><span class="pcf-check">✓</span>5 podstron dzielnic</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn-prev" onclick="prevStep(4)">← Wróć</button>
+        <button class="btn-generate" onclick="startGenerate()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          Generuj moją stronę
+        </button>
+      </div>
+    </div>
+
+    <!-- GENERATING -->
+    <div class="generating" id="generating">
+      <div class="gen-spinner"></div>
+      <div class="gen-title">AI generuje Twoją stronę…</div>
+      <div class="gen-sub">Tworzymy treści, optymalizujemy SEO, składamy layout</div>
+      <div class="gen-log" id="gen-log">// Inicjalizacja Claude API…</div>
+    </div>
+
+    <!-- PREVIEW -->
+    <div class="preview-panel" id="preview-panel">
+      <div class="sp-header">
+        <div class="sp-eyebrow">// Gotowe!</div>
+        <h1 class="sp-title">Twoja strona<br>jest gotowa 🎉</h1>
+        <p class="sp-sub">Sprawdź podgląd poniżej. Możesz ją aktywować lub pobrać.</p>
+      </div>
+      <div class="preview-toolbar">
+        <div class="pt-info">
+          <div class="pt-label">Podgląd strony</div>
+          <div class="pt-url" id="preview-url">preview.webgen.pl/twoja-firma</div>
+        </div>
+        <div class="pt-btns">
+          <button class="btn-download" onclick="downloadHTML()">⬇ Pobierz HTML</button>
+          <button class="btn-activate" onclick="openCheckout()">Aktywuj za <span id="btn-price">249</span> zł/mies. →</button>
+        </div>
+      </div>
+      <iframe class="preview-frame" id="preview-iframe" sandbox="allow-same-origin"></iframe>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- CHECKOUT MODAL -->
+<div class="modal-overlay" id="checkout-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeCheckout()">✕</button>
+    <h3>Aktywuj stronę</h3>
+    <p>Podaj email — wyślemy Ci link do płatności Stripe. Możesz zapłacić kartą lub BLIK-iem.</p>
+    <div class="modal-plan">
+      <div class="mp-name" id="modal-plan-name">Managed START</div>
+      <div class="mp-price" id="modal-plan-price">249 <sub style="font-size:13px;color:var(--muted)">zł/mies.</sub></div>
+    </div>
+    <input type="email" class="modal-input" id="checkout-email" placeholder="twoj@email.pl">
+    <button class="btn-checkout" onclick="goToCheckout()">Przejdź do płatności →</button>
+    <p class="modal-note">Płatność obsługiwana przez Stripe. Brak umowy długoterminowej — rezygnacja w każdej chwili.</p>
+  </div>
+</div>
+
+<script>
+// ─── STATE ───
+const state = {
+  currentStep: 1,
+  branza: '',
+  plan: 'managed_start',
+  planName: 'Managed START',
+  planPrice: '249',
+  generatedHTML: '',
+  slug: '',
+};
+
+const TIPS = {
+  1: 'Wypełnij jak najwięcej pól — AI wygeneruje lepszą treść.',
+  2: 'Godziny otwarcia i lata doświadczenia zwiększają konwersję o 40%.',
+  3: 'Firmy z social media mają 2× więcej kontaktów z klientami.',
+  4: 'Managed START to 10× taniej niż agencja webowa.',
+};
+
+// ─── NAVIGATION ───
+function goToStep(n) {
+  if (n > state.currentStep) return; // tylko wstecz
+  setStep(n);
+}
+
+function nextStep(from) {
+  if (!validateStep(from)) return;
+  setStep(from + 1);
+}
+
+function prevStep(from) {
+  setStep(from - 1);
+}
+
+function setStep(n) {
+  // hide all panels
+  document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('generating').classList.remove('active');
+  document.getElementById('preview-panel').classList.remove('active');
+  
+  if (n <= 4) {
+    document.getElementById(`panel-${n}`).classList.add('active');
+  }
+  
+  state.currentStep = n;
+  
+  // update sidebar steps
+  document.querySelectorAll('.step').forEach(s => {
+    const sn = parseInt(s.dataset.step);
+    s.classList.remove('active','done');
+    if (sn === n) s.classList.add('active');
+    else if (sn < n) { s.classList.add('done'); s.querySelector('.step-num').textContent = ''; }
+    else s.querySelector('.step-num').textContent = sn;
+  });
+
+  // update tip
+  document.getElementById('sidebar-tip-text').textContent = TIPS[n] || TIPS[1];
+}
+
+// ─── VALIDATION ───
+function validateStep(step) {
+  if (step === 1) {
+    if (!state.branza) { alert('Wybierz branżę'); return false; }
+    if (!document.getElementById('f-miasto').value.trim()) { alert('Wpisz miasto'); return false; }
+  }
+  if (step === 2) {
+    if (!document.getElementById('f-nazwa').value.trim()) { alert('Wpisz nazwę firmy'); return false; }
+    if (!document.getElementById('f-telefon').value.trim()) { alert('Wpisz telefon'); return false; }
+    if (!document.getElementById('f-email').value.trim()) { alert('Wpisz email'); return false; }
+  }
+  return true;
+}
+
+// ─── BRANŻA ───
+function selectBranza(btn, name) {
+  document.querySelectorAll('.branza-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  state.branza = name;
+}
+
+// ─── PLAN ───
+function selectPlan(card, id, name, price) {
+  document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  state.plan = id;
+  state.planName = name;
+  state.planPrice = price;
+  document.getElementById('cp-plan-name').textContent = name;
+  document.querySelector('.cp-price').innerHTML = price === '0' ? 'Bezpłatny <sub></sub>' : `${price} <sub>zł/mies.</sub>`;
+  document.getElementById('btn-price').textContent = price;
+}
+
+// ─── COLLECT FORM DATA ───
+function collectFirmaData() {
+  return {
+    nazwa:        document.getElementById('f-nazwa').value.trim(),
+    branza:       state.branza,
+    miasto:       document.getElementById('f-miasto').value.trim(),
+    dzielnica:    document.getElementById('f-dzielnica').value.trim(),
+    telefon:      document.getElementById('f-telefon').value.trim(),
+    email:        document.getElementById('f-email').value.trim(),
+    adres:        document.getElementById('f-adres').value.trim(),
+    godz_pon_pt:  document.getElementById('f-godz-pon-pt').value.trim() || '8:00–18:00',
+    godz_sob:     document.getElementById('f-godz-sob').value.trim() || '9:00–14:00',
+    lata:         document.getElementById('f-lata').value.trim(),
+    realizacje:   document.getElementById('f-realizacje').value.trim(),
+    opis:         document.getElementById('f-opis').value.trim(),
+    facebook:     document.getElementById('f-facebook').value.trim(),
+    instagram:    document.getElementById('f-instagram').value.trim(),
+    tiktok:       document.getElementById('f-tiktok').value.trim(),
+    whatsapp:     document.getElementById('f-whatsapp').value.trim(),
+    booksy:       document.getElementById('f-booksy').value.trim(),
+    maps:         document.getElementById('f-maps').value.trim(),
+    google_ocena: document.getElementById('f-google-ocena').value.trim(),
+    google_opinie:document.getElementById('f-google-opinie').value.trim(),
+  };
+}
+
+// ─── GENERATE ───
+async function startGenerate() {
+  if (!validateStep(4)) return;
+  
+  const firma = collectFirmaData();
+  
+  // Show generating state
+  document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('generating').classList.add('active');
+  
+  // Animate log messages
+  const logs = [
+    '// Inicjalizacja Claude API…',
+    '// Analiza branży: ' + firma.branza,
+    '// Dobieranie kolorów i fontów…',
+    '// Generowanie treści SEO dla ' + firma.miasto + '…',
+    '// Tworzenie Schema.org LocalBusiness…',
+    '// Składanie layoutu HTML…',
+    '// Optymalizacja mobilna…',
+    '// Finalizowanie…',
+  ];
+  let li = 0;
+  const logEl = document.getElementById('gen-log');
+  const logInterval = setInterval(() => {
+    if (li < logs.length) logEl.textContent = logs[li++];
+  }, 600);
+
+  try {
+    const res = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ firma })
+    });
+    
+    const data = await res.json();
+    clearInterval(logInterval);
+    
+    if (!data.success) throw new Error(data.error || 'Błąd generowania');
+    
+    state.generatedHTML = data.html;
+    state.slug = data.slug;
+    
+    showPreview(data);
+    
+  } catch (err) {
+    clearInterval(logInterval);
+    alert('Błąd: ' + err.message + '\n\nSprawdź czy serwer API działa (node webgen-generator.js)');
+    setStep(4);
+  }
+}
+
+// ─── PREVIEW ───
+function showPreview(data) {
+  document.getElementById('generating').classList.remove('active');
+  document.getElementById('preview-panel').classList.add('active');
+  document.getElementById('preview-url').textContent = `preview.webgen.pl/${data.slug}`;
+  document.getElementById('btn-price').textContent = state.planPrice;
+  
+  // Inject HTML into iframe
+  const iframe = document.getElementById('preview-iframe');
+  const doc = iframe.contentDocument || iframe.contentWindow.document;
+  doc.open();
+  doc.write(data.html);
+  doc.close();
+  
+  // Update sidebar step 5
+  document.querySelectorAll('.step').forEach(s => {
+    const sn = parseInt(s.dataset.step);
+    s.classList.remove('active','done');
+    if (sn === 5) s.classList.add('active');
+    else if (sn < 5) { s.classList.add('done'); s.querySelector('.step-num').textContent = ''; }
+  });
+}
+
+// ─── DOWNLOAD ───
+function downloadHTML() {
+  const blob = new Blob([state.generatedHTML], { type: 'text/html' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${state.slug || 'strona'}.html`;
+  a.click();
+}
+
+// ─── CHECKOUT ───
+function openCheckout() {
+  document.getElementById('modal-plan-name').textContent = state.planName;
+  document.getElementById('modal-plan-price').innerHTML = `${state.planPrice} <sub style="font-size:13px;color:var(--muted)">zł/mies.</sub>`;
+  document.getElementById('checkout-modal').classList.add('active');
+}
+
+function closeCheckout() {
+  document.getElementById('checkout-modal').classList.remove('active');
+}
+
+async function goToCheckout() {
+  const email = document.getElementById('checkout-email').value.trim();
+  if (!email || !email.includes('@')) { alert('Wpisz poprawny email'); return; }
+  
+  if (state.plan === 'free') {
+    alert('Plan Free nie wymaga płatności — Twoja strona zostanie aktywowana automatycznie.');
+    closeCheckout();
+    return;
+  }
+  
+  try {
+    const res = await fetch('/api/create-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ plan: state.plan, firma_slug: state.slug, email })
+    });
+    const data = await res.json();
+    if (data.checkout_url) {
+      window.location.href = data.checkout_url;
+    } else {
+      throw new Error(data.error || 'Błąd');
+    }
+  } catch (err) {
+    alert('Błąd checkout: ' + err.message);
+  }
+}
+
+// Close modal on overlay click
+document.getElementById('checkout-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeCheckout();
+});
+
+// Init
+selectPlan(document.querySelector('.plan-card.selected'), 'managed_start', 'Managed START', '249');
+</script>
+</body>
+</html>
