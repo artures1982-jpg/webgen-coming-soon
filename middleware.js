@@ -1,25 +1,30 @@
-import { NextResponse } from "next/server";
-
-const BLOB_BASE = process.env.BLOB_BASE_URL;
+// WEBGEN — middleware.js (Vercel Edge Middleware bez Next.js)
+// Routing subdomen *.webgen.pl → HTML z Vercel Blob
 
 export const config = {
-  matcher: ["/((?!api|_next|favicon.ico).*)"],
+  matcher: "/(.*)",
 };
 
-export default async function middleware(req) {
-  const hostname = req.headers.get("host") || "";
-  const isMainDomain =
+export default async function middleware(request) {
+  const url = new URL(request.url);
+  const hostname = request.headers.get("host") || "";
+
+  // Przepuść główną domenę i vercel.app normalnie
+  if (
     hostname === "webgen.pl" ||
     hostname === "www.webgen.pl" ||
     hostname.includes("vercel.app") ||
-    hostname.includes("localhost");
-
-  if (isMainDomain) {
-    return NextResponse.next();
+    hostname.includes("localhost")
+  ) {
+    return;
   }
 
+  // Wyciągnij slug: firma-kowalski.webgen.pl → firma-kowalski
   const slug = hostname.replace(".webgen.pl", "");
-  if (!slug) return NextResponse.next();
+  if (!slug || slug === hostname) return;
+
+  const BLOB_BASE = process.env.BLOB_BASE_URL;
+  if (!BLOB_BASE) return;
 
   const blobUrl = `${BLOB_BASE}/sites/${slug}/index.html`;
 
@@ -27,7 +32,7 @@ export default async function middleware(req) {
     const blobRes = await fetch(blobUrl);
 
     if (!blobRes.ok) {
-      return new NextResponse(notFoundHTML(slug), {
+      return new Response(notFoundHTML(slug), {
         status: 404,
         headers: { "Content-Type": "text/html; charset=utf-8" },
       });
@@ -35,16 +40,16 @@ export default async function middleware(req) {
 
     const html = await blobRes.text();
 
-    return new NextResponse(html, {
+    return new Response(html, {
       status: 200,
       headers: {
         "Content-Type": "text/html; charset=utf-8",
         "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
+        "X-Webgen-Slug": slug,
       },
     });
   } catch (err) {
-    console.error("[middleware] Error:", err.message);
-    return NextResponse.next();
+    return;
   }
 }
 
@@ -63,7 +68,7 @@ body{font-family:system-ui,sans-serif;background:#080A0F;color:#F0F2F7;display:f
 .logo span{color:#00E5A0}
 h1{font-size:24px;font-weight:700;margin-bottom:12px}
 p{color:#8892AA;line-height:1.65;margin-bottom:28px}
-a{background:#00E5A0;color:#080A0F;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:700}
+a{display:inline-block;background:#00E5A0;color:#080A0F;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:700}
 </style>
 </head>
 <body>
