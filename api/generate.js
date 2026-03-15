@@ -83,15 +83,47 @@ function generateHTML(f) {
     ? `<div style="margin-top:14px"><img src="${f.logo_base64}" alt="${nazwa} logo" style="max-height:56px;max-width:150px;border-radius:5px;background:rgba(255,255,255,.12);padding:4px 8px"></div>`
     : '';
 
-  // Galeria zdjec — wbudowana w HTML (bez zewnetrznego linku)
-  const galeria = Array.isArray(f.galeria) ? f.galeria.filter(Boolean) : [];
-  const cols = galeria.length === 1 ? '1fr' : galeria.length === 2 ? '1fr 1fr' : '1fr 1fr 1fr';
+  // Limity zdjec galerii per plan:
+  // Free: 3 zdjecia wbudowane (bez linku do social)
+  // Managed START (249): 6 zdjec + link do galerii social jesli podany
+  // Managed PRO (399): 12 zdjec + link do galerii social
+  // Managed PREMIUM (599): 12 zdjec + link + hero photo
+  const PLAN_LIMITS = { free: 3, managed_start: 6, managed_pro: 12, managed_premium: 12 };
+  const planKey = (f.plan || 'free').toLowerCase().replace(/[^a-z_]/g, '_');
+  const galeriaLimit = PLAN_LIMITS[planKey] || 3;
+
+  const allGaleria = Array.isArray(f.galeria) ? f.galeria.filter(Boolean) : [];
+  const galeria = allGaleria.slice(0, galeriaLimit);
+  const cols = galeria.length === 1 ? '1fr' : galeria.length === 2 ? '1fr 1fr' : 'repeat(3,1fr)';
+
+  // Link do galerii social (Managed START+) jesli podany facebook/instagram
+  const hasSocialGallery = (f.facebook || f.instagram) && galeriaLimit >= 6;
+  const socialGalleryLink = hasSocialGallery
+    ? `<div style="text-align:center;margin-top:14px">
+        <a href="${f.facebook || f.instagram}" target="_blank" rel="noopener"
+           style="display:inline-flex;align-items:center;gap:8px;background:${c.primary};color:#fff;
+                  padding:10px 22px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px">
+          📸 Zobacz więcej zdjęć
+        </a>
+      </div>`
+    : '';
+
   const galeriaHtml = galeria.length > 0
     ? `<div style="margin-bottom:32px">
         <h2 style="font-size:22px;font-weight:800;color:${c.primary};margin-bottom:14px">Nasze realizacje</h2>
         <div style="display:grid;grid-template-columns:${cols};gap:12px">
-          ${galeria.map(src => `<img src="${src}" alt="Realizacja ${nazwa}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08)">`).join('')}
+          ${galeria.map(src => `<img src="${src}" alt="Realizacja ${nazwa}" loading="lazy"
+            style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08)">`).join('')}
         </div>
+        ${socialGalleryLink}
+      </div>`
+    : '';
+
+  // Hero photo (Managed PREMIUM) — duze zdjecie za headerem
+  const heroPhotoHtml = f.hero_base64 && ['managed_premium'].includes(planKey)
+    ? `<div style="width:100%;max-height:480px;overflow:hidden;margin-bottom:32px">
+        <img src="${f.hero_base64}" alt="${nazwa} — ${f.branza} ${lok}"
+          style="width:100%;height:480px;object-fit:cover;display:block">
       </div>`
     : '';
 
@@ -159,6 +191,7 @@ function generateHTML(f) {
     ${booksy}
     ${logoHtml}
   </header>
+  ${heroPhotoHtml}
   <main>
     <div class="about">
       <h2>O nas</h2>

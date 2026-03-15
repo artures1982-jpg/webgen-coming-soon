@@ -562,6 +562,26 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
         </div>
       </div>
 
+      <!-- HERO PHOTO — tylko dla Managed PREMIUM -->
+      <div id="hero-section" style="display:none;margin-top:28px">
+        <div class="field">
+          <label>Zdjęcie hero <span style="font-family:var(--mono);font-size:10px;color:var(--green);margin-left:6px">PREMIUM</span></label>
+          <div class="logo-upload-area" id="hero-upload-area">
+            <div id="hero-empty">
+              <div class="lua-icon">🖼️</div>
+              <div class="lua-text">Duże zdjęcie wyróżniające (panorama, ekipa, obiekt)</div>
+              <div class="lua-hint">PNG lub JPG · maks. 5 MB · proporcje 16:9 lub szersze</div>
+            </div>
+            <div id="hero-filled" style="display:none">
+              <img id="hero-preview" class="lua-preview" src="" alt="Hero" style="max-height:80px;max-width:220px">
+              <div class="lua-hint" style="color:var(--green)">✓ Zdjęcie hero wczytane</div>
+            </div>
+            <input type="file" id="f-hero" accept="image/png,image/jpeg,image/webp" onchange="handleHeroUpload(this)">
+          </div>
+          <div class="field-hint">Pojawi się jako pełna szerokość sekcja za headerem strony.</div>
+        </div>
+      </div>
+
       <div class="nav-btns">
         <button class="btn-prev" onclick="prevStep(4)">← Wróć</button>
         <button class="btn-generate" onclick="startGenerate()">
@@ -631,7 +651,8 @@ const state = {
   kolor1: '#D97B3A',
   kolor2: '#FFF8F2',
   logoBase64: '',
-  galeria: [null, null, null],
+  galeria: [null, null, null, null, null, null, null, null, null, null, null, null],  // max 12
+  heroBase64: '',
 };
 
 const TIPS = {
@@ -742,6 +763,22 @@ function handleGaleriaUpload(input, idx) {
   reader.readAsDataURL(file);
 }
 
+// ─── HERO PHOTO ───
+function handleHeroUpload(input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) { alert('Zdjęcie hero za duże — maks. 5 MB'); return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    state.heroBase64 = e.target.result;
+    document.getElementById('hero-empty').style.display = 'none';
+    document.getElementById('hero-filled').style.display = 'block';
+    document.getElementById('hero-preview').src = e.target.result;
+    document.getElementById('hero-upload-area').classList.add('has-file');
+  };
+  reader.readAsDataURL(file);
+}
+
 // ─── BRANŻA ───
 function selectBranza(btn, name) {
   document.querySelectorAll('.branza-btn').forEach(b => b.classList.remove('selected'));
@@ -750,6 +787,9 @@ function selectBranza(btn, name) {
 }
 
 // ─── PLAN ───
+// Limity zdjec per plan (sync z generate.js)
+const PLAN_PHOTO_LIMITS = { free: 3, managed_start: 6, managed_pro: 12, managed_premium: 12 };
+
 function selectPlan(card, id, name, price) {
   document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
   card.classList.add('selected');
@@ -759,6 +799,18 @@ function selectPlan(card, id, name, price) {
   document.getElementById('cp-plan-name').textContent = name;
   document.querySelector('.cp-price').innerHTML = price === '0' ? 'Bezpłatny <sub></sub>' : `${price} <sub>zł/mies.</sub>`;
   document.getElementById('btn-price').textContent = price;
+
+  // Pokaż/ukryj hero upload dla PREMIUM
+  const heroSection = document.getElementById('hero-section');
+  if (heroSection) heroSection.style.display = id === 'managed_premium' ? 'block' : 'none';
+
+  // Zaktualizuj info o limicie zdjec galerii (jeśli sekcja widoczna)
+  const limit = PLAN_PHOTO_LIMITS[id] || 3;
+  const galeriaHintEl = document.querySelector('.galeria-hint');
+  if (galeriaHintEl) {
+    const socialNote = limit >= 6 ? ' Jeśli masz galerię na social mediach — podaj link w kroku 3, a dodamy przycisk "Zobacz więcej".' : '';
+    galeriaHintEl.textContent = `Możesz dodać do ${limit} zdjęć (plan ${name}).${socialNote} Zdjęcia są wbudowane bezpośrednio w stronę.`;
+  }
 }
 
 // ─── COLLECT FORM DATA ───
@@ -788,6 +840,8 @@ function collectFirmaData() {
     kolor2:       state.kolor2,
     logo_base64:  state.logoBase64,
     galeria:      state.galeria.filter(Boolean),
+    plan:         state.plan,
+    hero_base64:  state.heroBase64,
   };
 }
 
