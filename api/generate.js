@@ -18,10 +18,14 @@ export default async function handler(req, res) {
     const html = generateHTML(firma);
 
     if (process.env.BLOB_READ_WRITE_TOKEN) {
-      await put(`sites/${slug}/index.html`, html, {
-        access: 'public',
-        contentType: 'text/html; charset=utf-8',
-      });
+      try {
+        await put(`sites/${slug}/index.html`, html, {
+          access: 'private',
+          contentType: 'text/html; charset=utf-8',
+        });
+      } catch (blobErr) {
+        console.warn('Blob save skipped:', blobErr.message);
+      }
     }
 
     return res.status(200).json({ success: true, html, slug, mode: 'placeholder' });
