@@ -725,58 +725,84 @@ function selectKolor(btn, k1, k2) {
   state.kolor2 = k2;
 }
 
+
+// ─── IMAGE → WEBP (LOSSLESS) ───
+// Konwertuje PNG/JPG/WEBP → WebP bezstratny przez Canvas API
+// quality=1.0 + image/webp = lossless w Chrome/Edge/Firefox
+function toWebP(file) {
+  return new Promise((resolve, reject) => {
+    if (!file) return resolve(null);
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('Błąd odczytu pliku'));
+    reader.onload = e => {
+      const img = new Image();
+      img.onerror = () => reject(new Error('Błąd ładowania obrazu'));
+      img.onload = () => {
+        try {
+          const canvas = document.createElement('canvas');
+          canvas.width  = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0);
+          // quality=1.0 przy image/webp = WebP lossless
+          const webp = canvas.toDataURL('image/webp', 1.0);
+          // Fallback: jeśli przeglądarka nie obsługuje WebP export
+          // (bardzo stare Safari) — zwróć oryginalny format
+          const isWebP = webp.startsWith('data:image/webp');
+          resolve(isWebP ? webp : e.target.result);
+        } catch(err) {
+          resolve(e.target.result); // fallback do oryginału
+        }
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
 // ─── LOGO ───
-function handleLogoUpload(input) {
+async function handleLogoUpload(input) {
   const file = input.files[0];
   if (!file) return;
   if (file.size > 2 * 1024 * 1024) { alert('Logo za duże — maks. 2 MB'); return; }
-  const reader = new FileReader();
-  reader.onload = e => {
-    state.logoBase64 = e.target.result;
-    document.getElementById('lua-empty').style.display = 'none';
-    document.getElementById('lua-filled').style.display = 'block';
-    document.getElementById('lua-preview').src = e.target.result;
-    document.getElementById('lua-filename').textContent = file.name;
-    document.getElementById('logo-upload-area').classList.add('has-file');
-  };
-  reader.readAsDataURL(file);
+  const data = await toWebP(file);
+  state.logoBase64 = data;
+  document.getElementById('lua-empty').style.display = 'none';
+  document.getElementById('lua-filled').style.display = 'block';
+  document.getElementById('lua-preview').src = data;
+  document.getElementById('lua-filename').textContent = file.name.replace(/\.[^.]+$/, '.webp');
+  document.getElementById('logo-upload-area').classList.add('has-file');
 }
 
 // ─── GALERIA ───
-function handleGaleriaUpload(input, idx) {
+async function handleGaleriaUpload(input, idx) {
   const file = input.files[0];
   if (!file) return;
   if (file.size > 3 * 1024 * 1024) { alert('Zdjęcie za duże — maks. 3 MB'); return; }
-  const reader = new FileReader();
-  reader.onload = e => {
-    state.galeria[idx] = e.target.result;
-    const slot = document.getElementById('slot-' + idx);
-    slot.classList.add('has-img');
-    let img = slot.querySelector('img.slot-img');
-    if (!img) {
-      img = document.createElement('img');
-      img.className = 'slot-img';
-      slot.insertBefore(img, slot.querySelector('.slot-overlay'));
-    }
-    img.src = e.target.result;
-  };
-  reader.readAsDataURL(file);
+  const data = await toWebP(file);
+  state.galeria[idx] = data;
+  const slot = document.getElementById('slot-' + idx);
+  slot.classList.add('has-img');
+  let img = slot.querySelector('img.slot-img');
+  if (!img) {
+    img = document.createElement('img');
+    img.className = 'slot-img';
+    slot.insertBefore(img, slot.querySelector('.slot-overlay'));
+  }
+  img.src = data;
 }
 
 // ─── HERO PHOTO ───
-function handleHeroUpload(input) {
+async function handleHeroUpload(input) {
   const file = input.files[0];
   if (!file) return;
   if (file.size > 5 * 1024 * 1024) { alert('Zdjęcie hero za duże — maks. 5 MB'); return; }
-  const reader = new FileReader();
-  reader.onload = e => {
-    state.heroBase64 = e.target.result;
-    document.getElementById('hero-empty').style.display = 'none';
-    document.getElementById('hero-filled').style.display = 'block';
-    document.getElementById('hero-preview').src = e.target.result;
-    document.getElementById('hero-upload-area').classList.add('has-file');
-  };
-  reader.readAsDataURL(file);
+  const data = await toWebP(file);
+  state.heroBase64 = data;
+  document.getElementById('hero-empty').style.display = 'none';
+  document.getElementById('hero-filled').style.display = 'block';
+  document.getElementById('hero-preview').src = data;
+  document.getElementById('hero-upload-area').classList.add('has-file');
 }
 
 // ─── BRANŻA ───
