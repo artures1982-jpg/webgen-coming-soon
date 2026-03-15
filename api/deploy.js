@@ -94,6 +94,13 @@ module.exports = async (req, res) => {
     // 3. Sprawdź status
     const domainStatus = await checkDomain(subdomain);
 
+    // Oblicz daty dla planu Free (3 miesiące)
+    const now = new Date();
+    const trialEnd = new Date(now);
+    trialEnd.setMonth(trialEnd.getMonth() + 3);
+    const emailReminder = new Date(trialEnd);
+    emailReminder.setMonth(emailReminder.getMonth() - 1); // miesiąc przed końcem
+
     return res.json({
       success: true,
       slug,
@@ -102,6 +109,9 @@ module.exports = async (req, res) => {
       blob_url: blobUrl,
       verified: domainStatus.verified ?? false,
       plan: plan || 'free',
+      trial_end: trialEnd.toISOString().split('T')[0],
+      email_reminder_date: emailReminder.toISOString().split('T')[0],
+      note: 'Plan Free: 3 miesiące bezplatnie. Email reminder wysylany miesiac przed wygasnieciem.',
     });
 
   } catch (err) {
