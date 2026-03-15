@@ -48,7 +48,8 @@ function generateHTML(f) {
     'Gastronomia':           { primary: '#C0322D', bg: '#FFF0F0', text: '#330505' },
   };
 
-  const c = COLORS[f.branza] || { primary: '#3366FF', bg: '#F5F5FF', text: '#111144' };
+  const defaultC = COLORS[f.branza] || { primary: '#3366FF', bg: '#F5F5FF', text: '#111144' };
+  const c = { primary: f.kolor1 || defaultC.primary, bg: f.kolor2 || defaultC.bg, text: defaultC.text };
   const lok = [f.dzielnica, f.miasto].filter(Boolean).join(', ');
   const nazwa = f.nazwa || f.branza;
   const tel = f.telefon || '+48 000 000 000';
@@ -77,7 +78,24 @@ function generateHTML(f) {
       <span style="opacity:.8">${f.google_opinie ? `(${f.google_opinie} opinii)` : 'w Google'}</span>
     </div>` : '';
 
-  const schema = JSON.stringify({
+  // Logo (base64 wbudowane bezposrednio)
+  const logoHtml = f.logo_base64
+    ? `<div style="margin-top:14px"><img src="${f.logo_base64}" alt="${nazwa} logo" style="max-height:56px;max-width:150px;border-radius:5px;background:rgba(255,255,255,.12);padding:4px 8px"></div>`
+    : '';
+
+  // Galeria zdjec — wbudowana w HTML (bez zewnetrznego linku)
+  const galeria = Array.isArray(f.galeria) ? f.galeria.filter(Boolean) : [];
+  const cols = galeria.length === 1 ? '1fr' : galeria.length === 2 ? '1fr 1fr' : '1fr 1fr 1fr';
+  const galeriaHtml = galeria.length > 0
+    ? `<div style="margin-bottom:32px">
+        <h2 style="font-size:22px;font-weight:800;color:${c.primary};margin-bottom:14px">Nasze realizacje</h2>
+        <div style="display:grid;grid-template-columns:${cols};gap:12px">
+          ${galeria.map(src => `<img src="${src}" alt="Realizacja ${nazwa}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08)">`).join('')}
+        </div>
+      </div>`
+    : '';
+
+    const schema = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": nazwa,
@@ -139,12 +157,14 @@ function generateHTML(f) {
     ${googleBadge}
     <a href="tel:${tel}" class="cta-tel">📞 Zadzwoń: ${tel}</a>
     ${booksy}
+    ${logoHtml}
   </header>
   <main>
     <div class="about">
       <h2>O nas</h2>
       <p>${opis}</p>
     </div>
+    ${galeriaHtml}
     <div class="services-grid">
       <div class="service"><h3>Profesjonalna obsługa</h3><p>Wykonujemy kompleksowo na terenie ${lok}.</p></div>
       <div class="service"><h3>Szybka realizacja</h3><p>Terminowość i rzetelność to nasza wizytówka.</p></div>

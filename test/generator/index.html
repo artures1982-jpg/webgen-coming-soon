@@ -169,6 +169,41 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
   .branza-grid,.plan-grid{grid-template-columns:1fr 1fr}
   .form-grid.cols2{grid-template-columns:1fr}
 }
+
+/* KOLOR SELECTOR */
+.kolor-section-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px;display:block}
+.kolor-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px}
+.kolor-pair{background:var(--s2);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:10px;text-align:left;width:100%}
+.kolor-pair:hover{border-color:var(--border2)}
+.kolor-pair.selected{border-color:var(--green);background:rgba(0,229,160,.06)}
+.kolor-swatch{display:flex;gap:5px;flex-shrink:0}
+.kolor-swatch span{width:20px;height:20px;border-radius:5px;display:block;border:1px solid rgba(255,255,255,.1)}
+.kolor-name{font-size:12px;font-weight:700;color:var(--text);line-height:1.3}
+.kolor-desc{font-size:11px;color:var(--muted)}
+
+/* LOGO UPLOAD */
+.logo-upload-area{border:1.5px dashed var(--border2);border-radius:10px;padding:20px;text-align:center;cursor:pointer;transition:all .2s;background:var(--s2);position:relative;overflow:hidden}
+.logo-upload-area:hover,.logo-upload-area:focus-within{border-color:var(--green);background:rgba(0,229,160,.04)}
+.logo-upload-area.has-file{border-color:var(--green);border-style:solid}
+.lua-icon{font-size:22px;margin-bottom:6px}
+.lua-text{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px}
+.lua-hint{font-size:11px;color:var(--muted)}
+.lua-preview{max-height:56px;max-width:140px;border-radius:5px;margin:0 auto 6px;display:block}
+#f-logo{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+
+/* GALERIA ZDJEC */
+.galeria-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.galeria-slot{background:var(--s2);border:1.5px dashed var(--border2);border-radius:10px;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.galeria-slot:hover,.galeria-slot:focus-within{border-color:var(--green)}
+.galeria-slot.has-img{border-style:solid;border-color:rgba(0,229,160,.4)}
+.galeria-slot img.slot-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:9px;pointer-events:none}
+.slot-overlay{position:absolute;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;border-radius:9px;font-size:18px;pointer-events:none}
+.galeria-slot:hover .slot-overlay{opacity:1}
+.slot-default{display:flex;flex-direction:column;align-items:center;gap:4px;pointer-events:none}
+.slot-default span:first-child{font-size:20px}
+.slot-default span:last-child{font-size:11px;color:var(--muted)}
+.galeria-slot input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+
 </style>
 </head>
 <body>
@@ -352,6 +387,70 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
           <textarea id="f-opis" placeholder="np. Jesteśmy ekipą remontową z Mokotowa..."></textarea>
           <div class="field-hint">Jeśli zostawisz puste — AI sam napisze opis na podstawie branży i lokalizacji.</div>
         </div>
+
+        <!-- WYBOR KOLOROW -->
+        <div class="field">
+          <label>Kolory strony <span class="opt">opcjonalnie</span></label>
+          <div class="kolor-grid" id="kolor-grid">
+            <button type="button" class="kolor-pair selected" onclick="selectKolor(this,'#D97B3A','#FFF8F2')">
+              <div class="kolor-swatch"><span style="background:#D97B3A"></span><span style="background:#FFF8F2;border-color:rgba(0,0,0,.15)"></span></div>
+              <div><div class="kolor-name">Ciepły brąz</div><div class="kolor-desc">remonty, stolarstwo</div></div>
+            </button>
+            <button type="button" class="kolor-pair" onclick="selectKolor(this,'#2163C8','#F0F6FF')">
+              <div class="kolor-swatch"><span style="background:#2163C8"></span><span style="background:#F0F6FF;border-color:rgba(0,0,0,.15)"></span></div>
+              <div><div class="kolor-name">Błękit</div><div class="kolor-desc">hydraulika, elektryka</div></div>
+            </button>
+            <button type="button" class="kolor-pair" onclick="selectKolor(this,'#E698BA','#FFF5F8')">
+              <div class="kolor-swatch"><span style="background:#E698BA"></span><span style="background:#FFF5F8;border-color:rgba(0,0,0,.15)"></span></div>
+              <div><div class="kolor-name">Pudrowy róż</div><div class="kolor-desc">salon piękności, spa</div></div>
+            </button>
+            <button type="button" class="kolor-pair" onclick="selectKolor(this,'#4AA86E','#F0FFF5')">
+              <div class="kolor-swatch"><span style="background:#4AA86E"></span><span style="background:#F0FFF5;border-color:rgba(0,0,0,.15)"></span></div>
+              <div><div class="kolor-name">Zieleń</div><div class="kolor-desc">ogród, sprzątanie</div></div>
+            </button>
+          </div>
+        </div>
+
+        <!-- LOGO -->
+        <div class="field">
+          <label>Logo firmy <span class="opt">opcjonalnie — PNG / JPG</span></label>
+          <div class="logo-upload-area" id="logo-upload-area">
+            <div id="lua-empty">
+              <div class="lua-icon">🖼️</div>
+              <div class="lua-text">Kliknij lub przeciągnij logo</div>
+              <div class="lua-hint">PNG lub JPG · maks. 2 MB</div>
+            </div>
+            <div id="lua-filled" style="display:none">
+              <img id="lua-preview" class="lua-preview" src="" alt="Logo">
+              <div class="lua-hint" style="color:var(--green)">✓ Logo wczytane — kliknij aby zmienić</div>
+              <div class="lua-hint" id="lua-filename"></div>
+            </div>
+            <input type="file" id="f-logo" accept="image/png,image/jpeg,image/webp" onchange="handleLogoUpload(this)">
+          </div>
+        </div>
+
+        <!-- GALERIA 3 ZDJEC -->
+        <div class="field">
+          <label>Zdjęcia realizacji <span class="opt">opcjonalnie — maks. 3 szt.</span></label>
+          <div class="galeria-grid">
+            <div class="galeria-slot" id="slot-0">
+              <div class="slot-default"><span>📷</span><span>Zdjęcie 1</span></div>
+              <div class="slot-overlay">✏️</div>
+              <input type="file" accept="image/png,image/jpeg,image/webp" onchange="handleGaleriaUpload(this,0)">
+            </div>
+            <div class="galeria-slot" id="slot-1">
+              <div class="slot-default"><span>📷</span><span>Zdjęcie 2</span></div>
+              <div class="slot-overlay">✏️</div>
+              <input type="file" accept="image/png,image/jpeg,image/webp" onchange="handleGaleriaUpload(this,1)">
+            </div>
+            <div class="galeria-slot" id="slot-2">
+              <div class="slot-default"><span>📷</span><span>Zdjęcie 3</span></div>
+              <div class="slot-overlay">✏️</div>
+              <input type="file" accept="image/png,image/jpeg,image/webp" onchange="handleGaleriaUpload(this,2)">
+            </div>
+          </div>
+          <div class="field-hint" style="margin-top:8px">Zdjęcia są wbudowane bezpośrednio w stronę — link do galerii nie jest pokazywany publicznie.</div>
+        </div>
       </div>
 
       <div class="nav-btns">
@@ -529,6 +628,10 @@ const state = {
   planPrice: '249',
   generatedHTML: '',
   slug: '',
+  kolor1: '#D97B3A',
+  kolor2: '#FFF8F2',
+  logoBase64: '',
+  galeria: [null, null, null],
 };
 
 const TIPS = {
@@ -592,6 +695,53 @@ function validateStep(step) {
   return true;
 }
 
+
+// ─── KOLOR ───
+function selectKolor(btn, k1, k2) {
+  document.querySelectorAll('.kolor-pair').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  state.kolor1 = k1;
+  state.kolor2 = k2;
+}
+
+// ─── LOGO ───
+function handleLogoUpload(input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 2 * 1024 * 1024) { alert('Logo za duże — maks. 2 MB'); return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    state.logoBase64 = e.target.result;
+    document.getElementById('lua-empty').style.display = 'none';
+    document.getElementById('lua-filled').style.display = 'block';
+    document.getElementById('lua-preview').src = e.target.result;
+    document.getElementById('lua-filename').textContent = file.name;
+    document.getElementById('logo-upload-area').classList.add('has-file');
+  };
+  reader.readAsDataURL(file);
+}
+
+// ─── GALERIA ───
+function handleGaleriaUpload(input, idx) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 3 * 1024 * 1024) { alert('Zdjęcie za duże — maks. 3 MB'); return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    state.galeria[idx] = e.target.result;
+    const slot = document.getElementById('slot-' + idx);
+    slot.classList.add('has-img');
+    let img = slot.querySelector('img.slot-img');
+    if (!img) {
+      img = document.createElement('img');
+      img.className = 'slot-img';
+      slot.insertBefore(img, slot.querySelector('.slot-overlay'));
+    }
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
 // ─── BRANŻA ───
 function selectBranza(btn, name) {
   document.querySelectorAll('.branza-btn').forEach(b => b.classList.remove('selected'));
@@ -634,6 +784,10 @@ function collectFirmaData() {
     maps:         document.getElementById('f-maps').value.trim(),
     google_ocena: document.getElementById('f-google-ocena').value.trim(),
     google_opinie:document.getElementById('f-google-opinie').value.trim(),
+    kolor1:       state.kolor1,
+    kolor2:       state.kolor2,
+    logo_base64:  state.logoBase64,
+    galeria:      state.galeria.filter(Boolean),
   };
 }
 
