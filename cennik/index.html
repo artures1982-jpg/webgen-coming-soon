@@ -91,6 +91,8 @@ input:checked+.toggle-slider::before{transform:translateX(24px)}
 .addons-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 .addon{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:border-color .2s}
 .addon:hover{border-color:var(--border2)}
+.addon-btn{font-size:11px;font-family:var(--mono);font-weight:700;color:var(--green);border:1px solid rgba(0,229,160,.3);padding:4px 10px;border-radius:6px;text-decoration:none;white-space:nowrap;transition:all .2s}
+.addon-btn:hover{background:rgba(0,229,160,.1);border-color:var(--green)}
 .addon-left{display:flex;align-items:center;gap:14px}
 .addon-icon{font-size:22px;width:40px;height:40px;background:rgba(255,255,255,.04);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .addon-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}
@@ -282,7 +284,10 @@ footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify
           <div class="addon-desc">Treści pod 3 dodatkowe dzielnice + Schema markup</div>
         </div>
       </div>
-      <div class="addon-price">79 zł</div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+        <div class="addon-price">79 zł</div>
+        <a href="https://buy.stripe.com/bJe3cv7lD1n2cfm6q43gk00" target="_blank" class="addon-btn">Kup →</a>
+      </div>
     </div>
     <div class="addon">
       <div class="addon-left">
@@ -292,7 +297,10 @@ footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify
           <div class="addon-desc">Optymalizacja Core Web Vitals, kompresja, lazy loading</div>
         </div>
       </div>
-      <div class="addon-price">49 zł</div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+        <div class="addon-price">49 zł</div>
+        <a href="https://buy.stripe.com/eVq5kD8pH8Pu4MUeWA3gk01" target="_blank" class="addon-btn">Kup →</a>
+      </div>
     </div>
     <div class="addon">
       <div class="addon-left">
@@ -302,7 +310,10 @@ footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify
           <div class="addon-desc">Zgodność z WCAG 2.1, aria-labels, nawigacja klawiaturą</div>
         </div>
       </div>
-      <div class="addon-price">39 zł</div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+        <div class="addon-price">39 zł</div>
+        <a href="https://buy.stripe.com/aFafZh35nc1GfrycOs3gk02" target="_blank" class="addon-btn">Kup →</a>
+      </div>
     </div>
     <div class="addon">
       <div class="addon-left">
@@ -312,7 +323,62 @@ footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify
           <div class="addon-desc">Dodatkowa wersja językowa (EN, UA lub inna)</div>
         </div>
       </div>
-      <div class="addon-price">59 zł/język</div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+        <div class="addon-price">59 zł/język</div>
+        <a href="https://buy.stripe.com/bJefZh5dv9Ty7Z6eWA3gk03" target="_blank" class="addon-btn">Kup →</a>
+      </div>
+    </div>
+    <div class="addon">
+      <div class="addon-left">
+        <div class="addon-icon">🌍</div>
+        <div>
+          <div class="addon-name">Własna domena</div>
+          <div class="addon-desc">Podpięcie własnej domeny klienta do strony na Webgen</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+        <div class="addon-price">49 zł</div>
+        <a href="https://buy.stripe.com/5kQbJ10Xfe9O1AI4hW3gk04" target="_blank" class="addon-btn">Kup →</a>
+      </div>
+    </div>
+    <div class="addon">
+      <div class="addon-left">
+        <div class="addon-icon">📊</div>
+        <div>
+          <div class="addon-name">Google Analytics GA4</div>
+          <div class="addon-desc">Integracja GA4 — śledzenie ruchu i konwersji</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+        <div class="addon-price">29 zł</div>
+        <a href="https://buy.stripe.com/eVq5kD21j8Pua7e01G3gk05" target="_blank" class="addon-btn">Kup →</a>
+      </div>
+    </div>
+    <div class="addon">
+      <div class="addon-left">
+        <div class="addon-icon">📸</div>
+        <div>
+          <div class="addon-name">Więcej zdjęć</div>
+          <div class="addon-desc">Rozszerzenie galerii do 20 zdjęć powyżej limitu planu</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+        <div class="addon-price">29 zł</div>
+        <a href="https://buy.stripe.com/5kQ00j9tL2r66V215K3gk06" target="_blank" class="addon-btn">Kup →</a>
+      </div>
+    </div>
+    <div class="addon">
+      <div class="addon-left">
+        <div class="addon-icon">🚀</div>
+        <div>
+          <div class="addon-name">Priorytetowe wsparcie</div>
+          <div class="addon-desc">Odpowiedź w 4h, dedykowany czat, szybsze aktualizacje</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+        <div class="addon-price">49 zł/mies</div>
+        <a href="https://buy.stripe.com/bJe3cv7lD1n2cfm6q43gk00" target="_blank" class="addon-btn">Kup →</a>
+      </div>
     </div>
   </div>
 </div>
