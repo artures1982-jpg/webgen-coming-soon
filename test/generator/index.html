@@ -162,6 +162,24 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
 .btn-checkout:hover{background:var(--green2)}
 .modal-note{font-size:12px;color:var(--muted);text-align:center;margin-top:12px;line-height:1.5}
 
+/* ADDONY W GENERATORZE */
+.addon-list{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+.addon-item{background:var(--s2);border:1.5px solid var(--border);border-radius:12px;padding:18px 20px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:all .2s;user-select:none}
+.addon-item:hover{border-color:var(--border2)}
+.addon-item.selected{border-color:var(--green);background:rgba(0,229,160,.05)}
+.addon-check{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;font-size:12px;font-weight:700;color:transparent}
+.addon-item.selected .addon-check{background:var(--green);border-color:var(--green);color:#080A0F}
+.addon-icon-wrap{font-size:22px;width:42px;height:42px;background:rgba(255,255,255,.04);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.addon-info{flex:1}
+.addon-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}
+.addon-desc{font-size:12px;color:var(--muted)}
+.addon-price-tag{font-family:var(--mono);font-size:16px;font-weight:700;color:var(--green);white-space:nowrap;flex-shrink:0}
+.addon-price-type{font-size:10px;color:var(--muted);display:block;text-align:right}
+.addon-summary{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:8px}
+.as-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);margin-bottom:8px}
+.as-row.total{font-size:17px;font-weight:700;color:var(--text);border-top:1px solid var(--border);padding-top:12px;margin-top:4px;margin-bottom:0}
+.as-row.total span:last-child{color:var(--green);font-family:var(--mono)}
+
 @media(max-width:900px){
   .app{grid-template-columns:1fr}
   .sidebar{display:none}
@@ -240,6 +258,10 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
         </div>
         <div class="step" data-step="5">
           <div class="step-num">5</div>
+          <div class="step-label">Dodatki</div>
+        </div>
+        <div class="step" data-step="6">
+          <div class="step-num">6</div>
           <div class="step-label">Podgląd i aktywacja</div>
         </div>
       </div>
@@ -251,10 +273,10 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
     </div>
 
     <div class="cost-preview">
-      <div class="cp-label">Wybrany plan</div>
-      <div class="cp-plan" id="cp-plan-name">Managed START</div>
-      <div class="cp-price">249 <sub>zł/mies.</sub></div>
-      <div class="cp-note">Wszystko wliczone. Rezygnacja w każdej chwili.</div>
+    <div class="cp-label">Podsumowanie</div>
+    <div class="cp-plan" id="cp-plan-name">Managed START</div>
+    <div class="cp-price" id="cp-total-price">249 <sub>zł/mies.</sub></div>
+    <div class="cp-note" id="cp-addons-note">Wszystko wliczone. Rezygnacja w każdej chwili.</div>
     </div>
   </div>
 
@@ -264,7 +286,7 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
     <!-- STEP 1: BRANŻA -->
     <div class="step-panel active" id="panel-1">
       <div class="sp-header">
-        <div class="sp-eyebrow">// Krok 1 z 4</div>
+        <div class="sp-eyebrow">// Krok 1 z 6</div>
         <h1 class="sp-title">Jaka branża<br>i gdzie działasz?</h1>
         <p class="sp-sub">Wybierz branżę — AI dobierze odpowiednie kolory, fonty i treści.</p>
       </div>
@@ -336,7 +358,7 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
     <!-- STEP 2: DANE FIRMY -->
     <div class="step-panel" id="panel-2">
       <div class="sp-header">
-        <div class="sp-eyebrow">// Krok 2 z 4</div>
+        <div class="sp-eyebrow">// Krok 2 z 6</div>
         <h1 class="sp-title">Dane kontaktowe<br>firmy</h1>
         <p class="sp-sub">Te informacje trafią na stronę i do Google.</p>
       </div>
@@ -462,7 +484,7 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
     <!-- STEP 3: SOCIAL -->
     <div class="step-panel" id="panel-3">
       <div class="sp-header">
-        <div class="sp-eyebrow">// Krok 3 z 4</div>
+        <div class="sp-eyebrow">// Krok 3 z 6</div>
         <h1 class="sp-title">Social media<br>i rezerwacje</h1>
         <p class="sp-sub">Wszystkie opcjonalne — wpisz te które masz.</p>
       </div>
@@ -520,7 +542,7 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
     <!-- STEP 4: PLAN -->
     <div class="step-panel" id="panel-4">
       <div class="sp-header">
-        <div class="sp-eyebrow">// Krok 4 z 4</div>
+        <div class="sp-eyebrow">// Krok 4 z 6</div>
         <h1 class="sp-title">Wybierz plan</h1>
         <p class="sp-sub">Możesz zmienić w każdej chwili. Aktywacja po wygenerowaniu strony.</p>
       </div>
@@ -584,6 +606,101 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
 
       <div class="nav-btns">
         <button class="btn-prev" onclick="prevStep(4)">← Wróć</button>
+        <button class="btn-next" onclick="nextStep(4)">Dalej →</button>
+      </div>
+    </div>
+
+    <!-- STEP 5: ADDONY -->
+    <div class="step-panel" id="panel-5">
+      <div class="sp-header">
+        <div class="sp-eyebrow">// Krok 5 z 6</div>
+        <h1 class="sp-title">Chcesz coś<br>dodać do planu?</h1>
+        <p class="sp-sub">Wszystkie dodatki są jednorazowe (poza Priorytetowym wsparciem). Możesz pominąć ten krok.</p>
+      </div>
+
+      <div class="addon-list">
+        <div class="addon-item" onclick="toggleAddon(this,'seo_lokalne','SEO Lokalne',79,'once')">
+          <div class="addon-check">✓</div>
+          <div class="addon-icon-wrap">📍</div>
+          <div class="addon-info">
+            <div class="addon-name">SEO Lokalne</div>
+            <div class="addon-desc">Treści pod 3 dodatkowe dzielnice + Schema markup</div>
+          </div>
+          <div><div class="addon-price-tag">79 zł</div><span class="addon-price-type">jednorazowo</span></div>
+        </div>
+        <div class="addon-item" onclick="toggleAddon(this,'pagespeed','PageSpeed Boost',49,'once')">
+          <div class="addon-check">✓</div>
+          <div class="addon-icon-wrap">⚡</div>
+          <div class="addon-info">
+            <div class="addon-name">PageSpeed Boost</div>
+            <div class="addon-desc">Optymalizacja Core Web Vitals, kompresja, lazy loading</div>
+          </div>
+          <div><div class="addon-price-tag">49 zł</div><span class="addon-price-type">jednorazowo</span></div>
+        </div>
+        <div class="addon-item" onclick="toggleAddon(this,'wcag','WCAG Dostępność',39,'once')">
+          <div class="addon-check">✓</div>
+          <div class="addon-icon-wrap">♿</div>
+          <div class="addon-info">
+            <div class="addon-name">WCAG Dostępność</div>
+            <div class="addon-desc">Zgodność z WCAG 2.1, aria-labels, nawigacja klawiaturą</div>
+          </div>
+          <div><div class="addon-price-tag">39 zł</div><span class="addon-price-type">jednorazowo</span></div>
+        </div>
+        <div class="addon-item" onclick="toggleAddon(this,'wielojezycznosc','Wielojęzyczność',59,'once')">
+          <div class="addon-check">✓</div>
+          <div class="addon-icon-wrap">🌐</div>
+          <div class="addon-info">
+            <div class="addon-name">Wielojęzyczność</div>
+            <div class="addon-desc">Dodatkowa wersja językowa strony (EN, UA lub inna)</div>
+          </div>
+          <div><div class="addon-price-tag">59 zł</div><span class="addon-price-type">jednorazowo</span></div>
+        </div>
+        <div class="addon-item" onclick="toggleAddon(this,'wlasna_domena','Własna domena',49,'once')">
+          <div class="addon-check">✓</div>
+          <div class="addon-icon-wrap">🌍</div>
+          <div class="addon-info">
+            <div class="addon-name">Własna domena</div>
+            <div class="addon-desc">Podpięcie Twojej własnej domeny do strony na Webgen</div>
+          </div>
+          <div><div class="addon-price-tag">49 zł</div><span class="addon-price-type">jednorazowo</span></div>
+        </div>
+        <div class="addon-item" onclick="toggleAddon(this,'analytics','Google Analytics GA4',29,'once')">
+          <div class="addon-check">✓</div>
+          <div class="addon-icon-wrap">📊</div>
+          <div class="addon-info">
+            <div class="addon-name">Google Analytics GA4</div>
+            <div class="addon-desc">Integracja GA4 — śledzenie ruchu i konwersji</div>
+          </div>
+          <div><div class="addon-price-tag">29 zł</div><span class="addon-price-type">jednorazowo</span></div>
+        </div>
+        <div class="addon-item" onclick="toggleAddon(this,'wiecej_zdjec','Więcej zdjęć',29,'once')">
+          <div class="addon-check">✓</div>
+          <div class="addon-icon-wrap">📸</div>
+          <div class="addon-info">
+            <div class="addon-name">Więcej zdjęć</div>
+            <div class="addon-desc">Rozszerzenie galerii do 20 zdjęć powyżej limitu planu</div>
+          </div>
+          <div><div class="addon-price-tag">29 zł</div><span class="addon-price-type">jednorazowo</span></div>
+        </div>
+        <div class="addon-item" onclick="toggleAddon(this,'priorytetowe_wsparcie','Priorytetowe wsparcie',49,'month')">
+          <div class="addon-check">✓</div>
+          <div class="addon-icon-wrap">🚀</div>
+          <div class="addon-info">
+            <div class="addon-name">Priorytetowe wsparcie</div>
+            <div class="addon-desc">Odpowiedź w 4h, dedykowany czat, szybsze aktualizacje</div>
+          </div>
+          <div><div class="addon-price-tag">49 zł</div><span class="addon-price-type">miesięcznie</span></div>
+        </div>
+      </div>
+
+      <div class="addon-summary">
+        <div class="as-row"><span>Plan</span><span id="as-plan-price">249 zł/mies.</span></div>
+        <div id="as-addon-rows"></div>
+        <div class="as-row total"><span>Razem dziś</span><span id="as-total">249 zł</span></div>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn-prev" onclick="prevStep(5)">← Wróć</button>
         <button class="btn-generate" onclick="startGenerate()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
           Generuj moją stronę
@@ -646,6 +763,7 @@ const state = {
   plan: 'managed_start',
   planName: 'Managed START',
   planPrice: '249',
+  addons: {},
   generatedHTML: '',
   slug: '',
   kolor1: '#D97B3A',
@@ -812,6 +930,51 @@ function selectBranza(btn, name) {
   state.branza = name;
 }
 
+// ─── ADDONY ───
+const ADDONS_CONFIG = {
+  seo_lokalne:           { name:'SEO Lokalne',           price:79,  type:'once',  stripe:'https://buy.stripe.com/bJe3cv7lD1n2cfm6q43gk00' },
+  pagespeed:             { name:'PageSpeed Boost',        price:49,  type:'once',  stripe:'https://buy.stripe.com/eVq5kD8pH8Pu4MUeWA3gk01' },
+  wcag:                  { name:'WCAG Dostępność',        price:39,  type:'once',  stripe:'https://buy.stripe.com/aFafZh35nc1GfrycOs3gk02' },
+  wielojezycznosc:       { name:'Wielojęzyczność',        price:59,  type:'once',  stripe:'https://buy.stripe.com/bJefZh5dv9Ty7Z6eWA3gk03' },
+  wlasna_domena:         { name:'Własna domena',          price:49,  type:'once',  stripe:'https://buy.stripe.com/5kQbJ10Xfe9O1AI4hW3gk04' },
+  analytics:             { name:'Google Analytics GA4',  price:29,  type:'once',  stripe:'https://buy.stripe.com/eVq5kD21j8Pua7e01G3gk05' },
+  wiecej_zdjec:          { name:'Więcej zdjęć',           price:29,  type:'once',  stripe:'https://buy.stripe.com/5kQ00j9tL2r66V215K3gk06' },
+  priorytetowe_wsparcie: { name:'Priorytetowe wsparcie',  price:49,  type:'month', stripe:'https://buy.stripe.com/bJe3cv7lD1n2cfm6q43gk00' },
+};
+
+function toggleAddon(el, id, name, price, type) {
+  const isSelected = el.classList.toggle('selected');
+  if (isSelected) {
+    state.addons[id] = { name, price, type };
+  } else {
+    delete state.addons[id];
+  }
+  updateAddonSummary();
+}
+
+function updateAddonSummary() {
+  const planPrice = parseInt(state.planPrice) || 0;
+  let addonsOnce = 0, addonsMonth = 0;
+  let rows = '';
+  Object.values(state.addons).forEach(a => {
+    if (a.type === 'once') addonsOnce += a.price;
+    else addonsMonth += a.price;
+    rows += `<div class="as-row"><span>${a.name}</span><span>${a.price} zł${a.type==='month'?'/mies.':' jednorazowo'}</span></div>`;
+  });
+  document.getElementById('as-addon-rows').innerHTML = rows;
+  const total = planPrice + addonsMonth;
+  const totalStr = addonsOnce > 0
+    ? `${total} zł/mies. + ${addonsOnce} zł`
+    : `${total} zł/mies.`;
+  document.getElementById('as-total').textContent = totalStr;
+  // Sidebar
+  const addonsCount = Object.keys(state.addons).length;
+  const noteEl = document.getElementById('cp-addons-note');
+  if (noteEl) noteEl.textContent = addonsCount > 0
+    ? `+ ${addonsCount} dodatek${addonsCount>1?'i':''} (${addonsOnce>0?addonsOnce+' zł jednorazowo':''}${addonsOnce>0&&addonsMonth>0?', ':''}${addonsMonth>0?addonsMonth+' zł/mies.':''})`
+    : 'Wszystko wliczone. Rezygnacja w każdej chwili.';
+}
+
 // ─── PLAN ───
 // Limity zdjec per plan (sync z generate.js)
 const PLAN_PHOTO_LIMITS = { free: 3, managed_start: 6, managed_pro: 12, managed_premium: 12 };
@@ -825,6 +988,8 @@ function selectPlan(card, id, name, price) {
   document.getElementById('cp-plan-name').textContent = name;
   document.querySelector('.cp-price').innerHTML = price === '0' ? 'Bezpłatny <sub></sub>' : `${price} <sub>zł/mies.</sub>`;
   document.getElementById('btn-price').textContent = price;
+  document.getElementById('as-plan-price').textContent = price === '0' ? 'bezpłatny' : `${price} zł/mies.`;
+  updateAddonSummary();
 
   // Pokaż/ukryj hero upload dla PREMIUM
   const heroSection = document.getElementById('hero-section');
