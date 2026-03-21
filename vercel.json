@@ -1,4 +1,86 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/test/polityka-prywatnosci",
+      "dest": "/test/polityka-prywatnosci/index.html"
+    },
+    {
+      "src": "/test/polityka-prywatnosci/",
+      "dest": "/test/polityka-prywatnosci/index.html"
+    },
+    {
+      "src": "/test/regulamin",
+      "dest": "/test/regulamin/index.html"
+    },
+    {
+      "src": "/test/regulamin/",
+      "dest": "/test/regulamin/index.html"
+    },
+    {
+      "src": "/test/cennik",
+      "dest": "/test/cennik/index.html"
+    },
+    {
+      "src": "/test/cennik/",
+      "dest": "/test/cennik/index.html"
+    },
+    {
+      "src": "/test/generator",
+      "dest": "/test/generator/index.html"
+    },
+    {
+      "src": "/test/generator/",
+      "dest": "/test/generator/index.html"
+    },
+    {
+      "src": "/test/dashboard",
+      "dest": "/test/dashboard/index.html"
+    },
+    {
+      "src": "/test/dashboard/",
+      "dest": "/test/dashboard/index.html"
+    },
+    {
+      "src": "/test/admin",
+      "dest": "/test/admin/index.html"
+    },
+    {
+      "src": "/test/admin/",
+      "dest": "/test/admin/index.html"
+    },
+    {
+      "src": "/test/prywatnosc",
+      "dest": "/test/prywatnosc/index.html"
+    },
+    {
+      "src": "/test/prywatnosc/",
+      "dest": "/test/prywatnosc/index.html"
+    },
+    {
+      "src": "/test",
+      "dest": "/test/index.html"
+    },
+    {
+      "src": "/test/",
+      "dest": "/test/index.html"
+    },
+    {
+      "src": "/cennik",
+      "dest": "/cennik/index.html"
+    },
+    {
+      "src": "/cennik/",
+      "dest": "/cennik/index.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ]
 }
