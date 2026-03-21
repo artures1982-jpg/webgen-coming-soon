@@ -801,7 +801,7 @@ function setStep(n) {
   document.getElementById('generating').classList.remove('active');
   document.getElementById('preview-panel').classList.remove('active');
   
-  if (n <= 4) {
+  if (n >= 1 && n <= 6) {
     document.getElementById(`panel-${n}`).classList.add('active');
   }
   

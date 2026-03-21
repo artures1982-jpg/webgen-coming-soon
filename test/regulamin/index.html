@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regulamin — webgen.pl</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Bricolage Grotesque",sans-serif;background:#03050A;color:#F0F2F7;line-height:1.7}
+nav{background:#07090F;border-bottom:1px solid rgba(240,242,247,.06);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.nav-logo{font-weight:800;font-size:18px;text-decoration:none;color:#F0F2F7}
+.nav-logo span{background:linear-gradient(135deg,#00E5A0,#0066FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{font-size:13px;color:#8892AA;text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:#F0F2F7}
+.container{max-width:800px;margin:0 auto;padding:64px 24px 80px}
+header{text-align:center;margin-bottom:64px;padding-bottom:40px;border-bottom:1px solid rgba(0,229,160,.15)}
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;color:#00E5A0;letter-spacing:.16em;text-transform:uppercase;margin-bottom:16px}
+h1{font-size:clamp(28px,5vw,48px);font-weight:800;letter-spacing:-.03em;margin-bottom:10px}
+.subtitle{color:#8892AA;font-size:15px}
+.meta{font-family:"JetBrains Mono",monospace;font-size:11px;color:#8892AA;margin-top:10px}
+h2{font-size:22px;font-weight:700;color:#00E5A0;margin:48px 0 16px;padding-top:40px;border-top:1px solid rgba(240,242,247,.06)}
+h2:first-of-type{border-top:none;margin-top:0}
+h3{font-size:16px;font-weight:700;color:#F0F2F7;margin:28px 0 10px}
+p{color:#C8D0E0;margin-bottom:14px;font-size:15px}
+ol,ul{padding-left:22px;margin-bottom:14px}
+li{color:#C8D0E0;font-size:15px;margin-bottom:8px}
+li strong{color:#F0F2F7}
+table{width:100%;border-collapse:collapse;margin:20px 0 28px;font-size:14px;border:1px solid rgba(240,242,247,.07);border-radius:10px;overflow:hidden}
+th{background:#0D1117;color:#8892AA;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:12px 16px;text-align:left;border-bottom:1px solid rgba(240,242,247,.1)}
+td{padding:12px 16px;border-bottom:1px solid rgba(240,242,247,.05);color:#C8D0E0}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:rgba(240,242,247,.02)}
+.highlight{background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.15);border-radius:10px;padding:16px 20px;margin:20px 0}
+a{color:#00E5A0;text-decoration:none}
+a:hover{text-decoration:underline}
+.warning{background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.2);border-radius:8px;padding:14px 18px;font-size:13px;color:#F87171;margin:20px 0;font-style:italic}
+footer{margin-top:80px;padding-top:28px;border-top:1px solid rgba(0,229,160,.12);text-align:center;color:#8892AA;font-size:13px}
+footer a{color:#8892AA;text-decoration:none;margin:0 8px}
+footer a:hover{color:#00E5A0}
+@media(max-width:600px){.nav-links{display:none}.container{padding:40px 16px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/test/">web<span>gen</span>.pl</a>
+  <ul class="nav-links">
+    <li><a href="/test/">Strona główna</a></li>
+    <li><a href="/test/cennik/">Cennik</a></li>
+    <li><a href="/test/generator/">Generator</a></li>
+    <li><a href="/test/polityka-prywatnosci/">Polityka prywatności</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+  <header>
+    <div class="eyebrow">// webgen.pl</div>
+    <h1>Regulamin Świadczenia Usług</h1>
+    <p class="subtitle">Warunki korzystania z usług webgen.pl drogą elektroniczną</p>
+    <p class="meta">Wersja: 1.0 · Data wejścia w życie: 21 marca 2026 r.</p>
+  </header>
+
+  <h2>§ 1. Definicje</h2>
+  <ul>
+    <li><strong>Regulamin</strong> — niniejszy dokument, sporządzony zgodnie z art. 8 ustawy o świadczeniu usług drogą elektroniczną</li>
+    <li><strong>Operator / Webgen.pl</strong> — właściciel serwisu webgen.pl, kontakt: <a href="mailto:hello@webgen.pl">hello@webgen.pl</a></li>
+    <li><strong>Użytkownik</strong> — osoba fizyczna, prawna lub jednostka organizacyjna korzystająca z Usług po rejestracji konta</li>
+    <li><strong>Konsument</strong> — osoba fizyczna zawierająca umowę niezwiązaną bezpośrednio z działalnością zawodową (art. 22¹ k.c.)</li>
+    <li><strong>Serwis</strong> — platforma SaaS dostępna pod adresem webgen.pl do generowania stron AI</li>
+    <li><strong>Plan</strong> — wybrany pakiet usług (Free, Managed START/PRO/PREMIUM, SaaS Starter/Pro/Agency)</li>
+    <li><strong>Cennik</strong> — zestawienie planów i opłat dostępne na <a href="/test/cennik/">webgen.pl/cennik</a></li>
+    <li><strong>Treść generowana przez AI</strong> — strona internetowa stworzona przez model językowy na podstawie danych Użytkownika</li>
+  </ul>
+
+  <h2>§ 2. Postanowienia ogólne</h2>
+  <ol>
+    <li>Regulamin określa zasady świadczenia usług drogą elektroniczną przez Webgen.pl.</li>
+    <li>Regulamin dostępny jest nieodpłatnie pod adresem <a href="/test/regulamin/">/regulamin</a> w formie umożliwiającej pobranie i wydrukowanie.</li>
+    <li>Korzystanie z Usług wymaga akceptacji Regulaminu i <a href="/test/polityka-prywatnosci/">Polityki Prywatności</a>.</li>
+    <li>W sprawach nieuregulowanych stosuje się prawo polskie — w szczególności Kodeks cywilny, ustawę o świadczeniu usług drogą elektroniczną i ustawę o prawach konsumenta.</li>
+    <li>Operator zastrzega prawo do zmiany Regulaminu z 14-dniowym wyprzedzeniem (powiadomienie e-mail).</li>
+  </ol>
+
+  <h2>§ 3. Wymagania techniczne</h2>
+  <p>Urządzenie z dostępem do Internetu, aktualna przeglądarka (Chrome, Firefox, Safari, Edge), aktywny adres e-mail, włączone pliki cookie i JavaScript.</p>
+
+  <h2>§ 4. Rejestracja i zawarcie umowy</h2>
+  <ol>
+    <li>Umowa zawierana jest w momencie pomyślnej rejestracji konta i akceptacji Regulaminu.</li>
+    <li>Użytkownik zobowiązuje się do podania prawdziwych danych i ich aktualizacji.</li>
+    <li>Konto jest osobiste — niedozwolone jest udostępnianie danych logowania osobom trzecim.</li>
+    <li>Operator może odmówić rejestracji lub zawiesić konto w przypadku naruszenia Regulaminu.</li>
+  </ol>
+
+  <h2>§ 5. Plany subskrypcyjne i cennik</h2>
+  <div class="highlight">
+    Aktualne ceny dostępne na <a href="/test/cennik/">webgen.pl/cennik</a>.<br>
+    Pierwsze 3 miesiące GRATIS na planie Free — bez karty płatniczej.
+  </div>
+  <table>
+    <thead><tr><th>Plan</th><th>Cena</th><th>Opis</th></tr></thead>
+    <tbody>
+      <tr><td>Free</td><td>0 zł (3 mies.)</td><td>Strona na subdomenie webgen.pl, wszystkie podstawowe funkcje</td></tr>
+      <tr><td>Managed START</td><td>249 zł/mies.</td><td>My robimy wszystko — SEO, hosting, aktualizacje przez e-mail</td></tr>
+      <tr><td>Managed PRO</td><td>399 zł/mies.</td><td>START + raporty SEO, blog 2 wpisy/mies., 5 podstron dzielnic</td></tr>
+      <tr><td>Managed PREMIUM</td><td>599 zł/mies.</td><td>PRO + kampanie Ads, 4 wpisy/mies., dedykowany opiekun</td></tr>
+      <tr><td>SaaS Starter</td><td>49 zł/mies.</td><td>Generator AI — samodzielne tworzenie stron</td></tr>
+      <tr><td>SaaS Pro</td><td>129 zł/mies.</td><td>Nielimitowane strony, własna domena, zaawansowane SEO</td></tr>
+      <tr><td>SaaS Agency</td><td>399 zł/mies.</td><td>White-label, panel klientów, API, nielimitowane domeny</td></tr>
+    </tbody>
+  </table>
+  <p>Wszystkie ceny zawierają podatek VAT. Na wniosek Użytkownika wystawiamy fakturę VAT.</p>
+
+  <h2>§ 6. Płatności, faktury i zwroty</h2>
+  <ol>
+    <li>Płatności realizowane są za pośrednictwem operatora płatności <strong>Stripe, Inc.</strong> Akceptowane metody: karta (Visa, Mastercard, Amex), BLIK, przelew.</li>
+    <li>Opłata naliczana jest z góry za każdy okres rozliczeniowy (miesiąc lub rok).</li>
+    <li>W przypadku braku płatności przez 14 dni Operator może zawiesić konto.</li>
+    <li><strong>Konsumenci</strong> mają prawo odstąpić od umowy w ciągu <strong>14 dni</strong> od jej zawarcia, wysyłając oświadczenie na <a href="mailto:hello@webgen.pl">hello@webgen.pl</a>.</li>
+    <li>Przy niedostępności Usług powyżej 72h z przyczyn leżących po stronie Operatora przysługuje proporcjonalne zmniejszenie opłaty.</li>
+  </ol>
+
+  <h2>§ 7. Prawa i obowiązki Użytkownika</h2>
+  <p>Użytkownik ma prawo do korzystania z Usług zgodnie z wybranym Planem, eksportu kodu HTML strony oraz uzyskania wsparcia technicznego.</p>
+  <h3>Zabrania się:</h3>
+  <ul>
+    <li>Publikowania treści bezprawnych, naruszających prawa osób trzecich lub propagujących przemoc</li>
+    <li>Prób nieautoryzowanego dostępu do systemów, ataków DDoS, wstrzykiwania złośliwego kodu</li>
+    <li>Rozsyłania spamu za pośrednictwem stron webgen.pl</li>
+    <li>Odsprzedawania lub sublicencjonowania konta bez zgody Operatora (z wyjątkiem planu Agency)</li>
+    <li>Dekompilacji lub wstecznej inżynierii oprogramowania Serwisu</li>
+  </ul>
+
+  <h2>§ 8. Anulowanie subskrypcji</h2>
+  <ol>
+    <li>Umowa zawierana jest na czas nieokreślony z możliwością rozwiązania przez każdą ze stron.</li>
+    <li>Anulowanie możliwe w panelu klienta lub na <a href="mailto:hello@webgen.pl">hello@webgen.pl</a>. Skuteczne z końcem bieżącego okresu rozliczeniowego.</li>
+    <li>Po anulowaniu Użytkownik ma 30 dni na eksport danych (HTML, zdjęcia).</li>
+    <li>Operator może rozwiązać umowę natychmiastowo przy: naruszeniu Regulaminu, braku płatności powyżej 30 dni lub nakazu organu publicznego.</li>
+  </ol>
+
+  <h2>§ 9. Własność intelektualna</h2>
+  <ol>
+    <li>Prawa do Serwisu (kod, design, znaki towarowe) należą do Operatora.</li>
+    <li>Treści wygenerowane przez AI na podstawie danych Użytkownika — Użytkownik udziela Operatorowi nieodpłatnej licencji na hosting wyłącznie w celu świadczenia Usług.</li>
+    <li>Użytkownik odpowiada za to, że materiały (logo, zdjęcia) nie naruszają praw osób trzecich.</li>
+    <li>Oznaczenie "Powered by webgen.pl" w stopce — usuwalne w planie Agency.</li>
+  </ol>
+
+  <h2>§ 10. Odpowiedzialność i SLA</h2>
+  <p>Operator deklaruje dostępność systemu na poziomie <strong>99,5% miesięcznie</strong>. Operator nie odpowiada za:</p>
+  <ul>
+    <li>Błędy w treściach generowanych przez AI — Użytkownik weryfikuje przed publikacją</li>
+    <li>Efekty SEO (zależne od wielu zewnętrznych czynników)</li>
+    <li>Przerwy wynikające z działań Użytkownika lub siły wyższej</li>
+  </ul>
+  <p>Całkowita odpowiedzialność Operatora wobec Użytkowników niebędących Konsumentami ograniczona jest do sumy opłat uiszczonych w ciągu 3 miesięcy poprzedzających zdarzenie.</p>
+
+  <h2>§ 11. Reklamacje</h2>
+  <ol>
+    <li>Reklamacje kieruj na <a href="mailto:hello@webgen.pl">hello@webgen.pl</a> z opisem problemu i oczekiwanym rozwiązaniem.</li>
+    <li>Odpowiedź w ciągu <strong>14 dni</strong> (30 dni dla spraw złożonych).</li>
+    <li>Konsumenci mogą korzystać z platformy ODR: <a href="https://ec.europa.eu/consumers/odr" target="_blank">ec.europa.eu/consumers/odr</a></li>
+  </ol>
+
+  <h2>§ 12. Postanowienia końcowe</h2>
+  <ol>
+    <li>Regulamin podlega prawu polskiemu.</li>
+    <li>Spory rozstrzygane przez sądy powszechne właściwe dla siedziby Operatora (z zastrzeżeniem uprawnień Konsumentów).</li>
+    <li>Jeśli jakiekolwiek postanowienie zostanie uznane za nieważne, pozostałe zachowują moc.</li>
+    <li>Regulamin wchodzi w życie 21 marca 2026 r.</li>
+  </ol>
+
+  <div class="warning">
+    Dokument sporządzony zgodnie z: ustawą z dnia 18 lipca 2002 r. o świadczeniu usług drogą elektroniczną, ustawą z dnia 30 maja 2014 r. o prawach konsumenta, Kodeksem cywilnym i RODO. Dokument ma charakter informacyjny — zalecana weryfikacja przez radcę prawnego.
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 webgen.pl</p>
+  <p style="margin-top:8px">
+    <a href="/test/">Strona główna</a>
+    <a href="/test/regulamin/">Regulamin</a>
+    <a href="/test/polityka-prywatnosci/">Polityka prywatności</a>
+    <a href="mailto:hello@webgen.pl">Kontakt</a>
+  </p>
+</footer>
+
+</body>
+</html>
