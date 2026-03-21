@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Webgen — Cennik</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080A0F;--s1:#0D1117;--s2:#131720;
+  --green:#00E5A0;--blue:#0066FF;--purple:#7B4FFF;
+  --text:#F0F2F7;--muted:#8892AA;
+  --border:rgba(240,242,247,.07);--border2:rgba(240,242,247,.14);
+  --head:"Bricolage Grotesque",sans-serif;
+  --mono:"JetBrains Mono",monospace;
+  --grad:linear-gradient(135deg,#00E5A0,#0066FF,#7B4FFF);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--head);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;min-height:100vh}
+
+/* TEST BANNER */
+.test-banner{background:rgba(251,191,36,.1);border-bottom:1px solid rgba(251,191,36,.3);padding:10px 24px;text-align:center;font-family:var(--mono);font-size:12px;color:#FCD34D;display:flex;align-items:center;justify-content:center;gap:8px}
+.test-banner strong{color:#FBBF24}
+
+/* NAV */
+nav{height:64px;padding:0 48px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(8,10,15,.9);backdrop-filter:blur(16px);z-index:100}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none}
+.logo-mark{width:30px;height:30px;border-radius:7px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;font-weight:700;color:#fff}
+.logo-name{font-size:17px;font-weight:700;color:var(--text)}
+.logo-name span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-back{font-size:13px;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+.nav-back:hover{color:var(--text)}
+
+/* HERO */
+.hero{padding:64px 24px 48px;text-align:center}
+.hero-eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:8px}
+.hero-eyebrow::before{content:"//";color:var(--muted)}
+h1{font-size:clamp(36px,5vw,64px);font-weight:800;line-height:1.0;letter-spacing:-.03em;margin-bottom:16px}
+h1 span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:17px;color:var(--muted);max-width:520px;margin:0 auto 36px;line-height:1.65}
+
+/* TOGGLE */
+.toggle-wrap{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:48px}
+.toggle-label{font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;transition:color .2s}
+.toggle-label.active{color:var(--text)}
+.toggle{position:relative;width:52px;height:28px;cursor:pointer}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;inset:0;background:var(--s2);border:1px solid var(--border2);border-radius:14px;transition:.3s}
+.toggle-slider::before{content:"";position:absolute;height:20px;width:20px;left:3px;bottom:3px;background:var(--green);border-radius:50%;transition:.3s}
+input:checked+.toggle-slider::before{transform:translateX(24px)}
+.badge-save{background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.2);color:var(--green);font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:.06em}
+
+/* TABS */
+.tabs{display:flex;gap:4px;background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:4px;max-width:320px;margin:0 auto 48px}
+.tab-btn{flex:1;padding:9px;border-radius:7px;border:none;background:transparent;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--head);transition:all .2s}
+.tab-btn.active{background:var(--s1);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.3)}
+
+/* PLANS */
+.plans-section{display:none;max-width:1100px;margin:0 auto;padding:0 24px 80px}
+.plans-section.active{display:block}
+.plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.plan{background:var(--s2);border:1.5px solid var(--border);border-radius:16px;padding:36px 28px;position:relative;transition:border-color .3s;display:flex;flex-direction:column}
+.plan.featured{border-color:var(--green);background:rgba(0,229,160,.03)}
+.plan.featured::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);border-radius:16px 16px 0 0}
+.plan-tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--green);color:#080A0F;font-family:var(--mono);font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;white-space:nowrap;letter-spacing:.08em}
+.plan-name{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.plan-price{font-size:clamp(36px,4vw,48px);font-weight:800;color:var(--text);letter-spacing:-.03em;line-height:1}
+.plan-price sub{font-size:15px;font-weight:400;color:var(--muted)}
+.plan-price .old{font-size:18px;color:var(--muted);text-decoration:line-through;margin-left:8px}
+.plan-desc{font-size:13px;color:var(--muted);margin:10px 0 24px;line-height:1.6;min-height:40px}
+.plan-divider{height:1px;background:var(--border);margin-bottom:20px}
+.plan-features{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;flex:1}
+.pf{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--text)}
+.pf-check{width:17px;height:17px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;margin-top:1px}
+.pf-check.yes{background:rgba(0,229,160,.15);color:var(--green)}
+.pf-check.no{background:rgba(255,255,255,.04);color:var(--muted)}
+.pf.dim{color:var(--muted)}
+.plan-btn{display:block;text-align:center;padding:13px;border-radius:10px;text-decoration:none;font-weight:700;font-size:14px;transition:all .2s;margin-top:auto}
+.plan-btn.primary{background:var(--green);color:#080A0F}
+.plan-btn.primary:hover{background:#00C98A;transform:translateY(-1px)}
+.plan-btn.outline{border:1px solid var(--border2);color:var(--text)}
+.plan-btn.outline:hover{border-color:var(--green);color:var(--green)}
+.plan-btn.ghost{border:1px solid var(--border);color:var(--muted);font-size:13px}
+.plan-btn.ghost:hover{border-color:var(--border2);color:var(--text)}
+
+/* ADDONS */
+.addons-section{max-width:900px;margin:0 auto;padding:0 24px 80px}
+.addons-title{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;font-family:var(--mono);display:flex;align-items:center;gap:8px}
+.addons-title::before{content:"//";color:rgba(255,255,255,.15)}
+.addons-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.addon{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:border-color .2s}
+.addon:hover{border-color:var(--border2)}
+.addon-btn{font-size:11px;font-family:var(--mono);font-weight:700;color:var(--green);border:1px solid rgba(0,229,160,.3);padding:4px 10px;border-radius:6px;text-decoration:none;white-space:nowrap;transition:all .2s}
+.addon-btn:hover{background:rgba(0,229,160,.1);border-color:var(--green)}
+.addon-left{display:flex;align-items:center;gap:14px}
+.addon-icon{font-size:22px;width:40px;height:40px;background:rgba(255,255,255,.04);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.addon-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}
+.addon-desc{font-size:12px;color:var(--muted)}
+.addon-price{font-family:var(--mono);font-size:16px;font-weight:700;color:var(--green);white-space:nowrap;flex-shrink:0}
+
+/* FAQ */
+.faq-section{max-width:720px;margin:0 auto;padding:0 24px 80px}
+.faq-title{font-size:28px;font-weight:800;letter-spacing:-.02em;margin-bottom:28px;text-align:center}
+.faq-item{background:var(--s2);border:1px solid var(--border);border-radius:10px;margin-bottom:8px;overflow:hidden}
+.faq-q{padding:18px 22px;font-size:15px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
+.faq-arrow{font-family:var(--mono);color:var(--muted);transition:transform .25s;font-size:16px}
+.faq-item.open .faq-arrow{transform:rotate(45deg);color:var(--green)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.faq-item.open .faq-a{max-height:200px}
+.faq-a p{padding:0 22px 18px;font-size:14px;color:var(--muted);line-height:1.7}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.f-copy{font-size:12px;color:rgba(255,255,255,.2);font-family:var(--mono)}
+.f-links{display:flex;gap:20px}
+.f-links a{font-size:12px;color:var(--muted);text-decoration:none}
+.f-links a:hover{color:var(--text)}
+
+@media(max-width:860px){
+  nav{padding:0 20px}
+  .plans-grid{grid-template-columns:1fr}
+  .addons-grid{grid-template-columns:1fr}
+  footer{padding:24px 20px;flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<div class="test-banner">
+  ⚠️ <strong>TRYB TESTOWY</strong> — Stripe Test Mode · Użyj karty <strong>4242 4242 4242 4242</strong> · Data: dowolna przyszła · CVC: dowolne 3 cyfry
+</div>
+
+<nav>
+  <a href="/" class="logo">
+    <div class="logo-mark">W</div>
+    <div class="logo-name">web<span>gen</span></div>
+  </a>
+  <a href="/" class="nav-back">← Strona główna</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">Cennik</div>
+  <h1>Prosty cennik,<br><span>bez ukrytych kosztów</span></h1>
+  <p class="hero-sub">Wybierz plan dopasowany do Twoich potrzeb. Rezygnacja w każdej chwili, bez umów.</p>
+
+  <div class="tabs" id="tabs">
+    <button class="tab-btn active" onclick="switchTab(this,'managed')">Managed (my robimy)</button>
+    <button class="tab-btn" onclick="switchTab(this,'saas')">SaaS (robisz sam)</button>
+  </div>
+</section>
+
+<!-- MANAGED PLANS -->
+<div class="plans-section active" id="managed">
+  <div class="plans-grid">
+
+    <div class="plan">
+      <div class="plan-name">Managed START</div>
+      <div class="plan-price">249 <sub>zł/mies.</sub></div>
+      <p class="plan-desc">My robimy wszystko — Ty tylko odbierasz telefony od klientów.</p>
+      <div class="plan-divider"></div>
+      <div class="plan-features">
+        <div class="pf"><span class="pf-check yes">✓</span>Strona na własnej domenie</div>
+        <div class="pf"><span class="pf-check yes">✓</span>Lokalne SEO (branża + dzielnica)</div>
+        <div class="pf"><span class="pf-check yes">✓</span>Schema.org LocalBusiness</div>
+            <div class="pf"><span class="pf-check yes">✓</span>Galeria 6 zdjęć + link social</div>
+        <div class="pf"><span class="pf-check yes">✓</span>PageSpeed 90+</div>
+        <div class="pf"><span class="pf-check yes">✓</span>Aktualizacje przez email</div>
+        <div class="pf"><span class="pf-check yes">✓</span>Google Search Console</div>
+        <div class="pf dim"><span class="pf-check no">–</span>Raporty SEO miesięcznie</div>
+        <div class="pf dim"><span class="pf-check no">–</span>Blog i podstrony dzielnic</div>
+      </div>
+      <a href="https://buy.stripe.com/test_eVq5kD8pH8Pu4MUeWA3gk01" class="plan-btn outline" target="_blank">Kup teraz →</a>
+    </div>
+
+    <div class="plan featured">
+      <div class="plan-tag">NAJPOPULARNIEJSZY</div>
+      <div class="plan-name">Managed PRO</div>
+      <div class="plan-price">399 <sub>zł/mies.</sub></div>
+      <p class="plan-desc">START + aktywna optymalizacja SEO, blog i raporty miesięczne.</p>
+      <div class="plan-divider"></div>
+      <div class="plan-features">
+        <div class="pf"><span class="pf-check yes">✓</span>Wszystko z START</div>
+        <div class="pf"><span class="pf-check yes">✓</span>Miesięczny raport SEO</div>
+        <div class="pf"><span class="pf-check yes">✓</span>Galeria 12 zdjęć + link social</div>
+            <div class="pf"><span class="pf-check yes">✓</span>5 podstron dzielnicowych</div>
+        <div class="pf"><span class="pf-check yes">✓</span>Blog (2 wpisy/mies.)</div>
+        <div class="pf"><span class="pf-check yes">✓</span>Google Business pomoc</div>
+        <div class="pf"><span class="pf-check yes">✓</span>Priorytetowe wsparcie</div>
+        <div class="pf dim"><span class="pf-check no">–</span>Kampanie reklamowe</div>
+        <div class="pf dim"><span class="pf-check no">–</span>Dedykowany opiekun</div>
+      </div>
+      <a href="https://buy.stripe.com/test_aFafZh35nc1GfrycOs3gk02" class="plan-btn primary" target="_blank">Kup teraz →</a>
+    </div>
+
+    <div class="plan">
+      <div class="plan-name">Managed PREMIUM</div>
+      <div class="plan-price">599 <sub>zł/mies.</sub></div>
+      <p class="plan-desc">Pełna obsługa marketingu online z dedykowanym opiekunem.</p>
+      <div class="plan-divider"></div>
+      <div class="plan-features">
+        <div class="pf"><span class="pf-check yes">✓</span>Wszystko z PRO</div>
+            <div class="pf"><span class="pf-check yes">✓</span>Zdjęcie hero (pełna szerokość)</div>
+            <div class="pf"><span class="pf-check yes">✓</span>Galeria 12 zdjęć + link social</div>
+        <div class="pf"><span class="pf-check yes">✓</span>Kampanie Google Ads pomoc</div>
+        <div class="pf"><span class="pf-check yes">✓</span>4 wpisy blogowe/mies.</div>
+        <div class="pf"><span class="pf-check yes">✓</span>10 podstron dzielnicowych</div>
+        <div class="pf"><span class="pf-check yes">✓</span>Dedykowany opiekun</div>
+        <div class="pf"><span class="pf-check yes">✓</span>Tygodniowe raporty</div>
+        <div class="pf"><span class="pf-check yes">✓</span>Konsultacja SEO 1h/mies.</div>
+        <div class="pf"><span class="pf-check yes">✓</span>SLA 24h reakcja</div>
+      </div>
+      <a href="https://buy.stripe.com/test_bJefZh5dv9Ty7Z6eWA3gk03" class="plan-btn outline" target="_blank">Kup teraz →</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- SAAS PLANS -->
+<div class="plans-section" id="saas">
+  <div class="plans-grid">
+
+    <div class="plan">
+      <div class="plan-name">SaaS Starter</div>
+      <div class="plan-price">49 <sub>zł/mies.</sub></div>
+      <p class="plan-desc">Dostęp do generatora AI. Tworzysz i zarządzasz sam.</p>
+      <div class="plan-divider"></div>
+      <div class="plan-features">
+        <div class="pf"><span class="pf-check yes">✓</span>Generator AI (1 strona)</div>
+        <div class="pf"><span class="pf-check yes">✓</span>Hosting na subdomenie webgen.pl</div>
+        <div class="pf"><span class="pf-check yes">✓</span>SSL automatyczny</div>
+        <div class="pf"><span class="pf-check yes">✓</span>Edycja przez panel</div>
+        <div class="pf dim"><span class="pf-check no">–</span>Własna domena</div>
+        <div class="pf dim"><span class="pf-check no">–</span>Lokalne SEO zaawansowane</div>
+      </div>
+      <a href="https://buy.stripe.com/test_5kQbJ10Xfe9O1AI4hW3gk04" class="plan-btn outline" target="_blank">Kup teraz →</a>
+    </div>
+
+    <div class="plan featured">
+      <div class="plan-tag">NAJPOPULARNIEJSZY</div>
+      <div class="plan-name">SaaS Pro</div>
+      <div class="plan-price">129 <sub>zł/mies.</sub></div>
+      <p class="plan-desc">Bez limitu stron, własna domena, zaawansowane SEO.</p>
+      <div class="plan-divider"></div>
+      <div class="plan-features">
+        <div class="pf"><span class="pf-check yes">✓</span>Generator AI (bez limitu)</div>
+        <div class="pf"><span class="pf-check yes">✓</span>Własna domena</div>
+        <div class="pf"><span class="pf-check yes">✓</span>Lokalne SEO zaawansowane</div>
+        <div class="pf"><span class="pf-check yes">✓</span>5 szablonów do wyboru</div>
+        <div class="pf"><span class="pf-check yes">✓</span>Google Analytics integracja</div>
+        <div class="pf dim"><span class="pf-check no">–</span>White-label</div>
+      </div>
+      <a href="https://buy.stripe.com/test_eVq5kD21j8Pua7e01G3gk05" class="plan-btn primary" target="_blank">Kup teraz →</a>
+    </div>
+
+    <div class="plan">
+      <div class="plan-name">SaaS Agency</div>
+      <div class="plan-price">399 <sub>zł/mies.</sub></div>
+      <p class="plan-desc">Dla agencji i freelancerów — white-label, panel klientów.</p>
+      <div class="plan-divider"></div>
+      <div class="plan-features">
+        <div class="pf"><span class="pf-check yes">✓</span>Wszystko z Pro</div>
+        <div class="pf"><span class="pf-check yes">✓</span>White-label (brak logo Webgen)</div>
+        <div class="pf"><span class="pf-check yes">✓</span>Panel zarządzania klientami</div>
+        <div class="pf"><span class="pf-check yes">✓</span>API dostęp</div>
+        <div class="pf"><span class="pf-check yes">✓</span>Nieograniczone domeny klientów</div>
+        <div class="pf"><span class="pf-check yes">✓</span>Priorytetowe wsparcie</div>
+      </div>
+      <a href="https://buy.stripe.com/test_5kQ00j9tL2r66V215K3gk06" class="plan-btn outline" target="_blank">Kup teraz →</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- ADD-ONY -->
+<div class="addons-section">
+  <div class="addons-title">Add-ony jednorazowe</div>
+  <div class="addons-grid">
+    <div class="addon">
+      <div class="addon-left">
+        <div class="addon-icon">📍</div>
+        <div>
+          <div class="addon-name">SEO Lokalne</div>
+          <div class="addon-desc">Treści pod 3 dodatkowe dzielnice + Schema markup</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+        <div class="addon-price">79 zł</div>
+        <a href="https://buy.stripe.com/bJe3cv7lD1n2cfm6q43gk00" target="_blank" class="addon-btn">Kup →</a>
+      </div>
+    </div>
+    <div class="addon">
+      <div class="addon-left">
+        <div class="addon-icon">⚡</div>
+        <div>
+          <div class="addon-name">PageSpeed Boost</div>
+          <div class="addon-desc">Optymalizacja Core Web Vitals, kompresja, lazy loading</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+        <div class="addon-price">49 zł</div>
+        <a href="https://buy.stripe.com/eVq5kD8pH8Pu4MUeWA3gk01" target="_blank" class="addon-btn">Kup →</a>
+      </div>
+    </div>
+    <div class="addon">
+      <div class="addon-left">
+        <div class="addon-icon">♿</div>
+        <div>
+          <div class="addon-name">WCAG Dostępność</div>
+          <div class="addon-desc">Zgodność z WCAG 2.1, aria-labels, nawigacja klawiaturą</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+        <div class="addon-price">39 zł</div>
+        <a href="https://buy.stripe.com/aFafZh35nc1GfrycOs3gk02" target="_blank" class="addon-btn">Kup →</a>
+      </div>
+    </div>
+    <div class="addon">
+      <div class="addon-left">
+        <div class="addon-icon">🌐</div>
+        <div>
+          <div class="addon-name">Wielojęzyczność</div>
+          <div class="addon-desc">Dodatkowa wersja językowa (EN, UA lub inna)</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+        <div class="addon-price">59 zł/język</div>
+        <a href="https://buy.stripe.com/bJefZh5dv9Ty7Z6eWA3gk03" target="_blank" class="addon-btn">Kup →</a>
+      </div>
+    </div>
+    <div class="addon">
+      <div class="addon-left">
+        <div class="addon-icon">🌍</div>
+        <div>
+          <div class="addon-name">Własna domena</div>
+          <div class="addon-desc">Podpięcie własnej domeny klienta do strony na Webgen</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+        <div class="addon-price">49 zł</div>
+        <a href="https://buy.stripe.com/5kQbJ10Xfe9O1AI4hW3gk04" target="_blank" class="addon-btn">Kup →</a>
+      </div>
+    </div>
+    <div class="addon">
+      <div class="addon-left">
+        <div class="addon-icon">📊</div>
+        <div>
+          <div class="addon-name">Google Analytics GA4</div>
+          <div class="addon-desc">Integracja GA4 — śledzenie ruchu i konwersji</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+        <div class="addon-price">29 zł</div>
+        <a href="https://buy.stripe.com/eVq5kD21j8Pua7e01G3gk05" target="_blank" class="addon-btn">Kup →</a>
+      </div>
+    </div>
+    <div class="addon">
+      <div class="addon-left">
+        <div class="addon-icon">📸</div>
+        <div>
+          <div class="addon-name">Więcej zdjęć</div>
+          <div class="addon-desc">Rozszerzenie galerii do 20 zdjęć powyżej limitu planu</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+        <div class="addon-price">29 zł</div>
+        <a href="https://buy.stripe.com/5kQ00j9tL2r66V215K3gk06" target="_blank" class="addon-btn">Kup →</a>
+      </div>
+    </div>
+    <div class="addon">
+      <div class="addon-left">
+        <div class="addon-icon">🚀</div>
+        <div>
+          <div class="addon-name">Priorytetowe wsparcie</div>
+          <div class="addon-desc">Odpowiedź w 4h, dedykowany czat, szybsze aktualizacje</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+        <div class="addon-price">49 zł/mies</div>
+        <a href="https://buy.stripe.com/bJe3cv7lD1n2cfm6q43gk00" target="_blank" class="addon-btn">Kup →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq-section">
+  <h2 class="faq-title">Często zadawane pytania</h2>
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Czy jest umowa długoterminowa?<span class="faq-arrow">+</span></div>
+    <div class="faq-a"><p>Nie. Płacisz miesięcznie i możesz zrezygnować w każdej chwili. Przy rezygnacji możesz pobrać kod HTML swojej strony — zostaje Twój.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Jak długo trwa uruchomienie strony?<span class="faq-arrow">+</span></div>
+    <div class="faq-a"><p>W planie Managed strona jest gotowa tego samego dnia — zazwyczaj w ciągu 2-4 godzin od zamówienia. W SaaS możesz wygenerować stronę samodzielnie w 3 minuty.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Czy muszę mieć własną domenę?<span class="faq-arrow">+</span></div>
+    <div class="faq-a"><p>W planie Managed pomagamy Ci zarejestrować domenę lub podpinamy Twoją istniejącą. W SaaS Starter strona działa na subdomenie *.webgen.pl. Własna domena od planu SaaS Pro.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Jak zmienić treść strony po wygenerowaniu?<span class="faq-arrow">+</span></div>
+    <div class="faq-a"><p>W planie Managed wystarczy wysłać email — np. "zmień numer telefonu na...". W SaaS edytujesz samodzielnie przez panel administracyjny.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Czy Webgen działa poza Warszawą?<span class="faq-arrow">+</span></div>
+    <div class="faq-a"><p>Tak. Webgen działa w całej Polsce — Kraków, Wrocław, Gdańsk, Poznań i setki mniejszych miejscowości. AI generuje treści pod każde miasto i dzielnicę.</p></div>
+  </div>
+</div>
+
+<footer>
+  <div class="f-copy">© 2025 Webgen.pl</div>
+  <div class="f-links">
+    <a href="/">Strona główna</a>
+    <a href="/test/">Test subfolder</a>
+    <a href="mailto:kontakt@webgen.pl">Kontakt</a>
+  </div>
+</footer>
+
+<script>
+function switchTab(btn, section) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.plans-section').forEach(s => s.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(section).classList.add('active');
+}
+</script>
+</body>
+</html>

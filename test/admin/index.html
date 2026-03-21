@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — webgen.pl</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#03050A;--bg1:#07090F;--bg2:#0C0F18;--bg3:#111520;--bg4:#181D2A;
+  --green:#00E5A0;--green2:#00C98A;--blue:#0066FF;--purple:#7B4FFF;
+  --red:#F87171;--yellow:#FBBF24;--orange:#FB923C;
+  --white:#F0F2F7;--muted:#8892AA;
+  --border:rgba(240,242,247,.06);--border2:rgba(240,242,247,.12);
+  --mono:'JetBrains Mono',monospace;--head:'Bricolage Grotesque',sans-serif;
+  --grad:linear-gradient(135deg,#00E5A0,#0066FF,#7B4FFF);
+  --sw:56px; /* sidebar collapsed width */
+  --sw2:240px; /* sidebar expanded width */
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--head);background:var(--bg);color:var(--white);min-height:100vh;display:flex;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg1)}::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:2px}
+
+/* ── SIDEBAR ── */
+.sidebar{
+  width:var(--sw2);min-height:100vh;background:var(--bg1);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  position:fixed;top:0;left:0;bottom:0;z-index:200;
+  transition:width .25s ease;
+}
+.sidebar.collapsed{width:var(--sw)}
+.sb-logo{
+  padding:18px 16px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:10px;overflow:hidden;
+  min-height:60px;
+}
+.sb-logo-mark{
+  width:28px;height:28px;border-radius:7px;background:var(--grad);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:13px;font-weight:700;color:#fff;flex-shrink:0;
+}
+.sb-logo-text{font-size:16px;font-weight:700;white-space:nowrap;overflow:hidden}
+.sb-logo-text span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sb-logo-badge{
+  margin-left:auto;font-family:var(--mono);font-size:9px;font-weight:700;
+  background:rgba(248,113,113,.15);color:var(--red);
+  border:1px solid rgba(248,113,113,.25);
+  padding:2px 7px;border-radius:10px;white-space:nowrap;letter-spacing:.06em;flex-shrink:0;
+}
+.sb-nav{flex:1;padding:8px 8px;overflow-y:auto}
+.sb-section{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(136,146,170,.35);padding:14px 8px 5px;white-space:nowrap;overflow:hidden}
+.collapsed .sb-section{visibility:hidden}
+.nav-item{
+  display:flex;align-items:center;gap:10px;padding:8px 10px;
+  border-radius:8px;cursor:pointer;transition:all .15s;
+  color:var(--muted);font-size:13px;font-weight:500;margin-bottom:1px;
+  position:relative;white-space:nowrap;overflow:hidden;
+  text-decoration:none;
+}
+.nav-item:hover{background:rgba(240,242,247,.05);color:var(--white)}
+.nav-item.active{background:rgba(0,229,160,.1);color:var(--white)}
+.nav-item.active::before{content:'';position:absolute;left:0;top:5px;bottom:5px;width:3px;background:var(--green);border-radius:0 2px 2px 0}
+.nav-icon{font-size:15px;width:22px;text-align:center;flex-shrink:0}
+.nav-label{flex:1}
+.nav-badge{font-family:var(--mono);font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;flex-shrink:0}
+.nb-red{background:rgba(248,113,113,.2);color:var(--red)}
+.nb-green{background:rgba(0,229,160,.15);color:var(--green)}
+.nb-blue{background:rgba(0,102,255,.15);color:var(--blue)}
+.collapsed .nav-label,.collapsed .nav-badge,.collapsed .sb-logo-text,.collapsed .sb-logo-badge{display:none}
+
+.sb-footer{border-top:1px solid var(--border);padding:12px 10px}
+.sb-user{display:flex;align-items:center;gap:9px;cursor:pointer;padding:6px;border-radius:8px;transition:background .2s;overflow:hidden}
+.sb-user:hover{background:rgba(240,242,247,.05)}
+.sb-avatar{width:30px;height:30px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.sb-user-info{overflow:hidden}
+.sb-user-name{font-size:12px;font-weight:700;white-space:nowrap}
+.sb-user-role{font-family:var(--mono);font-size:10px;color:var(--muted)}
+.collapsed .sb-user-info{display:none}
+
+.sb-toggle{
+  position:absolute;top:14px;right:-14px;width:28px;height:28px;
+  background:var(--bg2);border:1px solid var(--border2);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:11px;color:var(--muted);transition:all .2s;z-index:10;
+}
+.sb-toggle:hover{background:var(--bg3);color:var(--white)}
+
+/* ── MAIN ── */
+.main{margin-left:var(--sw2);flex:1;min-height:100vh;display:flex;flex-direction:column;transition:margin-left .25s ease}
+.main.collapsed{margin-left:var(--sw)}
+
+/* ── TOPBAR ── */
+.topbar{
+  height:60px;border-bottom:1px solid var(--border);padding:0 28px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(3,5,10,.92);backdrop-filter:blur(16px);
+  position:sticky;top:0;z-index:100;
+}
+.tb-left{display:flex;align-items:center;gap:14px}
+.tb-page{font-size:16px;font-weight:700}
+.tb-crumb{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.tb-right{display:flex;align-items:center;gap:10px}
+.tb-status{
+  display:flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:11px;color:var(--green);
+  background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);
+  padding:5px 10px;border-radius:20px;
+}
+.tb-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.tb-btn{
+  width:34px;height:34px;border-radius:8px;background:var(--bg3);
+  border:1px solid var(--border2);color:var(--muted);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:15px;
+  transition:all .2s;position:relative;
+}
+.tb-btn:hover{background:var(--bg4);color:var(--white)}
+.tb-notif-dot{position:absolute;top:5px;right:5px;width:7px;height:7px;background:var(--red);border-radius:50%;border:1px solid var(--bg)}
+
+/* ── CONTENT ── */
+.content{padding:28px;flex:1}
+.panel{display:none;animation:fadeIn .2s ease}
+.panel.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── PAGE HEADER ── */
+.ph{margin-bottom:24px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.ph-left{}
+.ph-title{font-size:clamp(20px,2.5vw,28px);font-weight:800;letter-spacing:-.03em;margin-bottom:3px}
+.ph-sub{font-size:13px;color:var(--muted)}
+.ph-actions{display:flex;gap:10px;align-items:center;flex-shrink:0}
+
+/* ── CARDS ── */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.card-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px}
+.card-action{font-family:var(--mono);font-size:11px;color:var(--green);cursor:pointer;background:none;border:none;font-family:inherit}
+.card-action:hover{text-decoration:underline}
+
+/* ── STAT CARDS ── */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:24px}
+.stat{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:12px;padding:18px;position:relative;overflow:hidden;
+  transition:border-color .2s;cursor:default;
+}
+.stat:hover{border-color:var(--border2)}
+.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.stat.g::before{background:linear-gradient(90deg,var(--green),transparent)}
+.stat.b::before{background:linear-gradient(90deg,var(--blue),transparent)}
+.stat.p::before{background:linear-gradient(90deg,var(--purple),transparent)}
+.stat.y::before{background:linear-gradient(90deg,var(--yellow),transparent)}
+.stat.r::before{background:linear-gradient(90deg,var(--orange),transparent)}
+.stat-label{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.stat-val{font-size:28px;font-weight:800;letter-spacing:-.03em;margin-bottom:3px}
+.stat-delta{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:4px}
+.up{color:var(--green)}.dn{color:var(--red)}.neu{color:var(--muted)}
+
+/* ── GRID LAYOUTS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px}
+.g12{display:grid;grid-template-columns:1fr 340px;gap:20px;margin-bottom:20px}
+.g21{display:grid;grid-template-columns:340px 1fr;gap:20px;margin-bottom:20px}
+
+/* ── TABLE ── */
+.tbl-wrap{overflow-x:auto}
+table.tbl{width:100%;border-collapse:collapse}
+table.tbl th{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:10px 16px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
+table.tbl td{padding:12px 16px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:middle}
+table.tbl tr:last-child td{border-bottom:none}
+table.tbl tr:hover td{background:rgba(240,242,247,.02)}
+.tbl-avatar{width:30px;height:30px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.tbl-name{font-weight:600;margin-bottom:2px}
+.tbl-email{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.tbl-url{font-family:var(--mono);font-size:11px;color:var(--green)}
+
+/* ── BADGES ── */
+.badge{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.bg-green{background:rgba(0,229,160,.12);color:var(--green);border:1px solid rgba(0,229,160,.25)}
+.bg-blue{background:rgba(0,102,255,.12);color:var(--blue);border:1px solid rgba(0,102,255,.25)}
+.bg-yellow{background:rgba(251,191,36,.1);color:var(--yellow);border:1px solid rgba(251,191,36,.2)}
+.bg-red{background:rgba(248,113,113,.1);color:var(--red);border:1px solid rgba(248,113,113,.2)}
+.bg-purple{background:rgba(123,79,255,.12);color:var(--purple);border:1px solid rgba(123,79,255,.25)}
+.bg-muted{background:rgba(136,146,170,.1);color:var(--muted);border:1px solid rgba(136,146,170,.2)}
+
+/* ── BUTTONS ── */
+.btn{padding:8px 18px;border-radius:8px;font-family:var(--head);font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.btn-green{background:var(--green);color:var(--bg)}.btn-green:hover{background:var(--green2)}
+.btn-outline{background:transparent;border:1px solid var(--border2);color:var(--muted)}.btn-outline:hover{color:var(--white);border-color:var(--border2);background:var(--bg3)}
+.btn-danger{background:rgba(248,113,113,.1);color:var(--red);border:1px solid rgba(248,113,113,.2)}.btn-danger:hover{background:rgba(248,113,113,.2)}
+.btn-sm{padding:5px 12px;font-size:12px}
+
+/* ── REVENUE CHART ── */
+.chart-bars{display:flex;align-items:flex-end;gap:6px;height:100px;padding:0 4px}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.bar{width:100%;border-radius:4px 4px 0 0;min-height:4px;transition:height .5s ease}
+.bar-lbl{font-family:var(--mono);font-size:9px;color:var(--muted);white-space:nowrap}
+
+/* ── ACTIVITY ── */
+.activity-list{}
+.act-item{display:flex;align-items:flex-start;gap:12px;padding:11px 20px;border-bottom:1px solid var(--border);transition:background .15s}
+.act-item:last-child{border-bottom:none}
+.act-item:hover{background:rgba(240,242,247,.02)}
+.act-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.ai-g{background:rgba(0,229,160,.1)}.ai-b{background:rgba(0,102,255,.1)}.ai-p{background:rgba(123,79,255,.1)}.ai-y{background:rgba(251,191,36,.08)}.ai-r{background:rgba(248,113,113,.1)}
+.act-body{flex:1;min-width:0}
+.act-text{font-size:12px;color:var(--white);line-height:1.4;margin-bottom:2px}
+.act-time{font-family:var(--mono);font-size:10px;color:var(--muted)}
+
+/* ── MRR WIDGET ── */
+.mrr-box{padding:20px}
+.mrr-number{font-size:42px;font-weight:800;letter-spacing:-.04em;color:var(--green);margin-bottom:4px}
+.mrr-label{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+.mrr-breakdown{display:flex;flex-direction:column;gap:8px}
+.mrr-row{display:flex;justify-content:space-between;align-items:center;font-size:12px}
+.mrr-row-label{color:var(--muted)}
+.mrr-row-val{font-family:var(--mono);font-weight:700}
+.mrr-bar-row{height:3px;background:var(--bg4);border-radius:2px;margin-top:2px}
+.mrr-bar-fill{height:100%;border-radius:2px}
+
+/* ── KANBAN ── */
+.kanban{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.kanban-col{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.kanban-col-header{padding:12px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700}
+.kanban-col-count{font-family:var(--mono);font-size:11px;padding:2px 7px;border-radius:10px;margin-left:auto}
+.kanban-items{padding:10px}
+.kanban-card{background:var(--bg3);border:1px solid var(--border2);border-radius:9px;padding:12px;margin-bottom:8px;cursor:pointer;transition:all .2s}
+.kanban-card:last-child{margin-bottom:0}
+.kanban-card:hover{border-color:rgba(0,229,160,.25);transform:translateY(-1px)}
+.kc-title{font-size:12px;font-weight:700;margin-bottom:4px}
+.kc-sub{font-size:11px;color:var(--muted);margin-bottom:8px}
+.kc-footer{display:flex;justify-content:space-between;align-items:center}
+.kc-plan{font-family:var(--mono);font-size:10px}
+.kc-time{font-family:var(--mono);font-size:10px;color:var(--muted)}
+
+/* ── SEO GRID ── */
+.seo-kw-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
+.seo-kw-row:last-child{border-bottom:none}
+.seo-kw-name{font-size:12px;font-weight:600}
+.seo-kw-domain{font-size:11px;color:var(--muted);font-family:var(--mono)}
+.seo-kw-pos{font-family:var(--mono);font-size:14px;font-weight:700}
+
+/* ── SETTINGS FORM ── */
+.s-section{padding:20px;border-bottom:1px solid var(--border)}
+.s-section:last-child{border-bottom:none}
+.s-label{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:11px;font-weight:600;color:var(--muted);margin-bottom:5px;letter-spacing:.04em}
+.field input,.field select,.field textarea{width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:8px 12px;font-size:13px;color:var(--white);font-family:var(--head);outline:none;transition:border-color .2s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green)}
+.field input::placeholder{color:var(--muted)}
+.field select option{background:var(--bg3)}
+.field textarea{resize:vertical;min-height:80px}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)}
+.toggle-row:last-child{border-bottom:none}
+.toggle-info .ti-title{font-size:13px;font-weight:600;margin-bottom:2px}
+.toggle-info .ti-desc{font-size:11px;color:var(--muted)}
+.toggle{position:relative;width:40px;height:22px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0;position:absolute}
+.tslider{position:absolute;inset:0;background:rgba(240,242,247,.08);border:1px solid var(--border2);border-radius:11px;cursor:pointer;transition:.25s}
+.tslider::before{content:'';position:absolute;height:14px;width:14px;left:3px;bottom:3px;background:var(--muted);border-radius:50%;transition:.25s}
+.toggle input:checked+.tslider{background:rgba(0,229,160,.2);border-color:rgba(0,229,160,.4)}
+.toggle input:checked+.tslider::before{transform:translateX(18px);background:var(--green)}
+
+/* ── ALERTS ── */
+.alert{padding:12px 16px;border-radius:10px;font-size:12px;display:flex;gap:10px;align-items:flex-start;margin-bottom:16px}
+.alert-icon{font-size:15px;flex-shrink:0}
+.alert-red{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);color:var(--red)}
+.alert-yellow{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2);color:var(--yellow)}
+.alert-green{background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);color:var(--green)}
+
+/* ── MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(3,5,10,.85);z-index:9998;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+.modal-overlay.active{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:28px;max-width:480px;width:90%;position:relative;animation:popIn .25s ease}
+@keyframes popIn{from{transform:scale(.95) translateY(8px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+.modal-close{position:absolute;top:14px;right:14px;background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:6px;transition:all .2s}
+.modal-close:hover{background:rgba(240,242,247,.08);color:var(--white)}
+.modal h3{font-size:18px;font-weight:800;margin-bottom:6px}
+.modal p{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.6}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:11px 16px;font-size:12px;display:flex;align-items:center;gap:9px;z-index:9999;transform:translateY(60px);opacity:0;transition:all .3s cubic-bezier(.16,1,.3,1);box-shadow:0 8px 28px rgba(0,0,0,.5)}
+.toast.show{transform:translateY(0);opacity:1}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1200px){.stats{grid-template-columns:repeat(3,1fr)}.g3{grid-template-columns:1fr 1fr}.kanban{grid-template-columns:1fr 1fr}}
+@media(max-width:900px){.g2,.g12,.g21{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.kanban{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     SIDEBAR
+     ═══════════════════════════════════════ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sb-toggle" onclick="toggleSidebar()" title="Zwiń/Rozwiń">⟨</div>
+
+  <div class="sb-logo">
+    <div class="sb-logo-mark">W</div>
+    <div class="sb-logo-text">web<span>gen</span>.pl</div>
+    <div class="sb-logo-badge">ADMIN</div>
+  </div>
+
+  <nav class="sb-nav">
+    <div class="sb-section">Dashboard</div>
+    <a class="nav-item active" onclick="go('overview',this)">
+      <span class="nav-icon">⊞</span><span class="nav-label">Przegląd</span>
+    </a>
+    <a class="nav-item" onclick="go('revenue',this)">
+      <span class="nav-icon">₿</span><span class="nav-label">Przychody</span>
+      <span class="nav-badge nb-green">+18%</span>
+    </a>
+
+    <div class="sb-section">Klienci</div>
+    <a class="nav-item" onclick="go('clients',this)">
+      <span class="nav-icon">👥</span><span class="nav-label">Wszyscy klienci</span>
+      <span class="nav-badge nb-blue">12</span>
+    </a>
+    <a class="nav-item" onclick="go('tasks',this)">
+      <span class="nav-icon">📋</span><span class="nav-label">Zadania Managed</span>
+      <span class="nav-badge nb-red">3</span>
+    </a>
+    <a class="nav-item" onclick="go('outreach',this)">
+      <span class="nav-icon">📣</span><span class="nav-label">Outreach CRM</span>
+    </a>
+
+    <div class="sb-section">Produkt</div>
+    <a class="nav-item" onclick="go('sites',this)">
+      <span class="nav-icon">◻</span><span class="nav-label">Wszystkie strony</span>
+      <span class="nav-badge nb-blue">12</span>
+    </a>
+    <a class="nav-item" onclick="go('seo',this)">
+      <span class="nav-icon">📈</span><span class="nav-label">SEO Monitor</span>
+    </a>
+    <a class="nav-item" onclick="go('generator',this)">
+      <span class="nav-icon">⚡</span><span class="nav-label">Generator AI</span>
+    </a>
+
+    <div class="sb-section">System</div>
+    <a class="nav-item" onclick="go('settings',this)">
+      <span class="nav-icon">⚙</span><span class="nav-label">Ustawienia</span>
+    </a>
+    <a class="nav-item" onclick="go('logs',this)">
+      <span class="nav-icon">🖥</span><span class="nav-label">Logi / Deploy</span>
+    </a>
+  </nav>
+
+  <div class="sb-footer">
+    <div class="sb-user">
+      <div class="sb-avatar">A</div>
+      <div class="sb-user-info">
+        <div class="sb-user-name">Artur</div>
+        <div class="sb-user-role">Owner · webgen.pl</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══════════════════════════════════════
+     MAIN
+     ═══════════════════════════════════════ -->
+<div class="main" id="main">
+
+  <header class="topbar">
+    <div class="tb-left">
+      <div>
+        <div class="tb-page" id="tb-title">Przegląd</div>
+        <div class="tb-crumb">webgen.pl / admin / <span id="tb-sub">overview</span></div>
+      </div>
+    </div>
+    <div class="tb-right">
+      <div class="tb-status"><span class="tb-dot"></span>System online</div>
+      <button class="tb-btn" onclick="showToast('Odświeżono dane','🔄')" title="Odśwież">🔄</button>
+      <button class="tb-btn" onclick="go('logs',document.querySelector('[onclick*=logs]'))" title="Logi Vercel">
+        🖥
+        <span class="tb-notif-dot"></span>
+      </button>
+      <button class="tb-btn" onclick="showModal('deploy')" title="Deploy">🚀</button>
+    </div>
+  </header>
+
+  <div class="content">
+
+    <!-- ═════════════════════════
+         PANEL: OVERVIEW
+         ═════════════════════════ -->
+    <div class="panel active" id="panel-overview">
+      <div class="ph">
+        <div class="ph-left">
+          <div class="ph-title">Dashboard webgen.pl</div>
+          <div class="ph-sub">21 marca 2026 · Stripe test mode</div>
+        </div>
+        <div class="ph-actions">
+          <button class="btn btn-outline btn-sm" onclick="showModal('newclient')">+ Dodaj klienta</button>
+          <button class="btn btn-green btn-sm" onclick="showModal('deploy')">🚀 Deploy</button>
+        </div>
+      </div>
+
+      <!-- KPI Stats -->
+      <div class="stats">
+        <div class="stat g">
+          <div class="stat-label">MRR</div>
+          <div class="stat-val" style="color:var(--green)">2 988 zł</div>
+          <div class="stat-delta"><span class="up">↑ +18%</span> vs zeszły mies.</div>
+        </div>
+        <div class="stat b">
+          <div class="stat-label">Klienci</div>
+          <div class="stat-val">12</div>
+          <div class="stat-delta"><span class="up">↑ +3</span> ten miesiąc</div>
+        </div>
+        <div class="stat p">
+          <div class="stat-label">Active stron</div>
+          <div class="stat-val">12</div>
+          <div class="stat-delta"><span class="up">●</span> 100% live</div>
+        </div>
+        <div class="stat y">
+          <div class="stat-label">Zadania open</div>
+          <div class="stat-val" style="color:var(--yellow)">3</div>
+          <div class="stat-delta"><span class="dn">!</span> wymagają uwagi</div>
+        </div>
+        <div class="stat r">
+          <div class="stat-label">Outreach</div>
+          <div class="stat-val">25</div>
+          <div class="stat-delta"><span class="neu">→</span> wysłano, 0 odp.</div>
+        </div>
+      </div>
+
+      <div class="g12">
+        <!-- Revenue chart -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">📊 Przychody MRR (zł)</div>
+            <button class="card-action" onclick="go('revenue',document.querySelector('[onclick*=revenue]'))">Szczegóły →</button>
+          </div>
+          <div style="padding:20px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px">
+              <div>
+                <div style="font-size:11px;color:var(--muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px">MRR bieżący</div>
+                <div style="font-size:32px;font-weight:800;color:var(--green)">2 988 <span style="font-size:16px;color:var(--muted)">zł</span></div>
+              </div>
+              <div style="text-align:right;font-size:11px;color:var(--muted)">
+                <div>Cel mies.: <span style="color:var(--white)">4 000 zł</span></div>
+                <div style="margin-top:4px">Wykonanie: <span style="color:var(--yellow)">74.7%</span></div>
+              </div>
+            </div>
+            <!-- Mini bar chart -->
+            <div class="chart-bars">
+              <div class="bar-wrap"><div class="bar" style="height:20%;background:var(--bg4)"></div><div class="bar-lbl">Sep</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:25%;background:var(--bg4)"></div><div class="bar-lbl">Paź</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:0%;background:var(--bg4)"></div><div class="bar-lbl">Lis</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:0%;background:var(--bg4)"></div><div class="bar-lbl">Gru</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:30%;background:rgba(0,102,255,.5)"></div><div class="bar-lbl">Sty</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:50%;background:rgba(0,102,255,.6)"></div><div class="bar-lbl">Lut</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:75%;background:var(--green)"></div><div class="bar-lbl" style="color:var(--green)">Mar</div></div>
+            </div>
+            <div style="margin-top:16px;display:flex;gap:16px;font-size:11px">
+              <div style="color:var(--muted)">Managed: <span style="color:var(--white);font-weight:700">2 490 zł</span></div>
+              <div style="color:var(--muted)">SaaS: <span style="color:var(--white);font-weight:700">498 zł</span></div>
+              <div style="color:var(--muted)">Add-ony: <span style="color:var(--white);font-weight:700">79 zł</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick tasks / alerts -->
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="alert alert-yellow">
+            <div class="alert-icon">⚠️</div>
+            <div><strong>3 zadania Managed</strong> czekają na realizację — zmiany treści od klientów</div>
+          </div>
+          <div class="alert alert-green">
+            <div class="alert-icon">✅</div>
+            <div><strong>Nowy klient:</strong> Salon Urody Finezja podpisał Managed START (249 zł)</div>
+          </div>
+          <div class="alert alert-red">
+            <div class="alert-icon">🚨</div>
+            <div><strong>ANTHROPIC_API_KEY</strong> nie skonfigurowany — generator AI nieaktywny</div>
+          </div>
+          <div class="card" style="flex:1">
+            <div class="card-header"><div class="card-title">⚡ Szybkie akcje</div></div>
+            <div style="padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <button class="btn btn-outline btn-sm" style="justify-content:center" onclick="go('tasks',document.querySelector('[onclick*=tasks]'))">📋 Zadania (3)</button>
+              <button class="btn btn-outline btn-sm" style="justify-content:center" onclick="go('clients',document.querySelector('[onclick*=clients]'))">👥 Klienci</button>
+              <button class="btn btn-outline btn-sm" style="justify-content:center" onclick="go('outreach',document.querySelector('[onclick*=outreach]'))">📣 Outreach</button>
+              <button class="btn btn-green btn-sm" style="justify-content:center" onclick="showModal('deploy')">🚀 Deploy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent activity -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📋 Ostatnia aktywność</div>
+          <button class="card-action" onclick="go('logs',document.querySelector('[onclick*=logs]'))">Pełne logi →</button>
+        </div>
+        <div class="activity-list">
+          <div class="act-item"><div class="act-icon ai-g">💳</div><div class="act-body"><div class="act-text"><strong>Nowa subskrypcja:</strong> Finezja → Managed START (249 zł/mies) — Stripe</div><div class="act-time">Dzisiaj 14:23</div></div></div>
+          <div class="act-item"><div class="act-icon ai-b">🚀</div><div class="act-body"><div class="act-text"><strong>Deploy:</strong> feat: addons x8 z przyciskami Stripe — <span style="color:var(--green)">READY</span></div><div class="act-time">Dzisiaj 13:55</div></div></div>
+          <div class="act-item"><div class="act-icon ai-y">📧</div><div class="act-body"><div class="act-text"><strong>Zadanie Managed:</strong> Hydraulik Kowalski — zmiana numeru telefonu na 600-500-400</div><div class="act-time">Dzisiaj 11:30</div></div></div>
+          <div class="act-item"><div class="act-icon ai-g">📣</div><div class="act-body"><div class="act-text"><strong>Outreach SMS:</strong> Ostre Cięcia (+48570918777) — dostarczone ✓</div><div class="act-time">Wczoraj 16:47</div></div></div>
+          <div class="act-item"><div class="act-icon ai-p">📈</div><div class="act-body"><div class="act-text"><strong>SEO:</strong> "hydraulik Białołęka" awansował z #7 na #4 — Hydraulik Kowalski</div><div class="act-time">Wczoraj 09:15</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═════════════════════════
+         PANEL: KLIENCI
+         ═════════════════════════ -->
+    <div class="panel" id="panel-clients">
+      <div class="ph">
+        <div class="ph-left">
+          <div class="ph-title">Wszyscy klienci</div>
+          <div class="ph-sub">12 aktywnych subskrypcji · MRR: 2 988 zł</div>
+        </div>
+        <div class="ph-actions">
+          <button class="btn btn-outline btn-sm">⬇ Eksport CSV</button>
+          <button class="btn btn-green btn-sm" onclick="showModal('newclient')">+ Dodaj klienta</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="padding:14px 16px;border-bottom:1px solid var(--border);display:flex;gap:10px">
+          <input style="flex:1;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:7px 12px;font-size:13px;color:var(--white);font-family:var(--head);outline:none" placeholder="Szukaj klienta..." oninput="filterTable(this)">
+          <select style="background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:7px 12px;font-size:12px;color:var(--white);font-family:var(--head);outline:none">
+            <option>Wszystkie plany</option>
+            <option>Managed START</option>
+            <option>Managed PRO</option>
+            <option>Managed PREMIUM</option>
+            <option>SaaS Starter</option>
+          </select>
+        </div>
+        <div class="tbl-wrap">
+          <table class="tbl" id="clients-table">
+            <thead><tr><th>Klient</th><th>Strona</th><th>Plan</th><th>MRR</th><th>Status</th><th>Od</th><th>Akcje</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:10px"><div class="tbl-avatar">F</div><div><div class="tbl-name">Salon Urody Finezja</div><div class="tbl-email">studiofinezja@gmail.com</div></div></div></td>
+                <td><div class="tbl-url">finezja.webgen.pl</div></td>
+                <td><span class="badge bg-blue">Managed START</span></td>
+                <td><span style="font-family:var(--mono);font-weight:700;color:var(--green)">249 zł</span></td>
+                <td><span class="badge bg-green">LIVE</span></td>
+                <td style="font-family:var(--mono);font-size:11px;color:var(--muted)">21.03.2026</td>
+                <td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie karty klienta...','👤')">Szczegóły</button></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:10px"><div class="tbl-avatar">M</div><div><div class="tbl-name">Marek Kowalski Hydraulik</div><div class="tbl-email">marek@hydraulik.pl</div></div></div></td>
+                <td><div class="tbl-url">hydraulik.webgen.pl</div></td>
+                <td><span class="badge bg-purple">Managed PRO</span></td>
+                <td><span style="font-family:var(--mono);font-weight:700;color:var(--green)">249 zł</span></td>
+                <td><span class="badge bg-green">LIVE</span></td>
+                <td style="font-family:var(--mono);font-size:11px;color:var(--muted)">16.12.2025</td>
+                <td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie karty klienta...','👤')">Szczegóły</button></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:10px"><div class="tbl-avatar">W</div><div><div class="tbl-name">WILD Fryzury i Pazury</div><div class="tbl-email">wild@fryzury.pl</div></div></div></td>
+                <td><div class="tbl-url">wild.webgen.pl</div></td>
+                <td><span class="badge bg-blue">Managed START</span></td>
+                <td><span style="font-family:var(--mono);font-weight:700;color:var(--green)">249 zł</span></td>
+                <td><span class="badge bg-green">LIVE</span></td>
+                <td style="font-family:var(--mono);font-size:11px;color:var(--muted)">05.02.2026</td>
+                <td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie karty klienta...','👤')">Szczegóły</button></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:10px"><div class="tbl-avatar">E</div><div><div class="tbl-name">Elektryka Nowak</div><div class="tbl-email">nowak@elektryk.pl</div></div></div></td>
+                <td><div class="tbl-url">elektryka-nowak.webgen.pl</div></td>
+                <td><span class="badge bg-muted">SaaS Starter</span></td>
+                <td><span style="font-family:var(--mono);font-weight:700;color:var(--muted)">49 zł</span></td>
+                <td><span class="badge bg-green">LIVE</span></td>
+                <td style="font-family:var(--mono);font-size:11px;color:var(--muted)">10.01.2026</td>
+                <td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie karty klienta...','👤')">Szczegóły</button></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:10px"><div class="tbl-avatar">N</div><div><div class="tbl-name">NATU Naturalne Piękno</div><div class="tbl-email">natu@salon.pl</div></div></div></td>
+                <td><div class="tbl-url">natu.webgen.pl</div></td>
+                <td><span class="badge bg-yellow">Free</span></td>
+                <td><span style="font-family:var(--mono);font-weight:700;color:var(--muted)">0 zł</span></td>
+                <td><span class="badge bg-yellow">FREE</span></td>
+                <td style="font-family:var(--mono);font-size:11px;color:var(--muted)">18.03.2026</td>
+                <td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie karty klienta...','👤')">Szczegóły</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═════════════════════════
+         PANEL: ZADANIA MANAGED
+         ═════════════════════════ -->
+    <div class="panel" id="panel-tasks">
+      <div class="ph">
+        <div class="ph-left">
+          <div class="ph-title">Zadania Managed</div>
+          <div class="ph-sub">Prośby klientów o zmiany treści stron</div>
+        </div>
+        <div class="ph-actions">
+          <button class="btn btn-outline btn-sm" onclick="showToast('Eksportowano zadania do CSV','📥')">⬇ CSV</button>
+        </div>
+      </div>
+
+      <div class="kanban">
+        <!-- Do zrobienia -->
+        <div class="kanban-col">
+          <div class="kanban-col-header" style="border-top:3px solid var(--red)">
+            <span>🔴</span> Do zrobienia
+            <span class="kanban-col-count nb-red">3</span>
+          </div>
+          <div class="kanban-items">
+            <div class="kanban-card" onclick="showToast('Otwieranie zadania...','📋')">
+              <div class="kc-title">Zmiana numeru telefonu</div>
+              <div class="kc-sub">Hydraulik Kowalski → 600-500-400</div>
+              <div class="kc-footer">
+                <span class="badge bg-purple" style="font-size:9px">Managed PRO</span>
+                <span class="kc-time">Dzisiaj 11:30</span>
+              </div>
+            </div>
+            <div class="kanban-card" onclick="showToast('Otwieranie zadania...','📋')">
+              <div class="kc-title">Aktualizacja galerii zdjęć</div>
+              <div class="kc-sub">WILD Fryzury — 3 nowe zdjęcia</div>
+              <div class="kc-footer">
+                <span class="badge bg-blue" style="font-size:9px">Managed START</span>
+                <span class="kc-time">Wczoraj 15:00</span>
+              </div>
+            </div>
+            <div class="kanban-card" onclick="showToast('Otwieranie zadania...','📋')">
+              <div class="kc-title">Dodanie nowej usługi</div>
+              <div class="kc-sub">Finezja — "Stylizacja Paznokci Hybrydowych"</div>
+              <div class="kc-footer">
+                <span class="badge bg-blue" style="font-size:9px">Managed START</span>
+                <span class="kc-time">Dzisiaj 09:15</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- W trakcie -->
+        <div class="kanban-col">
+          <div class="kanban-col-header" style="border-top:3px solid var(--yellow)">
+            <span>🟡</span> W trakcie
+            <span class="kanban-col-count nb-blue">1</span>
+          </div>
+          <div class="kanban-items">
+            <div class="kanban-card" onclick="showToast('Otwieranie zadania...','📋')">
+              <div class="kc-title">Zmiana godzin otwarcia</div>
+              <div class="kc-sub">Elektryka Nowak — nowe godziny weekendowe</div>
+              <div class="kc-footer">
+                <span class="badge bg-muted" style="font-size:9px">SaaS Starter</span>
+                <span class="kc-time">Dzisiaj 08:00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Zrobione -->
+        <div class="kanban-col">
+          <div class="kanban-col-header" style="border-top:3px solid var(--green)">
+            <span>🟢</span> Zrobione
+            <span class="kanban-col-count nb-green">5</span>
+          </div>
+          <div class="kanban-items">
+            <div class="kanban-card" style="opacity:.6" onclick="showToast('Zadanie ukończone','✅')">
+              <div class="kc-title">Wdrożenie Schema.org</div>
+              <div class="kc-sub">Hydraulik Kowalski — LocalBusiness</div>
+              <div class="kc-footer"><span class="badge bg-green" style="font-size:9px">Gotowe</span><span class="kc-time">15.03.2026</span></div>
+            </div>
+            <div class="kanban-card" style="opacity:.6" onclick="showToast('Zadanie ukończone','✅')">
+              <div class="kc-title">Onboarding — strona live</div>
+              <div class="kc-sub">NATU Salon — Free plan aktywowany</div>
+              <div class="kc-footer"><span class="badge bg-green" style="font-size:9px">Gotowe</span><span class="kc-time">18.03.2026</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═════════════════════════
+         PANEL: OUTREACH CRM
+         ═════════════════════════ -->
+    <div class="panel" id="panel-outreach">
+      <div class="ph">
+        <div class="ph-left">
+          <div class="ph-title">Outreach CRM</div>
+          <div class="ph-sub">Białołęka — ul. Ostródzka + okolice 3km · 25 kontaktów</div>
+        </div>
+        <div class="ph-actions">
+          <button class="btn btn-outline btn-sm" onclick="showToast('Eksportowano CRM do XML','📥')">⬇ XML</button>
+          <button class="btn btn-green btn-sm" onclick="showModal('newoutreach')">+ Nowa fala</button>
+        </div>
+      </div>
+
+      <!-- Stats outreach -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px">
+        <div class="stat g"><div class="stat-label">SMS wysłane</div><div class="stat-val">25</div><div class="stat-delta"><span class="up">18</span> dostarczone</div></div>
+        <div class="stat b"><div class="stat-label">IG DM</div><div class="stat-val">7</div><div class="stat-delta"><span class="neu">@webgen.pl</span></div></div>
+        <div class="stat p"><div class="stat-label">FB komentarze</div><div class="stat-val">3</div><div class="stat-delta"><span class="neu">jako Webgen</span></div></div>
+        <div class="stat y"><div class="stat-label">Odpowiedzi</div><div class="stat-val" style="color:var(--yellow)">0</div><div class="stat-delta"><span class="neu">konwersja 0%</span></div></div>
+      </div>
+
+      <div class="card">
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <thead><tr><th>Salon</th><th>Telefon</th><th>Status</th><th>SMS</th><th>IG DM</th><th>FB</th><th>Email</th><th>Odpowiedź</th></tr></thead>
+            <tbody>
+              <tr><td><div class="tbl-name">Salon Urody Finezja</div><div class="tbl-email">ul. Ostródzka 87</div></td><td style="font-family:var(--mono);font-size:11px">22 741 63 56</td><td><span class="badge bg-muted">FB only</span></td><td><span class="badge bg-red">ERR</span></td><td><span class="badge bg-green">✓</span></td><td><span class="badge bg-green">✓</span></td><td><span class="badge bg-red">—</span></td><td><span class="badge bg-muted">brak</span></td></tr>
+              <tr><td><div class="tbl-name">Beauty by Paulina Kalata</div><div class="tbl-email">ul. Ostródzka 252</div></td><td style="font-family:var(--mono);font-size:11px">796 392 456</td><td><span class="badge bg-muted">FB only</span></td><td><span class="badge bg-green">✓</span></td><td><span class="badge bg-red">—</span></td><td><span class="badge bg-green">✓</span></td><td><span class="badge bg-green">✓</span></td><td><span class="badge bg-muted">brak</span></td></tr>
+              <tr><td><div class="tbl-name">MS Fun Nails</div><div class="tbl-email">ul. Ostródzka 194</div></td><td style="font-family:var(--mono);font-size:11px">731 131 138</td><td><span class="badge bg-blue">Booksy</span></td><td><span class="badge bg-red">ERR</span></td><td><span class="badge bg-green">✓</span></td><td><span class="badge bg-red">—</span></td><td><span class="badge bg-red">—</span></td><td><span class="badge bg-muted">brak</span></td></tr>
+              <tr><td><div class="tbl-name">WILD Fryzury i Pazury</div><div class="tbl-email">ul. Ostródzka 240</div></td><td style="font-family:var(--mono);font-size:11px">730 039 444</td><td><span class="badge bg-blue">Booksy</span></td><td><span class="badge bg-green">✓</span></td><td><span class="badge bg-green">✓</span></td><td><span class="badge bg-red">—</span></td><td><span class="badge bg-red">—</span></td><td><span class="badge bg-muted">brak</span></td></tr>
+              <tr><td><div class="tbl-name">Fryzjer Jedyny Taki</div><div class="tbl-email">ul. Ostródzka 183</div></td><td style="font-family:var(--mono);font-size:11px">793 988 553</td><td><span class="badge bg-muted">FB only</span></td><td><span class="badge bg-red">ERR</span></td><td><span class="badge bg-green">✓</span></td><td><span class="badge bg-green">✓</span></td><td><span class="badge bg-red">—</span></td><td><span class="badge bg-muted">brak</span></td></tr>
+              <tr><td><div class="tbl-name">Ostre Cięcia</div><div class="tbl-email">ul. Strumykowa 35</div></td><td style="font-family:var(--mono);font-size:11px">570 918 777</td><td><span class="badge bg-red">Brak sociali</span></td><td><span class="badge bg-green">✓</span></td><td><span class="badge bg-red">—</span></td><td><span class="badge bg-red">—</span></td><td><span class="badge bg-red">—</span></td><td><span class="badge bg-muted">brak</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═════════════════════════
+         PANEL: PRZYCHODY
+         ═════════════════════════ -->
+    <div class="panel" id="panel-revenue">
+      <div class="ph">
+        <div class="ph-left"><div class="ph-title">Przychody</div><div class="ph-sub">Stripe · tryb testowy</div></div>
+      </div>
+
+      <div class="stats" style="grid-template-columns:repeat(4,1fr)">
+        <div class="stat g"><div class="stat-label">MRR</div><div class="stat-val" style="color:var(--green)">2 988 zł</div><div class="stat-delta"><span class="up">↑ +18%</span></div></div>
+        <div class="stat b"><div class="stat-label">ARR (prognoza)</div><div class="stat-val">35 856 zł</div><div class="stat-delta"><span class="neu">×12</span></div></div>
+        <div class="stat p"><div class="stat-label">Avg. sub. wartość</div><div class="stat-val">249 zł</div><div class="stat-delta"><span class="neu">per klient</span></div></div>
+        <div class="stat y"><div class="stat-label">Churn (mies.)</div><div class="stat-val" style="color:var(--green)">0%</div><div class="stat-delta"><span class="up">0 odejść</span></div></div>
+      </div>
+
+      <div class="g2">
+        <div class="card">
+          <div class="card-header"><div class="card-title">📦 Przychód wg planu</div></div>
+          <div style="padding:20px">
+            <div class="mrr-breakdown">
+              <div class="mrr-row"><span class="mrr-row-label">Managed START (4×249)</span><span class="mrr-row-val" style="color:var(--blue)">996 zł</span></div>
+              <div class="mrr-bar-row"><div class="mrr-bar-fill" style="width:33%;background:var(--blue)"></div></div>
+              <div class="mrr-row"><span class="mrr-row-label">Managed PRO (3×249)</span><span class="mrr-row-val" style="color:var(--purple)">747 zł</span></div>
+              <div class="mrr-bar-row"><div class="mrr-bar-fill" style="width:25%;background:var(--purple)"></div></div>
+              <div class="mrr-row"><span class="mrr-row-label">Managed PREMIUM (2×599)</span><span class="mrr-row-val" style="color:var(--green)">1 198 zł</span></div>
+              <div class="mrr-bar-row"><div class="mrr-bar-fill" style="width:40%;background:var(--green)"></div></div>
+              <div class="mrr-row"><span class="mrr-row-label">SaaS Starter (3×49)</span><span class="mrr-row-val" style="color:var(--muted)">147 zł</span></div>
+              <div class="mrr-bar-row"><div class="mrr-bar-fill" style="width:5%;background:var(--muted)"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">🎯 Cel MRR</div></div>
+          <div style="padding:20px">
+            <div style="font-size:13px;color:var(--muted);margin-bottom:20px">Miesięczne cele wzrostu</div>
+            <div class="mrr-breakdown">
+              <div class="mrr-row"><span class="mrr-row-label">Mar 2026 (bieżący)</span><span class="mrr-row-val" style="color:var(--yellow)">2 988 / 4 000 zł</span></div>
+              <div class="mrr-bar-row"><div class="mrr-bar-fill" style="width:74.7%;background:var(--yellow)"></div></div>
+              <div class="mrr-row"><span class="mrr-row-label">Kwi 2026 (cel)</span><span class="mrr-row-val">5 000 zł</span></div>
+              <div class="mrr-bar-row"><div class="mrr-bar-fill" style="width:0%;background:var(--blue)"></div></div>
+              <div class="mrr-row"><span class="mrr-row-label">Cze 2026 (cel)</span><span class="mrr-row-val">10 000 zł</span></div>
+              <div class="mrr-bar-row"><div class="mrr-bar-fill" style="width:0%;background:var(--purple)"></div></div>
+              <div style="margin-top:16px;padding:12px;background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.15);border-radius:8px;font-size:12px;color:var(--muted)">
+                Potrzeba <strong style="color:var(--white)">~5 klientów Managed START</strong> lub <strong style="color:var(--white)">~2 klientów PREMIUM</strong> do osiągnięcia celu kwi.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═════════════════════════
+         PANEL: WSZYSTKIE STRONY
+         ═════════════════════════ -->
+    <div class="panel" id="panel-sites">
+      <div class="ph">
+        <div class="ph-left"><div class="ph-title">Wszystkie strony</div><div class="ph-sub">12 aktywnych domen na webgen.pl</div></div>
+        <div class="ph-actions"><button class="btn btn-green btn-sm" onclick="showToast('Otwieranie generatora...','⚡')">⚡ Nowa strona</button></div>
+      </div>
+      <div class="card">
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <thead><tr><th>URL</th><th>Klient</th><th>Plan</th><th>PageSpeed</th><th>Pozycja Google</th><th>Status</th><th>Akcje</th></tr></thead>
+            <tbody>
+              <tr><td><div class="tbl-url">hydraulik.webgen.pl</div></td><td>Marek Kowalski</td><td><span class="badge bg-purple">Managed PRO</span></td><td style="font-family:var(--mono);color:var(--green);font-weight:700">94</td><td style="font-family:var(--mono)">#4 "hydraulik Białołęka"</td><td><span class="badge bg-green">LIVE</span></td><td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie...','🌐')">Podgląd</button></td></tr>
+              <tr><td><div class="tbl-url">finezja.webgen.pl</div></td><td>Salon Urody Finezja</td><td><span class="badge bg-blue">Managed START</span></td><td style="font-family:var(--mono);color:var(--green);font-weight:700">91</td><td style="font-family:var(--mono)">#8 "salon urody Białołęka"</td><td><span class="badge bg-green">LIVE</span></td><td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie...','🌐')">Podgląd</button></td></tr>
+              <tr><td><div class="tbl-url">wild.webgen.pl</div></td><td>WILD Fryzury i Pazury</td><td><span class="badge bg-blue">Managed START</span></td><td style="font-family:var(--mono);color:var(--yellow);font-weight:700">87</td><td style="font-family:var(--mono)">#12 "fryzjer Białołęka"</td><td><span class="badge bg-green">LIVE</span></td><td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie...','🌐')">Podgląd</button></td></tr>
+              <tr><td><div class="tbl-url">elektryka-nowak.webgen.pl</div></td><td>Elektryka Nowak</td><td><span class="badge bg-muted">SaaS Starter</span></td><td style="font-family:var(--mono);color:var(--green);font-weight:700">92</td><td style="font-family:var(--mono)">—</td><td><span class="badge bg-green">LIVE</span></td><td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie...','🌐')">Podgląd</button></td></tr>
+              <tr><td><div class="tbl-url">natu.webgen.pl</div></td><td>NATU Naturalne Piękno</td><td><span class="badge bg-yellow">Free</span></td><td style="font-family:var(--mono);color:var(--muted)">—</td><td style="font-family:var(--mono)">—</td><td><span class="badge bg-yellow">AKTYWACJA</span></td><td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie...','🌐')">Podgląd</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═════════════════════════
+         PANEL: SEO MONITOR
+         ═════════════════════════ -->
+    <div class="panel" id="panel-seo">
+      <div class="ph">
+        <div class="ph-left"><div class="ph-title">SEO Monitor</div><div class="ph-sub">Monitorowanie pozycji wszystkich klientów w Google</div></div>
+      </div>
+      <div class="g2">
+        <div class="card">
+          <div class="card-header"><div class="card-title">📈 Top pozycje (kumulatywnie)</div></div>
+          <div style="padding:16px 20px">
+            <div class="seo-kw-row"><div><div class="seo-kw-name">hydraulik Białołęka</div><div class="seo-kw-domain">hydraulik.webgen.pl</div></div><div class="seo-kw-pos" style="color:var(--green)">#4 <span style="font-size:11px;color:var(--green)">↑+3</span></div></div>
+            <div class="seo-kw-row"><div><div class="seo-kw-name">salon urody Białołęka</div><div class="seo-kw-domain">finezja.webgen.pl</div></div><div class="seo-kw-pos" style="color:var(--yellow)">#8 <span style="font-size:11px;color:var(--green)">↑+2</span></div></div>
+            <div class="seo-kw-row"><div><div class="seo-kw-name">fryzjer Białołęka tanio</div><div class="seo-kw-domain">wild.webgen.pl</div></div><div class="seo-kw-pos" style="color:var(--muted)">#12 <span style="font-size:11px;color:var(--muted)">→0</span></div></div>
+            <div class="seo-kw-row"><div><div class="seo-kw-name">hydraulik Warszawa pogotowie</div><div class="seo-kw-domain">hydraulik.webgen.pl</div></div><div class="seo-kw-pos" style="color:var(--yellow)">#7 <span style="font-size:11px;color:var(--green)">↑+5</span></div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">⚡ PageSpeed wszystkich stron</div></div>
+          <div style="padding:16px 20px">
+            <div class="seo-kw-row"><div><div class="seo-kw-name">hydraulik.webgen.pl</div></div><div style="font-family:var(--mono);font-weight:700;color:var(--green)">94/100</div></div>
+            <div class="seo-kw-row"><div><div class="seo-kw-name">finezja.webgen.pl</div></div><div style="font-family:var(--mono);font-weight:700;color:var(--green)">91/100</div></div>
+            <div class="seo-kw-row"><div><div class="seo-kw-name">elektryka-nowak.webgen.pl</div></div><div style="font-family:var(--mono);font-weight:700;color:var(--green)">92/100</div></div>
+            <div class="seo-kw-row"><div><div class="seo-kw-name">wild.webgen.pl</div></div><div style="font-family:var(--mono);font-weight:700;color:var(--yellow)">87/100</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═════════════════════════
+         PANEL: GENERATOR AI
+         ═════════════════════════ -->
+    <div class="panel" id="panel-generator">
+      <div class="ph">
+        <div class="ph-left"><div class="ph-title">Generator AI</div><div class="ph-sub">Status API i konfiguracja</div></div>
+      </div>
+      <div class="alert alert-red" style="margin-bottom:20px">
+        <div class="alert-icon">🚨</div>
+        <div><strong>ANTHROPIC_API_KEY nie skonfigurowany</strong> — generator AI jest nieaktywny. Dodaj klucz w ustawieniach Vercel aby aktywować.</div>
+      </div>
+      <div class="g2">
+        <div class="card">
+          <div class="s-section">
+            <div class="s-label">Konfiguracja API</div>
+            <div class="field"><label>ANTHROPIC_API_KEY</label><input type="password" placeholder="sk-ant-..." value=""></div>
+            <div class="field"><label>Model</label><select><option>claude-sonnet-4-6 (zalecany)</option><option>claude-haiku-4-5-20251001 (szybszy, tańszy)</option></select></div>
+            <div class="field"><label>Max tokens</label><input type="number" value="4000"></div>
+            <button class="btn btn-green" onclick="showToast('Klucz zapisany do Vercel env!','✅')">Zapisz i aktywuj generator</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">📊 Użycie API</div></div>
+          <div style="padding:20px">
+            <div class="mrr-breakdown">
+              <div class="mrr-row"><span class="mrr-row-label">Generowania ten miesiąc</span><span class="mrr-row-val">0</span></div>
+              <div class="mrr-row"><span class="mrr-row-label">Śr. koszt / generowanie</span><span class="mrr-row-val">~0.08 zł</span></div>
+              <div class="mrr-row"><span class="mrr-row-label">Budżet miesięczny API</span><span class="mrr-row-val">50 zł</span></div>
+              <div style="margin-top:16px;font-size:12px;color:var(--muted)">
+                Przy 100 generowaniach / mies: ~8 zł kosztu API.<br>
+                Marża na planie SaaS Starter: 49 - 8 = <span style="color:var(--green)">41 zł</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═════════════════════════
+         PANEL: USTAWIENIA
+         ═════════════════════════ -->
+    <div class="panel" id="panel-settings">
+      <div class="ph">
+        <div class="ph-left"><div class="ph-title">Ustawienia systemu</div><div class="ph-sub">Konfiguracja infrastruktury webgen.pl</div></div>
+      </div>
+      <div class="g2">
+        <div class="card">
+          <div class="s-section">
+            <div class="s-label">Infrastruktura</div>
+            <div class="field"><label>Vercel Project ID</label><input value="prj_NCSHiopDiHYgUCEjGGuedrj62U8H" readonly></div>
+            <div class="field"><label>Vercel Team ID</label><input value="team_9GrxtXBkSmlXnZNk3zGsngHW" readonly></div>
+            <div class="field"><label>Domeny</label><input value="webgen.pl + *.webgen.pl" readonly></div>
+          </div>
+          <div class="s-section">
+            <div class="s-label">Email (Resend)</div>
+            <div class="field"><label>From</label><input value="hello@webgen.pl" readonly></div>
+            <div class="toggle-row"><div class="toggle-info"><div class="ti-title">Email transakcyjne</div><div class="ti-desc">Potwierdzenia, faktury, powiadomienia</div></div><label class="toggle"><input type="checkbox" checked><span class="tslider"></span></label></div>
+          </div>
+          <div class="s-section">
+            <div class="s-label">Stripe</div>
+            <div class="toggle-row"><div class="toggle-info"><div class="ti-title">Tryb testowy</div><div class="ti-desc">Stripe test mode — zmień na live przed produkcją</div></div><label class="toggle"><input type="checkbox" checked><span class="tslider"></span></label></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="s-section">
+            <div class="s-label">Social Media</div>
+            <div class="field"><label>Facebook Page ID</label><input value="61582028348554" readonly></div>
+            <div class="field"><label>Instagram</label><input value="@webgen.pl" readonly></div>
+          </div>
+          <div class="s-section">
+            <div class="s-label">Funkcje systemu</div>
+            <div class="toggle-row"><div class="toggle-info"><div class="ti-title">Generator AI</div><div class="ti-desc">Wymaga ANTHROPIC_API_KEY</div></div><label class="toggle"><input type="checkbox"><span class="tslider"></span></label></div>
+            <div class="toggle-row"><div class="toggle-info"><div class="ti-title">Panel klienta</div><div class="ti-desc">webgen.pl/dashboard/</div></div><label class="toggle"><input type="checkbox" checked><span class="tslider"></span></label></div>
+            <div class="toggle-row"><div class="toggle-info"><div class="ti-title">Cookie consent</div><div class="ti-desc">Baner RODO na wszystkich stronach</div></div><label class="toggle"><input type="checkbox" checked><span class="tslider"></span></label></div>
+            <div class="toggle-row"><div class="toggle-info"><div class="ti-title">Stripe live mode</div><div class="ti-desc">UWAGA: aktywuje prawdziwe płatności</div></div><label class="toggle"><input type="checkbox"><span class="tslider"></span></label></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═════════════════════════
+         PANEL: LOGI / DEPLOY
+         ═════════════════════════ -->
+    <div class="panel" id="panel-logs">
+      <div class="ph">
+        <div class="ph-left"><div class="ph-title">Logi & Deploy</div><div class="ph-sub">Historia deployów Vercel · GitHub main branch</div></div>
+        <div class="ph-actions"><button class="btn btn-green btn-sm" onclick="showModal('deploy')">🚀 Nowy Deploy</button></div>
+      </div>
+
+      <div class="alert alert-green" style="margin-bottom:20px">
+        <div class="alert-icon">✅</div>
+        <div><strong>Ostatni deploy READY</strong> — feat: krok 5 Dodatki w generatorze — 8 addonow z checksami, dynamiczna suma, Stripe linki · 21 mar 2026 15:54</div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><div class="card-title">🖥 Historia deployów</div></div>
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <thead><tr><th>Commit</th><th>Status</th><th>Data</th><th>Autor</th><th>Akcje</th></tr></thead>
+            <tbody>
+              <tr><td style="font-family:var(--mono);font-size:11px">feat: krok 5 Dodatki w generatorze</td><td><span class="badge bg-green">READY</span></td><td style="font-family:var(--mono);font-size:11px">21.03.2026 15:54</td><td>Artur S.</td><td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie logów...','🖥')">Logi</button></td></tr>
+              <tr><td style="font-family:var(--mono);font-size:11px">feat: addons x8 z przyciskami Stripe</td><td><span class="badge bg-green">READY</span></td><td style="font-family:var(--mono);font-size:11px">21.03.2026 14:52</td><td>Artur S.</td><td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie logów...','🖥')">Logi</button></td></tr>
+              <tr><td style="font-family:var(--mono);font-size:11px">feat: auto-konwersja zdjec do WebP lossless</td><td><span class="badge bg-green">READY</span></td><td style="font-family:var(--mono);font-size:11px">15.03.2026 14:29</td><td>Artur S.</td><td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie logów...','🖥')">Logi</button></td></tr>
+              <tr><td style="font-family:var(--mono);font-size:11px">feat: galeria per plan (3/6/12 zdjec)</td><td><span class="badge bg-green">READY</span></td><td style="font-family:var(--mono);font-size:11px">15.03.2026 11:37</td><td>Artur S.</td><td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie logów...','🖥')">Logi</button></td></tr>
+              <tr><td style="font-family:var(--mono);font-size:11px">feat: generator - wybor kolorow, upload logo</td><td><span class="badge bg-green">READY</span></td><td style="font-family:var(--mono);font-size:11px">15.03.2026 09:21</td><td>Artur S.</td><td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie logów...','🖥')">Logi</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<!-- ═════════════════ MODALS ═════════════════ -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3 id="modal-title">Modal</h3>
+    <p id="modal-body">Treść modalu</p>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span id="t-icon">✅</span><span id="t-msg">OK</span></div>
+
+<script>
+// ─── Navigation ───
+const titles = {
+  overview:  ['Przegląd','overview'],
+  revenue:   ['Przychody','revenue'],
+  clients:   ['Klienci','clients'],
+  tasks:     ['Zadania Managed','tasks'],
+  outreach:  ['Outreach CRM','outreach'],
+  sites:     ['Wszystkie strony','sites'],
+  seo:       ['SEO Monitor','seo'],
+  generator: ['Generator AI','generator'],
+  settings:  ['Ustawienia','settings'],
+  logs:      ['Logi / Deploy','logs'],
+};
+function go(id, el) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const p = document.getElementById('panel-'+id);
+  if(p) p.classList.add('active');
+  if(el) el.classList.add('active');
+  if(titles[id]){
+    document.getElementById('tb-title').textContent = titles[id][0];
+    document.getElementById('tb-sub').textContent   = titles[id][1];
+  }
+}
+
+// ─── Sidebar toggle ───
+let collapsed = false;
+function toggleSidebar(){
+  collapsed = !collapsed;
+  document.getElementById('sidebar').classList.toggle('collapsed', collapsed);
+  document.getElementById('main').classList.toggle('collapsed', collapsed);
+  document.querySelector('.sb-toggle').textContent = collapsed ? '⟩' : '⟨';
+}
+
+// ─── Modal ───
+const modals = {
+  deploy: {
+    title: '🚀 Deploy na Vercel',
+    body: 'Wyślij najnowszą wersję kodu na produkcję (webgen.pl). Zmiana będzie widoczna po ~30 sekundach.',
+    content: `<button class="btn btn-green" style="width:100%" onclick="closeModal();showToast('Deploy uruchomiony! Sprawdź logi za 30s','🚀')">Uruchom deploy →</button>`
+  },
+  newclient: {
+    title: '+ Nowy klient',
+    body: 'Dodaj nowego klienta manualnie do systemu (onboarding bez generatora).',
+    content: `<div class="field"><label>Email klienta</label><input placeholder="klient@firma.pl" type="email"></div><div class="field"><label>Plan</label><select><option>Managed START</option><option>Managed PRO</option><option>Managed PREMIUM</option></select></div><button class="btn btn-green" style="width:100%;margin-top:8px" onclick="closeModal();showToast('Klient dodany i e-mail powitalny wysłany','✅')">Dodaj klienta →</button>`
+  },
+  newoutreach: {
+    title: '📣 Nowa fala outreach',
+    body: 'Zaplanuj nową kampanię outreach dla wybranej ulicy / dzielnicy.',
+    content: `<div class="field"><label>Ulica / dzielnica</label><input placeholder="np. ul. Modlińska, Białołęka"></div><div class="field"><label>Kanał</label><select><option>SMS + iMessage</option><option>IG DM</option><option>FB komentarze</option><option>Email</option></select></div><button class="btn btn-green" style="width:100%;margin-top:8px" onclick="closeModal();showToast('Fala outreach zaplanowana','📣')">Zaplanuj →</button>`
+  },
+};
+function showModal(id) {
+  const m = modals[id];
+  if(!m) return;
+  document.getElementById('modal-title').textContent = m.title;
+  document.getElementById('modal-body').textContent  = m.body;
+  document.getElementById('modal-content').innerHTML = m.content || '';
+  document.getElementById('modal-overlay').classList.add('active');
+}
+function closeModal() { document.getElementById('modal-overlay').classList.remove('active'); }
+
+// ─── Toast ───
+let tt;
+function showToast(msg, icon='✅') {
+  const t = document.getElementById('toast');
+  document.getElementById('t-msg').textContent  = msg;
+  document.getElementById('t-icon').textContent = icon;
+  t.classList.add('show');
+  clearTimeout(tt);
+  tt = setTimeout(()=>t.classList.remove('show'), 3200);
+}
+
+// ─── Table filter ───
+function filterTable(input) {
+  const q = input.value.toLowerCase();
+  document.querySelectorAll('#clients-table tbody tr').forEach(tr=>{
+    tr.style.display = tr.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+
+// ─── Keyboard ───
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape') closeModal();
+});
+</script>
+</body>
+</html>
