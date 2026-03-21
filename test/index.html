@@ -986,198 +986,334 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:56px 48px
   </div>
 </footer>
 
+<!-- ════════════════════════════════════════
+     COOKIE CONSENT — webgen.pl
+     ════════════════════════════════════════ -->
+<style>
+#wg-cookie-overlay{display:none;position:fixed;inset:0;background:rgba(5,7,12,.85);z-index:9998;backdrop-filter:blur(4px)}
+#wg-cookie-overlay.active{display:block}
+#wg-cookie-banner{display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#0D1117;border-top:1px solid rgba(0,229,160,.25);box-shadow:0 -8px 40px rgba(0,0,0,.6)}
+#wg-cookie-banner.active{display:block;animation:wgSlideUp .35s cubic-bezier(.16,1,.3,1)}
+@keyframes wgSlideUp{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}
+#wg-cookie-banner::before{content:'';display:block;height:3px;background:linear-gradient(90deg,#00E5A0,#0066FF,#7B4FFF)}
+.wg-banner-inner{max-width:1200px;margin:0 auto;padding:20px 28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.wg-banner-icon{font-size:28px;flex-shrink:0}
+.wg-banner-text{flex:1;min-width:280px}
+.wg-banner-text h3{font-size:15px;font-weight:700;color:#F0F2F7;margin-bottom:4px}
+.wg-banner-text p{font-size:13px;color:#8892AA;line-height:1.5}
+.wg-banner-text a{color:#00E5A0;text-decoration:none}
+.wg-banner-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;flex-shrink:0}
+.wg-btn{padding:10px 20px;border-radius:8px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .2s;white-space:nowrap}
+.wg-btn-accept{background:#00E5A0;color:#080A0F}
+.wg-btn-accept:hover{background:#00C98A}
+.wg-btn-reject{background:transparent;color:#8892AA;border:1px solid rgba(240,242,247,.15)}
+.wg-btn-reject:hover{color:#F0F2F7;border-color:rgba(240,242,247,.3)}
+.wg-btn-settings{background:transparent;color:#00E5A0;border:1px solid rgba(0,229,160,.3)}
+.wg-btn-settings:hover{background:rgba(0,229,160,.08)}
+#wg-cookie-modal{display:none;position:fixed;inset:0;z-index:10000;align-items:center;justify-content:center;padding:20px}
+#wg-cookie-modal.active{display:flex}
+.wg-modal-box{background:#0D1117;border:1px solid rgba(240,242,247,.1);border-radius:16px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,.8);animation:wgPopIn .3s cubic-bezier(.16,1,.3,1)}
+@keyframes wgPopIn{from{transform:scale(.94) translateY(10px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+.wg-modal-header{padding:24px 24px 20px;border-bottom:1px solid rgba(240,242,247,.07);position:relative}
+.wg-modal-header::before{content:'';display:block;height:3px;background:linear-gradient(90deg,#00E5A0,#0066FF,#7B4FFF);border-radius:16px 16px 0 0;position:absolute;top:-1px;left:-1px;right:-1px}
+.wg-modal-header h2{font-size:18px;font-weight:700;color:#F0F2F7;margin-bottom:6px}
+.wg-modal-header p{font-size:13px;color:#8892AA;line-height:1.6}
+.wg-modal-header p a{color:#00E5A0;text-decoration:none}
+.wg-modal-close{position:absolute;top:20px;right:20px;background:rgba(240,242,247,.06);border:none;color:#8892AA;width:32px;height:32px;border-radius:8px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.wg-modal-close:hover{background:rgba(240,242,247,.12);color:#F0F2F7}
+.wg-modal-body{padding:20px 24px}
+.wg-cookie-category{background:#131720;border:1px solid rgba(240,242,247,.07);border-radius:12px;padding:16px;margin-bottom:12px;transition:border-color .2s}
+.wg-cookie-category:hover{border-color:rgba(240,242,247,.14)}
+.wg-cat-header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.wg-cat-info{flex:1}
+.wg-cat-title{font-size:14px;font-weight:700;color:#F0F2F7;display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.wg-cat-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;letter-spacing:.04em}
+.wg-badge-required{background:rgba(0,229,160,.12);color:#00E5A0;border:1px solid rgba(0,229,160,.3)}
+.wg-badge-optional{background:rgba(240,242,247,.06);color:#8892AA;border:1px solid rgba(240,242,247,.1)}
+.wg-cat-desc{font-size:12px;color:#8892AA;line-height:1.5}
+.wg-toggle{position:relative;width:46px;height:26px;flex-shrink:0}
+.wg-toggle input{opacity:0;width:0;height:0;position:absolute}
+.wg-toggle-slider{position:absolute;inset:0;background:rgba(240,242,247,.1);border:1px solid rgba(240,242,247,.15);border-radius:13px;cursor:pointer;transition:all .25s}
+.wg-toggle-slider::before{content:'';position:absolute;height:18px;width:18px;left:3px;bottom:3px;background:#8892AA;border-radius:50%;transition:all .25s}
+.wg-toggle input:checked+.wg-toggle-slider{background:rgba(0,229,160,.2);border-color:rgba(0,229,160,.5)}
+.wg-toggle input:checked+.wg-toggle-slider::before{transform:translateX(20px);background:#00E5A0}
+.wg-toggle input:disabled+.wg-toggle-slider{opacity:.5;cursor:not-allowed}
+.wg-cat-details{display:none;margin-top:14px;padding-top:14px;border-top:1px solid rgba(240,242,247,.07)}
+.wg-cat-details.expanded{display:block}
+.wg-cookie-table{width:100%;border-collapse:collapse;font-size:11px}
+.wg-cookie-table th{text-align:left;color:#8892AA;font-weight:600;padding:4px 8px;letter-spacing:.05em;text-transform:uppercase;font-size:10px}
+.wg-cookie-table td{padding:6px 8px;color:#8892AA;border-top:1px solid rgba(240,242,247,.04)}
+.wg-cookie-table td:first-child{font-family:monospace;color:#00E5A0;font-size:11px}
+.wg-expand-btn{background:none;border:none;color:#8892AA;font-family:inherit;font-size:11px;cursor:pointer;padding:6px 0 0;display:flex;align-items:center;gap:4px;transition:color .2s}
+.wg-expand-btn:hover{color:#00E5A0}
+.wg-expand-icon{transition:transform .2s;display:inline-block}
+.wg-expand-btn.open .wg-expand-icon{transform:rotate(180deg)}
+.wg-modal-footer{padding:16px 24px 24px;border-top:1px solid rgba(240,242,247,.07);display:flex;gap:10px;flex-wrap:wrap}
+.wg-btn-save{background:#00E5A0;color:#080A0F;flex:1}
+.wg-btn-save:hover{background:#00C98A}
+.wg-btn-accept-all{background:transparent;color:#00E5A0;border:1px solid rgba(0,229,160,.3);flex:1}
+.wg-btn-accept-all:hover{background:rgba(0,229,160,.08)}
+.wg-btn-reject-all{background:transparent;color:#8892AA;border:1px solid rgba(240,242,247,.12);width:100%}
+.wg-btn-reject-all:hover{color:#F0F2F7;border-color:rgba(240,242,247,.25)}
+#wg-cookie-settings-btn{position:fixed;bottom:20px;left:20px;z-index:9990;background:#131720;border:1px solid rgba(0,229,160,.25);color:#8892AA;padding:8px 14px;border-radius:8px;font-family:inherit;font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;display:none;gap:6px;align-items:center}
+#wg-cookie-settings-btn.visible{display:flex}
+#wg-cookie-settings-btn:hover{background:#1A1F2E;color:#00E5A0;border-color:rgba(0,229,160,.4)}
+@media(max-width:600px){.wg-banner-inner{padding:16px;gap:14px}.wg-banner-actions{width:100%}.wg-btn{flex:1;text-align:center}#wg-cookie-modal{align-items:flex-end;padding:0}.wg-modal-box{border-radius:12px 12px 0 0;max-height:85vh}}
+</style>
 
-<!-- ── COOKIE CONSENT BANER ── -->
-<!-- ══════════════════════════════════════════ -->
-<!-- COOKIE BANNER                             -->
-<!-- ══════════════════════════════════════════ -->
-<div id="wg-cookie-banner" role="dialog" aria-label="Ustawienia plików cookie" aria-live="polite">
+<!-- Overlay -->
+<div id="wg-cookie-overlay"></div>
+
+<!-- Baner główny -->
+<div id="wg-cookie-banner" role="dialog" aria-label="Ustawienia plików cookie">
   <div class="wg-banner-inner">
-    <div class="wg-banner-icon" aria-hidden="true">🍪</div>
+    <div class="wg-banner-icon">🍪</div>
     <div class="wg-banner-text">
       <h3>Szanujemy Twoją prywatność</h3>
-      <p>
-        Używamy plików cookie, aby poprawić jakość Twoich odwiedzin. Część z nich jest niezbędna,
-        inne pomagają nam zrozumieć, jak korzystasz z Serwisu. Więcej informacji znajdziesz w
-        <a href="/prywatnosc" target="_blank">Polityce Prywatności</a>.
-      </p>
+      <p>Używamy plików cookie, aby poprawić jakość odwiedzin. Więcej informacji w <a href="/test/polityka-prywatnosci/">Polityce Prywatności</a>.</p>
     </div>
     <div class="wg-banner-actions">
-      <button class="wg-btn wg-btn-settings" onclick="WgCookies.showSettings()" aria-label="Dostosuj ustawienia cookie">
-        Dostosuj
-      </button>
-      <button class="wg-btn wg-btn-reject" onclick="WgCookies.rejectAll()" aria-label="Odrzuć opcjonalne pliki cookie">
-        Tylko niezbędne
-      </button>
-      <button class="wg-btn wg-btn-accept" onclick="WgCookies.acceptAll()" aria-label="Zaakceptuj wszystkie pliki cookie">
-        Akceptuję wszystkie
-      </button>
+      <button class="wg-btn wg-btn-settings" onclick="WgCookies.showSettings()">Dostosuj</button>
+      <button class="wg-btn wg-btn-reject" onclick="WgCookies.rejectAll()">Tylko niezbędne</button>
+      <button class="wg-btn wg-btn-accept" onclick="WgCookies.acceptAll()">Akceptuję wszystkie</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════ -->
-<!-- COOKIE SETTINGS MODAL                     -->
-<!-- ══════════════════════════════════════════ -->
-<div id="wg-cookie-overlay"></div>
-
-<div id="wg-cookie-modal" role="dialog" aria-modal="true" aria-labelledby="wg-modal-title">
+<!-- Modal ustawień -->
+<div id="wg-cookie-modal" role="dialog" aria-modal="true">
   <div class="wg-modal-box">
-
     <div class="wg-modal-header">
-      <h2 id="wg-modal-title">Ustawienia plików cookie</h2>
-      <p>
-        Poniżej możesz wybrać, które kategorie plików cookie akceptujesz.
-        Zawsze możesz zmienić swoje preferencje. Szczegóły w
-        <a href="/prywatnosc" target="_blank">Polityce Prywatności</a>.
-      </p>
-      <button class="wg-modal-close" onclick="WgCookies.closeSettings()" aria-label="Zamknij">✕</button>
+      <h2>Ustawienia plików cookie</h2>
+      <p>Wybierz kategorie cookie, które akceptujesz. Szczegóły w <a href="/test/polityka-prywatnosci/">Polityce Prywatności</a>.</p>
+      <button class="wg-modal-close" onclick="WgCookies.closeSettings()">✕</button>
     </div>
-
     <div class="wg-modal-body">
-
-      <!-- Kategoria 1: Niezbędne -->
       <div class="wg-cookie-category">
         <div class="wg-cat-header">
           <div class="wg-cat-info">
-            <div class="wg-cat-title">
-              Niezbędne
-              <span class="wg-cat-badge wg-badge-required">ZAWSZE WŁĄCZONE</span>
-            </div>
-            <p class="wg-cat-desc">
-              Konieczne do prawidłowego działania Serwisu. Bez nich strona nie może funkcjonować poprawnie.
-            </p>
+            <div class="wg-cat-title">Niezbędne <span class="wg-cat-badge wg-badge-required">ZAWSZE WŁĄCZONE</span></div>
+            <p class="wg-cat-desc">Konieczne do działania strony. Nie wymagają zgody.</p>
           </div>
-          <label class="wg-toggle">
-            <input type="checkbox" id="cookie-necessary" checked disabled>
-            <span class="wg-toggle-slider"></span>
-          </label>
+          <label class="wg-toggle"><input type="checkbox" id="wg-necessary" checked disabled><span class="wg-toggle-slider"></span></label>
         </div>
-        <button class="wg-expand-btn" onclick="WgCookies.toggleDetails('details-necessary', this)" aria-expanded="false">
-          <span>Pokaż szczegóły</span>
-          <span class="wg-expand-icon">▾</span>
+        <button class="wg-expand-btn" onclick="WgCookies.toggleDetails('wg-details-necessary',this)">
+          <span>Pokaż szczegóły</span><span class="wg-expand-icon">▾</span>
         </button>
-        <div class="wg-cat-details" id="details-necessary">
+        <div class="wg-cat-details" id="wg-details-necessary">
           <table class="wg-cookie-table">
-            <thead>
-              <tr><th>Nazwa</th><th>Dostawca</th><th>Cel</th><th>Ważność</th></tr>
-            </thead>
+            <thead><tr><th>Nazwa</th><th>Dostawca</th><th>Cel</th><th>Ważność</th></tr></thead>
             <tbody>
-              <tr><td>wg_session</td><td>webgen.pl</td><td>Sesja zalogowanego użytkownika</td><td>Sesja</td></tr>
-              <tr><td>wg_csrf</td><td>webgen.pl</td><td>Ochrona przed atakami CSRF</td><td>Sesja</td></tr>
-              <tr><td>wg_cookie_consent</td><td>webgen.pl</td><td>Zapis preferencji cookie</td><td>12 miesięcy</td></tr>
+              <tr><td>wg_session</td><td>webgen.pl</td><td>Sesja użytkownika</td><td>Sesja</td></tr>
+              <tr><td>wg_cookie_consent</td><td>webgen.pl</td><td>Preferencje cookie</td><td>12 miesięcy</td></tr>
               <tr><td>__stripe_mid</td><td>Stripe</td><td>Bezpieczeństwo płatności</td><td>12 miesięcy</td></tr>
             </tbody>
           </table>
         </div>
       </div>
-
-      <!-- Kategoria 2: Analityczne -->
       <div class="wg-cookie-category">
         <div class="wg-cat-header">
           <div class="wg-cat-info">
-            <div class="wg-cat-title">
-              Analityczne
-              <span class="wg-cat-badge wg-badge-optional">OPCJONALNE</span>
-            </div>
-            <p class="wg-cat-desc">
-              Pomagają nam rozumieć, jak użytkownicy korzystają z Serwisu (Google Analytics 4).
-              Dane są anonimizowane i nie służą do śledzenia osobistego.
-            </p>
+            <div class="wg-cat-title">Analityczne <span class="wg-cat-badge wg-badge-optional">OPCJONALNE</span></div>
+            <p class="wg-cat-desc">Google Analytics 4 — dane anonimizowane, pomagają ulepszać Serwis.</p>
           </div>
-          <label class="wg-toggle">
-            <input type="checkbox" id="cookie-analytics">
-            <span class="wg-toggle-slider"></span>
-          </label>
+          <label class="wg-toggle"><input type="checkbox" id="wg-analytics"><span class="wg-toggle-slider"></span></label>
         </div>
-        <button class="wg-expand-btn" onclick="WgCookies.toggleDetails('details-analytics', this)" aria-expanded="false">
-          <span>Pokaż szczegóły</span>
-          <span class="wg-expand-icon">▾</span>
+        <button class="wg-expand-btn" onclick="WgCookies.toggleDetails('wg-details-analytics',this)">
+          <span>Pokaż szczegóły</span><span class="wg-expand-icon">▾</span>
         </button>
-        <div class="wg-cat-details" id="details-analytics">
+        <div class="wg-cat-details" id="wg-details-analytics">
           <table class="wg-cookie-table">
-            <thead>
-              <tr><th>Nazwa</th><th>Dostawca</th><th>Cel</th><th>Ważność</th></tr>
-            </thead>
+            <thead><tr><th>Nazwa</th><th>Dostawca</th><th>Cel</th><th>Ważność</th></tr></thead>
             <tbody>
-              <tr><td>_ga</td><td>Google</td><td>Unikalny identyfikator użytkownika GA4</td><td>24 miesiące</td></tr>
-              <tr><td>_ga_*</td><td>Google</td><td>Przechowywanie stanu sesji GA4</td><td>24 miesiące</td></tr>
+              <tr><td>_ga</td><td>Google</td><td>Identyfikator GA4</td><td>24 miesiące</td></tr>
+              <tr><td>_ga_*</td><td>Google</td><td>Stan sesji GA4</td><td>24 miesiące</td></tr>
               <tr><td>_gid</td><td>Google</td><td>Odróżnianie użytkowników</td><td>24 godziny</td></tr>
             </tbody>
           </table>
         </div>
       </div>
-
-      <!-- Kategoria 3: Marketingowe -->
       <div class="wg-cookie-category">
         <div class="wg-cat-header">
           <div class="wg-cat-info">
-            <div class="wg-cat-title">
-              Marketingowe
-              <span class="wg-cat-badge wg-badge-optional">OPCJONALNE</span>
-            </div>
-            <p class="wg-cat-desc">
-              Umożliwiają personalizację reklam (Meta Pixel / Facebook). Pozwalają nam dotrzeć
-              do użytkowników zainteresowanych naszymi usługami na platformach zewnętrznych.
-            </p>
+            <div class="wg-cat-title">Marketingowe <span class="wg-cat-badge wg-badge-optional">OPCJONALNE</span></div>
+            <p class="wg-cat-desc">Meta Pixel — personalizacja reklam Facebook/Instagram.</p>
           </div>
-          <label class="wg-toggle">
-            <input type="checkbox" id="cookie-marketing">
-            <span class="wg-toggle-slider"></span>
-          </label>
+          <label class="wg-toggle"><input type="checkbox" id="wg-marketing"><span class="wg-toggle-slider"></span></label>
         </div>
-        <button class="wg-expand-btn" onclick="WgCookies.toggleDetails('details-marketing', this)" aria-expanded="false">
-          <span>Pokaż szczegóły</span>
-          <span class="wg-expand-icon">▾</span>
+        <button class="wg-expand-btn" onclick="WgCookies.toggleDetails('wg-details-marketing',this)">
+          <span>Pokaż szczegóły</span><span class="wg-expand-icon">▾</span>
         </button>
-        <div class="wg-cat-details" id="details-marketing">
+        <div class="wg-cat-details" id="wg-details-marketing">
           <table class="wg-cookie-table">
-            <thead>
-              <tr><th>Nazwa</th><th>Dostawca</th><th>Cel</th><th>Ważność</th></tr>
-            </thead>
+            <thead><tr><th>Nazwa</th><th>Dostawca</th><th>Cel</th><th>Ważność</th></tr></thead>
             <tbody>
-              <tr><td>_fbp</td><td>Meta (Facebook)</td><td>Śledzenie konwersji Meta Ads</td><td>3 miesiące</td></tr>
-              <tr><td>_fbc</td><td>Meta (Facebook)</td><td>Identyfikacja kliknięć reklamowych</td><td>24 miesiące</td></tr>
+              <tr><td>_fbp</td><td>Meta</td><td>Śledzenie konwersji</td><td>3 miesiące</td></tr>
+              <tr><td>_fbc</td><td>Meta</td><td>Kliknięcia reklamowe</td><td>24 miesiące</td></tr>
             </tbody>
           </table>
         </div>
       </div>
-
-    </div><!-- /modal-body -->
-
+    </div>
     <div class="wg-modal-footer">
       <button class="wg-btn wg-btn-accept-all" onclick="WgCookies.acceptAll()">Akceptuję wszystkie</button>
-      <button class="wg-btn wg-btn-save" onclick="WgCookies.saveSettings()">Zapisz moje ustawienia</button>
+      <button class="wg-btn wg-btn-save" onclick="WgCookies.saveSettings()">Zapisz ustawienia</button>
       <button class="wg-btn wg-btn-reject-all" onclick="WgCookies.rejectAll()">Tylko niezbędne</button>
     </div>
-
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════ -->
-<!-- FLOATING SETTINGS BUTTON                  -->
-<!-- ══════════════════════════════════════════ -->
-<button id="wg-cookie-settings-btn" onclick="WgCookies.showSettings()" aria-label="Zmień ustawienia cookie">
-  🍪 Ustawienia cookie
-</button>
-
-<!-- ══════════════════════════════════════════ -->
-
-<!-- ── FLOATING SETTINGS BTN ── -->
-<button id="wg-cookie-settings-btn" onclick="WgCookies.showSettings()" aria-label="Zmień ustawienia cookie">
-  🍪 Ustawienia cookie
-</button>
+<!-- Przycisk ustawień (po akceptacji) -->
+<button id="wg-cookie-settings-btn" onclick="WgCookies.showSettings()">🍪 Ustawienia cookie</button>
 
 <script>
-(function() {
+(function(){
   'use strict';
+  var KEY = 'wg_cookie_consent';
+  var VER = '1.0';
 
-  const STORAGE_KEY = 'wg_cookie_consent';
-  const CONSENT_VERSION = '1.0';
+  var WgCookies = {
+    getConsent: function(){
+      try{
+        var raw = localStorage.getItem(KEY);
+        if(!raw) return null;
+        var d = JSON.parse(raw);
+        return d.version === VER ? d : null;
+      }catch(e){ return null; }
+    },
 
-  // ─── Wbuduj ten blok jako PIERWSZY skrypt na stronie ───
-  // (przed Google Analytics, Meta Pixel itp.)
-  // Np: <script src="/cookie-consent.js"></script>
+    saveConsent: function(analytics, marketing){
+      var d = {
+        version: VER,
+        timestamp: new Date().toISOString(),
+        necessary: true,
+        analytics: !!analytics,
+        marketing: !!marketing
+      };
+      localStorage.setItem(KEY, JSON.stringify(d));
+      this._apply(d);
+      return d;
+    },
+
+    _apply: function(c){
+      if(c.analytics){
+        console.log('[webgen] GA4 aktywny');
+        /* Odkomentuj gdy bedziesz miec GA4 Measurement ID:
+        if(!window._wg_ga){
+          window._wg_ga = true;
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
+          document.head.appendChild(s);
+          window.dataLayer = window.dataLayer||[];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js',new Date()); gtag('config','G-XXXXXXXXXX',{anonymize_ip:true});
+          window.gtag = gtag;
+        } */
+      } else {
+        ['_ga','_gid'].forEach(function(n){
+          document.cookie = n+'=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=.'+location.hostname;
+        });
+      }
+      if(c.marketing){
+        console.log('[webgen] Meta Pixel aktywny');
+      }
+    },
+
+    init: function(){
+      var c = this.getConsent();
+      if(c){
+        this._apply(c);
+        this._showBtn();
+      } else {
+        var self = this;
+        setTimeout(function(){ self.showBanner(); }, 600);
+      }
+    },
+
+    showBanner: function(){
+      var b = document.getElementById('wg-cookie-banner');
+      b.style.animation = 'none';
+      void b.offsetHeight;
+      b.style.animation = '';
+      b.classList.add('active');
+    },
+
+    hideBanner: function(){
+      document.getElementById('wg-cookie-banner').classList.remove('active');
+    },
+
+    showSettings: function(){
+      var c = this.getConsent();
+      if(c){
+        document.getElementById('wg-analytics').checked = c.analytics;
+        document.getElementById('wg-marketing').checked = c.marketing;
+      }
+      document.getElementById('wg-cookie-overlay').classList.add('active');
+      document.getElementById('wg-cookie-modal').classList.add('active');
+    },
+
+    closeSettings: function(){
+      document.getElementById('wg-cookie-overlay').classList.remove('active');
+      document.getElementById('wg-cookie-modal').classList.remove('active');
+    },
+
+    acceptAll: function(){
+      document.getElementById('wg-analytics').checked = true;
+      document.getElementById('wg-marketing').checked = true;
+      this.saveConsent(true, true);
+      this.hideBanner();
+      this.closeSettings();
+      this._showBtn();
+    },
+
+    rejectAll: function(){
+      document.getElementById('wg-analytics').checked = false;
+      document.getElementById('wg-marketing').checked = false;
+      this.saveConsent(false, false);
+      this.hideBanner();
+      this.closeSettings();
+      this._showBtn();
+    },
+
+    saveSettings: function(){
+      var a = document.getElementById('wg-analytics').checked;
+      var m = document.getElementById('wg-marketing').checked;
+      this.saveConsent(a, m);
+      this.hideBanner();
+      this.closeSettings();
+      this._showBtn();
+    },
+
+    toggleDetails: function(id, btn){
+      var el = document.getElementById(id);
+      var open = el.classList.toggle('expanded');
+      btn.classList.toggle('open', open);
+      btn.querySelectorAll('span')[0].textContent = open ? 'Ukryj szczegóły' : 'Pokaż szczegóły';
+      btn.setAttribute('aria-expanded', open);
+    },
+
+    _showBtn: function(){
+      document.getElementById('wg-cookie-settings-btn').classList.add('visible');
+    }
+  };
+
+  document.getElementById('wg-cookie-overlay').addEventListener('click', function(){
+    WgCookies.closeSettings();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') WgCookies.closeSettings();
+  });
+
+  window.WgCookies = WgCookies;
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', function(){ WgCookies.init(); });
+  } else {
+    WgCookies.init();
+  }
+})();
+</script>
 
 </body>
 </html>
