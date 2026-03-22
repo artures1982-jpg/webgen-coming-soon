@@ -755,9 +755,8 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:56px 48px
 /* ─────────────────────────────────────────────── */
 
 
-.saas-plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-@media(max-width:900px){.saas-plans-grid{grid-template-columns:1fr 1fr!important}}
-@media(max-width:600px){.saas-plans-grid{grid-template-columns:1fr!important}}
+@media(max-width:900px){}
+@media(max-width:600px){}
 </style>
 </head>
 <body><div style="position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(22,18,6,.95);border-bottom:2px solid rgba(251,191,36,.5);padding:9px 20px;text-align:center;font-family:monospace;font-size:12px;color:#FCD34D"><strong style="color:#FBBF24">STRIPE TEST MODE</strong> &nbsp;|&nbsp; Karta: <strong style="color:#fff">4242 4242 4242 4242</strong> &nbsp;|&nbsp; Data: <strong style="color:#fff">12/29</strong> &nbsp;|&nbsp; CVC: <strong style="color:#fff">123</strong></div><div style="height:40px"></div>
@@ -906,7 +905,7 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:56px 48px
       <div class="plan">
         <div class="plan-name">Free</div>
         <div class="plan-price">0 <sub>zł/mies.</sub></div>
-        <div class="plan-desc">3 miesiące za darmo, bez karty. Potem <strong style="color:var(--green)">SaaS Starter 49 zł/mies.</strong> lub upgrade do Managed.</div>
+        <div class="plan-desc">3 miesiące za darmo, bez karty. Potem <strong style="color:var(--green)">plan Managed START 249 zł/mies.</strong> lub upgrade do Managed.</div>
         <div class="plan-divider"></div>
         <div class="plan-features">
           <div class="pf"><span class="pf-check yes">✓</span>Wygenerowana strona AI</div>
@@ -955,275 +954,32 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:56px 48px
   </div>
 </section>
 
-<!-- ══ SAAS PLANS ══════════════════════════════════════════════════════ -->
-<section class="section" 
-id="saas" style="background:var(--s1)">
-  <div class="pricing-inner">
-    <div class="sec-eyebrow">SaaS — robisz sam</div>
-    <h2 class="sec-title">Generator AI<br>w <span class="grad">Twoich rękach</span></h2>
-    <p class="sec-sub">Wejdź do generatora, wpisz branżę i miasto — strona gotowa w 3 minuty. Hostujesz u nas.</p>
-    <div class="plans-grid saas-plans-grid">
 
-      <!-- SaaS Starter -->
-      <div class="plan featured">
-        <div class="plan-tag">ZACZNIJ ZA DARMO</div>
-        <div class="plan-name">SaaS Starter</div>
-        <div class="plan-price">49 <sub>zł/mies.</sub></div>
-        <div class="plan-desc">Po darmowych 3 miesiącach. Generator AI, hosting, SSL.</div>
-        <div class="plan-divider"></div>
-        <div class="plan-features">
-          <div class="pf"><span class="pf-check yes">✓</span>Generator AI (1 strona)</div>
-          <div class="pf"><span class="pf-check yes">✓</span>Hosting na *.webgen.pl</div>
-          <div class="pf"><span class="pf-check yes">✓</span>SSL automatyczny</div>
-          <div class="pf"><span class="pf-check yes">✓</span>Lokalne SEO podstawowe</div>
-          <div class="pf muted"><span class="pf-check no">–</span>Własna domena</div>
-          <div class="pf muted"><span class="pf-check no">–</span>SEO zaawansowane</div>
-        </div>
-        <a href="/test/generator/" class="plan-btn primary">Zacznij za darmo →</a>
-      </div>
-
-      <!-- SaaS Pro -->
-      <div class="plan">
-        <div class="plan-name">SaaS Pro</div>
-        <div class="plan-price">129 <sub>zł/mies.</sub></div>
-        <div class="plan-desc">Własna domena, zaawansowane SEO, bez limitu stron.</div>
-        <div class="plan-divider"></div>
-        <div class="plan-features">
-          <div class="pf"><span class="pf-check yes">✓</span>Generator AI (bez limitu)</div>
-          <div class="pf"><span class="pf-check yes">✓</span>Własna domena</div>
-          <div class="pf"><span class="pf-check yes">✓</span>SEO zaawansowane</div>
-          <div class="pf"><span class="pf-check yes">✓</span>Google Analytics GA4</div>
-          <div class="pf"><span class="pf-check yes">✓</span>5 szablonów premium</div>
-          <div class="pf muted"><span class="pf-check no">–</span>White-label</div>
-        </div>
-        <a href="https://buy.stripe.com/test_eVq5kD21j8Pua7e01G3gk05" target="_blank" class="plan-btn outline">SaaS Pro 129 zł →</a>
-      </div>
-
-      <!-- SaaS Agency -->
-      <div class="plan">
-        <div class="plan-name">SaaS Agency</div>
-        <div class="plan-price">399 <sub>zł/mies.</sub></div>
-        <div class="plan-desc">Dla agencji — white-label, panel klientów, API, domeny.</div>
-        <div class="plan-divider"></div>
-        <div class="plan-features">
-          <div class="pf"><span class="pf-check yes">✓</span>Wszystko z Pro</div>
-          <div class="pf"><span class="pf-check yes">✓</span>White-label (bez logo webgen)</div>
-          <div class="pf"><span class="pf-check yes">✓</span>Panel zarządzania klientami</div>
-          <div class="pf"><span class="pf-check yes">✓</span>Dostęp API</div>
-          <div class="pf"><span class="pf-check yes">✓</span>Nielimitowane domeny klientów</div>
-          <div class="pf"><span class="pf-check yes">✓</span>Priorytetowe wsparcie</div>
-        </div>
-        <a href="https://buy.stripe.com/test_5kQ00j9tL2r66V215K3gk04" target="_blank" class="plan-btn outline">Agency 399 zł →</a>
-      </div>
-
-    </div>
-    <div style="text-align:center;margin-top:20px">
-      <a href="/test/cennik/" style="color:var(--muted);font-size:14px;text-decoration:none;font-family:var(--mono)">Pełny cennik z wszystkimi planami i add-onami →</a>
-    </div>
-  </div>
-</section>
 
 <!-- ══ PORÓWNANIE PLANÓW ════════════════════════════════════════════════ -->
 <section class="section" id="porownanie" style="background:var(--bg)">
   <div style="max-width:1100px;margin:0 auto">
     <div class="sec-eyebrow">Porównanie</div>
     <h2 class="sec-title">Który plan <span class="grad">dla Ciebie?</span></h2>
-    <p class="sec-sub" style="margin-bottom:40px">Managed = my robimy wszystko. SaaS = robisz sam w generatorze.</p>
+    <p class="sec-sub" style="margin-bottom:40px">Managed = my robimy wszystko. Free = 3 miesiące gratis, potem przejście na plan Managed.</p>
 
     <!-- DESKTOP: tabela -->
     <div class="compare-table-desktop" style="border-radius:14px;border:1px solid var(--border);overflow:hidden">
       <table class="compare-table" style="width:100%;border-collapse:collapse;font-size:14px">
-        <thead>
-          <tr style="background:var(--s2)">
-            <th style="text-align:left;padding:14px 18px;color:var(--muted);font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--border)">Funkcja</th>
-            <th style="text-align:center;padding:14px 12px;color:var(--muted);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--border)">Free<br><span style="font-size:12px;color:var(--text);font-weight:700">0 zł</span></th>
-            <th style="text-align:center;padding:14px 12px;color:var(--green);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;border-bottom:2px solid var(--green);background:rgba(0,229,160,.04)">Managed START<br><span style="font-size:12px;font-weight:700">249 zł</span></th>
-            <th style="text-align:center;padding:14px 12px;color:var(--muted);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--border)">Managed PRO<br><span style="font-size:12px;color:var(--text);font-weight:700">399 zł</span></th>
-            <th style="text-align:center;padding:14px 12px;color:var(--muted);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--border)">SaaS Starter<br><span style="font-size:12px;color:var(--text);font-weight:700">49 zł</span></th>
-            <th style="text-align:center;padding:14px 12px;color:var(--muted);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--border)">SaaS Pro<br><span style="font-size:12px;color:var(--text);font-weight:700">129 zł</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="border-bottom:1px solid var(--border)">
-            <td style="padding:12px 18px;color:var(--text);font-weight:600">Strona internetowa</td>
-            <td style="text-align:center;color:var(--green)">✓</td>
-            <td style="text-align:center;color:var(--green);background:rgba(0,229,160,.03)">✓</td>
-            <td style="text-align:center;color:var(--green)">✓</td>
-            <td style="text-align:center;color:var(--green)">✓</td>
-            <td style="text-align:center;color:var(--green)">✓</td>
-          </tr>
-          <tr style="border-bottom:1px solid var(--border);background:rgba(255,255,255,.01)">
-            <td style="padding:12px 18px;color:var(--text);font-weight:600">My robimy wszystko</td>
-            <td style="text-align:center;color:var(--muted)">–</td>
-            <td style="text-align:center;color:var(--green);background:rgba(0,229,160,.03)">✓</td>
-            <td style="text-align:center;color:var(--green)">✓</td>
-            <td style="text-align:center;color:var(--muted)">–</td>
-            <td style="text-align:center;color:var(--muted)">–</td>
-          </tr>
-          <tr style="border-bottom:1px solid var(--border)">
-            <td style="padding:12px 18px;color:var(--text);font-weight:600">Lokalne SEO</td>
-            <td style="text-align:center;color:var(--muted);font-size:12px">podstawowe</td>
-            <td style="text-align:center;color:var(--green);background:rgba(0,229,160,.03)">✓</td>
-            <td style="text-align:center;color:var(--green)">zaawansowane</td>
-            <td style="text-align:center;color:var(--muted);font-size:12px">podstawowe</td>
-            <td style="text-align:center;color:var(--green)">zaawansowane</td>
-          </tr>
-          <tr style="border-bottom:1px solid var(--border);background:rgba(255,255,255,.01)">
-            <td style="padding:12px 18px;color:var(--text);font-weight:600">Własna domena</td>
-            <td style="text-align:center;color:var(--muted)">–</td>
-            <td style="text-align:center;color:var(--green);background:rgba(0,229,160,.03)">✓</td>
-            <td style="text-align:center;color:var(--green)">✓</td>
-            <td style="text-align:center;color:var(--muted)">–</td>
-            <td style="text-align:center;color:var(--green)">✓</td>
-          </tr>
-          <tr style="border-bottom:1px solid var(--border)">
-            <td style="padding:12px 18px;color:var(--text);font-weight:600">Aktualizacje przez email</td>
-            <td style="text-align:center;color:var(--muted)">–</td>
-            <td style="text-align:center;color:var(--green);background:rgba(0,229,160,.03)">✓</td>
-            <td style="text-align:center;color:var(--green)">✓</td>
-            <td style="text-align:center;color:var(--muted)">sam</td>
-            <td style="text-align:center;color:var(--muted)">sam</td>
-          </tr>
-          <tr style="border-bottom:1px solid var(--border);background:rgba(255,255,255,.01)">
-            <td style="padding:12px 18px;color:var(--text);font-weight:600">Raport SEO miesięczny</td>
-            <td style="text-align:center;color:var(--muted)">–</td>
-            <td style="text-align:center;color:var(--muted);background:rgba(0,229,160,.03)">–</td>
-            <td style="text-align:center;color:var(--green)">✓</td>
-            <td style="text-align:center;color:var(--muted)">–</td>
-            <td style="text-align:center;color:var(--muted)">–</td>
-          </tr>
-          <tr>
-            <td style="padding:12px 18px;color:var(--text);font-weight:600">Blog + podstrony dzielnic</td>
-            <td style="text-align:center;color:var(--muted)">–</td>
-            <td style="text-align:center;color:var(--muted);background:rgba(0,229,160,.03)">–</td>
-            <td style="text-align:center;color:var(--green)">✓</td>
-            <td style="text-align:center;color:var(--muted)">–</td>
-            <td style="text-align:center;color:var(--muted)">–</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- MOBILE: karty porównania (pokazane tylko na ≤700px) -->
-    <div class="compare-cards-mobile" style="flex-direction:column;gap:12px">
-
-      <!-- Free -->
-      <div style="background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:18px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-          <div style="font-size:16px;font-weight:800">Free</div>
-          <div style="font-family:var(--mono);font-size:18px;font-weight:700;color:var(--green)">0 zł <span style="font-size:11px;color:var(--muted)">3 mies.</span></div>
-        </div>
-        <div style="font-size:13px;color:var(--muted);line-height:1.8">
-          <span style="color:var(--green)">✓</span> Strona na *.webgen.pl<br>
-          <span style="color:var(--green)">✓</span> Generator AI + hosting<br>
-          <span style="opacity:.4">–</span> Własna domena / SEO zaaw.
-        </div>
-        <a href="/test/generator/" style="display:block;text-align:center;margin-top:14px;background:transparent;border:1.5px solid var(--green);color:var(--green);padding:10px;border-radius:9px;font-size:14px;font-weight:700;text-decoration:none">Zacznij za darmo →</a>
-      </div>
-
-      <!-- Managed START — wyróżniony -->
-      <div style="background:rgba(0,229,160,.05);border:1.5px solid var(--green);border-radius:12px;padding:18px;position:relative">
-        <div style="position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--green);color:#080A0F;font-size:10px;font-weight:800;padding:3px 14px;border-radius:10px;white-space:nowrap">POLECAMY</div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-          <div style="font-size:16px;font-weight:800">Managed START</div>
-          <div style="font-family:var(--mono);font-size:18px;font-weight:700;color:var(--green)">249 zł<span style="font-size:11px;color:var(--muted)">/mies.</span></div>
-        </div>
-        <div style="font-size:13px;color:var(--muted);line-height:1.8">
-          <span style="color:var(--green)">✓</span> My robimy wszystko<br>
-          <span style="color:var(--green)">✓</span> Lokalne SEO + własna domena<br>
-          <span style="color:var(--green)">✓</span> Aktualizacje przez email<br>
-          <span style="color:var(--green)">✓</span> PageSpeed 90+
-        </div>
-        <a href="https://buy.stripe.com/test_eVq5kD8pH8Pu4MUeWA3gk01" target="_blank" style="display:block;text-align:center;margin-top:14px;background:var(--green);color:#080A0F;padding:11px;border-radius:9px;font-size:14px;font-weight:700;text-decoration:none">Kup Managed START →</a>
-      </div>
-
-      <!-- Managed PRO -->
-      <div style="background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:18px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-          <div style="font-size:16px;font-weight:800">Managed PRO</div>
-          <div style="font-family:var(--mono);font-size:18px;font-weight:700">399 zł<span style="font-size:11px;color:var(--muted)">/mies.</span></div>
-        </div>
-        <div style="font-size:13px;color:var(--muted);line-height:1.8">
-          <span style="color:var(--green)">✓</span> Wszystko z START<br>
-          <span style="color:var(--green)">✓</span> Raport SEO co miesiąc<br>
-          <span style="color:var(--green)">✓</span> Blog 2 wpisy/mies. + 5 dzielnic
-        </div>
-        <a href="https://buy.stripe.com/test_aFafZh35nc1GfrycOs3gk02" target="_blank" style="display:block;text-align:center;margin-top:14px;background:transparent;border:1px solid var(--border2);color:var(--text);padding:10px;border-radius:9px;font-size:14px;font-weight:600;text-decoration:none">Managed PRO →</a>
-      </div>
-
-      <!-- SaaS Starter -->
-      <div style="background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:18px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-          <div style="font-size:16px;font-weight:800">SaaS Starter</div>
-          <div style="font-family:var(--mono);font-size:18px;font-weight:700">49 zł<span style="font-size:11px;color:var(--muted)">/mies.</span></div>
-        </div>
-        <div style="font-size:13px;color:var(--muted);line-height:1.8">
-          <span style="color:var(--green)">✓</span> Generator AI + hosting<br>
-          <span style="color:var(--green)">✓</span> Lokalne SEO podstawowe<br>
-          <span style="opacity:.4">–</span> Własna domena
-        </div>
-        <a href="https://buy.stripe.com/test_5kQbJ10Xfe9O1AI4hW3gk04" target="_blank" style="display:block;text-align:center;margin-top:14px;background:transparent;border:1px solid var(--border2);color:var(--text);padding:10px;border-radius:9px;font-size:14px;font-weight:600;text-decoration:none">SaaS Starter →</a>
-      </div>
-
-    </div>
-
-    <div style="text-align:center;margin-top:20px">
-      <a href="/test/cennik/" style="color:var(--muted);font-size:13px;font-family:var(--mono);text-decoration:none">Pełne porównanie wszystkich planów →</a>
-    </div>
-  </div>
-</section>
-
-<!-- WHY WEBGEN -->
-<div class="why" id="dlaczego">
-  <div class="why-inner">
-    <div class="sec-eyebrow">Dlaczego Webgen</div>
-    <h2 class="sec-title">Zbudowane specjalnie<br>dla <span class="grad">polskiego rynku</span></h2>
-    <div class="why-grid">
-      <div class="why-item">
-        <div class="wi-icon">🇵🇱</div>
-        <h3 class="wi-title">Lokalne SEO po polsku</h3>
-        <p class="wi-desc">Treści generowane pod konkretne zapytania: "hydraulik Mokotów", "remont mieszkania Wola". Schema.org LocalBusiness skonfigurowana po polsku.</p>
-      </div>
-      <div class="why-item">
-        <div class="wi-icon">⚡</div>
-        <h3 class="wi-title">PageSpeed 90+ gwarantowany</h3>
-        <p class="wi-desc">Hosting na Cloudflare CDN, zoptymalizowany HTML/CSS. Twoja strona ładuje się w mniej niż sekundę nawet na telefonie.</p>
-      </div>
-      <div class="why-item">
-        <div class="wi-icon">🤖</div>
-        <h3 class="wi-title">Agent AI — zero pracy</h3>
-        <p class="wi-desc">Napisz email "zmień godziny otwarcia" — nasz agent aktualizuje stronę automatycznie. Żadnego logowania, żadnych paneli.</p>
-      </div>
-      <div class="why-item">
-        <div class="wi-icon">💶</div>
-        <h3 class="wi-title">10× tańsze od agencji</h3>
-        <p class="wi-desc">Agencja bierze 3000–8000 zł za stronę + 300 zł/mies. za hosting. Webgen: 249 zł/mies. wszystko wliczone. Bez umów długoterminowych.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- COMPARISON -->
-<section class="section">
-  <div class="compare-inner">
-    <div class="sec-eyebrow">Porównanie</div>
-    <h2 class="sec-title">Webgen vs.<br><span class="grad">alternatywy</span></h2>
-    <table class="compare-table">
-      <thead>
-        <tr>
-          <th>Funkcja</th>
+        
+            
           <th class="highlight">Webgen Managed</th>
           <th>Agencja webowa</th>
           <th>WordPress samemu</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>Czas uruchomienia</td><td class="yes highlight">3 minuty</td><td class="no">4–8 tygodni</td><td class="no">2–4 tygodnie</td></tr>
-        <tr><td>Koszt</td><td class="yes highlight">249 zł/mies.</td><td class="no">3000–8000 zł jednorazowo</td><td class="no">200–600 zł/mies. (hosting + pluginy)</td></tr>
-        <tr><td>Lokalne SEO PL</td><td class="yes highlight">✓ Automatyczne</td><td class="no">Za dopłatą</td><td class="no">Ręczna konfiguracja</td></tr>
-        <tr><td>PageSpeed 90+</td><td class="yes highlight">✓ Gwarantowany</td><td class="no">Zależy od wykonawcy</td><td class="no">Wymaga optymalizacji</td></tr>
-        <tr><td>Aktualizacje treści</td><td class="yes highlight">Email → gotowe</td><td class="no">Płatne zlecenie</td><td class="no">Samodzielnie</td></tr>
-        <tr><td>Bezpieczeństwo</td><td class="yes highlight">✓ Cloudflare WAF</td><td class="no">Zależy</td><td class="no">Ciągłe aktualizacje pluginów</td></tr>
+        <tr><td>Czas uruchomienia</td><td class="yes highlight">3 minuty</td></tr>
+        <tr><td>Koszt</td><td class="yes highlight">249 zł/mies.</td></tr>
+        <tr><td>Lokalne SEO PL</td><td class="yes highlight">✓ Automatyczne</td></tr>
+        <tr><td>PageSpeed 90+</td><td class="yes highlight">✓ Gwarantowany</td></tr>
+        <tr><td>Aktualizacje treści</td><td class="yes highlight">Email → gotowe</td></tr>
+        <tr><td>Bezpieczeństwo</td><td class="yes highlight">✓ Cloudflare WAF</td></tr>
       </tbody>
     </table>
   </div>

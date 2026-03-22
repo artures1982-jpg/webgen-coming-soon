@@ -260,10 +260,7 @@ footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify
   <h1>Prosty cennik,<br><span>bez ukrytych kosztów</span></h1>
   <p class="hero-sub">Wybierz plan dopasowany do Twoich potrzeb. Rezygnacja w każdej chwili, bez umów.</p>
 
-  <div class="tabs" id="tabs">
-    <button class="tab-btn active" onclick="switchTab(this,'managed')">Managed (my robimy)</button>
-    <button class="tab-btn" onclick="switchTab(this,'saas')">SaaS (robisz sam)</button>
-  </div>
+  
 </section>
 
 <!-- MANAGED PLANS -->
@@ -332,61 +329,8 @@ footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify
   </div>
 </div>
 
-<!-- SAAS PLANS -->
-<div class="plans-section" id="saas">
-  <div class="plans-grid">
 
-    <div class="plan">
-      <div class="plan-name">SaaS Starter</div>
-      <div class="plan-price">49 <sub>zł/mies.</sub></div>
-      <p class="plan-desc">Dostęp do generatora AI. Tworzysz i zarządzasz sam.</p>
-      <div class="plan-divider"></div>
-      <div class="plan-features">
-        <div class="pf"><span class="pf-check yes">✓</span>Generator AI (1 strona)</div>
-        <div class="pf"><span class="pf-check yes">✓</span>Hosting na subdomenie webgen.pl</div>
-        <div class="pf"><span class="pf-check yes">✓</span>SSL automatyczny</div>
-        <div class="pf"><span class="pf-check yes">✓</span>Edycja przez panel</div>
-        <div class="pf dim"><span class="pf-check no">–</span>Własna domena</div>
-        <div class="pf dim"><span class="pf-check no">–</span>Lokalne SEO zaawansowane</div>
-      </div>
-      <a href="https://buy.stripe.com/test_5kQbJ10Xfe9O1AI4hW3gk04" class="plan-btn outline" target="_blank">Kup teraz →</a>
-    </div>
 
-    <div class="plan featured">
-      <div class="plan-tag">NAJPOPULARNIEJSZY</div>
-      <div class="plan-name">SaaS Pro</div>
-      <div class="plan-price">129 <sub>zł/mies.</sub></div>
-      <p class="plan-desc">Bez limitu stron, własna domena, zaawansowane SEO.</p>
-      <div class="plan-divider"></div>
-      <div class="plan-features">
-        <div class="pf"><span class="pf-check yes">✓</span>Generator AI (bez limitu)</div>
-        <div class="pf"><span class="pf-check yes">✓</span>Własna domena</div>
-        <div class="pf"><span class="pf-check yes">✓</span>Lokalne SEO zaawansowane</div>
-        <div class="pf"><span class="pf-check yes">✓</span>5 szablonów do wyboru</div>
-        <div class="pf"><span class="pf-check yes">✓</span>Google Analytics integracja</div>
-        <div class="pf dim"><span class="pf-check no">–</span>White-label</div>
-      </div>
-      <a href="https://buy.stripe.com/test_eVq5kD21j8Pua7e01G3gk05" class="plan-btn primary" target="_blank">Kup teraz →</a>
-    </div>
-
-    <div class="plan">
-      <div class="plan-name">SaaS Agency</div>
-      <div class="plan-price">399 <sub>zł/mies.</sub></div>
-      <p class="plan-desc">Dla agencji i freelancerów — white-label, panel klientów.</p>
-      <div class="plan-divider"></div>
-      <div class="plan-features">
-        <div class="pf"><span class="pf-check yes">✓</span>Wszystko z Pro</div>
-        <div class="pf"><span class="pf-check yes">✓</span>White-label (brak logo Webgen)</div>
-        <div class="pf"><span class="pf-check yes">✓</span>Panel zarządzania klientami</div>
-        <div class="pf"><span class="pf-check yes">✓</span>API dostęp</div>
-        <div class="pf"><span class="pf-check yes">✓</span>Nieograniczone domeny klientów</div>
-        <div class="pf"><span class="pf-check yes">✓</span>Priorytetowe wsparcie</div>
-      </div>
-      <a href="https://buy.stripe.com/test_5kQ00j9tL2r66V215K3gk06" class="plan-btn outline" target="_blank">Kup teraz →</a>
-    </div>
-
-  </div>
-</div>
 
 <!-- ADD-ONY -->
 <div class="addons-section">
@@ -508,15 +452,15 @@ footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify
   </div>
   <div class="faq-item">
     <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Jak długo trwa uruchomienie strony?<span class="faq-arrow">+</span></div>
-    <div class="faq-a"><p>W planie Managed strona jest gotowa tego samego dnia — zazwyczaj w ciągu 2-4 godzin od zamówienia. W SaaS możesz wygenerować stronę samodzielnie w 3 minuty.</p></div>
+    <div class="faq-a"><p>W planie Managed strona jest gotowa tego samego dnia — zazwyczaj w ciągu 2-4 godzin od zamówienia.</p></div>
   </div>
   <div class="faq-item">
     <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Czy muszę mieć własną domenę?<span class="faq-arrow">+</span></div>
-    <div class="faq-a"><p>W planie Managed pomagamy Ci zarejestrować domenę lub podpinamy Twoją istniejącą. W SaaS Starter strona działa na subdomenie *.webgen.pl. Własna domena od planu SaaS Pro.</p></div>
+    <div class="faq-a"><p>W planie Managed pomagamy Ci zarejestrować domenę lub podpinamy Twoją istniejącą. Strona działa na subdomenie *.webgen.pl lub własnej domenie w planie Managed PRO/PREMIUM.</p></div>
   </div>
   <div class="faq-item">
     <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Jak zmienić treść strony po wygenerowaniu?<span class="faq-arrow">+</span></div>
-    <div class="faq-a"><p>W planie Managed wystarczy wysłać email — np. "zmień numer telefonu na...". W SaaS edytujesz samodzielnie przez panel administracyjny.</p></div>
+    <div class="faq-a"><p>W planie Managed wystarczy wysłać email — np. "zmień numer telefonu na...".</p></div>
   </div>
   <div class="faq-item">
     <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Czy Webgen działa poza Warszawą?<span class="faq-arrow">+</span></div>
@@ -534,12 +478,7 @@ footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify
 </footer>
 
 <script>
-function switchTab(btn, section) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.plans-section').forEach(s => s.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById(section).classList.add('active');
-}
+
 </script>
 
 <script>

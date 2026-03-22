@@ -1041,11 +1041,11 @@ input::placeholder,textarea::placeholder{color:rgba(136,146,170,.5)}
       </div>
 
       <!-- Plany w 2 kolumnach -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
+      <div style="display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:20px">
 
         <!-- MANAGED -->
         <div>
-          <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)">My robimy wszystko</div>
+          <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)">Wybierz plan</div>
 
           <div class="plan6-card" id="p6-managed_start" onclick="selectPlan6('managed_start','Managed START',249)"
             style="position:relative;background:var(--s2);border:1.5px solid var(--green);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;transition:all .2s">
@@ -1087,52 +1087,8 @@ input::placeholder,textarea::placeholder{color:rgba(136,146,170,.5)}
           </div>
         </div>
 
-        <!-- SAAS + FREE -->
-        <div>
-          <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)">Zarządzasz sam</div>
-
-          <div class="plan6-card" id="p6-free" onclick="selectPlan6('free','Free',0)"
-            style="position:relative;background:var(--s2);border:1.5px solid var(--border);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;transition:all .2s">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-              <div>
-                <div style="font-size:14px;font-weight:700;color:var(--text)">Free</div>
-                <div style="font-size:10px;color:var(--green);font-family:var(--mono)">3 mies. za darmo</div>
-              </div>
-              <div style="text-align:right">
-                <div style="font-family:var(--mono);font-size:17px;font-weight:700;color:var(--green)">0 zł</div>
-                <div style="font-size:10px;color:var(--muted)">potem 49 zł</div>
-              </div>
-            </div>
-            <div style="font-size:11px;color:var(--muted);line-height:1.6">
-              <span style="color:var(--green)">✓</span> Strona na *.webgen.pl<br>
-              <span style="opacity:.4">–</span> Własna domena
-            </div>
-          </div>
-
-          <div class="plan6-card" id="p6-saas_starter" onclick="selectPlan6('saas_starter','SaaS Starter',49)"
-            style="position:relative;background:var(--s2);border:1.5px solid var(--border);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;transition:all .2s">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-              <div style="font-size:14px;font-weight:700;color:var(--text)">SaaS Starter</div>
-              <div style="font-family:var(--mono);font-size:17px;font-weight:700;color:var(--text)">49 zł<span style="font-size:11px;color:var(--muted)">/mies.</span></div>
-            </div>
-            <div style="font-size:11px;color:var(--muted);line-height:1.6">
-              <span style="color:var(--green)">✓</span> Generator AI + hosting<br>
-              <span style="opacity:.4">–</span> Własna domena
-            </div>
-          </div>
-
-          <div class="plan6-card" id="p6-saas_pro" onclick="selectPlan6('saas_pro','SaaS Pro',129)"
-            style="position:relative;background:var(--s2);border:1.5px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all .2s">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-              <div style="font-size:14px;font-weight:700;color:var(--text)">SaaS Pro</div>
-              <div style="font-family:var(--mono);font-size:17px;font-weight:700;color:var(--text)">129 zł<span style="font-size:11px;color:var(--muted)">/mies.</span></div>
-            </div>
-            <div style="font-size:11px;color:var(--muted);line-height:1.6">
-              <span style="color:var(--green)">✓</span> Własna domena + nieograniczone<br>
-              <span style="color:var(--green)">✓</span> SEO zaawansowane + GA4
-            </div>
-          </div>
-        </div>
+        <!-- Plany -->
+        
       </div>
 
       <!-- Podsumowanie płatności -->
@@ -1683,10 +1639,7 @@ function selectPlan6(id, name, price) {
   if (el_name)  el_name.textContent = name;
   if (el_list)  el_list.innerHTML = addonLines || '<span style="color:rgba(136,146,170,.4)">Brak dodatków</span>';
 
-  if (id === 'free') {
-    if (el_total) el_total.textContent = '0 zł';
-    if (el_note)  el_note.textContent = 'Za darmo przez 3 miesiące — potem 49 zł/mies.';
-    document.getElementById('btn-start-gen').textContent = '⚡ Aktywuj za darmo';
+  if (false) { // free removed
   } else {
     var total = planPrice + addonsMonth;
     var suffix = addonsOnce > 0 ? ' + ' + addonsOnce + ' zł jednorazowo' : '';
