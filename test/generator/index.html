@@ -30,16 +30,41 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
 .nav-back:hover{color:var(--text)}
 
 /* LAYOUT */
-.app{display:grid;grid-template-columns:340px 1fr;min-height:calc(100vh - 60px)}
+.app{
+  display:grid;
+  grid-template-columns:300px 1fr;
+  min-height:calc(100vh - 64px);
+  background:var(--bg);
+}
 
 /* SIDEBAR */
-.sidebar{background:var(--s1);border-right:1px solid var(--border);padding:32px 28px;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;display:flex;flex-direction:column;gap:32px}
+.sidebar{
+  background:var(--bg1,#07090F);
+  border-right:1px solid rgba(240,242,247,.07);
+  padding:28px 24px;
+  position:sticky;
+  top:64px;
+  height:calc(100vh - 64px);
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+  gap:0;
+}
 .steps-label{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:16px}
 .steps{display:flex;flex-direction:column;gap:2px}
-.step{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;cursor:pointer;transition:background .2s}
-.step.active{background:rgba(0,229,160,.08)}
-.step.done{cursor:default}
-.step-num{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;font-weight:700;flex-shrink:0;border:1px solid var(--border2);color:var(--muted);transition:all .2s}
+.step{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:10px 12px;
+  border-radius:10px;
+  cursor:pointer;
+  transition:all .18s;
+  color:var(--muted);
+  font-size:13px;
+  font-weight:500;
+  margin-bottom:2px;
+}ep-num{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;font-weight:700;flex-shrink:0;border:1px solid var(--border2);color:var(--muted);transition:all .2s}
 .step.active .step-num{background:var(--green);color:#080A0F;border-color:var(--green)}
 .step.done .step-num{background:rgba(0,229,160,.15);color:var(--green);border-color:rgba(0,229,160,.3)}
 .step.done .step-num::after{content:'✓'}
@@ -59,7 +84,11 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
 .cp-note{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5}
 
 /* MAIN CONTENT */
-.main{padding:48px 56px;max-width:800px}
+.main{
+  padding:52px 64px;
+  max-width:860px;
+  width:100%;
+}
 
 /* STEP PANELS */
 .step-panel{display:none}
@@ -67,7 +96,7 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
 
 .sp-header{margin-bottom:36px}
 .sp-eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:10px}
-.sp-title{font-size:clamp(24px,3vw,36px);font-weight:800;line-height:1.1;letter-spacing:-.03em;color:var(--text);margin-bottom:10px}
+.sp-title{font-size:clamp(28px,3.5vw,42px);font-weight:800;letter-spacing:-.035em;line-height:1.1;color:var(--text);margin-bottom:10px}
 .sp-sub{font-size:15px;color:var(--muted);line-height:1.6}
 
 /* FORM ELEMENTS */
@@ -227,11 +256,25 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
 /* ── NAV WEBGEN ──────────────────────────────── */
 .wg-nav{
   position:fixed;top:0;left:0;right:0;z-index:500;
-  height:64px;padding:0 40px;
+  height:64px;
   display:flex;align-items:center;justify-content:space-between;
-  background:rgba(8,10,15,.88);backdrop-filter:blur(20px);
+  background:rgba(8,10,15,.9);backdrop-filter:blur(24px);
   border-bottom:1px solid rgba(240,242,247,.07);
   font-family:'Bricolage Grotesque','Poppins',sans-serif;
+}
+.wg-nav > * {
+  /* Umożliwia centrowanie linków */
+}
+/* Wewnętrzny wrapper dla centrowania */
+.wg-nav-inner{
+  width:100%;
+  max-width:1280px;
+  margin:0 auto;
+  padding:0 48px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  height:100%;
 }
 .wg-nav-logo{
   display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0;
@@ -303,6 +346,170 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
 
 /* ─────────────────────────────────────────────── */
 
+
+/* ── Generator PRO UI ── */
+.steps-label{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(136,146,170,.5);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.step{position:relative}
+.step.active .step-num{background:var(--green)!important;color:#080A0F!important;border-color:var(--green)!important}
+.step.done .step-num{background:rgba(0,229,160,.15)!important;color:var(--green)!important;border-color:rgba(0,229,160,.3)!important}
+.step.active{color:var(--text)!important;background:rgba(240,242,247,.05)!important}
+.step.done{color:var(--green)!important}
+
+/* Linia łącząca kroki */
+.step:not(:last-child)::after{
+  content:'';
+  position:absolute;
+  left:23px;
+  top:38px;
+  bottom:-4px;
+  width:1px;
+  background:var(--border);
+  z-index:0;
+}
+.step.done:not(:last-child)::after{background:rgba(0,229,160,.3)}
+
+/* Formularze — premium feel */
+.form-group{margin-bottom:24px}
+.form-label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:8px;letter-spacing:.06em;text-transform:uppercase;font-family:var(--mono)}
+input[type=text],input[type=email],input[type=tel],textarea,select{
+  width:100%;
+  background:rgba(240,242,247,.04);
+  border:1.5px solid rgba(240,242,247,.1);
+  border-radius:10px;
+  padding:13px 16px;
+  font-size:14px;
+  color:var(--text);
+  font-family:var(--head);
+  outline:none;
+  transition:border-color .2s,background .2s;
+}
+input[type=text]:focus,input[type=email]:focus,input[type=tel]:focus,textarea:focus,select:focus{
+  border-color:var(--green);
+  background:rgba(0,229,160,.04);
+}
+input::placeholder,textarea::placeholder{color:rgba(136,146,170,.5)}
+
+/* Branża grid — lepsze karty */
+.branza-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
+.branza-card{
+  background:rgba(240,242,247,.03);
+  border:1.5px solid rgba(240,242,247,.08);
+  border-radius:12px;
+  padding:16px 12px;
+  cursor:pointer;
+  text-align:center;
+  transition:all .18s;
+  font-size:13px;
+  font-weight:600;
+  color:var(--muted);
+}
+.branza-card:hover{background:rgba(240,242,247,.07);border-color:rgba(240,242,247,.2);color:var(--text)}
+.branza-card.selected{
+  background:rgba(0,229,160,.08);
+  border-color:var(--green);
+  color:var(--text);
+}
+.branza-card .bc-icon{font-size:24px;margin-bottom:8px}
+
+/* Addon cards - bardziej premium */
+.addon-item{
+  background:rgba(240,242,247,.03)!important;
+  border:1.5px solid rgba(240,242,247,.08)!important;
+  border-radius:12px!important;
+  transition:all .2s!important;
+}
+.addon-item:hover{background:rgba(240,242,247,.06)!important;border-color:rgba(240,242,247,.15)!important}
+.addon-item.selected{background:rgba(0,229,160,.06)!important;border-color:var(--green)!important}
+.addon-check{
+  background:rgba(240,242,247,.06)!important;
+  border:1.5px solid rgba(240,242,247,.1)!important;
+  color:transparent!important;
+  transition:all .2s!important;
+}
+.addon-item.selected .addon-check{
+  background:var(--green)!important;
+  border-color:var(--green)!important;
+  color:#080A0F!important;
+}
+
+/* Generating — premium loader */
+.generating{
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  min-height:60vh;
+  text-align:center;
+  padding:60px 40px;
+}
+.generating.active{display:flex}
+.gen-spinner{
+  width:56px;height:56px;
+  border:3px solid rgba(0,229,160,.15);
+  border-top-color:var(--green);
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+  margin-bottom:28px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.gen-title{font-size:24px;font-weight:800;letter-spacing:-.02em;margin-bottom:8px}
+.gen-sub{font-size:14px;color:var(--muted);margin-bottom:28px}
+.gen-log{
+  font-family:var(--mono);font-size:12px;color:var(--muted);
+  background:rgba(240,242,247,.03);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:14px 18px;
+  width:100%;max-width:480px;
+  text-align:left;
+  min-height:48px;
+  line-height:1.7;
+}
+
+/* btn-next ogólny styl */
+.btn-next{
+  background:var(--green);
+  color:#080A0F;
+  border:none;
+  padding:14px 32px;
+  border-radius:10px;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+  font-family:var(--head);
+  transition:background .2s;
+  display:flex;align-items:center;gap:8px;
+}
+.btn-next:hover{background:var(--green2,#00C98A)}
+.btn-generate{
+  background:var(--green);
+  color:#080A0F;
+  border:none;
+  padding:14px 32px;
+  border-radius:10px;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+  font-family:var(--head);
+  transition:background .2s;
+  display:flex;align-items:center;gap:10px;
+}
+.btn-generate:hover{background:var(--green2,#00C98A)}
+
+/* Kolor progress: addons summary */
+.addon-summary{
+  background:rgba(240,242,247,.03)!important;
+  border:1px solid rgba(240,242,247,.08)!important;
+  border-radius:12px!important;
+}
+.as-row.total{
+  border-top:1px solid var(--border)!important;
+  padding-top:12px!important;
+  margin-top:4px!important;
+  font-weight:700!important;
+}
+#as-total{color:var(--green)!important;font-family:var(--mono)!important;font-size:18px!important}
+/* ── end Generator PRO UI ── */
 </style>
 </head>
 <body>
@@ -370,8 +577,19 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
     </div>
 
     <div class="sidebar-tip">
-      <div class="tip-label">// Pro tip</div>
-      <div class="tip-text" id="sidebar-tip-text">Wypełnij jak najwięcej pól — AI wygeneruje lepszą treść. Minimum: nazwa, branża, miasto, telefon.</div>
+      <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:12px;opacity:.8">// Polecamy</div>
+      <div style="font-size:15px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px;letter-spacing:-.02em">Managed START<br><span style="color:var(--green)">249 zł/mies.</span></div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:14px">My robimy <strong style="color:var(--text)">wszystko</strong> za Ciebie — tworzysz stronę w generatorze, a my ją uruchamiamy, pozycjonujemy i aktualizujemy.</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px">
+        <div style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)"><span style="color:var(--green);font-size:13px">✓</span> Własna domena</div>
+        <div style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)"><span style="color:var(--green);font-size:13px">✓</span> Lokalne SEO + Schema.org</div>
+        <div style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)"><span style="color:var(--green);font-size:13px">✓</span> Aktualizacje przez email</div>
+        <div style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)"><span style="color:var(--green);font-size:13px">✓</span> PageSpeed 90+ gwarantowany</div>
+        <div style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)"><span style="color:var(--green);font-size:13px">✓</span> Google Search Console</div>
+      </div>
+      <div style="background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);border-radius:8px;padding:10px 12px;font-size:11px;color:var(--green);font-family:var(--mono)">
+        💡 Wybierz w kroku 6 — Twoja strona będzie live w ciągu godziny.
+      </div>
     </div>
 
     <div class="cost-preview">
