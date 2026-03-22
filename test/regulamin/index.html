@@ -40,19 +40,119 @@ footer{margin-top:80px;padding-top:28px;border-top:1px solid rgba(0,229,160,.12)
 footer a{color:#8892AA;text-decoration:none;margin:0 8px}
 footer a:hover{color:#00E5A0}
 @media(max-width:600px){.nav-links{display:none}.container{padding:40px 16px}}
+
+
+/* ── NAV WEBGEN ──────────────────────────────── */
+.wg-nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  height:64px;padding:0 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(8,10,15,.88);backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(240,242,247,.07);
+  font-family:'Bricolage Grotesque','Poppins',sans-serif;
+}
+.wg-nav-logo{
+  display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0;
+}
+.wg-nav-logo-mark{
+  width:30px;height:30px;border-radius:7px;
+  background:linear-gradient(135deg,#00E5A0,#0066FF,#7B4FFF);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#fff;
+}
+.wg-nav-logo-name{font-size:17px;font-weight:700;color:#F0F2F7;letter-spacing:-.02em}
+.wg-nav-logo-name span{background:linear-gradient(135deg,#00E5A0,#0066FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.wg-nav-links{
+  display:flex;align-items:center;gap:4px;list-style:none;
+  margin:0;padding:0;
+}
+.wg-nav-links a{
+  font-size:14px;font-weight:500;color:#8892AA;text-decoration:none;
+  padding:6px 12px;border-radius:7px;transition:all .18s;white-space:nowrap;
+}
+.wg-nav-links a:hover{color:#F0F2F7;background:rgba(240,242,247,.06)}
+.wg-nav-links a.active{color:#F0F2F7;background:rgba(240,242,247,.08)}
+.wg-nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.wg-nav-login{
+  font-size:13px;font-weight:600;color:#8892AA;text-decoration:none;
+  padding:7px 14px;border-radius:8px;transition:all .18s;white-space:nowrap;
+}
+.wg-nav-login:hover{color:#F0F2F7;background:rgba(240,242,247,.06)}
+.wg-nav-cta{
+  background:#00E5A0;color:#080A0F;
+  padding:8px 18px;border-radius:8px;
+  font-size:14px;font-weight:700;text-decoration:none;
+  transition:background .18s;white-space:nowrap;
+}
+.wg-nav-cta:hover{background:#00C98A}
+.wg-nav-hamburger{
+  display:none;background:none;border:none;
+  color:#8892AA;font-size:22px;cursor:pointer;
+  padding:4px;line-height:1;
+}
+/* Mobile drawer */
+.wg-nav-drawer{
+  display:none;position:fixed;top:64px;left:0;right:0;
+  background:rgba(8,10,15,.97);backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(240,242,247,.08);
+  padding:12px 20px 20px;z-index:499;
+  flex-direction:column;gap:4px;
+}
+.wg-nav-drawer.open{display:flex}
+.wg-nav-drawer a{
+  font-size:15px;font-weight:500;color:#8892AA;text-decoration:none;
+  padding:11px 14px;border-radius:8px;transition:all .18s;
+}
+.wg-nav-drawer a:hover{color:#F0F2F7;background:rgba(240,242,247,.06)}
+.wg-nav-drawer a.active{color:#F0F2F7;background:rgba(240,242,247,.08)}
+.wg-nav-drawer-cta{
+  margin-top:8px;background:#00E5A0;color:#080A0F!important;
+  text-align:center;font-weight:700!important;border-radius:9px;
+}
+.wg-nav-drawer-cta:hover{background:#00C98A!important}
+@media(max-width:900px){
+  .wg-nav-links{display:none}
+  .wg-nav-login{display:none}
+  .wg-nav-cta{display:none}
+  .wg-nav-hamburger{display:block}
+}
+@media(max-width:480px){.wg-nav{padding:0 20px}}
+/* Padding na body żeby nav nie zachodził na treść */
+
+/* ─────────────────────────────────────────────── */
+
 </style>
 </head>
 <body>
 
-<nav>
-  <a class="nav-logo" href="/test/">web<span>gen</span>.pl</a>
-  <ul class="nav-links">
-    <li><a href="/test/">Strona główna</a></li>
+<nav class="wg-nav" id="wg-nav">
+  <a href="/test/" class="wg-nav-logo">
+    <div class="wg-nav-logo-mark">W</div>
+    <div class="wg-nav-logo-name">web<span>gen</span></div>
+  </a>
+  <ul class="wg-nav-links">
+
+    <li><a href="/test/#jak-dziala">Jak działa</a></li>
     <li><a href="/test/cennik/">Cennik</a></li>
     <li><a href="/test/generator/">Generator</a></li>
-    <li><a href="/test/polityka-prywatnosci/">Polityka prywatności</a></li>
+    <li><a href="/test/#faq">FAQ</a></li>
   </ul>
+  <div class="wg-nav-right">
+    <a href="/test/dashboard/" class="wg-nav-login">Logowanie</a>
+    <a href="/test/generator/" class="wg-nav-cta">Zacznij za darmo →</a>
+    <button class="wg-nav-hamburger" id="wg-hamburger" aria-label="Menu">☰</button>
+  </div>
 </nav>
+
+<div class="wg-nav-drawer" id="wg-drawer">
+
+  <a href="/test/#jak-dziala">Jak działa</a>
+  <a href="/test/cennik/">Cennik</a>
+  <a href="/test/generator/">Generator</a>
+  <a href="/test/#faq">FAQ</a>
+  <a href="/test/dashboard/" class="wg-nav-login" style="color:#8892AA">Logowanie</a>
+  <a href="/test/generator/" class="wg-nav-drawer-cta">Zacznij za darmo →</a>
+</div>
 
 <div class="container">
   <header>
@@ -187,6 +287,25 @@ footer a:hover{color:#00E5A0}
     <a href="mailto:hello@webgen.pl">Kontakt</a>
   </p>
 </footer>
+
+
+<script>
+(function(){
+  var btn = document.getElementById('wg-hamburger');
+  var drawer = document.getElementById('wg-drawer');
+  if(!btn || !drawer) return;
+  btn.addEventListener('click', function(){
+    drawer.classList.toggle('open');
+    btn.textContent = drawer.classList.contains('open') ? '✕' : '☰';
+  });
+  document.addEventListener('click', function(e){
+    if(!btn.contains(e.target) && !drawer.contains(e.target)){
+      drawer.classList.remove('open');
+      btn.textContent = '☰';
+    }
+  });
+})();
+</script>
 
 </body>
 </html>
