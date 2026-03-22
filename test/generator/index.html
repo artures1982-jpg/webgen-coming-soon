@@ -803,9 +803,143 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
 
       <div class="nav-btns">
         <button class="btn-prev" onclick="prevStep(5)">← Wróć</button>
-        <button class="btn-generate" onclick="startGenerate()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-          Generuj moją stronę
+        <button class="btn-next" onclick="nextStep(5)" style="background:var(--green);color:#080A0F;border:none;padding:14px 28px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--head);display:flex;align-items:center;gap:8px;transition:background .2s" onmouseover="this.style.background='#00C98A'" onmouseout="this.style.background='var(--green)'">
+          Dalej — wybierz plan →
+        </button>
+      </div>
+    </div>
+
+    <div class="step-panel" id="panel-6">
+      <div class="sp-header">
+        <div class="sp-eyebrow">// Krok 6 z 6</div>
+        <h1 class="sp-title">Wybierz plan<br><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">i uruchom stronę</span></h1>
+        <p class="sp-sub">Zacznij za darmo — 3 miesiące bez opłat. Możesz zmienić plan w każdej chwili.</p>
+      </div>
+
+      <!-- Podsumowanie konfiguracji -->
+      <div style="background:var(--s2);border:1px solid var(--border2);border-radius:10px;padding:14px 18px;margin-bottom:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+        <div style="font-size:13px;color:var(--muted)">Konfiguracja: <span id="s6-firma" style="color:var(--text);font-weight:600"></span></div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--green)" id="s6-addons-sum"></div>
+      </div>
+
+      <!-- Plany w 2 kolumnach -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
+
+        <!-- MANAGED -->
+        <div>
+          <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)">My robimy wszystko</div>
+
+          <div class="plan6-card" id="p6-managed_start" onclick="selectPlan6('managed_start','Managed START',249)"
+            style="position:relative;background:var(--s2);border:1.5px solid var(--green);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;transition:all .2s">
+            <div class="p6-badge" style="position:absolute;top:-9px;right:10px;background:var(--green);color:#080A0F;font-size:9px;font-weight:800;padding:2px 9px;border-radius:10px;font-family:var(--mono)">WYBRANY</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+              <div style="font-size:14px;font-weight:700;color:var(--text)">Managed START</div>
+              <div style="font-family:var(--mono);font-size:17px;font-weight:700;color:var(--green)">249 zł<span style="font-size:11px;color:var(--muted)">/mies.</span></div>
+            </div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.6">
+              <span style="color:var(--green)">✓</span> Własna domena + lokalne SEO<br>
+              <span style="color:var(--green)">✓</span> Aktualizacje przez email<br>
+              <span style="color:var(--green)">✓</span> PageSpeed 90+
+            </div>
+          </div>
+
+          <div class="plan6-card" id="p6-managed_pro" onclick="selectPlan6('managed_pro','Managed PRO',399)"
+            style="position:relative;background:var(--s2);border:1.5px solid var(--border);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;transition:all .2s">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+              <div style="font-size:14px;font-weight:700;color:var(--text)">Managed PRO</div>
+              <div style="font-family:var(--mono);font-size:17px;font-weight:700;color:var(--text)">399 zł<span style="font-size:11px;color:var(--muted)">/mies.</span></div>
+            </div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.6">
+              <span style="color:var(--green)">✓</span> Wszystko z START<br>
+              <span style="color:var(--green)">✓</span> Raport SEO + blog 2 wpisy/mies.<br>
+              <span style="color:var(--green)">✓</span> 5 podstron dzielnicowych
+            </div>
+          </div>
+
+          <div class="plan6-card" id="p6-managed_premium" onclick="selectPlan6('managed_premium','Managed PREMIUM',599)"
+            style="position:relative;background:var(--s2);border:1.5px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all .2s">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+              <div style="font-size:14px;font-weight:700;color:var(--text)">Managed PREMIUM</div>
+              <div style="font-family:var(--mono);font-size:17px;font-weight:700;color:var(--text)">599 zł<span style="font-size:11px;color:var(--muted)">/mies.</span></div>
+            </div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.6">
+              <span style="color:var(--green)">✓</span> PRO + kampanie Ads<br>
+              <span style="color:var(--green)">✓</span> 4 wpisy/mies. + dedykowany opiekun
+            </div>
+          </div>
+        </div>
+
+        <!-- SAAS + FREE -->
+        <div>
+          <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)">Zarządzasz sam</div>
+
+          <div class="plan6-card" id="p6-free" onclick="selectPlan6('free','Free',0)"
+            style="position:relative;background:var(--s2);border:1.5px solid var(--border);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;transition:all .2s">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+              <div>
+                <div style="font-size:14px;font-weight:700;color:var(--text)">Free</div>
+                <div style="font-size:10px;color:var(--green);font-family:var(--mono)">3 mies. za darmo</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-family:var(--mono);font-size:17px;font-weight:700;color:var(--green)">0 zł</div>
+                <div style="font-size:10px;color:var(--muted)">potem 49 zł</div>
+              </div>
+            </div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.6">
+              <span style="color:var(--green)">✓</span> Strona na *.webgen.pl<br>
+              <span style="opacity:.4">–</span> Własna domena
+            </div>
+          </div>
+
+          <div class="plan6-card" id="p6-saas_starter" onclick="selectPlan6('saas_starter','SaaS Starter',49)"
+            style="position:relative;background:var(--s2);border:1.5px solid var(--border);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;transition:all .2s">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+              <div style="font-size:14px;font-weight:700;color:var(--text)">SaaS Starter</div>
+              <div style="font-family:var(--mono);font-size:17px;font-weight:700;color:var(--text)">49 zł<span style="font-size:11px;color:var(--muted)">/mies.</span></div>
+            </div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.6">
+              <span style="color:var(--green)">✓</span> Generator AI + hosting<br>
+              <span style="opacity:.4">–</span> Własna domena
+            </div>
+          </div>
+
+          <div class="plan6-card" id="p6-saas_pro" onclick="selectPlan6('saas_pro','SaaS Pro',129)"
+            style="position:relative;background:var(--s2);border:1.5px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all .2s">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+              <div style="font-size:14px;font-weight:700;color:var(--text)">SaaS Pro</div>
+              <div style="font-family:var(--mono);font-size:17px;font-weight:700;color:var(--text)">129 zł<span style="font-size:11px;color:var(--muted)">/mies.</span></div>
+            </div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.6">
+              <span style="color:var(--green)">✓</span> Własna domena + nieograniczone<br>
+              <span style="color:var(--green)">✓</span> SEO zaawansowane + GA4
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Podsumowanie płatności -->
+      <div style="background:var(--s2);border:1px solid var(--border2);border-radius:10px;padding:16px 18px;margin-bottom:20px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-size:13px;color:var(--muted)">Wybrany plan:</span>
+          <span style="font-size:14px;font-weight:700;color:var(--text)" id="s6-plan-name">Managed START</span>
+        </div>
+        <div id="s6-addons-list" style="margin-bottom:8px"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:10px">
+          <span style="font-size:14px;font-weight:700">Razem</span>
+          <span style="font-family:var(--mono);font-size:22px;font-weight:700;color:var(--green)" id="s6-total-price">249 zł/mies.</span>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;text-align:right" id="s6-free-note"></div>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn-prev" onclick="prevStep(6)">← Wróć</button>
+        <button id="btn-start-gen"
+          style="background:var(--green);color:#080A0F;border:none;padding:14px 32px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;font-family:var(--head);display:flex;align-items:center;gap:10px;transition:background .2s"
+          onclick="startGenerate()"
+          onmouseover="this.style.background='#00C98A'"
+          onmouseout="this.style.background='var(--green)'">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="width:18px;height:18px"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          Generuj i aktywuj stronę
         </button>
       </div>
     </div>
@@ -905,6 +1039,7 @@ function setStep(n) {
   
   if (n >= 1 && n <= 6) {
     document.getElementById(`panel-${n}`).classList.add('active');
+    if (n === 6 && typeof initStep6 === 'function') initStep6();
   }
   
   state.currentStep = n;
@@ -1284,6 +1419,79 @@ selectPlan(document.querySelector('.plan-card.selected'), 'managed_start', 'Mana
     }
   });
 })();
+
+// ─── WYBÓR PLANU (krok 6) ───────────────────────────
+function selectPlan6(id, name, price) {
+  // Usuń selected ze wszystkich kart
+  document.querySelectorAll('.plan6-card').forEach(function(card) {
+    card.style.border = '1.5px solid var(--border)';
+    // Usuń badge WYBRANY jeśli jest
+    var badge = card.querySelector('.p6-badge');
+    if (badge) badge.remove();
+  });
+
+  // Podświetl wybraną kartę
+  var card = document.getElementById('p6-' + id);
+  if (card) {
+    card.style.border = '1.5px solid var(--green)';
+    // Dodaj badge
+    var badge = document.createElement('div');
+    badge.className = 'p6-badge';
+    badge.textContent = 'WYBRANY';
+    badge.style.cssText = 'position:absolute;top:-10px;right:12px;background:var(--green);color:#080A0F;font-size:10px;font-weight:800;padding:3px 10px;border-radius:10px;font-family:var(--mono);letter-spacing:.06em';
+    card.style.position = 'relative';
+    card.appendChild(badge);
+  }
+
+  // Zaktualizuj state
+  state.plan = id;
+  state.planName = name;
+  state.planPrice = String(price);
+
+  // Przelicz summary
+  var planPrice = price;
+  var addonsOnce = 0, addonsMonth = 0;
+  var addonLines = '';
+  Object.values(state.addons).forEach(function(a) {
+    if (a.type === 'once')  { addonsOnce  += a.price; addonLines += '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:4px"><span>' + a.name + '</span><span style="font-family:var(--mono)">' + a.price + ' zł jednorazowo</span></div>'; }
+    if (a.type === 'month') { addonsMonth += a.price; addonLines += '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:4px"><span>' + a.name + '</span><span style="font-family:var(--mono)">' + a.price + ' zł/mies.</span></div>'; }
+  });
+
+  var el_name  = document.getElementById('s6-plan-name');
+  var el_list  = document.getElementById('s6-addons-list');
+  var el_total = document.getElementById('s6-total-price');
+  var el_note  = document.getElementById('s6-free-note');
+
+  if (el_name)  el_name.textContent = name;
+  if (el_list)  el_list.innerHTML = addonLines || '<span style="color:rgba(136,146,170,.4)">Brak dodatków</span>';
+
+  if (id === 'free') {
+    if (el_total) el_total.textContent = '0 zł';
+    if (el_note)  el_note.textContent = 'Za darmo przez 3 miesiące — potem 49 zł/mies.';
+    document.getElementById('btn-start-gen').textContent = '⚡ Aktywuj za darmo';
+  } else {
+    var total = planPrice + addonsMonth;
+    var suffix = addonsOnce > 0 ? ' + ' + addonsOnce + ' zł jednorazowo' : '';
+    if (el_total) el_total.textContent = total + ' zł/mies.' + suffix;
+    if (el_note)  el_note.textContent = '';
+    document.getElementById('btn-start-gen').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="width:18px;height:18px"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> Generuj i aktywuj stronę';
+  }
+}
+
+function initStep6() {
+  // Wypełnij summary konfiguracji
+  var firma = state.firma || {};
+  var firmaEl = document.getElementById('s6-firma');
+  if (firmaEl) firmaEl.textContent = (firma.nazwa || 'Twoja firma') + ' · ' + (firma.branza || '') + ' · ' + (firma.miasto || '');
+
+  var addonsEl = document.getElementById('s6-addons-sum');
+  var addonCount = Object.keys(state.addons).length;
+  if (addonsEl) addonsEl.textContent = addonCount > 0 ? addonCount + ' dodatek(ów) wybranych' : 'Brak dodatków';
+
+  // Odśwież wybór planu (domyślnie managed_start)
+  selectPlan6(state.plan, state.planName, parseInt(state.planPrice) || 249);
+}
+// ──────────────────────────────────────────────────────
 </script>
 
 </body>
