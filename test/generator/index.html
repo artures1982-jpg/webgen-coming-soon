@@ -1767,15 +1767,24 @@ function submitGate() {
 }
 
 function showGateSuccess(email, msgEl, btn) {
-  if (msgEl) {
-    msgEl.style.display = 'block';
-    msgEl.style.background = 'rgba(0,229,160,.1)';
-    msgEl.style.border = '1px solid rgba(0,229,160,.25)';
-    msgEl.style.color = '#00E5A0';
-    msgEl.innerHTML = '✓ Wysłaliśmy link potwierdzający na <strong>' + email + '</strong>. Sprawdź skrzynkę i kliknij link — potem wróć tutaj.';
+  // Pokaż cały panel sukcesu zamiast tylko pola
+  var panel0 = document.getElementById('panel-0');
+  if (panel0) {
+    panel0.innerHTML = '<div style="text-align:center;padding:20px 0">'
+      + '<div style="width:56px;height:56px;border-radius:50%;background:rgba(0,229,160,.12);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:24px">✉</div>'
+      + '<h2 style="font-size:26px;font-weight:800;letter-spacing:-.02em;margin-bottom:10px">Sprawdź skrzynkę!</h2>'
+      + '<p style="font-size:15px;color:var(--muted);line-height:1.65;margin-bottom:20px">'
+      + 'Wysłaliśmy link aktywacyjny na<br><strong style="color:var(--text)">' + email + '</strong></p>'
+      + '<div style="background:rgba(0,229,160,.07);border:1px solid rgba(0,229,160,.18);border-radius:10px;padding:16px 20px;margin-bottom:24px;font-size:13px;color:var(--muted);text-align:left;line-height:1.7">'
+      + '<strong style="color:var(--text);display:block;margin-bottom:6px">Co dalej:</strong>'
+      + '1. Otwórz email od hello@webgen.pl<br>'
+      + '2. Kliknij "Aktywuj konto i ustaw hasło"<br>'
+      + '3. Wróć tu — generator będzie na Ciebie czekać'
+      + '</div>'
+      + '<p style="font-size:13px;color:rgba(136,146,170,.5)">Możesz też już teraz przejrzeć generator ↓</p>'
+      + '<button onclick="setStep(1)" style="margin-top:16px;background:transparent;border:1.5px solid var(--green);color:var(--green);padding:11px 28px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--head)">Przejrzyj generator →</button>'
+      + '</div>';
   }
-  // Przejdź do generatora po 2.5s
-  setTimeout(function() { setStep(1); }, 2500);
 }
 
 function skipGate() {
@@ -1810,6 +1819,27 @@ function skipGate() {
   } catch(e) {}
 })();
 // ─────────────────────────────────────────────────────────────────
+
+// Automatyczne logowanie po aktywacji
+(function checkActivation() {
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('activated') === '1') {
+    var session = localStorage.getItem('wg_session');
+    if (session) {
+      try {
+        var s = JSON.parse(session);
+        state.email = s.email;
+        state.activated = true;
+        localStorage.setItem('wg_user', JSON.stringify({email: s.email, activated: true}));
+      } catch(e) {}
+    }
+    var email = params.get('email') || '';
+    if (email) state.email = email;
+    // Przejdź od razu do kroku 1
+    document.addEventListener('DOMContentLoaded', function() { setStep(1); });
+    if (document.readyState !== 'loading') setStep(1);
+  }
+})();
 </script>
 
 </body>

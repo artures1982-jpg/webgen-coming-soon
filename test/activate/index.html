@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aktywuj konto — webgen.pl</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080A0F;--s1:#0E1117;--s2:#131720;
+  --text:#F0F2F7;--muted:#8892AA;--border:rgba(240,242,247,.08);
+  --green:#00E5A0;--grad:linear-gradient(135deg,#00E5A0,#0066FF,#7B4FFF);
+  --head:'Bricolage Grotesque',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:var(--head)}
+body{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;min-height:100vh}
+
+/* NAV */
+.top-bar{position:fixed;top:0;left:0;right:0;height:64px;background:rgba(8,10,15,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 40px}
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+.logo-mark{width:30px;height:30px;border-radius:7px;background:linear-gradient(135deg,#00E5A0,#0066FF,#7B4FFF);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;font-weight:700;color:#fff}
+.logo-name{font-size:17px;font-weight:700;color:var(--text)}
+.logo-name span{background:linear-gradient(135deg,#00E5A0,#0066FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* CARD */
+.card{background:var(--s1);border:1px solid var(--border);border-radius:20px;padding:48px 44px;width:100%;max-width:460px;margin-top:64px;text-align:center}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:16px;opacity:.85}
+.card h1{font-size:28px;font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:10px}
+.card p{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:32px}
+.email-badge{display:inline-block;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);border-radius:8px;padding:6px 14px;font-family:var(--mono);font-size:13px;color:var(--green);margin-bottom:32px}
+
+.form-group{margin-bottom:20px;text-align:left}
+.form-label{display:block;font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;letter-spacing:.08em;text-transform:uppercase;font-family:var(--mono)}
+.form-input{width:100%;background:rgba(240,242,247,.04);border:1.5px solid rgba(240,242,247,.1);border-radius:10px;padding:13px 16px;font-size:15px;color:var(--text);font-family:var(--head);outline:none;transition:border-color .2s}
+.form-input:focus{border-color:var(--green);background:rgba(0,229,160,.04)}
+.form-input::placeholder{color:rgba(136,146,170,.5)}
+
+.pass-hint{font-size:11px;color:var(--muted);margin-top:6px;text-align:left}
+.pass-strength{height:3px;border-radius:2px;margin-top:8px;background:var(--border);overflow:hidden}
+.pass-strength-bar{height:100%;border-radius:2px;width:0;transition:width .3s,background .3s}
+
+.btn-activate{width:100%;background:rgba(0,229,160,.3);color:rgba(8,10,15,.5);border:none;padding:15px;border-radius:10px;font-size:16px;font-weight:700;cursor:not-allowed;font-family:var(--head);transition:all .2s;margin-top:8px}
+.btn-activate.ready{background:var(--green);color:#080A0F;cursor:pointer}
+.btn-activate.ready:hover{background:#00C98A}
+
+.msg{display:none;margin-top:16px;padding:12px 16px;border-radius:9px;font-size:14px;font-weight:600;text-align:center}
+.msg.ok{background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.25);color:var(--green)}
+.msg.err{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.25);color:#F87171}
+
+/* Error / expired states */
+.state-error{text-align:center}
+.state-error h2{font-size:22px;font-weight:700;margin-bottom:10px;color:#F87171}
+.state-error p{color:var(--muted);font-size:14px;line-height:1.6}
+.state-error a{color:var(--green);text-decoration:none}
+</style>
+</head>
+<body>
+
+<nav class="top-bar">
+  <a href="/test/" class="logo">
+    <div class="logo-mark">W</div>
+    <div class="logo-name">web<span>gen</span></div>
+  </a>
+</nav>
+
+<div class="card" id="card-form">
+  <div class="eyebrow">// Aktywacja konta</div>
+  <h1>Ustaw hasło<br><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">do swojego konta</span></h1>
+  <p>Prawie gotowe! Ustaw hasło żeby móc się zalogować w każdej chwili.</p>
+  <div class="email-badge" id="email-display">ładuję…</div>
+
+  <div class="form-group">
+    <label class="form-label" for="pass1">Hasło</label>
+    <input type="password" id="pass1" class="form-input" placeholder="Min. 6 znaków" oninput="onPassInput()">
+    <div class="pass-strength"><div class="pass-strength-bar" id="strength-bar"></div></div>
+    <div class="pass-hint" id="pass-hint"></div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="pass2">Powtórz hasło</label>
+    <input type="password" id="pass2" class="form-input" placeholder="Jeszcze raz to samo" oninput="onPassInput()">
+  </div>
+
+  <button class="btn-activate" id="btn-activate" onclick="doActivate()">
+    Aktywuj konto →
+  </button>
+
+  <div class="msg" id="msg"></div>
+</div>
+
+<div class="card state-error" id="card-error" style="display:none">
+  <h2>Link nieprawidłowy lub wygasł</h2>
+  <p>Ten link aktywacyjny wygasł lub jest nieprawidłowy.<br>
+  <a href="/test/generator/">Zarejestruj się ponownie →</a></p>
+</div>
+
+<script>
+var urlParams = new URLSearchParams(window.location.search);
+var TOKEN = urlParams.get('token') || '';
+var EMAIL = urlParams.get('email') || '';
+
+// Wyświetl email
+var emailEl = document.getElementById('email-display');
+if (EMAIL) {
+  emailEl.textContent = EMAIL;
+} else {
+  // Brak parametrów — pokaż błąd
+  document.getElementById('card-form').style.display = 'none';
+  document.getElementById('card-error').style.display = 'block';
+}
+
+function passStrength(p) {
+  if (p.length < 4) return 0;
+  var s = 0;
+  if (p.length >= 6) s++;
+  if (p.length >= 10) s++;
+  if (/[A-Z]/.test(p)) s++;
+  if (/[0-9]/.test(p)) s++;
+  if (/[^A-Za-z0-9]/.test(p)) s++;
+  return s;
+}
+
+function onPassInput() {
+  var p1  = document.getElementById('pass1').value;
+  var p2  = document.getElementById('pass2').value;
+  var bar = document.getElementById('strength-bar');
+  var hint = document.getElementById('pass-hint');
+  var btn = document.getElementById('btn-activate');
+
+  var s = passStrength(p1);
+  var colors = ['#F87171','#F87171','#FBBF24','#00E5A0','#00E5A0','#00E5A0'];
+  var labels = ['Za krótkie','Za słabe','Słabe','Dobre','Silne','Bardzo silne'];
+  bar.style.width = Math.min(100, s * 22) + '%';
+  bar.style.background = colors[s] || '#00E5A0';
+  hint.textContent = p1.length ? labels[s] || 'Bardzo silne' : '';
+  hint.style.color = colors[s] || '#00E5A0';
+
+  var ready = p1.length >= 6 && p1 === p2;
+  btn.disabled = !ready;
+  btn.className = 'btn-activate' + (ready ? ' ready' : '');
+}
+
+async function doActivate() {
+  var p1  = document.getElementById('pass1').value;
+  var p2  = document.getElementById('pass2').value;
+  var btn = document.getElementById('btn-activate');
+  var msg = document.getElementById('msg');
+
+  if (p1 !== p2) {
+    msg.style.display = 'block';
+    msg.className = 'msg err';
+    msg.textContent = 'Hasła nie są takie same.';
+    return;
+  }
+  if (p1.length < 6) {
+    msg.style.display = 'block';
+    msg.className = 'msg err';
+    msg.textContent = 'Hasło musi mieć minimum 6 znaków.';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Aktywuję…';
+
+  try {
+    var res = await fetch('/api/activate', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({token: TOKEN, email: EMAIL, password: p1})
+    });
+    var data = await res.json();
+
+    if (!res.ok || !data.ok) {
+      msg.style.display = 'block';
+      msg.className = 'msg err';
+      msg.textContent = data.error || 'Błąd aktywacji. Spróbuj ponownie.';
+      btn.disabled = false;
+      btn.className = 'btn-activate ready';
+      btn.textContent = 'Aktywuj konto →';
+      return;
+    }
+
+    // Sukces — zapisz session
+    localStorage.setItem('wg_session', JSON.stringify({
+      email: EMAIL,
+      session: data.session,
+      activated: true,
+      created: new Date().toISOString()
+    }));
+    localStorage.setItem('wg_user', JSON.stringify({
+      email: EMAIL,
+      activated: true,
+      created: new Date().toISOString()
+    }));
+
+    msg.style.display = 'block';
+    msg.className = 'msg ok';
+    msg.textContent = '✓ Konto aktywowane! Przekierowuję do generatora…';
+
+    // Przekieruj do generatora z parametrem activated=1
+    setTimeout(function() {
+      window.location.href = '/test/generator/?activated=1&email=' + encodeURIComponent(EMAIL);
+    }, 1500);
+
+  } catch (err) {
+    msg.style.display = 'block';
+    msg.className = 'msg err';
+    msg.textContent = 'Problem z połączeniem. Spróbuj ponownie.';
+    btn.disabled = false;
+    btn.className = 'btn-activate ready';
+    btn.textContent = 'Aktywuj konto →';
+  }
+}
+</script>
+</body>
+</html>

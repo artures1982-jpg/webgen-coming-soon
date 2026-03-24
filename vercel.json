@@ -60,6 +60,10 @@
       }
     },
     {
+      "src": "/api/activate",
+      "dest": "/api/activate.js"
+    },
+    {
       "src": "/api/register",
       "dest": "/api/register.js"
     },
@@ -138,6 +142,14 @@
     {
       "src": "/cennik/",
       "dest": "/cennik/index.html"
+    },
+    {
+      "src": "/test/activate",
+      "dest": "/test/activate/index.html"
+    },
+    {
+      "src": "/test/activate/",
+      "dest": "/test/activate/index.html"
     },
     {
       "src": "/(.*)",
