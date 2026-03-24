@@ -604,7 +604,48 @@ input::placeholder,textarea::placeholder{color:rgba(136,146,170,.5)}
   <div class="main">
 
     <!-- STEP 1: BRANŻA -->
-    <div class="step-panel active" id="panel-1">
+    <div class="step-panel active" id="panel-0" style="max-width:520px">
+      <div class="sp-header" style="text-align:center">
+        <div class="sp-eyebrow">// Krok 1 z 7</div>
+        <h1 class="sp-title">Utwórz darmowe<br><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">konto webgen</span></h1>
+        <p class="sp-sub">Wpisz email — Twoja strona będzie przypisana do tego konta. Pierwsze 3 miesiące gratis.</p>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="g-email">Adres email</label>
+        <input type="email" id="g-email" placeholder="twoj@email.pl" autocomplete="email"
+          oninput="validateGate()"
+          onkeydown="if(event.key==='Enter')submitGate()">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="g-name">Imię (opcjonalnie)</label>
+        <input type="text" id="g-name" placeholder="Jan" autocomplete="given-name">
+      </div>
+
+      <!-- RODO checkbox -->
+      <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;margin-bottom:24px">
+        <input type="checkbox" id="g-rodo" onchange="validateGate()"
+          style="width:16px;height:16px;min-width:16px;margin-top:2px;accent-color:var(--green);cursor:pointer">
+        <span style="font-size:12px;color:var(--muted);line-height:1.55">
+          Zapoznałem/am się z <a href="/test/polityka-prywatnosci/" target="_blank" style="color:var(--green)">Polityką Prywatności</a> i <a href="/test/regulamin/" target="_blank" style="color:var(--green)">Regulaminem</a>. Wyrażam zgodę na przetwarzanie danych w celu świadczenia usługi.
+        </span>
+      </label>
+
+      <div id="g-gate-msg" style="display:none;padding:12px 16px;border-radius:9px;font-size:14px;font-weight:600;margin-bottom:16px"></div>
+
+      <button id="g-gate-btn" onclick="submitGate()" disabled
+        style="width:100%;background:rgba(0,229,160,.3);color:rgba(8,10,15,.5);border:none;padding:15px 24px;border-radius:10px;font-size:16px;font-weight:700;cursor:not-allowed;font-family:var(--head);transition:all .2s">
+        Utwórz konto i zacznij →
+      </button>
+
+      <p style="text-align:center;margin-top:16px;font-size:12px;color:var(--muted)">
+        Masz już konto?
+        <a href="#" onclick="skipGate()" style="color:var(--green);text-decoration:none">Zaloguj się / kontynuuj</a>
+      </p>
+    </div>
+
+    <div class="step-panel" id="panel-1">
       <div class="sp-header">
         <div class="sp-eyebrow">// Krok 1 z 6</div>
         <h1 class="sp-title">Jaka branża<br>i gdzie działasz?</h1>
