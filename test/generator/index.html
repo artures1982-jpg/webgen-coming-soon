@@ -88,6 +88,16 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
   padding:52px 64px;
   max-width:860px;
   width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.main .step-panel{
+  width:100%;
+}
+#panel-0{
+  max-width:520px;
+  margin:0 auto;
 }
 
 /* STEP PANELS */
@@ -604,7 +614,7 @@ input::placeholder,textarea::placeholder{color:rgba(136,146,170,.5)}
   <div class="main">
 
     <!-- STEP 1: BRANŻA -->
-    <div class="step-panel active" id="panel-0" style="max-width:520px;margin:0 auto;text-align:center">
+    <div class="step-panel active" id="panel-0">
       <div class="sp-header" style="text-align:center">
         <div class="sp-eyebrow">// Krok 1 z 7</div>
         <h1 class="sp-title">Utwórz darmowe<br><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">konto webgen</span></h1>
@@ -1706,6 +1716,100 @@ function initStep6() {
   selectPlan6(state.plan, state.planName, parseInt(state.planPrice) || 249);
 }
 // ──────────────────────────────────────────────────────
+
+// ─── EMAIL GATE (panel-0) ────────────────────────────────────────
+function validateGate() {
+  var email = (document.getElementById('g-email') || {}).value || '';
+  var rodo  = (document.getElementById('g-rodo') || {}).checked;
+  var btn   = document.getElementById('g-gate-btn');
+  if (!btn) return;
+  var valid = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.trim()) && rodo;
+  btn.disabled = !valid;
+  btn.style.background = valid ? 'var(--green)' : 'rgba(0,229,160,.3)';
+  btn.style.color      = valid ? '#080A0F'      : 'rgba(8,10,15,.5)';
+  btn.style.cursor     = valid ? 'pointer'      : 'not-allowed';
+}
+
+function submitGate() {
+  var emailEl = document.getElementById('g-email');
+  var nameEl  = document.getElementById('g-name');
+  var rodoEl  = document.getElementById('g-rodo');
+  var msgEl   = document.getElementById('g-gate-msg');
+  if (!emailEl || !rodoEl) return;
+
+  var email = emailEl.value.trim();
+  var name  = nameEl ? nameEl.value.trim() : '';
+  var rodo  = rodoEl.checked;
+
+  if (!rodo || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return;
+
+  // Zapisz do localStorage
+  localStorage.setItem('wg_user', JSON.stringify({
+    email: email, name: name,
+    created: new Date().toISOString(), plan: 'free_trial'
+  }));
+  state.email = email;
+
+  // Pokaż ładowanie
+  var btn = document.getElementById('g-gate-btn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Wysyłam email…'; }
+
+  // Wyślij email potwierdzający
+  fetch('/api/register', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({email: email, name: name, rodo: true})
+  }).then(function(r) { return r.json(); }).then(function(data) {
+    showGateSuccess(email, msgEl, btn);
+  }).catch(function() {
+    showGateSuccess(email, msgEl, btn); // fallback — nie blokuj
+  });
+}
+
+function showGateSuccess(email, msgEl, btn) {
+  if (msgEl) {
+    msgEl.style.display = 'block';
+    msgEl.style.background = 'rgba(0,229,160,.1)';
+    msgEl.style.border = '1px solid rgba(0,229,160,.25)';
+    msgEl.style.color = '#00E5A0';
+    msgEl.innerHTML = '✓ Wysłaliśmy link potwierdzający na <strong>' + email + '</strong>. Sprawdź skrzynkę i kliknij link — potem wróć tutaj.';
+  }
+  // Przejdź do generatora po 2.5s
+  setTimeout(function() { setStep(1); }, 2500);
+}
+
+function skipGate() {
+  var saved = localStorage.getItem('wg_user');
+  if (saved) {
+    try {
+      var u = JSON.parse(saved);
+      if (u.email) { state.email = u.email; setStep(1); return; }
+    } catch(e) {}
+  }
+  var email = prompt('Podaj adres email aby kontynuować:');
+  if (email && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+    localStorage.setItem('wg_user', JSON.stringify({email: email, created: new Date().toISOString()}));
+    state.email = email;
+    setStep(1);
+  }
+}
+
+// Sprawdź localStorage przy załadowaniu
+(function checkExistingUser() {
+  var saved = localStorage.getItem('wg_user');
+  if (!saved) return;
+  try {
+    var u = JSON.parse(saved);
+    if (!u.email) return;
+    state.email = u.email;
+    var emailInput = document.getElementById('g-email');
+    if (emailInput) { emailInput.value = u.email; }
+    var rodoInput = document.getElementById('g-rodo');
+    if (rodoInput) { rodoInput.checked = true; }
+    validateGate();
+  } catch(e) {}
+})();
+// ─────────────────────────────────────────────────────────────────
 </script>
 
 </body>

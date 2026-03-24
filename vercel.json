@@ -2,17 +2,34 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
-
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Frame-Options",          "value": "SAMEORIGIN" },
-        { "key": "X-Content-Type-Options",    "value": "nosniff" },
-        { "key": "X-XSS-Protection",          "value": "1; mode=block" },
-        { "key": "Referrer-Policy",           "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy",        "value": "camera=(), microphone=(), geolocation=()" },
-        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
         {
           "key": "Content-Security-Policy",
           "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src https://js.stripe.com https://hooks.stripe.com; connect-src 'self' https://api.stripe.com https://api.anthropic.com https://resend.com; img-src 'self' data: https:; object-src 'none'; base-uri 'self';"
@@ -20,37 +37,111 @@
       ]
     }
   ],
-
   "routes": [
-    { "src": "/sitemap.xml", "dest": "/sitemap.xml" },
-    { "src": "/robots.txt",  "dest": "/robots.txt"  },
-
+    {
+      "src": "/sitemap.xml",
+      "dest": "/sitemap.xml"
+    },
+    {
+      "src": "/robots.txt",
+      "dest": "/robots.txt"
+    },
     {
       "src": "/api/(.*)",
-      "has": [{ "type": "header", "key": "user-agent", "value": "(?i).*(bot|crawl|slurp|spider|scraper|wget|curl|python-requests|java|go-http|scrapy|semrush|ahrefsbot|dotbot|mj12bot|blexbot|bytespider|gptbot|claudebot|ccbot|anthropic).*" }],
-      "mitigate": { "action": "deny" }
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": "(?i).*(bot|crawl|slurp|spider|scraper|wget|curl|python-requests|java|go-http|scrapy|semrush|ahrefsbot|dotbot|mj12bot|blexbot|bytespider|gptbot|claudebot|ccbot|anthropic).*"
+        }
+      ],
+      "mitigate": {
+        "action": "deny"
+      }
     },
-
-    { "src": "/api/(.*)", "dest": "/api/$1" },
-
-    { "src": "/test/polityka-prywatnosci",  "dest": "/test/polityka-prywatnosci/index.html" },
-    { "src": "/test/polityka-prywatnosci/", "dest": "/test/polityka-prywatnosci/index.html" },
-    { "src": "/test/regulamin",   "dest": "/test/regulamin/index.html" },
-    { "src": "/test/regulamin/",  "dest": "/test/regulamin/index.html" },
-    { "src": "/test/cennik",      "dest": "/test/cennik/index.html" },
-    { "src": "/test/cennik/",     "dest": "/test/cennik/index.html" },
-    { "src": "/test/generator",   "dest": "/test/generator/index.html" },
-    { "src": "/test/generator/",  "dest": "/test/generator/index.html" },
-    { "src": "/test/dashboard",   "dest": "/test/dashboard/index.html" },
-    { "src": "/test/dashboard/",  "dest": "/test/dashboard/index.html" },
-    { "src": "/test/admin",       "dest": "/test/admin/index.html" },
-    { "src": "/test/admin/",      "dest": "/test/admin/index.html" },
-    { "src": "/test/prywatnosc",  "dest": "/test/prywatnosc/index.html" },
-    { "src": "/test/prywatnosc/", "dest": "/test/prywatnosc/index.html" },
-    { "src": "/test",             "dest": "/test/index.html" },
-    { "src": "/test/",            "dest": "/test/index.html" },
-    { "src": "/cennik",           "dest": "/cennik/index.html" },
-    { "src": "/cennik/",          "dest": "/cennik/index.html" },
-    { "src": "/(.*)",             "dest": "/$1" }
+    {
+      "src": "/api/register",
+      "dest": "/api/register.js"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/test/polityka-prywatnosci",
+      "dest": "/test/polityka-prywatnosci/index.html"
+    },
+    {
+      "src": "/test/polityka-prywatnosci/",
+      "dest": "/test/polityka-prywatnosci/index.html"
+    },
+    {
+      "src": "/test/regulamin",
+      "dest": "/test/regulamin/index.html"
+    },
+    {
+      "src": "/test/regulamin/",
+      "dest": "/test/regulamin/index.html"
+    },
+    {
+      "src": "/test/cennik",
+      "dest": "/test/cennik/index.html"
+    },
+    {
+      "src": "/test/cennik/",
+      "dest": "/test/cennik/index.html"
+    },
+    {
+      "src": "/test/generator",
+      "dest": "/test/generator/index.html"
+    },
+    {
+      "src": "/test/generator/",
+      "dest": "/test/generator/index.html"
+    },
+    {
+      "src": "/test/dashboard",
+      "dest": "/test/dashboard/index.html"
+    },
+    {
+      "src": "/test/dashboard/",
+      "dest": "/test/dashboard/index.html"
+    },
+    {
+      "src": "/test/admin",
+      "dest": "/test/admin/index.html"
+    },
+    {
+      "src": "/test/admin/",
+      "dest": "/test/admin/index.html"
+    },
+    {
+      "src": "/test/prywatnosc",
+      "dest": "/test/prywatnosc/index.html"
+    },
+    {
+      "src": "/test/prywatnosc/",
+      "dest": "/test/prywatnosc/index.html"
+    },
+    {
+      "src": "/test",
+      "dest": "/test/index.html"
+    },
+    {
+      "src": "/test/",
+      "dest": "/test/index.html"
+    },
+    {
+      "src": "/cennik",
+      "dest": "/cennik/index.html"
+    },
+    {
+      "src": "/cennik/",
+      "dest": "/cennik/index.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
   ]
 }
