@@ -604,13 +604,14 @@ input::placeholder,textarea::placeholder{color:rgba(136,146,170,.5)}
   <div class="main">
 
     <!-- STEP 1: BRANŻA -->
-    <div class="step-panel active" id="panel-0" style="max-width:520px">
+    <div class="step-panel active" id="panel-0" style="max-width:520px;margin:0 auto;text-align:center">
       <div class="sp-header" style="text-align:center">
         <div class="sp-eyebrow">// Krok 1 z 7</div>
         <h1 class="sp-title">Utwórz darmowe<br><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">konto webgen</span></h1>
         <p class="sp-sub">Wpisz email — Twoja strona będzie przypisana do tego konta. Pierwsze 3 miesiące gratis.</p>
       </div>
 
+      <div style="text-align:left">
       <div class="form-group">
         <label class="form-label" for="g-email">Adres email</label>
         <input type="email" id="g-email" placeholder="twoj@email.pl" autocomplete="email"
@@ -632,6 +633,7 @@ input::placeholder,textarea::placeholder{color:rgba(136,146,170,.5)}
         </span>
       </label>
 
+      </div>
       <div id="g-gate-msg" style="display:none;padding:12px 16px;border-radius:9px;font-size:14px;font-weight:600;margin-bottom:16px"></div>
 
       <button id="g-gate-btn" onclick="submitGate()" disabled
