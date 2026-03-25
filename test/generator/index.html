@@ -2038,56 +2038,64 @@ function skipGate() {
 
 <script>
 (function wgNavAuth() {
-  // Pobierz sesję
   var session = null, user = null;
   try { session = JSON.parse(localStorage.getItem('wg_session') || 'null'); } catch(e) {}
   try { user    = JSON.parse(localStorage.getItem('wg_user')    || 'null'); } catch(e) {}
 
-  var email = (session && session.email) || (user && user.email) || '';
-  var isLoggedIn = !!(session && session.email) || !!(user && user.activated && user.email);
+  var email = '';
+  var isLoggedIn = false;
 
-  if (!isLoggedIn) return; // Nav bez zmian
+  if (session && session.email) {
+    email = session.email;
+    isLoggedIn = true;
+  } else if (user && user.email) {
+    email = user.email;
+    isLoggedIn = true;
+  }
 
-  // Oznacz body
-  document.documentElement.addEventListener('DOMContentLoaded', init);
-  if (document.readyState !== 'loading') init();
+  if (!isLoggedIn || !email) return;
 
   function init() {
     document.body.classList.add('wg-logged-in');
 
-    // Wstaw element .wg-nav-user do .wg-nav-right (jeśli nie ma)
     var navRight = document.querySelector('.wg-nav-right');
     if (navRight && !navRight.querySelector('.wg-nav-user')) {
-      var initials = email ? email[0].toUpperCase() : '?';
-      var shortEmail = email.length > 18 ? email.split('@')[0] : email;
-
+      var initials  = email[0].toUpperCase();
+      var shortEmail = email.length > 22 ? email.split('@')[0] : email;
       var userEl = document.createElement('a');
       userEl.className = 'wg-nav-user';
-      userEl.href = '/test/dashboard/';
+      userEl.href  = '/test/dashboard/';
       userEl.title = email;
       userEl.innerHTML =
         '<div class="wg-nav-avatar">' + initials + '</div>' +
         '<span class="wg-nav-user-email">' + shortEmail + '</span>';
-      // Wstaw przed istniejącymi elementami (Logowanie, CTA)
       navRight.insertBefore(userEl, navRight.firstChild);
     }
 
-    // Drawer — wstaw info o zalogowanym
     var drawer = document.getElementById('wg-drawer');
-    if (drawer && !drawer.querySelector('.wg-nav-user-drawer')) {
-      var initials2 = email ? email[0].toUpperCase() : '?';
-      var drawerUser = document.createElement('a');
-      drawerUser.className = 'wg-nav-user-drawer';
-      drawerUser.href = '/test/dashboard/';
-      drawerUser.style.cssText = 'display:flex;align-items:center;gap:10px;padding:11px 14px;' +
-        'border-radius:8px;border:1px solid rgba(0,229,160,.2);margin-bottom:4px;text-decoration:none;';
-      drawerUser.innerHTML =
-        '<div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#00E5A0,#0066FF);' +
-        'display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0">' +
-        initials2 + '</div>' +
-        '<span style="font-size:13px;font-weight:600;color:#F0F2F7;font-family:var(--mono);">' + email + '</span>';
-      drawer.insertBefore(drawerUser, drawer.firstChild);
+    if (drawer && !drawer.querySelector('.wg-drawer-user')) {
+      var du = document.createElement('a');
+      du.className  = 'wg-drawer-user';
+      du.href       = '/test/dashboard/';
+      du.style.cssText =
+        'display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;' +
+        'border:1px solid rgba(0,229,160,.25);margin-bottom:6px;text-decoration:none;' +
+        'background:rgba(0,229,160,.05);';
+      du.innerHTML =
+        '<div style="width:28px;height:28px;border-radius:50%;flex-shrink:0;' +
+        'background:linear-gradient(135deg,#00E5A0,#0066FF);display:flex;' +
+        'align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;">' +
+        email[0].toUpperCase() + '</div>' +
+        '<span style="font-size:13px;color:#F0F2F7;font-family:var(--mono);' +
+        'overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + email + '</span>';
+      drawer.insertBefore(du, drawer.firstChild);
     }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 })();
 </script>
