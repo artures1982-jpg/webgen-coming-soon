@@ -4,1520 +4,616 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Panel klienta — webgen.pl</title>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════════
-   WEBGEN — PANEL KLIENTA
-   Aesthetic: Dark tech / terminal / precision
-   ═══════════════════════════════════════════════ */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080A0F;--s1:#0E1117;--s2:#131720;--s3:#181E28;
+  --text:#F0F2F7;--muted:#8892AA;--subtle:rgba(240,242,247,.35);
+  --border:rgba(240,242,247,.07);--border2:rgba(240,242,247,.12);
+  --green:#00E5A0;--green2:#00C98A;--blue:#0066FF;--purple:#7B4FFF;
+  --red:#F87171;--amber:#FBBF24;
+  --grad:linear-gradient(135deg,#00E5A0,#0066FF,#7B4FFF);
+  --head:'Bricolage Grotesque',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:var(--head)}
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ── NAV ─────────────────────────────────────── */
+.nav{position:fixed;top:0;left:0;right:0;height:64px;z-index:200;
+  background:rgba(8,10,15,.92);backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 32px;gap:16px}
+.nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0}
+.nav-logo-mark{width:30px;height:30px;border-radius:7px;
+  background:var(--grad);display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:13px;font-weight:700;color:#fff}
+.nav-logo-name{font-size:17px;font-weight:700;color:var(--text)}
+.nav-logo-name span{background:linear-gradient(135deg,#00E5A0,#0066FF);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-spacer{flex:1}
+.nav-user{display:flex;align-items:center;gap:10px;cursor:pointer;
+  padding:6px 12px;border-radius:8px;transition:background .18s}
+.nav-user:hover{background:rgba(240,242,247,.06)}
+.nav-avatar{width:32px;height:32px;border-radius:50%;
+  background:var(--grad);display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+.nav-email{font-size:13px;color:var(--muted);font-family:var(--mono)}
+.nav-logout{font-size:12px;color:rgba(136,146,170,.5);cursor:pointer;
+  padding:6px 12px;border-radius:7px;transition:all .18s;text-decoration:none}
+.nav-logout:hover{color:var(--red);background:rgba(248,113,113,.08)}
 
-:root {
-  --bg:      #05070C;
-  --bg1:     #090C14;
-  --bg2:     #0D1117;
-  --bg3:     #131720;
-  --bg4:     #1A1F2E;
-  --green:   #00E5A0;
-  --green2:  #00C98A;
-  --blue:    #0066FF;
-  --purple:  #7B4FFF;
-  --red:     #F87171;
-  --yellow:  #FBBF24;
-  --white:   #F0F2F7;
-  --muted:   #8892AA;
-  --border:  rgba(240,242,247,.07);
-  --border2: rgba(240,242,247,.13);
-  --mono:    'JetBrains Mono', monospace;
-  --head:    'Bricolage Grotesque', sans-serif;
-  --grad:    linear-gradient(135deg, #00E5A0, #0066FF, #7B4FFF);
-  --sidebar-w: 240px;
-}
+/* ── LAYOUT ──────────────────────────────────── */
+.layout{display:grid;grid-template-columns:240px 1fr;min-height:100vh;padding-top:64px}
 
-html { scroll-behavior: smooth; }
-body {
-  font-family: var(--head);
-  background: var(--bg);
-  color: var(--white);
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  display: flex;
-  overflow-x: hidden;
-}
+/* ── SIDEBAR ─────────────────────────────────── */
+.sidebar{background:var(--s1);border-right:1px solid var(--border);
+  padding:28px 16px;position:sticky;top:64px;height:calc(100vh - 64px);
+  overflow-y:auto;display:flex;flex-direction:column;gap:4px}
+.sidebar-label{font-family:var(--mono);font-size:9px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:rgba(136,146,170,.4);
+  padding:12px 12px 6px;margin-top:8px}
+.sidebar-label:first-child{margin-top:0}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;
+  border-radius:9px;cursor:pointer;transition:all .18s;
+  color:var(--muted);font-size:14px;font-weight:500;text-decoration:none}
+.nav-item:hover{background:rgba(240,242,247,.05);color:var(--text)}
+.nav-item.active{background:rgba(0,229,160,.08);color:var(--text);
+  border:1px solid rgba(0,229,160,.15)}
+.nav-item .ni-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0}
 
-/* ─── Scrollbar ─── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--bg1); }
-::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 2px; }
+/* ── MAIN ────────────────────────────────────── */
+.main{padding:36px 40px;min-height:calc(100vh - 64px)}
+.page{display:none}
+.page.active{display:block}
 
-/* ════════════════════════════════
-   SIDEBAR
-   ════════════════════════════════ */
-.sidebar {
-  width: var(--sidebar-w);
-  min-height: 100vh;
-  background: var(--bg1);
-  border-right: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  z-index: 100;
-  transition: transform .3s;
-}
+/* ── LOADING ─────────────────────────────────── */
+.loading-overlay{display:flex;flex-direction:column;align-items:center;
+  justify-content:center;min-height:300px;gap:16px}
+.spinner{width:36px;height:36px;border:2.5px solid rgba(0,229,160,.15);
+  border-top-color:var(--green);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-family:var(--mono);font-size:12px;color:var(--muted)}
 
-.sidebar-logo {
-  padding: 24px 20px 20px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-}
-.logo-mark {
-  width: 32px; height: 32px;
-  border-radius: 8px;
-  background: var(--grad);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--mono); font-size: 14px; font-weight: 700; color: #fff;
-  flex-shrink: 0;
-}
-.logo-text { font-size: 17px; font-weight: 700; color: var(--white); }
-.logo-text span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+/* ── CARDS ───────────────────────────────────── */
+.card{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:24px}
+.card-title{font-size:11px;font-weight:700;font-family:var(--mono);
+  letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}
+.stat-card{background:var(--s1);border:1px solid var(--border);border-radius:12px;
+  padding:20px;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.stat-card.green::before{background:var(--green)}
+.stat-card.blue::before{background:var(--blue)}
+.stat-card.purple::before{background:var(--purple)}
+.stat-label{font-size:11px;font-family:var(--mono);color:var(--muted);
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.stat-value{font-size:28px;font-weight:800;letter-spacing:-.02em;line-height:1}
+.stat-sub{font-size:12px;color:var(--muted);margin-top:6px}
 
-/* Plan badge */
-.sidebar-plan {
-  margin: 16px 20px;
-  background: rgba(0,229,160,.08);
-  border: 1px solid rgba(0,229,160,.2);
-  border-radius: 8px;
-  padding: 10px 12px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.plan-name { font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--green); letter-spacing: .1em; }
-.plan-badge { font-family: var(--mono); font-size: 10px; color: var(--muted); }
+/* ── PLAN CARD ───────────────────────────────── */
+.plan-card{background:var(--s2);border:1.5px solid var(--border2);
+  border-radius:14px;padding:24px;margin-bottom:24px}
+.plan-card.active-plan{border-color:rgba(0,229,160,.3);
+  background:rgba(0,229,160,.04)}
+.plan-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.plan-name{font-size:20px;font-weight:800;letter-spacing:-.02em}
+.plan-price{font-family:var(--mono);font-size:24px;font-weight:700;color:var(--green)}
+.plan-price span{font-size:13px;color:var(--muted);font-weight:400}
+.status-badge{display:inline-flex;align-items:center;gap:6px;
+  padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;
+  font-family:var(--mono);letter-spacing:.04em}
+.status-badge.active{background:rgba(0,229,160,.1);color:var(--green);
+  border:1px solid rgba(0,229,160,.25)}
+.status-badge.trialing{background:rgba(0,102,255,.1);color:#60A5FA;
+  border:1px solid rgba(0,102,255,.25)}
+.status-badge.past_due{background:rgba(251,191,36,.1);color:var(--amber);
+  border:1px solid rgba(251,191,36,.25)}
+.status-badge.canceled{background:rgba(248,113,113,.1);color:var(--red);
+  border:1px solid rgba(248,113,113,.25)}
+.status-badge.none{background:rgba(136,146,170,.1);color:var(--muted);
+  border:1px solid rgba(136,146,170,.2)}
+.status-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.plan-dates{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.plan-date-item{background:var(--s3);border-radius:8px;padding:12px 14px}
+.plan-date-label{font-size:10px;font-family:var(--mono);color:var(--muted);
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+.plan-date-val{font-size:14px;font-weight:600;color:var(--text)}
 
-/* Nav */
-.sidebar-nav { flex: 1; padding: 8px 12px; overflow-y: auto; }
-.nav-section-label {
-  font-family: var(--mono); font-size: 9px; font-weight: 700;
-  letter-spacing: .16em; text-transform: uppercase;
-  color: rgba(136,146,170,.5);
-  padding: 16px 8px 6px;
-}
-.nav-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 9px 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all .18s;
-  color: var(--muted);
-  font-size: 14px; font-weight: 500;
-  text-decoration: none;
-  margin-bottom: 1px;
-  position: relative;
-}
-.nav-item:hover { background: rgba(240,242,247,.05); color: var(--white); }
-.nav-item.active {
-  background: rgba(0,229,160,.1);
-  color: var(--white);
-}
-.nav-item.active::before {
-  content: '';
-  position: absolute; left: 0; top: 6px; bottom: 6px;
-  width: 3px; background: var(--green);
-  border-radius: 0 2px 2px 0;
-}
-.nav-icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
-.nav-badge {
-  margin-left: auto;
-  background: var(--red);
-  color: #fff;
-  font-family: var(--mono); font-size: 10px; font-weight: 700;
-  padding: 1px 6px; border-radius: 10px;
-}
-.nav-badge-green {
-  background: rgba(0,229,160,.15);
-  color: var(--green);
-  font-family: var(--mono); font-size: 10px;
-  padding: 1px 6px; border-radius: 10px;
-  margin-left: auto;
-}
+/* ── INVOICES ────────────────────────────────── */
+.invoice-row{display:flex;align-items:center;gap:16px;
+  padding:14px 0;border-bottom:1px solid var(--border)}
+.invoice-row:last-child{border-bottom:none}
+.invoice-num{font-family:var(--mono);font-size:13px;color:var(--muted);
+  flex-shrink:0;min-width:120px}
+.invoice-date{font-size:13px;color:var(--muted);flex:1}
+.invoice-amount{font-family:var(--mono);font-size:15px;font-weight:700;
+  color:var(--text);flex-shrink:0}
+.invoice-status{flex-shrink:0}
+.invoice-pdf{flex-shrink:0}
+.invoice-pdf a{font-family:var(--mono);font-size:11px;color:var(--green);
+  text-decoration:none;padding:4px 10px;border:1px solid rgba(0,229,160,.3);
+  border-radius:6px;transition:all .18s}
+.invoice-pdf a:hover{background:rgba(0,229,160,.08)}
 
-/* Sidebar footer */
-.sidebar-footer {
-  border-top: 1px solid var(--border);
-  padding: 16px 20px;
-}
-.user-row {
-  display: flex; align-items: center; gap: 10px;
-  cursor: pointer; padding: 6px; border-radius: 8px;
-  transition: background .2s;
-}
-.user-row:hover { background: rgba(240,242,247,.05); }
-.user-avatar {
-  width: 32px; height: 32px; border-radius: 50%;
-  background: var(--grad);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 700; color: #fff; flex-shrink: 0;
-}
-.user-name { font-size: 13px; font-weight: 600; color: var(--white); }
-.user-email { font-size: 11px; color: var(--muted); font-family: var(--mono); }
+/* ── NO PLAN STATE ───────────────────────────── */
+.no-plan{text-align:center;padding:48px 24px}
+.no-plan h3{font-size:22px;font-weight:800;margin-bottom:10px}
+.no-plan p{color:var(--muted);font-size:14px;line-height:1.65;margin-bottom:28px}
+.btn{display:inline-block;padding:12px 28px;border-radius:10px;
+  font-size:14px;font-weight:700;text-decoration:none;transition:all .2s;
+  font-family:var(--head)}
+.btn-primary{background:var(--green);color:#080A0F}
+.btn-primary:hover{background:var(--green2)}
+.btn-outline{background:transparent;color:var(--green);
+  border:1.5px solid rgba(0,229,160,.4)}
+.btn-outline:hover{background:rgba(0,229,160,.08)}
 
-/* ════════════════════════════════
-   MAIN CONTENT
-   ════════════════════════════════ */
-.main {
-  margin-left: var(--sidebar-w);
-  flex: 1;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
+/* ── FIRMA INFO ──────────────────────────────── */
+.firma-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.firma-field{background:var(--s2);border-radius:8px;padding:14px 16px}
+.firma-label{font-size:10px;font-family:var(--mono);color:var(--muted);
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+.firma-val{font-size:14px;font-weight:600;color:var(--text)}
+.firma-val.empty{color:rgba(136,146,170,.4);font-style:italic}
 
-/* Top bar */
-.topbar {
-  height: 60px;
-  border-bottom: 1px solid var(--border);
-  padding: 0 32px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(5,7,12,.9);
-  backdrop-filter: blur(12px);
-  position: sticky; top: 0; z-index: 50;
-}
-.topbar-left { display: flex; align-items: center; gap: 16px; }
-.topbar-page { font-size: 15px; font-weight: 700; color: var(--white); }
-.topbar-breadcrumb { font-size: 12px; color: var(--muted); font-family: var(--mono); }
+/* ── SECTION HEADER ─────────────────────────── */
+.section-header{margin-bottom:28px}
+.section-header h1{font-size:26px;font-weight:800;letter-spacing:-.03em}
+.section-header p{font-size:14px;color:var(--muted);margin-top:6px}
 
-.topbar-actions { display: flex; align-items: center; gap: 12px; }
-.btn-icon {
-  width: 36px; height: 36px; border-radius: 8px;
-  background: var(--bg3); border: 1px solid var(--border2);
-  color: var(--muted); cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px; transition: all .2s; position: relative;
-}
-.btn-icon:hover { background: var(--bg4); color: var(--white); }
-.notif-dot {
-  position: absolute; top: 6px; right: 6px;
-  width: 7px; height: 7px;
-  background: var(--green); border-radius: 50%;
-  border: 1px solid var(--bg);
-}
+/* ── ERROR / EMPTY ───────────────────────────── */
+.error-box{background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.2);
+  border-radius:10px;padding:16px 20px;font-size:13px;color:var(--red);
+  font-family:var(--mono)}
 
-.btn-new-site {
-  background: var(--green); color: var(--bg);
-  border: none; padding: 8px 18px;
-  border-radius: 8px; font-family: var(--head);
-  font-size: 13px; font-weight: 700;
-  cursor: pointer; transition: background .2s;
-  display: flex; align-items: center; gap: 6px;
-  white-space: nowrap;
-}
-.btn-new-site:hover { background: var(--green2); }
-
-/* ── Page content ── */
-.content { padding: 32px; flex: 1; }
-
-/* Section panels */
-.panel { display: none; animation: fadeIn .25s ease; }
-.panel.active { display: block; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-
-/* Page header */
-.page-header { margin-bottom: 28px; }
-.page-title { font-size: clamp(22px,3vw,30px); font-weight: 800; letter-spacing: -.03em; margin-bottom: 4px; }
-.page-subtitle { font-size: 14px; color: var(--muted); }
-
-/* ════════════════════════════════
-   STATS CARDS
-   ════════════════════════════════ */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 28px;
-}
-.stat-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 20px;
-  position: relative;
-  overflow: hidden;
-  transition: border-color .2s;
-}
-.stat-card:hover { border-color: var(--border2); }
-.stat-card::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 2px;
-}
-.stat-card.green::before  { background: linear-gradient(90deg, var(--green), transparent); }
-.stat-card.blue::before   { background: linear-gradient(90deg, var(--blue), transparent); }
-.stat-card.purple::before { background: linear-gradient(90deg, var(--purple), transparent); }
-.stat-card.yellow::before { background: linear-gradient(90deg, var(--yellow), transparent); }
-
-.stat-label { font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
-.stat-value { font-size: 32px; font-weight: 800; letter-spacing: -.03em; color: var(--white); margin-bottom: 4px; }
-.stat-delta { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
-.delta-up   { color: var(--green); }
-.delta-down { color: var(--red); }
-
-/* ════════════════════════════════
-   SITE CARDS
-   ════════════════════════════════ */
-.sites-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 16px;
-  margin-bottom: 28px;
-}
-.site-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  overflow: hidden;
-  transition: all .2s;
-}
-.site-card:hover { border-color: var(--border2); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,.4); }
-
-.site-preview {
-  height: 140px;
-  background: var(--bg3);
-  position: relative;
-  overflow: hidden;
-  display: flex; align-items: center; justify-content: center;
-}
-.site-preview-browser {
-  width: 85%; background: var(--bg4);
-  border-radius: 6px; border: 1px solid var(--border2);
-  overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,.5);
-}
-.browser-bar {
-  background: var(--bg2); padding: 6px 10px;
-  display: flex; align-items: center; gap: 5px;
-  border-bottom: 1px solid var(--border);
-}
-.browser-dot { width: 7px; height: 7px; border-radius: 50%; }
-.browser-url {
-  flex: 1; background: var(--bg3);
-  border-radius: 3px; padding: 3px 7px;
-  font-family: var(--mono); font-size: 9px; color: var(--muted);
-  margin-left: 6px;
-}
-.browser-content { padding: 8px 10px; }
-.browser-line {
-  height: 4px; background: var(--bg3);
-  border-radius: 2px; margin-bottom: 4px;
-}
-
-.site-status-badge {
-  position: absolute; top: 10px; right: 10px;
-  font-family: var(--mono); font-size: 10px; font-weight: 700;
-  padding: 3px 8px; border-radius: 20px;
-  letter-spacing: .06em;
-}
-.status-live   { background: rgba(0,229,160,.15); color: var(--green); border: 1px solid rgba(0,229,160,.3); }
-.status-draft  { background: rgba(251,191,36,.1);  color: var(--yellow); border: 1px solid rgba(251,191,36,.2); }
-.status-paused { background: rgba(248,113,113,.1); color: var(--red);    border: 1px solid rgba(248,113,113,.2); }
-
-.site-info { padding: 16px; }
-.site-name { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 3px; }
-.site-url  { font-family: var(--mono); font-size: 11px; color: var(--green); margin-bottom: 12px; text-decoration: none; }
-.site-url:hover { text-decoration: underline; }
-
-.site-meta {
-  display: flex; gap: 16px;
-  font-family: var(--mono); font-size: 11px; color: var(--muted);
-  margin-bottom: 14px;
-}
-.site-meta-item { display: flex; align-items: center; gap: 4px; }
-
-.site-actions {
-  display: flex; gap: 8px;
-  border-top: 1px solid var(--border);
-  padding-top: 14px;
-}
-.btn-sm {
-  flex: 1; padding: 7px; border-radius: 7px;
-  font-family: var(--head); font-size: 12px; font-weight: 600;
-  cursor: pointer; border: none; transition: all .2s;
-  text-align: center;
-}
-.btn-sm-outline {
-  background: transparent;
-  border: 1px solid var(--border2);
-  color: var(--muted);
-}
-.btn-sm-outline:hover { color: var(--white); border-color: var(--border2); background: var(--bg3); }
-.btn-sm-green  { background: rgba(0,229,160,.12); color: var(--green); }
-.btn-sm-green:hover  { background: rgba(0,229,160,.22); }
-
-/* ════════════════════════════════
-   ACTIVITY FEED
-   ════════════════════════════════ */
-.two-col { display: grid; grid-template-columns: 1fr 340px; gap: 20px; }
-
-.card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  overflow: hidden;
-}
-.card-header {
-  padding: 18px 20px;
-  border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between;
-}
-.card-title { font-size: 14px; font-weight: 700; color: var(--white); display: flex; align-items: center; gap: 8px; }
-.card-action { font-family: var(--mono); font-size: 11px; color: var(--green); cursor: pointer; }
-.card-action:hover { text-decoration: underline; }
-
-/* Activity */
-.activity-list { padding: 4px 0; }
-.activity-item {
-  display: flex; align-items: flex-start; gap: 12px;
-  padding: 12px 20px;
-  border-bottom: 1px solid var(--border);
-  transition: background .15s;
-}
-.activity-item:last-child { border-bottom: none; }
-.activity-item:hover { background: rgba(240,242,247,.02); }
-.activity-icon {
-  width: 32px; height: 32px; border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 14px; flex-shrink: 0; margin-top: 1px;
-}
-.ai-green  { background: rgba(0,229,160,.12); }
-.ai-blue   { background: rgba(0,102,255,.12); }
-.ai-purple { background: rgba(123,79,255,.12); }
-.ai-yellow { background: rgba(251,191,36,.1); }
-.ai-red    { background: rgba(248,113,113,.1); }
-
-.activity-body { flex: 1; }
-.activity-text { font-size: 13px; color: var(--white); line-height: 1.4; margin-bottom: 3px; }
-.activity-time { font-family: var(--mono); font-size: 11px; color: var(--muted); }
-
-/* Plan info card */
-.plan-info { padding: 20px; }
-.plan-header {
-  background: var(--bg3); border-radius: 10px;
-  padding: 14px 16px; margin-bottom: 16px;
-  border: 1px solid rgba(0,229,160,.15);
-}
-.plan-title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.plan-title { font-size: 15px; font-weight: 700; color: var(--white); }
-.plan-price { font-family: var(--mono); font-size: 18px; font-weight: 700; color: var(--green); }
-.plan-period { font-size: 11px; color: var(--muted); }
-.plan-bar-label { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10px; color: var(--muted); margin-bottom: 5px; }
-.plan-bar { height: 4px; background: var(--bg4); border-radius: 2px; margin-bottom: 12px; }
-.plan-bar-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--green), var(--blue)); transition: width 1s ease; }
-.plan-features { display: flex; flex-direction: column; gap: 8px; }
-.plan-feature { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
-.plan-feature-check { color: var(--green); font-size: 12px; }
-.plan-feature-x { color: rgba(136,146,170,.4); font-size: 12px; }
-.plan-upgrade-btn {
-  width: 100%; margin-top: 16px; padding: 11px;
-  border-radius: 8px; border: none;
-  background: rgba(0,229,160,.1); color: var(--green);
-  font-family: var(--head); font-size: 13px; font-weight: 700;
-  cursor: pointer; transition: all .2s;
-  border: 1px solid rgba(0,229,160,.2);
-}
-.plan-upgrade-btn:hover { background: rgba(0,229,160,.18); }
-
-/* ════════════════════════════════
-   QUICK ACTIONS
-   ════════════════════════════════ */
-.quick-actions {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  margin-bottom: 28px;
-}
-.qa-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 16px;
-  cursor: pointer; text-align: center;
-  transition: all .2s;
-}
-.qa-card:hover { border-color: var(--border2); background: var(--bg3); transform: translateY(-1px); }
-.qa-icon { font-size: 24px; margin-bottom: 8px; }
-.qa-label { font-size: 12px; font-weight: 600; color: var(--white); }
-.qa-desc { font-size: 11px; color: var(--muted); margin-top: 3px; }
-
-/* ════════════════════════════════
-   USTAWIENIA
-   ════════════════════════════════ */
-.settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.settings-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
-.settings-section { padding: 20px; border-bottom: 1px solid var(--border); }
-.settings-section:last-child { border-bottom: none; }
-.settings-label { font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
-
-.field { margin-bottom: 14px; }
-.field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 5px; }
-.field input, .field select {
-  width: 100%; background: var(--bg3);
-  border: 1px solid var(--border2);
-  border-radius: 8px; padding: 9px 12px;
-  font-size: 13px; color: var(--white);
-  font-family: var(--head); outline: none;
-  transition: border-color .2s;
-}
-.field input:focus, .field select:focus { border-color: var(--green); }
-.field input::placeholder { color: var(--muted); }
-.field select option { background: var(--bg3); }
-
-.toggle-row {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 10px 0; border-bottom: 1px solid var(--border);
-}
-.toggle-row:last-child { border-bottom: none; }
-.toggle-info { flex: 1; }
-.toggle-title { font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 2px; }
-.toggle-desc { font-size: 11px; color: var(--muted); }
-.toggle { position: relative; width: 42px; height: 24px; flex-shrink: 0; margin-left: 16px; }
-.toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
-.toggle-slider {
-  position: absolute; inset: 0;
-  background: rgba(240,242,247,.08);
-  border: 1px solid var(--border2);
-  border-radius: 12px; cursor: pointer; transition: .25s;
-}
-.toggle-slider::before {
-  content: ''; position: absolute;
-  height: 16px; width: 16px; left: 3px; bottom: 3px;
-  background: var(--muted); border-radius: 50%; transition: .25s;
-}
-.toggle input:checked + .toggle-slider { background: rgba(0,229,160,.2); border-color: rgba(0,229,160,.4); }
-.toggle input:checked + .toggle-slider::before { transform: translateX(18px); background: var(--green); }
-
-.btn-save {
-  background: var(--green); color: var(--bg);
-  border: none; padding: 10px 24px;
-  border-radius: 8px; font-family: var(--head);
-  font-size: 13px; font-weight: 700;
-  cursor: pointer; transition: background .2s;
-  margin-top: 4px;
-}
-.btn-save:hover { background: var(--green2); }
-.btn-danger {
-  background: rgba(248,113,113,.1); color: var(--red);
-  border: 1px solid rgba(248,113,113,.2);
-  padding: 10px 24px; border-radius: 8px;
-  font-family: var(--head); font-size: 13px; font-weight: 700;
-  cursor: pointer; transition: all .2s;
-}
-.btn-danger:hover { background: rgba(248,113,113,.2); }
-
-/* ════════════════════════════════
-   FAKTURY
-   ════════════════════════════════ */
-.invoice-table { width: 100%; border-collapse: collapse; }
-.invoice-table th {
-  font-family: var(--mono); font-size: 10px; font-weight: 700;
-  letter-spacing: .12em; text-transform: uppercase;
-  color: var(--muted); padding: 12px 20px;
-  text-align: left; border-bottom: 1px solid var(--border);
-}
-.invoice-table td {
-  padding: 14px 20px; font-size: 13px;
-  border-bottom: 1px solid var(--border);
-  color: var(--white);
-}
-.invoice-table tr:last-child td { border-bottom: none; }
-.invoice-table tr:hover td { background: rgba(240,242,247,.02); }
-.inv-status {
-  font-family: var(--mono); font-size: 10px; font-weight: 700;
-  padding: 3px 8px; border-radius: 20px;
-}
-.inv-paid { background: rgba(0,229,160,.1); color: var(--green); border: 1px solid rgba(0,229,160,.2); }
-.inv-pending { background: rgba(251,191,36,.1); color: var(--yellow); border: 1px solid rgba(251,191,36,.2); }
-.inv-link { color: var(--blue); font-size: 12px; cursor: pointer; text-decoration: none; }
-.inv-link:hover { text-decoration: underline; }
-
-/* ════════════════════════════════
-   WSPARCIE
-   ════════════════════════════════ */
-.support-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
-.support-card {
-  background: var(--bg2); border: 1px solid var(--border);
-  border-radius: 12px; padding: 20px;
-  cursor: pointer; transition: all .2s;
-  display: flex; gap: 14px; align-items: flex-start;
-}
-.support-card:hover { border-color: var(--border2); transform: translateY(-1px); }
-.support-card-icon { font-size: 28px; }
-.support-card-title { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
-.support-card-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
-
-.chat-window {
-  background: var(--bg2); border: 1px solid var(--border);
-  border-radius: 14px; overflow: hidden;
-}
-.chat-messages {
-  height: 320px; overflow-y: auto;
-  padding: 16px; display: flex; flex-direction: column; gap: 12px;
-}
-.msg { max-width: 80%; }
-.msg-bot { align-self: flex-start; }
-.msg-user { align-self: flex-end; }
-.msg-bubble {
-  padding: 10px 14px; border-radius: 12px;
-  font-size: 13px; line-height: 1.5;
-}
-.msg-bot .msg-bubble { background: var(--bg3); color: var(--white); border-radius: 4px 12px 12px 12px; }
-.msg-user .msg-bubble { background: rgba(0,229,160,.12); color: var(--white); border-radius: 12px 4px 12px 12px; }
-.msg-time { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 3px; padding: 0 2px; }
-.chat-input-row {
-  display: flex; gap: 10px;
-  padding: 14px 16px;
-  border-top: 1px solid var(--border);
-}
-.chat-input {
-  flex: 1; background: var(--bg3);
-  border: 1px solid var(--border2); border-radius: 8px;
-  padding: 9px 12px; font-size: 13px; color: var(--white);
-  font-family: var(--head); outline: none;
-  transition: border-color .2s;
-}
-.chat-input:focus { border-color: var(--green); }
-.chat-send {
-  background: var(--green); color: var(--bg);
-  border: none; width: 36px; height: 36px;
-  border-radius: 8px; cursor: pointer;
-  font-size: 15px; transition: background .2s;
-}
-.chat-send:hover { background: var(--green2); }
-
-/* ════════════════════════════════
-   TOAST
-   ════════════════════════════════ */
-.toast {
-  position: fixed; bottom: 24px; right: 24px;
-  background: var(--bg3); border: 1px solid var(--border2);
-  border-radius: 10px; padding: 12px 16px;
-  font-size: 13px; color: var(--white);
-  display: flex; align-items: center; gap: 10px;
-  z-index: 9999; transform: translateY(80px); opacity: 0;
-  transition: all .3s cubic-bezier(0.16,1,0.3,1);
-  box-shadow: 0 8px 32px rgba(0,0,0,.5);
-}
-.toast.show { transform: translateY(0); opacity: 1; }
-.toast-icon { font-size: 16px; }
-
-/* ════════════════════════════════
-   RESPONSIVE
-   ════════════════════════════════ */
-.hamburger {
-  display: none; background: none; border: none;
-  color: var(--muted); font-size: 22px; cursor: pointer;
-}
-
-@media (max-width: 1100px) {
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .quick-actions { grid-template-columns: repeat(2, 1fr); }
-  .two-col { grid-template-columns: 1fr; }
-  .settings-grid { grid-template-columns: 1fr; }
-  .support-grid { grid-template-columns: 1fr; }
-}
-@media (max-width: 768px) {
-  .sidebar { transform: translateX(-100%); }
-  .sidebar.open { transform: translateX(0); }
-  .main { margin-left: 0; }
-  .hamburger { display: block; }
-  .content { padding: 20px; }
-  .sites-grid { grid-template-columns: 1fr; }
-  .stats-grid { grid-template-columns: 1fr 1fr; }
-  .quick-actions { grid-template-columns: repeat(2, 1fr); }
-}
-
-
-/* ── NAV WEBGEN ──────────────────────────────── */
-.wg-nav{
-  position:fixed;top:0;left:0;right:0;z-index:500;
-  height:64px;
-  display:flex;align-items:center;justify-content:space-between;
-  background:rgba(8,10,15,.9);backdrop-filter:blur(24px);
-  border-bottom:1px solid rgba(240,242,247,.07);
-  font-family:'Bricolage Grotesque','Poppins',sans-serif;
-}
-.wg-nav > * {
-  /* Umożliwia centrowanie linków */
-}
-/* Wewnętrzny wrapper dla centrowania */
-.wg-nav-inner{
-  width:100%;
-  max-width:1280px;
-  margin:0 auto;
-  padding:0 48px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  height:100%;
-}
-.wg-nav-logo{
-  display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0;
-}
-.wg-nav-logo-mark{
-  width:30px;height:30px;border-radius:7px;
-  background:linear-gradient(135deg,#00E5A0,#0066FF,#7B4FFF);
-  display:flex;align-items:center;justify-content:center;
-  font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#fff;
-}
-.wg-nav-logo-name{font-size:17px;font-weight:700;color:#F0F2F7;letter-spacing:-.02em}
-.wg-nav-logo-name span{background:linear-gradient(135deg,#00E5A0,#0066FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.wg-nav-links{
-  display:flex;align-items:center;gap:4px;list-style:none;
-  margin:0;padding:0;
-}
-.wg-nav-links a{
-  font-size:14px;font-weight:500;color:#8892AA;text-decoration:none;
-  padding:6px 12px;border-radius:7px;transition:all .18s;white-space:nowrap;
-}
-.wg-nav-links a:hover{color:#F0F2F7;background:rgba(240,242,247,.06)}
-.wg-nav-links a.active{color:#F0F2F7;background:rgba(240,242,247,.08)}
-.wg-nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
-.wg-nav-login{
-  font-size:13px;font-weight:600;color:#8892AA;text-decoration:none;
-  padding:7px 14px;border-radius:8px;transition:all .18s;white-space:nowrap;
-}
-.wg-nav-login:hover{color:#F0F2F7;background:rgba(240,242,247,.06)}
-.wg-nav-cta{
-  background:#00E5A0;color:#080A0F;
-  padding:8px 18px;border-radius:8px;
-  font-size:14px;font-weight:700;text-decoration:none;
-  transition:background .18s;white-space:nowrap;
-}
-.wg-nav-cta:hover{background:#00C98A}
-.wg-nav-hamburger{
-  display:none;background:none;border:none;
-  color:#8892AA;font-size:22px;cursor:pointer;
-  padding:4px;line-height:1;
-}
-/* Mobile drawer */
-.wg-nav-drawer{
-  display:none;position:fixed;top:64px;left:0;right:0;
-  background:rgba(8,10,15,.97);backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(240,242,247,.08);
-  padding:12px 20px 20px;z-index:499;
-  flex-direction:column;gap:4px;
-}
-.wg-nav-drawer.open{display:flex}
-.wg-nav-drawer a{
-  font-size:15px;font-weight:500;color:#8892AA;text-decoration:none;
-  padding:11px 14px;border-radius:8px;transition:all .18s;
-}
-.wg-nav-drawer a:hover{color:#F0F2F7;background:rgba(240,242,247,.06)}
-.wg-nav-drawer a.active{color:#F0F2F7;background:rgba(240,242,247,.08)}
-.wg-nav-drawer-cta{
-  margin-top:8px;background:#00E5A0;color:#080A0F!important;
-  text-align:center;font-weight:700!important;border-radius:9px;
-}
-.wg-nav-drawer-cta:hover{background:#00C98A!important}
+/* ── MOBILE ──────────────────────────────────── */
 @media(max-width:900px){
-  .wg-nav-links{display:none}
-  .wg-nav-login{display:none}
-  .wg-nav-cta{display:none}
-  .wg-nav-hamburger{display:block}
+  .layout{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .main{padding:24px 16px}
+  .stats-grid{grid-template-columns:1fr}
+  .plan-dates{grid-template-columns:1fr}
+  .firma-grid{grid-template-columns:1fr}
 }
-@media(max-width:480px){.wg-nav{padding:0 20px}}
-/* Padding na body żeby nav nie zachodził na treść */
-
-/* ─────────────────────────────────────────────── */
-
 </style>
 
+<!-- Auth check -->
 <script>
-// Auth check — przed załadowaniem dashboard
 (function authCheck() {
-  var session = null;
-  var user = null;
+  var session = null, user = null;
   try { session = JSON.parse(localStorage.getItem('wg_session') || 'null'); } catch(e) {}
   try { user    = JSON.parse(localStorage.getItem('wg_user')    || 'null'); } catch(e) {}
-
   var isLoggedIn = (session && session.email) || (user && user.activated && user.email);
-
   if (!isLoggedIn) {
-    // Nie zalogowany — przekieruj do login
     window.location.replace('/test/login/?redirect=' + encodeURIComponent(window.location.pathname));
     return;
   }
-
-  // Pokaż email w navie / dashboardzie po załadowaniu
-  var email = (session && session.email) || (user && user.email) || '';
-  window.wg_current_user = { email: email };
-
-  document.addEventListener('DOMContentLoaded', function() {
-    // Podmień placeholder email w dashboard
-    document.querySelectorAll('.user-email, [data-user-email]').forEach(function(el) {
-      el.textContent = email;
-    });
-    // Dodaj logout button jeśli nav jest załadowany
-    var loginLinks = document.querySelectorAll('.wg-nav-login');
-    loginLinks.forEach(function(el) {
-      el.textContent = email.split('@')[0];
-      el.href = '#';
-      el.onclick = function(e) {
-        e.preventDefault();
-        if (confirm('Wylogować się?')) {
-          localStorage.removeItem('wg_session');
-          window.location.replace('/test/login/?from=logout');
-        }
-      };
-    });
-  });
+  window.wg_user_email = (session && session.email) || (user && user.email) || '';
 })();
 </script>
 </head>
 <body>
 
-<!-- ════════════════════════════════
-     SIDEBAR
-     ════════════════════════════════ -->
-<aside class="sidebar" id="sidebar">
-
-  <a class="sidebar-logo" href="#">
-    <div class="logo-mark">W</div>
-    <div class="logo-text">web<span>gen</span></div>
+<!-- NAV -->
+<nav class="nav">
+  <a href="/test/" class="nav-logo">
+    <div class="nav-logo-mark">W</div>
+    <div class="nav-logo-name">web<span>gen</span></div>
   </a>
-
-  <div class="sidebar-plan">
-    <div>
-      <div class="plan-name">MANAGED PRO</div>
-      <div class="plan-badge">aktywny · 249 zł/mies</div>
-    </div>
-    <div style="font-size:16px">⚡</div>
+  <div class="nav-spacer"></div>
+  <div class="nav-user" onclick="toggleUserMenu()">
+    <div class="nav-avatar" id="nav-avatar">?</div>
+    <span class="nav-email" id="nav-email">ładuję…</span>
   </div>
-
-  <nav class="wg-nav" id="wg-nav">
-  <a href="/test/" class="wg-nav-logo">
-    <div class="wg-nav-logo-mark">W</div>
-    <div class="wg-nav-logo-name">web<span>gen</span></div>
-  </a>
-  <ul class="wg-nav-links">
-
-    <li><a href="/test/#jak-dziala">Jak działa</a></li>
-    <li><a href="/test/cennik/">Cennik</a></li>
-    <li><a href="/test/generator/">Generator</a></li>
-    <li><a href="/test/#faq">FAQ</a></li>
-  </ul>
-  <div class="wg-nav-right">
-    <a href="/test/dashboard/" class="wg-nav-login">Logowanie</a>
-    <a href="/test/generator/" class="wg-nav-cta">Zacznij za darmo →</a>
-    <button class="wg-nav-hamburger" id="wg-hamburger" aria-label="Menu">☰</button>
-  </div>
+  <a class="nav-logout" onclick="doLogout()" href="#">Wyloguj</a>
 </nav>
 
-<div class="wg-nav-drawer" id="wg-drawer">
+<!-- LAYOUT -->
+<div class="layout">
 
-  <a href="/test/#jak-dziala">Jak działa</a>
-  <a href="/test/cennik/">Cennik</a>
-  <a href="/test/generator/">Generator</a>
-  <a href="/test/#faq">FAQ</a>
-  <a href="/test/dashboard/" class="wg-nav-login" style="color:#8892AA">Logowanie</a>
-  <a href="/test/generator/" class="wg-nav-drawer-cta">Zacznij za darmo →</a>
-</div>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-label">Panel klienta</div>
+    <a class="nav-item active" data-page="overview" onclick="showPage('overview')">
+      <span class="ni-icon">⬛</span> Przegląd
+    </a>
+    <a class="nav-item" data-page="subscription" onclick="showPage('subscription')">
+      <span class="ni-icon">💳</span> Plan i płatności
+    </a>
+    <a class="nav-item" data-page="website" onclick="showPage('website')">
+      <span class="ni-icon">🌐</span> Moja strona
+    </a>
+    <a class="nav-item" data-page="account" onclick="showPage('account')">
+      <span class="ni-icon">⚙️</span> Ustawienia konta
+    </a>
+    <div class="sidebar-label" style="margin-top:auto">Pomoc</div>
+    <a class="nav-item" href="mailto:hello@webgen.pl">
+      <span class="ni-icon">✉️</span> Kontakt
+    </a>
+    <a class="nav-item" href="/test/cennik/">
+      <span class="ni-icon">📊</span> Cennik
+    </a>
+  </aside>
 
-  <div class="sidebar-footer">
-    <div class="user-row">
-      <div class="user-avatar">M</div>
-      <div>
-        <div class="user-name">Marek Kowalski</div>
-        <div class="user-email">marek@hydraulik.pl</div>
-      </div>
-    </div>
-  </div>
-</aside>
+  <!-- MAIN -->
+  <main class="main" id="main-content">
 
-<!-- ════════════════════════════════
-     MAIN
-     ════════════════════════════════ -->
-<div class="main">
-
-  <!-- Topbar -->
-  <header class="topbar">
-    <div class="topbar-left">
-      <button class="hamburger" onclick="toggleSidebar()">☰</button>
-      <div>
-        <div class="topbar-page" id="topbar-title">Przegląd</div>
-        <div class="topbar-breadcrumb">webgen.pl / <span id="topbar-sub">dashboard</span></div>
-      </div>
-    </div>
-    <div class="topbar-actions">
-      <button class="btn-icon" title="Powiadomienia" onclick="showToast('Brak nowych powiadomień','📭')">
-        🔔
-      </button>
-      <button class="btn-icon" title="Pomoc" onclick="showPanel('support', document.querySelector('[onclick*=support]'))">
-        ❓
-      </button>
-      <button class="btn-new-site" onclick="showPanel('editor', document.querySelector('[onclick*=editor]'))">
-        + Edytuj stronę
-      </button>
-    </div>
-  </header>
-
-  <div class="content">
-
-    <!-- ══════════════════════════
-         PANEL: DASHBOARD
-         ══════════════════════════ -->
-    <div class="panel active" id="panel-dashboard">
-      <div class="page-header">
-        <div class="page-title">Dobry wieczór, Marku 👋</div>
-        <div class="page-subtitle">Oto podsumowanie Twojej strony i konta.</div>
-      </div>
-
-      <!-- Stats -->
-      <div class="stats-grid">
-        <div class="stat-card green">
-          <div class="stat-label">Wizyty (30 dni)</div>
-          <div class="stat-value">1 247</div>
-          <div class="stat-delta"><span class="delta-up">↑ +18%</span> vs poprzedni miesiąc</div>
-        </div>
-        <div class="stat-card blue">
-          <div class="stat-label">Pozycja Google</div>
-          <div class="stat-value">#4</div>
-          <div class="stat-delta"><span class="delta-up">↑ +3</span> "hydraulik Białołęka"</div>
-        </div>
-        <div class="stat-card purple">
-          <div class="stat-label">Kliknięcia tel.</div>
-          <div class="stat-value">89</div>
-          <div class="stat-delta"><span class="delta-up">↑ +22%</span> z wizytówki Google</div>
-        </div>
-        <div class="stat-card yellow">
-          <div class="stat-label">PageSpeed</div>
-          <div class="stat-value">94</div>
-          <div class="stat-delta"><span class="delta-up">●</span> Mobile & Desktop</div>
-        </div>
-      </div>
-
-      <!-- Quick actions -->
-      <div class="quick-actions">
-        <div class="qa-card" onclick="showPanel('editor', document.querySelector('[onclick*=editor]'))">
-          <div class="qa-icon">✏️</div>
-          <div class="qa-label">Edytuj treść</div>
-          <div class="qa-desc">Zmień teksty i zdjęcia</div>
-        </div>
-        <div class="qa-card" onclick="showPanel('seo', document.querySelector('[onclick*=seo]'))">
-          <div class="qa-icon">📊</div>
-          <div class="qa-label">Raport SEO</div>
-          <div class="qa-desc">Sprawdź pozycje</div>
-        </div>
-        <div class="qa-card" onclick="showToast('Otwieranie podglądu strony...','🌐')">
-          <div class="qa-icon">🔗</div>
-          <div class="qa-label">Podgląd strony</div>
-          <div class="qa-desc">hydraulik.webgen.pl</div>
-        </div>
-        <div class="qa-card" onclick="showPanel('support', document.querySelector('[onclick*=support]'))">
-          <div class="qa-icon">💬</div>
-          <div class="qa-label">Napisz do nas</div>
-          <div class="qa-desc">Odpowiedź w 4h</div>
-        </div>
-      </div>
-
-      <!-- Activity + Plan -->
-      <div class="two-col">
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">📋 Ostatnia aktywność</div>
-            <div class="card-action">Zobacz wszystko →</div>
-          </div>
-          <div class="activity-list">
-            <div class="activity-item">
-              <div class="activity-icon ai-green">🚀</div>
-              <div class="activity-body">
-                <div class="activity-text">Strona wygenerowana i opublikowana pod adresem <strong>hydraulik.webgen.pl</strong></div>
-                <div class="activity-time">Dzisiaj, 14:23</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon ai-blue">📍</div>
-              <div class="activity-body">
-                <div class="activity-text">Schema.org LocalBusiness zaktualizowany — Twój salon widoczny w mapach Google</div>
-                <div class="activity-time">Dzisiaj, 14:24</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon ai-purple">📈</div>
-              <div class="activity-body">
-                <div class="activity-text">Strona zaindeksowana przez Google Search Console</div>
-                <div class="activity-time">Wczoraj, 09:15</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon ai-yellow">⚡</div>
-              <div class="activity-body">
-                <div class="activity-text">PageSpeed Insights: 94/100 Mobile — <strong>świetny wynik!</strong></div>
-                <div class="activity-time">2 dni temu</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon ai-green">💳</div>
-              <div class="activity-body">
-                <div class="activity-text">Subskrypcja Managed PRO aktywowana pomyślnie</div>
-                <div class="activity-time">3 dni temu</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">💎 Twój plan</div>
-            <div class="card-action" onclick="showPanel('billing', document.querySelector('[onclick*=billing]'))">Zarządzaj →</div>
-          </div>
-          <div class="plan-info">
-            <div class="plan-header">
-              <div class="plan-title-row">
-                <div class="plan-title">Managed PRO</div>
-                <div><div class="plan-price">249 zł</div><div class="plan-period">/mies.</div></div>
-              </div>
-              <div class="plan-bar-label"><span>Dni do odnowienia</span><span>21 z 30</span></div>
-              <div class="plan-bar"><div class="plan-bar-fill" style="width:70%"></div></div>
-              <div style="font-size:11px;color:var(--muted)">Następna płatność: 16 kwi 2026</div>
-            </div>
-            <div class="plan-features">
-              <div class="plan-feature"><span class="plan-feature-check">✓</span> Strona na własnej domenie</div>
-              <div class="plan-feature"><span class="plan-feature-check">✓</span> Lokalne SEO</div>
-              <div class="plan-feature"><span class="plan-feature-check">✓</span> Miesięczny raport SEO</div>
-              <div class="plan-feature"><span class="plan-feature-check">✓</span> Aktualizacje przez email</div>
-              <div class="plan-feature"><span class="plan-feature-x">–</span> Blog (dostępny w PRO+)</div>
-              <div class="plan-feature"><span class="plan-feature-x">–</span> Kampanie Ads</div>
-            </div>
-            <button class="plan-upgrade-btn" onclick="showPanel('billing', document.querySelector('[onclick*=billing]'))">
-              Upgrade do Managed PREMIUM →
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ══════════════════════════
-         PANEL: MOJE STRONY
-         ══════════════════════════ -->
-    <div class="panel" id="panel-sites">
-      <div class="page-header">
-        <div class="page-title">Moje strony</div>
-        <div class="page-subtitle">Zarządzaj wygenerowanymi stronami internetowymi.</div>
-      </div>
-
-      <div class="sites-grid">
-        <!-- Strona aktywna -->
-        <div class="site-card">
-          <div class="site-preview">
-            <div class="site-preview-browser">
-              <div class="browser-bar">
-                <div class="browser-dot" style="background:#F87171"></div>
-                <div class="browser-dot" style="background:#FBBF24"></div>
-                <div class="browser-dot" style="background:#00E5A0"></div>
-                <div class="browser-url">hydraulik.webgen.pl</div>
-              </div>
-              <div class="browser-content">
-                <div class="browser-line" style="width:90%;background:var(--bg4)"></div>
-                <div class="browser-line" style="width:70%"></div>
-                <div class="browser-line" style="width:50%"></div>
-              </div>
-            </div>
-            <div class="site-status-badge status-live">LIVE</div>
-          </div>
-          <div class="site-info">
-            <div class="site-name">Hydraulik Kowalski</div>
-            <a class="site-url" href="#">hydraulik.webgen.pl</a>
-            <div class="site-meta">
-              <div class="site-meta-item">📊 1 247 wizyt</div>
-              <div class="site-meta-item">📍 #4 Google</div>
-              <div class="site-meta-item">⚡ 94/100</div>
-            </div>
-            <div class="site-actions">
-              <button class="btn-sm btn-sm-outline" onclick="showPanel('editor',document.querySelector('[onclick*=editor]'))">✏ Edytuj</button>
-              <button class="btn-sm btn-sm-outline" onclick="showToast('Otwieranie podglądu...','🌐')">🔗 Podgląd</button>
-              <button class="btn-sm btn-sm-green" onclick="showPanel('seo',document.querySelector('[onclick*=seo]'))">📈 SEO</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Nowa strona card -->
-        <div class="site-card" style="border:1.5px dashed var(--border2);cursor:pointer;display:flex;align-items:center;justify-content:center;min-height:280px;" onclick="showToast('Generator uruchomiony...','🚀')">
-          <div style="text-align:center;padding:32px">
-            <div style="font-size:40px;margin-bottom:12px;opacity:.4">+</div>
-            <div style="font-size:14px;font-weight:700;color:var(--muted)">Dodaj nową stronę</div>
-            <div style="font-size:12px;color:var(--muted);margin-top:4px">Wygeneruj w 3 minuty</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ══════════════════════════
-         PANEL: EDYTOR TREŚCI
-         ══════════════════════════ -->
-    <div class="panel" id="panel-editor">
-      <div class="page-header">
-        <div class="page-title">Edytor treści</div>
-        <div class="page-subtitle">Wyślij e-mail z prośbą o zmianę lub edytuj bezpośrednio.</div>
-      </div>
-
-      <div class="two-col">
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">✏️ Wyślij prośbę o zmianę</div>
-          </div>
-          <div style="padding:20px">
-            <div class="field">
-              <label>Co chcesz zmienić?</label>
-              <select>
-                <option>Numer telefonu</option>
-                <option>Adres firmy</option>
-                <option>Godziny otwarcia</option>
-                <option>Opis usług</option>
-                <option>Zdjęcia</option>
-                <option>Inne</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Nowa wartość / opis zmiany</label>
-              <textarea style="width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:10px 12px;font-size:13px;color:var(--white);font-family:var(--head);outline:none;resize:vertical;min-height:100px;transition:border-color .2s" placeholder="np. Zmień numer telefonu na 600-123-456..." onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border2)'"></textarea>
-            </div>
-            <div class="field">
-              <label>Priorytet</label>
-              <select>
-                <option>Normalny (48h)</option>
-                <option>Pilny (24h)</option>
-                <option>Ekspres (4h) — wymaga planu PRO+</option>
-              </select>
-            </div>
-            <button class="btn-save" onclick="showToast('Prośba wysłana! Odpowiemy w ciągu 48h.','✅')">
-              Wyślij prośbę →
-            </button>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">📋 Historia zmian</div>
-          </div>
-          <div class="activity-list">
-            <div class="activity-item">
-              <div class="activity-icon ai-green">✅</div>
-              <div class="activity-body">
-                <div class="activity-text"><strong>Wykonano:</strong> Zmiana numeru telefonu na 600-500-400</div>
-                <div class="activity-time">15 mar 2026</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon ai-blue">✅</div>
-              <div class="activity-body">
-                <div class="activity-text"><strong>Wykonano:</strong> Dodanie opisu "Pogotowie hydrauliczne 24/7"</div>
-                <div class="activity-time">10 mar 2026</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon ai-yellow">⏳</div>
-              <div class="activity-body">
-                <div class="activity-text"><strong>W trakcie:</strong> Aktualizacja zdjęć galerii (3 szt.)</div>
-                <div class="activity-time">Dzisiaj, 10:00</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ══════════════════════════
-         PANEL: SEO
-         ══════════════════════════ -->
-    <div class="panel" id="panel-seo">
-      <div class="page-header">
-        <div class="page-title">SEO & Analytics</div>
-        <div class="page-subtitle">Twoja widoczność w Google i statystyki odwiedzin.</div>
+    <!-- ══ OVERVIEW ══ -->
+    <div class="page active" id="page-overview">
+      <div class="section-header">
+        <h1>Przegląd <span id="hello-name" style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text"></span></h1>
+        <p id="overview-sub">Ładuję dane konta…</p>
       </div>
 
       <div class="stats-grid">
         <div class="stat-card green">
-          <div class="stat-label">Wyświetlenia GSC</div>
-          <div class="stat-value">4 820</div>
-          <div class="stat-delta"><span class="delta-up">↑ +34%</span> vs poprzedni miesiąc</div>
+          <div class="stat-label">Status konta</div>
+          <div class="stat-value" id="stat-status" style="font-size:20px">…</div>
+          <div class="stat-sub" id="stat-status-sub"></div>
         </div>
         <div class="stat-card blue">
-          <div class="stat-label">Kliknięcia GSC</div>
-          <div class="stat-value">312</div>
-          <div class="stat-delta"><span class="delta-up">↑ +28%</span> CTR 6.5%</div>
+          <div class="stat-label">Aktywny plan</div>
+          <div class="stat-value" id="stat-plan" style="font-size:20px">…</div>
+          <div class="stat-sub" id="stat-plan-sub"></div>
         </div>
         <div class="stat-card purple">
-          <div class="stat-label">Śr. pozycja</div>
-          <div class="stat-value">6.2</div>
-          <div class="stat-delta"><span class="delta-up">↑ +1.8</span> poprawa</div>
-        </div>
-        <div class="stat-card yellow">
-          <div class="stat-label">Zaindeksowane</div>
-          <div class="stat-value">7</div>
-          <div class="stat-delta">podstron w Google</div>
+          <div class="stat-label">Następna płatność</div>
+          <div class="stat-value" id="stat-renewal" style="font-size:20px">…</div>
+          <div class="stat-sub" id="stat-renewal-sub"></div>
         </div>
       </div>
 
-      <div class="two-col">
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">🔑 Top słowa kluczowe</div>
-          </div>
-          <table class="invoice-table">
-            <thead>
-              <tr><th>Słowo kluczowe</th><th>Pozycja</th><th>Kliknięcia</th><th>Trend</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>hydraulik Białołęka</td><td style="color:var(--green);font-family:var(--mono);font-weight:700">#4</td><td>87</td><td style="color:var(--green)">↑ +3</td></tr>
-              <tr><td>hydraulik Warszawa tanio</td><td style="color:var(--green);font-family:var(--mono);font-weight:700">#7</td><td>54</td><td style="color:var(--green)">↑ +5</td></tr>
-              <tr><td>pogotowie hydrauliczne 24h</td><td style="font-family:var(--mono)">#12</td><td>31</td><td style="color:var(--yellow)">→ 0</td></tr>
-              <tr><td>naprawy hydrauliczne Tarchomin</td><td style="font-family:var(--mono)">#9</td><td>28</td><td style="color:var(--green)">↑ +2</td></tr>
-              <tr><td>instalacje wod-kan Warszawa</td><td style="font-family:var(--mono)">#15</td><td>18</td><td style="color:var(--red)">↓ -1</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">💡 Rekomendacje SEO</div>
-          </div>
-          <div class="activity-list">
-            <div class="activity-item">
-              <div class="activity-icon ai-green">✅</div>
-              <div class="activity-body"><div class="activity-text">Schema.org LocalBusiness — aktywny</div></div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon ai-green">✅</div>
-              <div class="activity-body"><div class="activity-text">Google Search Console — połączony</div></div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon ai-yellow">💡</div>
-              <div class="activity-body"><div class="activity-text">Dodaj profil Google Business — poprawi widoczność w mapach</div></div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon ai-blue">💡</div>
-              <div class="activity-body"><div class="activity-text">5 podstron dzielnicowych dostępnych w Twoim planie — aktywuj?</div></div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon ai-purple">💡</div>
-              <div class="activity-body"><div class="activity-text">Oceń firmę w Google (min. 5 opinii) — duży wpływ na pozycję</div></div>
-            </div>
-          </div>
+      <div id="overview-plan-card"></div>
+      <div id="overview-error" style="display:none" class="error-box"></div>
+    </div>
+
+    <!-- ══ SUBSCRIPTION ══ -->
+    <div class="page" id="page-subscription">
+      <div class="section-header">
+        <h1>Plan i płatności</h1>
+        <p>Twoja aktywna subskrypcja i historia faktur</p>
+      </div>
+      <div id="sub-content">
+        <div class="loading-overlay">
+          <div class="spinner"></div>
+          <div class="loading-text">Pobieranie danych ze Stripe…</div>
         </div>
       </div>
     </div>
 
-    <!-- ══════════════════════════
-         PANEL: PLAN & FAKTURY
-         ══════════════════════════ -->
-    <div class="panel" id="panel-billing">
-      <div class="page-header">
-        <div class="page-title">Plan & faktury</div>
-        <div class="page-subtitle">Zarządzaj subskrypcją i pobieraj faktury.</div>
+    <!-- ══ WEBSITE ══ -->
+    <div class="page" id="page-website">
+      <div class="section-header">
+        <h1>Moja strona</h1>
+        <p>Konfiguracja i szczegóły wygenerowanej strony</p>
       </div>
+      <div id="website-content"></div>
+    </div>
 
-      <div class="two-col">
-        <div>
-          <div class="card" style="margin-bottom:20px">
-            <div class="card-header"><div class="card-title">💎 Aktywny plan</div></div>
-            <div style="padding:20px">
-              <div style="display:flex;justify-content:space-between;align-items:center;background:var(--bg3);border-radius:10px;padding:16px;border:1px solid rgba(0,229,160,.15);margin-bottom:16px">
-                <div>
-                  <div style="font-size:18px;font-weight:800;margin-bottom:4px">Managed PRO</div>
-                  <div style="font-size:12px;color:var(--muted)">Odnowienie: 16 kwi 2026</div>
-                </div>
-                <div style="text-align:right">
-                  <div style="font-family:var(--mono);font-size:24px;font-weight:700;color:var(--green)">249 zł</div>
-                  <div style="font-size:11px;color:var(--muted)">/miesiąc</div>
-                </div>
-              </div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
-                <button class="btn-sm btn-sm-outline" onclick="showToast('Przekierowanie do zarządzania subskrypcją...','💳')">Zmień plan</button>
-                <button class="btn-sm btn-sm-outline" style="color:var(--red);border-color:rgba(248,113,113,.2)" onclick="showToast('Anulowanie subskrypcji - wyślij email do hello@webgen.pl','📧')">Anuluj subskrypcję</button>
-              </div>
-
-              <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:10px;letter-spacing:.08em;text-transform:uppercase">Dostępne plany upgrade:</div>
-              <div style="background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer" onclick="showToast('Przekierowanie do Stripe checkout...','🔒')">
-                <div>
-                  <div style="font-size:14px;font-weight:700">Managed PREMIUM</div>
-                  <div style="font-size:12px;color:var(--muted)">Blog, kampanie Ads, dedykowany opiekun</div>
-                </div>
-                <div style="text-align:right">
-                  <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--green)">599 zł/mies</div>
-                  <div style="font-size:11px;color:var(--green)">Upgrade →</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header"><div class="card-title">🧩 Aktywne dodatki</div></div>
-            <div style="padding:20px">
-              <div style="background:var(--bg3);border-radius:8px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-                <div><div style="font-size:13px;font-weight:600">SEO Lokalne</div><div style="font-size:11px;color:var(--muted)">3 dodatkowe dzielnice</div></div>
-                <div style="font-family:var(--mono);font-size:13px;color:var(--green)">jednorazowy</div>
-              </div>
-              <button class="btn-sm btn-sm-green" style="width:100%;margin-top:8px" onclick="showToast('Przekierowanie do sklepu z dodatkami...','🛒')">
-                + Dodaj kolejny add-on
-              </button>
-            </div>
-          </div>
+    <!-- ══ ACCOUNT ══ -->
+    <div class="page" id="page-account">
+      <div class="section-header">
+        <h1>Ustawienia konta</h1>
+        <p>Email i hasło</p>
+      </div>
+      <div class="card" style="max-width:480px">
+        <div class="card-title">Dane konta</div>
+        <div class="firma-field" style="margin-bottom:12px">
+          <div class="firma-label">Email</div>
+          <div class="firma-val" id="account-email">…</div>
         </div>
-
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">🧾 Historia faktur</div>
-            <div class="card-action" onclick="showToast('Pobieranie wszystkich faktur...','📥')">Pobierz wszystkie →</div>
-          </div>
-          <table class="invoice-table">
-            <thead><tr><th>Data</th><th>Opis</th><th>Kwota</th><th>Status</th><th></th></tr></thead>
-            <tbody>
-              <tr><td style="font-family:var(--mono)">16.03.2026</td><td>Managed PRO</td><td style="font-family:var(--mono)">249 zł</td><td><span class="inv-status inv-paid">OPŁACONA</span></td><td><a class="inv-link" onclick="showToast('Pobieranie faktury PDF...','📄')">PDF</a></td></tr>
-              <tr><td style="font-family:var(--mono)">16.02.2026</td><td>Managed PRO</td><td style="font-family:var(--mono)">249 zł</td><td><span class="inv-status inv-paid">OPŁACONA</span></td><td><a class="inv-link" onclick="showToast('Pobieranie faktury PDF...','📄')">PDF</a></td></tr>
-              <tr><td style="font-family:var(--mono)">16.01.2026</td><td>Managed PRO</td><td style="font-family:var(--mono)">249 zł</td><td><span class="inv-status inv-paid">OPŁACONA</span></td><td><a class="inv-link" onclick="showToast('Pobieranie faktury PDF...','📄')">PDF</a></td></tr>
-              <tr><td style="font-family:var(--mono)">16.01.2026</td><td>SEO Lokalne add-on</td><td style="font-family:var(--mono)">79 zł</td><td><span class="inv-status inv-paid">OPŁACONA</span></td><td><a class="inv-link" onclick="showToast('Pobieranie faktury PDF...','📄')">PDF</a></td></tr>
-              <tr><td style="font-family:var(--mono)">16.12.2025</td><td>Plan Free → PRO</td><td style="font-family:var(--mono)">249 zł</td><td><span class="inv-status inv-paid">OPŁACONA</span></td><td><a class="inv-link" onclick="showToast('Pobieranie faktury PDF...','📄')">PDF</a></td></tr>
-            </tbody>
-          </table>
+        <div class="firma-field" style="margin-bottom:20px">
+          <div class="firma-label">Konto utworzone</div>
+          <div class="firma-val" id="account-created">…</div>
         </div>
+        <a href="mailto:hello@webgen.pl?subject=Zmiana danych konta" class="btn btn-outline"
+          style="font-size:13px;padding:10px 20px">
+          Zmień hasło / dane → email do nas
+        </a>
       </div>
     </div>
 
-    <!-- ══════════════════════════
-         PANEL: USTAWIENIA
-         ══════════════════════════ -->
-    <div class="panel" id="panel-settings">
-      <div class="page-header">
-        <div class="page-title">Ustawienia konta</div>
-        <div class="page-subtitle">Zarządzaj danymi firmy, domeną i powiadomieniami.</div>
-      </div>
-
-      <div class="settings-grid">
-        <div class="settings-card">
-          <div class="settings-section">
-            <div class="settings-label">Dane firmy</div>
-            <div class="field"><label>Nazwa firmy</label><input type="text" value="Hydraulik Kowalski" placeholder="Nazwa Twojej firmy"></div>
-            <div class="field"><label>Branża</label><select><option selected>Hydraulika</option><option>Elektryka</option><option>Remonty</option><option>Salon piękności</option><option>Sprzątanie</option></select></div>
-            <div class="field"><label>Miasto</label><input type="text" value="Warszawa" placeholder="Twoje miasto"></div>
-            <div class="field"><label>Dzielnica</label><input type="text" value="Białołęka" placeholder="Dzielnica (opcjonalnie)"></div>
-            <div class="field"><label>Telefon</label><input type="tel" value="600-500-400" placeholder="+48 ..."></div>
-            <button class="btn-save" onclick="showToast('Dane firmy zapisane!','✅')">Zapisz zmiany</button>
-          </div>
-        </div>
-
-        <div class="settings-card">
-          <div class="settings-section">
-            <div class="settings-label">Domena</div>
-            <div class="field"><label>Subdomena webgen.pl</label><input type="text" value="hydraulik" placeholder="twoja-firma"></div>
-            <div class="field"><label>Własna domena (opcjonalnie)</label><input type="text" value="" placeholder="twojafirma.pl"></div>
-            <button class="btn-save" onclick="showToast('Ustawienia domeny zapisane!','✅')" style="margin-bottom:0">Zapisz domenę</button>
-          </div>
-          <div class="settings-section">
-            <div class="settings-label">Powiadomienia e-mail</div>
-            <div class="toggle-row">
-              <div class="toggle-info"><div class="toggle-title">Raport miesięczny SEO</div><div class="toggle-desc">Wysyłany 1. każdego miesiąca</div></div>
-              <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
-            </div>
-            <div class="toggle-row">
-              <div class="toggle-info"><div class="toggle-title">Potwierdzenie zmian na stronie</div><div class="toggle-desc">Po każdej aktualizacji treści</div></div>
-              <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
-            </div>
-            <div class="toggle-row">
-              <div class="toggle-info"><div class="toggle-title">Przypomnienie o płatności</div><div class="toggle-desc">7 dni przed odnowieniem</div></div>
-              <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
-            </div>
-            <div class="toggle-row">
-              <div class="toggle-info"><div class="toggle-title">Newsletter webgen.pl</div><div class="toggle-desc">Porady SEO i nowości produktu</div></div>
-              <label class="toggle"><input type="checkbox"><span class="toggle-slider"></span></label>
-            </div>
-          </div>
-          <div class="settings-section">
-            <div class="settings-label">Strefa niebezpieczna</div>
-            <button class="btn-danger" onclick="showToast('Wyślij email na hello@webgen.pl aby usunąć konto','📧')">Usuń konto i dane</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ══════════════════════════
-         PANEL: WSPARCIE
-         ══════════════════════════ -->
-    <div class="panel" id="panel-support">
-      <div class="page-header">
-        <div class="page-title">Wsparcie</div>
-        <div class="page-subtitle">Jesteśmy tutaj. Odpowiadamy w ciągu 4 godzin.</div>
-      </div>
-
-      <div class="support-grid">
-        <div class="support-card">
-          <div class="support-card-icon">💬</div>
-          <div>
-            <div class="support-card-title">Czat z zespołem</div>
-            <div class="support-card-desc">Napisz wiadomość — odpowiemy najszybciej jak to możliwe. Czas odpowiedzi: do 4h (plan PRO).</div>
-          </div>
-        </div>
-        <div class="support-card" onclick="showToast('Otwieranie klienta email...','📧')">
-          <div class="support-card-icon">📧</div>
-          <div>
-            <div class="support-card-title">E-mail</div>
-            <div class="support-card-desc">hello@webgen.pl — dla spraw niewymagających szybkiej odpowiedzi.</div>
-          </div>
-        </div>
-        <div class="support-card" onclick="showToast('Otwieranie bazy wiedzy...','📚')">
-          <div class="support-card-icon">📚</div>
-          <div>
-            <div class="support-card-title">Baza wiedzy</div>
-            <div class="support-card-desc">Artykuły, poradniki SEO, FAQ i instrukcje krok po kroku.</div>
-          </div>
-        </div>
-        <div class="support-card" onclick="showToast('Otwieranie kalendarza rezerwacji...','📅')">
-          <div class="support-card-icon">📅</div>
-          <div>
-            <div class="support-card-title">Konsultacja 1:1</div>
-            <div class="support-card-desc">Zarezerwuj 30-min. rozmowę z naszym specjalistą SEO. Dostępne w planie PRO+.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="chat-window">
-        <div class="card-header">
-          <div class="card-title">💬 Czat z obsługą webgen.pl <span style="width:8px;height:8px;background:var(--green);border-radius:50%;display:inline-block;margin-left:6px"></span></div>
-          <div style="font-family:var(--mono);font-size:11px;color:var(--green)">Online</div>
-        </div>
-        <div class="chat-messages" id="chat-messages">
-          <div class="msg msg-bot">
-            <div class="msg-bubble">Cześć Marku! 👋 Jestem tu, żeby pomóc. W czym mogę Ci dziś pomóc?</div>
-            <div class="msg-time">webgen.pl · 14:23</div>
-          </div>
-          <div class="msg msg-user">
-            <div class="msg-bubble">Chciałem zapytać o zmianę zdjęć na stronie</div>
-            <div class="msg-time">Ty · 14:25</div>
-          </div>
-          <div class="msg msg-bot">
-            <div class="msg-bubble">Jasne! Możesz to zrobić na dwa sposoby: 1) wyślij prośbę w zakładce "Edytor treści" — zrobimy to za Ciebie w ciągu 48h, lub 2) jeśli masz plan Managed, możesz edytować bezpośrednio w generatorze. Które zdjęcia chcesz zmienić?</div>
-            <div class="msg-time">webgen.pl · 14:26</div>
-          </div>
-        </div>
-        <div class="chat-input-row">
-          <input class="chat-input" id="chat-input" type="text" placeholder="Napisz wiadomość..." onkeydown="if(event.key==='Enter')sendMsg()">
-          <button class="chat-send" onclick="sendMsg()">→</button>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /content -->
-</div><!-- /main -->
-
-<!-- Toast -->
-<div class="toast" id="toast">
-  <span class="toast-icon" id="toast-icon">✅</span>
-  <span id="toast-msg">Zapisano!</span>
+  </main>
 </div>
 
 <script>
-// ─── Navigation ───
-function showPanel(id, el) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  const panel = document.getElementById('panel-' + id);
-  if (panel) panel.classList.add('active');
-  if (el) el.classList.add('active');
+var userData = {};
+var stripeData = {};
+var dataLoaded = false;
 
-  const titles = {
-    dashboard: ['Przegląd', 'dashboard'],
-    sites:     ['Moje strony', 'sites'],
-    editor:    ['Edytor treści', 'editor'],
-    seo:       ['SEO & Analytics', 'seo'],
-    billing:   ['Plan & faktury', 'billing'],
-    settings:  ['Ustawienia', 'settings'],
-    support:   ['Wsparcie', 'support'],
-  };
-  if (titles[id]) {
-    document.getElementById('topbar-title').textContent = titles[id][0];
-    document.getElementById('topbar-sub').textContent   = titles[id][1];
-  }
-  // Na mobile zamknij sidebar
-  if (window.innerWidth <= 768) {
-    document.getElementById('sidebar').classList.remove('open');
-  }
-}
+// ── Init ──────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', function() {
+  // Pobierz dane z localStorage
+  try {
+    var session = JSON.parse(localStorage.getItem('wg_session') || 'null');
+    var user    = JSON.parse(localStorage.getItem('wg_user')    || 'null');
+    var firma   = JSON.parse(localStorage.getItem('wg_firma')   || 'null');
+    userData = {
+      email:   (session && session.email) || (user && user.email) || '',
+      firma:   firma || {},
+      created: (user && user.created) ? new Date(user.created).toLocaleDateString('pl-PL') : '—',
+    };
+  } catch(e) { userData = {email:'', firma:{}, created:'—'}; }
 
-// ─── Sidebar mobile ───
-function toggleSidebar() {
-  document.getElementById('sidebar').classList.toggle('open');
-}
+  // Wypełnij statyczne elementy
+  var email = userData.email;
+  var initials = email ? email[0].toUpperCase() : '?';
+  document.getElementById('nav-avatar').textContent = initials;
+  document.getElementById('nav-email').textContent  = email;
+  document.getElementById('account-email').textContent   = email || '—';
+  document.getElementById('account-created').textContent = userData.created;
 
-// ─── Toast ───
-let toastTimer;
-function showToast(msg, icon = '✅') {
-  const t = document.getElementById('toast');
-  document.getElementById('toast-msg').textContent = msg;
-  document.getElementById('toast-icon').textContent = icon;
-  t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
-}
+  // Powitanie
+  var nameEl = document.getElementById('hello-name');
+  if (nameEl && email) nameEl.textContent = email.split('@')[0];
 
-// ─── Chat ───
-const botReplies = [
-  "Rozumiem! Sprawdzę to dla Ciebie i dam znać w ciągu 24h. 🙂",
-  "Jasne, zajmiemy się tym. Czy możesz podać więcej szczegółów?",
-  "Świetne pytanie! Najlepiej wyślij to przez zakładkę 'Edytor treści' — tam mamy pełną historię zmian.",
-  "Oczywiście! To możemy zrobić w ramach Twojego planu. Kiedy potrzebujesz gotowe?",
-  "Dziękuję za wiadomość! Nasz specjalista odpowie w ciągu 4 godzin. 👍",
-];
-let replyIdx = 0;
-function sendMsg() {
-  const input = document.getElementById('chat-input');
-  const text = input.value.trim();
-  if (!text) return;
-  const msgs = document.getElementById('chat-messages');
-  const now = new Date().toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' });
-  // User msg
-  msgs.innerHTML += `<div class="msg msg-user"><div class="msg-bubble">${text}</div><div class="msg-time">Ty · ${now}</div></div>`;
-  input.value = '';
-  msgs.scrollTop = msgs.scrollHeight;
-  // Bot reply
-  setTimeout(() => {
-    const reply = botReplies[replyIdx++ % botReplies.length];
-    msgs.innerHTML += `<div class="msg msg-bot"><div class="msg-bubble">${reply}</div><div class="msg-time">webgen.pl · ${now}</div></div>`;
-    msgs.scrollTop = msgs.scrollHeight;
-  }, 900);
-}
-
-// ─── Plan bar animation ───
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.querySelectorAll('.plan-bar-fill').forEach(el => {
-      el.style.width = el.style.width;
-    });
-  }, 400);
+  // Załaduj dane Stripe
+  loadStripeData(email);
+  renderWebsitePage();
 });
-</script>
 
-<script>
-(function(){
-  var btn = document.getElementById('wg-hamburger');
-  var drawer = document.getElementById('wg-drawer');
-  if(!btn || !drawer) return;
-  btn.addEventListener('click', function(){
-    drawer.classList.toggle('open');
-    btn.textContent = drawer.classList.contains('open') ? '✕' : '☰';
-  });
-  document.addEventListener('click', function(e){
-    if(!btn.contains(e.target) && !drawer.contains(e.target)){
-      drawer.classList.remove('open');
-      btn.textContent = '☰';
+// ── Stripe data ───────────────────────────────────
+async function loadStripeData(email) {
+  if (!email) {
+    renderNoCustomer();
+    return;
+  }
+  try {
+    var res  = await fetch('/api/dashboard-data?email=' + encodeURIComponent(email));
+    var data = await res.json();
+    stripeData = data;
+    dataLoaded = true;
+    renderOverviewPage(data);
+    renderSubscriptionPage(data);
+  } catch(err) {
+    renderError('Nie udało się pobrać danych. Sprawdź połączenie.');
+  }
+}
+
+// ── Format helpers ────────────────────────────────
+function formatDate(ts) {
+  if (!ts) return '—';
+  return new Date(ts * 1000).toLocaleDateString('pl-PL', {day:'numeric',month:'long',year:'numeric'});
+}
+function formatAmount(amount, currency) {
+  if (!amount) return '0 zł';
+  var cur = (currency || 'pln').toUpperCase();
+  if (cur === 'PLN') return (amount / 100).toFixed(0) + ' zł';
+  return (amount / 100).toFixed(2) + ' ' + cur;
+}
+function planLabel(name, amount, currency, interval) {
+  if (name && name.length > 2) return name;
+  if (amount) return formatAmount(amount, currency) + '/' + (interval === 'month' ? 'mies.' : interval);
+  return 'Plan webgen';
+}
+function statusLabel(status) {
+  var map = {
+    active: 'Aktywny', trialing: 'Okres próbny',
+    past_due: 'Zaległość', canceled: 'Anulowany',
+    incomplete: 'Niekompletny', unpaid: 'Nieopłacony',
+  };
+  return map[status] || status || '—';
+}
+function statusClass(status) {
+  if (status === 'active') return 'active';
+  if (status === 'trialing') return 'trialing';
+  if (status === 'past_due' || status === 'unpaid') return 'past_due';
+  if (status === 'canceled') return 'canceled';
+  return 'none';
+}
+
+// ── Render Overview ───────────────────────────────
+function renderOverviewPage(data) {
+  var sub = data.subscription;
+
+  // Stat cards
+  var statStatus    = document.getElementById('stat-status');
+  var statStatusSub = document.getElementById('stat-status-sub');
+  var statPlan      = document.getElementById('stat-plan');
+  var statPlanSub   = document.getElementById('stat-plan-sub');
+  var statRenewal   = document.getElementById('stat-renewal');
+  var statRenewalSub= document.getElementById('stat-renewal-sub');
+  var overviewSub   = document.getElementById('overview-sub');
+
+  if (sub) {
+    statStatus.innerHTML = '<span class="status-badge ' + statusClass(sub.status) + '">'
+      + '<span class="status-dot"></span>' + statusLabel(sub.status) + '</span>';
+    statStatusSub.textContent = 'Stripe ID: ' + (sub.id || '—').slice(-8);
+
+    statPlan.textContent = planLabel(sub.plan_name, sub.plan_amount, sub.plan_currency, sub.plan_interval);
+    statPlanSub.textContent = formatAmount(sub.plan_amount, sub.plan_currency) + '/mies.';
+
+    statRenewal.textContent = formatDate(sub.current_period_end);
+    statRenewalSub.textContent = sub.cancel_at_period_end ? '⚠ Nie odnowi się' : 'Automatyczne odnowienie';
+    overviewSub.textContent = 'Zalogowany jako ' + (data.customer && data.customer.email || userData.email);
+
+    document.getElementById('overview-plan-card').innerHTML = buildPlanCard(sub);
+  } else if (data.note === 'customer_not_found' || !data.customer) {
+    renderNoCustomer();
+  } else {
+    statStatus.textContent = 'Brak subskrypcji';
+    statPlan.textContent = '—';
+    statRenewal.textContent = '—';
+    overviewSub.textContent = 'Brak aktywnego planu';
+    document.getElementById('overview-plan-card').innerHTML = buildNoPlanCard();
+  }
+}
+
+function buildPlanCard(sub) {
+  return '<div class="plan-card active-plan">'
+    + '<div class="plan-header">'
+    + '<div>'
+    + '<div class="plan-name">' + planLabel(sub.plan_name, sub.plan_amount, sub.plan_currency) + '</div>'
+    + '<div style="font-size:12px;color:var(--muted);margin-top:4px;font-family:var(--mono)">sub_' + (sub.id || '').slice(-10) + '</div>'
+    + '</div>'
+    + '<div style="text-align:right">'
+    + '<div class="plan-price">' + formatAmount(sub.plan_amount, sub.plan_currency) + '<span>/mies.</span></div>'
+    + '<span class="status-badge ' + statusClass(sub.status) + '" style="margin-top:6px;display:inline-flex">'
+    + '<span class="status-dot"></span>' + statusLabel(sub.status) + '</span>'
+    + '</div></div>'
+    + '<div class="plan-dates">'
+    + '<div class="plan-date-item"><div class="plan-date-label">Okres od</div><div class="plan-date-val">' + formatDate(sub.current_period_start) + '</div></div>'
+    + '<div class="plan-date-item"><div class="plan-date-label">Odnowienie</div><div class="plan-date-val">' + formatDate(sub.current_period_end) + '</div></div>'
+    + '</div>'
+    + (sub.cancel_at_period_end ? '<div style="margin-top:14px;padding:10px 14px;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2);border-radius:8px;font-size:13px;color:var(--amber)">⚠ Subskrypcja wygaśnie ' + formatDate(sub.current_period_end) + ' i nie zostanie odnowiona.</div>' : '')
+    + '</div>';
+}
+
+function buildNoPlanCard() {
+  return '<div class="no-plan">'
+    + '<div style="font-size:48px;margin-bottom:16px">📭</div>'
+    + '<h3>Brak aktywnego planu</h3>'
+    + '<p>Kup plan Managed żeby uruchomić swoją stronę firmową.<br>My zajmiemy się wszystkim — od SEO po aktualizacje.</p>'
+    + '<a href="/test/cennik/" class="btn btn-primary">Zobacz plany i ceny →</a>'
+    + '</div>';
+}
+
+function renderNoCustomer() {
+  var overviewPlan = document.getElementById('overview-plan-card');
+  var statStatus   = document.getElementById('stat-status');
+  var statPlan     = document.getElementById('stat-plan');
+  var statRenewal  = document.getElementById('stat-renewal');
+  var overviewSub  = document.getElementById('overview-sub');
+  if (statStatus)  statStatus.textContent  = 'Nowe konto';
+  if (statPlan)    statPlan.textContent    = 'Brak planu';
+  if (statRenewal) statRenewal.textContent = '—';
+  if (overviewSub) overviewSub.textContent = 'Witaj! Wybierz plan żeby rozpocząć.';
+  if (overviewPlan) overviewPlan.innerHTML = buildNoPlanCard();
+}
+
+function renderError(msg) {
+  var errEl = document.getElementById('overview-error');
+  if (errEl) { errEl.style.display = 'block'; errEl.textContent = '⚠ ' + msg; }
+  var statStatus = document.getElementById('stat-status');
+  if (statStatus) statStatus.textContent = 'Błąd';
+  var statPlan = document.getElementById('stat-plan');
+  if (statPlan) statPlan.textContent = '—';
+  var statRenewal = document.getElementById('stat-renewal');
+  if (statRenewal) statRenewal.textContent = '—';
+  document.getElementById('sub-content').innerHTML =
+    '<div class="error-box">⚠ ' + msg + '</div>';
+}
+
+// ── Render Subscription ───────────────────────────
+function renderSubscriptionPage(data) {
+  var container = document.getElementById('sub-content');
+  var sub = data.subscription;
+  var invoices = data.invoices || [];
+  var html = '';
+
+  if (sub) {
+    html += buildPlanCard(sub);
+    html += '<div style="display:flex;gap:12px;margin-bottom:28px;flex-wrap:wrap">';
+    html += '<a href="mailto:hello@webgen.pl?subject=Zmiana planu" class="btn btn-outline" style="font-size:13px;padding:10px 20px">Zmień plan</a>';
+    if (!sub.cancel_at_period_end && sub.status === 'active') {
+      html += '<a href="mailto:hello@webgen.pl?subject=Rezygnacja z subskrypcji" class="btn btn-outline" style="font-size:13px;padding:10px 20px;border-color:rgba(248,113,113,.3);color:var(--red)">Anuluj subskrypcję</a>';
     }
-  });
-})();
-</script>
+    html += '</div>';
+  } else {
+    html += buildNoPlanCard();
+  }
 
+  // Faktury
+  if (invoices.length > 0) {
+    html += '<div class="card"><div class="card-title">Historia faktur</div>';
+    invoices.forEach(function(inv) {
+      html += '<div class="invoice-row">'
+        + '<div class="invoice-num">' + (inv.number || inv.id.slice(-8)) + '</div>'
+        + '<div class="invoice-date">' + formatDate(inv.date) + '</div>'
+        + '<div class="invoice-amount">' + formatAmount(inv.amount, inv.currency) + '</div>'
+        + '<div class="invoice-status"><span class="status-badge ' + statusClass(inv.status) + '">' + (inv.status === 'paid' ? 'Zapłacona' : inv.status) + '</span></div>'
+        + '<div class="invoice-pdf">' + (inv.pdf ? '<a href="' + inv.pdf + '" target="_blank">PDF ↓</a>' : '') + '</div>'
+        + '</div>';
+    });
+    html += '</div>';
+  } else if (sub) {
+    html += '<div class="card"><div class="card-title">Historia faktur</div>'
+      + '<div style="padding:20px 0;text-align:center;color:var(--muted);font-size:14px">Brak faktur — pierwsze pojawią się po opłaceniu subskrypcji.</div>'
+      + '</div>';
+  }
+
+  container.innerHTML = html;
+}
+
+// ── Render Website ────────────────────────────────
+function renderWebsitePage() {
+  var firma = userData.firma || {};
+  var container = document.getElementById('website-content');
+  if (!container) return;
+
+  var fields = [
+    ['Nazwa firmy',  firma.nazwa || ''],
+    ['Branża',       firma.branza || ''],
+    ['Miasto',       firma.miasto || ''],
+    ['Telefon',      firma.telefon || ''],
+    ['Email firmy',  firma.email || ''],
+    ['Strona (URL)', firma.slug ? firma.slug + '.webgen.pl' : ''],
+  ];
+
+  var hasData = fields.some(function(f) { return f[1]; });
+
+  if (!hasData) {
+    container.innerHTML = '<div class="no-plan">'
+      + '<div style="font-size:48px;margin-bottom:16px">🏗</div>'
+      + '<h3>Brak wygenerowanej strony</h3>'
+      + '<p>Przejdź do generatora i skonfiguruj swoją stronę firmową.</p>'
+      + '<a href="/test/generator/" class="btn btn-primary">Otwórz generator →</a>'
+      + '</div>';
+    return;
+  }
+
+  var html = '<div class="card"><div class="card-title">Dane firmy</div>'
+    + '<div class="firma-grid">';
+
+  fields.forEach(function(f) {
+    html += '<div class="firma-field">'
+      + '<div class="firma-label">' + f[0] + '</div>'
+      + '<div class="firma-val ' + (f[1] ? '' : 'empty') + '">' + (f[1] || 'Nie podano') + '</div>'
+      + '</div>';
+  });
+
+  html += '</div>';
+
+  if (firma.slug) {
+    html += '<div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--border)">'
+      + '<a href="https://' + firma.slug + '.webgen.pl" target="_blank" class="btn btn-primary" style="font-size:13px;padding:10px 20px">Otwórz stronę →</a>'
+      + '<a href="/test/generator/" class="btn btn-outline" style="font-size:13px;padding:10px 20px;margin-left:10px">Edytuj w generatorze</a>'
+      + '</div>';
+  }
+
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+// ── Navigation ────────────────────────────────────
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  var page = document.getElementById('page-' + pageId);
+  if (page) page.classList.add('active');
+
+  document.querySelectorAll('.nav-item[data-page]').forEach(function(item) {
+    item.classList.toggle('active', item.dataset.page === pageId);
+  });
+
+  // Załaduj dane przy pierwszym wejściu na subscription
+  if (pageId === 'subscription' && !dataLoaded) {
+    loadStripeData(userData.email);
+  }
+}
+
+// ── Logout ────────────────────────────────────────
+function doLogout() {
+  if (confirm('Wylogować się?')) {
+    localStorage.removeItem('wg_session');
+    window.location.replace('/test/login/?from=logout');
+  }
+}
+
+function toggleUserMenu() {
+  doLogout();
+}
+</script>
 </body>
 </html>

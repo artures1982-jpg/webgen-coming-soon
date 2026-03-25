@@ -47,6 +47,10 @@
       "dest": "/robots.txt"
     },
     {
+      "src": "/api/dashboard-data",
+      "dest": "/api/dashboard-data.js"
+    },
+    {
       "src": "/api/(.*)",
       "has": [
         {
