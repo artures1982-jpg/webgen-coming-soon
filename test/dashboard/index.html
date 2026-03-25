@@ -737,6 +737,48 @@ body {
 /* ─────────────────────────────────────────────── */
 
 </style>
+
+<script>
+// Auth check — przed załadowaniem dashboard
+(function authCheck() {
+  var session = null;
+  var user = null;
+  try { session = JSON.parse(localStorage.getItem('wg_session') || 'null'); } catch(e) {}
+  try { user    = JSON.parse(localStorage.getItem('wg_user')    || 'null'); } catch(e) {}
+
+  var isLoggedIn = (session && session.email) || (user && user.activated && user.email);
+
+  if (!isLoggedIn) {
+    // Nie zalogowany — przekieruj do login
+    window.location.replace('/test/login/?redirect=' + encodeURIComponent(window.location.pathname));
+    return;
+  }
+
+  // Pokaż email w navie / dashboardzie po załadowaniu
+  var email = (session && session.email) || (user && user.email) || '';
+  window.wg_current_user = { email: email };
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Podmień placeholder email w dashboard
+    document.querySelectorAll('.user-email, [data-user-email]').forEach(function(el) {
+      el.textContent = email;
+    });
+    // Dodaj logout button jeśli nav jest załadowany
+    var loginLinks = document.querySelectorAll('.wg-nav-login');
+    loginLinks.forEach(function(el) {
+      el.textContent = email.split('@')[0];
+      el.href = '#';
+      el.onclick = function(e) {
+        e.preventDefault();
+        if (confirm('Wylogować się?')) {
+          localStorage.removeItem('wg_session');
+          window.location.replace('/test/login/?from=logout');
+        }
+      };
+    });
+  });
+})();
+</script>
 </head>
 <body>
 

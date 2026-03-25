@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logowanie — webgen.pl</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080A0F;--s1:#0E1117;--s2:#131720;
+  --text:#F0F2F7;--muted:#8892AA;
+  --border:rgba(240,242,247,.08);--border2:rgba(240,242,247,.12);
+  --green:#00E5A0;--green2:#00C98A;
+  --grad:linear-gradient(135deg,#00E5A0,#0066FF,#7B4FFF);
+  --head:'Bricolage Grotesque',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:var(--head)}
+body{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px 40px}
+
+.top-bar{position:fixed;top:0;left:0;right:0;height:64px;
+  background:rgba(8,10,15,.9);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 48px;z-index:100}
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+.logo-mark{width:30px;height:30px;border-radius:7px;
+  background:linear-gradient(135deg,#00E5A0,#0066FF,#7B4FFF);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:13px;font-weight:700;color:#fff}
+.logo-name{font-size:17px;font-weight:700;color:var(--text)}
+.logo-name span{background:linear-gradient(135deg,#00E5A0,#0066FF);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+.card{background:var(--s1);border:1px solid var(--border);border-radius:20px;
+  padding:48px 44px;width:100%;max-width:440px;text-align:center}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--green);
+  margin-bottom:16px;opacity:.85}
+.card h1{font-size:28px;font-weight:800;letter-spacing:-.03em;
+  line-height:1.15;margin-bottom:10px}
+.card p{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:32px}
+
+.form-group{margin-bottom:18px;text-align:left}
+.form-label{display:block;font-size:11px;font-weight:700;color:var(--muted);
+  margin-bottom:8px;letter-spacing:.08em;text-transform:uppercase;font-family:var(--mono)}
+.form-input{width:100%;background:rgba(240,242,247,.04);
+  border:1.5px solid rgba(240,242,247,.1);border-radius:10px;
+  padding:13px 16px;font-size:15px;color:var(--text);font-family:var(--head);
+  outline:none;transition:border-color .2s,background .2s}
+.form-input:focus{border-color:var(--green);background:rgba(0,229,160,.04)}
+.form-input::placeholder{color:rgba(136,146,170,.5)}
+
+.btn-login{width:100%;background:rgba(0,229,160,.3);color:rgba(8,10,15,.5);
+  border:none;padding:15px;border-radius:10px;font-size:16px;font-weight:700;
+  cursor:not-allowed;font-family:var(--head);transition:all .2s;margin-top:8px}
+.btn-login.ready{background:var(--green);color:#080A0F;cursor:pointer}
+.btn-login.ready:hover{background:var(--green2)}
+
+.msg{display:none;margin-top:14px;padding:12px 16px;border-radius:9px;
+  font-size:14px;font-weight:600;text-align:center}
+.msg.ok{background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.25);color:var(--green)}
+.msg.err{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.25);color:#F87171}
+
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0;color:var(--muted);font-size:13px}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.links{margin-top:20px;font-size:13px;color:var(--muted)}
+.links a{color:var(--green);text-decoration:none}
+.links a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<nav class="top-bar">
+  <a href="/test/" class="logo">
+    <div class="logo-mark">W</div>
+    <div class="logo-name">web<span>gen</span></div>
+  </a>
+</nav>
+
+<div class="card">
+  <div class="eyebrow">// Panel klienta</div>
+  <h1>Zaloguj się<br>do <span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">webgen</span></h1>
+  <p>Wejdź do swojego panelu i zarządzaj stroną firmową.</p>
+
+  <div class="form-group">
+    <label class="form-label" for="l-email">Adres email</label>
+    <input type="email" id="l-email" class="form-input"
+      placeholder="twoj@email.pl" autocomplete="email"
+      oninput="onLoginInput()" onkeydown="if(event.key==='Enter')doLogin()">
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="l-pass">Hasło</label>
+    <input type="password" id="l-pass" class="form-input"
+      placeholder="Twoje hasło" autocomplete="current-password"
+      oninput="onLoginInput()" onkeydown="if(event.key==='Enter')doLogin()">
+  </div>
+
+  <button class="btn-login" id="btn-login" onclick="doLogin()">
+    Zaloguj się →
+  </button>
+
+  <div class="msg" id="login-msg"></div>
+
+  <div class="divider">lub</div>
+
+  <div class="links">
+    Nie masz konta?
+    <a href="/test/generator/">Utwórz bezpłatnie</a>
+    <br><br>
+    Zapomniałeś hasła?
+    <a href="#" onclick="showForgot()">Resetuj hasło</a>
+  </div>
+</div>
+
+<!-- Forgot password notice -->
+<div id="forgot-notice" style="display:none;margin-top:16px;background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:20px 28px;max-width:440px;text-align:center;font-size:14px;color:var(--muted);line-height:1.7">
+  Napisz na <a href="mailto:hello@webgen.pl" style="color:var(--green)">hello@webgen.pl</a> z tematu<br>
+  <strong style="color:var(--text)">"Reset hasła"</strong> — odezwiemy się w ciągu godziny.
+</div>
+
+<script>
+// Sprawdź czy już zalogowany
+(function() {
+  var session = null;
+  try { session = JSON.parse(localStorage.getItem('wg_session') || 'null'); } catch(e) {}
+  if (session && session.email && session.session) {
+    // Już zalogowany — przekieruj do dashboard
+    window.location.replace('/test/dashboard/');
+  }
+  // Sprawdź też wg_user (po aktywacji)
+  var user = null;
+  try { user = JSON.parse(localStorage.getItem('wg_user') || 'null'); } catch(e) {}
+  if (user && user.activated && user.email) {
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('from') !== 'logout') {
+      // Auto-fill email
+      window.addEventListener('DOMContentLoaded', function() {
+        var el = document.getElementById('l-email');
+        if (el) el.value = user.email;
+        onLoginInput();
+      });
+    }
+  }
+})();
+
+function onLoginInput() {
+  var email = (document.getElementById('l-email') || {}).value || '';
+  var pass  = (document.getElementById('l-pass') || {}).value || '';
+  var btn   = document.getElementById('btn-login');
+  if (!btn) return;
+  var ready = email.includes('@') && pass.length >= 1;
+  btn.disabled = !ready;
+  btn.className = 'btn-login' + (ready ? ' ready' : '');
+}
+
+async function doLogin() {
+  var email = document.getElementById('l-email').value.trim();
+  var pass  = document.getElementById('l-pass').value;
+  var msg   = document.getElementById('login-msg');
+  var btn   = document.getElementById('btn-login');
+
+  if (!email || !pass) return;
+
+  btn.disabled = true;
+  btn.textContent = 'Loguję…';
+  msg.style.display = 'none';
+
+  try {
+    var res = await fetch('/api/login', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email: email, password: pass})
+    });
+    var data = await res.json();
+
+    if (!res.ok || !data.ok) {
+      msg.style.display = 'block';
+      msg.className = 'msg err';
+      msg.textContent = data.error || 'Nieprawidłowy email lub hasło.';
+      btn.disabled = false;
+      btn.className = 'btn-login ready';
+      btn.textContent = 'Zaloguj się →';
+      return;
+    }
+
+    // Sukces — zapisz session
+    localStorage.setItem('wg_session', JSON.stringify({
+      email: data.email,
+      session: data.session,
+      activated: true,
+      created: new Date().toISOString()
+    }));
+    localStorage.setItem('wg_user', JSON.stringify({
+      email: data.email, activated: true, created: new Date().toISOString()
+    }));
+
+    msg.style.display = 'block';
+    msg.className = 'msg ok';
+    msg.textContent = '✓ Zalogowano! Przekierowuję…';
+
+    // Przekieruj do dashboard
+    setTimeout(function() {
+      var redirect = new URLSearchParams(window.location.search).get('redirect') || '/test/dashboard/';
+      window.location.replace(redirect);
+    }, 800);
+
+  } catch(err) {
+    msg.style.display = 'block';
+    msg.className = 'msg err';
+    msg.textContent = 'Problem z połączeniem. Spróbuj ponownie.';
+    btn.disabled = false;
+    btn.className = 'btn-login ready';
+    btn.textContent = 'Zaloguj się →';
+  }
+}
+
+function showForgot() {
+  document.getElementById('forgot-notice').style.display = 'block';
+}
+
+// Inicjalizacja
+document.addEventListener('DOMContentLoaded', onLoginInput);
+</script>
+</body>
+</html>

@@ -152,6 +152,18 @@
       "dest": "/test/activate/index.html"
     },
     {
+      "src": "/api/login",
+      "dest": "/api/login.js"
+    },
+    {
+      "src": "/test/login",
+      "dest": "/test/login/index.html"
+    },
+    {
+      "src": "/test/login/",
+      "dest": "/test/login/index.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "/$1"
     }
