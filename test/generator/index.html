@@ -520,6 +520,44 @@ input::placeholder,textarea::placeholder{color:rgba(136,146,170,.5)}
 }
 #as-total{color:var(--green)!important;font-family:var(--mono)!important;font-size:18px!important}
 /* ── end Generator PRO UI ── */
+
+/* ── NAV AUTH STATE ────────────────────────── */
+.wg-nav-user{
+  display:none;
+  align-items:center;
+  gap:8px;
+  padding:5px 10px 5px 5px;
+  border-radius:9px;
+  cursor:pointer;
+  border:1px solid rgba(240,242,247,.1);
+  transition:all .18s;
+  text-decoration:none;
+}
+.wg-nav-user:hover{background:rgba(240,242,247,.06);border-color:rgba(240,242,247,.18)}
+.wg-nav-avatar{
+  width:26px;height:26px;border-radius:50%;
+  background:linear-gradient(135deg,#00E5A0,#0066FF);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:#fff;flex-shrink:0;
+  font-family:var(--mono);
+}
+.wg-nav-user-email{
+  font-size:12px;font-weight:600;color:var(--text);
+  font-family:var(--mono);max-width:140px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+body.wg-logged-in .wg-nav-login{ display:none!important }
+body.wg-logged-in .wg-nav-cta{ display:none!important }
+body.wg-logged-in .wg-nav-drawer-cta{ display:none!important }
+body.wg-logged-in .wg-nav-user{ display:flex!important }
+/* Drawer też */
+body.wg-logged-in .wg-nav-drawer .wg-nav-login{ display:none!important }
+body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!important }
+@media(max-width:900px){
+  .wg-nav-user{ display:none }
+  body.wg-logged-in .wg-nav-user{ display:flex!important }
+}
+/* ─────────────────────────────────────────── */
 </style>
 </head>
 <body>
@@ -1993,6 +2031,63 @@ function skipGate() {
     // Przejdź od razu do kroku 1
     document.addEventListener('DOMContentLoaded', function() { setStep(1); });
     if (document.readyState !== 'loading') setStep(1);
+  }
+})();
+</script>
+
+
+<script>
+(function wgNavAuth() {
+  // Pobierz sesję
+  var session = null, user = null;
+  try { session = JSON.parse(localStorage.getItem('wg_session') || 'null'); } catch(e) {}
+  try { user    = JSON.parse(localStorage.getItem('wg_user')    || 'null'); } catch(e) {}
+
+  var email = (session && session.email) || (user && user.email) || '';
+  var isLoggedIn = !!(session && session.email) || !!(user && user.activated && user.email);
+
+  if (!isLoggedIn) return; // Nav bez zmian
+
+  // Oznacz body
+  document.documentElement.addEventListener('DOMContentLoaded', init);
+  if (document.readyState !== 'loading') init();
+
+  function init() {
+    document.body.classList.add('wg-logged-in');
+
+    // Wstaw element .wg-nav-user do .wg-nav-right (jeśli nie ma)
+    var navRight = document.querySelector('.wg-nav-right');
+    if (navRight && !navRight.querySelector('.wg-nav-user')) {
+      var initials = email ? email[0].toUpperCase() : '?';
+      var shortEmail = email.length > 18 ? email.split('@')[0] : email;
+
+      var userEl = document.createElement('a');
+      userEl.className = 'wg-nav-user';
+      userEl.href = '/test/dashboard/';
+      userEl.title = email;
+      userEl.innerHTML =
+        '<div class="wg-nav-avatar">' + initials + '</div>' +
+        '<span class="wg-nav-user-email">' + shortEmail + '</span>';
+      // Wstaw przed istniejącymi elementami (Logowanie, CTA)
+      navRight.insertBefore(userEl, navRight.firstChild);
+    }
+
+    // Drawer — wstaw info o zalogowanym
+    var drawer = document.getElementById('wg-drawer');
+    if (drawer && !drawer.querySelector('.wg-nav-user-drawer')) {
+      var initials2 = email ? email[0].toUpperCase() : '?';
+      var drawerUser = document.createElement('a');
+      drawerUser.className = 'wg-nav-user-drawer';
+      drawerUser.href = '/test/dashboard/';
+      drawerUser.style.cssText = 'display:flex;align-items:center;gap:10px;padding:11px 14px;' +
+        'border-radius:8px;border:1px solid rgba(0,229,160,.2);margin-bottom:4px;text-decoration:none;';
+      drawerUser.innerHTML =
+        '<div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#00E5A0,#0066FF);' +
+        'display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0">' +
+        initials2 + '</div>' +
+        '<span style="font-size:13px;font-weight:600;color:#F0F2F7;font-family:var(--mono);">' + email + '</span>';
+      drawer.insertBefore(drawerUser, drawer.firstChild);
+    }
   }
 })();
 </script>
