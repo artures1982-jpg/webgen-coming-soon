@@ -20,7 +20,7 @@ Pierwsze 3 miesiące gratis → potem Managed START 249 zł/mies.
 - Lokalnie: `/Users/artursapoznikow/webgen-coming-soon/`
 
 ### Email
-- Resend API: `re_2jFtP178_GuufxmnkoYciZsxN4XmAEHAs`
+- Resend API: `RESEND_KEY_ROTATED_SEE_VERCEL_ENV`
 - Od: `hello@webgen.pl` → forward → `artures1982@icloud.com`
 
 ---
@@ -113,7 +113,7 @@ Błąd: `document.documentElement.addEventListener` → powinno być `document.a
 
 ## .ENV
 ```
-RESEND_API_KEY=re_2jFtP178_GuufxmnkoYciZsxN4XmAEHAs
+RESEND_API_KEY=RESEND_KEY_ROTATED_SEE_VERCEL_ENV
 STRIPE_SECRET_KEY=sk_test_51TATJz...
 TOKEN_SECRET=webgen2025
 ANTHROPIC_API_KEY=(⏳ do dodania)
