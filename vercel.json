@@ -51,6 +51,10 @@
       "dest": "/api/dashboard-data.js"
     },
     {
+      "src": "/api/pexels",
+      "dest": "/api/pexels.js"
+    },
+    {
       "src": "/api/(.*)",
       "has": [
         {

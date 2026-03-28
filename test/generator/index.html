@@ -558,6 +558,68 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
   body.wg-logged-in .wg-nav-user{ display:flex!important }
 }
 /* ─────────────────────────────────────────── */
+
+/* ── Pexels ─────────────────────────────────── */
+.pexels-btn{
+  background:rgba(0,229,160,.08);border:1.5px solid rgba(0,229,160,.25);
+  color:var(--green);padding:11px 20px;border-radius:10px;font-size:14px;
+  font-weight:700;cursor:pointer;font-family:var(--head);
+  transition:all .2s;width:100%;text-align:left;
+}
+.pexels-btn:hover{background:rgba(0,229,160,.15)}
+.pexels-modal{
+  display:none;position:fixed;inset:0;z-index:9999;
+  background:rgba(0,0,0,.85);backdrop-filter:blur(8px);
+  align-items:center;justify-content:center;
+}
+.pexels-modal.open{display:flex}
+.pexels-box{
+  background:#0E1117;border:1px solid rgba(240,242,247,.12);
+  border-radius:18px;width:min(780px,95vw);max-height:90vh;
+  display:flex;flex-direction:column;overflow:hidden;
+}
+.pexels-header{
+  padding:20px 24px 16px;border-bottom:1px solid rgba(240,242,247,.07);
+  display:flex;align-items:center;gap:12px;
+}
+.pexels-header h3{font-size:17px;font-weight:800;flex:1}
+.pexels-search-wrap{
+  display:flex;gap:10px;padding:16px 24px;
+  border-bottom:1px solid rgba(240,242,247,.07);
+}
+.pexels-search{
+  flex:1;background:rgba(240,242,247,.05);border:1.5px solid rgba(240,242,247,.1);
+  border-radius:9px;padding:10px 14px;font-size:14px;color:#F0F2F7;
+  font-family:var(--head);outline:none;
+}
+.pexels-search:focus{border-color:var(--green)}
+.pexels-search-btn{
+  background:var(--green);color:#080A0F;border:none;
+  padding:10px 20px;border-radius:9px;font-size:14px;font-weight:700;
+  cursor:pointer;font-family:var(--head);
+}
+.pexels-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+  padding:16px 24px;overflow-y:auto;flex:1;
+}
+.pexels-img{
+  width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;
+  cursor:pointer;border:2px solid transparent;transition:all .18s;
+}
+.pexels-img:hover{border-color:var(--green);transform:scale(1.02)}
+.pexels-loading{
+  grid-column:1/-1;text-align:center;padding:40px;
+  color:var(--muted);font-family:var(--mono);font-size:13px;
+}
+.pexels-footer{
+  padding:14px 24px;border-top:1px solid rgba(240,242,247,.07);
+  font-size:11px;color:rgba(136,146,170,.4);font-family:var(--mono);
+  text-align:center;
+}
+@media(max-width:600px){
+  .pexels-grid{grid-template-columns:repeat(2,1fr)}
+}
+/* ─────────────────────────────────────────── */
 </style>
 </head>
 <body>
@@ -869,17 +931,20 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
             <div class="galeria-slot" id="slot-0">
               <div class="slot-default"><span>📷</span><span>Zdjęcie 1</span></div>
               <div class="slot-overlay">✏️</div>
-              <input type="file" accept="image/png,image/jpeg,image/webp" onchange="handleGaleriaUpload(this,0)">
+              <button type="button" onclick="openPexels('galeria')" class="pexels-btn" id="galeria-upload-btn">
+          🔍 Dodaj zdjęcia z Pexels
+        </button>
+        <div id="galeria-preview-wrap" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px"></div>
             </div>
             <div class="galeria-slot" id="slot-1">
               <div class="slot-default"><span>📷</span><span>Zdjęcie 2</span></div>
               <div class="slot-overlay">✏️</div>
-              <input type="file" accept="image/png,image/jpeg,image/webp" onchange="handleGaleriaUpload(this,1)">
+              
             </div>
             <div class="galeria-slot" id="slot-2">
               <div class="slot-default"><span>📷</span><span>Zdjęcie 3</span></div>
               <div class="slot-overlay">✏️</div>
-              <input type="file" accept="image/png,image/jpeg,image/webp" onchange="handleGaleriaUpload(this,2)">
+              
             </div>
           </div>
           <div class="field-hint" style="margin-top:8px">Zdjęcia są wbudowane bezpośrednio w stronę — link do galerii nie jest pokazywany publicznie.</div>
@@ -1009,7 +1074,13 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
               <img id="hero-preview" class="lua-preview" src="" alt="Hero" style="max-height:80px;max-width:220px">
               <div class="lua-hint" style="color:var(--green)">✓ Zdjęcie hero wczytane</div>
             </div>
-            <input type="file" id="f-hero" accept="image/png,image/jpeg,image/webp" onchange="handleHeroUpload(this)">
+            <button type="button" onclick="openPexels('hero')" class="pexels-btn" id="hero-upload-btn">
+          🔍 Wybierz zdjęcie hero z Pexels
+        </button>
+        <div id="hero-preview-wrap" style="margin-top:10px;display:none">
+          <img id="hero-img-preview" style="max-width:100%;border-radius:8px;max-height:140px;object-fit:cover">
+          <button type="button" onclick="clearHero()" style="margin-left:8px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:12px;vertical-align:middle">✕ usuń</button>
+        </div>
           </div>
           <div class="field-hint">Pojawi się jako pełna szerokość sekcja za headerem strony.</div>
         </div>
@@ -2098,6 +2169,105 @@ function skipGate() {
     init();
   }
 })();
+
+// ─── PEXELS INTEGRATION ─────────────────────────────
+var _pexelsTarget = 'hero'; // 'hero' lub 'galeria'
+var _galeriaUrls  = [];     // akumulowane URL-e galerii
+
+function openPexels(target) {
+  _pexelsTarget = target;
+  document.getElementById('pexels-modal').classList.add('open');
+  // Domyślne zapytanie z branży
+  var q = state.branza || 'usługi';
+  document.getElementById('pexels-q').value = q;
+  searchPexels();
+}
+
+function closePexels() {
+  document.getElementById('pexels-modal').classList.remove('open');
+}
+
+function closePexelsOnBg(e) {
+  if (e.target === document.getElementById('pexels-modal')) closePexels();
+}
+
+async function searchPexels() {
+  var q = document.getElementById('pexels-q').value.trim() || 'biznes';
+  var grid = document.getElementById('pexels-grid');
+  grid.innerHTML = '<div class="pexels-loading">Szukam zdjęć…</div>';
+
+  try {
+    // Używamy proxy przez nasz backend (żeby nie eksponować klucza Pexels)
+    var res = await fetch('/api/pexels?q=' + encodeURIComponent(q) + '&per_page=18');
+    var data = await res.json();
+    var photos = data.photos || [];
+
+    if (!photos.length) {
+      grid.innerHTML = '<div class="pexels-loading">Brak wyników. Spróbuj innego zapytania.</div>';
+      return;
+    }
+
+    grid.innerHTML = photos.map(function(p) {
+      var src = p.src && (p.src.medium || p.src.large || p.src.original);
+      var full = p.src && (p.src.large2x || p.src.large || p.src.original);
+      return '<img class="pexels-img" src="' + src + '" data-full="' + full + '"'
+        + ' alt="' + (p.alt || '') + '"'
+        + ' onclick="selectPexelsPhoto('' + full + '')"'
+        + ' loading="lazy">';
+    }).join('');
+  } catch(err) {
+    grid.innerHTML = '<div class="pexels-loading">Błąd ładowania. Sprawdź połączenie.</div>';
+  }
+}
+
+function selectPexelsPhoto(url) {
+  if (_pexelsTarget === 'hero') {
+    // Zapisz URL hero
+    state.heroUrl    = url;
+    state.heroBase64 = null; // czyść base64 jeśli był
+    // Pokaż podgląd
+    var wrap = document.getElementById('hero-preview-wrap');
+    var img  = document.getElementById('hero-img-preview');
+    if (wrap && img) { img.src = url; wrap.style.display = 'block'; }
+    // Zaktualizuj przycisk
+    var btn = document.getElementById('hero-upload-btn');
+    if (btn) btn.textContent = '✓ Zdjęcie wybrane — zmień';
+  } else {
+    // Galeria — dodaj do listy
+    _galeriaUrls.push(url);
+    state.galeriaUrls = _galeriaUrls;
+    // Pokaż miniaturkę
+    var wrap = document.getElementById('galeria-preview-wrap');
+    if (wrap) {
+      var div = document.createElement('div');
+      div.style.cssText = 'position:relative;display:inline-block';
+      var idx = _galeriaUrls.length - 1;
+      div.innerHTML = '<img src="' + url + '" style="width:72px;height:54px;object-fit:cover;border-radius:6px;border:1px solid var(--border2)">'
+        + '<button onclick="removeGaleriaPhoto(' + idx + ',this.parentNode)" style="position:absolute;top:-4px;right:-4px;background:#080A0F;border:1px solid var(--border2);border-radius:50%;width:18px;height:18px;font-size:10px;cursor:pointer;color:var(--muted);line-height:18px;text-align:center">✕</button>';
+      wrap.appendChild(div);
+    }
+    var btn = document.getElementById('galeria-upload-btn');
+    if (btn) btn.textContent = '🔍 Dodaj więcej zdjęć (' + _galeriaUrls.length + ')';
+  }
+  closePexels();
+}
+
+function removeGaleriaPhoto(idx, el) {
+  _galeriaUrls.splice(idx, 1);
+  state.galeriaUrls = _galeriaUrls;
+  if (el) el.remove();
+  var btn = document.getElementById('galeria-upload-btn');
+  if (btn) btn.textContent = _galeriaUrls.length ? '🔍 Dodaj więcej zdjęć (' + _galeriaUrls.length + ')' : '🔍 Dodaj zdjęcia z Pexels';
+}
+
+function clearHero() {
+  state.heroUrl = null; state.heroBase64 = null;
+  var wrap = document.getElementById('hero-preview-wrap');
+  if (wrap) wrap.style.display = 'none';
+  var btn = document.getElementById('hero-upload-btn');
+  if (btn) btn.textContent = '🔍 Wybierz zdjęcie z Pexels';
+}
+// ────────────────────────────────────────────────────
 </script>
 
 </body>
