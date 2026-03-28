@@ -941,9 +941,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
             </div>
             <input type="file" id="f-logo" accept="image/png,image/jpeg,image/webp" onchange="handleLogoUpload(this)" style="display:none">
           </div>
-          <button type="button" onclick="openPexels('logo')" class="btn-pexels-sm">
-            📷 Lub znajdź logo na Pexels
-          </button>
+
         </div>
 
         <!-- GALERIA 3 ZDJEC -->
@@ -2192,17 +2190,26 @@ function skipGate() {
 var _pexelsTarget = 'hero'; // 'hero' lub 'galeria'
 var _galeriaUrls  = [];     // akumulowane URL-e galerii
 
+var _pexelsBranzaMap = {
+  'Hydraulika':'plumber water pipes','Elektryk':'electrician wiring',
+  'Remonty':'home renovation interior','Malowanie':'house painting walls',
+  'Fryzjer':'hair salon hairdresser','Salon urody':'beauty salon spa',
+  'Sprzątanie':'cleaning service','Ogrodnik':'garden landscaping green',
+  'Mechanik':'car mechanic workshop','Glazurnik':'tiling floor renovation',
+};
 function openPexels(target) {
   _pexelsTarget = target;
-  document.getElementById('pexels-modal').classList.add('open');
-  // Domyślne zapytanie z branży
-  var q = state.branza || 'usługi';
-  document.getElementById('pexels-q').value = q;
+  var modal = document.getElementById('pexels-modal');
+  modal.style.display = 'flex';
+  var inp = document.getElementById('pexels-q');
+  if (!inp.dataset.userSet) {
+    inp.value = _pexelsBranzaMap[state.branza] || state.branza || 'professional service';
+  }
   searchPexels();
 }
 
 function closePexels() {
-  document.getElementById('pexels-modal').classList.remove('open');
+  document.getElementById('pexels-modal').style.display = 'none';
 }
 
 function closePexelsOnBg(e) {
@@ -2312,5 +2319,32 @@ function clearHero() {
 // ────────────────────────────────────────────────────
 </script>
 
+
+<!-- ══ PEXELS MODAL ══ -->
+<div id="pexels-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);align-items:center;justify-content:center" onclick="if(event.target===this)closePexels()">
+  <div style="background:#0E1117;border:1px solid rgba(240,242,247,.12);border-radius:18px;width:min(780px,95vw);max-height:88vh;display:flex;flex-direction:column;overflow:hidden">
+
+    <div style="padding:18px 24px 14px;border-bottom:1px solid rgba(240,242,247,.07);display:flex;align-items:center;gap:12px">
+      <span style="font-size:20px">📸</span>
+      <h3 style="flex:1;font-size:17px;font-weight:800;margin:0">Wybierz zdjęcie — <span style="color:#00E5A0">Pexels</span></h3>
+      <button onclick="closePexels()" style="background:none;border:none;color:#8892AA;font-size:22px;cursor:pointer;line-height:1;padding:4px 8px;border-radius:6px">✕</button>
+    </div>
+
+    <div style="display:flex;gap:10px;padding:14px 24px;border-bottom:1px solid rgba(240,242,247,.07)">
+      <input id="pexels-q" oninput="this.dataset.userSet=1" placeholder="np. hydraulik, remont, fryzjer…"
+        onkeydown="if(event.key==='Enter')searchPexels()"
+        style="flex:1;background:rgba(240,242,247,.05);border:1.5px solid rgba(240,242,247,.1);border-radius:9px;padding:10px 14px;font-size:14px;color:#F0F2F7;font-family:var(--head);outline:none">
+      <button onclick="searchPexels()" style="background:#00E5A0;color:#080A0F;border:none;padding:10px 22px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--head)">Szukaj →</button>
+    </div>
+
+    <div id="pexels-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:14px 20px;overflow-y:auto;flex:1;min-height:180px">
+      <div style="grid-column:1/-1;text-align:center;padding:40px;color:#8892AA;font-family:var(--mono);font-size:13px">Wpisz frazę i kliknij Szukaj</div>
+    </div>
+
+    <div style="padding:12px 24px;border-top:1px solid rgba(240,242,247,.07);font-size:11px;color:rgba(136,146,170,.4);font-family:var(--mono);text-align:center">
+      Zdjęcia: <a href="https://pexels.com" target="_blank" style="color:#00E5A0;text-decoration:none">Pexels</a> · bezpłatne do użytku komercyjnego
+    </div>
+  </div>
+</div>
 </body>
 </html>
