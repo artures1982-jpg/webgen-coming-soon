@@ -1,8 +1,7 @@
 // /api/pexels.js — Pexels photo search proxy
-// FIX: usunięto locale=pl-PL który powodował 404 gdy brak wyników w PL
+// FIX: usunięto locale=pl-PL, zwraca oryginalna strukture src Pexels
 
 export default async function handler(req, res) {
-  // CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -18,33 +17,23 @@ export default async function handler(req, res) {
   }
 
   try {
-    // WAŻNE: NIE dodawaj locale=pl-PL — powoduje 404 gdy brak wyników
     const url = `https://api.pexels.com/v1/search?query=${encodeURIComponent(q)}&per_page=${per_page}`;
-
     const response = await fetch(url, {
-      headers: {
-        'Authorization': PEXELS_KEY
-      }
+      headers: { 'Authorization': PEXELS_KEY }
     });
 
     if (!response.ok) {
       const errText = await response.text();
-      console.error(`[pexels] API error ${response.status}:`, errText);
-      return res.status(response.status).json({ 
-        error: `Pexels API error: ${response.status}`,
-        details: errText 
-      });
+      return res.status(response.status).json({ error: `Pexels ${response.status}`, details: errText });
     }
 
     const data = await response.json();
 
-    // Zwróć uproszczone dane
+    // Zwroc oryginalna strukture src — frontend uzywa p.src.medium / p.src.large
     const photos = (data.photos || []).map(p => ({
       id: p.id,
       alt: p.alt || '',
-      src: p.src.large,
-      thumb: p.src.medium,
-      original: p.src.original,
+      src: p.src,
       photographer: p.photographer,
     }));
 
