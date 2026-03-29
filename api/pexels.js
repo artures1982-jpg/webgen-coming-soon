@@ -1,30 +1,60 @@
-module.exports = async (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  if (req.method !== 'GET') return res.status(405).end();
+// /api/pexels.js — Pexels photo search proxy
+// FIX: usunięto locale=pl-PL który powodował 404 gdy brak wyników w PL
 
-  const PEXELS_KEY = process.env.PEXELS_API_KEY;
-  const q = req.query.q || 'business';
+export default async function handler(req, res) {
+  // CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
+
+  const q = req.query.q || 'professional service';
   const per_page = Math.min(parseInt(req.query.per_page) || 18, 30);
 
+  const PEXELS_KEY = process.env.PEXELS_API_KEY;
   if (!PEXELS_KEY) {
-    return res.status(200).json({
-      photos: [
-        {src:{medium:'https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?w=400',large:'https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg'},alt:'business'},
-        {src:{medium:'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?w=400',large:'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg'},alt:'team'},
-        {src:{medium:'https://images.pexels.com/photos/1170412/pexels-photo-1170412.jpeg?w=400',large:'https://images.pexels.com/photos/1170412/pexels-photo-1170412.jpeg'},alt:'work'},
-      ]
-    });
+    return res.status(500).json({ error: 'PEXELS_API_KEY not configured' });
   }
 
   try {
-    // Bez locale — szerokie wyniki po angielsku
+    // WAŻNE: NIE dodawaj locale=pl-PL — powoduje 404 gdy brak wyników
     const url = `https://api.pexels.com/v1/search?query=${encodeURIComponent(q)}&per_page=${per_page}`;
-    const r = await fetch(url, {
-      headers: { 'Authorization': PEXELS_KEY }
+
+    const response = await fetch(url, {
+      headers: {
+        'Authorization': PEXELS_KEY
+      }
     });
-    const data = await r.json();
-    return res.status(200).json({ photos: data.photos || [] });
-  } catch(err) {
+
+    if (!response.ok) {
+      const errText = await response.text();
+      console.error(`[pexels] API error ${response.status}:`, errText);
+      return res.status(response.status).json({ 
+        error: `Pexels API error: ${response.status}`,
+        details: errText 
+      });
+    }
+
+    const data = await response.json();
+
+    // Zwróć uproszczone dane
+    const photos = (data.photos || []).map(p => ({
+      id: p.id,
+      alt: p.alt || '',
+      src: p.src.large,
+      thumb: p.src.medium,
+      original: p.src.original,
+      photographer: p.photographer,
+    }));
+
+    return res.status(200).json({
+      total_results: data.total_results || 0,
+      photos
+    });
+
+  } catch (err) {
+    console.error('[pexels] Fetch error:', err.message);
     return res.status(500).json({ error: err.message });
   }
-};
+}
