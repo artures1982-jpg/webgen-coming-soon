@@ -7,7 +7,6 @@ module.exports = async (req, res) => {
   const per_page = Math.min(parseInt(req.query.per_page) || 18, 30);
 
   if (!PEXELS_KEY) {
-    // Fallback bez klucza — zwróć sample zdjęcia
     return res.status(200).json({
       photos: [
         {src:{medium:'https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?w=400',large:'https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg'},alt:'business'},
@@ -18,7 +17,8 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const url = `https://api.pexels.com/v1/search?query=${encodeURIComponent(q)}&per_page=${per_page}&locale=pl-PL`;
+    // Bez locale — szerokie wyniki po angielsku
+    const url = `https://api.pexels.com/v1/search?query=${encodeURIComponent(q)}&per_page=${per_page}`;
     const r = await fetch(url, {
       headers: { 'Authorization': PEXELS_KEY }
     });
