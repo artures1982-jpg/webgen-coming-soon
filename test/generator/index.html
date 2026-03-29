@@ -2185,119 +2185,120 @@ function skipGate() {
     init();
   }
 })();
-
-// ─── PEXELS INTEGRATION ─────────────────────────────
-var _pexelsTarget = 'hero'; // 'hero' lub 'galeria'
-var _galeriaUrls  = [];     // akumulowane URL-e galerii
 </script>
 <script>
+// ── Pexels globals ──────────────────────────────────────
+var _pexelsTarget = 'hero';
+var _galeriaUrls  = [];
+
 var _pexelsBranzaMap = {
-  'Hydraulika':'plumber water pipes','Elektryk':'electrician wiring',
-  'Remonty':'home renovation interior','Malowanie':'house painting walls',
-  'Fryzjer':'hair salon hairdresser','Salon urody':'beauty salon spa',
-  'Sprzątanie':'cleaning service','Ogrodnik':'garden landscaping green',
-  'Mechanik':'car mechanic workshop','Glazurnik':'tiling floor renovation',
+  'Hydraulika':  'plumber water pipes',
+  'Elektryk':    'electrician wiring',
+  'Remonty':     'home renovation interior',
+  'Malowanie':   'house painting walls',
+  'Fryzjer':     'hair salon hairdresser',
+  'Salon urody': 'beauty salon spa',
+  'Sprzątanie':  'cleaning service',
+  'Ogrodnik':    'garden landscaping green',
+  'Mechanik':    'car mechanic workshop',
+  'Glazurnik':   'tiling floor renovation'
 };
+
 function openPexels(target) {
   _pexelsTarget = target;
   var modal = document.getElementById('pexels-modal');
+  if (!modal) { console.error('brak pexels-modal'); return; }
   modal.style.display = 'flex';
   var inp = document.getElementById('pexels-q');
-  if (!inp.dataset.userSet) {
-    inp.value = _pexelsBranzaMap[state.branza] || state.branza || 'professional service';
+  if (inp && !inp.dataset.userSet) {
+    inp.value = _pexelsBranzaMap[state && state.branza] || (state && state.branza) || 'professional service';
   }
   searchPexels();
 }
 
 function closePexels() {
-  document.getElementById('pexels-modal').style.display = 'none';
-}
-
-function closePexelsOnBg(e) {
-  if (e.target === document.getElementById('pexels-modal')) closePexels();
+  var modal = document.getElementById('pexels-modal');
+  if (modal) modal.style.display = 'none';
 }
 
 async function searchPexels() {
-  var q = document.getElementById('pexels-q').value.trim() || 'biznes';
+  var inp = document.getElementById('pexels-q');
   var grid = document.getElementById('pexels-grid');
-  grid.innerHTML = '<div class="pexels-loading"><div style="width:24px;height:24px;border:2px solid rgba(0,229,160,.2);border-top-color:var(--green);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 10px"></div>Szukam zdjęć…</div>';
+  if (!inp || !grid) return;
+  var q = inp.value.trim() || 'business';
+
+  grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:32px;color:#8892AA;font-family:var(--mono);font-size:13px">'
+    + '<div style="width:24px;height:24px;border:2px solid rgba(0,229,160,.2);border-top-color:#00E5A0;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 12px"></div>'
+    + 'Szukam zdjęć…</div>';
 
   try {
     var res = await fetch('/api/pexels?q=' + encodeURIComponent(q) + '&per_page=18');
     if (!res.ok) throw new Error('HTTP ' + res.status);
     var data = await res.json();
-    var photos = data.photos || [];
+    var photos = (data.photos || []);
 
     if (!photos.length) {
-      grid.innerHTML = '<div class="pexels-loading" style="grid-column:1/-1">Brak wyników dla <strong style="color:var(--text)">"' + q + '"</strong><br><span style="font-size:12px">Spróbuj po angielsku lub innej frazy</span></div>';
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:32px;color:#8892AA;font-size:13px">'
+        + 'Brak wyników dla <strong style="color:#F0F2F7">' + q + '</strong><br>'
+        + '<span style="font-size:12px">Spróbuj po angielsku</span></div>';
       return;
     }
 
     grid.innerHTML = photos.map(function(p) {
-      var src = p.src && (p.src.medium || p.src.large || p.src.original);
+      var src  = p.src && (p.src.medium || p.src.large);
       var full = p.src && (p.src.large2x || p.src.large || p.src.original);
       if (!src) return '';
-      var safeUrl = full.replace(/'/g, "%27");
-      return '<div style="position:relative;cursor:pointer;border-radius:8px;overflow:hidden;border:2px solid transparent;transition:all .18s" onclick="selectPexelsPhoto('' + safeUrl + '')" onmouseover="this.style.borderColor='var(--green)';this.style.transform='scale(1.02)'" onmouseout="this.style.borderColor='transparent';this.style.transform='scale(1)'">'
-        + '<img src="' + src + '" alt="' + (p.alt || '').replace(/"/g,'') + '" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block">'
-        + '<div style="position:absolute;inset:0;background:rgba(0,229,160,0);transition:background .18s" class="pexels-overlay"></div>'
+      var safeUrl = (full || src).replace(/'/g, '%27');
+      return '<div onclick="selectPexelsPhoto('' + safeUrl + '')" style="cursor:pointer;border-radius:8px;overflow:hidden;border:2px solid transparent;transition:all .18s" onmouseover="this.style.borderColor='#00E5A0';this.style.transform='scale(1.02)'" onmouseout="this.style.borderColor='transparent';this.style.transform='scale(1)'">'
+        + '<img src="' + src + '" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block">'
         + '</div>';
     }).filter(Boolean).join('');
+
   } catch(err) {
-    grid.innerHTML = '<div class="pexels-loading" style="grid-column:1/-1">⚠ Błąd: ' + err.message + '<br><span style="font-size:12px;opacity:.6">Sprawdź czy PEXELS_API_KEY jest ustawiony w Vercel</span></div>';
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:32px;color:#F87171;font-size:13px">'
+      + '⚠ ' + err.message + '</div>';
   }
 }
 
 function selectPexelsPhoto(url) {
   if (_pexelsTarget === 'hero') {
-    state.heroUrl = url; state.heroBase64 = null;
-    // Pokaż podgląd w hero-filled
-    var emptyEl  = document.getElementById('hero-empty');
-    var filledEl = document.getElementById('hero-filled');
-    var previewEl= document.getElementById('hero-preview');
-    if (emptyEl)  emptyEl.style.display  = 'none';
-    if (filledEl) filledEl.style.display = 'flex';
+    state.heroUrl = url;
+    var emptyEl   = document.getElementById('hero-empty');
+    var filledEl  = document.getElementById('hero-filled');
+    var previewEl = document.getElementById('hero-preview');
+    if (emptyEl)   emptyEl.style.display  = 'none';
+    if (filledEl)  filledEl.style.display = 'flex';
     if (previewEl) previewEl.src = url;
-    // Aktualizuj obszar
     var area = document.getElementById('hero-upload-area');
     if (area) area.classList.add('has-file');
 
-  } else if (_pexelsTarget === 'logo') {
-    state.logoUrl = url; state.logoBase64 = null;
-    // Pokaż podgląd w logo-filled
-    var logoPrev = document.getElementById('logo-preview');
-    var logoFilled = document.getElementById('logo-filled');
-    var logoEmpty = document.getElementById('logo-empty');
-    if (logoPrev) logoPrev.src = url;
-    if (logoPrev) logoPrev.style.display = 'block';
-    if (logoFilled) logoFilled.style.display = 'block';
-    if (logoEmpty) logoEmpty.style.display = 'none';
-    var area = document.getElementById('logo-upload-area');
-    if (area) area.classList.add('has-file');
-
-  } else {
-    // Galeria
+  } else if (_pexelsTarget === 'galeria') {
     _galeriaUrls.push(url);
     state.galeriaUrls = _galeriaUrls;
+    // Preview row
     var wrap = document.getElementById('galeria-preview-row');
-    if (wrap) { wrap.style.display = 'flex';
+    if (wrap) {
+      wrap.style.display = 'flex';
       var d = document.createElement('div');
-      d.style.cssText = 'position:relative;display:inline-block';
+      d.style.cssText = 'position:relative;display:inline-block;flex-shrink:0';
       var idx = _galeriaUrls.length - 1;
-      d.innerHTML = '<img src="' + url + '" style="width:72px;height:54px;object-fit:cover;border-radius:6px;border:1px solid var(--border2)">'
-        + '<button onclick="removeGaleriaPhoto(' + idx + ',this.parentNode)" style="position:absolute;top:-4px;right:-4px;background:#080A0F;border:1px solid var(--border2);border-radius:50%;width:18px;height:18px;font-size:10px;cursor:pointer;color:var(--muted);line-height:18px;text-align:center">✕</button>';
+      d.innerHTML = '<img src="' + url + '" style="width:72px;height:54px;object-fit:cover;border-radius:6px;border:1px solid rgba(240,242,247,.15)">'
+        + '<button onclick="removeGaleriaPhoto(' + idx + ',this.parentNode)" style="position:absolute;top:-5px;right:-5px;background:#0E1117;border:1px solid rgba(240,242,247,.2);border-radius:50%;width:18px;height:18px;font-size:10px;cursor:pointer;color:#8892AA;line-height:18px;text-align:center">x</button>';
       wrap.appendChild(d);
     }
-    // Aktualizuj sloty galerii wizualnie
-    var slots = document.querySelectorAll('.galeria-slot');
-    var filledCount = _galeriaUrls.length - 1;
-    if (slots[filledCount]) {
-      slots[filledCount].style.backgroundImage = 'url(' + url + ')';
-      slots[filledCount].style.backgroundSize = 'cover';
-      slots[filledCount].style.backgroundPosition = 'center';
-      slots[filledCount].classList.add('has-img');
-      slots[filledCount].innerHTML = '';
+    // Slot
+    var slot = document.getElementById('slot-' + (_galeriaUrls.length - 1));
+    if (slot) {
+      slot.style.backgroundImage  = 'url(' + url + ')';
+      slot.style.backgroundSize   = 'cover';
+      slot.style.backgroundPosition = 'center';
+      slot.classList.add('has-img');
+      var def = slot.querySelector('.slot-default');
+      if (def) def.style.display = 'none';
     }
+    // Btn label
+    var btn = document.getElementById('btn-pexels-galeria');
+    if (btn) btn.textContent = '\uD83D\uDCF8 Dodaj wi\u0119cej zdj\u0119\u0107 (' + _galeriaUrls.length + ')';
   }
   closePexels();
 }
@@ -2306,18 +2307,38 @@ function removeGaleriaPhoto(idx, el) {
   _galeriaUrls.splice(idx, 1);
   state.galeriaUrls = _galeriaUrls;
   if (el) el.remove();
-  var btn = document.getElementById('galeria-upload-btn');
-  if (btn) btn.textContent = _galeriaUrls.length ? '🔍 Dodaj więcej zdjęć (' + _galeriaUrls.length + ')' : '🔍 Dodaj zdjęcia z Pexels';
+  // Odśwież sloty
+  _galeriaUrls.forEach(function(url, i) {
+    var slot = document.getElementById('slot-' + i);
+    if (slot) {
+      slot.style.backgroundImage = 'url(' + url + ')';
+      slot.style.backgroundSize  = 'cover';
+      slot.classList.add('has-img');
+    }
+  });
+  var empty = document.getElementById('slot-' + _galeriaUrls.length);
+  if (empty) {
+    empty.style.backgroundImage = '';
+    empty.classList.remove('has-img');
+    var def = empty.querySelector('.slot-default');
+    if (def) def.style.display = '';
+  }
+  var btn = document.getElementById('btn-pexels-galeria');
+  if (btn) btn.textContent = _galeriaUrls.length
+    ? '\uD83D\uDCF8 Dodaj wi\u0119cej zdj\u0119\u0107 (' + _galeriaUrls.length + ')'
+    : '\uD83D\uDCF8 Dodaj zdj\u0119cia z Pexels';
 }
 
 function clearHero() {
-  state.heroUrl = null; state.heroBase64 = null;
-  var wrap = document.getElementById('hero-preview-wrap');
-  if (wrap) wrap.style.display = 'none';
-  var btn = document.getElementById('hero-upload-btn');
-  if (btn) btn.textContent = '🔍 Wybierz zdjęcie z Pexels';
+  state.heroUrl = null;
+  var emptyEl  = document.getElementById('hero-empty');
+  var filledEl = document.getElementById('hero-filled');
+  if (emptyEl)  emptyEl.style.display  = 'flex';
+  if (filledEl) filledEl.style.display = 'none';
+  var area = document.getElementById('hero-upload-area');
+  if (area) area.classList.remove('has-file');
 }
-// ────────────────────────────────────────────────────
+
 </script>
 
 
