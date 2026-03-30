@@ -637,7 +637,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
   text-align:center;
 }
 @media(max-width:600px){
-  .pexels-grid{grid-template-columns:repeat(2,1fr)}
+  #pexels-grid{column-count:2 !important}
 }
 /* ─────────────────────────────────────────── */
 </style>
@@ -2248,8 +2248,8 @@ async function searchPexels() {
       var full = p.src && (p.src.large2x || p.src.large || p.src.original);
       if (!src) return '';
       var safe = (full||src).replace(/'/g,'%27');
-      return '<div onclick="selectPexelsPhoto(\'' + safe + '\')" style="cursor:pointer;border-radius:8px;overflow:hidden;border:2px solid transparent;transition:all .18s" onmouseover="this.style.borderColor=\'#00E5A0\'" onmouseout="this.style.borderColor=\'transparent\'">'
-        + '<img src="' + src + '" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block">'
+      return '<div onclick="selectPexelsPhoto(\'' + safe + '\')" style="cursor:pointer;border-radius:10px;overflow:hidden;border:2px solid transparent;transition:all .18s;break-inside:avoid;margin-bottom:8px" onmouseover="this.style.borderColor=\'#00E5A0\';this.style.opacity=\'0.85\'" onmouseout="this.style.borderColor=\'transparent\';this.style.opacity=\'1\'">'
+        + '<img src="' + src + '" loading="lazy" style="width:100%;display:block;border-radius:8px">'
         + '</div>';
     }).filter(Boolean).join('');
   } catch(err) {
@@ -2348,7 +2348,7 @@ function clearHero() {
       <button onclick="searchPexels()" style="background:#00E5A0;color:#080A0F;border:none;padding:10px 22px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--head)">Szukaj →</button>
     </div>
 
-    <div id="pexels-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:14px 20px;overflow-y:auto;flex:1;min-height:280px">
+    <div id="pexels-grid" style="column-count:3;column-gap:8px;padding:14px 20px;overflow-y:auto;flex:1;min-height:280px;max-height:70vh">
       <div style="grid-column:1/-1;text-align:center;padding:40px;color:#8892AA;font-family:var(--mono);font-size:13px">Wpisz frazę i kliknij Szukaj</div>
     </div>
 
