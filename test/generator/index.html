@@ -903,44 +903,6 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
           <div class="field-hint">Jeśli zostawisz puste — AI sam napisze opis na podstawie branży i lokalizacji.</div>
         </div>
 
-        <!-- WYBOR LAYOUTU -->
-        <div class="field">
-          <label>Styl strony <span class="opt">wybierz jeden z trzech</span></label>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px" id="layout-grid">
-            <button type="button" class="layout-card selected" onclick="selectLayout(this,'classic')" style="background:var(--s2);border:2px solid var(--green);border-radius:14px;padding:16px;cursor:pointer;text-align:center;transition:all .2s">
-              <div style="background:#FFF8F2;border-radius:8px;padding:12px;margin-bottom:10px;position:relative;overflow:hidden;height:110px">
-                <div style="background:#D97B3A;height:28px;border-radius:6px 6px 0 0;margin:-12px -12px 8px;padding:6px 10px;text-align:left"><span style="font-size:9px;font-weight:800;color:#fff;letter-spacing:.5px">FIRMA</span></div>
-                <div style="background:#D97B3A;opacity:.15;border-radius:4px;height:14px;width:70%;margin:0 auto 6px"></div>
-                <div style="background:#D97B3A;opacity:.1;border-radius:3px;height:8px;width:90%;margin:0 auto 4px"></div>
-                <div style="background:#D97B3A;opacity:.1;border-radius:3px;height:8px;width:60%;margin:0 auto"></div>
-              </div>
-              <div style="font-size:13px;font-weight:700;color:var(--text)">Klasyczny</div>
-              <div style="font-size:11px;color:var(--muted);margin-top:2px">Ciepły, przyjazny</div>
-            </button>
-            <button type="button" class="layout-card" onclick="selectLayout(this,'modern')" style="background:var(--s2);border:2px solid var(--border);border-radius:14px;padding:16px;cursor:pointer;text-align:center;transition:all .2s">
-              <div style="background:#0E1117;border-radius:8px;padding:12px;margin-bottom:10px;position:relative;overflow:hidden;height:110px">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin:-12px -12px 8px;padding:8px 10px;background:rgba(255,255,255,.05)"><span style="font-size:9px;font-weight:800;color:#fff;letter-spacing:.5px">FIRMA</span><span style="font-size:7px;color:#00E5A0">MENU</span></div>
-                <div style="background:#00E5A0;opacity:.2;border-radius:4px;height:14px;width:65%;margin:0 0 6px"></div>
-                <div style="background:#fff;opacity:.06;border-radius:3px;height:8px;width:85%;margin:0 0 4px"></div>
-                <div style="display:flex;gap:4px;margin-top:6px"><div style="background:#00E5A0;border-radius:4px;height:20px;flex:1;opacity:.15"></div><div style="background:#00E5A0;border-radius:4px;height:20px;flex:1;opacity:.1"></div></div>
-              </div>
-              <div style="font-size:13px;font-weight:700;color:var(--text)">Nowoczesny</div>
-              <div style="font-size:11px;color:var(--muted);margin-top:2px">Dark, tech, bold</div>
-            </button>
-            <button type="button" class="layout-card" onclick="selectLayout(this,'elegant')" style="background:var(--s2);border:2px solid var(--border);border-radius:14px;padding:16px;cursor:pointer;text-align:center;transition:all .2s">
-              <div style="background:#FAFAF8;border-radius:8px;padding:12px;margin-bottom:10px;position:relative;overflow:hidden;height:110px">
-                <div style="text-align:center;margin:-12px -12px 8px;padding:8px 10px;border-bottom:1px solid rgba(0,0,0,.06)"><span style="font-size:9px;font-weight:600;color:#333;letter-spacing:1.5px;text-transform:uppercase">Firma</span></div>
-                <div style="background:#8B7355;opacity:.12;border-radius:3px;height:12px;width:50%;margin:0 auto 6px"></div>
-                <div style="background:#000;opacity:.04;border-radius:2px;height:7px;width:75%;margin:0 auto 4px"></div>
-                <div style="background:#000;opacity:.04;border-radius:2px;height:7px;width:55%;margin:0 auto 4px"></div>
-                <div style="background:#8B7355;opacity:.08;border-radius:3px;height:18px;width:40%;margin:6px auto 0"></div>
-              </div>
-              <div style="font-size:13px;font-weight:700;color:var(--text)">Elegancki</div>
-              <div style="font-size:11px;color:var(--muted);margin-top:2px">Minimalistyczny, lux</div>
-            </button>
-          </div>
-        </div>
-
         <!-- LOGO -->
         <div class="field">
           <label>Logo firmy <span class="opt">opcjonalnie — PNG / JPG</span></label>
@@ -1319,6 +1281,16 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
       <div class="gen-log" id="gen-log">// Inicjalizacja Claude API…</div>
     </div>
 
+    <!-- VARIANT PICKER -->
+    <div class="step-panel" id="variant-picker" style="display:none">
+      <div class="sp-header">
+        <div class="sp-eyebrow">// 3 warianty gotowe</div>
+        <h1 class="sp-title">Wybierz styl<br><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">swojej strony</span></h1>
+        <p class="sp-sub">Kliknij wariant, ktory Ci sie podoba.</p>
+      </div>
+      <div id="variant-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px"></div>
+    </div>
+
     <!-- PREVIEW -->
     <div class="preview-panel" id="preview-panel">
       <div class="sp-header">
@@ -1637,11 +1609,13 @@ function collectFirmaData() {
     google_opinie:document.getElementById('f-google-opinie').value.trim(),
     kolor1:       null,
     kolor2:       null,
-    layout:       state.layout || 'classic',
+    layout:       null,
+    galeria:      (state.galeriaUrls || []).concat(state.galeria || []).filter(Boolean),
     logo_base64:  state.logoBase64,
     galeria:      state.galeria.filter(Boolean),
     plan:         state.plan,
     hero_base64:  state.heroBase64,
+    heroUrl:      state.heroUrl || '',
   };
 }
 
@@ -1651,26 +1625,24 @@ async function startGenerate() {
   
   const firma = collectFirmaData();
   
-  // Show generating state
   document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
   document.getElementById('generating').classList.add('active');
   
-  // Animate log messages
   const logs = [
-    '// Inicjalizacja Claude API…',
-    '// Analiza branży: ' + firma.branza,
-    '// Dobieranie kolorów i fontów…',
-    '// Generowanie treści SEO dla ' + firma.miasto + '…',
-    '// Tworzenie Schema.org LocalBusiness…',
-    '// Składanie layoutu HTML…',
-    '// Optymalizacja mobilna…',
-    '// Finalizowanie…',
+    '// Inicjalizacja generatora...',
+    '// Analiza branzy: ' + firma.branza,
+    '// Generowanie 3 wariantow...',
+    '// Tworzenie wersji Klasycznej...',
+    '// Tworzenie wersji Nowoczesnej...',
+    '// Tworzenie wersji Eleganckiej...',
+    '// Optymalizacja SEO...',
+    '// Finalizowanie...',
   ];
   let li = 0;
   const logEl = document.getElementById('gen-log');
   const logInterval = setInterval(() => {
     if (li < logs.length) logEl.textContent = logs[li++];
-  }, 600);
+  }, 500);
 
   try {
     const res = await fetch('/api/generate', {
@@ -1682,41 +1654,57 @@ async function startGenerate() {
     const data = await res.json();
     clearInterval(logInterval);
     
-    if (!data.success) throw new Error(data.error || 'Błąd generowania');
+    if (!data.success) throw new Error(data.error || 'Blad generowania');
     
-    state.generatedHTML = data.html;
+    state.variants = data.variants;
     state.slug = data.slug;
     
-    showPreview(data);
+    showVariantPicker(data);
     
   } catch (err) {
     clearInterval(logInterval);
-    alert('Błąd: ' + err.message + '\n\nSprawdź czy serwer API działa (node webgen-generator.js)');
+    alert('Blad: ' + err.message);
     setStep(4);
   }
 }
 
-// ─── PREVIEW ───
-function showPreview(data) {
+// ─── VARIANT PICKER (3 layouts) ───
+function showVariantPicker(data) {
   document.getElementById('generating').classList.remove('active');
+  document.getElementById('variant-picker').classList.add('active');
+  
+  var labels = { classic: 'Klasyczny', modern: 'Nowoczesny', elegant: 'Elegancki' };
+  var descs = { classic: 'Ciepły i przyjazny', modern: 'Dark mode, tech', elegant: 'Minimalistyczny, lux' };
+  var keys = ['classic', 'modern', 'elegant'];
+  var grid = document.getElementById('variant-grid');
+  
+  grid.innerHTML = keys.map(function(key) {
+    return '<div class="variant-option" onclick="selectVariant(\'' + key + '\')" style="cursor:pointer;border:2px solid var(--border);border-radius:14px;overflow:hidden;transition:all .2s;background:var(--s2)" onmouseover="this.style.borderColor=\'var(--green)\'" onmouseout="if(!this.classList.contains(\'selected\'))this.style.borderColor=\'var(--border)\'">'
+      + '<div style="position:relative;width:100%;height:340px;overflow:hidden;background:#111">'
+      + '<iframe srcdoc="' + data.variants[key].replace(/"/g, '&quot;') + '" style="width:400%;height:400%;transform:scale(0.25);transform-origin:0 0;border:none;pointer-events:none" scrolling="no"></iframe>'
+      + '</div>'
+      + '<div style="padding:14px;text-align:center">'
+      + '<div style="font-size:15px;font-weight:700;color:var(--text)">' + labels[key] + '</div>'
+      + '<div style="font-size:12px;color:var(--muted);margin-top:2px">' + descs[key] + '</div>'
+      + '</div></div>';
+  }).join('');
+}
+
+function selectVariant(key) {
+  state.generatedHTML = state.variants[key];
+  state.selectedLayout = key;
+  
+  // Show final preview
+  document.getElementById('variant-picker').classList.remove('active');
   document.getElementById('preview-panel').classList.add('active');
-  document.getElementById('preview-url').textContent = `preview.webgen.pl/${data.slug}`;
+  document.getElementById('preview-url').textContent = 'preview.webgen.pl/' + state.slug;
   document.getElementById('btn-price').textContent = state.planPrice;
   
-  // Inject HTML into iframe
-  const iframe = document.getElementById('preview-iframe');
-  const doc = iframe.contentDocument || iframe.contentWindow.document;
+  var iframe = document.getElementById('preview-iframe');
+  var doc = iframe.contentDocument || iframe.contentWindow.document;
   doc.open();
-  doc.write(data.html);
+  doc.write(state.generatedHTML);
   doc.close();
-  
-  // Update sidebar step 5
-  document.querySelectorAll('.step').forEach(s => {
-    const sn = parseInt(s.dataset.step);
-    s.classList.remove('active','done');
-    if (sn === 5) s.classList.add('active');
-    else if (sn < 5) { s.classList.add('done'); s.querySelector('.step-num').textContent = ''; }
-  });
 }
 
 // ─── DOWNLOAD ───

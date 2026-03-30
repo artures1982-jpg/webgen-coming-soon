@@ -1,4 +1,3 @@
-import { put } from '@vercel/blob';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
@@ -15,20 +14,14 @@ export default async function handler(req, res) {
       .trim()
       .substr(0, 30) || 'firma';
 
-    const html = generateHTML(firma);
+    // Generate 3 layout variants
+    const variants = {
+      classic: generateHTML({ ...firma, layout: 'classic' }),
+      modern: generateHTML({ ...firma, layout: 'modern' }),
+      elegant: generateHTML({ ...firma, layout: 'elegant' }),
+    };
 
-    if (process.env.BLOB_READ_WRITE_TOKEN) {
-      try {
-        await put(`sites/${slug}/index.html`, html, {
-          access: 'private',
-          contentType: 'text/html; charset=utf-8',
-        });
-      } catch (blobErr) {
-        console.warn('Blob save skipped:', blobErr.message);
-      }
-    }
-
-    return res.status(200).json({ success: true, html, slug, mode: 'placeholder' });
+    return res.status(200).json({ success: true, variants, slug, mode: 'placeholder' });
   } catch (err) {
     console.error('Generate error:', err);
     return res.status(500).json({ error: err.message });
