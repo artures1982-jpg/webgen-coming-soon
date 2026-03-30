@@ -29,192 +29,272 @@ export default async function handler(req, res) {
     }
 
     return res.status(200).json({ success: true, html, slug, mode: 'placeholder' });
-
   } catch (err) {
     console.error('Generate error:', err);
     return res.status(500).json({ error: err.message });
   }
 }
 
+// ═══════════════════════════════════════
+//  SHARED HELPERS
+// ═══════════════════════════════════════
 function generateHTML(f) {
+  const layout = f.layout || 'classic';
   const COLORS = {
-    'Remonty i wykończenia': { primary: '#D97B3A', bg: '#FFF8F2', text: '#331A00' },
-    'Hydraulika':            { primary: '#2163C8', bg: '#F0F6FF', text: '#0A1E36' },
-    'Elektryka':             { primary: '#E6B82E', bg: '#0E0E0E', text: '#FFFFFF' },
-    'Salon piękności':       { primary: '#E698BA', bg: '#FFF5F8', text: '#4A1A30' },
-    'Sprzątanie':            { primary: '#4AA86E', bg: '#F0FFF5', text: '#0A2D1A' },
-    'Ogrodnictwo':           { primary: '#6AB52E', bg: '#F5FFEC', text: '#1A2C04' },
-    'Malowanie':             { primary: '#E87E2D', bg: '#FFF8F2', text: '#331500' },
-    'Gastronomia':           { primary: '#C0322D', bg: '#FFF0F0', text: '#330505' },
+    'Remonty i wykończenia': { primary: '#D97B3A', accent: '#B8621B' },
+    'Hydraulika':            { primary: '#2163C8', accent: '#1A4F9E' },
+    'Elektryka':             { primary: '#D4A017', accent: '#B8890F' },
+    'Salon piękności':       { primary: '#E698BA', accent: '#D47FA3' },
+    'Sprzątanie':            { primary: '#4AA86E', accent: '#3A8F5A' },
+    'Ogrodnictwo':           { primary: '#6AB52E', accent: '#5A9E24' },
+    'Malowanie':             { primary: '#E87E2D', accent: '#CC6A1F' },
+    'Gastronomia':           { primary: '#C0322D', accent: '#A02824' },
   };
-
-  const defaultC = COLORS[f.branza] || { primary: '#3366FF', bg: '#F5F5FF', text: '#111144' };
-  const c = { primary: f.kolor1 || defaultC.primary, bg: f.kolor2 || defaultC.bg, text: defaultC.text };
+  const bc = COLORS[f.branza] || { primary: '#3366FF', accent: '#2952CC' };
   const lok = [f.dzielnica, f.miasto].filter(Boolean).join(', ');
   const nazwa = f.nazwa || f.branza;
   const tel = f.telefon || '+48 000 000 000';
   const email = f.email || 'kontakt@firma.pl';
   const lata = f.lata ? `${f.lata} lat doświadczenia` : '';
   const real = f.realizacje ? `${f.realizacje}+ realizacji` : '';
-  const godz = f.godz_pon_pt ? `Pon–Pt: ${f.godz_pon_pt}` : '';
+  const godz = f.godz_pon_pt ? `Pon-Pt: ${f.godz_pon_pt}` : '';
   const godzSob = f.godz_sob ? ` | Sob: ${f.godz_sob}` : '';
-  const opis = f.opis || `Profesjonalna firma ${f.branza.toLowerCase()} działająca na terenie ${lok}. Szybko, solidnie, z gwarancją jakości.`;
+  const opis = f.opis || `Profesjonalna firma ${f.branza.toLowerCase()} na terenie ${lok}. Szybko, solidnie, z gwarancja jakosci.`;
+  const rok = new Date().getFullYear();
 
   const socialLinks = [
-    f.facebook ? `<a href="${f.facebook}" style="color:#fff;margin:0 8px">Facebook</a>` : '',
-    f.instagram ? `<a href="${f.instagram}" style="color:#fff;margin:0 8px">Instagram</a>` : '',
-    f.tiktok ? `<a href="${f.tiktok}" style="color:#fff;margin:0 8px">TikTok</a>` : '',
-  ].filter(Boolean).join('');
+    f.facebook ? `<a href="${f.facebook}" target="_blank" rel="noopener">Facebook</a>` : '',
+    f.instagram ? `<a href="${f.instagram}" target="_blank" rel="noopener">Instagram</a>` : '',
+    f.tiktok ? `<a href="${f.tiktok}" target="_blank" rel="noopener">TikTok</a>` : '',
+  ].filter(Boolean);
 
-  const whatsapp = f.whatsapp ? `
-    <a href="https://wa.me/48${f.whatsapp}" style="position:fixed;bottom:24px;right:24px;background:#25D366;color:#fff;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;text-decoration:none;box-shadow:0 4px 16px rgba(0,0,0,.2);z-index:999">💬</a>` : '';
+  const whatsappHtml = f.whatsapp ? `<a href="https://wa.me/48${f.whatsapp}" style="position:fixed;bottom:24px;right:24px;background:#25D366;color:#fff;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;text-decoration:none;box-shadow:0 4px 16px rgba(0,0,0,.2);z-index:999">💬</a>` : '';
+  const booksyHtml = f.booksy ? `<a href="${f.booksy}" target="_blank" rel="noopener" class="cta-booksy">📅 Zarezerwuj termin</a>` : '';
+  const logoHtml = f.logo_base64 ? `<img src="${f.logo_base64}" alt="${nazwa} logo" style="max-height:56px;max-width:150px;border-radius:5px">` : '';
 
-  const booksy = f.booksy ? `<a href="${f.booksy}" style="display:inline-block;margin-top:12px;background:#fff;color:${c.primary};padding:10px 24px;border-radius:8px;font-weight:700;text-decoration:none">📅 Zarezerwuj termin</a>` : '';
-
-  const googleBadge = f.google_ocena ? `
-    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border-radius:8px;padding:8px 16px;margin-top:12px">
-      <span style="font-size:20px">⭐</span>
-      <span style="font-weight:800;font-size:18px">${f.google_ocena}</span>
-      <span style="opacity:.8">${f.google_opinie ? `(${f.google_opinie} opinii)` : 'w Google'}</span>
-    </div>` : '';
-
-  // Logo (base64 wbudowane bezposrednio)
-  const logoHtml = f.logo_base64
-    ? `<div style="margin-top:14px"><img src="${f.logo_base64}" alt="${nazwa} logo" style="max-height:56px;max-width:150px;border-radius:5px;background:rgba(255,255,255,.12);padding:4px 8px"></div>`
-    : '';
-
-  // Limity zdjec galerii per plan:
-  // Free: 3 zdjecia wbudowane (bez linku do social)
-  // Managed START (249): 6 zdjec + link do galerii social jesli podany
-  // Managed PRO (399): 12 zdjec + link do galerii social
-  // Managed PREMIUM (599): 12 zdjec + link + hero photo
   const PLAN_LIMITS = { free: 3, managed_start: 6, managed_pro: 12, managed_premium: 12 };
   const planKey = (f.plan || 'free').toLowerCase().replace(/[^a-z_]/g, '_');
   const galeriaLimit = PLAN_LIMITS[planKey] || 3;
+  const galeria = (Array.isArray(f.galeria) ? f.galeria : (f.galeriaUrls || [])).filter(Boolean).slice(0, galeriaLimit);
+  const heroUrl = f.hero_base64 || f.heroUrl || '';
 
-  const allGaleria = Array.isArray(f.galeria) ? f.galeria.filter(Boolean) : [];
-  const galeria = allGaleria.slice(0, galeriaLimit);
-  const cols = galeria.length === 1 ? '1fr' : galeria.length === 2 ? '1fr 1fr' : 'repeat(3,1fr)';
+  const googleBadge = f.google_ocena ? `<span class="badge-google">⭐ ${f.google_ocena} ${f.google_opinie ? `(${f.google_opinie} opinii)` : ''}</span>` : '';
 
-  // Link do galerii social (Managed START+) jesli podany facebook/instagram
-  const hasSocialGallery = (f.facebook || f.instagram) && galeriaLimit >= 6;
-  const socialGalleryLink = hasSocialGallery
-    ? `<div style="text-align:center;margin-top:14px">
-        <a href="${f.facebook || f.instagram}" target="_blank" rel="noopener"
-           style="display:inline-flex;align-items:center;gap:8px;background:${c.primary};color:#fff;
-                  padding:10px 22px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px">
-          📸 Zobacz więcej zdjęć
-        </a>
-      </div>`
-    : '';
-
-  const galeriaHtml = galeria.length > 0
-    ? `<div style="margin-bottom:32px">
-        <h2 style="font-size:22px;font-weight:800;color:${c.primary};margin-bottom:14px">Nasze realizacje</h2>
-        <div style="display:grid;grid-template-columns:${cols};gap:12px">
-          ${galeria.map(src => `<img src="${src}" alt="Realizacja ${nazwa}" loading="lazy"
-            style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08)">`).join('')}
-        </div>
-        ${socialGalleryLink}
-      </div>`
-    : '';
-
-  // Hero photo (Managed PREMIUM) — duze zdjecie za headerem
-  const heroPhotoHtml = f.hero_base64 && ['managed_premium'].includes(planKey)
-    ? `<div style="width:100%;max-height:480px;overflow:hidden;margin-bottom:32px">
-        <img src="${f.hero_base64}" alt="${nazwa} — ${f.branza} ${lok}"
-          style="width:100%;height:480px;object-fit:cover;display:block">
-      </div>`
-    : '';
-
-    const schema = JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": nazwa,
-    "telephone": tel,
-    "email": email,
-    "description": opis,
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": f.miasto,
-      "addressCountry": "PL"
-    },
+  const schema = JSON.stringify({
+    "@context": "https://schema.org", "@type": "LocalBusiness",
+    "name": nazwa, "telephone": tel, "email": email, "description": opis,
+    "address": { "@type": "PostalAddress", "addressLocality": f.miasto, "addressCountry": "PL" },
     ...(f.google_ocena ? { "aggregateRating": { "@type": "AggregateRating", "ratingValue": f.google_ocena, "reviewCount": f.google_opinie || 10 } } : {}),
     ...(f.adres ? { "streetAddress": f.adres } : {}),
   });
 
-  return `<!DOCTYPE html>
-<html lang="pl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${nazwa} - ${f.branza} ${lok}</title>
-  <meta name="description" content="${nazwa} - profesjonalne usługi ${f.branza.toLowerCase()} w ${lok}. Zadzwoń: ${tel}.">
-  <script type="application/ld+json">${schema}</script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Inter',system-ui,sans-serif;background:${c.bg};color:${c.text};line-height:1.6}
-    header{background:${c.primary};color:#fff;padding:48px 24px;text-align:center}
-    header h1{font-size:clamp(28px,5vw,52px);font-weight:800;margin-bottom:8px}
-    header p{font-size:18px;opacity:.9;margin-bottom:4px}
-    .stats{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin:20px 0}
-    .stat{background:rgba(255,255,255,.15);border-radius:8px;padding:8px 16px;font-weight:700}
-    .cta-tel{display:inline-block;margin-top:20px;background:#fff;color:${c.primary};padding:14px 32px;border-radius:10px;font-weight:800;font-size:18px;text-decoration:none}
-    main{max-width:860px;margin:0 auto;padding:48px 24px}
-    .about{background:#fff;border-radius:16px;padding:32px;margin-bottom:32px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
-    .about h2{font-size:24px;font-weight:800;color:${c.primary};margin-bottom:12px}
-    .services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-bottom:32px}
-    .service{background:#fff;border-radius:12px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-    .service h3{font-size:16px;font-weight:700;color:${c.primary};margin-bottom:8px}
-    .service p{font-size:14px;color:#666}
-    .hours{background:#fff;border-radius:12px;padding:24px;margin-bottom:32px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-    .hours h2{font-size:20px;font-weight:700;color:${c.primary};margin-bottom:12px}
-    .contact-box{background:${c.primary};color:#fff;border-radius:16px;padding:40px;text-align:center;margin-bottom:32px}
-    .contact-box h2{font-size:28px;font-weight:800;margin-bottom:16px}
-    .contact-box a.big-tel{display:block;font-size:32px;font-weight:800;color:#fff;text-decoration:none;margin-bottom:8px}
-    .contact-box .email{opacity:.85;font-size:16px}
-    footer{background:${c.primary};color:rgba(255,255,255,.7);padding:24px;text-align:center;font-size:13px}
-  </style>
-</head>
-<body>
-  <header>
-    <h1>${nazwa}</h1>
-    <p>${f.branza} · ${lok}</p>
-    <div class="stats">
-      ${lata ? `<div class="stat">✓ ${lata}</div>` : ''}
-      ${real ? `<div class="stat">✓ ${real}</div>` : ''}
-      <div class="stat">✓ PageSpeed 90+</div>
-    </div>
-    ${googleBadge}
-    <a href="tel:${tel}" class="cta-tel">📞 Zadzwoń: ${tel}</a>
-    ${booksy}
-    ${logoHtml}
-  </header>
-  ${heroPhotoHtml}
-  <main>
-    <div class="about">
-      <h2>O nas</h2>
-      <p>${opis}</p>
-    </div>
-    ${galeriaHtml}
-    <div class="services-grid">
-      <div class="service"><h3>Profesjonalna obsługa</h3><p>Wykonujemy kompleksowo na terenie ${lok}.</p></div>
-      <div class="service"><h3>Szybka realizacja</h3><p>Terminowość i rzetelność to nasza wizytówka.</p></div>
-      <div class="service"><h3>Doświadczenie</h3><p>${lata || 'Wieloletnie doświadczenie'} na lokalnym rynku.</p></div>
-      <div class="service"><h3>Gwarancja jakości</h3><p>Każde zlecenie realizujemy z pełnym zaangażowaniem.</p></div>
-    </div>
-    ${godz ? `<div class="hours"><h2>Godziny otwarcia</h2><p>${godz}${godzSob}</p></div>` : ''}
-    <div class="contact-box">
-      <h2>Skontaktuj się z nami</h2>
-      <a href="tel:${tel}" class="big-tel">${tel}</a>
-      <div class="email">${email}</div>
-      ${f.adres ? `<div style="margin-top:8px;opacity:.8">📍 ${f.adres}</div>` : ''}
-      ${socialLinks ? `<div style="margin-top:16px">${socialLinks}</div>` : ''}
-    </div>
-  </main>
-  <footer>© ${new Date().getFullYear()} ${nazwa} · ${lok} · Strona stworzona przez <a href="https://webgen.pl" style="color:inherit">webgen.pl</a></footer>
-  ${whatsapp}
-</body>
-</html>`;
+  const head = `<!DOCTYPE html><html lang="pl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>${nazwa} - ${f.branza} ${lok}</title>
+<meta name="description" content="${nazwa} - profesjonalne uslugi ${f.branza.toLowerCase()} w ${lok}. Zadzwon: ${tel}.">
+<script type="application/ld+json">${schema}</script>`;
+
+  const d = { bc, lok, nazwa, tel, email, lata, real, godz, godzSob, opis, rok, socialLinks, whatsappHtml, booksyHtml, logoHtml, galeria, heroUrl, googleBadge, head, f };
+
+  if (layout === 'modern') return layoutModern(d);
+  if (layout === 'elegant') return layoutElegant(d);
+  return layoutClassic(d);
+}
+
+// ═══════════════════════════════════════
+//  LAYOUT 1: CLASSIC — warm, friendly
+// ═══════════════════════════════════════
+function layoutClassic(d) {
+  const { bc, lok, nazwa, tel, email, lata, real, godz, godzSob, opis, rok, socialLinks, whatsappHtml, booksyHtml, logoHtml, galeria, heroUrl, googleBadge, head } = d;
+  const galeriaHtml = galeria.length ? `<section class="sec"><h2>Nasze realizacje</h2><div class="gal">${galeria.map(s=>`<img src="${s}" alt="Realizacja ${nazwa}" loading="lazy">`).join('')}</div></section>` : '';
+  return `${head}
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:#FFF8F2;color:#331A00;line-height:1.65}
+header{background:${bc.primary};color:#fff;padding:56px 24px;text-align:center}
+header h1{font-size:clamp(28px,5vw,48px);font-weight:800;margin-bottom:6px}
+header .sub{font-size:17px;opacity:.9}
+.stats{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:20px 0}
+.stat{background:rgba(255,255,255,.18);border-radius:8px;padding:8px 16px;font-weight:700;font-size:14px}
+.badge-google{display:inline-block;background:rgba(255,255,255,.2);border-radius:8px;padding:6px 14px;margin-top:10px;font-weight:700}
+.cta{display:inline-block;margin-top:18px;background:#fff;color:${bc.primary};padding:14px 32px;border-radius:10px;font-weight:800;font-size:18px;text-decoration:none}
+.cta-booksy{display:inline-block;margin-top:10px;background:rgba(255,255,255,.2);color:#fff;padding:10px 24px;border-radius:8px;font-weight:700;text-decoration:none}
+main{max-width:860px;margin:0 auto;padding:48px 24px}
+.sec{background:#fff;border-radius:16px;padding:32px;margin-bottom:24px;box-shadow:0 2px 12px rgba(0,0,0,.05)}
+.sec h2{font-size:22px;font-weight:800;color:${bc.primary};margin-bottom:14px}
+.grid4{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-bottom:24px}
+.card{background:#fff;border-radius:12px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.05);border-left:4px solid ${bc.primary}}
+.card h3{font-size:15px;font-weight:700;color:${bc.primary};margin-bottom:6px}
+.card p{font-size:13px;color:#666}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.gal img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px}
+.contact{background:${bc.primary};color:#fff;border-radius:16px;padding:40px;text-align:center;margin-bottom:24px}
+.contact h2{font-size:26px;font-weight:800;margin-bottom:14px}
+.contact .big{display:block;font-size:30px;font-weight:800;color:#fff;text-decoration:none;margin-bottom:6px}
+footer{background:${bc.primary};color:rgba(255,255,255,.7);padding:20px;text-align:center;font-size:12px}
+footer a{color:rgba(255,255,255,.5);text-decoration:none}
+@media(max-width:600px){header{padding:36px 16px}main{padding:24px 16px}.grid4{grid-template-columns:1fr}}
+</style></head><body>
+<header>
+  ${logoHtml ? `<div style="margin-bottom:14px">${logoHtml}</div>` : ''}
+  <h1>${nazwa}</h1>
+  <p class="sub">${d.f.branza} · ${lok}</p>
+  <div class="stats">${lata?`<div class="stat">✓ ${lata}</div>`:''}${real?`<div class="stat">✓ ${real}</div>`:''}</div>
+  ${googleBadge}
+  <div><a href="tel:${tel}" class="cta">📞 ${tel}</a></div>
+  ${booksyHtml}
+</header>
+${heroUrl?`<div style="max-height:420px;overflow:hidden"><img src="${heroUrl}" alt="${nazwa}" style="width:100%;object-fit:cover;display:block"></div>`:''}
+<main>
+  <div class="sec"><h2>O nas</h2><p>${opis}</p></div>
+  ${galeriaHtml}
+  <div class="grid4">
+    <div class="card"><h3>Profesjonalizm</h3><p>Kompleksowa obsluga na terenie ${lok}.</p></div>
+    <div class="card"><h3>Terminowosc</h3><p>Szybka realizacja i rzetelnosc.</p></div>
+    <div class="card"><h3>Doswiadczenie</h3><p>${lata||'Wieloletnie doswiadczenie'} na rynku.</p></div>
+    <div class="card"><h3>Gwarancja</h3><p>Kazde zlecenie z pelnym zaangazowaniem.</p></div>
+  </div>
+  ${godz?`<div class="sec"><h2>Godziny otwarcia</h2><p>${godz}${godzSob}</p></div>`:''}
+  <div class="contact"><h2>Zadzwon do nas</h2><a href="tel:${tel}" class="big">${tel}</a><p>${email}</p>${socialLinks.length?`<div style="margin-top:14px;display:flex;gap:12px;justify-content:center">${socialLinks.map(l=>l.replace('<a ','<a style="color:rgba(255,255,255,.8);text-decoration:none" ')).join('')}</div>`:''}</div>
+</main>
+<footer>&copy; ${rok} ${nazwa} · Strona: <a href="https://webgen.pl">webgen.pl</a></footer>
+${whatsappHtml}</body></html>`;
+}
+
+// ═══════════════════════════════════════
+//  LAYOUT 2: MODERN — dark, bold, tech
+// ═══════════════════════════════════════
+function layoutModern(d) {
+  const { bc, lok, nazwa, tel, email, lata, real, godz, godzSob, opis, rok, socialLinks, whatsappHtml, booksyHtml, logoHtml, galeria, heroUrl, googleBadge, head } = d;
+  const acc = '#00E5A0';
+  const galeriaHtml = galeria.length ? `<section class="sec"><h2>Realizacje</h2><div class="gal">${galeria.map(s=>`<img src="${s}" alt="Realizacja ${nazwa}" loading="lazy">`).join('')}</div></section>` : '';
+  return `${head}
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Space Grotesk',system-ui,sans-serif;background:#080A0F;color:#E8ECF4;line-height:1.65}
+header{padding:60px 24px;text-align:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#0A0F1A 0%,#121828 100%)}
+header::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 50%,${bc.primary}15 0%,transparent 50%),radial-gradient(circle at 70% 50%,${acc}10 0%,transparent 50%);pointer-events:none}
+header h1{font-size:clamp(30px,5vw,52px);font-weight:700;position:relative;color:#fff}
+header h1 span{color:${acc}}
+header .sub{font-size:17px;color:rgba(255,255,255,.6);position:relative}
+.stats{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:20px 0;position:relative}
+.stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px 16px;font-weight:600;font-size:13px;color:${acc}}
+.badge-google{display:inline-block;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:6px 14px;margin-top:8px;font-weight:600;position:relative}
+.cta{display:inline-block;margin-top:18px;background:${acc};color:#080A0F;padding:14px 36px;border-radius:10px;font-weight:700;font-size:17px;text-decoration:none;position:relative}
+.cta:hover{opacity:.9}
+.cta-booksy{display:inline-block;margin-top:10px;background:transparent;border:1px solid ${acc};color:${acc};padding:10px 24px;border-radius:8px;font-weight:600;text-decoration:none}
+main{max-width:900px;margin:0 auto;padding:48px 24px}
+.sec{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:32px;margin-bottom:24px}
+.sec h2{font-size:22px;font-weight:700;color:#fff;margin-bottom:14px}
+.sec h2::after{content:'';display:block;width:40px;height:3px;background:${acc};border-radius:2px;margin-top:8px}
+.grid4{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-bottom:24px}
+.card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:22px;transition:border-color .2s}
+.card:hover{border-color:${acc}40}
+.card h3{font-size:15px;font-weight:700;color:${acc};margin-bottom:6px}
+.card p{font-size:13px;color:rgba(255,255,255,.5)}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.gal img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;border:1px solid rgba(255,255,255,.06)}
+.contact{background:linear-gradient(135deg,${bc.primary}20,${acc}15);border:1px solid ${acc}30;border-radius:16px;padding:40px;text-align:center;margin-bottom:24px}
+.contact h2{font-size:26px;font-weight:700;color:#fff;margin-bottom:14px}
+.contact .big{display:block;font-size:28px;font-weight:700;color:${acc};text-decoration:none;margin-bottom:6px}
+footer{border-top:1px solid rgba(255,255,255,.06);padding:20px;text-align:center;font-size:12px;color:rgba(255,255,255,.3)}
+footer a{color:${acc};opacity:.5;text-decoration:none}
+@media(max-width:600px){header{padding:36px 16px}main{padding:24px 16px}.grid4{grid-template-columns:1fr}}
+</style></head><body>
+<header>
+  ${logoHtml ? `<div style="margin-bottom:14px;position:relative">${logoHtml}</div>` : ''}
+  <h1>${nazwa.split(' ').slice(0,-1).join(' ')} <span>${nazwa.split(' ').slice(-1)}</span></h1>
+  <p class="sub">${d.f.branza} · ${lok}</p>
+  <div class="stats">${lata?`<div class="stat">${lata}</div>`:''}${real?`<div class="stat">${real}</div>`:''}<div class="stat">PageSpeed 90+</div></div>
+  ${googleBadge}
+  <div><a href="tel:${tel}" class="cta">📞 ${tel}</a></div>
+  ${booksyHtml}
+</header>
+${heroUrl?`<div style="max-height:420px;overflow:hidden"><img src="${heroUrl}" alt="${nazwa}" style="width:100%;object-fit:cover;display:block"></div>`:''}
+<main>
+  <div class="sec"><h2>O firmie</h2><p>${opis}</p></div>
+  ${galeriaHtml}
+  <div class="grid4">
+    <div class="card"><h3>// Profesjonalizm</h3><p>Kompleksowa obsluga na terenie ${lok}.</p></div>
+    <div class="card"><h3>// Terminowosc</h3><p>Szybka realizacja i rzetelnosc.</p></div>
+    <div class="card"><h3>// Doswiadczenie</h3><p>${lata||'Wieloletnie doswiadczenie'} na rynku.</p></div>
+    <div class="card"><h3>// Gwarancja</h3><p>Kazde zlecenie z pelnym zaangazowaniem.</p></div>
+  </div>
+  ${godz?`<div class="sec"><h2>Godziny</h2><p>${godz}${godzSob}</p></div>`:''}
+  <div class="contact"><h2>Kontakt</h2><a href="tel:${tel}" class="big">${tel}</a><p style="color:rgba(255,255,255,.5)">${email}</p>${socialLinks.length?`<div style="margin-top:14px;display:flex;gap:14px;justify-content:center">${socialLinks.map(l=>l.replace('<a ','<a style="color:'+acc+';text-decoration:none;font-size:14px" ')).join('')}</div>`:''}</div>
+</main>
+<footer>&copy; ${rok} ${nazwa} · <a href="https://webgen.pl">webgen.pl</a></footer>
+${whatsappHtml}</body></html>`;
+}
+
+// ═══════════════════════════════════════
+//  LAYOUT 3: ELEGANT — minimal, luxury
+// ═══════════════════════════════════════
+function layoutElegant(d) {
+  const { bc, lok, nazwa, tel, email, lata, real, godz, godzSob, opis, rok, socialLinks, whatsappHtml, booksyHtml, logoHtml, galeria, heroUrl, googleBadge, head } = d;
+  const gold = '#8B7355';
+  const galeriaHtml = galeria.length ? `<section class="sec"><h2>Portfolio</h2><div class="gal">${galeria.map(s=>`<img src="${s}" alt="Realizacja ${nazwa}" loading="lazy">`).join('')}</div></section>` : '';
+  return `${head}
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:#FAFAF8;color:#2A2A2A;line-height:1.7}
+h1,h2,h3{font-family:'Playfair Display',Georgia,serif}
+header{padding:64px 24px;text-align:center;border-bottom:1px solid #E8E6E1}
+header h1{font-size:clamp(32px,5vw,56px);font-weight:700;letter-spacing:-.02em;color:#1A1A1A;margin-bottom:4px}
+header .sub{font-size:15px;color:#8B8B8B;letter-spacing:2px;text-transform:uppercase;font-weight:500;font-family:'Inter',sans-serif}
+header .line{width:60px;height:2px;background:${gold};margin:20px auto}
+.stats{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin:16px 0}
+.stat{font-size:13px;color:${gold};font-weight:500;letter-spacing:.5px}
+.stat::before{content:'— '}
+.badge-google{display:inline-block;font-size:14px;color:${gold};margin-top:8px}
+.cta{display:inline-block;margin-top:22px;background:${gold};color:#fff;padding:14px 40px;border-radius:0;font-weight:500;font-size:15px;text-decoration:none;letter-spacing:1px;text-transform:uppercase;font-family:'Inter',sans-serif}
+.cta:hover{background:#7A654A}
+.cta-booksy{display:inline-block;margin-top:10px;border:1px solid ${gold};color:${gold};padding:10px 28px;text-decoration:none;font-size:13px;letter-spacing:1px;text-transform:uppercase;font-family:'Inter',sans-serif}
+main{max-width:800px;margin:0 auto;padding:56px 24px}
+.sec{margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid #E8E6E1}
+.sec:last-child{border-bottom:none}
+.sec h2{font-size:28px;font-weight:600;color:#1A1A1A;margin-bottom:16px;letter-spacing:-.01em}
+.sec p{font-size:16px;color:#555;max-width:640px}
+.grid4{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-bottom:48px}
+.card{padding:28px 0;border-top:1px solid #E8E6E1}
+.card h3{font-size:18px;font-weight:600;color:#1A1A1A;margin-bottom:8px}
+.card p{font-size:14px;color:#888}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.gal img{width:100%;aspect-ratio:4/3;object-fit:cover;filter:grayscale(20%);transition:filter .3s}
+.gal img:hover{filter:grayscale(0%)}
+.contact{text-align:center;padding:56px 24px;margin-bottom:48px}
+.contact h2{font-size:32px;margin-bottom:16px}
+.contact .big{display:block;font-size:28px;font-weight:700;color:${gold};text-decoration:none;margin-bottom:8px;font-family:'Playfair Display',serif}
+.contact .em{color:#888;font-size:15px}
+footer{border-top:1px solid #E8E6E1;padding:24px;text-align:center;font-size:11px;color:#BBB;letter-spacing:.5px}
+footer a{color:#999;text-decoration:none}
+@media(max-width:600px){header{padding:40px 16px}main{padding:32px 16px}.grid4{grid-template-columns:1fr}}
+</style></head><body>
+<header>
+  ${logoHtml ? `<div style="margin-bottom:16px">${logoHtml}</div>` : ''}
+  <p class="sub">${d.f.branza} · ${lok}</p>
+  <h1>${nazwa}</h1>
+  <div class="line"></div>
+  <div class="stats">${lata?`<span class="stat">${lata}</span>`:''}${real?`<span class="stat">${real}</span>`:''}</div>
+  ${googleBadge}
+  <div><a href="tel:${tel}" class="cta">Zadzwon ${tel}</a></div>
+  ${booksyHtml}
+</header>
+${heroUrl?`<div style="max-height:480px;overflow:hidden"><img src="${heroUrl}" alt="${nazwa}" style="width:100%;object-fit:cover;display:block"></div>`:''}
+<main>
+  <div class="sec"><h2>O nas</h2><p>${opis}</p></div>
+  ${galeriaHtml}
+  <div class="grid4">
+    <div class="card"><h3>Profesjonalizm</h3><p>Kompleksowa obsluga na terenie ${lok}.</p></div>
+    <div class="card"><h3>Terminowosc</h3><p>Szybka realizacja i rzetelnosc.</p></div>
+    <div class="card"><h3>Doswiadczenie</h3><p>${lata||'Wieloletnie doswiadczenie'} na rynku.</p></div>
+    <div class="card"><h3>Gwarancja</h3><p>Kazde zlecenie z pelnym zaangazowaniem.</p></div>
+  </div>
+  ${godz?`<div class="sec"><h2>Godziny otwarcia</h2><p>${godz}${godzSob}</p></div>`:''}
+  <div class="contact"><h2>Kontakt</h2><a href="tel:${tel}" class="big">${tel}</a><p class="em">${email}</p>${socialLinks.length?`<div style="margin-top:16px;display:flex;gap:16px;justify-content:center">${socialLinks.map(l=>l.replace('<a ','<a style="color:'+gold+';text-decoration:none;font-size:13px;letter-spacing:1px;text-transform:uppercase" ')).join('')}</div>`:''}</div>
+</main>
+<footer>&copy; ${rok} ${nazwa} &middot; <a href="https://webgen.pl">webgen.pl</a></footer>
+${whatsappHtml}</body></html>`;
 }

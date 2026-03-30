@@ -903,25 +903,40 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
           <div class="field-hint">Jeśli zostawisz puste — AI sam napisze opis na podstawie branży i lokalizacji.</div>
         </div>
 
-        <!-- WYBOR KOLOROW -->
+        <!-- WYBOR LAYOUTU -->
         <div class="field">
-          <label>Kolory strony <span class="opt">opcjonalnie</span></label>
-          <div class="kolor-grid" id="kolor-grid">
-            <button type="button" class="kolor-pair selected" onclick="selectKolor(this,'#D97B3A','#FFF8F2')">
-              <div class="kolor-swatch"><span style="background:#D97B3A"></span><span style="background:#FFF8F2;border-color:rgba(0,0,0,.15)"></span></div>
-              <div><div class="kolor-name">Ciepły brąz</div><div class="kolor-desc">remonty, stolarstwo</div></div>
+          <label>Styl strony <span class="opt">wybierz jeden z trzech</span></label>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px" id="layout-grid">
+            <button type="button" class="layout-card selected" onclick="selectLayout(this,'classic')" style="background:var(--s2);border:2px solid var(--green);border-radius:14px;padding:16px;cursor:pointer;text-align:center;transition:all .2s">
+              <div style="background:#FFF8F2;border-radius:8px;padding:12px;margin-bottom:10px;position:relative;overflow:hidden;height:110px">
+                <div style="background:#D97B3A;height:28px;border-radius:6px 6px 0 0;margin:-12px -12px 8px;padding:6px 10px;text-align:left"><span style="font-size:9px;font-weight:800;color:#fff;letter-spacing:.5px">FIRMA</span></div>
+                <div style="background:#D97B3A;opacity:.15;border-radius:4px;height:14px;width:70%;margin:0 auto 6px"></div>
+                <div style="background:#D97B3A;opacity:.1;border-radius:3px;height:8px;width:90%;margin:0 auto 4px"></div>
+                <div style="background:#D97B3A;opacity:.1;border-radius:3px;height:8px;width:60%;margin:0 auto"></div>
+              </div>
+              <div style="font-size:13px;font-weight:700;color:var(--text)">Klasyczny</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:2px">Ciepły, przyjazny</div>
             </button>
-            <button type="button" class="kolor-pair" onclick="selectKolor(this,'#2163C8','#F0F6FF')">
-              <div class="kolor-swatch"><span style="background:#2163C8"></span><span style="background:#F0F6FF;border-color:rgba(0,0,0,.15)"></span></div>
-              <div><div class="kolor-name">Błękit</div><div class="kolor-desc">hydraulika, elektryka</div></div>
+            <button type="button" class="layout-card" onclick="selectLayout(this,'modern')" style="background:var(--s2);border:2px solid var(--border);border-radius:14px;padding:16px;cursor:pointer;text-align:center;transition:all .2s">
+              <div style="background:#0E1117;border-radius:8px;padding:12px;margin-bottom:10px;position:relative;overflow:hidden;height:110px">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin:-12px -12px 8px;padding:8px 10px;background:rgba(255,255,255,.05)"><span style="font-size:9px;font-weight:800;color:#fff;letter-spacing:.5px">FIRMA</span><span style="font-size:7px;color:#00E5A0">MENU</span></div>
+                <div style="background:#00E5A0;opacity:.2;border-radius:4px;height:14px;width:65%;margin:0 0 6px"></div>
+                <div style="background:#fff;opacity:.06;border-radius:3px;height:8px;width:85%;margin:0 0 4px"></div>
+                <div style="display:flex;gap:4px;margin-top:6px"><div style="background:#00E5A0;border-radius:4px;height:20px;flex:1;opacity:.15"></div><div style="background:#00E5A0;border-radius:4px;height:20px;flex:1;opacity:.1"></div></div>
+              </div>
+              <div style="font-size:13px;font-weight:700;color:var(--text)">Nowoczesny</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:2px">Dark, tech, bold</div>
             </button>
-            <button type="button" class="kolor-pair" onclick="selectKolor(this,'#E698BA','#FFF5F8')">
-              <div class="kolor-swatch"><span style="background:#E698BA"></span><span style="background:#FFF5F8;border-color:rgba(0,0,0,.15)"></span></div>
-              <div><div class="kolor-name">Pudrowy róż</div><div class="kolor-desc">salon piękności, spa</div></div>
-            </button>
-            <button type="button" class="kolor-pair" onclick="selectKolor(this,'#4AA86E','#F0FFF5')">
-              <div class="kolor-swatch"><span style="background:#4AA86E"></span><span style="background:#F0FFF5;border-color:rgba(0,0,0,.15)"></span></div>
-              <div><div class="kolor-name">Zieleń</div><div class="kolor-desc">ogród, sprzątanie</div></div>
+            <button type="button" class="layout-card" onclick="selectLayout(this,'elegant')" style="background:var(--s2);border:2px solid var(--border);border-radius:14px;padding:16px;cursor:pointer;text-align:center;transition:all .2s">
+              <div style="background:#FAFAF8;border-radius:8px;padding:12px;margin-bottom:10px;position:relative;overflow:hidden;height:110px">
+                <div style="text-align:center;margin:-12px -12px 8px;padding:8px 10px;border-bottom:1px solid rgba(0,0,0,.06)"><span style="font-size:9px;font-weight:600;color:#333;letter-spacing:1.5px;text-transform:uppercase">Firma</span></div>
+                <div style="background:#8B7355;opacity:.12;border-radius:3px;height:12px;width:50%;margin:0 auto 6px"></div>
+                <div style="background:#000;opacity:.04;border-radius:2px;height:7px;width:75%;margin:0 auto 4px"></div>
+                <div style="background:#000;opacity:.04;border-radius:2px;height:7px;width:55%;margin:0 auto 4px"></div>
+                <div style="background:#8B7355;opacity:.08;border-radius:3px;height:18px;width:40%;margin:6px auto 0"></div>
+              </div>
+              <div style="font-size:13px;font-weight:700;color:var(--text)">Elegancki</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:2px">Minimalistyczny, lux</div>
             </button>
           </div>
         </div>
@@ -1354,8 +1369,9 @@ const state = {
   addons: {},
   generatedHTML: '',
   slug: '',
-  kolor1: '#D97B3A',
-  kolor2: '#FFF8F2',
+  kolor1: null,
+  kolor2: null,
+  layout: 'classic',
   logoBase64: '',
   galeria: [null, null, null, null, null, null, null, null, null, null, null, null],  // max 12
   heroBase64: '',
@@ -1425,11 +1441,14 @@ function validateStep(step) {
 
 
 // ─── KOLOR ───
-function selectKolor(btn, k1, k2) {
-  document.querySelectorAll('.kolor-pair').forEach(b => b.classList.remove('selected'));
+function selectLayout(btn, layoutId) {
+  document.querySelectorAll('.layout-card').forEach(b => {
+    b.style.borderColor = 'var(--border)';
+    b.classList.remove('selected');
+  });
   btn.classList.add('selected');
-  state.kolor1 = k1;
-  state.kolor2 = k2;
+  btn.style.borderColor = 'var(--green)';
+  state.layout = layoutId;
 }
 
 
@@ -1616,8 +1635,9 @@ function collectFirmaData() {
     maps:         document.getElementById('f-maps').value.trim(),
     google_ocena: document.getElementById('f-google-ocena').value.trim(),
     google_opinie:document.getElementById('f-google-opinie').value.trim(),
-    kolor1:       state.kolor1,
-    kolor2:       state.kolor2,
+    kolor1:       null,
+    kolor2:       null,
+    layout:       state.layout || 'classic',
     logo_base64:  state.logoBase64,
     galeria:      state.galeria.filter(Boolean),
     plan:         state.plan,
