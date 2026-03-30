@@ -47,12 +47,12 @@
       "dest": "/robots.txt"
     },
     {
-      "src": "/api/dashboard-data",
-      "dest": "/api/dashboard-data.js"
-    },
-    {
       "src": "/api/pexels",
       "dest": "/api/pexels.js"
+    },
+    {
+      "src": "/api/dashboard-data",
+      "dest": "/api/dashboard-data.js"
     },
     {
       "src": "/api/(.*)",
@@ -77,7 +77,7 @@
     },
     {
       "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "dest": "/api/$1.js"
     },
     {
       "src": "/test/polityka-prywatnosci",
