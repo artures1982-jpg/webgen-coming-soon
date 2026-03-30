@@ -6,176 +6,30 @@
     {
       "source": "/(.*)",
       "headers": [
-        {
-          "key": "X-Frame-Options",
-          "value": "SAMEORIGIN"
-        },
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
-        },
-        {
-          "key": "Permissions-Policy",
-          "value": "camera=(), microphone=(), geolocation=()"
-        },
-        {
-          "key": "Strict-Transport-Security",
-          "value": "max-age=63072000; includeSubDomains; preload"
-        },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src https://js.stripe.com https://hooks.stripe.com; connect-src 'self' https://api.stripe.com https://api.anthropic.com https://resend.com; img-src 'self' data: https:; object-src 'none'; base-uri 'self';"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src https://js.stripe.com https://hooks.stripe.com; connect-src 'self' https://api.stripe.com https://api.anthropic.com https://resend.com https://api.pexels.com; img-src 'self' data: https:; object-src 'none'; base-uri 'self';"
         }
       ]
     }
   ],
-  "routes": [
-    {
-      "src": "/sitemap.xml",
-      "dest": "/sitemap.xml"
-    },
-    {
-      "src": "/robots.txt",
-      "dest": "/robots.txt"
-    },
-    {
-      "src": "/api/pexels",
-      "dest": "/api/pexels.js",
-      "check": true
-    },
-    {
-      "src": "/api/dashboard-data",
-      "dest": "/api/dashboard-data.js"
-    },
-    {
-      "src": "/api/(.*)",
-      "has": [
-        {
-          "type": "header",
-          "key": "user-agent",
-          "value": "(?i).*(bot|crawl|slurp|spider|scraper|wget|curl|python-requests|java|go-http|scrapy|semrush|ahrefsbot|dotbot|mj12bot|blexbot|bytespider|gptbot|claudebot|ccbot|anthropic).*"
-        }
-      ],
-      "mitigate": {
-        "action": "deny"
-      }
-    },
-    {
-      "src": "/api/activate",
-      "dest": "/api/activate.js"
-    },
-    {
-      "src": "/api/register",
-      "dest": "/api/register.js"
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1.js",
-      "check": true
-    },
-    {
-      "src": "/test/polityka-prywatnosci",
-      "dest": "/test/polityka-prywatnosci/index.html"
-    },
-    {
-      "src": "/test/polityka-prywatnosci/",
-      "dest": "/test/polityka-prywatnosci/index.html"
-    },
-    {
-      "src": "/test/regulamin",
-      "dest": "/test/regulamin/index.html"
-    },
-    {
-      "src": "/test/regulamin/",
-      "dest": "/test/regulamin/index.html"
-    },
-    {
-      "src": "/test/cennik",
-      "dest": "/test/cennik/index.html"
-    },
-    {
-      "src": "/test/cennik/",
-      "dest": "/test/cennik/index.html"
-    },
-    {
-      "src": "/test/generator",
-      "dest": "/test/generator/index.html"
-    },
-    {
-      "src": "/test/generator/",
-      "dest": "/test/generator/index.html"
-    },
-    {
-      "src": "/test/dashboard",
-      "dest": "/test/dashboard/index.html"
-    },
-    {
-      "src": "/test/dashboard/",
-      "dest": "/test/dashboard/index.html"
-    },
-    {
-      "src": "/test/admin",
-      "dest": "/test/admin/index.html"
-    },
-    {
-      "src": "/test/admin/",
-      "dest": "/test/admin/index.html"
-    },
-    {
-      "src": "/test/prywatnosc",
-      "dest": "/test/prywatnosc/index.html"
-    },
-    {
-      "src": "/test/prywatnosc/",
-      "dest": "/test/prywatnosc/index.html"
-    },
-    {
-      "src": "/test",
-      "dest": "/test/index.html"
-    },
-    {
-      "src": "/test/",
-      "dest": "/test/index.html"
-    },
-    {
-      "src": "/cennik",
-      "dest": "/cennik/index.html"
-    },
-    {
-      "src": "/cennik/",
-      "dest": "/cennik/index.html"
-    },
-    {
-      "src": "/test/activate",
-      "dest": "/test/activate/index.html"
-    },
-    {
-      "src": "/test/activate/",
-      "dest": "/test/activate/index.html"
-    },
-    {
-      "src": "/api/login",
-      "dest": "/api/login.js"
-    },
-    {
-      "src": "/test/login",
-      "dest": "/test/login/index.html"
-    },
-    {
-      "src": "/test/login/",
-      "dest": "/test/login/index.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
+  "rewrites": [
+    { "source": "/test/polityka-prywatnosci", "destination": "/test/polityka-prywatnosci/index.html" },
+    { "source": "/test/regulamin", "destination": "/test/regulamin/index.html" },
+    { "source": "/test/cennik", "destination": "/test/cennik/index.html" },
+    { "source": "/test/generator", "destination": "/test/generator/index.html" },
+    { "source": "/test/dashboard", "destination": "/test/dashboard/index.html" },
+    { "source": "/test/admin", "destination": "/test/admin/index.html" },
+    { "source": "/test/prywatnosc", "destination": "/test/prywatnosc/index.html" },
+    { "source": "/test/activate", "destination": "/test/activate/index.html" },
+    { "source": "/test/login", "destination": "/test/login/index.html" },
+    { "source": "/test", "destination": "/test/index.html" },
+    { "source": "/cennik", "destination": "/cennik/index.html" }
   ]
 }
