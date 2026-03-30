@@ -48,7 +48,8 @@
     },
     {
       "src": "/api/pexels",
-      "dest": "/api/pexels.js"
+      "dest": "/api/pexels.js",
+      "check": true
     },
     {
       "src": "/api/dashboard-data",
@@ -77,7 +78,8 @@
     },
     {
       "src": "/api/(.*)",
-      "dest": "/api/$1.js"
+      "dest": "/api/$1.js",
+      "check": true
     },
     {
       "src": "/test/polityka-prywatnosci",
