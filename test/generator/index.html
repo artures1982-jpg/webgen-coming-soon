@@ -2193,16 +2193,22 @@ var _pexelsTarget = 'hero';
 var _galeriaUrls  = [];
 
 var _pexelsBranzaMap = {
-  'Hydraulika':  'plumber water pipes',
-  'Elektryk':    'electrician wiring',
-  'Remonty':     'home renovation interior',
-  'Malowanie':   'house painting walls',
-  'Fryzjer':     'hair salon hairdresser',
-  'Salon urody': 'beauty salon spa',
-  'Sprzatanie':  'cleaning service',
-  'Ogrodnik':    'garden landscaping',
-  'Mechanik':    'car mechanic workshop',
-  'Glazurnik':   'tiling floor renovation'
+  'Hydraulika':              'plumber water pipes repair',
+  'Elektryka':               'electrician wiring installation',
+  'Remonty i wykończenia':   'home renovation interior design modern',
+  'Malowanie':               'house painting walls interior',
+  'Salon piękności':         'beauty salon spa treatment',
+  'Sprzątanie':              'professional cleaning service home',
+  'Ogrodnictwo':             'garden landscaping green plants',
+  'Gastronomia':             'restaurant food kitchen chef',
+  'Fryzjer':                 'hair salon hairdresser styling',
+  'Salon urody':             'beauty salon cosmetics spa',
+  'Mechanik':                'car mechanic auto workshop repair',
+  'Glazurnik':               'tiling floor bathroom renovation',
+  'Fotograf':                'professional photography studio',
+  'Fizjoterapia':            'physiotherapy massage wellness',
+  'Klimatyzacja':            'air conditioning HVAC installation',
+  'Stolarz':                 'carpentry woodwork furniture craft'
 };
 
 function openPexels(target) {
@@ -2229,7 +2235,7 @@ async function searchPexels() {
   var q = inp.value.trim() || 'business';
   grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:32px;color:#8892AA;font-size:13px">Szukam...</div>';
   try {
-    var res = await fetch('/api/pexels?q=' + encodeURIComponent(q) + '&per_page=18');
+    var res = await fetch('/api/pexels?q=' + encodeURIComponent(q) + '&per_page=36');
     if (!res.ok) throw new Error('HTTP ' + res.status);
     var data = await res.json();
     var photos = data.photos || [];
@@ -2327,7 +2333,7 @@ function clearHero() {
 
 <!-- ══ PEXELS MODAL ══ -->
 <div id="pexels-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);align-items:center;justify-content:center" onclick="if(event.target===this)closePexels()">
-  <div style="background:#0E1117;border:1px solid rgba(240,242,247,.12);border-radius:18px;width:min(780px,95vw);max-height:88vh;display:flex;flex-direction:column;overflow:hidden">
+  <div style="background:#0E1117;border:1px solid rgba(240,242,247,.12);border-radius:18px;width:min(1100px,96vw);max-height:92vh;display:flex;flex-direction:column;overflow:hidden">
 
     <div style="padding:18px 24px 14px;border-bottom:1px solid rgba(240,242,247,.07);display:flex;align-items:center;gap:12px">
       <span style="font-size:20px">📸</span>
@@ -2342,7 +2348,7 @@ function clearHero() {
       <button onclick="searchPexels()" style="background:#00E5A0;color:#080A0F;border:none;padding:10px 22px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--head)">Szukaj →</button>
     </div>
 
-    <div id="pexels-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:14px 20px;overflow-y:auto;flex:1;min-height:180px">
+    <div id="pexels-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:14px 20px;overflow-y:auto;flex:1;min-height:280px">
       <div style="grid-column:1/-1;text-align:center;padding:40px;color:#8892AA;font-family:var(--mono);font-size:13px">Wpisz frazę i kliknij Szukaj</div>
     </div>
 

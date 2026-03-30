@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
 
   const q = req.query.q || 'professional service';
-  const per_page = Math.min(parseInt(req.query.per_page) || 18, 30);
+  const per_page = Math.min(parseInt(req.query.per_page) || 36, 40);
 
   const PEXELS_KEY = process.env.PEXELS_API_KEY;
   if (!PEXELS_KEY) {
