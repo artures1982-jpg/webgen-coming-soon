@@ -252,7 +252,8 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
 .galeria-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .galeria-slot{background:var(--s2);border:1.5px dashed var(--border2);border-radius:10px;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
 .galeria-slot:hover,.galeria-slot:focus-within{border-color:var(--green)}
-.galeria-slot.has-img{border-style:solid;border-color:rgba(0,229,160,.4)}
+.galeria-slot.has-img{border-style:solid;border-color:rgba(0,229,160,.4);background-size:cover!important;background-position:center!important}
+.galeria-slot.has-img .slot-default,.galeria-slot.has-img .slot-overlay{display:none!important}
 .galeria-slot img.slot-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:9px;pointer-events:none}
 .slot-overlay{position:absolute;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;border-radius:9px;font-size:18px;pointer-events:none}
 .galeria-slot:hover .slot-overlay{opacity:1}
@@ -929,17 +930,17 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
           </button>
           <div id="galeria-preview-row" style="display:none;flex-wrap:wrap;gap:6px;margin-bottom:8px"></div>
           <div class="galeria-grid">
-            <div class="galeria-slot" id="slot-0">
+            <div class="galeria-slot" id="slot-0" onclick="if(!this.classList.contains('has-img'))openPexels('galeria')">
               <div class="slot-default"><span>📷</span><span>Zdjęcie 1</span></div>
               <div class="slot-overlay">✏️</div>
               <input type="file" class="slot-input" accept="image/png,image/jpeg,image/webp" onchange="handleGaleriaUpload(this,0)" style="display:none">
             </div>
-            <div class="galeria-slot" id="slot-1">
+            <div class="galeria-slot" id="slot-1" onclick="if(!this.classList.contains('has-img'))openPexels('galeria')">
               <div class="slot-default"><span>📷</span><span>Zdjęcie 2</span></div>
               <div class="slot-overlay">✏️</div>
               <input type="file" class="slot-input" accept="image/png,image/jpeg,image/webp" onchange="handleGaleriaUpload(this,1)" style="display:none">
             </div>
-            <div class="galeria-slot" id="slot-2">
+            <div class="galeria-slot" id="slot-2" onclick="if(!this.classList.contains('has-img'))openPexels('galeria')">
               <div class="slot-default"><span>📷</span><span>Zdjęcie 3</span></div>
               <div class="slot-overlay">✏️</div>
               <input type="file" class="slot-input" accept="image/png,image/jpeg,image/webp" onchange="handleGaleriaUpload(this,2)" style="display:none">
@@ -1286,8 +1287,9 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
       <div class="sp-header">
         <div class="sp-eyebrow">// 3 warianty gotowe</div>
         <h1 class="sp-title">Wybierz styl<br><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">swojej strony</span></h1>
-        <p class="sp-sub">Kliknij wariant, ktory Ci sie podoba.</p>
+        <p class="sp-sub">Kliknij wariant, który Ci się podoba.</p>
       </div>
+      <button onclick="setStep(5)" style="background:transparent;border:none;color:var(--muted);font-size:13px;cursor:pointer;padding:0 0 16px;font-family:var(--head);display:flex;align-items:center;gap:6px" onmouseover="this.style.color='var(--green)'" onmouseout="this.style.color='var(--muted)'">← Wróć do dodatków</button>
       <div id="variant-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px"></div>
     </div>
 
@@ -1300,6 +1302,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
       </div>
       <div class="preview-toolbar">
         <div class="pt-info">
+          <button onclick="showVariantPicker()" style="background:transparent;border:1px solid rgba(240,242,247,.15);color:var(--muted);padding:7px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--head);transition:all .2s;margin-right:10px" onmouseover="this.style.borderColor='rgba(0,229,160,.35)';this.style.color='var(--green)'" onmouseout="this.style.borderColor='rgba(240,242,247,.15)';this.style.color='var(--muted)'">← Zmień styl</button>
           <div class="pt-label">Podgląd strony</div>
           <div class="pt-url" id="preview-url">preview.webgen.pl/twoja-firma</div>
         </div>
@@ -2313,14 +2316,19 @@ function selectPexelsPhoto(url) {
         + '<button onclick="removeGaleriaPhoto(' + idx + ',this.parentNode)" style="position:absolute;top:-5px;right:-5px;background:#0E1117;border:1px solid rgba(240,242,247,.2);border-radius:50%;width:18px;height:18px;font-size:10px;cursor:pointer;color:#8892AA;line-height:18px;text-align:center">x</button>';
       wrap.appendChild(d);
     }
-    var slot = document.getElementById('slot-' + (_galeriaUrls.length - 1));
+    var slotIdx = _galeriaUrls.length - 1;
+    var slot = document.getElementById('slot-' + slotIdx);
     if (slot) {
-      slot.style.backgroundImage    = 'url(' + url + ')';
-      slot.style.backgroundSize     = 'cover';
-      slot.style.backgroundPosition = 'center';
+      // Usuń stary img jeśli istnieje
+      var oldImg = slot.querySelector('.slot-img-pexels');
+      if (oldImg) oldImg.remove();
+      // Wstaw nowy img
+      var img = document.createElement('img');
+      img.src = url;
+      img.className = 'slot-img slot-img-pexels';
+      img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:9px;pointer-events:none';
+      slot.appendChild(img);
       slot.classList.add('has-img');
-      var def = slot.querySelector('.slot-default');
-      if (def) def.style.display = 'none';
     }
     var btn = document.getElementById('btn-pexels-galeria');
     if (btn) btn.textContent = 'Dodaj wiecej zdjec (' + _galeriaUrls.length + ')';
@@ -2335,8 +2343,13 @@ function removeGaleriaPhoto(idx, el) {
   for (var i = 0; i < _galeriaUrls.length; i++) {
     var s = document.getElementById('slot-' + i);
     if (s) {
-      s.style.backgroundImage = 'url(' + _galeriaUrls[i] + ')';
-      s.style.backgroundSize  = 'cover';
+      var oi = s.querySelector('.slot-img-pexels');
+      if (oi) oi.remove();
+      var ni = document.createElement('img');
+      ni.src = _galeriaUrls[i];
+      ni.className = 'slot-img slot-img-pexels';
+      ni.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:9px;pointer-events:none';
+      s.appendChild(ni);
       s.classList.add('has-img');
     }
   }
