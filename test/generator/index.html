@@ -1307,8 +1307,8 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
           <div class="pt-url" id="preview-url">preview.webgen.pl/twoja-firma</div>
         </div>
         <div class="pt-btns">
-          <button class="btn-download" onclick="downloadHTML()">⬇ Pobierz HTML</button>
-          <button class="btn-activate" onclick="openCheckout()">Aktywuj za <span id="btn-price">249</span> zł/mies. →</button>
+          <!-- Pobierz HTML dostępny tylko z panelu klienta po aktywacji -->
+          <button class="btn-activate" onclick="goToActivation()">Aktywuj stronę →</button>
         </div>
       </div>
       <iframe class="preview-frame" id="preview-iframe" sandbox="allow-same-origin"></iframe>
@@ -2372,6 +2372,25 @@ function clearHero() {
   if (filledEl) filledEl.style.display = 'none';
   var area = document.getElementById('hero-upload-area');
   if (area) area.classList.remove('has-file');
+}
+
+function goToActivation() {
+  // Zapisz wygenerowaną stronę i slug do localStorage
+  var slug = (window._generatedSlug || 'moja-firma');
+  var html = window._generatedHTML || '';
+  var email = (state && state.email) || '';
+  
+  // Zapisz dane strony do localStorage
+  localStorage.setItem('wg_generated', JSON.stringify({
+    slug: slug,
+    html: html,
+    email: email,
+    created: new Date().toISOString(),
+    plan: (state && state.plan) || 'free',
+  }));
+  
+  // Otwórz checkout Stripe
+  openCheckout();
 }
 </script>
 

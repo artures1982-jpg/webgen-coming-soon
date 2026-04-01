@@ -539,6 +539,32 @@ function renderSubscriptionPage(data) {
 
 // ── Render Website ────────────────────────────────
 function renderWebsitePage() {
+  // Sprawdź czy jest wygenerowana strona
+  var generated = null;
+  try { generated = JSON.parse(localStorage.getItem('wg_generated') || 'null'); } catch(e) {}
+  
+  if (generated && generated.slug) {
+    var subUrl = 'https://' + generated.slug + '.webgen.pl';
+    var created = generated.created ? new Date(generated.created) : null;
+    var daysLeft = created ? Math.max(0, 90 - Math.floor((Date.now() - created.getTime()) / 86400000)) : 90;
+    var container = document.getElementById('website-content');
+    if (container) {
+      container.innerHTML = 
+        '<div class="card" style="margin-bottom:20px">' +
+        '<div class="card-title">Twoja strona jest gotowa!</div>' +
+        '<div style="background:rgba(0,229,160,.07);border:1.5px solid rgba(0,229,160,.25);border-radius:12px;padding:20px 24px;margin-bottom:20px">' +
+        '<div style="font-size:11px;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">Adres strony</div>' +
+        '<a href="' + subUrl + '" target="_blank" style="font-size:20px;font-weight:800;color:var(--green);text-decoration:none;letter-spacing:-.01em">' + subUrl + ' ↗</a>' +
+        (daysLeft > 0 && generated.plan === 'free' ? '<div style="margin-top:10px;font-size:12px;color:var(--muted)">Plan Free · pozostało <strong style="color:var(--amber)">' + daysLeft + ' dni</strong></div>' : '') +
+        '</div>' +
+        '<div style="display:flex;gap:10px;flex-wrap:wrap">' +
+        '<a href="' + subUrl + '" target="_blank" class="btn btn-primary" style="font-size:13px;padding:10px 20px">Otwórz stronę →</a>' +
+        '<button onclick="downloadGeneratedHTML()" class="btn btn-outline" style="font-size:13px;padding:10px 20px;border:none;cursor:pointer">⬇ Pobierz HTML</button>' +
+        '</div>' +
+        '</div>';
+      return;
+    }
+  }
   var firma = userData.firma || {};
   var container = document.getElementById('website-content');
   if (!container) return;
@@ -613,6 +639,20 @@ function doLogout() {
 
 function toggleUserMenu() {
   doLogout();
+}
+
+function downloadGeneratedHTML() {
+  var generated = null;
+  try { generated = JSON.parse(localStorage.getItem('wg_generated') || 'null'); } catch(e) {}
+  if (!generated || !generated.html) {
+    alert('Brak wygenerowanej strony.');
+    return;
+  }
+  var blob = new Blob([generated.html], {type: 'text/html'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = (generated.slug || 'strona') + '.html';
+  a.click();
 }
 </script>
 </body>
