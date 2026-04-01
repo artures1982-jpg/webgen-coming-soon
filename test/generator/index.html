@@ -170,7 +170,7 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
 .gen-log{font-family:var(--mono);font-size:12px;color:var(--green);margin-top:20px;opacity:.7}
 
 /* PREVIEW STATE */
-.preview-panel{display:none}
+.preview-panel{display:none}.preview-panel.active{display:block}
 .preview-panel.active{display:block}
 .preview-toolbar{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:var(--s2);border:1px solid var(--border);border-radius:12px;margin-bottom:24px}
 .pt-info{}
@@ -1615,7 +1615,6 @@ function collectFirmaData() {
     layout:       null,
     galeria:      (state.galeriaUrls || []).concat(state.galeria || []).filter(Boolean),
     logo_base64:  state.logoBase64,
-    galeria:      state.galeria.filter(Boolean),
     plan:         state.plan,
     hero_base64:  state.heroBase64,
     heroUrl:      state.heroUrl || '',
@@ -1722,8 +1721,12 @@ function selectVariant(key) {
   state.selectedLayout = key;
   
   // Show final preview
-  document.getElementById('variant-picker').classList.remove('active');
-  document.getElementById('preview-panel').classList.add('active');
+  document.querySelectorAll('.step-panel, .preview-panel').forEach(p => {
+    p.classList.remove('active');
+    p.style.display = '';
+  });
+  var pp = document.getElementById('preview-panel');
+  if (pp) { pp.style.display = 'block'; }
   document.getElementById('preview-url').textContent = 'preview.webgen.pl/' + state.slug;
   document.getElementById('btn-price').textContent = state.planPrice;
   
