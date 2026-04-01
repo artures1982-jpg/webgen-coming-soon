@@ -82,8 +82,9 @@ WAŻNE:
 - Nie używaj zewnętrznych bibliotek JS
 - Nie używaj placeholder text (lorem ipsum) - tylko realne treści dla ${firma.branza}
 - Design ma być PROFESJONALNY i wyglądać jak strona za 2000 zł
-- Odpowiedz TYLKO kodem HTML - bez żadnych komentarzy przed/po kodzie
-- Zacznij od <!DOCTYPE html>`;
+- Odpowiedz WYŁĄCZNIE czystym kodem HTML bez żadnych backtick, markdown fences, komentarzy przed ani po
+- Pierwsza linia musi być dokładnie: <!DOCTYPE html>
+- Ostatnia linia musi być: </html>`;
 
     // Wywołaj Claude API
     const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
@@ -94,8 +95,8 @@ WAŻNE:
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'claude-opus-4-5',
-        max_tokens: 8000,
+        model: 'claude-sonnet-4-6',
+        max_tokens: 8192,
         messages: [{ role: 'user', content: PROMPT }],
       }),
     });
@@ -107,7 +108,19 @@ WAŻNE:
     }
 
     const claudeData = await claudeRes.json();
-    const generatedHTML = claudeData.content?.[0]?.text || '';
+    let generatedHTML = claudeData.content?.[0]?.text || '';
+
+    // Usuń markdown code fences jeśli Claude owrappował odpowiedź
+    generatedHTML = generatedHTML.trim();
+    if (generatedHTML.startsWith('```html')) {
+      generatedHTML = generatedHTML.slice(7); // usuń ```html
+    } else if (generatedHTML.startsWith('```')) {
+      generatedHTML = generatedHTML.slice(3);
+    }
+    if (generatedHTML.endsWith('```')) {
+      generatedHTML = generatedHTML.slice(0, -3);
+    }
+    generatedHTML = generatedHTML.trim();
 
     if (!generatedHTML || generatedHTML.length < 500) {
       return res.status(500).json({ error: 'Claude zwrócił pustą odpowiedź' });
