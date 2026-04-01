@@ -16,124 +16,126 @@ export default async function handler(req, res) {
       .trim()
       .substr(0, 30) || 'firma';
 
-    // Dane firmy do promptu
-    const lok = [firma.dzielnica, firma.miasto].filter(Boolean).join(', ');
-    const nazwa = firma.nazwa || firma.branza;
-    const galeriaUrls = (Array.isArray(firma.galeria) ? firma.galeria : (firma.galeriaUrls || [])).filter(Boolean).slice(0, 6);
-    const heroUrl = firma.heroUrl || firma.hero_base64 || '';
-    const logoHtml = firma.logo_base64 ? `<img src="${firma.logo_base64}" alt="${nazwa} logo" style="max-height:56px;max-width:160px;object-fit:contain">` : '';
+    const lok    = [firma.dzielnica, firma.miasto].filter(Boolean).join(', ') || 'Polska';
+    const nazwa  = firma.nazwa || firma.branza || 'Firma';
+    const tel    = firma.telefon || '';
+    const email  = firma.email  || '';
+    const branza = firma.branza || 'usługi';
 
-    const galeriaHtmlSnippet = galeriaUrls.length
-      ? galeriaUrls.map(url => `<img src="${url}" alt="Realizacja ${nazwa}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px">`).join('\n')
+    const galeriaUrls = (Array.isArray(firma.galeria) ? firma.galeria : (firma.galeriaUrls || []))
+      .filter(Boolean).slice(0, 6);
+    const heroUrl  = firma.heroUrl || firma.hero_base64 || '';
+    const logoHtml = firma.logo_base64
+      ? `<img src="${firma.logo_base64}" alt="${nazwa}" style="max-height:52px;max-width:150px;object-fit:contain;display:block">`
       : '';
 
-    const heroSnippet = heroUrl
-      ? `<img src="${heroUrl}" alt="${nazwa}" style="width:100%;max-height:480px;object-fit:cover;display:block">`
+    const galeriaImgs = galeriaUrls.length
+      ? galeriaUrls.map((u, i) =>
+          `<img src="${u}" alt="Realizacja ${i+1} - ${nazwa}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px">`
+        ).join('\n')
+      : '';
+
+    const heroImg = heroUrl
+      ? `<img src="${heroUrl}" alt="${nazwa}" style="width:100%;max-height:460px;object-fit:cover;display:block">`
+      : '';
+
+    const waBtn = firma.whatsapp
+      ? `<a href="https://wa.me/48${firma.whatsapp}" aria-label="WhatsApp" style="position:fixed;bottom:24px;right:24px;background:#25D366;color:#fff;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,.3);z-index:999">💬</a>`
       : '';
 
     const schema = JSON.stringify({
       "@context": "https://schema.org", "@type": "LocalBusiness",
-      "name": nazwa, "telephone": firma.telefon, "email": firma.email,
-      "description": firma.opis || `Profesjonalna firma ${firma.branza} w ${lok}`,
-      "address": { "@type": "PostalAddress", "addressLocality": firma.miasto, "addressCountry": "PL" },
+      "name": nazwa, "telephone": tel, "email": email,
+      "description": `${nazwa} - ${branza} w ${lok}`,
+      "address": { "@type": "PostalAddress", "addressLocality": firma.miasto || lok, "addressCountry": "PL" },
+      ...(firma.google_ocena ? {
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": firma.google_ocena, "reviewCount": firma.google_opinie || 10 }
+      } : {}),
     });
 
-    const PROMPT = `Jesteś ekspertem od tworzenia stron WWW dla polskich firm lokalnych. Wygeneruj KOMPLETNY kod HTML strony firmowej.
+    const styleHint =
+      firma.layout === 'modern'  ? 'dark mode, ciemne tło #0A0F1A, akcentowy #00E5A0, font Space Grotesk' :
+      firma.layout === 'elegant' ? 'minimalistyczny, białe tło, serif Playfair Display + Inter, złote akcenty #8B6914' :
+                                    'klasyczny, ciepłe kolory, przyjazny, font Inter lub Source Sans Pro';
 
-DANE FIRMY:
-- Nazwa: ${nazwa}
-- Branża: ${firma.branza}
-- Lokalizacja: ${lok}
-- Telefon: ${firma.telefon || 'brak'}
-- Email: ${firma.email || 'brak'}
-- Opis: ${firma.opis || 'Profesjonalna firma usługowa'}
-- Lata doświadczenia: ${firma.lata || 'brak'}
-- Liczba realizacji: ${firma.realizacje || 'brak'}
-- Godziny pon-pt: ${firma.godz_pon_pt || 'brak'}
-- Godziny sobota: ${firma.godz_sob || 'brak'}
-- Adres: ${firma.adres || 'brak'}
-- Facebook: ${firma.facebook || 'brak'}
-- Instagram: ${firma.instagram || 'brak'}
-- WhatsApp: ${firma.whatsapp || 'brak'}
-- Ocena Google: ${firma.google_ocena || 'brak'}
-- Liczba opinii: ${firma.google_opinie || 'brak'}
+    const PROMPT = `Wygeneruj KOMPLETNĄ stronę HTML dla polskiej firmy lokalnej.
 
-STYL: ${firma.layout === 'modern' ? 'Nowoczesny, ciemny (dark mode), tech, zielone akcenty #00E5A0' : firma.layout === 'elegant' ? 'Elegancki, minimalistyczny, serif, złote akcenty, luksusowy' : 'Klasyczny, ciepły, przyjazny, profesjonalny'}
+DANE:
+Nazwa: ${nazwa} | Branża: ${branza} | Lokalizacja: ${lok}
+Telefon: ${tel || 'brak'} | Email: ${email || 'brak'}
+Opis: ${firma.opis || ''}
+Lata: ${firma.lata || ''} | Realizacje: ${firma.realizacje || ''}
+Godziny: ${firma.godz_pon_pt || ''} ${firma.godz_sob ? '/ sob: '+firma.godz_sob : ''}
+${firma.adres ? 'Adres: '+firma.adres : ''}
+${firma.google_ocena ? 'Google: '+firma.google_ocena+'/5 ('+firma.google_opinie+' opinii)' : ''}
 
-WYGENERUJ stronę HTML która:
-1. Jest KOMPLETNA - od <!DOCTYPE html> do </html>
-2. Ma WBUDOWANY CSS (w <style> tag) - nowoczesny, piękny design
-3. Jest RESPONSYWNA (mobile-first)
-4. Ma Schema.org LocalBusiness JSON-LD: ${schema}
-5. Zawiera sekcje: Hero/nagłówek, O firmie, Usługi (min. 4 karty), ${galeriaHtmlSnippet ? 'Galeria realizacji,' : ''} Kontakt, Stopka
-6. Ma PRAWDZIWE, UNIKALNY treść dla tej konkretnej firmy (${firma.branza} w ${lok})
-7. Usługi powinny być konkretne dla branży ${firma.branza}
-8. CTA: przycisk dzwoń tel: ${firma.telefon || 'brak'}
-9. Fonty z Google Fonts - dobierz odpowiednie do stylu
+STYL: ${styleHint}
 
-WSTAW W ODPOWIEDNIE MIEJSCA:
-${logoHtml ? `LOGO: ${logoHtml}` : ''}
-${heroSnippet ? `HERO IMAGE (wstaw jako pierwsza sekcja po headerze): ${heroSnippet}` : ''}
-${galeriaHtmlSnippet ? `ZDJĘCIA GALERII (wstaw w sekcji realizacji): 
-${galeriaHtmlSnippet}` : ''}
-${firma.whatsapp ? `WHATSAPP BUTTON (fixed bottom-right): <a href="https://wa.me/48${firma.whatsapp}" style="position:fixed;bottom:24px;right:24px;background:#25D366;color:#fff;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,.25);z-index:999">💬</a>` : ''}
+WYMAGANIA:
+- Kompletny HTML: <!DOCTYPE html> ... </html>
+- Wbudowany CSS w <style>, Google Fonts, responsywny
+- Schema.org: <script type="application/ld+json">${schema}</script>
+- Sekcje: nav sticky, hero z CTA tel:${tel}, o-nas, uslugi (4-6 kart konkretnych dla ${branza}), ${galeriaImgs ? 'galeria,' : ''} kontakt, footer
+- Żadne lorem ipsum - realne treści dla ${branza} w ${lok}
+${tel ? `- Duży przycisk "Zadzwoń: ${tel}" w hero i sekcji kontakt` : ''}
+${logoHtml ? `\nLOGO (wstaw w nav): ${logoHtml}` : ''}
+${heroImg ? `\nHERO IMAGE (pierwsza sekcja pod nav): ${heroImg}` : ''}
+${galeriaImgs ? `\nZDJĘCIA (sekcja galeria/realizacje):\n${galeriaImgs}` : ''}
+${waBtn ? `\nWHATSAPP (fixed button): ${waBtn}` : ''}
 
-WAŻNE:
-- Nie używaj zewnętrznych bibliotek JS
-- Nie używaj placeholder text (lorem ipsum) - tylko realne treści dla ${firma.branza}
-- Design ma być PROFESJONALNY i wyglądać jak strona za 2000 zł
-- Odpowiedz WYŁĄCZNIE czystym kodem HTML bez żadnych backtick, markdown fences, komentarzy przed ani po
-- Pierwsza linia musi być dokładnie: <!DOCTYPE html>
-- Ostatnia linia musi być: </html>`;
+ODPOWIEDZ TYLKO KODEM HTML. Pierwsza linia: <!DOCTYPE html>  Ostatnia linia: </html>`;
 
-    // Wywołaj Claude API
-    const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'x-api-key': ANTHROPIC_KEY,
-        'anthropic-version': '2023-06-01',
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 8192,
-        messages: [{ role: 'user', content: PROMPT }],
-      }),
-    });
+    // Pierwsze zapytanie do Claude
+    const makeRequest = async (messages) => {
+      const r = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'x-api-key': ANTHROPIC_KEY,
+          'anthropic-version': '2023-06-01',
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-6',
+          max_tokens: 16000,
+          messages,
+        }),
+      });
+      if (!r.ok) throw new Error(`Claude API ${r.status}: ${await r.text()}`);
+      return r.json();
+    };
 
-    if (!claudeRes.ok) {
-      const err = await claudeRes.text();
-      console.error('Claude API error:', err);
-      return res.status(500).json({ error: 'Claude API error', details: err });
+    let data = await makeRequest([{ role: 'user', content: PROMPT }]);
+    let html  = (data.content?.[0]?.text || '').trim();
+
+    // Usuń markdown fences
+    if (html.startsWith('```html')) html = html.slice(7);
+    else if (html.startsWith('```'))  html = html.slice(3);
+    if (html.endsWith('```')) html = html.slice(0, -3);
+    html = html.trim();
+
+    // Jeśli odpowiedź urwana (brak </html>) — kontynuuj
+    if (!html.endsWith('</html>') && data.stop_reason === 'max_tokens') {
+      console.log('Odpowiedź urwana, kontynuuję...');
+      const cont = await makeRequest([
+        { role: 'user', content: PROMPT },
+        { role: 'assistant', content: html },
+        { role: 'user', content: 'Kontynuuj dokładnie od miejsca gdzie skończyłeś. Nie powtarzaj poprzedniej treści.' },
+      ]);
+      const extra = (cont.content?.[0]?.text || '').trim();
+      html = html + '\n' + extra;
     }
 
-    const claudeData = await claudeRes.json();
-    let generatedHTML = claudeData.content?.[0]?.text || '';
+    // Jeśli nadal brak </html> — domknij
+    if (!html.includes('</body>')) html += '\n</body>';
+    if (!html.includes('</html>')) html += '\n</html>';
 
-    // Usuń markdown code fences jeśli Claude owrappował odpowiedź
-    generatedHTML = generatedHTML.trim();
-    if (generatedHTML.startsWith('```html')) {
-      generatedHTML = generatedHTML.slice(7); // usuń ```html
-    } else if (generatedHTML.startsWith('```')) {
-      generatedHTML = generatedHTML.slice(3);
-    }
-    if (generatedHTML.endsWith('```')) {
-      generatedHTML = generatedHTML.slice(0, -3);
-    }
-    generatedHTML = generatedHTML.trim();
-
-    if (!generatedHTML || generatedHTML.length < 500) {
-      return res.status(500).json({ error: 'Claude zwrócił pustą odpowiedź' });
+    if (html.length < 500) {
+      return res.status(500).json({ error: 'Claude zwrócił za krótką odpowiedź' });
     }
 
-    // Zwróć jako 3 warianty (Claude generuje jeden, reszta jako fallback)
     return res.status(200).json({
       success: true,
-      variants: {
-        classic: generatedHTML,
-        modern: generatedHTML,
-        elegant: generatedHTML,
-      },
+      variants: { classic: html, modern: html, elegant: html },
       slug,
       mode: 'claude-ai',
     });
