@@ -170,12 +170,12 @@ WYMAGANE cechy wizualne:
       return html;
     };
 
-    // Generuj 3 warianty równolegle
-    const [classic, modern, elegant] = await Promise.all([
-      cleanHTML(prompts.classic, 'classic'),
-      cleanHTML(prompts.modern,  'modern'),
-      cleanHTML(prompts.elegant, 'elegant'),
-    ]);
+    // Generuj sekwencyjnie — unikamy 429 (8000 tok/min limit)
+    const classic = await cleanHTML(prompts.classic, 'classic');
+    await new Promise(r => setTimeout(r, 2000));
+    const modern  = await cleanHTML(prompts.modern,  'modern');
+    await new Promise(r => setTimeout(r, 2000));
+    const elegant = await cleanHTML(prompts.elegant, 'elegant');
 
     if (classic.length < 500) {
       return res.status(500).json({ error: 'Claude zwrócił za krótką odpowiedź' });
