@@ -82,10 +82,5 @@
       "source": "/cennik",
       "destination": "/cennik/index.html"
     }
-  ],
-  "functions": {
-    "api/generate.js": {
-      "maxDuration": 120
-    }
-  }
+  ]
 }
