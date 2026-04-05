@@ -1719,8 +1719,22 @@ async function startGenerate() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ firma })
     });
-    
-    const data = await res.json();
+
+    // Bezpieczny parse — Vercel może zwrócić HTML przy timeout/error
+    let data;
+    const rawText = await res.text();
+    try {
+      data = JSON.parse(rawText);
+    } catch(parseErr) {
+      // Timeout lub inny błąd serwera
+      if (res.status === 504 || res.status === 502) {
+        throw new Error('Przekroczono czas oczekiwania (timeout). Spróbuj ponownie.');
+      }
+      if (rawText.includes('credits') || rawText.includes('billing')) {
+        throw new Error('Brak środków na koncie API. Skontaktuj się z administratorem.');
+      }
+      throw new Error('Błąd serwera (' + res.status + '). Spróbuj ponownie za chwilę.');
+    }
     _clearAllIv();
     if(_fillEl){_fillEl.style.transition='width .5s';_fillEl.style.width='100%';}
     if (!data.success) throw new Error(data.error || 'Błąd generowania');

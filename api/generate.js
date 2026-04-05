@@ -133,12 +133,27 @@ WYMAGANE cechy wizualne:
         },
         body: JSON.stringify({
           model: 'claude-sonnet-4-6',
-          max_tokens: 16000,
+          max_tokens: 5000,
           messages: [{ role: 'user', content: prompt }],
         }),
       });
-      if (!r.ok) throw new Error(`Claude API ${r.status}: ${await r.text()}`);
-      return r.json();
+      const responseText = await r.text();
+      if (!r.ok) {
+        // Próbuj sparsować jako JSON (Anthropic error format)
+        try {
+          const errJson = JSON.parse(responseText);
+          const msg = errJson?.error?.message || responseText;
+          throw new Error(`Claude API ${r.status}: ${msg}`);
+        } catch(parseErr) {
+          if (parseErr.message.startsWith('Claude API')) throw parseErr;
+          throw new Error(`Claude API ${r.status}: ${responseText.slice(0, 200)}`);
+        }
+      }
+      try {
+        return JSON.parse(responseText);
+      } catch(e) {
+        throw new Error('Nieprawidłowa odpowiedź API: ' + responseText.slice(0, 100));
+      }
     };
 
     const cleanHTML = async (prompt, label) => {
@@ -151,17 +166,7 @@ WYMAGANE cechy wizualne:
       if (html.endsWith('```')) html = html.slice(0, -3);
       html = html.trim();
 
-      // Kontynuacja gdy urwane
-      if (!html.endsWith('</html>') && data.stop_reason === 'max_tokens') {
-        console.log(`[${label}] Urwane, kontynuuję...`);
-        const cont = await makeRequest(
-          `Kontynuuj dokładnie od miejsca gdzie skończyłeś ten HTML (nie powtarzaj treści):\n\n${html.slice(-500)}`
-        );
-        let extra = (cont.content?.[0]?.text || '').trim();
-        if (extra.startsWith('```')) extra = extra.slice(extra.indexOf('\n')+1);
-        if (extra.endsWith('```')) extra = extra.slice(0, -3);
-        html = html + '\n' + extra.trim();
-      }
+      // Kontynuacja wyłączona (timeout prevention)
 
       // Domknij jeśli nadal brak
       if (!html.includes('</body>')) html += '\n</body>';
