@@ -1858,8 +1858,12 @@ function selectVariant(key) {
   if(urlEl)urlEl.textContent=(state.slug||'twoja-firma')+'.webgen.pl';
   var iframe=document.getElementById('preview-iframe');
   if(!iframe)return;
-  var d=iframe.contentDocument||iframe.contentWindow.document;
-  d.open(); d.write(state.generatedHTML); d.close();
+  // Blob URL — dziala bez sandbox ograniczen
+  var blob=new Blob([state.generatedHTML],{type:'text/html;charset=utf-8'});
+  var oldUrl=iframe._blobUrl;
+  iframe.src=URL.createObjectURL(blob);
+  iframe._blobUrl=iframe.src;
+  if(oldUrl)setTimeout(function(){URL.revokeObjectURL(oldUrl);},5000);
 }
 
 // ─── DOWNLOAD ───
@@ -2594,7 +2598,7 @@ function goToActivation() {
   <div class="vp-body">
     <div class="vp-frame-wrap active" id="vpwrap-classic">
       <div class="vp-scroll-hint">↕ PRZEWIJAJ · styl: Klasyczny · ciepły, lokalny</div>
-      <iframe class="vp-iframe" id="vp-iframe-classic" sandbox="allow-same-origin allow-scripts"></iframe>
+      <iframe class="vp-iframe" id="vp-iframe-classic" ></iframe>
     </div>
     <div class="vp-frame-wrap" id="vpwrap-modern">
       <div class="vp-scroll-hint">↕ PRZEWIJAJ · styl: Nowoczesny · dark mode, tech</div>
