@@ -91,6 +91,7 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
   display:flex;
   flex-direction:column;
   align-items:center;
+  margin:0 auto;
 }
 .main .step-panel{
   width:100%;
@@ -2195,14 +2196,37 @@ function skipGate() {
   }
 }
 
-// Sprawdź localStorage przy załadowaniu
+// Sprawdź localStorage przy załadowaniu — skip panel-0 jeśli zalogowany
 (function checkExistingUser() {
+  // Sprawdź session (pełne logowanie)
+  var session = null;
+  try { session = JSON.parse(localStorage.getItem('wg_session') || 'null'); } catch(e) {}
+  if (session && session.email) {
+    state.email = session.email;
+    // Zalogowany — pomiń panel-0
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() { setStep(1); });
+    } else { setStep(1); }
+    return;
+  }
+
+  // Sprawdź wg_user
   var saved = localStorage.getItem('wg_user');
   if (!saved) return;
   try {
     var u = JSON.parse(saved);
     if (!u.email) return;
     state.email = u.email;
+
+    // Jeśli user jest aktywowany — pomiń panel-0
+    if (u.activated) {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() { setStep(1); });
+      } else { setStep(1); }
+      return;
+    }
+
+    // Nie aktywowany, ale ma email — wypełnij pole i daj przejść
     var emailInput = document.getElementById('g-email');
     if (emailInput) { emailInput.value = u.email; }
     var rodoInput = document.getElementById('g-rodo');
