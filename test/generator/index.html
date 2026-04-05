@@ -1858,12 +1858,8 @@ function selectVariant(key) {
   if(urlEl)urlEl.textContent=(state.slug||'twoja-firma')+'.webgen.pl';
   var iframe=document.getElementById('preview-iframe');
   if(!iframe)return;
-  // Blob URL — dziala bez sandbox ograniczen
-  var blob=new Blob([state.generatedHTML],{type:'text/html;charset=utf-8'});
-  var oldUrl=iframe._blobUrl;
-  iframe.src=URL.createObjectURL(blob);
-  iframe._blobUrl=iframe.src;
-  if(oldUrl)setTimeout(function(){URL.revokeObjectURL(oldUrl);},5000);
+  // srcdoc omija frame-src CSP calkowicie — jedyne pewne rozwiazanie
+  iframe.srcdoc = state.generatedHTML;
 }
 
 // ─── DOWNLOAD ───
