@@ -156,7 +156,18 @@ ${logoHtml    ? `LOGO (wstaw w header/nav):\n${logoHtml}` : 'LOGO: brak — uży
 ${heroHtml    ? `HERO IMAGE (wstaw jako tło/obraz hero section):\n${heroHtml}` : 'HERO IMAGE: brak — użyj CSS gradient lub solidny kolor akcentu'}
 ${galeriaHtml ? `GALERIA REALIZACJI (wstaw w sekcji galeria):\n${galeriaHtml}` : 'GALERIA: brak — możesz pominąć sekcję lub zostawić placeholder'}
 ${waHtml      ? `FLOATING BUTTON WHATSAPP (wstaw przed </body>):\n${waHtml}` : ''}
-SCHEMA.ORG (wstaw w <head>):
+META TAGI SEO (wstaw w <head>):
+<meta name="description" content="${nazwa} — profesjonalne usługi ${branza} w ${lok}. Zadzwoń: ${tel}">
+<meta name="keywords" content="${branza} ${lok}${firma.keywords ? ', '+firma.keywords : ''}">
+<link rel="canonical" href="https://${slug}.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="${nazwa} — ${branza} ${lok}">
+<meta property="og:description" content="${nazwa} — profesjonalne usługi ${branza} w ${lok}. ${firma.realizacje ? firma.realizacje+' realizacji. ' : ''}Zadzwoń: ${tel}">
+<meta property="og:url" content="https://${slug}.webgen.pl">
+${heroUrl ? `<meta property="og:image" content="${heroUrl}">` : ''}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+SCHEMA.ORG LocalBusiness (wstaw w <head>):
 <script type="application/ld+json">${schema}</script>
 
 ═══════════════════════════════════════
@@ -185,6 +196,10 @@ ZASADY TECHNICZNE i SEO:
 - Smooth scroll między sekcjami
 - H1 tylko jeden — z nazwą firmy i branżą i lokalizacją
 - H2 dla każdej sekcji z naturalnym słowem kluczowym
+- Wstaw WSZYSTKIE meta tagi z sekcji META TAGI SEO do <head>
+- <title> w formacie: "${nazwa} — ${branza} ${lok} | tel. ${tel}"
+- Obrazy: atrybut alt opisowy, loading="lazy" na galerii, width/height dla LCP
+- aria-label na przyciskach bez tekstu
 ${firma.keywords ? `- Użyj naturalnie w treści słów kluczowych: ${firma.keywords}` : ''}
 ${firma.certyfikaty ? `- Wstaw certyfikaty w sekcji O nas: ${firma.certyfikaty}` : ''}
 ${faqSchema ? `- Wstaw w <head> FAQPage schema: <script type="application/ld+json">${faqSchema}</script>` : ''}
