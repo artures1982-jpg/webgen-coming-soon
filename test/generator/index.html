@@ -687,6 +687,80 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
 .btn-vp-select{background:var(--green);color:#080A0F;border:none;padding:10px 26px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--head);transition:background .18s;display:flex;align-items:center;gap:8px}
 .btn-vp-select:hover{background:#00C98A}
 
+
+/* ── VISUAL LAYOUT PICKER ─────────────────────────────────── */
+.layout-preview{
+  background:var(--s1);border:1px solid var(--border2);
+  border-radius:14px;overflow:hidden;margin-bottom:24px;
+}
+.lp-header{
+  padding:10px 16px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--s2);
+}
+.lp-label{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);}
+.lp-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:4px}
+
+/* Strefki na zdjecia w mockupie */
+.img-zone{
+  position:relative;cursor:pointer;overflow:hidden;
+  background:rgba(240,242,247,.04);
+  border:1.5px dashed rgba(240,242,247,.15);
+  transition:all .2s;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;
+}
+.img-zone:hover{border-color:rgba(0,229,160,.5);background:rgba(0,229,160,.05);}
+.img-zone.has-img{border-style:solid;border-color:rgba(0,229,160,.4);}
+.img-zone img.zone-preview{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;pointer-events:none;border-radius:inherit;
+}
+.img-zone-icon{font-size:22px;pointer-events:none}
+.img-zone-label{font-size:11px;font-weight:600;color:var(--muted);pointer-events:none;text-align:center;line-height:1.4}
+.img-zone-hint{font-size:10px;color:rgba(136,146,170,.5);pointer-events:none;text-align:center}
+.img-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+
+/* Overlay przy hover */
+.img-zone-overlay{
+  position:absolute;inset:0;background:rgba(0,0,0,.55);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .18s;border-radius:inherit;pointer-events:none;
+}
+.img-zone:hover .img-zone-overlay{opacity:1}
+.img-zone-overlay span{color:#fff;font-size:13px;font-weight:600}
+
+/* Przyciski pod strefkami */
+.img-zone-btns{
+  display:flex;gap:6px;margin-top:6px;
+}
+.btn-zone-pexels{
+  flex:1;display:flex;align-items:center;justify-content:center;gap:5px;
+  background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.25);
+  color:var(--green);padding:7px 10px;border-radius:8px;
+  font-size:12px;font-weight:700;cursor:pointer;font-family:var(--head);
+  transition:all .18s;
+}
+.btn-zone-pexels:hover{background:rgba(0,229,160,.18);border-color:rgba(0,229,160,.5);}
+.btn-zone-clear{
+  background:rgba(240,242,247,.05);border:1px solid var(--border2);
+  color:var(--muted);padding:7px 10px;border-radius:8px;
+  font-size:12px;cursor:pointer;font-family:var(--head);transition:all .18s;
+  display:none;
+}
+.btn-zone-clear.visible{display:block}
+.btn-zone-clear:hover{color:var(--red);border-color:var(--red);}
+
+/* Website mockup skeleton */
+.wm-nav{height:20px;background:rgba(240,242,247,.08);border-radius:4px;margin-bottom:6px}
+.wm-hero{border-radius:8px;margin-bottom:6px}
+.wm-body{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px}
+.wm-img-slot{border-radius:6px;}
+.wm-text-block{height:10px;background:rgba(240,242,247,.06);border-radius:3px;margin-bottom:4px}
+.wm-footer{height:14px;background:rgba(240,242,247,.05);border-radius:4px}
+/* ─────────────────────────────────────────────────────────── */
+
 /* ── PEXELS BUTTONS ─────────────────────────────────────── */
 .btn-pexels{
   width:100%;display:flex;align-items:center;justify-content:center;
@@ -1030,7 +1104,102 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
           <div class="field-hint">Jeśli zostawisz puste — AI sam napisze opis na podstawie branży i lokalizacji.</div>
         </div>
 
-        <!-- LOGO -->
+        <!-- VISUAL LAYOUT PHOTO PICKER -->
+        <div class="field">
+          <label style="margin-bottom:12px;display:block">
+            Zdjęcia strony
+            <span class="opt">opcjonalnie — kliknij pole lub dodaj z Pexels</span>
+          </label>
+
+          <!-- Mockup wizualny strony -->
+          <div class="layout-preview">
+            <div class="lp-header">
+              <div class="lp-label">Podgląd layoutu Twojej strony</div>
+              <div>
+                <span class="lp-dot" style="background:#ff5f57"></span>
+                <span class="lp-dot" style="background:#febc2e"></span>
+                <span class="lp-dot" style="background:#28c840"></span>
+              </div>
+            </div>
+            <div style="padding:12px">
+
+              <!-- Nawigacja mockup -->
+              <div class="wm-nav"></div>
+
+              <!-- HERO ZONE -->
+              <div style="margin-bottom:6px">
+                <div class="img-zone wm-hero" id="zone-hero" style="height:130px;border-radius:8px"
+                     onclick="document.getElementById('inp-hero').click()">
+                  <img class="zone-preview" id="prev-hero" src="" alt="" style="display:none">
+                  <div class="img-zone-overlay"><span>✏️ Zmień zdjęcie</span></div>
+                  <div class="img-zone-icon">🖼️</div>
+                  <div class="img-zone-label">Zdjęcie główne (Hero)<br>Pierwsze wrażenie — pełna szerokość</div>
+                  <div class="img-zone-hint">Kliknij aby wybrać z dysku</div>
+                  <input type="file" id="inp-hero" accept="image/*" onchange="handleZoneUpload(this,'hero')" style="display:none">
+                </div>
+                <div class="img-zone-btns">
+                  <button class="btn-zone-pexels" onclick="openPexelsZone('hero')">
+                    📸 Pexels
+                  </button>
+                  <button class="btn-zone-clear" id="clear-hero" onclick="clearZone('hero')">✕</button>
+                </div>
+              </div>
+
+              <!-- Tekst placeholder -->
+              <div class="wm-text-block" style="width:60%"></div>
+              <div class="wm-text-block" style="width:40%"></div>
+
+              <!-- CONTENT IMAGES — 2 kolumny -->
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
+
+                <!-- Zdjęcie treści 1 -->
+                <div>
+                  <div class="img-zone wm-img-slot" id="zone-img1" style="height:90px;border-radius:6px"
+                       onclick="document.getElementById('inp-img1').click()">
+                    <img class="zone-preview" id="prev-img1" src="" alt="" style="display:none">
+                    <div class="img-zone-overlay"><span>✏️ Zmień</span></div>
+                    <div class="img-zone-icon" style="font-size:18px">📷</div>
+                    <div class="img-zone-label">Zdjęcie w treści 1</div>
+                    <div class="img-zone-hint">kliknij = dysk</div>
+                    <input type="file" id="inp-img1" accept="image/*" onchange="handleZoneUpload(this,'img1')" style="display:none">
+                  </div>
+                  <div class="img-zone-btns">
+                    <button class="btn-zone-pexels" onclick="openPexelsZone('img1')">📸 Pexels</button>
+                    <button class="btn-zone-clear" id="clear-img1" onclick="clearZone('img1')">✕</button>
+                  </div>
+                </div>
+
+                <!-- Zdjęcie treści 2 -->
+                <div>
+                  <div class="img-zone wm-img-slot" id="zone-img2" style="height:90px;border-radius:6px"
+                       onclick="document.getElementById('inp-img2').click()">
+                    <img class="zone-preview" id="prev-img2" src="" alt="" style="display:none">
+                    <div class="img-zone-overlay"><span>✏️ Zmień</span></div>
+                    <div class="img-zone-icon" style="font-size:18px">📷</div>
+                    <div class="img-zone-label">Zdjęcie w treści 2</div>
+                    <div class="img-zone-hint">kliknij = dysk</div>
+                    <input type="file" id="inp-img2" accept="image/*" onchange="handleZoneUpload(this,'img2')" style="display:none">
+                  </div>
+                  <div class="img-zone-btns">
+                    <button class="btn-zone-pexels" onclick="openPexelsZone('img2')">📸 Pexels</button>
+                    <button class="btn-zone-clear" id="clear-img2" onclick="clearZone('img2')">✕</button>
+                  </div>
+                </div>
+
+              </div><!-- /grid -->
+
+              <!-- Footer mockup -->
+              <div class="wm-text-block" style="width:70%;margin-top:8px"></div>
+              <div class="wm-footer" style="margin-top:4px"></div>
+            </div>
+          </div><!-- /layout-preview -->
+
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">
+            💡 Zdjęcia zostaną wbudowane w stronę. Kliknij pole lub użyj Pexels.
+          </div>
+        </div>
+
+        <!-- LOGO (zachowane) -->
         <div class="field">
           <label>Logo firmy <span class="opt">opcjonalnie — PNG / JPG</span></label>
           <div class="logo-upload-area" id="logo-upload-area" onclick="document.getElementById('f-logo').click()">
@@ -1044,33 +1213,6 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
               <div class="lua-hint" style="color:var(--green)">✓ Logo wczytane — kliknij aby zmienić</div>
             </div>
             <input type="file" id="f-logo" accept="image/png,image/jpeg,image/webp" onchange="handleLogoUpload(this)" style="display:none">
-          </div>
-
-        </div>
-
-        <!-- GALERIA 3 ZDJEC -->
-        <div class="field">
-          <label>Zdjęcia realizacji <span class="opt">opcjonalnie — maks. 3 szt.</span></label>
-          <button type="button" onclick="openPexels('galeria')" class="btn-pexels" id="btn-pexels-galeria">
-            📸 Dodaj zdjęcia z Pexels
-          </button>
-          <div id="galeria-preview-row" style="display:none;flex-wrap:wrap;gap:6px;margin-bottom:8px"></div>
-          <div class="galeria-grid">
-            <div class="galeria-slot" id="slot-0" onclick="if(!this.classList.contains('has-img'))openPexels('galeria')">
-              <div class="slot-default"><span>📷</span><span>Zdjęcie 1</span></div>
-              <div class="slot-overlay">✏️</div>
-              <input type="file" class="slot-input" accept="image/png,image/jpeg,image/webp" onchange="handleGaleriaUpload(this,0)" style="display:none">
-            </div>
-            <div class="galeria-slot" id="slot-1" onclick="if(!this.classList.contains('has-img'))openPexels('galeria')">
-              <div class="slot-default"><span>📷</span><span>Zdjęcie 2</span></div>
-              <div class="slot-overlay">✏️</div>
-              <input type="file" class="slot-input" accept="image/png,image/jpeg,image/webp" onchange="handleGaleriaUpload(this,1)" style="display:none">
-            </div>
-            <div class="galeria-slot" id="slot-2" onclick="if(!this.classList.contains('has-img'))openPexels('galeria')">
-              <div class="slot-default"><span>📷</span><span>Zdjęcie 3</span></div>
-              <div class="slot-overlay">✏️</div>
-              <input type="file" class="slot-input" accept="image/png,image/jpeg,image/webp" onchange="handleGaleriaUpload(this,2)" style="display:none">
-            </div>
           </div>
         </div>
       </div>
@@ -1940,7 +2082,99 @@ function selectVariant(key) {
     if(!state.generatedHTML) wgDebug.log('err','[IFRAME] generatedHTML PUSTY - iframe bedzie bialy!');
   }
   iframe.srcdoc = state.generatedHTML ||
-    '<html><body style="padding:20px;font-family:monospace;color:red">BLAD: generatedHTML pusty. Sprawdz debug log.</body></html>';
+    '<html><body style="padding:20px;font-family:monospace;color:red">BLAD: generatedHTML pusty. Sprawdz debug log.<script>
+// ─── VISUAL LAYOUT ZONES ─────────────────────────────────────────
+var _zones = { hero: null, img1: null, img2: null };
+
+async function handleZoneUpload(input, zoneId) {
+  var file = input.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) { alert('Plik za duży — maks. 5 MB'); return; }
+  var data = await toWebP(file);
+  _setZoneImage(zoneId, data, 'base64');
+}
+
+function _setZoneImage(zoneId, url, source) {
+  _zones[zoneId] = { url: url, source: source };
+
+  // Sync ze state
+  if (zoneId === 'hero') { state.heroUrl = source === 'pexels' ? url : ''; state.heroBase64 = source === 'base64' ? url : ''; }
+  if (zoneId === 'img1') { if (!Array.isArray(state.galeriaUrls)) state.galeriaUrls = []; state.galeriaUrls[0] = url; }
+  if (zoneId === 'img2') { if (!Array.isArray(state.galeriaUrls)) state.galeriaUrls = []; state.galeriaUrls[1] = url; }
+
+  // UI
+  var prev = document.getElementById('prev-' + zoneId);
+  var zone = document.getElementById('zone-' + zoneId);
+  var clearBtn = document.getElementById('clear-' + zoneId);
+  if (prev) { prev.src = url; prev.style.display = 'block'; }
+  if (zone) zone.classList.add('has-img');
+  if (clearBtn) clearBtn.classList.add('visible');
+}
+
+function clearZone(zoneId) {
+  _zones[zoneId] = null;
+  if (zoneId === 'hero') { state.heroUrl = ''; state.heroBase64 = ''; }
+  if (zoneId === 'img1' && Array.isArray(state.galeriaUrls)) state.galeriaUrls[0] = null;
+  if (zoneId === 'img2' && Array.isArray(state.galeriaUrls)) state.galeriaUrls[1] = null;
+
+  var prev = document.getElementById('prev-' + zoneId);
+  var zone = document.getElementById('zone-' + zoneId);
+  var clearBtn = document.getElementById('clear-' + zoneId);
+  if (prev) { prev.src = ''; prev.style.display = 'none'; }
+  if (zone) zone.classList.remove('has-img');
+  if (clearBtn) clearBtn.classList.remove('visible');
+
+  var inp = document.getElementById('inp-' + zoneId);
+  if (inp) inp.value = '';
+}
+
+function openPexelsZone(zoneId) {
+  _pexelsTarget = 'zone_' + zoneId;
+  var modal = document.getElementById('pexels-modal');
+  if (!modal) return;
+  modal.style.display = 'flex';
+  var inp = document.getElementById('pexels-q');
+  if (inp && !inp.dataset.userSet) {
+    var hint = { hero: 'professional business hero background', img1: 'professional service work', img2: 'local business team work' };
+    inp.value = (_pexelsBranzaMap[state && state.branza] || 'professional service') + (zoneId !== 'hero' ? ' team' : '');
+  }
+  searchPexels();
+}
+
+// Patch selectPexelsPhoto dla nowych stref
+var _origSelectPexels = selectPexelsPhoto;
+selectPexelsPhoto = function(url) {
+  if (_pexelsTarget && _pexelsTarget.startsWith('zone_')) {
+    var zId = _pexelsTarget.replace('zone_', '');
+    _setZoneImage(zId, url, 'pexels');
+    closePexels();
+    return;
+  }
+  _origSelectPexels(url);
+};
+
+// Sync zone data do collectFirmaData
+var _origCollect = collectFirmaData;
+collectFirmaData = function() {
+  var d = _origCollect();
+  // Zdjecia hero
+  if (_zones.hero) {
+    if (_zones.hero.source === 'pexels') { d.heroUrl = _zones.hero.url; d.hero_base64 = ''; }
+    else { d.hero_base64 = _zones.hero.url; d.heroUrl = ''; }
+  }
+  // Galeria content
+  var galeriaZones = [];
+  if (_zones.img1) galeriaZones.push(_zones.img1.url);
+  if (_zones.img2) galeriaZones.push(_zones.img2.url);
+  if (galeriaZones.length > 0) {
+    d.galeria = galeriaZones;
+    d.galeriaUrls = galeriaZones;
+  }
+  return d;
+};
+// ─────────────────────────────────────────────────────────────────
+</script>
+</body></html>';
 }
 
 // ─── DOWNLOAD ───
