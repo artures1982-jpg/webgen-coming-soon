@@ -1772,101 +1772,111 @@ function collectFirmaData() {
 // ─── GENERATE ───
 async function startGenerate() {
   if (!validateStep(4)) return;
-  
   const firma = collectFirmaData();
-  
-  document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+
+  // Ukryj kroki, pokaż fullscreen loader
+  document.querySelectorAll('.step-panel').forEach(function(p){p.classList.remove('active');p.style.display='';});
   document.getElementById('preview-panel').classList.remove('active');
-  var _gfs = document.getElementById('gen-fullscreen');
-  if (_gfs) _gfs.classList.add('active');
+  var gfs = document.getElementById('gen-fullscreen');
+  if (gfs) gfs.classList.add('active');
 
   // Timer
   var _genStart = Date.now();
   var _timerEl = document.getElementById('gen-timer-count');
   var _timerIv = setInterval(function() {
-    var e = Math.floor((Date.now() - _genStart) / 1000);
-    var m = Math.floor(e/60), s = e%60;
-    if (_timerEl) _timerEl.textContent = m+':'+(s<10?'0':'')+s;
+    var e = Math.floor((Date.now()-_genStart)/1000);
+    if (_timerEl) _timerEl.textContent = Math.floor(e/60)+':'+(e%60<10?'0':'')+e%60;
   }, 1000);
 
   // Progress bar
   var _fillEl = document.getElementById('gen-progress-fill');
   var _prog = 0;
   var _progIv = setInterval(function() {
-    _prog = Math.min(_prog + (Math.random()*1.8+0.2), 90);
+    _prog = Math.min(_prog+(Math.random()*1.5+0.3), 88);
     if (_fillEl) _fillEl.style.width = _prog+'%';
-  }, 700);
+  }, 800);
 
   // Live messages
-  var _styleNames = {classic:'Klasyczny',modern:'Nowoczesny',elegant:'Elegancki'};
-  var _styleName = _styleNames[firma.style||'classic']||'Klasyczny';
   var _msgs = [
-    ['Analizuję branżę…','Pobieram dane: '+firma.branza+' w '+firma.miasto],
-    ['Piszę treści SEO…','Nagłówki, opisy usług, meta tagi lokalne'],
-    ['Generuję styl '+_styleName+'…','Komponuję layout, kolory, typografię'],
-    ['Tworzę sekcje strony…','Hero, o nas, usługi, galeria, kontakt'],
-    ['Optymalizuję HTML…','Schema.org, Open Graph, meta tagi lokalne'],
-    ['Finalizuję kod…','Sprawdzam poprawność i responsywność'],
-    ['Prawie gotowe!','Za chwilę zobaczysz swoją stronę…'],
+    ['Analizuję branżę…', 'Branża: '+firma.branza+' w '+firma.miasto],
+    ['Piszę treści SEO…', 'Nagłówki, opisy usług, meta tagi'],
+    ['Generuję styl Klasyczny…', 'Ciepły, lokalny — serif + tradycyjne kolory'],
+    ['Generuję styl Nowoczesny…', 'Dark mode, neon, glassmorphism'],
+    ['Generuję styl Elegancki…', 'Minimalistyczny, złote akcenty, premium'],
+    ['Optymalizuję strukturę…', 'Schema.org, responsywność, CTA'],
+    ['Finalizuję 3 warianty…', 'Sprawdzam kompletność kodu HTML'],
+    ['Prawie gotowe!', 'Zaraz zobaczysz swoje strony…'],
   ];
   var _msgIdx=0, _msgEl=document.getElementById('gen-live-msg'), _subEl=document.getElementById('gen-live-sub');
-  var _dots=[document.getElementById('gsdot-0'),document.getElementById('gsdot-1'),document.getElementById('gsdot-2')];
   var _msgIv = setInterval(function() {
     if (_msgIdx < _msgs.length) {
-      var p=_msgs[_msgIdx++];
-      if (_msgEl){_msgEl.style.opacity='0';setTimeout(function(){_msgEl.textContent=p[0];_msgEl.style.opacity='1';},200);}
-      if (_subEl) _subEl.textContent=p[1];
-      if (_msgIdx===3 && _dots[0] && _dots[1]){_dots[0].classList.remove('active');_dots[0].classList.add('done');_dots[1].classList.add('active');}
-      if (_msgIdx===5 && _dots[1] && _dots[2]){_dots[1].classList.remove('active');_dots[1].classList.add('done');_dots[2].classList.add('active');}
+      var p = _msgs[_msgIdx++];
+      if (_msgEl){_msgEl.style.opacity='0';setTimeout(function(){_msgEl.textContent=p[0];_msgEl.style.opacity='1';},180);}
+      if (_subEl) _subEl.textContent = p[1];
     }
-  }, 4500);
+  }, 4000);
 
-  function _clearAllIv() { clearInterval(_timerIv); clearInterval(_progIv); clearInterval(_msgIv); }
-  var logInterval = {_dummy:true};
-
-  try {
-    const res = await fetch('/api/generate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ firma })
-    });
-
-    // Bezpieczny parse — Vercel może zwrócić HTML przy timeout/error
-    let data;
-    const rawText = await res.text();
-    try {
-      data = JSON.parse(rawText);
-    } catch(parseErr) {
-      // Timeout lub inny błąd serwera
-      if (res.status === 504 || res.status === 502) {
-        throw new Error('Przekroczono czas oczekiwania (timeout). Spróbuj ponownie.');
-      }
-      if (rawText.includes('credits') || rawText.includes('billing')) {
-        throw new Error('Brak środków na koncie API. Skontaktuj się z administratorem.');
-      }
-      throw new Error('Błąd serwera (' + res.status + '). Spróbuj ponownie za chwilę.');
-    }
-    _clearAllIv();
-    if(_fillEl){_fillEl.style.transition='width .5s';_fillEl.style.width='100%';}
-    if (!data.success) throw new Error(data.error || 'Błąd generowania');
-    
-    state.generatedHTML = data.html;
-    state.slug = data.slug;
-    state.selectedStyle = data.style || 'classic';
-    if(window.wgDebug){
-      wgDebug.log('api','[GEN] html.length='+String((data.html||'').length)+' success='+data.success+' slug='+data.slug);
-      wgDebug.log('api','[GEN] html[0:100]='+String(data.html||'').slice(0,100));
-      if(!data.html) wgDebug.log('err','[GEN] data.html jest NULL/UNDEFINED!');
-    }
-    if(document.getElementById('gen-fullscreen'))document.getElementById('gen-fullscreen').classList.remove('active');
-    selectVariant(data.style || 'classic');
-    
-  } catch (err) {
-    _clearAllIv();
-    if(document.getElementById('gen-fullscreen'))document.getElementById('gen-fullscreen').classList.remove('active');
-    alert('Błąd generowania: ' + err.message);
-    setStep(6);
+  function _clearAll() {
+    clearInterval(_timerIv);
+    clearInterval(_progIv);
+    clearInterval(_msgIv);
   }
+
+  // ── 3 RÓWNOLEGŁE FETCH ─────────────────────────────────────────────
+  state.variants = {};
+  state.slug = null;
+  var styles = ['classic','modern','elegant'];
+  var errors = [];
+  var done = 0;
+
+  function makeVariantFetch(styleName) {
+    var firmaWithStyle = Object.assign({}, firma, { style: styleName });
+    return fetch('/api/generate', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ firma: firmaWithStyle })
+    })
+    .then(function(res) { return res.text().then(function(t){ return {status:res.status,text:t}; }); })
+    .then(function(r) {
+      var data;
+      try { data = JSON.parse(r.text); } catch(e) {
+        throw new Error('Nieprawidlowa odpowiedz ('+r.status+'): '+r.text.slice(0,120));
+      }
+      if (!data.success || !data.html) throw new Error(data.error || 'Brak HTML w odpowiedzi');
+      if (!state.slug) state.slug = data.slug;
+      state.variants[styleName] = data.html;
+      if (window.wgDebug) wgDebug.log('api','['+styleName+'] OK, '+data.chars+' chars, model: '+data.model);
+      done++;
+      // Jezeli to pierwszy gotowy → pokaż popup (reszta zaladuje sie w tle)
+      if (done === 1) {
+        _clearAll();
+        if (_fillEl) { _fillEl.style.transition='width .4s'; _fillEl.style.width='100%'; }
+        if (gfs) gfs.classList.remove('active');
+        openVariantPopup(state.variants);
+      } else {
+        // Zaktualizuj iframe jesli juz jest otwarty
+        var iframe = document.getElementById('vp-iframe-'+styleName);
+        if (iframe && state.variants[styleName]) {
+          iframe.srcdoc = state.variants[styleName];
+          if (window.wgDebug) wgDebug.log('info','['+styleName+'] iframe zaktualizowany (background)');
+        }
+      }
+    })
+    .catch(function(err) {
+      errors.push(styleName+': '+err.message);
+      if (window.wgDebug) wgDebug.log('err','['+styleName+'] FAIL: '+err.message);
+      done++;
+      if (done === 3 && Object.keys(state.variants).length === 0) {
+        _clearAll();
+        if (gfs) gfs.classList.remove('active');
+        alert('Błąd generowania wszystkich wariantów:\n' + errors.join('\n'));
+        setStep(6);
+      }
+    });
+  }
+
+  // Start 3 fetchów równolegle
+  styles.forEach(function(s) { makeVariantFetch(s); });
 }
 
 // ─── VARIANT POPUP ───
