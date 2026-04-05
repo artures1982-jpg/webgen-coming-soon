@@ -1104,6 +1104,88 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
           <div class="field-hint">Jeśli zostawisz puste — AI sam napisze opis na podstawie branży i lokalizacji.</div>
         </div>
 
+        <!-- ── POLA SEO ──────────────────────────────────────── -->
+
+        <!-- Wyróżniki / USP -->
+        <div class="field">
+          <label>Wyróżniki firmy <span class="opt">SEO · co Cię odróżnia od konkurencji?</span></label>
+          <div id="usp-tags" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px"></div>
+          <div style="display:flex;gap:8px">
+            <input type="text" id="usp-input" placeholder="np. Gwarancja 2 lata, Dojazd gratis, Certyfikat ISO..."
+              style="flex:1"
+              onkeydown="if(event.key==='Enter'||event.key===','){event.preventDefault();addUspTag();}">
+            <button type="button" onclick="addUspTag()"
+              style="background:var(--green);color:#080A0F;border:none;padding:10px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--head);white-space:nowrap">
+              + Dodaj
+            </button>
+          </div>
+          <div class="field-hint">Enter lub przecinek aby dodać. Trafia do nagłówków i opisu — kluczowe dla SEO.</div>
+        </div>
+
+        <!-- Obszar działania -->
+        <div class="field">
+          <label>Obszar działania <span class="opt">SEO · dzielnice / miasta obsługiwane</span></label>
+          <input type="text" id="f-obszar"
+            placeholder="np. Mokotów, Ursynów, Wilanów, Wola, Śródmieście">
+          <div class="field-hint">AI wygeneruje osobne sekcje dla każdego obszaru — kluczowe dla lokalnego SEO.</div>
+        </div>
+
+        <!-- Certyfikaty -->
+        <div class="field">
+          <label>Certyfikaty i uprawnienia <span class="opt">SEO · buduje autorytet</span></label>
+          <input type="text" id="f-certyfikaty"
+            placeholder="np. Uprawnienia SEP, Certyfikat ISO 9001, Mistrz w zawodzie...">
+        </div>
+
+        <!-- Metody płatności -->
+        <div class="field">
+          <label>Metody płatności <span class="opt">SEO · konwersja</span></label>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400">
+              <input type="checkbox" id="pay-gotowka" value="Gotówka" onchange="updatePay()" style="accent-color:var(--green)"> Gotówka
+            </label>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400">
+              <input type="checkbox" id="pay-przelew" value="Przelew" onchange="updatePay()" style="accent-color:var(--green)"> Przelew
+            </label>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400">
+              <input type="checkbox" id="pay-karta" value="Karta" onchange="updatePay()" style="accent-color:var(--green)"> Karta
+            </label>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400">
+              <input type="checkbox" id="pay-blik" value="BLIK" onchange="updatePay()" style="accent-color:var(--green)"> BLIK
+            </label>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400">
+              <input type="checkbox" id="pay-faktury" value="Faktury VAT" onchange="updatePay()" style="accent-color:var(--green)"> Faktury VAT
+            </label>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400">
+              <input type="checkbox" id="pay-raty" value="Raty 0%" onchange="updatePay()" style="accent-color:var(--green)"> Raty 0%
+            </label>
+          </div>
+          <input type="hidden" id="f-platnosci" value="">
+        </div>
+
+        <!-- FAQ -->
+        <div class="field">
+          <label>Często zadawane pytania (FAQ) <span class="opt">SEO · Google Featured Snippets</span></label>
+          <div id="faq-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:8px"></div>
+          <button type="button" onclick="addFaq()"
+            style="background:transparent;border:1.5px dashed rgba(240,242,247,.2);color:var(--muted);padding:10px;border-radius:8px;font-size:13px;cursor:pointer;font-family:var(--head);width:100%;transition:all .18s"
+            onmouseover="this.style.borderColor='rgba(0,229,160,.4)';this.style.color='var(--green)'"
+            onmouseout="this.style.borderColor='rgba(240,242,247,.2)';this.style.color='var(--muted)'">
+            + Dodaj pytanie FAQ
+          </button>
+          <div class="field-hint">FAQ generuje Schema.org FAQPage — Google wyświetla odpowiedzi bezpośrednio w wynikach.</div>
+        </div>
+
+        <!-- Słowa kluczowe -->
+        <div class="field">
+          <label>Dodatkowe słowa kluczowe <span class="opt">SEO · opcjonalne</span></label>
+          <input type="text" id="f-keywords"
+            placeholder="np. hydraulik awaryjny, instalacje wod-kan, wymiana rur Warszawa">
+          <div class="field-hint">Trafią do meta keywords, nagłówków H2/H3 i treści sekcji usług.</div>
+        </div>
+
+        <!-- ── KONIEC PÓL SEO ──────────────────────────────────────── -->
+
         <!-- VISUAL LAYOUT PHOTO PICKER -->
         <div class="field">
           <label style="margin-bottom:12px;display:block">
@@ -2232,6 +2314,92 @@ collectFirmaData = function() {
     d.galeria = galeriaZones;
     d.galeriaUrls = galeriaZones;
   }
+  return d;
+};
+// ─────────────────────────────────────────────────────────────────
+</script>
+<script>
+// ─── SEO FIELDS ───────────────────────────────────────────────────
+var _uspTags = [];
+
+function addUspTag() {
+  var inp = document.getElementById('usp-input');
+  if (!inp) return;
+  var val = inp.value.trim().replace(/,+$/, '');
+  if (!val) return;
+  _uspTags.push(val);
+  renderUspTags();
+  inp.value = '';
+  inp.focus();
+}
+
+function removeUspTag(i) {
+  _uspTags.splice(i, 1);
+  renderUspTags();
+}
+
+function renderUspTags() {
+  var el = document.getElementById('usp-tags');
+  if (!el) return;
+  el.innerHTML = _uspTags.map(function(t, i) {
+    return '<span style="display:inline-flex;align-items:center;gap:5px;background:rgba(0,229,160,.1);'
+      + 'border:1px solid rgba(0,229,160,.3);color:var(--green);padding:4px 10px;border-radius:20px;'
+      + 'font-size:12px;font-weight:600">'
+      + t
+      + '<button onclick="removeUspTag('+i+')" style="background:none;border:none;color:rgba(0,229,160,.6);'
+      + 'cursor:pointer;font-size:14px;line-height:1;padding:0 0 0 2px">×</button>'
+      + '</span>';
+  }).join('');
+}
+
+function updatePay() {
+  var checks = ['pay-gotowka','pay-przelew','pay-karta','pay-blik','pay-faktury','pay-raty'];
+  var vals = checks.filter(function(id) {
+    var el = document.getElementById(id);
+    return el && el.checked;
+  }).map(function(id) {
+    return document.getElementById(id).value;
+  });
+  var hidden = document.getElementById('f-platnosci');
+  if (hidden) hidden.value = vals.join(', ');
+}
+
+var _faqItems = [];
+function addFaq() {
+  var idx = _faqItems.length;
+  _faqItems.push({q:'',a:''});
+  var list = document.getElementById('faq-list');
+  if (!list) return;
+  var div = document.createElement('div');
+  div.id = 'faq-item-' + idx;
+  div.style.cssText = 'background:var(--s2);border:1px solid var(--border2);border-radius:10px;padding:12px;position:relative';
+  div.innerHTML =
+    '<button onclick="removeFaq('+idx+')" style="position:absolute;top:8px;right:10px;background:none;border:none;'
+    + 'color:var(--muted);font-size:16px;cursor:pointer;line-height:1" title="Usuń">✕</button>'
+    + '<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-family:var(--mono);margin-bottom:6px">Pytanie '+(idx+1)+'</div>'
+    + '<input type="text" placeholder="np. Ile kosztuje wymiana kranu?" oninput="_faqItems['+idx+'].q=this.value"'
+    + ' style="margin-bottom:8px;width:100%">'
+    + '<input type="text" placeholder="np. Koszt wymiany kranu to 150-300 zł w zależności od modelu." oninput="_faqItems['+idx+'].a=this.value"'
+    + ' style="width:100%">';
+  list.appendChild(div);
+}
+
+function removeFaq(idx) {
+  _faqItems[idx] = null;
+  var el = document.getElementById('faq-item-' + idx);
+  if (el) el.remove();
+}
+
+// Patch collectFirmaData — dodaj pola SEO
+var _origCollectSEO = collectFirmaData;
+collectFirmaData = function() {
+  var d = _origCollectSEO();
+  d.usp        = _uspTags.filter(Boolean);
+  d.obszar     = (document.getElementById('f-obszar')      || {}).value || '';
+  d.certyfikaty= (document.getElementById('f-certyfikaty') || {}).value || '';
+  d.platnosci  = (document.getElementById('f-platnosci')   || {}).value || '';
+  d.keywords   = (document.getElementById('f-keywords')    || {}).value || '';
+  d.faq        = _faqItems.filter(function(f){ return f && f.q && f.a; });
   return d;
 };
 // ─────────────────────────────────────────────────────────────────

@@ -112,6 +112,15 @@ export default async function handler(req) {
     });
 
 
+    // ── SEO EXTRAS ──────────────────────────────────────────────────────
+    const uspList    = Array.isArray(firma.usp) ? firma.usp.filter(Boolean) : [];
+    const faqList    = Array.isArray(firma.faq) ? firma.faq.filter(f => f && f.q && f.a) : [];
+    const obszarList = (firma.obszar || '').split(',').map(s => s.trim()).filter(Boolean);
+    const faqSchema  = faqList.length ? JSON.stringify({
+      "@context":"https://schema.org","@type":"FAQPage",
+      "mainEntity": faqList.map(f => ({"@type":"Question","name":f.q,"acceptedAnswer":{"@type":"Answer","text":f.a}}))
+    }) : '';
+
     // ── PROMPT ────────────────────────────────────────────────────────────
     const userPrompt = `Stwórz kompletną, profesjonalną stronę internetową dla polskiej firmy lokalnej.
 
@@ -134,6 +143,11 @@ ${firma.adres         ? `Adres:              ${firma.adres}` : ''}
 ${firma.google_ocena  ? `Ocena Google:       ${firma.google_ocena}/5 (${firma.google_opinie} opinii)` : ''}
 ${firma.facebook      ? `Facebook:           ${firma.facebook}` : ''}
 ${firma.instagram     ? `Instagram:          ${firma.instagram}` : ''}
+${uspList.length      ? `Wyróżniki USP:      ${uspList.join(' | ')}` : ''}
+${firma.certyfikaty   ? `Certyfikaty:        ${firma.certyfikaty}` : ''}
+${firma.platnosci     ? `Metody płatności:   ${firma.platnosci}` : ''}
+${firma.keywords      ? `Słowa kluczowe SEO: ${firma.keywords}` : ''}
+${obszarList.length   ? `Obszary działania:  ${obszarList.join(', ')}` : ''}
 
 ═══════════════════════════════════════
 ZASOBY DO WSTAWIENIA:
@@ -149,14 +163,19 @@ SCHEMA.ORG (wstaw w <head>):
 WYMAGANIA STRUKTURY HTML:
 ═══════════════════════════════════════
 1. NAWIGACJA sticky z logo po lewej i linkami do sekcji + przycisk CTA "Zadzwoń: ${tel}"
-2. HERO — duży, pełnoekranowy, z nagłówkiem, podtytułem i 2 przyciskami CTA
-3. O NAS — wyróżniki firmy, liczby (${firma.lata ? firma.lata+' lat,' : ''} ${firma.realizacje ? firma.realizacje+' realizacji,' : ''} satysfakcja klientów)
-4. USŁUGI — 5-6 kart z ikonami (emoji), tytułami i opisami SPECYFICZNYMI dla branży ${branza}
-${galeriaHtml ? '5. GALERIA — siatka zdjęć z opisami' : ''}
-${galeriaHtml ? '6.' : '5.'} KONTAKT — adres, telefon ${tel}, email ${email}, godziny otwarcia + Google Maps iframe dla ${lok}
-${galeriaHtml ? '7.' : '6.'} FOOTER — prawa autorskie, linki do sekcji, kontakt
+2. HERO — duży, pełnoekranowy, z nagłówkiem H1, podtytułem i 2 przyciskami CTA
+3. O NAS — wyróżniki firmy, liczby (${firma.lata ? firma.lata+' lat,' : ''} ${firma.realizacje ? firma.realizacje+' realizacji,' : ''} zadowoleni klienci)
+4. USŁUGI — 5-6 kart z ikonami emoji, tytułami H3 i opisami SPECYFICZNYMI dla branży ${branza}
+${uspList.length ? `5. WYRÓŻNIKI/ZALETY — sekcja z ikonami prezentująca: ${uspList.join(' | ')}` : ''}
+${obszarList.length ? `${uspList.length?'6':'5'}. OBSZAR DZIAŁANIA — sekcja z H2 "Obszar działania" i osobnym opisem dla każdej lokalizacji: ${obszarList.join(', ')} — każda z frazą kluczową "[branża] [lokalizacja]"` : ''}
+${galeriaHtml ? 'GALERIA — siatka zdjęć realizacji z opisami alt' : ''}
+${faqList.length ? `FAQ — sekcja z pytaniami i odpowiedziami:
+${faqList.map((f,i) => `  ${i+1}. P: ${f.q}
+     O: ${f.a}`).join('\n')}` : ''}
+KONTAKT — adres, telefon ${tel}, email ${email}, godziny + Google Maps iframe dla ${lok}
+FOOTER — prawa autorskie, linki, ${firma.platnosci ? 'metody płatności: '+firma.platnosci+',' : ''} kontakt
 
-ZASADY TECHNICZNE:
+ZASADY TECHNICZNE i SEO:
 - Kompletny HTML: pierwsza linia <!DOCTYPE html>, ostatnia </html>
 - WSZYSTKIE style w <style> w <head> — zero zewnętrznych CSS plików
 - Google Fonts przez <link> w <head>
@@ -164,6 +183,11 @@ ZASADY TECHNICZNE:
 - Treści 100% realne, specyficzne dla ${branza} w ${lok} — ZERO lorem ipsum
 - Duży, widoczny przycisk "Zadzwoń: ${tel}" z href="tel:${tel}"
 - Smooth scroll między sekcjami
+- H1 tylko jeden — z nazwą firmy i branżą i lokalizacją
+- H2 dla każdej sekcji z naturalnym słowem kluczowym
+${firma.keywords ? `- Użyj naturalnie w treści słów kluczowych: ${firma.keywords}` : ''}
+${firma.certyfikaty ? `- Wstaw certyfikaty w sekcji O nas: ${firma.certyfikaty}` : ''}
+${faqSchema ? `- Wstaw w <head> FAQPage schema: <script type="application/ld+json">${faqSchema}</script>` : ''}
 
 ODPOWIEDZ WYŁĄCZNIE KODEM HTML. Pierwsza linia kodu: <!DOCTYPE html>  Ostatnia linia: </html>`;
 
