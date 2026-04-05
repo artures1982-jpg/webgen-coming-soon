@@ -1123,74 +1123,136 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
             </div>
             <div style="padding:12px">
 
-              <!-- Nawigacja mockup -->
-              <div class="wm-nav"></div>
+              <!-- NAV mockup -->
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 8px;background:rgba(240,242,247,.06);border-radius:4px;margin-bottom:8px">
+                <div style="width:50px;height:8px;background:rgba(0,229,160,.4);border-radius:3px"></div>
+                <div style="display:flex;gap:6px">
+                  <div style="width:28px;height:5px;background:rgba(240,242,247,.15);border-radius:2px"></div>
+                  <div style="width:28px;height:5px;background:rgba(240,242,247,.15);border-radius:2px"></div>
+                  <div style="width:28px;height:5px;background:rgba(240,242,247,.15);border-radius:2px"></div>
+                </div>
+                <div style="width:36px;height:8px;background:rgba(0,229,160,.3);border-radius:3px"></div>
+              </div>
 
               <!-- HERO ZONE -->
-              <div style="margin-bottom:6px">
-                <div class="img-zone wm-hero" id="zone-hero" style="height:130px;border-radius:8px"
+              <div style="margin-bottom:10px">
+                <div class="img-zone" id="zone-hero" style="height:120px;border-radius:8px;position:relative"
                      onclick="document.getElementById('inp-hero').click()">
-                  <img class="zone-preview" id="prev-hero" src="" alt="" style="display:none">
+                  <img class="zone-preview" id="prev-hero" src="" alt="" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:8px">
                   <div class="img-zone-overlay"><span>✏️ Zmień zdjęcie</span></div>
                   <div class="img-zone-icon">🖼️</div>
-                  <div class="img-zone-label">Zdjęcie główne (Hero)<br>Pierwsze wrażenie — pełna szerokość</div>
+                  <div class="img-zone-label">Zdjęcie główne — Hero<br><span style="color:rgba(136,146,170,.6);font-size:9px">pełna szerokość · pierwsze wrażenie</span></div>
                   <div class="img-zone-hint">Kliknij aby wybrać z dysku</div>
                   <input type="file" id="inp-hero" accept="image/*" onchange="handleZoneUpload(this,'hero')" style="display:none">
                 </div>
                 <div class="img-zone-btns">
-                  <button class="btn-zone-pexels" onclick="openPexelsZone('hero')">
-                    📸 Pexels
-                  </button>
-                  <button class="btn-zone-clear" id="clear-hero" onclick="clearZone('hero')">✕</button>
+                  <button class="btn-zone-pexels" onclick="openPexelsZone('hero')">📸 Dodaj z Pexels</button>
+                  <button class="btn-zone-clear" id="clear-hero" onclick="clearZone('hero')">✕ Usuń</button>
                 </div>
               </div>
 
-              <!-- Tekst placeholder -->
-              <div class="wm-text-block" style="width:60%"></div>
-              <div class="wm-text-block" style="width:40%"></div>
-
-              <!-- CONTENT IMAGES — 2 kolumny -->
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
-
-                <!-- Zdjęcie treści 1 -->
-                <div>
-                  <div class="img-zone wm-img-slot" id="zone-img1" style="height:90px;border-radius:6px"
-                       onclick="document.getElementById('inp-img1').click()">
-                    <img class="zone-preview" id="prev-img1" src="" alt="" style="display:none">
-                    <div class="img-zone-overlay"><span>✏️ Zmień</span></div>
-                    <div class="img-zone-icon" style="font-size:18px">📷</div>
-                    <div class="img-zone-label">Zdjęcie w treści 1</div>
-                    <div class="img-zone-hint">kliknij = dysk</div>
-                    <input type="file" id="inp-img1" accept="image/*" onchange="handleZoneUpload(this,'img1')" style="display:none">
+              <!-- O NAS placeholder -->
+              <div style="background:rgba(240,242,247,.03);border-radius:6px;padding:8px;margin-bottom:8px">
+                <div style="font-size:8px;color:rgba(136,146,170,.4);font-family:monospace;margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em">// Sekcja: O nas</div>
+                <div style="display:flex;gap:8px;align-items:center">
+                  <div style="flex:1">
+                    <div style="height:6px;background:rgba(240,242,247,.12);border-radius:2px;margin-bottom:4px;width:80%"></div>
+                    <div style="height:4px;background:rgba(240,242,247,.07);border-radius:2px;margin-bottom:3px"></div>
+                    <div style="height:4px;background:rgba(240,242,247,.07);border-radius:2px;margin-bottom:3px;width:90%"></div>
+                    <div style="height:4px;background:rgba(240,242,247,.07);border-radius:2px;width:70%"></div>
                   </div>
-                  <div class="img-zone-btns">
-                    <button class="btn-zone-pexels" onclick="openPexelsZone('img1')">📸 Pexels</button>
-                    <button class="btn-zone-clear" id="clear-img1" onclick="clearZone('img1')">✕</button>
+                  <div style="display:flex;gap:6px;flex-shrink:0">
+                    <div style="text-align:center">
+                      <div style="font-size:13px;font-weight:700;color:rgba(0,229,160,.6)">10+</div>
+                      <div style="height:3px;background:rgba(240,242,247,.08);border-radius:1px;width:28px;margin-top:2px"></div>
+                    </div>
+                    <div style="text-align:center">
+                      <div style="font-size:13px;font-weight:700;color:rgba(0,229,160,.6)">250</div>
+                      <div style="height:3px;background:rgba(240,242,247,.08);border-radius:1px;width:28px;margin-top:2px"></div>
+                    </div>
                   </div>
                 </div>
+              </div>
 
-                <!-- Zdjęcie treści 2 -->
-                <div>
-                  <div class="img-zone wm-img-slot" id="zone-img2" style="height:90px;border-radius:6px"
-                       onclick="document.getElementById('inp-img2').click()">
-                    <img class="zone-preview" id="prev-img2" src="" alt="" style="display:none">
-                    <div class="img-zone-overlay"><span>✏️ Zmień</span></div>
-                    <div class="img-zone-icon" style="font-size:18px">📷</div>
-                    <div class="img-zone-label">Zdjęcie w treści 2</div>
-                    <div class="img-zone-hint">kliknij = dysk</div>
-                    <input type="file" id="inp-img2" accept="image/*" onchange="handleZoneUpload(this,'img2')" style="display:none">
+              <!-- USŁUGI placeholder -->
+              <div style="background:rgba(240,242,247,.03);border-radius:6px;padding:8px;margin-bottom:8px">
+                <div style="font-size:8px;color:rgba(136,146,170,.4);font-family:monospace;margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em">// Sekcja: Usługi</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px">
+                  <div style="background:rgba(240,242,247,.05);border-radius:4px;padding:5px;border-left:2px solid rgba(0,229,160,.3)">
+                    <div style="font-size:11px;margin-bottom:3px">🔧</div>
+                    <div style="height:4px;background:rgba(240,242,247,.15);border-radius:1px;margin-bottom:2px"></div>
+                    <div style="height:3px;background:rgba(240,242,247,.07);border-radius:1px"></div>
                   </div>
-                  <div class="img-zone-btns">
-                    <button class="btn-zone-pexels" onclick="openPexelsZone('img2')">📸 Pexels</button>
-                    <button class="btn-zone-clear" id="clear-img2" onclick="clearZone('img2')">✕</button>
+                  <div style="background:rgba(240,242,247,.05);border-radius:4px;padding:5px;border-left:2px solid rgba(0,229,160,.3)">
+                    <div style="font-size:11px;margin-bottom:3px">⚡</div>
+                    <div style="height:4px;background:rgba(240,242,247,.15);border-radius:1px;margin-bottom:2px"></div>
+                    <div style="height:3px;background:rgba(240,242,247,.07);border-radius:1px"></div>
+                  </div>
+                  <div style="background:rgba(240,242,247,.05);border-radius:4px;padding:5px;border-left:2px solid rgba(0,229,160,.3)">
+                    <div style="font-size:11px;margin-bottom:3px">🏠</div>
+                    <div style="height:4px;background:rgba(240,242,247,.15);border-radius:1px;margin-bottom:2px"></div>
+                    <div style="height:3px;background:rgba(240,242,247,.07);border-radius:1px"></div>
                   </div>
                 </div>
+              </div>
 
-              </div><!-- /grid -->
+              <!-- CONTENT IMAGES — 2 kolumny z opisem -->
+              <div style="background:rgba(240,242,247,.03);border-radius:6px;padding:8px;margin-bottom:8px">
+                <div style="font-size:8px;color:rgba(136,146,170,.4);font-family:monospace;margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em">// Sekcja: Galeria / Realizacje</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+                  <div>
+                    <div class="img-zone" id="zone-img1" style="height:80px;border-radius:6px;position:relative"
+                         onclick="document.getElementById('inp-img1').click()">
+                      <img class="zone-preview" id="prev-img1" src="" alt="" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:6px">
+                      <div class="img-zone-overlay"><span>✏️ Zmień</span></div>
+                      <div class="img-zone-icon" style="font-size:16px">📷</div>
+                      <div class="img-zone-label" style="font-size:10px">Zdjęcie realizacji 1</div>
+                      <input type="file" id="inp-img1" accept="image/*" onchange="handleZoneUpload(this,'img1')" style="display:none">
+                    </div>
+                    <div class="img-zone-btns">
+                      <button class="btn-zone-pexels" onclick="openPexelsZone('img1')">📸 Pexels</button>
+                      <button class="btn-zone-clear" id="clear-img1" onclick="clearZone('img1')">✕</button>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="img-zone" id="zone-img2" style="height:80px;border-radius:6px;position:relative"
+                         onclick="document.getElementById('inp-img2').click()">
+                      <img class="zone-preview" id="prev-img2" src="" alt="" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:6px">
+                      <div class="img-zone-overlay"><span>✏️ Zmień</span></div>
+                      <div class="img-zone-icon" style="font-size:16px">📷</div>
+                      <div class="img-zone-label" style="font-size:10px">Zdjęcie realizacji 2</div>
+                      <input type="file" id="inp-img2" accept="image/*" onchange="handleZoneUpload(this,'img2')" style="display:none">
+                    </div>
+                    <div class="img-zone-btns">
+                      <button class="btn-zone-pexels" onclick="openPexelsZone('img2')">📸 Pexels</button>
+                      <button class="btn-zone-clear" id="clear-img2" onclick="clearZone('img2')">✕</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-              <!-- Footer mockup -->
-              <div class="wm-text-block" style="width:70%;margin-top:8px"></div>
-              <div class="wm-footer" style="margin-top:4px"></div>
+              <!-- KONTAKT placeholder -->
+              <div style="background:rgba(240,242,247,.03);border-radius:6px;padding:8px;margin-bottom:8px">
+                <div style="font-size:8px;color:rgba(136,146,170,.4);font-family:monospace;margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em">// Sekcja: Kontakt</div>
+                <div style="display:flex;gap:8px">
+                  <div style="flex:1">
+                    <div style="height:4px;background:rgba(240,242,247,.1);border-radius:1px;margin-bottom:3px;width:60%"></div>
+                    <div style="height:3px;background:rgba(240,242,247,.07);border-radius:1px;margin-bottom:2px"></div>
+                    <div style="height:3px;background:rgba(240,242,247,.07);border-radius:1px;width:80%"></div>
+                  </div>
+                  <div style="width:80px;height:40px;background:rgba(240,242,247,.05);border-radius:4px;border:1px dashed rgba(240,242,247,.1);display:flex;align-items:center;justify-content:center;font-size:9px;color:rgba(136,146,170,.3);flex-shrink:0">map</div>
+                </div>
+              </div>
+
+              <!-- FOOTER mockup -->
+              <div style="background:rgba(240,242,247,.05);border-radius:4px;padding:6px 8px;display:flex;justify-content:space-between;align-items:center">
+                <div style="width:40px;height:6px;background:rgba(0,229,160,.2);border-radius:2px"></div>
+                <div style="display:flex;gap:5px">
+                  <div style="width:20px;height:4px;background:rgba(240,242,247,.1);border-radius:1px"></div>
+                  <div style="width:20px;height:4px;background:rgba(240,242,247,.1);border-radius:1px"></div>
+                  <div style="width:20px;height:4px;background:rgba(240,242,247,.1);border-radius:1px"></div>
+                </div>
+              </div>
             </div>
           </div><!-- /layout-preview -->
 
