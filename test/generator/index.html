@@ -1544,7 +1544,7 @@ function setStep(n) {
   });
 
   // update tip
-  document.getElementById('sidebar-tip-text').textContent = TIPS[n] || TIPS[1];
+  var _tipEl=document.getElementById('sidebar-tip-text'); if(_tipEl) _tipEl.textContent = TIPS[n] || TIPS[1];
 }
 
 // ─── VALIDATION ───
@@ -1618,7 +1618,7 @@ async function handleLogoUpload(input) {
   document.getElementById('lua-empty').style.display = 'none';
   document.getElementById('lua-filled').style.display = 'block';
   document.getElementById('lua-preview').src = data;
-  document.getElementById('lua-filename').textContent = file.name.replace(/\.[^.]+$/, '.webp');
+  var _fnEl=document.getElementById('lua-filename'); if(_fnEl) _fnEl.textContent = file.name.replace(/\.[^.]+$/, '.webp');
   document.getElementById('logo-upload-area').classList.add('has-file');
 }
 
@@ -1717,7 +1717,7 @@ function selectPlan(card, id, name, price) {
   state.planPrice = price;
   document.getElementById('cp-plan-name').textContent = name;
   document.querySelector('.cp-price').innerHTML = price === '0' ? 'Bezpłatny <sub></sub>' : `${price} <sub>zł/mies.</sub>`;
-  document.getElementById('btn-price').textContent = price;
+  var _bpEl=document.getElementById('btn-price'); if(_bpEl) _bpEl.textContent = price;
   document.getElementById('as-plan-price').textContent = price === '0' ? 'bezpłatny' : `${price} zł/mies.`;
   updateAddonSummary();
 
