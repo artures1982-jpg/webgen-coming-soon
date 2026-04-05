@@ -564,6 +564,67 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
 
 
 
+
+/* ── WG DEBUG PANEL ─────────────────────────────────────── */
+#wg-debug{
+  display:none;position:fixed;bottom:16px;right:16px;z-index:99999;
+  width:min(560px,96vw);max-height:420px;
+  background:#0A0D14;border:1px solid rgba(255,60,60,.35);
+  border-radius:12px;font-family:'JetBrains Mono',monospace;
+  box-shadow:0 8px 40px rgba(0,0,0,.7);flex-direction:column;overflow:hidden;
+}
+#wg-debug.open{display:flex}
+#wg-debug-header{
+  padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.08);
+  display:flex;align-items:center;gap:8px;flex-shrink:0;
+  background:rgba(255,40,40,.08);
+}
+#wg-debug-badge{
+  background:rgba(255,60,60,.2);color:#FF6B6B;
+  font-size:9px;font-weight:700;letter-spacing:.12em;padding:2px 7px;
+  border-radius:4px;text-transform:uppercase;border:1px solid rgba(255,60,60,.3);
+}
+#wg-debug-title{font-size:12px;color:rgba(255,255,255,.5);flex:1}
+#wg-debug-clear{
+  background:none;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.3);
+  font-size:10px;padding:2px 8px;border-radius:4px;cursor:pointer;
+  font-family:'JetBrains Mono',monospace;transition:all .2s;
+}
+#wg-debug-clear:hover{border-color:rgba(255,100,100,.4);color:#FF6B6B}
+#wg-debug-close{
+  background:none;border:none;color:rgba(255,255,255,.3);
+  font-size:16px;cursor:pointer;line-height:1;padding:0 2px;transition:color .2s;
+}
+#wg-debug-close:hover{color:#fff}
+#wg-debug-log{
+  flex:1;overflow-y:auto;padding:8px 0;
+  scrollbar-width:thin;scrollbar-color:rgba(255,60,60,.3) transparent;
+}
+.wg-log-entry{
+  padding:5px 14px;font-size:11px;line-height:1.55;
+  border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:8px;
+}
+.wg-log-entry:last-child{border-bottom:none}
+.wg-log-entry.err{color:#FF6B6B}
+.wg-log-entry.warn{color:#FFB347}
+.wg-log-entry.info{color:#00E5A0}
+.wg-log-entry.api{color:#7EB8FF}
+.wg-log-time{color:rgba(255,255,255,.25);flex-shrink:0;font-size:10px;margin-top:1px}
+.wg-log-msg{word-break:break-all;flex:1}
+#wg-debug-footer{
+  padding:6px 14px;border-top:1px solid rgba(255,255,255,.06);
+  font-size:10px;color:rgba(255,255,255,.2);flex-shrink:0;
+  display:flex;justify-content:space-between;
+}
+#wg-debug-toggle{
+  position:fixed;bottom:16px;right:16px;z-index:99998;
+  background:rgba(255,40,40,.15);border:1px solid rgba(255,60,60,.3);
+  color:#FF6B6B;font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:700;padding:5px 10px;border-radius:6px;
+  cursor:pointer;display:none;letter-spacing:.08em;
+}
+/* ──────────────────────────────────────────────────────── */
+
 /* ── STYLE SELECTOR (krok 6) ─────────────────────────── */
 .style-selector{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
 .style-card{
@@ -2561,6 +2622,23 @@ function goToActivation() {
 
 
 
+
+<!-- ── WG DEBUG PANEL ─────────────────────────────────────── -->
+<button id="wg-debug-toggle" onclick="wgDebug.toggle()">⚠ DEBUG</button>
+<div id="wg-debug">
+  <div id="wg-debug-header">
+    <span id="wg-debug-badge">debug</span>
+    <span id="wg-debug-title">webgen error log</span>
+    <button id="wg-debug-clear" onclick="wgDebug.clear()">clear</button>
+    <button id="wg-debug-close" onclick="wgDebug.hide()">✕</button>
+  </div>
+  <div id="wg-debug-log"></div>
+  <div id="wg-debug-footer">
+    <span>Aktywuj: ?wgdebug=1 lub Shift+Ctrl+D</span>
+    <span id="wg-debug-count">0 wpisów</span>
+  </div>
+</div>
+
 <!-- ── GENERATING FULL-SCREEN ─────────────────────────── -->
 <div id="gen-fullscreen">
   <div class="gen-timer" id="gen-timer-count">0:00</div>
@@ -2643,5 +2721,162 @@ function goToActivation() {
     </div>
   </div>
 </div>
+
+<script>
+// ── WG DEBUG PANEL ──────────────────────────────────────────────
+var wgDebug = (function() {
+  var active = false;
+  var logs = [];
+  var MAX = 200;
+
+  function ts() {
+    var d = new Date();
+    return d.getHours().toString().padStart(2,'0') + ':'
+         + d.getMinutes().toString().padStart(2,'0') + ':'
+         + d.getSeconds().toString().padStart(2,'0') + '.'
+         + d.getMilliseconds().toString().padStart(3,'0');
+  }
+
+  function push(type, msg) {
+    if (logs.length >= MAX) logs.shift();
+    logs.push({ type: type, msg: String(msg).slice(0,500), time: ts() });
+    render();
+  }
+
+  function render() {
+    var el = document.getElementById('wg-debug-log');
+    var cnt = document.getElementById('wg-debug-count');
+    if (!el) return;
+    el.innerHTML = logs.slice().reverse().map(function(e) {
+      return '<div class="wg-log-entry ' + e.type + '">'
+           + '<span class="wg-log-time">' + e.time + '</span>'
+           + '<span class="wg-log-msg">' + e.msg.replace(/</g,'&lt;') + '</span>'
+           + '</div>';
+    }).join('');
+    if (cnt) cnt.textContent = logs.length + ' wpisów';
+  }
+
+  function activate() {
+    active = true;
+    var panel = document.getElementById('wg-debug');
+    var toggle = document.getElementById('wg-debug-toggle');
+    if (panel) panel.classList.add('open');
+    if (toggle) toggle.style.display = 'none';
+    push('info', '✓ Debug panel aktywowany — ' + window.location.href);
+    // Dump localStorage
+    push('info', 'localStorage: wg_user=' + (localStorage.getItem('wg_user')||'null'));
+    push('info', 'localStorage: wg_session=' + (localStorage.getItem('wg_session')||'null'));
+  }
+
+  function show() {
+    var panel = document.getElementById('wg-debug');
+    var toggle = document.getElementById('wg-debug-toggle');
+    if (panel) panel.classList.add('open');
+    if (toggle) toggle.style.display = 'none';
+  }
+
+  function hide() {
+    var panel = document.getElementById('wg-debug');
+    var toggle = document.getElementById('wg-debug-toggle');
+    if (panel) panel.classList.remove('open');
+    if (toggle) toggle.style.display = 'block';
+  }
+
+  function toggle() {
+    var panel = document.getElementById('wg-debug');
+    if (panel && panel.classList.contains('open')) hide();
+    else show();
+  }
+
+  function clear() {
+    logs = [];
+    render();
+    push('info', '— log wyczyszczony —');
+  }
+
+  // Sprawdź URL param lub localStorage
+  (function init() {
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('wgdebug') === '1') {
+      localStorage.setItem('wg_debug_enabled', '1');
+    }
+    var enabled = params.get('wgdebug') === '1' || localStorage.getItem('wg_debug_enabled') === '1';
+
+    if (!enabled) return;
+
+    // Pokaż toggle button (panel domyślnie zwinięty jeśli nie ?wgdebug=1 bezposrednio)
+    window.addEventListener('DOMContentLoaded', function() {
+      var toggle = document.getElementById('wg-debug-toggle');
+      if (toggle) toggle.style.display = 'block';
+      activate();
+    });
+    if (document.readyState !== 'loading') {
+      var toggle = document.getElementById('wg-debug-toggle');
+      if (toggle) toggle.style.display = 'block';
+      activate();
+    }
+
+    // Przechwytywanie błędów JS
+    window.addEventListener('error', function(e) {
+      push('err', '❌ JS: ' + e.message + ' @ ' + (e.filename||'').split('/').pop() + ':' + e.lineno);
+    });
+
+    window.addEventListener('unhandledrejection', function(e) {
+      push('err', '❌ Promise: ' + (e.reason && e.reason.message ? e.reason.message : String(e.reason)));
+    });
+
+    // Przechwytywanie fetch
+    var origFetch = window.fetch;
+    window.fetch = function(url, opts) {
+      var method = (opts && opts.method) || 'GET';
+      var shortUrl = String(url).replace(window.location.origin,'');
+      push('api', '→ ' + method + ' ' + shortUrl);
+      return origFetch.apply(this, arguments).then(function(res) {
+        var icon = res.ok ? '✓' : '✗';
+        push(res.ok ? 'api' : 'err', icon + ' ' + res.status + ' ' + shortUrl);
+        return res;
+      }).catch(function(err) {
+        push('err', '✗ fetch FAIL ' + shortUrl + ': ' + err.message);
+        throw err;
+      });
+    };
+
+    // Przechwytywanie console.error i console.warn
+    var origErr = console.error, origWarn = console.warn;
+    console.error = function() {
+      var msg = Array.from(arguments).join(' ');
+      push('err', '🔴 console.error: ' + msg);
+      origErr.apply(console, arguments);
+    };
+    console.warn = function() {
+      var msg = Array.from(arguments).join(' ');
+      push('warn', '⚠ console.warn: ' + msg);
+      origWarn.apply(console, arguments);
+    };
+  })();
+
+  // Skrót klawiszowy: Shift+Ctrl+D — aktywuj/dezaktywuj
+  document.addEventListener('keydown', function(e) {
+    if (e.shiftKey && e.ctrlKey && e.key === 'D') {
+      e.preventDefault();
+      if (!active) {
+        localStorage.setItem('wg_debug_enabled', '1');
+        activate();
+      } else {
+        toggle();
+      }
+    }
+    // Shift+Ctrl+X — wyczyść localStorage debug
+    if (e.shiftKey && e.ctrlKey && e.key === 'X') {
+      localStorage.removeItem('wg_debug_enabled');
+      push('warn', '— debug wyłączony po odświeżeniu —');
+    }
+  });
+
+  return { toggle: toggle, show: show, hide: hide, clear: clear, log: push };
+})();
+// ── END WG DEBUG PANEL ──────────────────────────────────────────
+</script>
+
 </body>
 </html>
