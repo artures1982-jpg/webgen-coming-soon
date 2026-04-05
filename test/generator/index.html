@@ -1853,7 +1853,11 @@ async function startGenerate() {
     state.generatedHTML = data.html;
     state.slug = data.slug;
     state.selectedStyle = data.style || 'classic';
-    // Nie ma variants — idź od razu do preview
+    if(window.wgDebug){
+      wgDebug.log('api','[GEN] html.length='+String((data.html||'').length)+' success='+data.success+' slug='+data.slug);
+      wgDebug.log('api','[GEN] html[0:100]='+String(data.html||'').slice(0,100));
+      if(!data.html) wgDebug.log('err','[GEN] data.html jest NULL/UNDEFINED!');
+    }
     if(document.getElementById('gen-fullscreen'))document.getElementById('gen-fullscreen').classList.remove('active');
     selectVariant(data.style || 'classic');
     
@@ -1919,8 +1923,14 @@ function selectVariant(key) {
   if(urlEl)urlEl.textContent=(state.slug||'twoja-firma')+'.webgen.pl';
   var iframe=document.getElementById('preview-iframe');
   if(!iframe)return;
-  // srcdoc omija frame-src CSP calkowicie — jedyne pewne rozwiazanie
-  iframe.srcdoc = state.generatedHTML;
+  var _slen = (state.generatedHTML||'').length;
+  if(window.wgDebug){
+    wgDebug.log('api','[IFRAME] srcdoc length='+_slen);
+    wgDebug.log('api','[IFRAME] html[0:80]='+String(state.generatedHTML||'').slice(0,80));
+    if(!state.generatedHTML) wgDebug.log('err','[IFRAME] generatedHTML PUSTY - iframe bedzie bialy!');
+  }
+  iframe.srcdoc = state.generatedHTML ||
+    '<html><body style="padding:20px;font-family:monospace;color:red">BLAD: generatedHTML pusty. Sprawdz debug log.</body></html>';
 }
 
 // ─── DOWNLOAD ───
