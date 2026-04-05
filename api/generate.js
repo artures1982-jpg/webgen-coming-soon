@@ -175,14 +175,13 @@ WYMAGANE cechy wizualne:
       return html;
     };
 
-    // Generuj sekwencyjnie — unikamy 429 (8000 tok/min limit)
-    const classic = await cleanHTML(prompts.classic, 'classic');
-    await new Promise(r => setTimeout(r, 2000));
-    const modern  = await cleanHTML(prompts.modern,  'modern');
-    await new Promise(r => setTimeout(r, 2000));
-    const elegant = await cleanHTML(prompts.elegant, 'elegant');
+    // Generuj 1 wariant wybrany przez usera (fix timeout)
+    const style = firma.style || 'classic';
+    const validStyles = ['classic', 'modern', 'elegant'];
+    const chosenStyle = validStyles.includes(style) ? style : 'classic';
+    const html1 = await cleanHTML(prompts[chosenStyle], chosenStyle);
 
-    if (classic.length < 500) {
+    if (html1.length < 500) {
       return res.status(500).json({ error: 'Claude zwrócił za krótką odpowiedź' });
     }
 
@@ -222,7 +221,8 @@ WYMAGANE cechy wizualne:
 
     return res.status(200).json({
       success: true,
-      variants: { classic: injectFreeOverlay(classic, slug), modern: injectFreeOverlay(modern, slug), elegant: injectFreeOverlay(elegant, slug) },
+      html: injectFreeOverlay(html1, slug),
+      style: chosenStyle,
       slug,
       mode: 'claude-ai',
     });

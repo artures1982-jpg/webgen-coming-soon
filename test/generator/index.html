@@ -563,6 +563,27 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
 
 
 
+
+/* ── STYLE SELECTOR (krok 6) ─────────────────────────── */
+.style-selector{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.style-card{
+  background:var(--s2);border:1.5px solid var(--border);border-radius:12px;
+  padding:16px 14px;cursor:pointer;transition:all .18s;text-align:center;
+}
+.style-card:hover{border-color:rgba(240,242,247,.25);background:rgba(240,242,247,.05)}
+.style-card.selected{border-color:var(--green);background:rgba(0,229,160,.07)}
+.style-card-icon{font-size:26px;margin-bottom:8px}
+.style-card-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}
+.style-card-desc{font-size:11px;color:var(--muted)}
+.style-card-badge{
+  display:inline-block;margin-top:6px;font-family:var(--mono);font-size:9px;
+  font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:2px 8px;border-radius:20px;
+}
+.style-card.selected .style-card-badge{background:rgba(0,229,160,.15);color:var(--green)}
+.style-card:not(.selected) .style-card-badge{background:var(--s3);color:var(--muted)}
+/* ─────────────────────────────────────────────────────── */
+
 /* ── GENERATING FULL-SCREEN ─────────────────────────── */
 #gen-fullscreen{display:none;position:fixed;inset:0;z-index:1000;background:var(--bg);flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px}
 #gen-fullscreen.active{display:flex}
@@ -1291,6 +1312,31 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
         
       </div>
 
+
+      <!-- WYBÓR STYLU -->
+      <div style="margin-bottom:20px">
+        <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)">Wybierz styl strony</div>
+        <div class="style-selector">
+          <div class="style-card selected" id="sc-classic" onclick="selectStyle('classic',this)">
+            <div class="style-card-icon">🏛</div>
+            <div class="style-card-name">Klasyczny</div>
+            <div class="style-card-desc">Ciepły, lokalny, serif</div>
+            <div class="style-card-badge">WYBRANY</div>
+          </div>
+          <div class="style-card" id="sc-modern" onclick="selectStyle('modern',this)">
+            <div class="style-card-icon">🚀</div>
+            <div class="style-card-name">Nowoczesny</div>
+            <div class="style-card-desc">Dark mode, tech, neon</div>
+            <div class="style-card-badge">wybierz</div>
+          </div>
+          <div class="style-card" id="sc-elegant" onclick="selectStyle('elegant',this)">
+            <div class="style-card-icon">✨</div>
+            <div class="style-card-name">Elegancki</div>
+            <div class="style-card-desc">Minimalistyczny, premium</div>
+            <div class="style-card-badge">wybierz</div>
+          </div>
+        </div>
+      </div>
       <!-- Podsumowanie płatności -->
       <div style="background:var(--s2);border:1px solid var(--border2);border-radius:10px;padding:16px 18px;margin-bottom:20px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
@@ -1384,6 +1430,7 @@ const state = {
   generatedHTML: '',
   slug: '',
   kolor1: null,
+  selectedStyle: 'classic',
   kolor2: null,
   layout: 'classic',
   logoBase64: '',
@@ -1657,6 +1704,7 @@ function collectFirmaData() {
     plan:         state.plan,
     hero_base64:  state.heroBase64,
     heroUrl:      state.heroUrl || '',
+    style:        state.selectedStyle || 'classic',
   };
 }
 
@@ -1689,15 +1737,16 @@ async function startGenerate() {
   }, 700);
 
   // Live messages
+  var _styleNames = {classic:'Klasyczny',modern:'Nowoczesny',elegant:'Elegancki'};
+  var _styleName = _styleNames[firma.style||'classic']||'Klasyczny';
   var _msgs = [
     ['Analizuję branżę…','Pobieram dane: '+firma.branza+' w '+firma.miasto],
     ['Piszę treści SEO…','Nagłówki, opisy usług, meta tagi lokalne'],
-    ['Tworzę styl Klasyczny…','Ciepły, tradycyjny — serif + lokalne kolory'],
-    ['Tworzę styl Nowoczesny…','Dark mode, neonowe akcenty, glassmorphism'],
-    ['Tworzę styl Elegancki…','Minimalistyczny, premium, dużo przestrzeni'],
-    ['Optymalizuję HTML…','Schema.org, Open Graph, strukturę SEO'],
-    ['Finalizuję warianty…','Sprawdzam poprawność kodu'],
-    ['Prawie gotowe!','Wczytuję podglądy stron…'],
+    ['Generuję styl '+_styleName+'…','Komponuję layout, kolory, typografię'],
+    ['Tworzę sekcje strony…','Hero, o nas, usługi, galeria, kontakt'],
+    ['Optymalizuję HTML…','Schema.org, Open Graph, meta tagi lokalne'],
+    ['Finalizuję kod…','Sprawdzam poprawność i responsywność'],
+    ['Prawie gotowe!','Za chwilę zobaczysz swoją stronę…'],
   ];
   var _msgIdx=0, _msgEl=document.getElementById('gen-live-msg'), _subEl=document.getElementById('gen-live-sub');
   var _dots=[document.getElementById('gsdot-0'),document.getElementById('gsdot-1'),document.getElementById('gsdot-2')];
@@ -1740,10 +1789,12 @@ async function startGenerate() {
     if(_fillEl){_fillEl.style.transition='width .5s';_fillEl.style.width='100%';}
     if (!data.success) throw new Error(data.error || 'Błąd generowania');
     
-    state.variants = data.variants;
+    state.generatedHTML = data.html;
     state.slug = data.slug;
+    state.selectedStyle = data.style || 'classic';
+    // Nie ma variants — idź od razu do preview
     if(document.getElementById('gen-fullscreen'))document.getElementById('gen-fullscreen').classList.remove('active');
-    openVariantPopup(data.variants);
+    selectVariant(data.style || 'classic');
     
   } catch (err) {
     _clearAllIv();
@@ -1797,8 +1848,7 @@ function showVariantPicker(data) {
 }
 
 function selectVariant(key) {
-  if (!state.variants) return;
-  state.generatedHTML = state.variants[key];
+  // generatedHTML jest już ustawiony przez startGenerate
   state.selectedLayout = key;
   document.querySelectorAll('.step-panel').forEach(function(p){p.classList.remove('active');p.style.display='';});
   var gfs=document.getElementById('gen-fullscreen'); if(gfs)gfs.classList.remove('active');
@@ -2039,6 +2089,20 @@ function skipGate() {
     }
   });
 })();
+
+
+// ─── STYLE SELECTOR ───
+function selectStyle(style, card) {
+  state.selectedStyle = style;
+  document.querySelectorAll('.style-card').forEach(function(c) {
+    c.classList.remove('selected');
+    var badge = c.querySelector('.style-card-badge');
+    if (badge) badge.textContent = 'wybierz';
+  });
+  card.classList.add('selected');
+  var badge = card.querySelector('.style-card-badge');
+  if (badge) badge.textContent = 'WYBRANY';
+}
 
 // ─── WYBÓR PLANU (krok 6) ───────────────────────────
 function selectPlan6(id, name, price) {
@@ -2501,12 +2565,12 @@ function goToActivation() {
 <div id="gen-fullscreen">
   <div class="gen-timer" id="gen-timer-count">0:00</div>
   <div class="gen-timer-label">czas tworzenia Twojej strony</div>
-  <div class="gen-dots">
-    <div class="gen-dot active" id="gsdot-0"></div><span class="gen-dot-label" id="gslabel-0">Klasyczny</span>
-    <div style="width:24px;height:1px;background:rgba(0,229,160,.2);margin:0 4px"></div>
-    <div class="gen-dot" id="gsdot-1"></div><span class="gen-dot-label" id="gslabel-1">Nowoczesny</span>
-    <div style="width:24px;height:1px;background:rgba(0,229,160,.2);margin:0 4px"></div>
-    <div class="gen-dot" id="gsdot-2"></div><span class="gen-dot-label" id="gslabel-2">Elegancki</span>
+  <div class="gen-dots" id="gen-dots-wrap">
+    <div class="gen-dot active" id="gsdot-0"></div>
+    <div style="width:40px;height:2px;background:rgba(0,229,160,.15);border-radius:1px;margin:0 6px"></div>
+    <div class="gen-dot" id="gsdot-1"></div>
+    <div style="width:40px;height:2px;background:rgba(0,229,160,.15);border-radius:1px;margin:0 6px"></div>
+    <div class="gen-dot" id="gsdot-2"></div>
   </div>
   <div class="gen-progress-bar"><div class="gen-progress-fill" id="gen-progress-fill"></div></div>
   <div class="gen-live-msg" id="gen-live-msg">Inicjalizuję generator AI…</div>
