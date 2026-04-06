@@ -189,7 +189,9 @@ WYMAGANIA STRUKTURY HTML:
 1. NAWIGACJA sticky z logo po lewej i linkami do sekcji + przycisk CTA "Zadzwoń: ${tel}"
 2. HERO — duży, pełnoekranowy, z nagłówkiem H1, podtytułem i 2 przyciskami CTA
 3. O NAS — wyróżniki firmy, liczby (${firma.lata ? firma.lata+' lat,' : ''} ${firma.realizacje ? firma.realizacje+' realizacji,' : ''} zadowoleni klienci)
-4. USŁUGI — 5-6 kart z ikonami emoji, tytułami H3 i opisami SPECYFICZNYMI dla branży ${branza}
+4. USŁUGI — ${Array.isArray(firma.uslugi_lista) && firma.uslugi_lista.length > 0
+    ? 'karty usług DOKŁADNIE dla tych usług (po jednej karcie na usługę): ' + firma.uslugi_lista.join(', ')
+    : '5-6 kart z ikonami emoji, tytułami H3 i opisami SPECYFICZNYMI dla branży ' + branza}
 ${uspList.length ? `5. WYRÓŻNIKI/ZALETY — sekcja z ikonami prezentująca: ${uspList.join(' | ')}` : ''}
 ${obszarList.length ? `${uspList.length?'6':'5'}. OBSZAR DZIAŁANIA — sekcja z H2 "Obszar działania" i osobnym opisem dla każdej lokalizacji: ${obszarList.join(', ')} — każda z frazą kluczową "[branża] [lokalizacja]"` : ''}
 ${galeriaHtml ? 'GALERIA — siatka zdjęć realizacji z opisami alt' : ''}

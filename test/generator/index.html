@@ -1098,7 +1098,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
           <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:12px">🌐 Nazwa strony (marka)</div>
           <div class="field" style="margin-bottom:0">
             <label>Nazwa wyświetlana na stronie <span class="req">*</span></label>
-            <input type="text" id="f-nazwa-strony" placeholder="np. Hydraulik Warszawa 24/7 lub Pan Hydraulik"
+            <input type="text" id="f-nazwa-strony" oninput="updateLivePreview()" placeholder="np. Hydraulik Warszawa 24/7 lub Pan Hydraulik"
               style="font-size:16px;font-weight:600">
             <div class="field-hint">Ta nazwa pojawi się w Google, nagłówku i logo. Może być inna niż nazwa firmy.</div>
           </div>
@@ -1132,11 +1132,11 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
         <div class="form-grid cols2">
           <div class="field">
             <label>Lat doświadczenia <span class="opt">opcjonalnie</span></label>
-            <input type="number" id="f-lata" placeholder="np. 10" min="1" max="50">
+            <input type="number" id="f-lata" oninput="updateLivePreview()" placeholder="np. 10" min="1" max="50">
           </div>
           <div class="field">
             <label>Liczba realizacji <span class="opt">opcjonalnie</span></label>
-            <input type="number" id="f-realizacje" placeholder="np. 250" min="1">
+            <input type="number" id="f-realizacje" oninput="updateLivePreview()" placeholder="np. 250" min="1">
           </div>
         </div>
         <!-- ── BLOK 3: DANE FIRMOWE (prawne) ──────────────────── -->
@@ -1173,6 +1173,25 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
           <div class="field-hint">Jeśli zostawisz puste — AI sam napisze opis na podstawie branży i lokalizacji.</div>
         </div>
 
+        <!-- LOGO (przeniesione powyżej layout) -->
+        <div class="field">
+          <label>Logo firmy <span class="opt">opcjonalnie — PNG / JPG</span></label>
+          <div class="logo-upload-area" id="logo-upload-area" onclick="document.getElementById('f-logo').click()">
+            <div id="lua-empty"><div class="lua-icon">🖼️</div><div class="lua-text">Kliknij lub przeciągnij logo</div><div class="lua-hint">PNG lub JPG · maks. 2 MB</div></div>
+            <div id="lua-filled" style="display:none"><img id="lua-preview" class="lua-preview" src="" alt="Logo"><div class="lua-hint" style="color:var(--green)">✓ Logo wczytane — kliknij aby zmienić</div></div>
+            <input type="file" id="f-logo" accept="image/png,image/jpeg,image/webp" onchange="handleLogoUpload(this)" style="display:none">
+          </div>
+        </div>
+
+        <!-- USŁUGI — opcjonalne -->
+        <div class="field">
+          <label>Twoje usługi <span class="opt">opcjonalnie — oddziel przecinkiem</span></label>
+          <input type="text" id="f-uslugi"
+            placeholder="np. Wymiana rur, Usuwanie awarii, Montaż instalacji, Przeglądy"
+            oninput="updateLivePreview()">
+          <div class="field-hint">AI wygeneruje karty usług na ich podstawie. Bez tego — AI dobierze sam dla Twojej branży.</div>
+        </div>
+
         <!-- ── VISUAL LAYOUT — ZDJĘCIA ──────────────────────────────── -->
         <div class="field">
           <label style="margin-bottom:12px;display:block">Zdjęcia strony <span class="opt">kliknij pole lub dodaj z Pexels</span></label>
@@ -1184,7 +1203,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
             <div style="padding:12px">
               <!-- NAV -->
               <div style="display:flex;align-items:center;justify-content:space-between;padding:5px 8px;background:rgba(240,242,247,.06);border-radius:4px;margin-bottom:8px;border:0.5px solid rgba(240,242,247,.1)">
-                <div style="width:40px;height:6px;background:rgba(0,229,160,.5);border-radius:3px"></div>
+                <div id="mock-nazwa" style="width:40px;height:6px;background:rgba(0,229,160,.5);border-radius:3px;overflow:hidden;white-space:nowrap;font-size:7px;color:rgba(0,229,160,.9);display:flex;align-items:center;padding:0 4px;font-family:monospace;font-weight:700"></div>
                 <div style="display:flex;gap:5px"><div style="width:22px;height:4px;background:rgba(240,242,247,.15);border-radius:2px"></div><div style="width:22px;height:4px;background:rgba(240,242,247,.15);border-radius:2px"></div><div style="width:22px;height:4px;background:rgba(240,242,247,.15);border-radius:2px"></div></div>
                 <div style="width:30px;height:6px;background:rgba(0,229,160,.3);border-radius:3px"></div>
               </div>
@@ -1208,16 +1227,19 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
                 <div style="font-size:8px;color:rgba(136,146,170,.4);font-family:monospace;margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em">// O nas</div>
                 <div style="display:flex;gap:8px;align-items:center">
                   <div style="flex:1"><div style="height:5px;background:rgba(240,242,247,.12);border-radius:2px;margin-bottom:3px;width:75%"></div><div style="height:3px;background:rgba(240,242,247,.07);border-radius:2px;margin-bottom:2px"></div><div style="height:3px;background:rgba(240,242,247,.07);border-radius:2px;width:85%"></div></div>
-                  <div style="display:flex;gap:8px;flex-shrink:0"><div style="text-align:center"><div style="font-size:13px;font-weight:700;color:rgba(0,229,160,.7)">10+</div><div style="height:3px;background:rgba(240,242,247,.08);border-radius:1px;width:24px;margin-top:2px"></div></div><div style="text-align:center"><div style="font-size:13px;font-weight:700;color:rgba(0,229,160,.7)">250</div><div style="height:3px;background:rgba(240,242,247,.08);border-radius:1px;width:24px;margin-top:2px"></div></div></div>
+                  <div style="display:flex;gap:8px;flex-shrink:0">
+                    <div style="text-align:center"><div id="mock-lata" style="font-size:11px;font-weight:700;color:rgba(0,229,160,.7);min-width:24px">10+</div><div style="height:3px;background:rgba(240,242,247,.08);border-radius:1px;width:24px;margin-top:2px"></div></div>
+                    <div style="text-align:center"><div id="mock-real" style="font-size:11px;font-weight:700;color:rgba(0,229,160,.7);min-width:28px">250</div><div style="height:3px;background:rgba(240,242,247,.08);border-radius:1px;width:28px;margin-top:2px"></div></div>
+                  </div>
                 </div>
               </div>
               <!-- USŁUGI -->
               <div style="background:rgba(240,242,247,.03);border-radius:6px;padding:8px;margin-bottom:7px;border:0.5px solid rgba(240,242,247,.08)">
                 <div style="font-size:8px;color:rgba(136,146,170,.4);font-family:monospace;margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em">// Usługi</div>
-                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px">
-                  <div style="background:rgba(240,242,247,.05);border-radius:4px;padding:5px;border-left:2px solid rgba(0,229,160,.4)"><div style="font-size:11px;margin-bottom:3px">🔧</div><div style="height:4px;background:rgba(240,242,247,.15);border-radius:1px;margin-bottom:2px"></div><div style="height:3px;background:rgba(240,242,247,.07);border-radius:1px"></div></div>
-                  <div style="background:rgba(240,242,247,.05);border-radius:4px;padding:5px;border-left:2px solid rgba(0,229,160,.4)"><div style="font-size:11px;margin-bottom:3px">⚡</div><div style="height:4px;background:rgba(240,242,247,.15);border-radius:1px;margin-bottom:2px"></div><div style="height:3px;background:rgba(240,242,247,.07);border-radius:1px"></div></div>
-                  <div style="background:rgba(240,242,247,.05);border-radius:4px;padding:5px;border-left:2px solid rgba(0,229,160,.4)"><div style="font-size:11px;margin-bottom:3px">🏠</div><div style="height:4px;background:rgba(240,242,247,.15);border-radius:1px;margin-bottom:2px"></div><div style="height:3px;background:rgba(240,242,247,.07);border-radius:1px"></div></div>
+                <div id="mock-uslugi-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px">
+                  <div style="background:rgba(240,242,247,.05);border-radius:4px;padding:5px;border-left:2px solid rgba(0,229,160,.4)"><div style="font-size:9px;font-weight:600;color:rgba(240,242,247,.7);margin-bottom:2px" id="mock-s1">Usługa 1</div><div style="height:3px;background:rgba(240,242,247,.07);border-radius:1px"></div></div>
+                  <div style="background:rgba(240,242,247,.05);border-radius:4px;padding:5px;border-left:2px solid rgba(0,229,160,.4)"><div style="font-size:9px;font-weight:600;color:rgba(240,242,247,.7);margin-bottom:2px" id="mock-s2">Usługa 2</div><div style="height:3px;background:rgba(240,242,247,.07);border-radius:1px"></div></div>
+                  <div style="background:rgba(240,242,247,.05);border-radius:4px;padding:5px;border-left:2px solid rgba(0,229,160,.4)"><div style="font-size:9px;font-weight:600;color:rgba(240,242,247,.7);margin-bottom:2px" id="mock-s3">Usługa 3</div><div style="height:3px;background:rgba(240,242,247,.07);border-radius:1px"></div></div>
                 </div>
               </div>
               <!-- GALERIA — 2 zdjęcia content -->
@@ -1261,15 +1283,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
           <div style="font-size:11px;color:var(--muted);margin-top:4px">💡 Kliknij pole = plik z dysku · przycisk Pexels = wyszukiwarka zdjęć</div>
         </div>
 
-        <!-- LOGO (zachowane) -->
-        <div class="field">
-          <label>Logo firmy <span class="opt">opcjonalnie — PNG / JPG</span></label>
-          <div class="logo-upload-area" id="logo-upload-area" onclick="document.getElementById('f-logo').click()">
-            <div id="lua-empty"><div class="lua-icon">🖼️</div><div class="lua-text">Kliknij lub przeciągnij logo</div><div class="lua-hint">PNG lub JPG · maks. 2 MB</div></div>
-            <div id="lua-filled" style="display:none"><img id="lua-preview" class="lua-preview" src="" alt="Logo"><div class="lua-hint" style="color:var(--green)">✓ Logo wczytane — kliknij aby zmienić</div></div>
-            <input type="file" id="f-logo" accept="image/png,image/jpeg,image/webp" onchange="handleLogoUpload(this)" style="display:none">
-          </div>
-        </div>
+
       </div>
 
       <div class="nav-btns">
@@ -1917,6 +1931,7 @@ function collectFirmaData() {
     nip:          _gv('f-nip'),
     adres_firma:  _gv('f-adres-firma'),
     nazwa:        _gv('f-nazwa-strony') || _gv('f-nazwa'),
+    uslugi_lista: _gv('f-uslugi').split(',').map(function(s){return s.trim();}).filter(Boolean),
     branza:       state.branza,
     miasto:       document.getElementById('f-miasto').value.trim(),
     dzielnica:    document.getElementById('f-dzielnica').value.trim(),
@@ -3387,6 +3402,59 @@ var _origSetStep = setStep;
 setStep = function(n) {
   _origSetStep(n);
   if (n === 2) setTimeout(prefillFirmaFromProfile, 50);
+};
+// ─────────────────────────────────────────────────────────────────
+</script>
+<script>
+// ─── LIVE PREVIEW MOCKUP ─────────────────────────────────────────
+function updateLivePreview() {
+  var nazwa    = (document.getElementById('f-nazwa-strony') || {}).value || '';
+  var lata     = (document.getElementById('f-lata')         || {}).value || '';
+  var real     = (document.getElementById('f-realizacje')    || {}).value || '';
+  var uslugiRaw= (document.getElementById('f-uslugi')        || {}).value || '';
+
+  // Nav — nazwa firmy
+  var mockNazwa = document.getElementById('mock-nazwa');
+  if (mockNazwa) {
+    if (nazwa) {
+      mockNazwa.textContent = nazwa;
+      mockNazwa.style.width = 'auto';
+      mockNazwa.style.maxWidth = '80px';
+      mockNazwa.style.fontSize = '6px';
+    } else {
+      mockNazwa.textContent = '';
+      mockNazwa.style.width = '40px';
+    }
+  }
+
+  // O nas — lata i realizacje
+  var mockLata = document.getElementById('mock-lata');
+  var mockReal = document.getElementById('mock-real');
+  if (mockLata) mockLata.textContent = lata ? lata + '+' : '10+';
+  if (mockReal) mockReal.textContent = real ? real : '250';
+
+  // Usługi — karty
+  var uslugi = uslugiRaw.split(',').map(function(s){ return s.trim(); }).filter(Boolean);
+  var slots = [
+    document.getElementById('mock-s1'),
+    document.getElementById('mock-s2'),
+    document.getElementById('mock-s3'),
+  ];
+  var defaults = ['Usługa 1', 'Usługa 2', 'Usługa 3'];
+  slots.forEach(function(el, i) {
+    if (!el) return;
+    var txt = uslugi[i] || defaults[i];
+    el.textContent = txt;
+    // Highlight jeśli wpisane przez użytkownika
+    el.style.color = uslugi[i] ? 'rgba(0,229,160,.9)' : 'rgba(240,242,247,.5)';
+  });
+}
+
+// Uruchom przy wejściu na krok 2
+var _origSetStepForPreview = setStep;
+setStep = function(n) {
+  _origSetStepForPreview(n);
+  if (n === 2) setTimeout(updateLivePreview, 80);
 };
 // ─────────────────────────────────────────────────────────────────
 </script>
