@@ -816,6 +816,29 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
   #pexels-grid{column-count:2 !important}
 }
 /* ─────────────────────────────────────────── */
+
+/* ── TYP KONTA ───────────────────────────── */
+.account-type-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.account-type-card{
+  background:rgba(240,242,247,.03);border:2px solid rgba(240,242,247,.1);
+  border-radius:14px;padding:20px 16px;cursor:pointer;text-align:center;
+  transition:all .18s;user-select:none;
+}
+.account-type-card:hover{background:rgba(240,242,247,.06);border-color:rgba(240,242,247,.25)}
+.account-type-card.selected{background:rgba(0,229,160,.07);border-color:var(--green)}
+.account-type-icon{font-size:32px;margin-bottom:10px}
+.account-type-name{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px}
+.account-type-desc{font-size:12px;color:var(--muted);line-height:1.5}
+.account-type-card.selected .account-type-name{color:var(--green)}
+/* Pola firmowe w rejestracji */
+#reg-firma-fields{
+  background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.15);
+  border-radius:12px;padding:16px 18px;margin-bottom:20px;
+  animation:fadeIn .2s ease;
+}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+/* ─────────────────────────────────────────── */
+
 </style>
 </head>
 <body>
@@ -914,10 +937,47 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
       <div class="sp-header" style="text-align:center">
         <div class="sp-eyebrow">// Krok 1 z 7</div>
         <h1 class="sp-title">Utwórz darmowe<br><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">konto webgen</span></h1>
-        <p class="sp-sub">Wpisz email — Twoja strona będzie przypisana do tego konta. Pierwsze 3 miesiące gratis.</p>
+        <p class="sp-sub">Pierwsze 3 miesiące gratis. Wybierz typ konta.</p>
       </div>
 
       <div style="text-align:left">
+
+      <!-- TYP KONTA -->
+      <div class="account-type-grid">
+        <div class="account-type-card" id="type-individual" onclick="selectAccountType('individual')">
+          <div class="account-type-icon">👤</div>
+          <div class="account-type-name">Klient indywidualny</div>
+          <div class="account-type-desc">Działalność nierejestrowana, freelancer, osoba prywatna</div>
+        </div>
+        <div class="account-type-card" id="type-firma" onclick="selectAccountType('firma')">
+          <div class="account-type-icon">🏢</div>
+          <div class="account-type-name">Klient firmowy</div>
+          <div class="account-type-desc">Jednoosobowa działalność, spółka, firma z NIP</div>
+        </div>
+      </div>
+
+      <!-- POLA FIRMOWE (widoczne tylko dla firm) -->
+      <div id="reg-firma-fields" style="display:none">
+        <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:12px">Dane rejestrowe firmy</div>
+        <div class="form-group" style="margin-bottom:14px">
+          <label class="form-label" for="g-nazwa-firma">Pełna nazwa firmy</label>
+          <input type="text" id="g-nazwa-firma" placeholder="np. AiO Oskar Sapożnikow" autocomplete="organization">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:0">
+          <div class="form-group" style="margin-bottom:0">
+            <label class="form-label" for="g-nip">NIP</label>
+            <input type="text" id="g-nip" placeholder="np. 1544878899" maxlength="13">
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label class="form-label" for="g-adres-firma">Adres rejestrowy</label>
+            <input type="text" id="g-adres-firma" placeholder="ul. Błotna 3/48, Warszawa">
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5">
+          💡 Dane trafią do stopki strony i profilu konta. Możesz uzupełnić później w ustawieniach.
+        </div>
+      </div>
+
       <div class="form-group">
         <label class="form-label" for="g-email">Adres email</label>
         <input type="email" id="g-email" placeholder="twoj@email.pl" autocomplete="email"
@@ -3222,5 +3282,113 @@ var wgDebug = (function() {
 // ── END WG DEBUG PANEL ──────────────────────────────────────────
 </script>
 
+<script>
+// ─── TYP KONTA ────────────────────────────────────────────────────
+var _accountType = 'individual';
+
+function selectAccountType(type) {
+  _accountType = type;
+  document.getElementById('type-individual').classList.toggle('selected', type === 'individual');
+  document.getElementById('type-firma').classList.toggle('selected', type === 'firma');
+  var firmaFields = document.getElementById('reg-firma-fields');
+  if (firmaFields) firmaFields.style.display = type === 'firma' ? 'block' : 'none';
+  validateGate();
+}
+
+// Patch submitGate — zapisz typ konta i dane firmowe
+var _origSubmitGate = submitGate;
+submitGate = function() {
+  var emailEl = document.getElementById('g-email');
+  var nameEl  = document.getElementById('g-name');
+  var rodoEl  = document.getElementById('g-rodo');
+  if (!emailEl || !rodoEl) return;
+  var email = emailEl.value.trim();
+  var name  = nameEl ? nameEl.value.trim() : '';
+  var rodo  = rodoEl.checked;
+  if (!rodo || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return;
+
+  // Dane profilu firmowego
+  var profileFirma = null;
+  if (_accountType === 'firma') {
+    var nf  = (document.getElementById('g-nazwa-firma') || {}).value || '';
+    var nip = (document.getElementById('g-nip')         || {}).value || '';
+    var af  = (document.getElementById('g-adres-firma') || {}).value || '';
+    if (nf || nip || af) profileFirma = { nazwa_firma: nf, nip: nip, adres_firma: af };
+  }
+
+  // Zapisz do localStorage z typem konta
+  var userData = {
+    email: email, name: name,
+    accountType: _accountType,
+    created: new Date().toISOString(),
+    plan: 'free_trial', activated: false
+  };
+  if (profileFirma) userData.profileFirma = profileFirma;
+  localStorage.setItem('wg_user', JSON.stringify(userData));
+  state.email = email;
+  state.accountType = _accountType;
+
+  var btn = document.getElementById('g-gate-btn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Wysyłam email…'; }
+
+  fetch('/api/register', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ email: email, name: name, accountType: _accountType, rodo: true,
+      profileFirma: profileFirma })
+  }).then(function(r){ return r.json(); }).then(function(){
+    showGateSuccess(email);
+  }).catch(function(){
+    showGateSuccess(email);
+  });
+};
+
+// ─── AUTO-FILL DANYCH FIRMOWYCH W KROKU 2 ────────────────────────
+function prefillFirmaFromProfile() {
+  try {
+    var u = JSON.parse(localStorage.getItem('wg_user') || '{}');
+    if (u.accountType !== 'firma' || !u.profileFirma) return;
+    var pf = u.profileFirma;
+    // Wypełnij i zablokuj pola firmowe
+    var fields = [
+      ['f-nazwa-firma', pf.nazwa_firma],
+      ['f-nip',         pf.nip],
+      ['f-adres-firma', pf.adres_firma],
+    ];
+    fields.forEach(function(pair) {
+      var el = document.getElementById(pair[0]);
+      if (el && pair[1]) {
+        el.value = pair[1];
+        el.readOnly = true;
+        el.style.cssText += ';opacity:.7;cursor:default;background:rgba(0,229,160,.04)';
+      }
+    });
+    // Pokaż informację że dane z profilu
+    var details = document.querySelector('details');
+    if (details) {
+      details.open = true;
+      var summary = details.querySelector('summary');
+      if (summary) {
+        summary.innerHTML = summary.innerHTML
+          + '<span style="margin-left:8px;font-family:var(--mono);font-size:10px;color:var(--green)">✓ z profilu</span>';
+      }
+      // Dodaj link do zmiany
+      var hint = document.createElement('div');
+      hint.style.cssText = 'margin-top:10px;font-size:12px;color:var(--muted)';
+      hint.innerHTML = '✓ Dane pobrane z profilu konta. '
+        + '<a href="/test/dashboard/" style="color:var(--green);text-decoration:none">Zmień w ustawieniach →</a>';
+      details.appendChild(hint);
+    }
+  } catch(e) {}
+}
+
+// Wywołaj po załadowaniu kroku 2
+var _origSetStep = setStep;
+setStep = function(n) {
+  _origSetStep(n);
+  if (n === 2) setTimeout(prefillFirmaFromProfile, 50);
+};
+// ─────────────────────────────────────────────────────────────────
+</script>
 </body>
 </html>

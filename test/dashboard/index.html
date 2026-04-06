@@ -363,23 +363,70 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
     <div class="page" id="page-account">
       <div class="section-header">
         <h1>Ustawienia konta</h1>
-        <p>Email i hasło</p>
+        <p>Dane logowania i profil firmowy</p>
       </div>
-      <div class="card" style="max-width:480px">
+
+      <!-- Typ konta + email -->
+      <div class="card" style="max-width:560px;margin-bottom:20px">
         <div class="card-title">Dane konta</div>
-        <div class="firma-field" style="margin-bottom:12px">
-          <div class="firma-label">Email</div>
-          <div class="firma-val" id="account-email">…</div>
-        </div>
-        <div class="firma-field" style="margin-bottom:20px">
-          <div class="firma-label">Konto utworzone</div>
-          <div class="firma-val" id="account-created">…</div>
+        <div style="display:flex;gap:12px;margin-bottom:16px">
+          <div class="firma-field" style="flex:1">
+            <div class="firma-label">Email</div>
+            <div class="firma-val" id="account-email">…</div>
+          </div>
+          <div class="firma-field" style="flex:1">
+            <div class="firma-label">Typ konta</div>
+            <div class="firma-val" id="account-type">…</div>
+          </div>
+          <div class="firma-field" style="flex:1">
+            <div class="firma-label">Konto od</div>
+            <div class="firma-val" id="account-created">…</div>
+          </div>
         </div>
         <a href="mailto:hello@webgen.pl?subject=Zmiana danych konta" class="btn btn-outline"
           style="font-size:13px;padding:10px 20px">
-          Zmień hasło / dane → email do nas
+          Zmień hasło → email do nas
         </a>
       </div>
+
+      <!-- Profil firmy (widoczny tylko dla klientów firmowych) -->
+      <div class="card" style="max-width:560px" id="profile-firma-card">
+        <div class="card-title">Profil firmy</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.55">
+          Dane rejestrowe automatycznie trafiają do stopki każdej wygenerowanej strony i Schema.org.
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px" id="profile-firma-form">
+          <div>
+            <div class="firma-label" style="margin-bottom:6px">Pełna nazwa firmy</div>
+            <input type="text" id="pf-nazwa" placeholder="np. AiO Oskar Sapożnikow"
+              style="width:100%;background:var(--s2);border:1.5px solid var(--border2);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--text);font-family:var(--head);outline:none;transition:border-color .2s"
+              onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border2)'">
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div>
+              <div class="firma-label" style="margin-bottom:6px">NIP</div>
+              <input type="text" id="pf-nip" placeholder="np. 1544878899" maxlength="13"
+                style="width:100%;background:var(--s2);border:1.5px solid var(--border2);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--text);font-family:var(--head);outline:none;transition:border-color .2s"
+                onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border2)'">
+            </div>
+            <div>
+              <div class="firma-label" style="margin-bottom:6px">Adres rejestrowy</div>
+              <input type="text" id="pf-adres" placeholder="ul. Błotna 3/48, 00-001 Warszawa"
+                style="width:100%;background:var(--s2);border:1.5px solid var(--border2);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--text);font-family:var(--head);outline:none;transition:border-color .2s"
+                onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border2)'">
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <button onclick="saveProfileFirma()"
+              style="background:var(--green);color:#080A0F;border:none;padding:10px 24px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--head);transition:background .2s"
+              onmouseover="this.style.background='#00C98A'" onmouseout="this.style.background='var(--green)'">
+              Zapisz dane firmy
+            </button>
+            <span id="pf-save-status" style="font-size:13px;color:var(--green);display:none">✓ Zapisano</span>
+          </div>
+        </div>
+      </div>
+
     </div>
 
 
@@ -888,6 +935,62 @@ showPage = function(page) {
 // Init badge
 window.addEventListener('DOMContentLoaded', function() {
   setTimeout(updateBadge, 100);
+});
+// ─────────────────────────────────────────────────────────────────
+
+
+// ── PROFIL FIRMOWY ───────────────────────────────────────────────
+function renderAccountPage() {
+  try {
+    var u = JSON.parse(localStorage.getItem('wg_user') || '{}');
+    var typeEl = document.getElementById('account-type');
+    var card   = document.getElementById('profile-firma-card');
+    var typeLabel = u.accountType === 'firma' ? '🏢 Klient firmowy' : '👤 Klient indywidualny';
+    if (typeEl) typeEl.textContent = typeLabel;
+
+    // Pokaż/ukryj kartę profilu firmowego
+    if (card) card.style.display = u.accountType === 'firma' ? 'block' : 'none';
+
+    // Wypełnij pola profilu
+    if (u.profileFirma) {
+      var pf = u.profileFirma;
+      var pfNazwa = document.getElementById('pf-nazwa');
+      var pfNip   = document.getElementById('pf-nip');
+      var pfAdres = document.getElementById('pf-adres');
+      if (pfNazwa) pfNazwa.value = pf.nazwa_firma || '';
+      if (pfNip)   pfNip.value   = pf.nip         || '';
+      if (pfAdres) pfAdres.value = pf.adres_firma  || '';
+    }
+  } catch(e) {}
+}
+
+function saveProfileFirma() {
+  try {
+    var u = JSON.parse(localStorage.getItem('wg_user') || '{}');
+    u.profileFirma = {
+      nazwa_firma: (document.getElementById('pf-nazwa') || {}).value || '',
+      nip:         (document.getElementById('pf-nip')   || {}).value || '',
+      adres_firma: (document.getElementById('pf-adres') || {}).value || '',
+    };
+    localStorage.setItem('wg_user', JSON.stringify(u));
+    var status = document.getElementById('pf-save-status');
+    if (status) {
+      status.style.display = 'inline';
+      setTimeout(function(){ status.style.display = 'none'; }, 2500);
+    }
+  } catch(e) { alert('Błąd zapisu'); }
+}
+
+// Patch showPage — załaduj profil przy wejściu na account
+var _dashOrigShowPage = showPage;
+showPage = function(page) {
+  _dashOrigShowPage(page);
+  if (page === 'account') setTimeout(renderAccountPage, 50);
+};
+
+// Init
+window.addEventListener('DOMContentLoaded', function() {
+  setTimeout(renderAccountPage, 200);
 });
 // ─────────────────────────────────────────────────────────────────
 
