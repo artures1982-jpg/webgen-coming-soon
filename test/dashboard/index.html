@@ -177,6 +177,65 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
   .plan-dates{grid-template-columns:1fr}
   .firma-grid{grid-template-columns:1fr}
 }
+
+/* ── WIADOMOŚCI ─────────────────────────────── */
+.nav-msg-btn {
+  position:relative;display:flex;align-items:center;justify-content:center;
+  width:38px;height:38px;border-radius:9px;cursor:pointer;
+  color:var(--muted);transition:all .18s;text-decoration:none;font-size:18px;
+  border:1px solid transparent;
+}
+.nav-msg-btn:hover{background:rgba(240,242,247,.07);border-color:var(--border2);color:var(--text)}
+.nav-badge{
+  position:absolute;top:4px;right:4px;
+  background:#F87171;color:#fff;
+  font-size:10px;font-weight:700;font-family:var(--mono);
+  min-width:16px;height:16px;border-radius:8px;
+  display:none;align-items:center;justify-content:center;
+  padding:0 4px;line-height:1;border:2px solid var(--bg);
+}
+.nav-badge.visible{display:flex}
+/* Wiadomości — lista */
+.msg-list{display:flex;flex-direction:column;gap:12px}
+.msg-card{
+  background:var(--s2);border:1.5px solid var(--border2);
+  border-radius:12px;padding:20px 22px;position:relative;transition:border-color .2s;
+}
+.msg-card.unread{border-color:rgba(0,229,160,.3);background:rgba(0,229,160,.03)}
+.msg-card.unread::before{
+  content:'';position:absolute;top:20px;left:-1px;
+  width:3px;height:calc(100% - 40px);background:var(--green);border-radius:0 2px 2px 0;
+}
+.msg-type{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--green);margin-bottom:6px}
+.msg-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px}
+.msg-sub{font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.55}
+.msg-date{font-size:11px;color:rgba(136,146,170,.5);font-family:var(--mono);position:absolute;top:20px;right:20px}
+/* Questionnaire form */
+.q-form{display:flex;flex-direction:column;gap:10px}
+.q-field{display:flex;flex-direction:column;gap:5px}
+.q-label{font-size:12px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:6px}
+.q-label .q-icon{font-size:14px}
+.q-input{
+  background:rgba(240,242,247,.05);border:1.5px solid rgba(240,242,247,.1);
+  border-radius:8px;padding:10px 13px;font-size:13px;color:var(--text);
+  font-family:var(--head);outline:none;transition:border-color .2s;width:100%;
+}
+.q-input:focus{border-color:var(--green)}
+.q-input::placeholder{color:rgba(136,146,170,.4)}
+.q-submit{
+  margin-top:6px;background:var(--green);color:#080A0F;border:none;
+  padding:11px 24px;border-radius:9px;font-size:14px;font-weight:700;
+  cursor:pointer;font-family:var(--head);transition:background .2s;align-self:flex-start;
+}
+.q-submit:hover{background:#00C98A}
+.msg-done{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.25);
+  color:var(--green);padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;
+}
+/* ─────────────────────────────────────────── */
+
 </style>
 
 <!-- Auth check -->
@@ -203,6 +262,10 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
     <div class="nav-logo-name">web<span>gen</span></div>
   </a>
   <div class="nav-spacer"></div>
+  <a class="nav-msg-btn" onclick="showPage('messages');return false;" href="#" title="Wiadomości" id="nav-msg-btn">
+    💬
+    <span class="nav-badge" id="nav-badge"></span>
+  </a>
   <div class="nav-user" onclick="toggleUserMenu()">
     <div class="nav-avatar" id="nav-avatar">?</div>
     <span class="nav-email" id="nav-email">ładuję…</span>
@@ -227,6 +290,10 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
     </a>
     <a class="nav-item" data-page="account" onclick="showPage('account')">
       <span class="ni-icon">⚙️</span> Ustawienia konta
+    </a>
+    <a class="nav-item" data-page="messages" onclick="showPage('messages')">
+      <span class="ni-icon">💬</span> Wiadomości
+      <span id="sidebar-badge" style="display:none;margin-left:auto;background:#F87171;color:#fff;font-size:10px;font-weight:700;font-family:var(--mono);padding:2px 6px;border-radius:10px"></span>
     </a>
     <div class="sidebar-label" style="margin-top:auto">Pomoc</div>
     <a class="nav-item" href="mailto:hello@webgen.pl">
@@ -312,6 +379,22 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
           style="font-size:13px;padding:10px 20px">
           Zmień hasło / dane → email do nas
         </a>
+      </div>
+    </div>
+
+
+    <!-- ══ WIADOMOŚCI ══ -->
+    <div class="page" id="page-messages">
+      <div class="section-header">
+        <h1>Wiadomości <span id="msg-unread-label" style="font-size:16px;font-weight:500;color:var(--muted)"></span></h1>
+        <p>Pytania i uzupełnienia dotyczące Twojej strony</p>
+      </div>
+      <div class="msg-list" id="msg-list">
+        <div style="text-align:center;padding:60px 20px;color:var(--muted)">
+          <div style="font-size:40px;margin-bottom:12px">💬</div>
+          <div style="font-size:15px;font-weight:600;margin-bottom:6px">Brak wiadomości</div>
+          <div style="font-size:13px">Gdy wygenerujesz stronę, pojawią się tu pytania o uzupełnienie.</div>
+        </div>
       </div>
     </div>
 
@@ -654,6 +737,160 @@ function downloadGeneratedHTML() {
   a.download = (generated.slug || 'strona') + '.html';
   a.click();
 }
+
+// ── WIADOMOŚCI (localStorage) ─────────────────────────────────────
+var WG_MESSAGES_KEY = 'wg_messages';
+
+function getMessages() {
+  try { return JSON.parse(localStorage.getItem(WG_MESSAGES_KEY) || '[]'); } catch(e) { return []; }
+}
+
+function saveMessages(msgs) {
+  localStorage.setItem(WG_MESSAGES_KEY, JSON.stringify(msgs));
+}
+
+function countUnread() {
+  return getMessages().filter(function(m){ return !m.read; }).length;
+}
+
+function updateBadge() {
+  var n = countUnread();
+  var badge = document.getElementById('nav-badge');
+  var sbadge = document.getElementById('sidebar-badge');
+  if (badge) {
+    badge.textContent = n > 9 ? '9+' : String(n);
+    badge.classList.toggle('visible', n > 0);
+  }
+  if (sbadge) {
+    sbadge.textContent = n > 9 ? '9+' : String(n);
+    sbadge.style.display = n > 0 ? 'inline-block' : 'none';
+  }
+}
+
+function renderMessages() {
+  var list = document.getElementById('msg-list');
+  var label = document.getElementById('msg-unread-label');
+  if (!list) return;
+  var msgs = getMessages();
+  var unread = msgs.filter(function(m){ return !m.read; }).length;
+  if (label) label.textContent = unread > 0 ? '(' + unread + ' nowych)' : '';
+
+  if (!msgs.length) {
+    list.innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--muted)">'
+      + '<div style="font-size:40px;margin-bottom:12px">💬</div>'
+      + '<div style="font-size:15px;font-weight:600;margin-bottom:6px">Brak wiadomości</div>'
+      + '<div style="font-size:13px">Gdy wygenerujesz stronę, pojawią się tu pytania o uzupełnienie.</div>'
+      + '</div>';
+    return;
+  }
+
+  list.innerHTML = msgs.slice().reverse().map(function(msg, idx) {
+    var realIdx = msgs.length - 1 - idx;
+    var dateStr = msg.date ? new Date(msg.date).toLocaleDateString('pl-PL', {day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
+    var isUnread = !msg.read;
+
+    if (msg.type === 'questionnaire') {
+      var answered = msg.answered;
+      var firmaNazwa = (msg.firma && msg.firma.nazwa) || 'Twoja firma';
+      var firmaBranza = (msg.firma && msg.firma.branza) || '';
+      var firmaCity = (msg.firma && msg.firma.miasto) || '';
+
+      var qFields = [
+        { key: 'adres',     icon: '📍', label: 'Adres siedziby', placeholder: 'ul. Przykładowa 12, 00-001 Warszawa', val: msg.answers && msg.answers.adres },
+        { key: 'godz',      icon: '🕐', label: 'Godziny otwarcia', placeholder: 'Pon–Pt 8:00–18:00, Sob 9:00–14:00', val: msg.answers && msg.answers.godz },
+        { key: 'lata',      icon: '📅', label: 'Lata działalności', placeholder: 'np. 12', val: msg.answers && msg.answers.lata },
+        { key: 'realizacje',icon: '🏆', label: 'Liczba realizacji', placeholder: 'np. 350', val: msg.answers && msg.answers.realizacje },
+        { key: 'certyfikaty',icon:'🎓', label: 'Certyfikaty / uprawnienia', placeholder: 'np. SEP, ISO 9001, Mistrz w zawodzie', val: msg.answers && msg.answers.certyfikaty },
+        { key: 'social',    icon: '📱', label: 'Instagram / Facebook', placeholder: 'np. @firma.warszawa', val: msg.answers && msg.answers.social },
+        { key: 'ocena',     icon: '⭐', label: 'Ocena Google (gwiazdki + opinie)', placeholder: 'np. 4.9 / 87 opinii', val: msg.answers && msg.answers.ocena },
+      ].filter(function(f) { return !msg.firma || !msg.firma[f.key]; }); // pokaż tylko brakujące
+
+      var bodyHtml = answered
+        ? '<div class="msg-done">✓ Odpowiedź wysłana — zaktualizujemy stronę w ciągu 24h</div>'
+        : '<form class="q-form" onsubmit="submitQuestionnaire(event,' + realIdx + ')">'
+          + qFields.map(function(f) {
+              return '<div class="q-field">'
+                + '<label class="q-label"><span class="q-icon">' + f.icon + '</span>' + f.label + '</label>'
+                + '<input class="q-input" type="text" name="' + f.key + '" placeholder="' + f.placeholder + '" value="' + (f.val||'') + '">'
+                + '</div>';
+            }).join('')
+          + '<button class="q-submit" type="submit">Wyślij uzupełnienie →</button>'
+          + '</form>';
+
+      return '<div class="msg-card ' + (isUnread ? 'unread' : '') + '" id="msg-' + realIdx + '">'
+        + '<div class="msg-date">' + dateStr + '</div>'
+        + '<div class="msg-type">Uzupełnienie strony</div>'
+        + '<div class="msg-title">Uzupełnij dane dla <strong>' + firmaNazwa + '</strong></div>'
+        + '<div class="msg-sub">Twoja strona ' + firmaBranza + ' w ' + firmaCity + ' jest gotowa. Podaj brakujące szczegóły, żebyśmy mogli ją w pełni zoptymalizować.</div>'
+        + bodyHtml
+        + '</div>';
+    }
+
+    // Generyczny typ wiadomości
+    return '<div class="msg-card ' + (isUnread ? 'unread' : '') + '" id="msg-' + realIdx + '">'
+      + '<div class="msg-date">' + dateStr + '</div>'
+      + '<div class="msg-type">Wiadomość</div>'
+      + '<div class="msg-title">' + (msg.title || 'Wiadomość od webgen') + '</div>'
+      + '<div class="msg-sub">' + (msg.body || '') + '</div>'
+      + '</div>';
+  }).join('');
+
+  // Oznacz jako przeczytane po renderowaniu
+  setTimeout(function() {
+    var msgs2 = getMessages();
+    msgs2.forEach(function(m){ m.read = true; });
+    saveMessages(msgs2);
+    updateBadge();
+  }, 800);
+}
+
+function submitQuestionnaire(event, msgIdx) {
+  event.preventDefault();
+  var form = event.target;
+  var data = {};
+  Array.from(form.elements).forEach(function(el) {
+    if (el.name) data[el.name] = el.value.trim();
+  });
+
+  var msgs = getMessages();
+  if (msgs[msgIdx]) {
+    msgs[msgIdx].answered = true;
+    msgs[msgIdx].answers  = data;
+    msgs[msgIdx].read     = true;
+    saveMessages(msgs);
+  }
+
+  // Wyślij do webgen
+  var userEmail = userData.email || '';
+  var firmaNazwa = (msgs[msgIdx] && msgs[msgIdx].firma && msgs[msgIdx].firma.nazwa) || 'klient';
+  fetch('/api/notify-client', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({
+      email: 'hello@webgen.pl',
+      firma: Object.assign({}, (msgs[msgIdx] && msgs[msgIdx].firma) || {}, data),
+      slug: (msgs[msgIdx] && msgs[msgIdx].slug) || '',
+      type: 'questionnaire_answer',
+      clientEmail: userEmail
+    })
+  }).catch(function(){});
+
+  renderMessages();
+}
+
+// ── Patch showPage: renderuj wiadomości gdy otwarto stronę ─────────
+var _origShowPage = typeof showPage === 'function' ? showPage : null;
+showPage = function(page) {
+  if (_origShowPage) _origShowPage(page);
+  if (page === 'messages') renderMessages();
+};
+
+// Init badge
+window.addEventListener('DOMContentLoaded', function() {
+  setTimeout(updateBadge, 100);
+});
+// ─────────────────────────────────────────────────────────────────
+
 </script>
 </body>
 </html>

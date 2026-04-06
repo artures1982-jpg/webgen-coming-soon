@@ -36,40 +36,39 @@ export default async function handler(req) {
          <p style="margin:16px 0;font-size:14px;color:#555">Odpowiedz na tego emaila z brakującymi informacjami — zaktualizujemy stronę bezpłatnie w ciągu 24h.</p>`
       : `<p style="color:#555;margin:16px 0">Twoja strona jest kompletna — nie potrzebujemy żadnych dodatkowych danych.</p>`;
 
+    const { hasMissing } = body;
     const html = `<!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"></head>
-<body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:600px;margin:0 auto;padding:24px;color:#1a1a1a">
-  <div style="background:#080A0F;border-radius:12px;padding:28px 32px;margin-bottom:24px;text-align:center">
-    <div style="font-size:28px;font-weight:800;color:#00E5A0;letter-spacing:-.02em">webgen</div>
-    <div style="font-size:12px;color:rgba(240,242,247,.4);margin-top:4px;font-family:monospace;letter-spacing:.1em">AI WEBSITE GENERATOR</div>
+<body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:580px;margin:0 auto;padding:24px;color:#1a1a1a">
+  <div style="background:#080A0F;border-radius:12px;padding:24px 32px;margin-bottom:24px;text-align:center">
+    <div style="font-size:26px;font-weight:800;color:#00E5A0;letter-spacing:-.02em">webgen</div>
+    <div style="font-size:11px;color:rgba(240,242,247,.4);margin-top:4px;font-family:monospace;letter-spacing:.1em">AI WEBSITE GENERATOR</div>
   </div>
 
-  <h2 style="font-size:22px;font-weight:700;margin:0 0 8px">🎉 Twoja strona jest gotowa!</h2>
-  <p style="color:#555;margin:0 0 20px">Wygenerowaliśmy 3 warianty strony dla <strong>${nazwa}</strong> (${branza}, ${miasto}).</p>
+  <h2 style="font-size:20px;font-weight:700;margin:0 0 8px">🎉 Twoja strona jest gotowa, ${nazwa}!</h2>
+  <p style="color:#555;margin:0 0 20px;line-height:1.6">Wygenerowaliśmy 3 warianty strony dla branży <strong>${branza}</strong> w <strong>${miasto}</strong>.</p>
 
-  <div style="background:#f5f5f5;border-radius:8px;padding:16px 20px;margin-bottom:20px">
-    <div style="font-size:12px;color:#888;margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em;font-weight:600">Podgląd strony</div>
-    <a href="${preview}" style="color:#0066cc;font-size:16px;font-weight:600;text-decoration:none">${preview} →</a>
+  ${hasMissing ? `
+  <div style="background:#fffbea;border:1px solid #fbbf24;border-radius:10px;padding:16px 20px;margin-bottom:20px">
+    <div style="font-size:13px;font-weight:700;color:#92400e;margin-bottom:6px">💬 Masz nową wiadomość w panelu klienta</div>
+    <div style="font-size:13px;color:#78350f;line-height:1.6">Przygotowaliśmy kilka pytań, które pomogą nam w pełni zoptymalizować Twoją stronę. Odpowiedź zajmie 2 minuty.</div>
   </div>
-
-  ${missingHtml}
-
-  <div style="background:#f0fff8;border:1px solid #00c98a;border-radius:8px;padding:16px 20px;margin-top:20px">
-    <div style="font-size:13px;color:#006644;font-weight:600;margin-bottom:6px">Co dalej?</div>
-    <div style="font-size:13px;color:#00553a;line-height:1.7">
-      ✅ Strona jest gotowa i dostępna pod adresem podglądu<br>
-      ✅ Aktywujemy ją na Twojej domenie w ciągu 24h od wyboru planu<br>
-      ✅ Odpowiedz na tego emaila jeśli chcesz coś zmienić
-    </div>
+  <a href="https://webgen.pl/test/dashboard/" style="display:block;text-align:center;background:#00E5A0;color:#080A0F;text-decoration:none;padding:14px;border-radius:10px;font-size:15px;font-weight:700;margin-bottom:10px">Otwórz panel klienta →</a>
+  ` : `
+  <div style="background:#f0fff8;border:1px solid #00c98a;border-radius:10px;padding:16px 20px;margin-bottom:20px">
+    <div style="font-size:13px;font-weight:700;color:#065f46;margin-bottom:6px">✅ Strona jest kompletna</div>
+    <div style="font-size:13px;color:#047857;line-height:1.6">Twoja strona jest gotowa do aktywacji. Wybierz plan w panelu klienta.</div>
   </div>
+  <a href="https://webgen.pl/test/dashboard/" style="display:block;text-align:center;background:#00E5A0;color:#080A0F;text-decoration:none;padding:14px;border-radius:10px;font-size:15px;font-weight:700;margin-bottom:10px">Panel klienta →</a>
+  `}
 
   <p style="margin:24px 0 0;font-size:12px;color:#aaa;text-align:center">
     webgen.pl · Twoja strona AI w 5 minut<br>
     <a href="https://webgen.pl" style="color:#aaa">webgen.pl</a>
   </p>
 </body>
-</html>`;
+</html>\`;
 
     const r = await fetch('https://api.resend.com/emails', {
       method: 'POST',

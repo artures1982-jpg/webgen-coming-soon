@@ -1908,15 +1908,41 @@ async function startGenerate() {
         if (_fillEl) { _fillEl.style.transition='width .4s'; _fillEl.style.width='100%'; }
         if (_gfs) _gfs.classList.remove('active');
         openVariantPopup(state.variants);
-        // Wyslij email do klienta z informacja o gotowej stronie i brakujacych danych
+        // Zapisz questionnaire jako wiadomość w localStorage (dashboard)
         try {
           var _userEmail = '';
           try { var _u=JSON.parse(localStorage.getItem('wg_user')||'{}'); _userEmail=_u.email||''; } catch(e){}
+          // Sprawdź brakujące dane
+          var _missing = [];
+          if (!firma.adres)       _missing.push('adres');
+          if (!firma.godz_pon_pt) _missing.push('godz');
+          if (!firma.lata)        _missing.push('lata');
+          if (!firma.realizacje)  _missing.push('realizacje');
+          if (!firma.certyfikaty) _missing.push('certyfikaty');
+          if (!firma.instagram && !firma.facebook) _missing.push('social');
+          if (!firma.google_ocena) _missing.push('ocena');
+          if (_missing.length > 0) {
+            // Dodaj wiadomość do dashboardu
+            var _msgs = [];
+            try { _msgs = JSON.parse(localStorage.getItem('wg_messages') || '[]'); } catch(e) {}
+            _msgs.push({
+              id: Date.now(),
+              type: 'questionnaire',
+              date: new Date().toISOString(),
+              read: false,
+              answered: false,
+              firma: firma,
+              slug: state.slug,
+              missing: _missing
+            });
+            localStorage.setItem('wg_messages', JSON.stringify(_msgs));
+          }
+          // Wyślij informacyjny email
           if (_userEmail) {
             fetch('/api/notify-client', {
               method:'POST',
               headers:{'Content-Type':'application/json'},
-              body: JSON.stringify({ email: _userEmail, firma: firma, slug: state.slug })
+              body: JSON.stringify({ email: _userEmail, firma: firma, slug: state.slug, hasMissing: _missing.length > 0 })
             }).catch(function(){});
           }
         } catch(e){}
