@@ -173,6 +173,12 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
   body.wg-logged-in .wg-nav-user{ display:flex!important }
 }
 /* ─────────────────────────────────────────── */
+
+.wg-nav-msg{position:relative;display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;cursor:pointer;color:var(--muted,#8892AA);transition:all .18s;text-decoration:none;font-size:17px;border:1px solid transparent;flex-shrink:0}
+.wg-nav-msg:hover{background:rgba(240,242,247,.08);border-color:rgba(240,242,247,.15);color:var(--text,#F0F2F7)}
+.wg-nav-msg-badge{position:absolute;top:3px;right:3px;background:#F87171;color:#fff;font-size:9px;font-weight:700;min-width:15px;height:15px;border-radius:8px;display:none;align-items:center;justify-content:center;padding:0 3px;line-height:1;border:1.5px solid #080A0F}
+.wg-nav-msg-badge.show{display:flex}
+
 </style>
 </head>
 <body>
@@ -394,6 +400,24 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
         '<div class="wg-nav-avatar">' + initials + '</div>' +
         '<span class="wg-nav-user-email">' + shortEmail + '</span>';
       navRight.insertBefore(userEl, navRight.firstChild);
+
+        // Ikonka wiadomości z badge
+        if (navRight && !navRight.querySelector('.wg-nav-msg')) {
+          var _msgBtn = document.createElement('a');
+          _msgBtn.className = 'wg-nav-msg';
+          _msgBtn.href  = '/test/dashboard/';
+          _msgBtn.title = 'Wiadomości';
+          _msgBtn.innerHTML = '\u{1F4AC}<span class="wg-nav-msg-badge" id="wg-nav-msg-badge"></span>';
+          navRight.insertBefore(_msgBtn, userEl);
+          try {
+            var _msgs = JSON.parse(localStorage.getItem('wg_messages') || '[]');
+            var _unread = _msgs.filter(function(m){ return !m.read; }).length;
+            if (_unread > 0) {
+              var _b = _msgBtn.querySelector('.wg-nav-msg-badge');
+              if (_b) { _b.textContent = _unread > 9 ? '9+' : String(_unread); _b.classList.add('show'); }
+            }
+          } catch(e){}
+        }
     }
 
     var drawer = document.getElementById('wg-drawer');
