@@ -1028,30 +1028,36 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
     <div class="step-panel" id="panel-2">
       <div class="sp-header">
         <div class="sp-eyebrow">// Krok 2 z 6</div>
-        <h1 class="sp-title">Dane kontaktowe<br>firmy</h1>
-        <p class="sp-sub">Te informacje trafią na stronę i do Google.</p>
+        <h1 class="sp-title">Dane strony<br>i kontakt</h1>
+        <p class="sp-sub">Nazwę strony zobaczą klienci w Google. Dane firmowe trafią do stopki i faktur.</p>
       </div>
 
       <div class="form-grid">
-        <div class="form-grid cols2">
-          <div class="field">
-            <label>Nazwa firmy <span class="req">*</span></label>
-            <input type="text" id="f-nazwa" placeholder="np. Remonty Kowalski">
+        <!-- ── BLOK 1: NAZWA STRONY (marka) ──────────────────── -->
+        <div style="background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.15);border-radius:12px;padding:18px 20px;margin-bottom:4px">
+          <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:12px">🌐 Nazwa strony (marka)</div>
+          <div class="field" style="margin-bottom:0">
+            <label>Nazwa wyświetlana na stronie <span class="req">*</span></label>
+            <input type="text" id="f-nazwa-strony" placeholder="np. Hydraulik Warszawa 24/7 lub Pan Hydraulik"
+              style="font-size:16px;font-weight:600">
+            <div class="field-hint">Ta nazwa pojawi się w Google, nagłówku i logo. Może być inna niż nazwa firmy.</div>
           </div>
+        </div>
+
+        <!-- ── BLOK 2: DANE KONTAKTOWE ──────────────────────────── -->
+        <div class="form-grid cols2">
           <div class="field">
             <label>Telefon <span class="req">*</span></label>
             <input type="tel" id="f-telefon" placeholder="np. 600 100 200">
           </div>
-        </div>
-        <div class="form-grid cols2">
           <div class="field">
-            <label>Email <span class="req">*</span></label>
+            <label>Email kontaktowy <span class="req">*</span></label>
             <input type="email" id="f-email" placeholder="kontakt@firma.pl">
           </div>
-          <div class="field">
-            <label>Adres <span class="opt">opcjonalnie</span></label>
-            <input type="text" id="f-adres" placeholder="np. ul. Puławska 10">
-          </div>
+        </div>
+        <div class="field">
+          <label>Adres <span class="opt">opcjonalnie</span></label>
+          <input type="text" id="f-adres" placeholder="np. ul. Puławska 10, Warszawa">
         </div>
         <div class="form-grid cols2">
           <div class="field">
@@ -1073,8 +1079,36 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
             <input type="number" id="f-realizacje" placeholder="np. 250" min="1">
           </div>
         </div>
+        <!-- ── BLOK 3: DANE FIRMOWE (prawne) ──────────────────── -->
+        <details style="margin-bottom:4px">
+          <summary style="cursor:pointer;user-select:none;padding:14px 18px;background:rgba(240,242,247,.03);border:1px solid rgba(240,242,247,.1);border-radius:10px;font-size:13px;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:8px;list-style:none">
+            <span style="font-size:15px">🏢</span>
+            Dane firmowe — pełna nazwa, NIP, adres rejestrowy
+            <span style="margin-left:auto;font-size:11px;font-family:var(--mono);color:rgba(136,146,170,.5)">opcjonalnie</span>
+          </summary>
+          <div style="padding:16px 18px 4px;border:1px solid rgba(240,242,247,.1);border-top:none;border-radius:0 0 10px 10px;background:rgba(240,242,247,.02)">
+            <div style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.55;padding:10px 12px;background:rgba(0,229,160,.04);border-radius:7px;border-left:3px solid rgba(0,229,160,.3)">
+              💡 Te dane trafiają wyłącznie do <strong style="color:var(--text)">stopki strony i danych Schema.org</strong> (legalName). Klienci B2B często sprawdzają NIP przed zamówieniem.
+            </div>
+            <div class="form-grid cols2" style="margin-bottom:12px">
+              <div class="field">
+                <label>Pełna nazwa firmy <span class="opt">stopka</span></label>
+                <input type="text" id="f-nazwa-firma" placeholder="np. AiO Oskar Sapożnikow">
+              </div>
+              <div class="field">
+                <label>NIP <span class="opt">stopka</span></label>
+                <input type="text" id="f-nip" placeholder="np. 1544878899">
+              </div>
+            </div>
+            <div class="field" style="margin-bottom:12px">
+              <label>Adres rejestrowy <span class="opt">stopka</span></label>
+              <input type="text" id="f-adres-firma" placeholder="np. ul. Błotna 3/48, 00-001 Warszawa">
+            </div>
+          </div>
+        </details>
+
         <div class="field">
-          <label>Krótki opis firmy <span class="opt">opcjonalnie — AI uzupełni</span></label>
+          <label>Krótki opis działalności <span class="opt">opcjonalnie — AI uzupełni</span></label>
           <textarea id="f-opis" placeholder="np. Jesteśmy ekipą remontową z Mokotowa..."></textarea>
           <div class="field-hint">Jeśli zostawisz puste — AI sam napisze opis na podstawie branży i lokalizacji.</div>
         </div>
@@ -1816,8 +1850,13 @@ function selectPlan(card, id, name, price) {
 
 // ─── COLLECT FORM DATA ───
 function collectFirmaData() {
+  var _gv = function(id){ var el=document.getElementById(id); return el ? el.value.trim() : ''; };
   return {
-    nazwa:        document.getElementById('f-nazwa').value.trim(),
+    nazwa_strony: _gv('f-nazwa-strony') || _gv('f-nazwa'),
+    nazwa_firma:  _gv('f-nazwa-firma'),
+    nip:          _gv('f-nip'),
+    adres_firma:  _gv('f-adres-firma'),
+    nazwa:        _gv('f-nazwa-strony') || _gv('f-nazwa'),
     branza:       state.branza,
     miasto:       document.getElementById('f-miasto').value.trim(),
     dzielnica:    document.getElementById('f-dzielnica').value.trim(),

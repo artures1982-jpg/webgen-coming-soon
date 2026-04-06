@@ -82,7 +82,11 @@ export default async function handler(req) {
 
     // Dane firmy
     const lok    = [firma.dzielnica, firma.miasto].filter(Boolean).join(', ') || 'Polska';
-    const nazwa  = firma.nazwa || firma.branza || 'Firma';
+    const nazwaStrony = firma.nazwa_strony || firma.nazwa || firma.branza || 'Firma';
+    const nazwaFirma  = firma.nazwa_firma || '';
+    const nip         = firma.nip || '';
+    const adresFirma  = firma.adres_firma || '';
+    const nazwa       = nazwaStrony;
     const tel    = firma.telefon || '';
     const email  = firma.email  || '';
     const branza = firma.branza || 'usługi';
@@ -103,10 +107,16 @@ export default async function handler(req) {
       ? `<a href="https://wa.me/48${firma.whatsapp}" style="position:fixed;bottom:24px;right:24px;background:#25D366;color:#fff;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;text-decoration:none;box-shadow:0 4px 24px rgba(0,0,0,.35);z-index:9999" aria-label="WhatsApp">💬</a>`
       : '';
 
+    // Stopka prawna (tylko jeśli podano dane firmowe)
+    const stopkaPrawna = nazwaFirma
+      ? (nazwaFirma + (nip ? ' · NIP ' + nip : '') + (adresFirma ? ' · ' + adresFirma : ''))
+      : '';
+
     const schema = JSON.stringify({
       "@context":"https://schema.org","@type":"LocalBusiness",
-      "name":nazwa,"telephone":tel,"email":email,
-      "description":`${nazwa} — ${branza} w ${lok}`,
+      "name":nazwaStrony,"telephone":tel,"email":email,
+      ...(nazwaFirma ? {"legalName": nazwaFirma} : {}),
+      "description":`${nazwaStrony} — ${branza} w ${lok}`,
       "address":{"@type":"PostalAddress","addressLocality":firma.miasto||lok,"addressCountry":"PL"},
       ...(firma.google_ocena ? {"aggregateRating":{"@type":"AggregateRating","ratingValue":firma.google_ocena,"reviewCount":firma.google_opinie||10}} : {})
     });
@@ -143,6 +153,9 @@ ${firma.adres         ? `Adres:              ${firma.adres}` : ''}
 ${firma.google_ocena  ? `Ocena Google:       ${firma.google_ocena}/5 (${firma.google_opinie} opinii)` : ''}
 ${firma.facebook      ? `Facebook:           ${firma.facebook}` : ''}
 ${firma.instagram     ? `Instagram:          ${firma.instagram}` : ''}
+${nazwaFirma          ? `Pełna nazwa firmy:  ${nazwaFirma}` : ''}
+${nip                 ? `NIP:                ${nip}` : ''}
+${adresFirma          ? `Adres rejestrowy:   ${adresFirma}` : ''}
 ${uspList.length      ? `Wyróżniki USP:      ${uspList.join(' | ')}` : `Wyróżniki USP: wygeneruj 4-5 konkretnych dla branży ${branza} (np. Gwarancja, Dojazd gratis, Bezpłatna wycena, Szybka realizacja, Certyfikowany wykonawca)`}
 ${firma.certyfikaty   ? `Certyfikaty:        ${firma.certyfikaty}` : ''}
 ${firma.platnosci     ? `Metody płatności:   ${firma.platnosci}` : ''}
@@ -194,7 +207,9 @@ ZASADY TECHNICZNE i SEO:
 - Treści 100% realne, specyficzne dla ${branza} w ${lok} — ZERO lorem ipsum
 - Duży, widoczny przycisk "Zadzwoń: ${tel}" z href="tel:${tel}"
 - Smooth scroll między sekcjami
-- H1 tylko jeden — z nazwą firmy i branżą i lokalizacją
+- H1 tylko jeden — z NAZWĄ STRONY ("${nazwaStrony}") i branżą i lokalizacją, NIE z nazwą prawną firmy
+- <title> używa nazwy strony: "${nazwaStrony} — ${branza} ${lok}"
+${stopkaPrawna ? `- STOPKA: wstaw dane rejestrowe: ${stopkaPrawna}` : '- STOPKA: brak danych rejestrowych — pomiń'}
 - H2 dla każdej sekcji z naturalnym słowem kluczowym
 - Wstaw WSZYSTKIE meta tagi z sekcji META TAGI SEO do <head>
 - <title> w formacie: "${nazwa} — ${branza} ${lok} | tel. ${tel}"
