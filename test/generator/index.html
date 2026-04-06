@@ -839,6 +839,32 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
 @keyframes fadeIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 /* ─────────────────────────────────────────── */
 
+
+/* ── BRANŻA DROPDOWN ─────────────────────────────── */
+.branza-select-wrap{position:relative;margin-bottom:20px}
+.branza-select{
+  width:100%;background:rgba(240,242,247,.05);
+  border:1.5px solid rgba(240,242,247,.12);border-radius:12px;
+  padding:14px 44px 14px 16px;font-size:15px;font-weight:600;
+  color:var(--text);font-family:var(--head);outline:none;
+  cursor:pointer;appearance:none;-webkit-appearance:none;
+  transition:border-color .2s,background .2s;
+}
+.branza-select:focus{border-color:var(--green);background:rgba(0,229,160,.04)}
+.branza-select option{background:#131720;color:#F0F2F7;font-weight:400}
+.branza-select optgroup{background:#0D1117;color:#8892AA;font-size:11px;font-weight:700;letter-spacing:.08em}
+.branza-select-arrow{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  pointer-events:none;color:var(--muted);font-size:14px;
+}
+.branza-selected-badge{
+  display:none;margin-top:8px;padding:8px 14px;
+  background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);
+  border-radius:8px;font-size:13px;color:var(--green);font-weight:600;
+}
+.branza-selected-badge.visible{display:block}
+/* ────────────────────────────────────────────────── */
+
 </style>
 </head>
 <body>
@@ -1020,52 +1046,163 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
         <p class="sp-sub">Wybierz branżę — AI dobierze odpowiednie kolory, fonty i treści.</p>
       </div>
 
-      <div class="branza-grid" id="branza-grid">
-        <button class="branza-btn" onclick="selectBranza(this,'Remonty i wykończenia')">
-          <span class="branza-icon">🔨</span>
-          <span class="branza-name">Remonty</span>
-          <span class="branza-desc">Wykończenia, budowlanka</span>
-        </button>
-        <button class="branza-btn" onclick="selectBranza(this,'Hydraulika')">
-          <span class="branza-icon">🔧</span>
-          <span class="branza-name">Hydraulika</span>
-          <span class="branza-desc">Instalacje wod-kan</span>
-        </button>
-        <button class="branza-btn" onclick="selectBranza(this,'Elektryka')">
-          <span class="branza-icon">⚡</span>
-          <span class="branza-name">Elektryka</span>
-          <span class="branza-desc">Instalacje elektryczne</span>
-        </button>
-        <button class="branza-btn" onclick="selectBranza(this,'Salon piękności')">
-          <span class="branza-icon">✂️</span>
-          <span class="branza-name">Salon piękności</span>
-          <span class="branza-desc">Fryzjer, kosmetyczka</span>
-        </button>
-        <button class="branza-btn" onclick="selectBranza(this,'Sprzątanie')">
-          <span class="branza-icon">🧹</span>
-          <span class="branza-name">Sprzątanie</span>
-          <span class="branza-desc">Domy, biura, obiekty</span>
-        </button>
-        <button class="branza-btn" onclick="selectBranza(this,'Ogrodnictwo')">
-          <span class="branza-icon">🌿</span>
-          <span class="branza-name">Ogrodnik</span>
-          <span class="branza-desc">Pielęgnacja zieleni</span>
-        </button>
-        <button class="branza-btn" onclick="selectBranza(this,'Malowanie')">
-          <span class="branza-icon">🖌️</span>
-          <span class="branza-name">Malowanie</span>
-          <span class="branza-desc">Malarz, tynkarz</span>
-        </button>
-        <button class="branza-btn" onclick="selectBranza(this,'Gastronomia')">
-          <span class="branza-icon">🍕</span>
-          <span class="branza-name">Gastronomia</span>
-          <span class="branza-desc">Restauracja, kawiarnia</span>
-        </button>
-        <button class="branza-btn" onclick="selectBranza(this,'Inna')">
-          <span class="branza-icon">⚙️</span>
-          <span class="branza-name">Inna branża</span>
-          <span class="branza-desc">Dowolna usługa</span>
-        </button>
+      <div class="branza-select-wrap">
+        <select class="branza-select" id="branza-select" onchange="selectBranzaFromDropdown(this)">
+          <option value="" disabled selected>— Wybierz branżę —</option>
+
+          <optgroup label="🏠 Usługi lokalne">
+            <optgroup label="  Budownictwo i remonty">
+              <option value="Firma budowlana">Firma budowlana</option>
+              <option value="Wykończenia wnętrz">Wykończenia wnętrz</option>
+              <option value="Dekarz">Dekarz</option>
+              <option value="Glazurnik / Posadzkarz">Glazurnik / Posadzkarz</option>
+              <option value="Malarz / Tynkarz">Malarz / Tynkarz</option>
+              <option value="Stolarz / Cieśla">Stolarz / Cieśla</option>
+            </optgroup>
+            <optgroup label="  Instalacje i technika">
+              <option value="Hydraulik">Hydraulik</option>
+              <option value="Elektryk">Elektryk</option>
+              <option value="Klimatyzacja / HVAC">Klimatyzacja / HVAC</option>
+              <option value="Fotowoltaika">Fotowoltaika</option>
+              <option value="Monitoring / Alarmy">Monitoring / Alarmy</option>
+            </optgroup>
+            <optgroup label="  Motoryzacja">
+              <option value="Mechanik samochodowy">Mechanik samochodowy</option>
+              <option value="Blacharz / Lakiernik">Blacharz / Lakiernik</option>
+              <option value="Wulkanizacja">Wulkanizacja</option>
+              <option value="Auto detailing">Auto detailing</option>
+              <option value="Wynajem aut">Wynajem aut</option>
+            </optgroup>
+            <optgroup label="  Usługi domowe">
+              <option value="Sprzątanie">Sprzątanie</option>
+              <option value="Przeprowadzki">Przeprowadzki</option>
+              <option value="Ogrodnik / Pielęgnacja zieleni">Ogrodnik / Pielęgnacja zieleni</option>
+              <option value="Dezynfekcja / Deratyzacja">Dezynfekcja / Deratyzacja</option>
+              <option value="Opieka nad dziećmi / seniorami">Opieka nad dziećmi / seniorami</option>
+            </optgroup>
+          </optgroup>
+
+          <optgroup label="🧑‍⚕️ Zdrowie i uroda">
+            <optgroup label="  Medycyna">
+              <option value="Gabinet lekarski">Gabinet lekarski</option>
+              <option value="Klinika prywatna">Klinika prywatna</option>
+              <option value="Stomatologia">Stomatologia</option>
+              <option value="Fizjoterapia / Rehabilitacja">Fizjoterapia / Rehabilitacja</option>
+              <option value="Weterynarz">Weterynarz</option>
+            </optgroup>
+            <optgroup label="  Psychologia i rozwój">
+              <option value="Psycholog / Terapeuta">Psycholog / Terapeuta</option>
+              <option value="Coach / Mentor">Coach / Mentor</option>
+            </optgroup>
+            <optgroup label="  Uroda">
+              <option value="Kosmetyczka / Salon kosmetyczny">Kosmetyczka / Salon kosmetyczny</option>
+              <option value="Fryzjer / Barber">Fryzjer / Barber</option>
+              <option value="Medycyna estetyczna">Medycyna estetyczna</option>
+              <option value="Spa / Masaże">Spa / Masaże</option>
+              <option value="Salon paznokci">Salon paznokci</option>
+            </optgroup>
+          </optgroup>
+
+          <optgroup label="⚖️ Usługi profesjonalne">
+            <optgroup label="  Prawo i finanse">
+              <option value="Kancelaria prawna">Kancelaria prawna</option>
+              <option value="Biuro rachunkowe / Księgowość">Biuro rachunkowe / Księgowość</option>
+              <option value="Doradca podatkowy">Doradca podatkowy</option>
+              <option value="Ubezpieczenia">Ubezpieczenia</option>
+              <option value="Doradca finansowy">Doradca finansowy</option>
+            </optgroup>
+            <optgroup label="  Biznes i consulting">
+              <option value="Konsultant biznesowy">Konsultant biznesowy</option>
+              <option value="HR / Rekrutacja">HR / Rekrutacja</option>
+              <option value="Agencja marketingowa">Agencja marketingowa</option>
+              <option value="Tłumaczenia">Tłumaczenia</option>
+            </optgroup>
+          </optgroup>
+
+          <optgroup label="🍽️ Gastronomia i hospitality">
+            <optgroup label="  Gastronomia">
+              <option value="Restauracja">Restauracja</option>
+              <option value="Kawiarnia / Cukiernia">Kawiarnia / Cukiernia</option>
+              <option value="Catering">Catering</option>
+              <option value="Food truck">Food truck</option>
+              <option value="Bar / Pub">Bar / Pub</option>
+            </optgroup>
+            <optgroup label="  Noclegi">
+              <option value="Hotel / Pensjonat">Hotel / Pensjonat</option>
+              <option value="Apartamenty / Airbnb">Apartamenty / Airbnb</option>
+              <option value="Domki letniskowe / Agroturystyka">Domki letniskowe / Agroturystyka</option>
+            </optgroup>
+            <optgroup label="  Turystyka">
+              <option value="Biuro podróży">Biuro podróży</option>
+              <option value="Przewodnik turystyczny">Przewodnik turystyczny</option>
+              <option value="Atrakcja turystyczna">Atrakcja turystyczna</option>
+            </optgroup>
+          </optgroup>
+
+          <optgroup label="🎓 Edukacja i szkolenia">
+            <option value="Szkoła / Przedszkole">Szkoła / Przedszkole</option>
+            <option value="Szkoła językowa">Szkoła językowa</option>
+            <option value="Korepetycje">Korepetycje</option>
+            <option value="Kursy zawodowe / Szkolenia">Kursy zawodowe / Szkolenia</option>
+            <option value="Kurs online / E-learning">Kurs online / E-learning</option>
+            <option value="Trener / Instruktor">Trener / Instruktor</option>
+          </optgroup>
+
+          <optgroup label="🏢 Przemysł i B2B">
+            <optgroup label="  Produkcja">
+              <option value="Firma produkcyjna / Zakład">Firma produkcyjna / Zakład</option>
+              <option value="Obróbka materiałów (metal, drewno, kamień)">Obróbka materiałów</option>
+            </optgroup>
+            <optgroup label="  Logistyka">
+              <option value="Transport / Spedycja">Transport / Spedycja</option>
+              <option value="Magazynowanie / Logistyka">Magazynowanie / Logistyka</option>
+            </optgroup>
+            <optgroup label="  Technologie">
+              <option value="Software house / IT">Software house / IT</option>
+              <option value="IT Services / Serwis komputerowy">Serwis komputerowy / IT</option>
+            </optgroup>
+          </optgroup>
+
+          <optgroup label="🎨 Kreatywne i media">
+            <option value="Fotograf">Fotograf</option>
+            <option value="Grafik / Projektant">Grafik / Projektant</option>
+            <option value="Filmowiec / Videograf">Filmowiec / Videograf</option>
+            <option value="Agencja brandingowa / PR">Agencja brandingowa / PR</option>
+            <option value="Studio nagrań / Muzyk">Studio nagrań / Muzyk</option>
+          </optgroup>
+
+          <optgroup label="🏠 Nieruchomości">
+            <option value="Agencja nieruchomości">Agencja nieruchomości</option>
+            <option value="Deweloper">Deweloper</option>
+            <option value="Wynajem / Zarządzanie najmem">Wynajem / Zarządzanie najmem</option>
+          </optgroup>
+
+          <optgroup label="🧘 Lifestyle i wellness">
+            <option value="Trener personalny / Siłownia">Trener personalny / Siłownia</option>
+            <option value="Joga / Pilates">Joga / Pilates</option>
+            <option value="Dietetyk / Dieta i żywienie">Dietetyk / Żywienie</option>
+            <option value="Rozwój osobisty / Coaching">Rozwój osobisty / Coaching</option>
+          </optgroup>
+
+          <optgroup label="🏛️ Organizacje i instytucje">
+            <option value="NGO / Fundacja">NGO / Fundacja</option>
+            <option value="Kościół / Wspólnota">Kościół / Wspólnota</option>
+            <option value="Instytucja publiczna">Instytucja publiczna</option>
+          </optgroup>
+
+          <optgroup label="🎮 Rozrywka i eventy">
+            <option value="Organizator eventów / Wesela">Organizator eventów / Wesela</option>
+            <option value="DJ / Artysta / Muzyk">DJ / Artysta / Muzyk</option>
+            <option value="Escape room / Atrakcja">Escape room / Atrakcja</option>
+            <option value="Klub nocny / Lokal">Klub nocny / Lokal</option>
+          </optgroup>
+
+          <optgroup label="➕ Inne">
+            <option value="Inna branża">Inna branża</option>
+          </optgroup>
+        </select>
+        <div class="branza-select-arrow">▾</div>
+        <div class="branza-selected-badge" id="branza-badge"></div>
       </div>
 
       <div class="form-grid cols2" style="margin-top:28px">
@@ -3456,6 +3593,28 @@ setStep = function(n) {
   _origSetStepForPreview(n);
   if (n === 2) setTimeout(updateLivePreview, 80);
 };
+// ─────────────────────────────────────────────────────────────────
+</script>
+<script>
+// ─── DROPDOWN BRANŻ ───────────────────────────────────────────────
+function selectBranzaFromDropdown(select) {
+  var val = select.value;
+  if (!val) return;
+  state.branza = val;
+  // Badge pod dropdownem
+  var badge = document.getElementById('branza-badge');
+  if (badge) {
+    badge.textContent = '✓ Wybrano: ' + val;
+    badge.classList.add('visible');
+  }
+  // Placeholder dla usług w live preview
+  updateLivePreview();
+}
+
+// Zachowaj stary selectBranza jako alias (używany gdzie indziej)
+function selectBranza(btn, val) {
+  state.branza = val;
+}
 // ─────────────────────────────────────────────────────────────────
 </script>
 </body>
