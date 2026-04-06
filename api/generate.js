@@ -143,11 +143,11 @@ ${firma.adres         ? `Adres:              ${firma.adres}` : ''}
 ${firma.google_ocena  ? `Ocena Google:       ${firma.google_ocena}/5 (${firma.google_opinie} opinii)` : ''}
 ${firma.facebook      ? `Facebook:           ${firma.facebook}` : ''}
 ${firma.instagram     ? `Instagram:          ${firma.instagram}` : ''}
-${uspList.length      ? `Wyróżniki USP:      ${uspList.join(' | ')}` : ''}
+${uspList.length      ? `Wyróżniki USP:      ${uspList.join(' | ')}` : `Wyróżniki USP: wygeneruj 4-5 konkretnych dla branży ${branza} (np. Gwarancja, Dojazd gratis, Bezpłatna wycena, Szybka realizacja, Certyfikowany wykonawca)`}
 ${firma.certyfikaty   ? `Certyfikaty:        ${firma.certyfikaty}` : ''}
 ${firma.platnosci     ? `Metody płatności:   ${firma.platnosci}` : ''}
 ${firma.keywords      ? `Słowa kluczowe SEO: ${firma.keywords}` : ''}
-${obszarList.length   ? `Obszary działania:  ${obszarList.join(', ')}` : ''}
+${obszarList.length   ? `Obszary działania:  ${obszarList.join(', ')}` : `Obszary działania: głównie ${lok} i okolice — wygeneruj sekcję z opisem zasięgu`}
 
 ═══════════════════════════════════════
 ZASOBY DO WSTAWIENIA:
@@ -182,7 +182,7 @@ ${obszarList.length ? `${uspList.length?'6':'5'}. OBSZAR DZIAŁANIA — sekcja z
 ${galeriaHtml ? 'GALERIA — siatka zdjęć realizacji z opisami alt' : ''}
 ${faqList.length ? `FAQ — sekcja z pytaniami i odpowiedziami:
 ${faqList.map((f,i) => `  ${i+1}. P: ${f.q}
-     O: ${f.a}`).join('\n')}` : ''}
+     O: ${f.a}`).join('\n')}` : `FAQ: wygeneruj 4-5 pytań i odpowiedzi specyficznych dla ${branza} w ${lok}`}
 KONTAKT — adres, telefon ${tel}, email ${email}, godziny + Google Maps iframe dla ${lok}
 FOOTER — prawa autorskie, linki, ${firma.platnosci ? 'metody płatności: '+firma.platnosci+',' : ''} kontakt
 

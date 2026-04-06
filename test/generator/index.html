@@ -1059,60 +1059,6 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
           <div class="field-hint">Jeśli zostawisz puste — AI sam napisze opis na podstawie branży i lokalizacji.</div>
         </div>
 
-        <!-- ── SEO FIELDS ──────────────────────────────────────────── -->
-        <div class="field">
-          <label>Wyróżniki firmy <span class="opt">SEO · co Cię odróżnia od konkurencji?</span></label>
-          <div id="usp-tags" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px"></div>
-          <div style="display:flex;gap:8px">
-            <input type="text" id="usp-input" placeholder="np. Gwarancja 2 lata, Dojazd gratis..."
-              style="flex:1" onkeydown="if(event.key==='Enter'||event.key===','){event.preventDefault();addUspTag();}">
-            <button type="button" onclick="addUspTag()"
-              style="background:var(--green);color:#080A0F;border:none;padding:10px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--head);white-space:nowrap">+ Dodaj</button>
-          </div>
-          <div class="field-hint">Enter lub przecinek = dodaj. Trafia do nagłówków — kluczowe dla SEO.</div>
-        </div>
-
-        <div class="field">
-          <label>Obszar działania <span class="opt">SEO · dzielnice / miasta obsługiwane</span></label>
-          <input type="text" id="f-obszar" placeholder="np. Mokotów, Ursynów, Wilanów, Wola">
-          <div class="field-hint">AI wygeneruje osobne sekcje per obszar — lokalne SEO.</div>
-        </div>
-
-        <div class="field">
-          <label>Certyfikaty i uprawnienia <span class="opt">SEO</span></label>
-          <input type="text" id="f-certyfikaty" placeholder="np. Uprawnienia SEP, Certyfikat ISO 9001...">
-        </div>
-
-        <div class="field">
-          <label>Metody płatności <span class="opt">SEO · konwersja</span></label>
-          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:4px">
-            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400"><input type="checkbox" id="pay-gotowka" value="Gotówka" onchange="updatePay()" style="accent-color:var(--green)"> Gotówka</label>
-            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400"><input type="checkbox" id="pay-przelew" value="Przelew" onchange="updatePay()" style="accent-color:var(--green)"> Przelew</label>
-            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400"><input type="checkbox" id="pay-karta" value="Karta" onchange="updatePay()" style="accent-color:var(--green)"> Karta</label>
-            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400"><input type="checkbox" id="pay-blik" value="BLIK" onchange="updatePay()" style="accent-color:var(--green)"> BLIK</label>
-            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400"><input type="checkbox" id="pay-faktury" value="Faktury VAT" onchange="updatePay()" style="accent-color:var(--green)"> Faktury VAT</label>
-            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400"><input type="checkbox" id="pay-raty" value="Raty 0%" onchange="updatePay()" style="accent-color:var(--green)"> Raty 0%</label>
-          </div>
-          <input type="hidden" id="f-platnosci" value="">
-        </div>
-
-        <div class="field">
-          <label>FAQ <span class="opt">SEO · Schema FAQPage — Google Featured Snippets</span></label>
-          <div id="faq-list"></div>
-          <button type="button" onclick="addFaq()"
-            style="background:transparent;border:1.5px dashed rgba(240,242,247,.2);color:var(--muted);padding:10px;border-radius:8px;font-size:13px;cursor:pointer;font-family:var(--head);width:100%;transition:all .18s"
-            onmouseover="this.style.borderColor='rgba(0,229,160,.4)';this.style.color='var(--green)'"
-            onmouseout="this.style.borderColor='rgba(240,242,247,.2)';this.style.color='var(--muted)'">+ Dodaj pytanie FAQ</button>
-          <div class="field-hint">Schema FAQPage → Google wyświetla odpowiedzi bezpośrednio w SERP.</div>
-        </div>
-
-        <div class="field">
-          <label>Dodatkowe słowa kluczowe <span class="opt">SEO</span></label>
-          <input type="text" id="f-keywords" placeholder="np. hydraulik awaryjny, instalacje wod-kan Warszawa">
-          <div class="field-hint">Trafią do H2/H3 i treści sekcji usług.</div>
-        </div>
-        <!-- ── KONIEC PÓL SEO ─────────────────────────────────────── -->
-
         <!-- ── VISUAL LAYOUT — ZDJĘCIA ──────────────────────────────── -->
         <div class="field">
           <label style="margin-bottom:12px;display:block">Zdjęcia strony <span class="opt">kliknij pole lub dodaj z Pexels</span></label>
@@ -1511,31 +1457,8 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
       </div>
 
 
-      <!-- WYBÓR STYLU -->
-      <div style="margin-bottom:20px">
-        <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)">Wybierz styl strony</div>
-        <div class="style-selector">
-          <div class="style-card selected" id="sc-classic" onclick="selectStyle('classic',this)">
-            <div class="style-card-icon">🏛</div>
-            <div class="style-card-name">Klasyczny</div>
-            <div class="style-card-desc">Ciepły, lokalny, serif</div>
-            <div class="style-card-badge">WYBRANY</div>
-          </div>
-          <div class="style-card" id="sc-modern" onclick="selectStyle('modern',this)">
-            <div class="style-card-icon">🚀</div>
-            <div class="style-card-name">Nowoczesny</div>
-            <div class="style-card-desc">Dark mode, tech, neon</div>
-            <div class="style-card-badge">wybierz</div>
-          </div>
-          <div class="style-card" id="sc-elegant" onclick="selectStyle('elegant',this)">
-            <div class="style-card-icon">✨</div>
-            <div class="style-card-name">Elegancki</div>
-            <div class="style-card-desc">Minimalistyczny, premium</div>
-            <div class="style-card-badge">wybierz</div>
-          </div>
-        </div>
-      </div>
-      <!-- Podsumowanie płatności -->
+
+            <!-- Podsumowanie płatności -->
       <div style="background:var(--s2);border:1px solid var(--border2);border-radius:10px;padding:16px 18px;margin-bottom:20px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
           <span style="font-size:13px;color:var(--muted)">Wybrany plan:</span>
@@ -1557,7 +1480,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
           onmouseover="this.style.background='#00C98A'"
           onmouseout="this.style.background='var(--green)'">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="width:18px;height:18px"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-          Generuj i aktywuj stronę
+          ⚡ Generuj 3 warianty strony
         </button>
       </div>
     </div>
@@ -1985,6 +1908,18 @@ async function startGenerate() {
         if (_fillEl) { _fillEl.style.transition='width .4s'; _fillEl.style.width='100%'; }
         if (_gfs) _gfs.classList.remove('active');
         openVariantPopup(state.variants);
+        // Wyslij email do klienta z informacja o gotowej stronie i brakujacych danych
+        try {
+          var _userEmail = '';
+          try { var _u=JSON.parse(localStorage.getItem('wg_user')||'{}'); _userEmail=_u.email||''; } catch(e){}
+          if (_userEmail) {
+            fetch('/api/notify-client', {
+              method:'POST',
+              headers:{'Content-Type':'application/json'},
+              body: JSON.stringify({ email: _userEmail, firma: firma, slug: state.slug })
+            }).catch(function(){});
+          }
+        } catch(e){}
       } else {
         // Zaktualizuj iframe jeśli popup już otwarty
         var iframe = document.getElementById('vp-iframe-'+styleName);
