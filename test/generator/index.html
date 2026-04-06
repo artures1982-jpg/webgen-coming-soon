@@ -249,6 +249,35 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
 .lua-preview{max-height:56px;max-width:140px;border-radius:5px;margin:0 auto 6px;display:block}
 #f-logo{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
 
+/* ── VISUAL LAYOUT PICKER ───────────────────────────── */
+.layout-preview{background:var(--s1);border:1px solid var(--border2);border-radius:14px;overflow:hidden;margin-bottom:24px}
+.lp-header{padding:10px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--s2)}
+.lp-label{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.lp-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:4px}
+.img-zone{position:relative;cursor:pointer;overflow:hidden;background:rgba(240,242,247,.04);border:1.5px dashed rgba(240,242,247,.15);transition:all .2s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.img-zone:hover{border-color:rgba(0,229,160,.5);background:rgba(0,229,160,.05)}
+.img-zone.has-img{border-style:solid;border-color:rgba(0,229,160,.4)}
+.img-zone img.zone-preview{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;border-radius:inherit}
+.img-zone-icon{font-size:20px;pointer-events:none}
+.img-zone-label{font-size:11px;font-weight:600;color:var(--muted);pointer-events:none;text-align:center;line-height:1.4}
+.img-zone-hint{font-size:10px;color:rgba(136,146,170,.5);pointer-events:none;text-align:center}
+.img-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.img-zone-overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .18s;border-radius:inherit;pointer-events:none}
+.img-zone:hover .img-zone-overlay{opacity:1}
+.img-zone-overlay span{color:#fff;font-size:13px;font-weight:600}
+.img-zone-btns{display:flex;gap:6px;margin-top:6px}
+.btn-zone-pexels{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.25);color:var(--green);padding:7px 10px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--head);transition:all .18s}
+.btn-zone-pexels:hover{background:rgba(0,229,160,.18);border-color:rgba(0,229,160,.5)}
+.btn-zone-clear{background:rgba(240,242,247,.05);border:1px solid var(--border2);color:var(--muted);padding:7px 10px;border-radius:8px;font-size:12px;cursor:pointer;font-family:var(--head);transition:all .18s;display:none}
+.btn-zone-clear.visible{display:block}
+.btn-zone-clear:hover{color:var(--red);border-color:var(--red)}
+/* SEO fields */
+.usp-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.3);color:var(--green);padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600}
+.usp-tag button{background:none;border:none;color:rgba(0,229,160,.6);cursor:pointer;font-size:14px;line-height:1;padding:0 0 0 2px}
+.faq-item{background:var(--s2);border:1px solid var(--border2);border-radius:10px;padding:12px;position:relative;margin-bottom:8px}
+.faq-item-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-family:var(--mono);margin-bottom:6px}
+/* ──────────────────────────────────────────────────── */
+
 /* GALERIA ZDJEC */
 .galeria-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .galeria-slot{background:var(--s2);border:1.5px dashed var(--border2);border-radius:10px;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
@@ -687,80 +716,6 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
 .btn-vp-select{background:var(--green);color:#080A0F;border:none;padding:10px 26px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--head);transition:background .18s;display:flex;align-items:center;gap:8px}
 .btn-vp-select:hover{background:#00C98A}
 
-
-/* ── VISUAL LAYOUT PICKER ─────────────────────────────────── */
-.layout-preview{
-  background:var(--s1);border:1px solid var(--border2);
-  border-radius:14px;overflow:hidden;margin-bottom:24px;
-}
-.lp-header{
-  padding:10px 16px;border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-  background:var(--s2);
-}
-.lp-label{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--muted);}
-.lp-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:4px}
-
-/* Strefki na zdjecia w mockupie */
-.img-zone{
-  position:relative;cursor:pointer;overflow:hidden;
-  background:rgba(240,242,247,.04);
-  border:1.5px dashed rgba(240,242,247,.15);
-  transition:all .2s;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:6px;
-}
-.img-zone:hover{border-color:rgba(0,229,160,.5);background:rgba(0,229,160,.05);}
-.img-zone.has-img{border-style:solid;border-color:rgba(0,229,160,.4);}
-.img-zone img.zone-preview{
-  position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;pointer-events:none;border-radius:inherit;
-}
-.img-zone-icon{font-size:22px;pointer-events:none}
-.img-zone-label{font-size:11px;font-weight:600;color:var(--muted);pointer-events:none;text-align:center;line-height:1.4}
-.img-zone-hint{font-size:10px;color:rgba(136,146,170,.5);pointer-events:none;text-align:center}
-.img-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-
-/* Overlay przy hover */
-.img-zone-overlay{
-  position:absolute;inset:0;background:rgba(0,0,0,.55);
-  display:flex;align-items:center;justify-content:center;
-  opacity:0;transition:opacity .18s;border-radius:inherit;pointer-events:none;
-}
-.img-zone:hover .img-zone-overlay{opacity:1}
-.img-zone-overlay span{color:#fff;font-size:13px;font-weight:600}
-
-/* Przyciski pod strefkami */
-.img-zone-btns{
-  display:flex;gap:6px;margin-top:6px;
-}
-.btn-zone-pexels{
-  flex:1;display:flex;align-items:center;justify-content:center;gap:5px;
-  background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.25);
-  color:var(--green);padding:7px 10px;border-radius:8px;
-  font-size:12px;font-weight:700;cursor:pointer;font-family:var(--head);
-  transition:all .18s;
-}
-.btn-zone-pexels:hover{background:rgba(0,229,160,.18);border-color:rgba(0,229,160,.5);}
-.btn-zone-clear{
-  background:rgba(240,242,247,.05);border:1px solid var(--border2);
-  color:var(--muted);padding:7px 10px;border-radius:8px;
-  font-size:12px;cursor:pointer;font-family:var(--head);transition:all .18s;
-  display:none;
-}
-.btn-zone-clear.visible{display:block}
-.btn-zone-clear:hover{color:var(--red);border-color:var(--red);}
-
-/* Website mockup skeleton */
-.wm-nav{height:20px;background:rgba(240,242,247,.08);border-radius:4px;margin-bottom:6px}
-.wm-hero{border-radius:8px;margin-bottom:6px}
-.wm-body{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px}
-.wm-img-slot{border-radius:6px;}
-.wm-text-block{height:10px;background:rgba(240,242,247,.06);border-radius:3px;margin-bottom:4px}
-.wm-footer{height:14px;background:rgba(240,242,247,.05);border-radius:4px}
-/* ─────────────────────────────────────────────────────────── */
-
 /* ── PEXELS BUTTONS ─────────────────────────────────────── */
 .btn-pexels{
   width:100%;display:flex;align-items:center;justify-content:center;
@@ -1104,258 +1059,154 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
           <div class="field-hint">Jeśli zostawisz puste — AI sam napisze opis na podstawie branży i lokalizacji.</div>
         </div>
 
-        <!-- ── POLA SEO ──────────────────────────────────────── -->
-
-        <!-- Wyróżniki / USP -->
+        <!-- ── SEO FIELDS ──────────────────────────────────────────── -->
         <div class="field">
           <label>Wyróżniki firmy <span class="opt">SEO · co Cię odróżnia od konkurencji?</span></label>
           <div id="usp-tags" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px"></div>
           <div style="display:flex;gap:8px">
-            <input type="text" id="usp-input" placeholder="np. Gwarancja 2 lata, Dojazd gratis, Certyfikat ISO..."
-              style="flex:1"
-              onkeydown="if(event.key==='Enter'||event.key===','){event.preventDefault();addUspTag();}">
+            <input type="text" id="usp-input" placeholder="np. Gwarancja 2 lata, Dojazd gratis..."
+              style="flex:1" onkeydown="if(event.key==='Enter'||event.key===','){event.preventDefault();addUspTag();}">
             <button type="button" onclick="addUspTag()"
-              style="background:var(--green);color:#080A0F;border:none;padding:10px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--head);white-space:nowrap">
-              + Dodaj
-            </button>
+              style="background:var(--green);color:#080A0F;border:none;padding:10px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--head);white-space:nowrap">+ Dodaj</button>
           </div>
-          <div class="field-hint">Enter lub przecinek aby dodać. Trafia do nagłówków i opisu — kluczowe dla SEO.</div>
+          <div class="field-hint">Enter lub przecinek = dodaj. Trafia do nagłówków — kluczowe dla SEO.</div>
         </div>
 
-        <!-- Obszar działania -->
         <div class="field">
           <label>Obszar działania <span class="opt">SEO · dzielnice / miasta obsługiwane</span></label>
-          <input type="text" id="f-obszar"
-            placeholder="np. Mokotów, Ursynów, Wilanów, Wola, Śródmieście">
-          <div class="field-hint">AI wygeneruje osobne sekcje dla każdego obszaru — kluczowe dla lokalnego SEO.</div>
+          <input type="text" id="f-obszar" placeholder="np. Mokotów, Ursynów, Wilanów, Wola">
+          <div class="field-hint">AI wygeneruje osobne sekcje per obszar — lokalne SEO.</div>
         </div>
 
-        <!-- Certyfikaty -->
         <div class="field">
-          <label>Certyfikaty i uprawnienia <span class="opt">SEO · buduje autorytet</span></label>
-          <input type="text" id="f-certyfikaty"
-            placeholder="np. Uprawnienia SEP, Certyfikat ISO 9001, Mistrz w zawodzie...">
+          <label>Certyfikaty i uprawnienia <span class="opt">SEO</span></label>
+          <input type="text" id="f-certyfikaty" placeholder="np. Uprawnienia SEP, Certyfikat ISO 9001...">
         </div>
 
-        <!-- Metody płatności -->
         <div class="field">
           <label>Metody płatności <span class="opt">SEO · konwersja</span></label>
-          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
-            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400">
-              <input type="checkbox" id="pay-gotowka" value="Gotówka" onchange="updatePay()" style="accent-color:var(--green)"> Gotówka
-            </label>
-            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400">
-              <input type="checkbox" id="pay-przelew" value="Przelew" onchange="updatePay()" style="accent-color:var(--green)"> Przelew
-            </label>
-            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400">
-              <input type="checkbox" id="pay-karta" value="Karta" onchange="updatePay()" style="accent-color:var(--green)"> Karta
-            </label>
-            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400">
-              <input type="checkbox" id="pay-blik" value="BLIK" onchange="updatePay()" style="accent-color:var(--green)"> BLIK
-            </label>
-            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400">
-              <input type="checkbox" id="pay-faktury" value="Faktury VAT" onchange="updatePay()" style="accent-color:var(--green)"> Faktury VAT
-            </label>
-            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400">
-              <input type="checkbox" id="pay-raty" value="Raty 0%" onchange="updatePay()" style="accent-color:var(--green)"> Raty 0%
-            </label>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:4px">
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400"><input type="checkbox" id="pay-gotowka" value="Gotówka" onchange="updatePay()" style="accent-color:var(--green)"> Gotówka</label>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400"><input type="checkbox" id="pay-przelew" value="Przelew" onchange="updatePay()" style="accent-color:var(--green)"> Przelew</label>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400"><input type="checkbox" id="pay-karta" value="Karta" onchange="updatePay()" style="accent-color:var(--green)"> Karta</label>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400"><input type="checkbox" id="pay-blik" value="BLIK" onchange="updatePay()" style="accent-color:var(--green)"> BLIK</label>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400"><input type="checkbox" id="pay-faktury" value="Faktury VAT" onchange="updatePay()" style="accent-color:var(--green)"> Faktury VAT</label>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400"><input type="checkbox" id="pay-raty" value="Raty 0%" onchange="updatePay()" style="accent-color:var(--green)"> Raty 0%</label>
           </div>
           <input type="hidden" id="f-platnosci" value="">
         </div>
 
-        <!-- FAQ -->
         <div class="field">
-          <label>Często zadawane pytania (FAQ) <span class="opt">SEO · Google Featured Snippets</span></label>
-          <div id="faq-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:8px"></div>
+          <label>FAQ <span class="opt">SEO · Schema FAQPage — Google Featured Snippets</span></label>
+          <div id="faq-list"></div>
           <button type="button" onclick="addFaq()"
             style="background:transparent;border:1.5px dashed rgba(240,242,247,.2);color:var(--muted);padding:10px;border-radius:8px;font-size:13px;cursor:pointer;font-family:var(--head);width:100%;transition:all .18s"
             onmouseover="this.style.borderColor='rgba(0,229,160,.4)';this.style.color='var(--green)'"
-            onmouseout="this.style.borderColor='rgba(240,242,247,.2)';this.style.color='var(--muted)'">
-            + Dodaj pytanie FAQ
-          </button>
-          <div class="field-hint">FAQ generuje Schema.org FAQPage — Google wyświetla odpowiedzi bezpośrednio w wynikach.</div>
+            onmouseout="this.style.borderColor='rgba(240,242,247,.2)';this.style.color='var(--muted)'">+ Dodaj pytanie FAQ</button>
+          <div class="field-hint">Schema FAQPage → Google wyświetla odpowiedzi bezpośrednio w SERP.</div>
         </div>
 
-        <!-- Słowa kluczowe -->
         <div class="field">
-          <label>Dodatkowe słowa kluczowe <span class="opt">SEO · opcjonalne</span></label>
-          <input type="text" id="f-keywords"
-            placeholder="np. hydraulik awaryjny, instalacje wod-kan, wymiana rur Warszawa">
-          <div class="field-hint">Trafią do meta keywords, nagłówków H2/H3 i treści sekcji usług.</div>
+          <label>Dodatkowe słowa kluczowe <span class="opt">SEO</span></label>
+          <input type="text" id="f-keywords" placeholder="np. hydraulik awaryjny, instalacje wod-kan Warszawa">
+          <div class="field-hint">Trafią do H2/H3 i treści sekcji usług.</div>
         </div>
+        <!-- ── KONIEC PÓL SEO ─────────────────────────────────────── -->
 
-        <!-- ── KONIEC PÓL SEO ──────────────────────────────────────── -->
-
-        <!-- VISUAL LAYOUT PHOTO PICKER -->
+        <!-- ── VISUAL LAYOUT — ZDJĘCIA ──────────────────────────────── -->
         <div class="field">
-          <label style="margin-bottom:12px;display:block">
-            Zdjęcia strony
-            <span class="opt">opcjonalnie — kliknij pole lub dodaj z Pexels</span>
-          </label>
-
-          <!-- Mockup wizualny strony -->
+          <label style="margin-bottom:12px;display:block">Zdjęcia strony <span class="opt">kliknij pole lub dodaj z Pexels</span></label>
           <div class="layout-preview">
             <div class="lp-header">
               <div class="lp-label">Podgląd layoutu Twojej strony</div>
-              <div>
-                <span class="lp-dot" style="background:#ff5f57"></span>
-                <span class="lp-dot" style="background:#febc2e"></span>
-                <span class="lp-dot" style="background:#28c840"></span>
-              </div>
+              <div><span class="lp-dot" style="background:#ff5f57"></span><span class="lp-dot" style="background:#febc2e"></span><span class="lp-dot" style="background:#28c840"></span></div>
             </div>
             <div style="padding:12px">
-
-              <!-- NAV mockup -->
-              <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 8px;background:rgba(240,242,247,.06);border-radius:4px;margin-bottom:8px">
-                <div style="width:50px;height:8px;background:rgba(0,229,160,.4);border-radius:3px"></div>
-                <div style="display:flex;gap:6px">
-                  <div style="width:28px;height:5px;background:rgba(240,242,247,.15);border-radius:2px"></div>
-                  <div style="width:28px;height:5px;background:rgba(240,242,247,.15);border-radius:2px"></div>
-                  <div style="width:28px;height:5px;background:rgba(240,242,247,.15);border-radius:2px"></div>
-                </div>
-                <div style="width:36px;height:8px;background:rgba(0,229,160,.3);border-radius:3px"></div>
+              <!-- NAV -->
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:5px 8px;background:rgba(240,242,247,.06);border-radius:4px;margin-bottom:8px;border:0.5px solid rgba(240,242,247,.1)">
+                <div style="width:40px;height:6px;background:rgba(0,229,160,.5);border-radius:3px"></div>
+                <div style="display:flex;gap:5px"><div style="width:22px;height:4px;background:rgba(240,242,247,.15);border-radius:2px"></div><div style="width:22px;height:4px;background:rgba(240,242,247,.15);border-radius:2px"></div><div style="width:22px;height:4px;background:rgba(240,242,247,.15);border-radius:2px"></div></div>
+                <div style="width:30px;height:6px;background:rgba(0,229,160,.3);border-radius:3px"></div>
               </div>
-
               <!-- HERO ZONE -->
-              <div style="margin-bottom:10px">
-                <div class="img-zone" id="zone-hero" style="height:120px;border-radius:8px;position:relative"
-                     onclick="document.getElementById('inp-hero').click()">
-                  <img class="zone-preview" id="prev-hero" src="" alt="" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:8px">
-                  <div class="img-zone-overlay"><span>✏️ Zmień zdjęcie</span></div>
+              <div style="margin-bottom:8px">
+                <div class="img-zone" id="zone-hero" style="height:120px;border-radius:8px" onclick="document.getElementById('inp-hero').click()">
+                  <img class="zone-preview" id="prev-hero" src="" alt="" style="display:none">
+                  <div class="img-zone-overlay"><span>✏️ Zmień</span></div>
                   <div class="img-zone-icon">🖼️</div>
-                  <div class="img-zone-label">Zdjęcie główne — Hero<br><span style="color:rgba(136,146,170,.6);font-size:9px">pełna szerokość · pierwsze wrażenie</span></div>
-                  <div class="img-zone-hint">Kliknij aby wybrać z dysku</div>
-                  <input type="file" id="inp-hero" accept="image/*" onchange="handleZoneUpload(this,'hero')" style="display:none">
+                  <div class="img-zone-label">Zdjęcie główne — Hero<br><span style="font-size:9px;color:rgba(136,146,170,.5)">pełna szerokość · pierwsze wrażenie</span></div>
+                  <div class="img-zone-hint">Kliknij = dysk</div>
+                  <input type="file" id="inp-hero" accept="image/*" style="display:none" onchange="handleZoneUpload(this,'hero')">
                 </div>
                 <div class="img-zone-btns">
                   <button class="btn-zone-pexels" onclick="openPexelsZone('hero')">📸 Dodaj z Pexels</button>
                   <button class="btn-zone-clear" id="clear-hero" onclick="clearZone('hero')">✕ Usuń</button>
                 </div>
               </div>
-
-              <!-- O NAS placeholder -->
-              <div style="background:rgba(240,242,247,.03);border-radius:6px;padding:8px;margin-bottom:8px">
-                <div style="font-size:8px;color:rgba(136,146,170,.4);font-family:monospace;margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em">// Sekcja: O nas</div>
+              <!-- O NAS -->
+              <div style="background:rgba(240,242,247,.03);border-radius:6px;padding:8px;margin-bottom:7px;border:0.5px solid rgba(240,242,247,.08)">
+                <div style="font-size:8px;color:rgba(136,146,170,.4);font-family:monospace;margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em">// O nas</div>
                 <div style="display:flex;gap:8px;align-items:center">
-                  <div style="flex:1">
-                    <div style="height:6px;background:rgba(240,242,247,.12);border-radius:2px;margin-bottom:4px;width:80%"></div>
-                    <div style="height:4px;background:rgba(240,242,247,.07);border-radius:2px;margin-bottom:3px"></div>
-                    <div style="height:4px;background:rgba(240,242,247,.07);border-radius:2px;margin-bottom:3px;width:90%"></div>
-                    <div style="height:4px;background:rgba(240,242,247,.07);border-radius:2px;width:70%"></div>
-                  </div>
-                  <div style="display:flex;gap:6px;flex-shrink:0">
-                    <div style="text-align:center">
-                      <div style="font-size:13px;font-weight:700;color:rgba(0,229,160,.6)">10+</div>
-                      <div style="height:3px;background:rgba(240,242,247,.08);border-radius:1px;width:28px;margin-top:2px"></div>
-                    </div>
-                    <div style="text-align:center">
-                      <div style="font-size:13px;font-weight:700;color:rgba(0,229,160,.6)">250</div>
-                      <div style="height:3px;background:rgba(240,242,247,.08);border-radius:1px;width:28px;margin-top:2px"></div>
-                    </div>
-                  </div>
+                  <div style="flex:1"><div style="height:5px;background:rgba(240,242,247,.12);border-radius:2px;margin-bottom:3px;width:75%"></div><div style="height:3px;background:rgba(240,242,247,.07);border-radius:2px;margin-bottom:2px"></div><div style="height:3px;background:rgba(240,242,247,.07);border-radius:2px;width:85%"></div></div>
+                  <div style="display:flex;gap:8px;flex-shrink:0"><div style="text-align:center"><div style="font-size:13px;font-weight:700;color:rgba(0,229,160,.7)">10+</div><div style="height:3px;background:rgba(240,242,247,.08);border-radius:1px;width:24px;margin-top:2px"></div></div><div style="text-align:center"><div style="font-size:13px;font-weight:700;color:rgba(0,229,160,.7)">250</div><div style="height:3px;background:rgba(240,242,247,.08);border-radius:1px;width:24px;margin-top:2px"></div></div></div>
                 </div>
               </div>
-
-              <!-- USŁUGI placeholder -->
-              <div style="background:rgba(240,242,247,.03);border-radius:6px;padding:8px;margin-bottom:8px">
-                <div style="font-size:8px;color:rgba(136,146,170,.4);font-family:monospace;margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em">// Sekcja: Usługi</div>
-                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px">
-                  <div style="background:rgba(240,242,247,.05);border-radius:4px;padding:5px;border-left:2px solid rgba(0,229,160,.3)">
-                    <div style="font-size:11px;margin-bottom:3px">🔧</div>
-                    <div style="height:4px;background:rgba(240,242,247,.15);border-radius:1px;margin-bottom:2px"></div>
-                    <div style="height:3px;background:rgba(240,242,247,.07);border-radius:1px"></div>
-                  </div>
-                  <div style="background:rgba(240,242,247,.05);border-radius:4px;padding:5px;border-left:2px solid rgba(0,229,160,.3)">
-                    <div style="font-size:11px;margin-bottom:3px">⚡</div>
-                    <div style="height:4px;background:rgba(240,242,247,.15);border-radius:1px;margin-bottom:2px"></div>
-                    <div style="height:3px;background:rgba(240,242,247,.07);border-radius:1px"></div>
-                  </div>
-                  <div style="background:rgba(240,242,247,.05);border-radius:4px;padding:5px;border-left:2px solid rgba(0,229,160,.3)">
-                    <div style="font-size:11px;margin-bottom:3px">🏠</div>
-                    <div style="height:4px;background:rgba(240,242,247,.15);border-radius:1px;margin-bottom:2px"></div>
-                    <div style="height:3px;background:rgba(240,242,247,.07);border-radius:1px"></div>
-                  </div>
+              <!-- USŁUGI -->
+              <div style="background:rgba(240,242,247,.03);border-radius:6px;padding:8px;margin-bottom:7px;border:0.5px solid rgba(240,242,247,.08)">
+                <div style="font-size:8px;color:rgba(136,146,170,.4);font-family:monospace;margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em">// Usługi</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px">
+                  <div style="background:rgba(240,242,247,.05);border-radius:4px;padding:5px;border-left:2px solid rgba(0,229,160,.4)"><div style="font-size:11px;margin-bottom:3px">🔧</div><div style="height:4px;background:rgba(240,242,247,.15);border-radius:1px;margin-bottom:2px"></div><div style="height:3px;background:rgba(240,242,247,.07);border-radius:1px"></div></div>
+                  <div style="background:rgba(240,242,247,.05);border-radius:4px;padding:5px;border-left:2px solid rgba(0,229,160,.4)"><div style="font-size:11px;margin-bottom:3px">⚡</div><div style="height:4px;background:rgba(240,242,247,.15);border-radius:1px;margin-bottom:2px"></div><div style="height:3px;background:rgba(240,242,247,.07);border-radius:1px"></div></div>
+                  <div style="background:rgba(240,242,247,.05);border-radius:4px;padding:5px;border-left:2px solid rgba(0,229,160,.4)"><div style="font-size:11px;margin-bottom:3px">🏠</div><div style="height:4px;background:rgba(240,242,247,.15);border-radius:1px;margin-bottom:2px"></div><div style="height:3px;background:rgba(240,242,247,.07);border-radius:1px"></div></div>
                 </div>
               </div>
-
-              <!-- CONTENT IMAGES — 2 kolumny z opisem -->
-              <div style="background:rgba(240,242,247,.03);border-radius:6px;padding:8px;margin-bottom:8px">
-                <div style="font-size:8px;color:rgba(136,146,170,.4);font-family:monospace;margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em">// Sekcja: Galeria / Realizacje</div>
+              <!-- GALERIA — 2 zdjęcia content -->
+              <div style="background:rgba(240,242,247,.03);border-radius:6px;padding:8px;margin-bottom:7px;border:0.5px solid rgba(240,242,247,.08)">
+                <div style="font-size:8px;color:rgba(136,146,170,.4);font-family:monospace;margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em">// Galeria / Realizacje</div>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
                   <div>
-                    <div class="img-zone" id="zone-img1" style="height:80px;border-radius:6px;position:relative"
-                         onclick="document.getElementById('inp-img1').click()">
-                      <img class="zone-preview" id="prev-img1" src="" alt="" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:6px">
-                      <div class="img-zone-overlay"><span>✏️ Zmień</span></div>
+                    <div class="img-zone" id="zone-img1" style="height:80px;border-radius:6px" onclick="document.getElementById('inp-img1').click()">
+                      <img class="zone-preview" id="prev-img1" src="" alt="" style="display:none">
+                      <div class="img-zone-overlay"><span>✏️</span></div>
                       <div class="img-zone-icon" style="font-size:16px">📷</div>
-                      <div class="img-zone-label" style="font-size:10px">Zdjęcie realizacji 1</div>
-                      <input type="file" id="inp-img1" accept="image/*" onchange="handleZoneUpload(this,'img1')" style="display:none">
+                      <div class="img-zone-label" style="font-size:10px">Realizacja 1</div>
+                      <input type="file" id="inp-img1" accept="image/*" style="display:none" onchange="handleZoneUpload(this,'img1')">
                     </div>
-                    <div class="img-zone-btns">
-                      <button class="btn-zone-pexels" onclick="openPexelsZone('img1')">📸 Pexels</button>
-                      <button class="btn-zone-clear" id="clear-img1" onclick="clearZone('img1')">✕</button>
-                    </div>
+                    <div class="img-zone-btns"><button class="btn-zone-pexels" onclick="openPexelsZone('img1')">📸 Pexels</button><button class="btn-zone-clear" id="clear-img1" onclick="clearZone('img1')">✕</button></div>
                   </div>
                   <div>
-                    <div class="img-zone" id="zone-img2" style="height:80px;border-radius:6px;position:relative"
-                         onclick="document.getElementById('inp-img2').click()">
-                      <img class="zone-preview" id="prev-img2" src="" alt="" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:6px">
-                      <div class="img-zone-overlay"><span>✏️ Zmień</span></div>
+                    <div class="img-zone" id="zone-img2" style="height:80px;border-radius:6px" onclick="document.getElementById('inp-img2').click()">
+                      <img class="zone-preview" id="prev-img2" src="" alt="" style="display:none">
+                      <div class="img-zone-overlay"><span>✏️</span></div>
                       <div class="img-zone-icon" style="font-size:16px">📷</div>
-                      <div class="img-zone-label" style="font-size:10px">Zdjęcie realizacji 2</div>
-                      <input type="file" id="inp-img2" accept="image/*" onchange="handleZoneUpload(this,'img2')" style="display:none">
+                      <div class="img-zone-label" style="font-size:10px">Realizacja 2</div>
+                      <input type="file" id="inp-img2" accept="image/*" style="display:none" onchange="handleZoneUpload(this,'img2')">
                     </div>
-                    <div class="img-zone-btns">
-                      <button class="btn-zone-pexels" onclick="openPexelsZone('img2')">📸 Pexels</button>
-                      <button class="btn-zone-clear" id="clear-img2" onclick="clearZone('img2')">✕</button>
-                    </div>
+                    <div class="img-zone-btns"><button class="btn-zone-pexels" onclick="openPexelsZone('img2')">📸 Pexels</button><button class="btn-zone-clear" id="clear-img2" onclick="clearZone('img2')">✕</button></div>
                   </div>
                 </div>
               </div>
-
-              <!-- KONTAKT placeholder -->
-              <div style="background:rgba(240,242,247,.03);border-radius:6px;padding:8px;margin-bottom:8px">
-                <div style="font-size:8px;color:rgba(136,146,170,.4);font-family:monospace;margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em">// Sekcja: Kontakt</div>
-                <div style="display:flex;gap:8px">
-                  <div style="flex:1">
-                    <div style="height:4px;background:rgba(240,242,247,.1);border-radius:1px;margin-bottom:3px;width:60%"></div>
-                    <div style="height:3px;background:rgba(240,242,247,.07);border-radius:1px;margin-bottom:2px"></div>
-                    <div style="height:3px;background:rgba(240,242,247,.07);border-radius:1px;width:80%"></div>
-                  </div>
-                  <div style="width:80px;height:40px;background:rgba(240,242,247,.05);border-radius:4px;border:1px dashed rgba(240,242,247,.1);display:flex;align-items:center;justify-content:center;font-size:9px;color:rgba(136,146,170,.3);flex-shrink:0">map</div>
-                </div>
+              <!-- KONTAKT -->
+              <div style="background:rgba(240,242,247,.03);border-radius:6px;padding:8px;margin-bottom:7px;border:0.5px solid rgba(240,242,247,.08)">
+                <div style="font-size:8px;color:rgba(136,146,170,.4);font-family:monospace;margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em">// Kontakt</div>
+                <div style="display:flex;gap:8px"><div style="flex:1"><div style="height:4px;background:rgba(240,242,247,.1);border-radius:1px;margin-bottom:3px;width:55%"></div><div style="height:3px;background:rgba(240,242,247,.07);border-radius:1px;margin-bottom:2px"></div><div style="height:3px;background:rgba(240,242,247,.07);border-radius:1px;width:80%"></div></div><div style="width:70px;height:42px;border:0.5px dashed rgba(240,242,247,.15);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:9px;color:rgba(136,146,170,.3)">map</span></div></div>
               </div>
-
-              <!-- FOOTER mockup -->
-              <div style="background:rgba(240,242,247,.05);border-radius:4px;padding:6px 8px;display:flex;justify-content:space-between;align-items:center">
-                <div style="width:40px;height:6px;background:rgba(0,229,160,.2);border-radius:2px"></div>
-                <div style="display:flex;gap:5px">
-                  <div style="width:20px;height:4px;background:rgba(240,242,247,.1);border-radius:1px"></div>
-                  <div style="width:20px;height:4px;background:rgba(240,242,247,.1);border-radius:1px"></div>
-                  <div style="width:20px;height:4px;background:rgba(240,242,247,.1);border-radius:1px"></div>
-                </div>
+              <!-- FOOTER -->
+              <div style="background:rgba(240,242,247,.05);border-radius:4px;padding:5px 8px;display:flex;justify-content:space-between;align-items:center;border:0.5px solid rgba(240,242,247,.08)">
+                <div style="width:32px;height:5px;background:rgba(0,229,160,.3);border-radius:2px"></div>
+                <div style="display:flex;gap:4px"><div style="width:16px;height:3px;background:rgba(240,242,247,.1);border-radius:1px"></div><div style="width:16px;height:3px;background:rgba(240,242,247,.1);border-radius:1px"></div><div style="width:16px;height:3px;background:rgba(240,242,247,.1);border-radius:1px"></div></div>
               </div>
             </div>
-          </div><!-- /layout-preview -->
-
-          <div style="font-size:11px;color:var(--muted);margin-top:4px">
-            💡 Zdjęcia zostaną wbudowane w stronę. Kliknij pole lub użyj Pexels.
           </div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">💡 Kliknij pole = plik z dysku · przycisk Pexels = wyszukiwarka zdjęć</div>
         </div>
 
         <!-- LOGO (zachowane) -->
         <div class="field">
           <label>Logo firmy <span class="opt">opcjonalnie — PNG / JPG</span></label>
           <div class="logo-upload-area" id="logo-upload-area" onclick="document.getElementById('f-logo').click()">
-            <div id="lua-empty">
-              <div class="lua-icon">🖼️</div>
-              <div class="lua-text">Kliknij lub przeciągnij logo</div>
-              <div class="lua-hint">PNG lub JPG · maks. 2 MB</div>
-            </div>
-            <div id="lua-filled" style="display:none">
-              <img id="lua-preview" class="lua-preview" src="" alt="Logo">
-              <div class="lua-hint" style="color:var(--green)">✓ Logo wczytane — kliknij aby zmienić</div>
-            </div>
+            <div id="lua-empty"><div class="lua-icon">🖼️</div><div class="lua-text">Kliknij lub przeciągnij logo</div><div class="lua-hint">PNG lub JPG · maks. 2 MB</div></div>
+            <div id="lua-filled" style="display:none"><img id="lua-preview" class="lua-preview" src="" alt="Logo"><div class="lua-hint" style="color:var(--green)">✓ Logo wczytane — kliknij aby zmienić</div></div>
             <input type="file" id="f-logo" accept="image/png,image/jpeg,image/webp" onchange="handleLogoUpload(this)" style="display:none">
           </div>
         </div>
@@ -2060,38 +1911,37 @@ async function startGenerate() {
   if (!validateStep(4)) return;
   const firma = collectFirmaData();
 
-  // Ukryj kroki, pokaż fullscreen loader
-  document.querySelectorAll('.step-panel').forEach(function(p){p.classList.remove('active');p.style.display='';});
+  document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
   document.getElementById('preview-panel').classList.remove('active');
-  var gfs = document.getElementById('gen-fullscreen');
-  if (gfs) gfs.classList.add('active');
+  var _gfs = document.getElementById('gen-fullscreen');
+  if (_gfs) _gfs.classList.add('active');
 
   // Timer
   var _genStart = Date.now();
   var _timerEl = document.getElementById('gen-timer-count');
   var _timerIv = setInterval(function() {
-    var e = Math.floor((Date.now()-_genStart)/1000);
+    var e = Math.floor((Date.now() - _genStart) / 1000);
     if (_timerEl) _timerEl.textContent = Math.floor(e/60)+':'+(e%60<10?'0':'')+e%60;
   }, 1000);
 
-  // Progress bar
+  // Progress
   var _fillEl = document.getElementById('gen-progress-fill');
   var _prog = 0;
   var _progIv = setInterval(function() {
-    _prog = Math.min(_prog+(Math.random()*1.5+0.3), 88);
+    _prog = Math.min(_prog + (Math.random()*1.5+0.3), 88);
     if (_fillEl) _fillEl.style.width = _prog+'%';
   }, 800);
 
   // Live messages
   var _msgs = [
-    ['Analizuję branżę…', 'Branża: '+firma.branza+' w '+firma.miasto],
+    ['Analizuję branżę…', firma.branza+' w '+firma.miasto],
     ['Piszę treści SEO…', 'Nagłówki, opisy usług, meta tagi'],
-    ['Generuję styl Klasyczny…', 'Ciepły, lokalny — serif + tradycyjne kolory'],
+    ['Generuję styl Klasyczny…', 'Ciepły, lokalny, profesjonalny'],
     ['Generuję styl Nowoczesny…', 'Dark mode, neon, glassmorphism'],
-    ['Generuję styl Elegancki…', 'Minimalistyczny, złote akcenty, premium'],
+    ['Generuję styl Elegancki…', 'Minimalistyczny, złote akcenty'],
     ['Optymalizuję strukturę…', 'Schema.org, responsywność, CTA'],
-    ['Finalizuję 3 warianty…', 'Sprawdzam kompletność kodu HTML'],
-    ['Prawie gotowe!', 'Zaraz zobaczysz swoje strony…'],
+    ['Finalizuję warianty…', 'Sprawdzam kompletność HTML'],
+    ['Prawie gotowe!', 'Zaraz zobaczysz 3 warianty strony…'],
   ];
   var _msgIdx=0, _msgEl=document.getElementById('gen-live-msg'), _subEl=document.getElementById('gen-live-sub');
   var _msgIv = setInterval(function() {
@@ -2102,13 +1952,9 @@ async function startGenerate() {
     }
   }, 4000);
 
-  function _clearAll() {
-    clearInterval(_timerIv);
-    clearInterval(_progIv);
-    clearInterval(_msgIv);
-  }
+  function _clearAll() { clearInterval(_timerIv); clearInterval(_progIv); clearInterval(_msgIv); }
 
-  // ── 3 RÓWNOLEGŁE FETCH ─────────────────────────────────────────────
+  // 3 równoległe fetch — classic / modern / elegant
   state.variants = {};
   state.slug = null;
   var styles = ['classic','modern','elegant'];
@@ -2122,30 +1968,27 @@ async function startGenerate() {
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({ firma: firmaWithStyle })
     })
-    .then(function(res) { return res.text().then(function(t){ return {status:res.status,text:t}; }); })
+    .then(function(res) { return res.text().then(function(t){ return {status:res.status, text:t}; }); })
     .then(function(r) {
       var data;
       try { data = JSON.parse(r.text); } catch(e) {
-        throw new Error('Nieprawidlowa odpowiedz ('+r.status+'): '+r.text.slice(0,120));
+        throw new Error('Nieprawidłowa odpowiedź ('+r.status+'): '+r.text.slice(0,120));
       }
       if (!data.success || !data.html) throw new Error(data.error || 'Brak HTML w odpowiedzi');
       if (!state.slug) state.slug = data.slug;
       state.variants[styleName] = data.html;
-      if (window.wgDebug) wgDebug.log('api','['+styleName+'] OK, '+data.chars+' chars, model: '+data.model);
+      if (window.wgDebug) wgDebug.log('api','['+styleName+'] OK, '+data.chars+' chars');
       done++;
-      // Jezeli to pierwszy gotowy → pokaż popup (reszta zaladuje sie w tle)
       if (done === 1) {
+        // Pierwszy wariant gotowy — pokaż popup
         _clearAll();
         if (_fillEl) { _fillEl.style.transition='width .4s'; _fillEl.style.width='100%'; }
-        if (gfs) gfs.classList.remove('active');
+        if (_gfs) _gfs.classList.remove('active');
         openVariantPopup(state.variants);
       } else {
-        // Zaktualizuj iframe jesli juz jest otwarty
+        // Zaktualizuj iframe jeśli popup już otwarty
         var iframe = document.getElementById('vp-iframe-'+styleName);
-        if (iframe && state.variants[styleName]) {
-          iframe.srcdoc = state.variants[styleName];
-          if (window.wgDebug) wgDebug.log('info','['+styleName+'] iframe zaktualizowany (background)');
-        }
+        if (iframe) iframe.srcdoc = state.variants[styleName];
       }
     })
     .catch(function(err) {
@@ -2154,14 +1997,13 @@ async function startGenerate() {
       done++;
       if (done === 3 && Object.keys(state.variants).length === 0) {
         _clearAll();
-        if (gfs) gfs.classList.remove('active');
-        alert('Błąd generowania wszystkich wariantów:\n' + errors.join('\n'));
+        if (_gfs) _gfs.classList.remove('active');
+        alert('Błąd generowania:\n' + errors.join('\n'));
         setStep(6);
       }
     });
   }
 
-  // Start 3 fetchów równolegle
   styles.forEach(function(s) { makeVariantFetch(s); });
 }
 
@@ -2219,192 +2061,8 @@ function selectVariant(key) {
   if(urlEl)urlEl.textContent=(state.slug||'twoja-firma')+'.webgen.pl';
   var iframe=document.getElementById('preview-iframe');
   if(!iframe)return;
-  var _slen = (state.generatedHTML||'').length;
-  if(window.wgDebug){
-    wgDebug.log('api','[IFRAME] srcdoc length='+_slen);
-    wgDebug.log('api','[IFRAME] html[0:80]='+String(state.generatedHTML||'').slice(0,80));
-    if(!state.generatedHTML) wgDebug.log('err','[IFRAME] generatedHTML PUSTY - iframe bedzie bialy!');
-  }
-  iframe.srcdoc = state.generatedHTML ||
-    '<html><body style="padding:20px;font-family:monospace;color:red">BLAD: generatedHTML pusty. Sprawdz debug log.<script>
-// ─── VISUAL LAYOUT ZONES ─────────────────────────────────────────
-var _zones = { hero: null, img1: null, img2: null };
-
-async function handleZoneUpload(input, zoneId) {
-  var file = input.files[0];
-  if (!file) return;
-  if (file.size > 5 * 1024 * 1024) { alert('Plik za duży — maks. 5 MB'); return; }
-  var data = await toWebP(file);
-  _setZoneImage(zoneId, data, 'base64');
-}
-
-function _setZoneImage(zoneId, url, source) {
-  _zones[zoneId] = { url: url, source: source };
-
-  // Sync ze state
-  if (zoneId === 'hero') { state.heroUrl = source === 'pexels' ? url : ''; state.heroBase64 = source === 'base64' ? url : ''; }
-  if (zoneId === 'img1') { if (!Array.isArray(state.galeriaUrls)) state.galeriaUrls = []; state.galeriaUrls[0] = url; }
-  if (zoneId === 'img2') { if (!Array.isArray(state.galeriaUrls)) state.galeriaUrls = []; state.galeriaUrls[1] = url; }
-
-  // UI
-  var prev = document.getElementById('prev-' + zoneId);
-  var zone = document.getElementById('zone-' + zoneId);
-  var clearBtn = document.getElementById('clear-' + zoneId);
-  if (prev) { prev.src = url; prev.style.display = 'block'; }
-  if (zone) zone.classList.add('has-img');
-  if (clearBtn) clearBtn.classList.add('visible');
-}
-
-function clearZone(zoneId) {
-  _zones[zoneId] = null;
-  if (zoneId === 'hero') { state.heroUrl = ''; state.heroBase64 = ''; }
-  if (zoneId === 'img1' && Array.isArray(state.galeriaUrls)) state.galeriaUrls[0] = null;
-  if (zoneId === 'img2' && Array.isArray(state.galeriaUrls)) state.galeriaUrls[1] = null;
-
-  var prev = document.getElementById('prev-' + zoneId);
-  var zone = document.getElementById('zone-' + zoneId);
-  var clearBtn = document.getElementById('clear-' + zoneId);
-  if (prev) { prev.src = ''; prev.style.display = 'none'; }
-  if (zone) zone.classList.remove('has-img');
-  if (clearBtn) clearBtn.classList.remove('visible');
-
-  var inp = document.getElementById('inp-' + zoneId);
-  if (inp) inp.value = '';
-}
-
-function openPexelsZone(zoneId) {
-  _pexelsTarget = 'zone_' + zoneId;
-  var modal = document.getElementById('pexels-modal');
-  if (!modal) return;
-  modal.style.display = 'flex';
-  var inp = document.getElementById('pexels-q');
-  if (inp && !inp.dataset.userSet) {
-    var hint = { hero: 'professional business hero background', img1: 'professional service work', img2: 'local business team work' };
-    inp.value = (_pexelsBranzaMap[state && state.branza] || 'professional service') + (zoneId !== 'hero' ? ' team' : '');
-  }
-  searchPexels();
-}
-
-// Patch selectPexelsPhoto dla nowych stref
-var _origSelectPexels = selectPexelsPhoto;
-selectPexelsPhoto = function(url) {
-  if (_pexelsTarget && _pexelsTarget.startsWith('zone_')) {
-    var zId = _pexelsTarget.replace('zone_', '');
-    _setZoneImage(zId, url, 'pexels');
-    closePexels();
-    return;
-  }
-  _origSelectPexels(url);
-};
-
-// Sync zone data do collectFirmaData
-var _origCollect = collectFirmaData;
-collectFirmaData = function() {
-  var d = _origCollect();
-  // Zdjecia hero
-  if (_zones.hero) {
-    if (_zones.hero.source === 'pexels') { d.heroUrl = _zones.hero.url; d.hero_base64 = ''; }
-    else { d.hero_base64 = _zones.hero.url; d.heroUrl = ''; }
-  }
-  // Galeria content
-  var galeriaZones = [];
-  if (_zones.img1) galeriaZones.push(_zones.img1.url);
-  if (_zones.img2) galeriaZones.push(_zones.img2.url);
-  if (galeriaZones.length > 0) {
-    d.galeria = galeriaZones;
-    d.galeriaUrls = galeriaZones;
-  }
-  return d;
-};
-// ─────────────────────────────────────────────────────────────────
-</script>
-<script>
-// ─── SEO FIELDS ───────────────────────────────────────────────────
-var _uspTags = [];
-
-function addUspTag() {
-  var inp = document.getElementById('usp-input');
-  if (!inp) return;
-  var val = inp.value.trim().replace(/,+$/, '');
-  if (!val) return;
-  _uspTags.push(val);
-  renderUspTags();
-  inp.value = '';
-  inp.focus();
-}
-
-function removeUspTag(i) {
-  _uspTags.splice(i, 1);
-  renderUspTags();
-}
-
-function renderUspTags() {
-  var el = document.getElementById('usp-tags');
-  if (!el) return;
-  el.innerHTML = _uspTags.map(function(t, i) {
-    return '<span style="display:inline-flex;align-items:center;gap:5px;background:rgba(0,229,160,.1);'
-      + 'border:1px solid rgba(0,229,160,.3);color:var(--green);padding:4px 10px;border-radius:20px;'
-      + 'font-size:12px;font-weight:600">'
-      + t
-      + '<button onclick="removeUspTag('+i+')" style="background:none;border:none;color:rgba(0,229,160,.6);'
-      + 'cursor:pointer;font-size:14px;line-height:1;padding:0 0 0 2px">×</button>'
-      + '</span>';
-  }).join('');
-}
-
-function updatePay() {
-  var checks = ['pay-gotowka','pay-przelew','pay-karta','pay-blik','pay-faktury','pay-raty'];
-  var vals = checks.filter(function(id) {
-    var el = document.getElementById(id);
-    return el && el.checked;
-  }).map(function(id) {
-    return document.getElementById(id).value;
-  });
-  var hidden = document.getElementById('f-platnosci');
-  if (hidden) hidden.value = vals.join(', ');
-}
-
-var _faqItems = [];
-function addFaq() {
-  var idx = _faqItems.length;
-  _faqItems.push({q:'',a:''});
-  var list = document.getElementById('faq-list');
-  if (!list) return;
-  var div = document.createElement('div');
-  div.id = 'faq-item-' + idx;
-  div.style.cssText = 'background:var(--s2);border:1px solid var(--border2);border-radius:10px;padding:12px;position:relative';
-  div.innerHTML =
-    '<button onclick="removeFaq('+idx+')" style="position:absolute;top:8px;right:10px;background:none;border:none;'
-    + 'color:var(--muted);font-size:16px;cursor:pointer;line-height:1" title="Usuń">✕</button>'
-    + '<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-family:var(--mono);margin-bottom:6px">Pytanie '+(idx+1)+'</div>'
-    + '<input type="text" placeholder="np. Ile kosztuje wymiana kranu?" oninput="_faqItems['+idx+'].q=this.value"'
-    + ' style="margin-bottom:8px;width:100%">'
-    + '<input type="text" placeholder="np. Koszt wymiany kranu to 150-300 zł w zależności od modelu." oninput="_faqItems['+idx+'].a=this.value"'
-    + ' style="width:100%">';
-  list.appendChild(div);
-}
-
-function removeFaq(idx) {
-  _faqItems[idx] = null;
-  var el = document.getElementById('faq-item-' + idx);
-  if (el) el.remove();
-}
-
-// Patch collectFirmaData — dodaj pola SEO
-var _origCollectSEO = collectFirmaData;
-collectFirmaData = function() {
-  var d = _origCollectSEO();
-  d.usp        = _uspTags.filter(Boolean);
-  d.obszar     = (document.getElementById('f-obszar')      || {}).value || '';
-  d.certyfikaty= (document.getElementById('f-certyfikaty') || {}).value || '';
-  d.platnosci  = (document.getElementById('f-platnosci')   || {}).value || '';
-  d.keywords   = (document.getElementById('f-keywords')    || {}).value || '';
-  d.faq        = _faqItems.filter(function(f){ return f && f.q && f.a; });
-  return d;
-};
-// ─────────────────────────────────────────────────────────────────
-</script>
-</body></html>';
+  // srcdoc omija frame-src CSP calkowicie — jedyne pewne rozwiazanie
+  iframe.srcdoc = state.generatedHTML;
 }
 
 // ─── DOWNLOAD ───
@@ -2615,6 +2273,165 @@ function skipGate() {
     window.history.replaceState({}, '', '/test/generator/');
   });
 })();
+// ─── VISUAL LAYOUT ZONES ─────────────────────────────────────────
+var _zones = { hero: null, img1: null, img2: null };
+
+async function handleZoneUpload(input, zoneId) {
+  var file = input.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) { alert('Plik za duży — maks. 5 MB'); return; }
+  try {
+    var data = await toWebP(file);
+    _setZoneImage(zoneId, data, 'base64');
+  } catch(e) {
+    var reader = new FileReader();
+    reader.onload = function(ev) { _setZoneImage(zoneId, ev.target.result, 'base64'); };
+    reader.readAsDataURL(file);
+  }
+}
+
+function _setZoneImage(zoneId, url, source) {
+  _zones[zoneId] = { url: url, source: source };
+  var prev = document.getElementById('prev-' + zoneId);
+  var zone = document.getElementById('zone-' + zoneId);
+  var clearBtn = document.getElementById('clear-' + zoneId);
+  if (prev) { prev.src = url; prev.style.display = 'block'; }
+  if (zone) zone.classList.add('has-img');
+  if (clearBtn) clearBtn.classList.add('visible');
+}
+
+function clearZone(zoneId) {
+  _zones[zoneId] = null;
+  var prev = document.getElementById('prev-' + zoneId);
+  var zone = document.getElementById('zone-' + zoneId);
+  var clearBtn = document.getElementById('clear-' + zoneId);
+  if (prev) { prev.src = ''; prev.style.display = 'none'; }
+  if (zone) zone.classList.remove('has-img');
+  if (clearBtn) clearBtn.classList.remove('visible');
+  var inp = document.getElementById('inp-' + zoneId);
+  if (inp) inp.value = '';
+}
+
+var _pexelsBranzaMap = {
+  'Hydraulika': 'plumber water pipes',
+  'Elektryka': 'electrician electrical work',
+  'Remonty i wykończenia': 'home renovation construction',
+  'Malowanie': 'house painting interior',
+  'Sprzątanie': 'cleaning service professional',
+  'Ogrodnictwo': 'garden landscaping',
+  'Salon piękności': 'beauty salon professional',
+  'Gastronomia': 'restaurant food professional'
+};
+
+function openPexelsZone(zoneId) {
+  _pexelsTarget = 'zone_' + zoneId;
+  var modal = document.getElementById('pexels-modal');
+  if (!modal) { openPexels('hero'); return; }
+  modal.style.display = 'flex';
+  var inp = document.getElementById('pexels-q');
+  if (inp) {
+    var hint = { hero: '', img1: ' team work', img2: ' before after' };
+    inp.value = (_pexelsBranzaMap[state.branza] || 'professional service') + (hint[zoneId] || '');
+  }
+  if (typeof searchPexels === 'function') searchPexels();
+}
+
+// ─── SEO FIELDS ──────────────────────────────────────────────────
+var _uspTags = [];
+var _faqItems = [];
+
+function addUspTag() {
+  var inp = document.getElementById('usp-input');
+  if (!inp) return;
+  var val = inp.value.trim().replace(/,+$/, '');
+  if (!val) return;
+  _uspTags.push(val);
+  renderUspTags();
+  inp.value = '';
+  inp.focus();
+}
+
+function removeUspTag(i) {
+  _uspTags.splice(i, 1);
+  renderUspTags();
+}
+
+function renderUspTags() {
+  var el = document.getElementById('usp-tags');
+  if (!el) return;
+  el.innerHTML = _uspTags.map(function(t, i) {
+    return '<span class="usp-tag">' + t +
+      '<button onclick="removeUspTag(' + i + ')">×</button></span>';
+  }).join('');
+}
+
+function updatePay() {
+  var ids = ['pay-gotowka','pay-przelew','pay-karta','pay-blik','pay-faktury','pay-raty'];
+  var vals = ids.filter(function(id) {
+    var el = document.getElementById(id); return el && el.checked;
+  }).map(function(id) { return document.getElementById(id).value; });
+  var hidden = document.getElementById('f-platnosci');
+  if (hidden) hidden.value = vals.join(', ');
+}
+
+function addFaq() {
+  var idx = _faqItems.length;
+  _faqItems.push({ q: '', a: '' });
+  var list = document.getElementById('faq-list');
+  if (!list) return;
+  var div = document.createElement('div');
+  div.id = 'faq-item-' + idx;
+  div.className = 'faq-item';
+  div.innerHTML =
+    '<button onclick="removeFaq(' + idx + ')" style="position:absolute;top:8px;right:10px;background:none;border:none;color:var(--muted);font-size:16px;cursor:pointer">✕</button>' +
+    '<div class="faq-item-label">Pytanie ' + (idx + 1) + '</div>' +
+    '<input type="text" placeholder="np. Ile kosztuje wymiana kranu?" style="margin-bottom:8px;width:100%" oninput="_faqItems[' + idx + '].q=this.value">' +
+    '<input type="text" placeholder="np. Koszt wynosi 150-300 zł zależnie od modelu." style="width:100%" oninput="_faqItems[' + idx + '].a=this.value">';
+  list.appendChild(div);
+}
+
+function removeFaq(idx) {
+  _faqItems[idx] = null;
+  var el = document.getElementById('faq-item-' + idx);
+  if (el) el.remove();
+}
+
+// Patch collectFirmaData — dodaj pola SEO i zones
+var _origCollectFirma = typeof collectFirmaData === 'function' ? collectFirmaData : null;
+collectFirmaData = function() {
+  var d = _origCollectFirma ? _origCollectFirma() : {};
+  // Zones
+  if (_zones.hero) {
+    if (_zones.hero.source === 'pexels') { d.heroUrl = _zones.hero.url; d.hero_base64 = ''; }
+    else { d.hero_base64 = _zones.hero.url; d.heroUrl = ''; }
+  }
+  var galeriaZones = [];
+  if (_zones.img1) galeriaZones.push(_zones.img1.url);
+  if (_zones.img2) galeriaZones.push(_zones.img2.url);
+  if (galeriaZones.length > 0) { d.galeria = galeriaZones; d.galeriaUrls = galeriaZones; }
+  // SEO
+  d.usp         = _uspTags.filter(Boolean);
+  d.obszar      = (document.getElementById('f-obszar')      || {}).value || '';
+  d.certyfikaty = (document.getElementById('f-certyfikaty') || {}).value || '';
+  d.platnosci   = (document.getElementById('f-platnosci')   || {}).value || '';
+  d.keywords    = (document.getElementById('f-keywords')    || {}).value || '';
+  d.faq         = _faqItems.filter(function(f) { return f && f.q && f.a; });
+  return d;
+};
+
+// Patch selectPexelsPhoto dla stref
+var _origSelectPexelsForZones = typeof selectPexelsPhoto === 'function' ? selectPexelsPhoto : null;
+selectPexelsPhoto = function(url) {
+  if (typeof _pexelsTarget === 'string' && _pexelsTarget.startsWith('zone_')) {
+    var zId = _pexelsTarget.replace('zone_', '');
+    _setZoneImage(zId, url, 'pexels');
+    if (typeof closePexels === 'function') closePexels();
+    return;
+  }
+  if (_origSelectPexelsForZones) _origSelectPexelsForZones(url);
+};
+// ─────────────────────────────────────────────────────────────────
+
 // ─────────────────────────────────────────────────────────────────
 </script>
 
