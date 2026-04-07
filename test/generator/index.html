@@ -2054,7 +2054,7 @@ function selectPlan(card, id, name, price) {
   state.planPrice = price;
   document.getElementById('cp-plan-name').textContent = name;
   var pill = document.getElementById('sidebar-plan-pill');
-  if (pill) pill.style.display = 'block';
+  if (pill && state.currentStep >= 4) pill.style.display = 'block';
   document.querySelector('.cp-price').innerHTML = price === '0' ? 'Bezpłatny <sub></sub>' : `${price} <sub>zł/mies.</sub>`;
   var _bpEl=document.getElementById('btn-price'); if(_bpEl) _bpEl.textContent = price;
   document.getElementById('as-plan-price').textContent = price === '0' ? 'bezpłatny' : `${price} zł/mies.`;
