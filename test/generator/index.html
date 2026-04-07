@@ -933,7 +933,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
 
     <div class="sidebar-tip">
       <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:12px;opacity:.8">// Polecamy</div>
-      <div style="font-size:15px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px;letter-spacing:-.02em">Managed START<br><span style="color:var(--green)">249 zł/mies.</span></div>
+      <div style="font-size:15px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px;letter-spacing:-.02em">Managed START<br><span style="color:var(--green)">299 zł/mies.</span></div>
       <div style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:14px">My robimy <strong style="color:var(--text)">wszystko</strong> za Ciebie — tworzysz stronę w generatorze, a my ją uruchamiamy, pozycjonujemy i aktualizujemy.</div>
       <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px">
         <div style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)"><span style="color:var(--green);font-size:13px">✓</span> Własna domena</div>
@@ -950,7 +950,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
     <div class="cost-preview">
     <div class="cp-label">Podsumowanie</div>
     <div class="cp-plan" id="cp-plan-name">Managed START</div>
-    <div class="cp-price" id="cp-total-price">249 <sub>zł/mies.</sub></div>
+    <div class="cp-price" id="cp-total-price">299 <sub>zł/mies.</sub></div>
     <div class="cp-note" id="cp-addons-note">Wszystko wliczone. Rezygnacja w każdej chwili.</div>
     </div>
   </div>
@@ -1465,6 +1465,18 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
         <p class="sp-sub">Możesz zmienić w każdej chwili. Aktywacja po wygenerowaniu strony.</p>
       </div>
 
+      <!-- BILLING TOGGLE -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:24px;background:rgba(240,242,247,.06);border:1.5px solid rgba(240,242,247,.1);border-radius:10px;padding:4px;width:fit-content;margin-left:auto;margin-right:auto">
+        <button id="bill-month" onclick="switchBilling('month')"
+          style="background:rgba(0,229,160,.15);border:1.5px solid var(--green);color:var(--green);padding:8px 20px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--head);transition:all .2s">
+          Miesięcznie
+        </button>
+        <button id="bill-year" onclick="switchBilling('year')"
+          style="background:transparent;border:none;color:var(--muted);padding:8px 20px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--head);transition:all .2s">
+          Rocznie <span style="background:rgba(0,229,160,.15);color:var(--green);font-size:10px;padding:2px 6px;border-radius:4px;margin-left:4px">-17%</span>
+        </button>
+      </div>
+
       <div class="plan-grid">
         <div class="plan-card" onclick="selectPlan(this,'free','Free','0')">
           <div class="pc-name">Free</div>
@@ -1477,10 +1489,10 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
             <div class="pcf" style="opacity:.4"><span>–</span> Lokalne SEO</div>
           </div>
         </div>
-        <div class="plan-card featured-card selected" onclick="selectPlan(this,'managed_start','Managed START','249')">
+        <div class="plan-card featured-card selected" onclick="selectPlan(this,'managed_start','Managed START','299')">
           <div class="plan-badge">NAJPOPULARNIEJSZY</div>
           <div class="pc-name">Managed START</div>
-          <div class="pc-price">249 <sub>zł/mies.</sub></div>
+          <div class="pc-price" id="start-price-display">299 <sub>zł/mies.</sub></div>
           <div class="pc-desc">My robimy wszystko — Ty odbierasz telefony</div>
           <div class="pc-features">
             <div class="pcf"><span class="pcf-check">✓</span>Własna domena</div>
@@ -1491,7 +1503,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
         </div>
         <div class="plan-card" onclick="selectPlan(this,'managed_pro','Managed PRO','399')">
           <div class="pc-name">Managed PRO</div>
-          <div class="pc-price">399 <sub>zł/mies.</sub></div>
+          <div class="pc-price" id="pro-price-display">399 <sub>zł/mies.</sub></div>
           <div class="pc-desc">START + raporty SEO + blog + aktywna optymalizacja</div>
           <div class="pc-features">
             <div class="pcf"><span class="pcf-check">✓</span>Wszystko z START</div>
@@ -1534,74 +1546,44 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
     <div class="step-panel" id="panel-5">
       <div class="sp-header">
         <div class="sp-eyebrow">// Krok 5 z 6</div>
-        <h1 class="sp-title">Chcesz coś<br>dodać do planu?</h1>
-        <p class="sp-sub">Wszystkie dodatki są jednorazowe (poza Priorytetowym wsparciem). Możesz pominąć ten krok.</p>
+        <h1 class="sp-title">Chcesz coś<br>dodać?</h1>
+        <p class="sp-sub">Miesięczne możesz anulować w każdej chwili. Jednorazowe — aktywujemy w ciągu 48h.</p>
       </div>
 
+      <!-- MIESIĘCZNE -->
+      <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:12px">// Miesięczne</div>
       <div class="addon-list">
-        <div class="addon-item" onclick="toggleAddon(this,'seo_lokalne','SEO Lokalne',149,'once')">
+
+        <div class="addon-item" onclick="toggleAddon(this,'seo_dzielnice','SEO Dzielnice',199,'month')">
           <div class="addon-check">✓</div>
-          <div class="addon-icon-wrap">📍</div>
+          <div class="addon-icon-wrap">🗺️</div>
           <div class="addon-info">
-            <div class="addon-name">SEO Lokalne</div>
-            <div class="addon-desc">Treści pod 3 dodatkowe dzielnice + Schema markup</div>
+            <div class="addon-name">SEO Dzielnice</div>
+            <div class="addon-desc">Widoczność w 3 dodatkowych dzielnicach — osobne podstrony per obszar</div>
           </div>
-          <div><div class="addon-price-tag">149 zł</div><span class="addon-price-type">jednorazowo</span></div>
+          <div><div class="addon-price-tag">+199 zł</div><span class="addon-price-type">miesięcznie</span></div>
         </div>
-        <div class="addon-item" onclick="toggleAddon(this,'pagespeed','PageSpeed Boost',99,'once')">
+
+        <div class="addon-item" onclick="toggleAddon(this,'seo_miasto','SEO Miasto',349,'month')">
           <div class="addon-check">✓</div>
-          <div class="addon-icon-wrap">⚡</div>
+          <div class="addon-icon-wrap">🏙️</div>
           <div class="addon-info">
-            <div class="addon-name">PageSpeed Boost</div>
-            <div class="addon-desc">Optymalizacja Core Web Vitals, kompresja, lazy loading</div>
+            <div class="addon-name">SEO Miasto</div>
+            <div class="addon-desc">Frazy ogólnomiejskie bez podziału na dzielnice — szerszy zasięg</div>
           </div>
-          <div><div class="addon-price-tag">99 zł</div><span class="addon-price-type">jednorazowo</span></div>
+          <div><div class="addon-price-tag">+349 zł</div><span class="addon-price-type">miesięcznie</span></div>
         </div>
-        <div class="addon-item" onclick="toggleAddon(this,'wcag','WCAG Dostępność',79,'once')">
-          <div class="addon-check">✓</div>
-          <div class="addon-icon-wrap">♿</div>
-          <div class="addon-info">
-            <div class="addon-name">WCAG Dostępność</div>
-            <div class="addon-desc">Zgodność z WCAG 2.1, aria-labels, nawigacja klawiaturą</div>
-          </div>
-          <div><div class="addon-price-tag">149 zł</div><span class="addon-price-type">jednorazowo</span></div>
-        </div>
-        <div class="addon-item" onclick="toggleAddon(this,'wielojezycznosc','Wielojęzyczność',149,'once')">
+
+        <div class="addon-item" onclick="toggleAddon(this,'wersja_jezykowa','Wersja językowa EN/UA',99,'month')">
           <div class="addon-check">✓</div>
           <div class="addon-icon-wrap">🌐</div>
           <div class="addon-info">
-            <div class="addon-name">Wielojęzyczność</div>
-            <div class="addon-desc">Dodatkowa wersja językowa strony (EN, UA lub inna)</div>
+            <div class="addon-name">Wersja językowa EN/UA</div>
+            <div class="addon-desc">Strona w wersji angielskiej lub ukraińskiej dla klientów zagranicznych</div>
           </div>
-          <div><div class="addon-price-tag">149 zł</div><span class="addon-price-type">jednorazowo</span></div>
+          <div><div class="addon-price-tag">+99 zł</div><span class="addon-price-type">miesięcznie</span></div>
         </div>
-        <div class="addon-item" onclick="toggleAddon(this,'wlasna_domena','Własna domena',49,'once')">
-          <div class="addon-check">✓</div>
-          <div class="addon-icon-wrap">🌍</div>
-          <div class="addon-info">
-            <div class="addon-name">Własna domena</div>
-            <div class="addon-desc">Podpięcie Twojej własnej domeny do strony na Webgen</div>
-          </div>
-          <div><div class="addon-price-tag">99 zł</div><span class="addon-price-type">jednorazowo</span></div>
-        </div>
-        <div class="addon-item" onclick="toggleAddon(this,'analytics','Google Analytics GA4',69,'once')">
-          <div class="addon-check">✓</div>
-          <div class="addon-icon-wrap">📊</div>
-          <div class="addon-info">
-            <div class="addon-name">Google Analytics GA4</div>
-            <div class="addon-desc">Integracja GA4 — śledzenie ruchu i konwersji</div>
-          </div>
-          <div><div class="addon-price-tag">69 zł</div><span class="addon-price-type">jednorazowo</span></div>
-        </div>
-        <div class="addon-item" onclick="toggleAddon(this,'wiecej_zdjec','Więcej zdjęć',49,'once')">
-          <div class="addon-check">✓</div>
-          <div class="addon-icon-wrap">📸</div>
-          <div class="addon-info">
-            <div class="addon-name">Więcej zdjęć</div>
-            <div class="addon-desc">Rozszerzenie galerii do 20 zdjęć powyżej limitu planu</div>
-          </div>
-          <div><div class="addon-price-tag">69 zł</div><span class="addon-price-type">jednorazowo</span></div>
-        </div>
+
         <div class="addon-item" onclick="toggleAddon(this,'priorytetowe_wsparcie','Priorytetowe wsparcie',99,'month')">
           <div class="addon-check">✓</div>
           <div class="addon-icon-wrap">🚀</div>
@@ -1609,25 +1591,60 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
             <div class="addon-name">Priorytetowe wsparcie</div>
             <div class="addon-desc">Odpowiedź w 4h, dedykowany czat, szybsze aktualizacje</div>
           </div>
-          <div><div class="addon-price-tag">99 zł</div><span class="addon-price-type">miesięcznie</span></div>
+          <div><div class="addon-price-tag">+99 zł</div><span class="addon-price-type">miesięcznie</span></div>
+        </div>
+      </div>
+
+      <!-- JEDNORAZOWE -->
+      <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:28px;margin-bottom:12px">// Jednorazowe (setup)</div>
+      <div class="addon-list">
+
+        <div class="addon-item" onclick="toggleAddon(this,'wlasna_domena','Własna domena',199,'once')">
+          <div class="addon-check">✓</div>
+          <div class="addon-icon-wrap">🌍</div>
+          <div class="addon-info">
+            <div class="addon-name">Własna domena</div>
+            <div class="addon-desc">Podpięcie Twojej domeny + konfiguracja DNS i SSL</div>
+          </div>
+          <div><div class="addon-price-tag">199 zł</div><span class="addon-price-type">jednorazowo</span></div>
+        </div>
+
+        <div class="addon-item" onclick="toggleAddon(this,'dodatkowe_podstrony','Dodatkowe podstrony',149,'once')">
+          <div class="addon-check">✓</div>
+          <div class="addon-icon-wrap">📄</div>
+          <div class="addon-info">
+            <div class="addon-name">Dodatkowe podstrony</div>
+            <div class="addon-desc">3 osobne podstrony ofertowe (np. per usługa lub lokalizacja)</div>
+          </div>
+          <div><div class="addon-price-tag">149 zł</div><span class="addon-price-type">jednorazowo</span></div>
+        </div>
+
+        <div class="addon-item" onclick="toggleAddon(this,'sesja_ai','Sesja zdjęciowa AI',99,'once')">
+          <div class="addon-check">✓</div>
+          <div class="addon-icon-wrap">📸</div>
+          <div class="addon-info">
+            <div class="addon-name">Sesja zdjęciowa AI</div>
+            <div class="addon-desc">Zdjęcia AI dopasowane do branży i klimatu firmy</div>
+          </div>
+          <div><div class="addon-price-tag">99 zł</div><span class="addon-price-type">jednorazowo</span></div>
         </div>
       </div>
 
       <div class="addon-summary">
-        <div class="as-row"><span>Plan</span><span id="as-plan-price">249 zł/mies.</span></div>
+        <div class="as-row"><span>Plan</span><span id="as-plan-price">299 zł/mies.</span></div>
         <div id="as-addon-rows"></div>
-        <div class="as-row total"><span>Razem dziś</span><span id="as-total">249 zł</span></div>
+        <div class="as-row total"><span>Razem</span><span id="as-total">299 zł</span></div>
       </div>
 
       <div class="nav-btns">
         <button class="btn-prev" onclick="prevStep(5)">← Wróć</button>
         <button class="btn-next" onclick="nextStep(5)" style="background:var(--green);color:#080A0F;border:none;padding:14px 28px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--head);display:flex;align-items:center;gap:8px;transition:background .2s" onmouseover="this.style.background='#00C98A'" onmouseout="this.style.background='var(--green)'">
-          Dalej — wybierz plan →
+          Dalej — generuj stronę →
         </button>
       </div>
     </div>
 
-    <div class="step-panel" id="panel-6">
+        <div class="step-panel" id="panel-6">
       <div class="sp-header">
         <div class="sp-eyebrow">// Krok 6 z 6</div>
         <h1 class="sp-title">Wybierz plan<br><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">i uruchom stronę</span></h1>
@@ -1647,7 +1664,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
         <div>
           <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)">Wybierz plan</div>
 
-          <div class="plan6-card" id="p6-managed_start" onclick="selectPlan6('managed_start','Managed START',249)"
+          <div class="plan6-card" id="p6-managed_start" onclick="selectPlan6('managed_start','Managed START',299)"
             style="position:relative;background:var(--s2);border:1.5px solid var(--green);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;transition:all .2s">
             <div class="p6-badge" style="position:absolute;top:-9px;right:10px;background:var(--green);color:#080A0F;font-size:9px;font-weight:800;padding:2px 9px;border-radius:10px;font-family:var(--mono)">WYBRANY</div>
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
@@ -1777,6 +1794,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
 <script>
 // ─── STATE ───
 const state = {
+  billing: 'month',
   currentStep: 1,
   branza: '',
   plan: 'managed_start',
@@ -2004,6 +2022,34 @@ function updateAddonSummary() {
 // Limity zdjec per plan (sync z generate.js)
 const PLAN_PHOTO_LIMITS = { free: 3, managed_start: 6, managed_pro: 12, managed_premium: 12 };
 
+
+function switchBilling(mode) {
+  var btnMonth = document.getElementById('bill-month');
+  var btnYear  = document.getElementById('bill-year');
+  var startEl  = document.getElementById('start-price-display');
+  var proEl    = document.getElementById('pro-price-display');
+
+  if (mode === 'year') {
+    btnMonth.style.background = 'transparent';
+    btnMonth.style.border = 'none';
+    btnMonth.style.color = 'var(--muted)';
+    btnYear.style.background = 'rgba(0,229,160,.15)';
+    btnYear.style.border = '1.5px solid var(--green)';
+    btnYear.style.color = 'var(--green)';
+    if (startEl) startEl.innerHTML = '249 <sub>zł/mies. <span style="font-size:10px;opacity:.6">rocznie</span></sub>';
+    if (proEl)   proEl.innerHTML   = '332 <sub>zł/mies. <span style="font-size:10px;opacity:.6">rocznie</span></sub>';
+  } else {
+    btnMonth.style.background = 'rgba(0,229,160,.15)';
+    btnMonth.style.border = '1.5px solid var(--green)';
+    btnMonth.style.color = 'var(--green)';
+    btnYear.style.background = 'transparent';
+    btnYear.style.border = 'none';
+    btnYear.style.color = 'var(--muted)';
+    if (startEl) startEl.innerHTML = '299 <sub>zł/mies.</sub>';
+    if (proEl)   proEl.innerHTML   = '399 <sub>zł/mies.</sub>';
+  }
+  state.billing = mode;
+}
 function selectPlan(card, id, name, price) {
   document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
   card.classList.add('selected');
@@ -2320,7 +2366,7 @@ document.getElementById('checkout-modal').addEventListener('click', function(e) 
 });
 
 // Init
-selectPlan(document.querySelector('.plan-card.selected'), 'managed_start', 'Managed START', '249');
+selectPlan(document.querySelector('.plan-card.selected'), 'managed_start', 'Managed START', '299');
 
 // ─── EMAIL GATE (panel-0) ────────────────────────────────────────
 function validateGate() {
