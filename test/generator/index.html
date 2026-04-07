@@ -931,27 +931,13 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
       </div>
     </div>
 
-    <div class="sidebar-tip">
-      <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:12px;opacity:.8">// Polecamy</div>
-      <div style="font-size:15px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px;letter-spacing:-.02em">Managed START<br><span style="color:var(--green)">299 zł/mies.</span></div>
-      <div style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:14px">My robimy <strong style="color:var(--text)">wszystko</strong> za Ciebie — tworzysz stronę w generatorze, a my ją uruchamiamy, pozycjonujemy i aktualizujemy.</div>
-      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px">
-        <div style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)"><span style="color:var(--green);font-size:13px">✓</span> Własna domena</div>
-        <div style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)"><span style="color:var(--green);font-size:13px">✓</span> Lokalne SEO + Schema.org</div>
-        <div style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)"><span style="color:var(--green);font-size:13px">✓</span> Aktualizacje przez email</div>
-        <div style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)"><span style="color:var(--green);font-size:13px">✓</span> PageSpeed 90+ gwarantowany</div>
-        <div style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)"><span style="color:var(--green);font-size:13px">✓</span> Google Search Console</div>
-      </div>
-      <div style="background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);border-radius:8px;padding:10px 12px;font-size:11px;color:var(--green);font-family:var(--mono)">
-        💡 Wybierz w kroku 6 — Twoja strona będzie live w ciągu godziny.
-      </div>
-    </div>
 
-    <div class="cost-preview">
-    <div class="cp-label">Podsumowanie</div>
-    <div class="cp-plan" id="cp-plan-name">Managed START</div>
-    <div class="cp-price" id="cp-total-price">299 <sub>zł/mies.</sub></div>
-    <div class="cp-note" id="cp-addons-note">Wszystko wliczone. Rezygnacja w każdej chwili.</div>
+    <div id="sidebar-plan-pill" style="display:none;margin-top:auto;padding:10px 14px;background:rgba(0,229,160,.07);border:1px solid rgba(0,229,160,.18);border-radius:9px">
+      <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green);opacity:.7;margin-bottom:4px">Wybrany plan</div>
+      <div style="display:flex;align-items:baseline;gap:6px">
+        <span id="cp-plan-name" style="font-size:13px;font-weight:700;color:var(--text)">Managed START</span>
+        <span id="cp-total-price" style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--green)">299 zł/mies.</span>
+      </div>
     </div>
   </div>
 
@@ -2067,6 +2053,8 @@ function selectPlan(card, id, name, price) {
   state.planName = name;
   state.planPrice = price;
   document.getElementById('cp-plan-name').textContent = name;
+  var pill = document.getElementById('sidebar-plan-pill');
+  if (pill) pill.style.display = 'block';
   document.querySelector('.cp-price').innerHTML = price === '0' ? 'Bezpłatny <sub></sub>' : `${price} <sub>zł/mies.</sub>`;
   var _bpEl=document.getElementById('btn-price'); if(_bpEl) _bpEl.textContent = price;
   document.getElementById('as-plan-price').textContent = price === '0' ? 'bezpłatny' : `${price} zł/mies.`;
