@@ -1,26 +1,33 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const PRICES = {
-  managed_start:   process.env.STRIPE_PRICE_MANAGED_START,
-  managed_pro:     process.env.STRIPE_PRICE_MANAGED_PRO,
-  managed_premium: process.env.STRIPE_PRICE_MANAGED_PREMIUM,
-  saas_starter:    process.env.STRIPE_PRICE_SAAS_STARTER,
-  saas_pro:        process.env.STRIPE_PRICE_SAAS_PRO,
-  saas_agency:     process.env.STRIPE_PRICE_SAAS_AGENCY,
+  managed_start:         process.env.STRIPE_PRICE_MANAGED_START,
+  managed_start_yearly:  process.env.STRIPE_PRICE_MANAGED_START_YEARLY,
+  managed_pro:           process.env.STRIPE_PRICE_MANAGED_PRO,
+  managed_pro_yearly:    process.env.STRIPE_PRICE_MANAGED_PRO_YEARLY,
+  managed_premium:       process.env.STRIPE_PRICE_MANAGED_PREMIUM,
+  managed_premium_yearly:process.env.STRIPE_PRICE_MANAGED_PREMIUM_YEARLY,
 };
 
 module.exports = async function(req, res) {
   if (req.method !== "POST") return res.status(405).json({error:"Method not allowed"});
-  const { plan, firma_slug, email } = req.body;
-  const priceId = PRICES[plan];
-  if (!priceId) return res.status(400).json({error: "Unknown plan: " + plan});
+  const { plan, billing, firma_slug, email } = req.body;
+
+  var planKey = plan;
+  if (billing === 'year' && PRICES[plan + '_yearly']) {
+    planKey = plan + '_yearly';
+  }
+
+  const priceId = PRICES[planKey];
+  if (!priceId) return res.status(400).json({error: "Unknown plan: " + planKey});
+
   try {
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
       payment_method_types: ["card"],
       line_items: [{ price: priceId, quantity: 1 }],
       customer_email: email,
-      metadata: { firma_slug: firma_slug || "" },
+      metadata: { firma_slug: firma_slug || "", billing: billing || "month" },
       success_url: "https://webgen.pl/success?session_id={CHECKOUT_SESSION_ID}",
       cancel_url: "https://webgen.pl/test/generator/",
     });

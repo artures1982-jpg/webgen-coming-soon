@@ -1975,14 +1975,13 @@ function selectBranza(btn, name) {
 
 // ─── ADDONY ───
 const ADDONS_CONFIG = {
-  seo_lokalne:           { name:'SEO Lokalne',           price:79,  type:'once',  stripe:'https://buy.stripe.com/test_00wbJ18pHd5K1AIaGk3gk0f' },
-  pagespeed:             { name:'PageSpeed Boost',        price:49,  type:'once',  stripe:'https://buy.stripe.com/test_6oU14n5dve9ObbicOs3gk0g' },
-  wcag:                  { name:'WCAG Dostępność',        price:39,  type:'once',  stripe:'https://buy.stripe.com/test_aFaeVd5dvaXC2EM01G3gk0h' },
-  wielojezycznosc:       { name:'Wielojęzyczność',        price:59,  type:'once',  stripe:'https://buy.stripe.com/test_fZu14n5dv9Ty0wE01G3gk0i' },
-  wlasna_domena:         { name:'Własna domena',          price:49,  type:'once',  stripe:'https://buy.stripe.com/test_eVqbJ18pH2r60wEaGk3gk0j' },
-  analytics:             { name:'Google Analytics GA4',  price:29,  type:'once',  stripe:'https://buy.stripe.com/test_4gMbJ1axP6Hm6V229O3gk0k' },
-  wiecej_zdjec:          { name:'Więcej zdjęć',           price:29,  type:'once',  stripe:'https://buy.stripe.com/test_4gM8wPeO53vadjqaGk3gk0l' },
-  priorytetowe_wsparcie: { name:'Priorytetowe wsparcie',  price:49,  type:'month', stripe:'https://buy.stripe.com/test_00wbJ18pHd5K1AIaGk3gk0f' },
+  seo_dzielnice:         { name:'SEO Dzielnice',          price:199, type:'month', stripe:'' },
+  seo_miasto:            { name:'SEO Miasto',             price:349, type:'month', stripe:'' },
+  wersja_jezykowa:       { name:'Wersja językowa EN/UA',  price:99,  type:'month', stripe:'' },
+  priorytetowe_wsparcie: { name:'Priorytetowe wsparcie',  price:99,  type:'month', stripe:'' },
+  wlasna_domena:         { name:'Własna domena',          price:199, type:'once',  stripe:'' },
+  dodatkowe_podstrony:   { name:'Dodatkowe podstrony',    price:149, type:'once',  stripe:'' },
+  sesja_ai:              { name:'Sesja zdjęciowa AI',     price:99,  type:'once',  stripe:'' },
 };
 
 function toggleAddon(el, id, name, price, type) {
@@ -2325,7 +2324,9 @@ function downloadHTML() {
 // ─── CHECKOUT ───
 function openCheckout() {
   document.getElementById('modal-plan-name').textContent = state.planName;
-  document.getElementById('modal-plan-price').innerHTML = `${state.planPrice} <sub style="font-size:13px;color:var(--muted)">zł/mies.</sub>`;
+  var billingLabel = (state.billing === 'year') ? 'zł/mies. (rocznie)' : 'zł/mies.';
+  var displayPrice = (state.billing === 'year') ? Math.round(parseInt(state.planPrice) * 10 / 12) : state.planPrice;
+  document.getElementById('modal-plan-price').innerHTML = displayPrice + ' <sub style="font-size:13px;color:var(--muted)">' + billingLabel + '</sub>';
   document.getElementById('checkout-modal').classList.add('active');
 }
 
@@ -2347,7 +2348,7 @@ async function goToCheckout() {
     const res = await fetch('/api/create-checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ plan: state.plan, firma_slug: state.slug, email })
+      body: JSON.stringify({ plan: state.plan, billing: state.billing || 'month', firma_slug: state.slug, email })
     });
     const data = await res.json();
     if (data.checkout_url) {
