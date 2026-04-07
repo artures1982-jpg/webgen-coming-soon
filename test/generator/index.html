@@ -1593,6 +1593,16 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
           </div>
           <div><div class="addon-price-tag">+99 zł</div><span class="addon-price-type">miesięcznie</span></div>
         </div>
+
+        <div class="addon-item" onclick="toggleAddon(this,'google_business','Google Business Profile',149,'month')">
+          <div class="addon-check">✓</div>
+          <div class="addon-icon-wrap">📍</div>
+          <div class="addon-info">
+            <div class="addon-name">Google Business Profile</div>
+            <div class="addon-desc">Założymy i zoptymalizujemy profil w Mapach Google — zdjęcia, opisy, opinie</div>
+          </div>
+          <div><div class="addon-price-tag">+149 zł</div><span class="addon-price-type">miesięcznie</span></div>
+        </div>
       </div>
 
       <!-- JEDNORAZOWE -->
@@ -1979,6 +1989,7 @@ const ADDONS_CONFIG = {
   seo_miasto:            { name:'SEO Miasto',             price:349, type:'month', stripe:'' },
   wersja_jezykowa:       { name:'Wersja językowa EN/UA',  price:99,  type:'month', stripe:'' },
   priorytetowe_wsparcie: { name:'Priorytetowe wsparcie',  price:99,  type:'month', stripe:'' },
+  google_business:       { name:'Google Business Profile', price:149, type:'month', stripe:'' },
   wlasna_domena:         { name:'Własna domena',          price:199, type:'once',  stripe:'' },
   dodatkowe_podstrony:   { name:'Dodatkowe podstrony',    price:149, type:'once',  stripe:'' },
   sesja_ai:              { name:'Sesja zdjęciowa AI',     price:99,  type:'once',  stripe:'' },

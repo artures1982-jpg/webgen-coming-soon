@@ -15,8 +15,9 @@ const ADDON_PRICES = {
   priorytetowe_wsparcie:      process.env.STRIPE_PRICE_ADDON_PRIORYTETOWE,
   wlasna_domena:              process.env.STRIPE_PRICE_ADDON_DOMENA,
   dodatkowe_podstrony:        process.env.STRIPE_PRICE_ADDON_PODSTRONY,
+  google_business:            process.env.STRIPE_PRICE_ADDON_GBP,
   sesja_ai:                   process.env.STRIPE_PRICE_ADDON_SESJA_AI,
-};
+  };
 
 module.exports = async function(req, res) {
   if (req.method !== "POST") return res.status(405).json({error:"Method not allowed"});
