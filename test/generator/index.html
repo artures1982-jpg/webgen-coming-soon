@@ -2001,10 +2001,8 @@ function updateAddonSummary() {
     rows += `<div class="as-row"><span>${a.name}</span><span>${a.price} zł${a.type==='month'?'/mies.':' jednorazowo'}</span></div>`;
   });
   document.getElementById('as-addon-rows').innerHTML = rows;
-  const total = planPrice + addonsMonth;
-  const totalStr = addonsOnce > 0
-    ? `${total} zł/mies. + ${addonsOnce} zł`
-    : `${total} zł/mies.`;
+  var isYearly=state.billing==="year"; var effectivePrice=isYearly?Math.round(planPrice*10/12):planPrice; var total=effectivePrice+addonsMonth;
+  var bn=isYearly?"/mies. (rocznie)":"/mies."; var totalStr=addonsOnce>0?(total+" zł"+bn+" + "+addonsOnce+" zł"):(total+" zł"+bn);
   document.getElementById('as-total').textContent = totalStr;
   // Sidebar
   const addonsCount = Object.keys(state.addons).length;
@@ -2033,6 +2031,7 @@ function switchBilling(mode) {
     btnYear.style.border = '1.5px solid var(--green)';
     btnYear.style.color = 'var(--green)';
     if (startEl) startEl.innerHTML = '249 <sub>zł/mies. <span style="font-size:10px;opacity:.6">rocznie</span></sub>';
+  updateAddonSummary();
     if (proEl)   proEl.innerHTML   = '332 <sub>zł/mies. <span style="font-size:10px;opacity:.6">rocznie</span></sub>';
   } else {
     btnMonth.style.background = 'rgba(0,229,160,.15)';
@@ -2042,6 +2041,7 @@ function switchBilling(mode) {
     btnYear.style.border = 'none';
     btnYear.style.color = 'var(--muted)';
     if (startEl) startEl.innerHTML = '299 <sub>zł/mies.</sub>';
+  updateAddonSummary();
     if (proEl)   proEl.innerHTML   = '399 <sub>zł/mies.</sub>';
   }
   state.billing = mode;
@@ -2055,9 +2055,9 @@ function selectPlan(card, id, name, price) {
   document.getElementById('cp-plan-name').textContent = name;
   var pill = document.getElementById('sidebar-plan-pill');
   if (pill && state.currentStep >= 4) pill.style.display = 'block';
-  document.querySelector('.cp-price').innerHTML = price === '0' ? 'Bezpłatny <sub></sub>' : `${price} <sub>zł/mies.</sub>`;
+  var _cpt=document.getElementById('cp-total-price'); if(_cpt) _cpt.textContent=price==='0'?'Bezpłatny':price+' zł/mies.';
   var _bpEl=document.getElementById('btn-price'); if(_bpEl) _bpEl.textContent = price;
-  document.getElementById('as-plan-price').textContent = price === '0' ? 'bezpłatny' : `${price} zł/mies.`;
+  var _yr=state.billing==='year'; var _dp=_yr?Math.round((parseInt(price)||0)*10/12):(parseInt(price)||0); document.getElementById('as-plan-price').textContent=price==='0'?'bezpłatny':(_dp+(_yr?' zł/mies. (rocznie)':' zł/mies.'));
   updateAddonSummary();
 
   // Pokaż/ukryj hero upload dla PREMIUM
