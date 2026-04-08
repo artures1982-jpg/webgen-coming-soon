@@ -865,6 +865,58 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
 .branza-selected-badge.visible{display:block}
 /* ────────────────────────────────────────────────── */
 
+
+/* ── BRANŻE KAFELKI ─────────────────────────────────────────── */
+.branza-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-bottom:20px;
+}
+@media(max-width:600px){
+  .branza-grid{ grid-template-columns:repeat(2,1fr); gap:8px; }
+}
+.branza-tile{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;padding:16px 10px;
+  background:rgba(240,242,247,.04);
+  border:1.5px solid rgba(240,242,247,.1);
+  border-radius:12px;cursor:pointer;
+  transition:all .18s;text-align:center;
+  font-family:var(--head);
+}
+.branza-tile:hover{
+  border-color:rgba(0,229,160,.4);
+  background:rgba(0,229,160,.05);
+}
+.branza-tile.selected{
+  border-color:var(--green);
+  background:rgba(0,229,160,.08);
+  box-shadow:0 0 0 3px rgba(0,229,160,.12);
+}
+.bt-icon{ font-size:28px;line-height:1 }
+.bt-name{ font-size:12px;font-weight:700;color:var(--text);line-height:1.3 }
+.branza-tile.selected .bt-name{ color:var(--green) }
+
+.branza-other-wrap{ margin-top:4px }
+.branza-other-toggle{
+  display:flex;align-items:center;gap:10px;
+  width:100%;padding:12px 16px;
+  background:transparent;
+  border:1.5px dashed rgba(240,242,247,.15);
+  border-radius:10px;cursor:pointer;
+  font-family:var(--head);font-size:13px;font-weight:600;color:var(--muted);
+  transition:all .18s;
+}
+.branza-other-toggle:hover{ border-color:rgba(0,229,160,.3);color:var(--green) }
+.branza-other-toggle.active{ border-color:rgba(0,229,160,.3);color:var(--green) }
+.branza-other-panel{
+  margin-top:12px;padding:16px;
+  background:rgba(0,229,160,.03);
+  border:1px solid rgba(0,229,160,.12);
+  border-radius:10px;
+}
+/* ────────────────────────────────────────────────────────────── */
 </style>
 </head>
 <body>
@@ -1032,133 +1084,95 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
         <p class="sp-sub">Wybierz branżę — AI dobierze odpowiednie kolory, fonty i treści.</p>
       </div>
 
-      <div class="branza-select-wrap">
-        <select class="branza-select" id="branza-select" onchange="selectBranzaFromDropdown(this)">
-          <option value="" disabled selected>— Wybierz branżę —</option>
+      <!-- BRANŻE — kafelki -->
+      <div class="branza-grid" id="branza-grid">
 
-          <optgroup label="🏠 Usługi lokalne">
-            <optgroup label="  Budownictwo i remonty">
-              <option value="Firma remontowo-budowlana">Firma remontowo-budowlana</option>
-              <option value="Wykończenia wnętrz">Wykończenia wnętrz</option>
-              <option value="Dekarz">Dekarz</option>
-              <option value="Glazurnik / Posadzkarz">Glazurnik / Posadzkarz</option>
-              <option value="Malarz / Tynkarz">Malarz / Tynkarz</option>
-              <option value="Stolarz / Cieśla">Stolarz / Cieśla</option>
-            </optgroup>
-            <optgroup label="  Instalacje i technika">
-              <option value="Hydraulik">Hydraulik</option>
-              <option value="Elektryk">Elektryk</option>
-              <option value="Klimatyzacja / HVAC">Klimatyzacja / HVAC</option>
-              <option value="Fotowoltaika">Fotowoltaika</option>
-              <option value="Monitoring / Alarmy">Monitoring / Alarmy</option>
-            </optgroup>
-            <optgroup label="  Motoryzacja">
-              <option value="Mechanik samochodowy">Mechanik samochodowy</option>
-              <option value="Blacharz / Lakiernik">Blacharz / Lakiernik</option>
-              <option value="Wulkanizacja">Wulkanizacja</option>
-              <option value="Auto detailing">Auto detailing</option>
-              <option value="Wynajem aut">Wynajem aut</option>
-            </optgroup>
-            <optgroup label="  Usługi domowe">
-              <option value="Sprzątanie">Sprzątanie</option>
-              <option value="Przeprowadzki">Przeprowadzki</option>
-              <option value="Ogrodnik / Pielęgnacja zieleni">Ogrodnik / Pielęgnacja zieleni</option>
-              <option value="Dezynfekcja / Deratyzacja">Dezynfekcja / Deratyzacja</option>
-              <option value="Opieka nad dziećmi / seniorami">Opieka nad dziećmi / seniorami</option>
-            </optgroup>
-          </optgroup>
+        <button class="branza-tile" onclick="selectBranzaTile(this,'Hydraulik')">
+          <span class="bt-icon">🚧</span>
+          <span class="bt-name">Hydraulik</span>
+        </button>
+        <button class="branza-tile" onclick="selectBranzaTile(this,'Elektryk')">
+          <span class="bt-icon">⚡</span>
+          <span class="bt-name">Elektryk</span>
+        </button>
+        <button class="branza-tile" onclick="selectBranzaTile(this,'Firma remontowo-budowlana')">
+          <span class="bt-icon">🏗️</span>
+          <span class="bt-name">Remonty & budowa</span>
+        </button>
+        <button class="branza-tile" onclick="selectBranzaTile(this,'Wykończenia wnętrz')">
+          <span class="bt-icon">🪟</span>
+          <span class="bt-name">Wykończenia wnętrz</span>
+        </button>
 
-          <optgroup label="🧑‍⚕️ Zdrowie i uroda">
-            <optgroup label="  Medycyna">
-              <option value="Gabinet lekarski">Gabinet lekarski</option>
-              <option value="Klinika prywatna">Klinika prywatna</option>
-              <option value="Stomatologia">Stomatologia</option>
-              <option value="Fizjoterapia / Rehabilitacja">Fizjoterapia / Rehabilitacja</option>
-              <option value="Weterynarz">Weterynarz</option>
-            </optgroup>
-            <optgroup label="  Psychologia i rozwój">
-              <option value="Psycholog / Terapeuta">Psycholog / Terapeuta</option>
-              <option value="Coach / Mentor">Coach / Mentor</option>
-            </optgroup>
-            <optgroup label="  Uroda">
-              <option value="Kosmetyczka / Salon kosmetyczny">Kosmetyczka / Salon kosmetyczny</option>
-              <option value="Fryzjer / Barber">Fryzjer / Barber</option>
-              <option value="Medycyna estetyczna">Medycyna estetyczna</option>
-              <option value="Spa / Masaże">Spa / Masaże</option>
-              <option value="Salon paznokci">Salon paznokci</option>
-            </optgroup>
-          </optgroup>
+        <button class="branza-tile" onclick="selectBranzaTile(this,'Mechanik samochodowy')">
+          <span class="bt-icon">🔧</span>
+          <span class="bt-name">Mechanik</span>
+        </button>
+        <button class="branza-tile" onclick="selectBranzaTile(this,'Sprzątanie')">
+          <span class="bt-icon">🧹</span>
+          <span class="bt-name">Sprzątanie</span>
+        </button>
+        <button class="branza-tile" onclick="selectBranzaTile(this,'Ogrodnik / Pielęgnacja zieleni')">
+          <span class="bt-icon">🌿</span>
+          <span class="bt-name">Ogrodnik</span>
+        </button>
+        <button class="branza-tile" onclick="selectBranzaTile(this,'Stomatologia')">
+          <span class="bt-icon">🦷</span>
+          <span class="bt-name">Stomatolog</span>
+        </button>
 
-          <optgroup label="⚖️ Usługi profesjonalne">
-            <optgroup label="  Prawo i finanse">
-              <option value="Kancelaria prawna">Kancelaria prawna</option>
-              <option value="Biuro rachunkowe / Księgowość">Biuro rachunkowe / Księgowość</option>
-              <option value="Doradca podatkowy">Doradca podatkowy</option>
-              <option value="Ubezpieczenia">Ubezpieczenia</option>
-              <option value="Doradca finansowy">Doradca finansowy</option>
-            </optgroup>
-            <optgroup label="  Biznes i consulting">
-              <option value="Konsultant biznesowy">Konsultant biznesowy</option>
-              <option value="HR / Rekrutacja">HR / Rekrutacja</option>
-              <option value="Agencja marketingowa">Agencja marketingowa</option>
-              <option value="Tłumaczenia">Tłumaczenia</option>
-            </optgroup>
-          </optgroup>
+        <button class="branza-tile" onclick="selectBranzaTile(this,'Kosmetyczka / Salon kosmetyczny')">
+          <span class="bt-icon">💎</span>
+          <span class="bt-name">Salon kosmetyczny</span>
+        </button>
+        <button class="branza-tile" onclick="selectBranzaTile(this,'Fryzjer / Barber')">
+          <span class="bt-icon">✂️</span>
+          <span class="bt-name">Fryzjer / Barber</span>
+        </button>
+        <button class="branza-tile" onclick="selectBranzaTile(this,'Fizjoterapia / Rehabilitacja')">
+          <span class="bt-icon">🦴</span>
+          <span class="bt-name">Fizjoterapia</span>
+        </button>
+        <button class="branza-tile" onclick="selectBranzaTile(this,'Restauracja')">
+          <span class="bt-icon">🍽️</span>
+          <span class="bt-name">Restauracja</span>
+        </button>
 
-          <optgroup label="🍽️ Gastronomia i hospitality">
-            <optgroup label="  Gastronomia">
-              <option value="Restauracja">Restauracja</option>
-              <option value="Kawiarnia / Cukiernia">Kawiarnia / Cukiernia</option>
-              <option value="Catering">Catering</option>
-              <option value="Food truck">Food truck</option>
-              <option value="Bar / Pub">Bar / Pub</option>
-            </optgroup>
-            <optgroup label="  Noclegi">
-              <option value="Hotel / Pensjonat">Hotel / Pensjonat</option>
-              <option value="Apartamenty / Airbnb">Apartamenty / Airbnb</option>
-              <option value="Domki letniskowe / Agroturystyka">Domki letniskowe / Agroturystyka</option>
-            </optgroup>
-            <optgroup label="  Turystyka">
-              <option value="Biuro podróży">Biuro podróży</option>
-              <option value="Atrakcja turystyczna">Atrakcja turystyczna</option>
-            </optgroup>
-          </optgroup>
+        <button class="branza-tile" onclick="selectBranzaTile(this,'Kawiarnia / Cukiernia')">
+          <span class="bt-icon">☕</span>
+          <span class="bt-name">Kawiarnia</span>
+        </button>
+        <button class="branza-tile" onclick="selectBranzaTile(this,'Trener personalny / Siłownia')">
+          <span class="bt-icon">💪</span>
+          <span class="bt-name">Trener / Siłownia</span>
+        </button>
+        <button class="branza-tile" onclick="selectBranzaTile(this,'Fotograf')">
+          <span class="bt-icon">📷</span>
+          <span class="bt-name">Fotograf</span>
+        </button>
+        <button class="branza-tile" onclick="selectBranzaTile(this,'Agencja nieruchomości')">
+          <span class="bt-icon">🏠</span>
+          <span class="bt-name">Nieruchomości</span>
+        </button>
 
-          <optgroup label="🎓 Edukacja i szkolenia">
-            <option value="Szkoła / Przedszkole">Szkoła / Przedszkole</option>
-            <option value="Szkoła językowa">Szkoła językowa</option>
-            <option value="Korepetycje">Korepetycje</option>
-            <option value="Kursy zawodowe / Szkolenia">Kursy zawodowe / Szkolenia</option>
-            <option value="Kurs online / E-learning">Kurs online / E-learning</option>
-            <option value="Trener / Instruktor">Trener / Instruktor</option>
-          </optgroup>
+      </div>
 
-          <optgroup label="🎨 Kreatywne i media">
-            <option value="Fotograf">Fotograf</option>
-            <option value="Filmowiec / Videograf">Filmowiec / Videograf</option>
-          </optgroup>
-
-          <optgroup label="🏠 Nieruchomości">
-            <option value="Agencja nieruchomości">Agencja nieruchomości</option>
-            <option value="Deweloper">Deweloper</option>
-            <option value="Wynajem / Zarządzanie najmem">Wynajem / Zarządzanie najmem</option>
-          </optgroup>
-
-          <optgroup label="🧘 Lifestyle i wellness">
-            <option value="Trener personalny / Siłownia">Trener personalny / Siłownia</option>
-            <option value="Joga / Pilates">Joga / Pilates</option>
-            <option value="Dietetyk / Dieta i żywienie">Dietetyk / Żywienie</option>
-            <option value="Rozwój osobisty / Coaching">Rozwój osobisty / Coaching</option>
-          </optgroup>
-
-          <optgroup label="🎮 Rozrywka i eventy">
-            <option value="Organizator eventów / Wesela">Organizator eventów / Wesela</option>
-            <option value="Escape room / Atrakcja">Escape room / Atrakcja</option>
-            <option value="Klub nocny / Lokal">Klub nocny / Lokal</option>
-          </optgroup>
-        </select>
-        <div class="branza-select-arrow">▾</div>
-        <div class="branza-selected-badge" id="branza-badge"></div>
+      <!-- INNA BRANŻA -->
+      <div class="branza-other-wrap" id="branza-other-wrap">
+        <button class="branza-other-toggle" id="branza-other-toggle" onclick="toggleBranzaOther()">
+          <span style="font-size:18px">➕</span>
+          <span>Nie ma mojej branży?</span>
+        </button>
+        <div class="branza-other-panel" id="branza-other-panel" style="display:none">
+          <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:10px;opacity:.8">// Opisz czym się zajmujesz</div>
+          <p style="font-size:13px;color:var(--muted);margin:0 0 12px;line-height:1.6">Każda firma jest wyjątkowa. Napisz kilka słów o tym, co robisz — AI dobierze odpowiedni styl, treści i słowa kluczowe specjalnie dla Ciebie.</p>
+          <textarea id="f-branza-opis" rows="3"
+            style="width:100%;background:rgba(240,242,247,.05);border:1.5px solid rgba(240,242,247,.12);border-radius:10px;padding:12px 14px;font-size:14px;color:var(--text);font-family:var(--body);resize:vertical;outline:none;transition:border-color .2s;box-sizing:border-box"
+            placeholder="np. Prowadzę warsztat tapicerski, specjalizuję się w renowacji mebli i tapicerce samochodowej."
+            oninput="selectBranzaFromOther(this.value)"
+            onfocus="this.style.borderColor='var(--green)'"
+            onblur="this.style.borderColor='rgba(240,242,247,.12)'"></textarea>
+        </div>
       </div>
 
       <div class="form-grid cols2" style="margin-top:28px">
@@ -1859,7 +1873,9 @@ function setStep(n) {
 // ─── VALIDATION ───
 function validateStep(step) {
   if (step === 1) {
-    if (!state.branza) { alert('Wybierz branżę'); return false; }
+    var _opis = document.getElementById('f-branza-opis');
+    if (!state.branza && (!_opis || !_opis.value.trim())) { alert('Wybierz branżę lub opisz czym się zajmujesz'); return false; }
+    if (!state.branza && _opis && _opis.value.trim()) state.branza = _opis.value.trim();
     if (!document.getElementById('f-miasto').value.trim()) { alert('Wpisz miasto'); return false; }
   }
   if (step === 2) {
@@ -1963,6 +1979,35 @@ async function handleHeroUpload(input) {
 }
 
 // ─── BRANŻA ───
+
+function selectBranzaTile(btn, name) {
+  document.querySelectorAll('.branza-tile').forEach(function(b){ b.classList.remove('selected'); });
+  btn.classList.add('selected');
+  state.branza = name;
+  // Schowaj "inna branża" jeśli wybrano kafelek
+  var panel = document.getElementById('branza-other-panel');
+  var toggle = document.getElementById('branza-other-toggle');
+  if (panel) panel.style.display = 'none';
+  if (toggle) toggle.classList.remove('active');
+}
+
+function toggleBranzaOther() {
+  var panel = document.getElementById('branza-other-panel');
+  var toggle = document.getElementById('branza-other-toggle');
+  if (!panel) return;
+  var open = panel.style.display !== 'none';
+  panel.style.display = open ? 'none' : 'block';
+  toggle.classList.toggle('active', !open);
+  if (!open) {
+    // Odznacz kafelki
+    document.querySelectorAll('.branza-tile').forEach(function(b){ b.classList.remove('selected'); });
+    setTimeout(function(){ var ta=document.getElementById('f-branza-opis'); if(ta) ta.focus(); }, 100);
+  }
+}
+
+function selectBranzaFromOther(val) {
+  state.branza = val.trim() ? val.trim() : '';
+}
 function selectBranza(btn, name) {
   document.querySelectorAll('.branza-btn').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
