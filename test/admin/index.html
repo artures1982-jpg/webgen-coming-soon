@@ -428,6 +428,28 @@ table.tbl tr:hover td{background:rgba(240,242,247,.02)}
   <a href="/test/generator/" class="wg-nav-drawer-cta">Zacznij za darmo →</a>
 </div>
 
+
+  <div class="sb-nav">
+    <div class="sb-section">Przegląd</div>
+    <a class="nav-item active" onclick="go('overview',this)"><span class="nav-icon">🏠</span><span class="nav-label">Dashboard</span></a>
+    <a class="nav-item" onclick="go('messages',this)"><span class="nav-icon">💬</span><span class="nav-label">Wiadomości</span><span class="nav-badge nb-red" id="sb-msg-badge" style="display:none">0</span></a>
+
+    <div class="sb-section">Klienci & Sprzedaż</div>
+    <a class="nav-item" onclick="go('clients',this)"><span class="nav-icon">👥</span><span class="nav-label">Klienci</span><span class="nav-badge nb-blue">12</span></a>
+    <a class="nav-item" onclick="go('sites',this)"><span class="nav-icon">🌐</span><span class="nav-label">Aktywne strony</span><span class="nav-badge nb-green">12</span></a>
+    <a class="nav-item" onclick="go('tasks',this)"><span class="nav-icon">📋</span><span class="nav-label">Zadania Managed</span><span class="nav-badge nb-red" id="sb-tasks-badge">3</span></a>
+    <a class="nav-item" onclick="go('outreach',this)"><span class="nav-icon">📣</span><span class="nav-label">Outreach CRM</span></a>
+
+    <div class="sb-section">Finanse & Wzrost</div>
+    <a class="nav-item" onclick="go('revenue',this)"><span class="nav-icon">💰</span><span class="nav-label">Przychody</span></a>
+    <a class="nav-item" onclick="go('seo',this)"><span class="nav-icon">📈</span><span class="nav-label">SEO Monitor</span></a>
+
+    <div class="sb-section">System</div>
+    <a class="nav-item" onclick="go('generator',this)"><span class="nav-icon">⚡</span><span class="nav-label">Generator AI</span></a>
+    <a class="nav-item" onclick="go('logs',this)"><span class="nav-icon">🖥</span><span class="nav-label">Logi / Deploy</span></a>
+    <a class="nav-item" onclick="go('settings',this)"><span class="nav-icon">⚙️</span><span class="nav-label">Ustawienia</span></a>
+  </div>
+
   <div class="sb-footer">
     <div class="sb-user">
       <div class="sb-avatar">A</div>
@@ -850,21 +872,151 @@ table.tbl tr:hover td{background:rgba(240,242,247,.02)}
          ═════════════════════════ -->
     <div class="panel" id="panel-sites">
       <div class="ph">
-        <div class="ph-left"><div class="ph-title">Wszystkie strony</div><div class="ph-sub">12 aktywnych domen na webgen.pl</div></div>
-        <div class="ph-actions"><button class="btn btn-green btn-sm" onclick="showToast('Otwieranie generatora...','⚡')">⚡ Nowa strona</button></div>
+        <div class="ph-left"><div class="ph-title">Aktywne strony</div><div class="ph-sub">12 domen live na *.webgen.pl</div></div>
+        <div class="ph-actions">
+          <select id="sites-filter" style="background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:7px 12px;font-size:12px;color:var(--white);font-family:var(--head);outline:none">
+            <option>Wszystkie plany</option><option>Managed START</option><option>Managed PRO</option><option>Free</option>
+          </select>
+          <a href="/test/generator/" class="btn btn-green btn-sm">⚡ Nowa strona</a>
+        </div>
       </div>
+
+      <!-- Karta widoku — grid kafelków stron -->
+      <div id="sites-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:20px"></div>
+
+      <!-- Tabela szczegółowa -->
       <div class="card">
+        <div class="card-header">
+          <div class="card-title">📋 Szczegółowa lista</div>
+          <button class="card-action" onclick="showToast('Eksportowano CSV','📥')">⬇ CSV</button>
+        </div>
         <div class="tbl-wrap">
-          <table class="tbl">
-            <thead><tr><th>URL</th><th>Klient</th><th>Plan</th><th>PageSpeed</th><th>Pozycja Google</th><th>Status</th><th>Akcje</th></tr></thead>
+          <table class="tbl" id="sites-table">
+            <thead><tr><th>URL</th><th>Klient</th><th>Plan</th><th>PS</th><th>Pozycja</th><th>Ostatnia zmiana</th><th>Status</th><th>Akcje</th></tr></thead>
             <tbody>
-              <tr><td><div class="tbl-url">hydraulik.webgen.pl</div></td><td>Marek Kowalski</td><td><span class="badge bg-purple">Managed PRO</span></td><td style="font-family:var(--mono);color:var(--green);font-weight:700">94</td><td style="font-family:var(--mono)">#4 "hydraulik Białołęka"</td><td><span class="badge bg-green">LIVE</span></td><td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie...','🌐')">Podgląd</button></td></tr>
-              <tr><td><div class="tbl-url">finezja.webgen.pl</div></td><td>Salon Urody Finezja</td><td><span class="badge bg-blue">Managed START</span></td><td style="font-family:var(--mono);color:var(--green);font-weight:700">91</td><td style="font-family:var(--mono)">#8 "salon urody Białołęka"</td><td><span class="badge bg-green">LIVE</span></td><td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie...','🌐')">Podgląd</button></td></tr>
-              <tr><td><div class="tbl-url">wild.webgen.pl</div></td><td>WILD Fryzury i Pazury</td><td><span class="badge bg-blue">Managed START</span></td><td style="font-family:var(--mono);color:var(--yellow);font-weight:700">87</td><td style="font-family:var(--mono)">#12 "fryzjer Białołęka"</td><td><span class="badge bg-green">LIVE</span></td><td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie...','🌐')">Podgląd</button></td></tr>
-              <tr><td><div class="tbl-url">elektryka-nowak.webgen.pl</div></td><td>Elektryka Nowak</td><td><span class="badge bg-muted">Managed</span></td><td style="font-family:var(--mono);color:var(--green);font-weight:700">92</td><td style="font-family:var(--mono)">—</td><td><span class="badge bg-green">LIVE</span></td><td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie...','🌐')">Podgląd</button></td></tr>
-              <tr><td><div class="tbl-url">natu.webgen.pl</div></td><td>NATU Naturalne Piękno</td><td><span class="badge bg-yellow">Free</span></td><td style="font-family:var(--mono);color:var(--muted)">—</td><td style="font-family:var(--mono)">—</td><td><span class="badge bg-yellow">AKTYWACJA</span></td><td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie...','🌐')">Podgląd</button></td></tr>
+              <tr>
+                <td><div class="tbl-url">hydraulik.webgen.pl</div></td>
+                <td>Marek Kowalski</td>
+                <td><span class="badge bg-purple">Managed PRO</span></td>
+                <td style="font-family:var(--mono);color:var(--green);font-weight:700">94</td>
+                <td style="font-family:var(--mono);font-size:11px">#4 hydraulik Białołęka</td>
+                <td style="font-family:var(--mono);font-size:11px;color:var(--muted)">15.03.2026</td>
+                <td><span class="badge bg-green">LIVE</span></td>
+                <td style="display:flex;gap:6px">
+                  <button class="btn btn-outline btn-sm" onclick="openSitePreview('https://hydraulik.webgen.pl','Marek Kowalski')">👁 Podgląd</button>
+                  <button class="btn btn-outline btn-sm" onclick="showClientModal('Marek Kowalski','marek@hydraulik.pl','Managed PRO','249','hydraulik.webgen.pl','16.12.2025')">👤</button>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="tbl-url">finezja.webgen.pl</div></td>
+                <td>Salon Urody Finezja</td>
+                <td><span class="badge bg-blue">Managed START</span></td>
+                <td style="font-family:var(--mono);color:var(--green);font-weight:700">91</td>
+                <td style="font-family:var(--mono);font-size:11px">#8 salon urody Białołęka</td>
+                <td style="font-family:var(--mono);font-size:11px;color:var(--muted)">21.03.2026</td>
+                <td><span class="badge bg-green">LIVE</span></td>
+                <td style="display:flex;gap:6px">
+                  <button class="btn btn-outline btn-sm" onclick="openSitePreview('https://finezja.webgen.pl','Salon Urody Finezja')">👁 Podgląd</button>
+                  <button class="btn btn-outline btn-sm" onclick="showClientModal('Salon Urody Finezja','studiofinezja@gmail.com','Managed START','249','finezja.webgen.pl','21.03.2026')">👤</button>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="tbl-url">wild.webgen.pl</div></td>
+                <td>WILD Fryzury i Pazury</td>
+                <td><span class="badge bg-blue">Managed START</span></td>
+                <td style="font-family:var(--mono);color:var(--yellow);font-weight:700">87</td>
+                <td style="font-family:var(--mono);font-size:11px">#12 fryzjer Białołęka</td>
+                <td style="font-family:var(--mono);font-size:11px;color:var(--muted)">05.02.2026</td>
+                <td><span class="badge bg-green">LIVE</span></td>
+                <td style="display:flex;gap:6px">
+                  <button class="btn btn-outline btn-sm" onclick="openSitePreview('https://wild.webgen.pl','WILD Fryzury')">👁 Podgląd</button>
+                  <button class="btn btn-outline btn-sm" onclick="showClientModal('WILD Fryzury i Pazury','wild@fryzury.pl','Managed START','249','wild.webgen.pl','05.02.2026')">👤</button>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="tbl-url">elektryka-nowak.webgen.pl</div></td>
+                <td>Elektryka Nowak</td>
+                <td><span class="badge bg-muted">Managed</span></td>
+                <td style="font-family:var(--mono);color:var(--green);font-weight:700">92</td>
+                <td style="font-family:var(--mono);font-size:11px">—</td>
+                <td style="font-family:var(--mono);font-size:11px;color:var(--muted)">10.01.2026</td>
+                <td><span class="badge bg-green">LIVE</span></td>
+                <td style="display:flex;gap:6px">
+                  <button class="btn btn-outline btn-sm" onclick="openSitePreview('https://elektryka-nowak.webgen.pl','Elektryka Nowak')">👁 Podgląd</button>
+                  <button class="btn btn-outline btn-sm" onclick="showClientModal('Elektryka Nowak','nowak@elektryk.pl','Managed','49','elektryka-nowak.webgen.pl','10.01.2026')">👤</button>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="tbl-url">natu.webgen.pl</div></td>
+                <td>NATU Naturalne Piękno</td>
+                <td><span class="badge bg-yellow">Free</span></td>
+                <td style="font-family:var(--mono);color:var(--muted)">—</td>
+                <td style="font-family:var(--mono);font-size:11px">—</td>
+                <td style="font-family:var(--mono);font-size:11px;color:var(--muted)">18.03.2026</td>
+                <td><span class="badge bg-yellow">FREE</span></td>
+                <td style="display:flex;gap:6px">
+                  <button class="btn btn-outline btn-sm" onclick="openSitePreview('https://natu.webgen.pl','NATU')">👁 Podgląd</button>
+                  <button class="btn btn-outline btn-sm" onclick="showClientModal('NATU Naturalne Piękno','natu@salon.pl','Free','0','natu.webgen.pl','18.03.2026')">👤</button>
+                </td>
+              </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═════════════════════════
+         MODAL: PREVIEW STRONY
+         ═════════════════════════ -->
+    <div id="site-preview-overlay" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(3,5,10,.92);backdrop-filter:blur(10px);flex-direction:column">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--border);background:var(--bg1)">
+        <div>
+          <div style="font-size:14px;font-weight:700" id="preview-title">Podgląd strony</div>
+          <div id="preview-url" style="font-family:var(--mono);font-size:11px;color:var(--green)"></div>
+        </div>
+        <div style="display:flex;gap:10px">
+          <a id="preview-open-link" href="#" target="_blank" class="btn btn-outline btn-sm">↗ Otwórz w nowej karcie</a>
+          <button class="btn btn-outline btn-sm" onclick="closeSitePreview()">✕ Zamknij</button>
+        </div>
+      </div>
+      <iframe id="site-preview-frame" src="" style="flex:1;border:none;width:100%;height:calc(100vh - 60px)" loading="lazy"></iframe>
+    </div>
+
+    <!-- ═════════════════════════
+         MODAL: KARTA KLIENTA
+         ═════════════════════════ -->
+    <div id="client-modal-overlay" style="display:none;position:fixed;inset:0;z-index:900;background:rgba(3,5,10,.85);backdrop-filter:blur(8px);align-items:center;justify-content:center">
+      <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:16px;width:520px;max-width:95vw;max-height:90vh;overflow-y:auto;padding:28px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+          <div>
+            <div style="font-size:20px;font-weight:800" id="cm-name">—</div>
+            <div style="font-family:var(--mono);font-size:11px;color:var(--muted)" id="cm-email">—</div>
+          </div>
+          <button onclick="closeClientModal()" style="background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:4px">✕</button>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
+          <div style="background:var(--bg3);border-radius:8px;padding:12px 14px">
+            <div style="font-size:10px;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px">Plan</div>
+            <div style="font-size:14px;font-weight:700" id="cm-plan">—</div>
+          </div>
+          <div style="background:var(--bg3);border-radius:8px;padding:12px 14px">
+            <div style="font-size:10px;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px">MRR</div>
+            <div style="font-size:14px;font-weight:700;color:var(--green);font-family:var(--mono)" id="cm-mrr">—</div>
+          </div>
+          <div style="background:var(--bg3);border-radius:8px;padding:12px 14px">
+            <div style="font-size:10px;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px">Strona</div>
+            <div style="font-family:var(--mono);font-size:13px;color:var(--green)" id="cm-site">—</div>
+          </div>
+          <div style="background:var(--bg3);border-radius:8px;padding:12px 14px">
+            <div style="font-size:10px;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px">Klient od</div>
+            <div style="font-size:13px;font-weight:600" id="cm-since">—</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-outline btn-sm" id="cm-preview-btn" onclick="">👁 Podgląd strony</button>
+          <a id="cm-email-btn" href="#" class="btn btn-outline btn-sm">✉️ Email</a>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Otwieram generator dla klienta','⚡')">⚡ Edytuj w generatorze</button>
+          <button class="btn btn-outline btn-sm" onclick="closeClientModal();go('tasks',document.querySelector('[onclick*=tasks]'))">📋 Dodaj zadanie</button>
         </div>
       </div>
     </div>
@@ -932,6 +1084,44 @@ table.tbl tr:hover td{background:rgba(240,242,247,.02)}
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ═════════════════════════
+         PANEL: WIADOMOŚCI
+         ═════════════════════════ -->
+    <div class="panel" id="panel-messages">
+      <div class="ph">
+        <div class="ph-left">
+          <div class="ph-title">Wiadomości od klientów</div>
+          <div class="ph-sub" id="msg-admin-sub">Prośby o aktualizacje, questionnaire, kontakt</div>
+        </div>
+        <div class="ph-actions">
+          <select id="msg-filter" style="background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:7px 12px;font-size:12px;color:var(--white);font-family:var(--head);outline:none" onchange="renderAdminMessages()">
+            <option value="all">Wszystkie</option>
+            <option value="update">Prośby o aktualizację</option>
+            <option value="questionnaire">Questionnaire</option>
+            <option value="unread">Nieprzeczytane</option>
+          </select>
+          <button class="btn btn-outline btn-sm" onclick="markAllAdminRead()">✓ Oznacz jako przeczytane</button>
+        </div>
+      </div>
+
+      <!-- Stats szybkie -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px">
+        <div class="stat g"><div class="stat-label">Łącznie</div><div class="stat-val" id="msg-stat-total">—</div><div class="stat-delta">wiadomości</div></div>
+        <div class="stat r"><div class="stat-label">Nowe</div><div class="stat-val" id="msg-stat-unread" style="color:var(--red)">—</div><div class="stat-delta">nieprzeczytane</div></div>
+        <div class="stat y"><div class="stat-label">Do wdrożenia</div><div class="stat-val" id="msg-stat-pending" style="color:var(--yellow)">—</div><div class="stat-delta">prośby o zmianę</div></div>
+        <div class="stat b"><div class="stat-label">Zrealizowane</div><div class="stat-val" id="msg-stat-done">—</div><div class="stat-delta">ten miesiąc</div></div>
+      </div>
+
+      <!-- Lista wiadomości -->
+      <div class="card" id="admin-msg-list" style="padding:0">
+        <div style="text-align:center;padding:60px 20px;color:var(--muted)">
+          <div style="font-size:40px;margin-bottom:12px">💬</div>
+          <div style="font-size:15px;font-weight:600;margin-bottom:6px">Ładowanie wiadomości…</div>
         </div>
       </div>
     </div>
@@ -1032,7 +1222,8 @@ const titles = {
   clients:   ['Klienci','clients'],
   tasks:     ['Zadania Managed','tasks'],
   outreach:  ['Outreach CRM','outreach'],
-  sites:     ['Wszystkie strony','sites'],
+  sites:     ['Aktywne strony','sites'],
+  messages:  ['Wiadomości od klientów','messages'],
   seo:       ['SEO Monitor','seo'],
   generator: ['Generator AI','generator'],
   settings:  ['Ustawienia','settings'],
@@ -1106,7 +1297,217 @@ function filterTable(input) {
   });
 }
 
+// ─── Admin Messages ───────────────────────────────────
+var ADMIN_MSG_STORAGE = 'wg_admin_msgs';
+
+var DEMO_MESSAGES = [
+  {
+    id: 'msg_001', type: 'update', read: false,
+    date: Date.now() - 2*3600*1000,
+    client: 'Hydraulik Kowalski', email: 'marek@hydraulik.pl', site: 'hydraulik.webgen.pl',
+    title: 'Prośba o zmianę numeru telefonu',
+    body: 'Nowy numer: 600-500-400. Proszę zaktualizować na stronie i w GMB.',
+    status: 'pending',
+  },
+  {
+    id: 'msg_002', type: 'update', read: false,
+    date: Date.now() - 5*3600*1000,
+    client: 'WILD Fryzury i Pazury', email: 'wild@fryzury.pl', site: 'wild.webgen.pl',
+    title: 'Aktualizacja galerii — 3 nowe zdjęcia',
+    body: 'Przesyłam linki do 3 nowych zdjęć do galerii. Proszę zamienić stare.',
+    status: 'pending',
+  },
+  {
+    id: 'msg_003', type: 'questionnaire', read: true,
+    date: Date.now() - 24*3600*1000,
+    client: 'Salon Urody Finezja', email: 'studiofinezja@gmail.com', site: 'finezja.webgen.pl',
+    title: 'Questionnaire — uzupełnienie danych',
+    body: 'Adres: ul. Ostródzka 87. Godziny: Pon-Pt 9-19, Sob 9-15. Ocena Google: 4.8/63 opinie.',
+    status: 'done',
+    answers: {adres: 'ul. Ostródzka 87', godz: 'Pon-Pt 9-19, Sob 9-15', ocena: '4.8/63 opinie'},
+  },
+  {
+    id: 'msg_004', type: 'update', read: true,
+    date: Date.now() - 2*24*3600*1000,
+    client: 'Elektryka Nowak', email: 'nowak@elektryk.pl', site: 'elektryka-nowak.webgen.pl',
+    title: 'Dodanie nowej usługi — pomiary elektryczne',
+    body: 'Proszę dodać usługę: Pomiary elektryczne od 150 zł. Do sekcji Nasze usługi.',
+    status: 'done',
+  },
+  {
+    id: 'msg_005', type: 'update', read: false,
+    date: Date.now() - 30*60*1000,
+    client: 'Salon Urody Finezja', email: 'studiofinezja@gmail.com', site: 'finezja.webgen.pl',
+    title: 'Dodanie nowej usługi — Stylizacja Paznokci',
+    body: 'Nowa usługa: Stylizacja Paznokci Hybrydowych od 120 zł. Proszę dodać do cennika.',
+    status: 'pending',
+  },
+];
+
+function getAdminMessages() {
+  try {
+    var stored = JSON.parse(localStorage.getItem(ADMIN_MSG_STORAGE) || 'null');
+    if (!stored) {
+      localStorage.setItem(ADMIN_MSG_STORAGE, JSON.stringify(DEMO_MESSAGES));
+      return DEMO_MESSAGES;
+    }
+    return stored;
+  } catch(e) { return DEMO_MESSAGES; }
+}
+
+function saveAdminMessages(msgs) {
+  localStorage.setItem(ADMIN_MSG_STORAGE, JSON.stringify(msgs));
+}
+
+function renderAdminMessages() {
+  var msgs = getAdminMessages();
+  var filter = (document.getElementById('msg-filter') || {}).value || 'all';
+  var filtered = msgs.filter(function(m) {
+    if (filter === 'unread') return !m.read;
+    if (filter === 'update') return m.type === 'update';
+    if (filter === 'questionnaire') return m.type === 'questionnaire';
+    return true;
+  });
+  // Sortuj: nieprzeczytane pierwsze, potem po dacie
+  filtered.sort(function(a, b) {
+    if (a.read !== b.read) return a.read ? 1 : -1;
+    return b.date - a.date;
+  });
+
+  // Stats
+  var total = msgs.length;
+  var unread = msgs.filter(function(m){ return !m.read; }).length;
+  var pending = msgs.filter(function(m){ return m.status === 'pending'; }).length;
+  var done = msgs.filter(function(m){ return m.status === 'done'; }).length;
+  var st = document.getElementById('msg-stat-total'); if(st) st.textContent = total;
+  var su = document.getElementById('msg-stat-unread'); if(su) su.textContent = unread;
+  var sp = document.getElementById('msg-stat-pending'); if(sp) sp.textContent = pending;
+  var sd = document.getElementById('msg-stat-done'); if(sd) sd.textContent = done;
+
+  // Badge
+  var badge = document.getElementById('sb-msg-badge');
+  if (badge) { badge.textContent = unread; badge.style.display = unread > 0 ? '' : 'none'; }
+
+  var container = document.getElementById('admin-msg-list');
+  if (!container) return;
+
+  if (!filtered.length) {
+    container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted)">Brak wiadomości w tej kategorii</div>';
+    return;
+  }
+
+  var html = '';
+  filtered.forEach(function(msg, i) {
+    var dateStr = new Date(msg.date).toLocaleString('pl-PL', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+    var typeLabel = msg.type === 'questionnaire' ? '📋 Questionnaire' : '🔧 Prośba o aktualizację';
+    var statusBadge = msg.status === 'done'
+      ? '<span class="badge bg-green">✓ Wdrożone</span>'
+      : '<span class="badge bg-yellow">⏳ Oczekuje</span>';
+    var unreadDot = !msg.read ? '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--red);margin-right:6px"></span>' : '';
+
+    html += '<div style="padding:18px 20px;border-bottom:1px solid var(--border);' + (!msg.read ? 'background:rgba(248,113,113,.03)' : '') + '">';
+    html += '<div style="display:flex;align-items:flex-start;gap:14px">';
+    html += '<div style="width:38px;height:38px;border-radius:9px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">' + (msg.type === 'questionnaire' ? '📋' : '🔧') + '</div>';
+    html += '<div style="flex:1">';
+    html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">';
+    html += unreadDot + '<span style="font-size:14px;font-weight:700">' + msg.title + '</span>';
+    html += '</div>';
+    html += '<div style="font-size:12px;color:var(--muted);margin-bottom:6px">';
+    html += '<span style="color:var(--white);font-weight:600">' + msg.client + '</span>';
+    html += ' · <a href="https://' + msg.site + '" target="_blank" style="color:var(--green);font-family:var(--mono);font-size:11px">' + msg.site + '</a>';
+    html += ' · ' + typeLabel + ' · ' + dateStr;
+    html += '</div>';
+    html += '<div style="font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:10px">' + msg.body + '</div>';
+    html += '<div style="display:flex;gap:8px;align-items:center">';
+    html += statusBadge;
+    if (msg.status === 'pending') {
+      html += '<button class="btn btn-green btn-sm" onclick="markAdminMsgDone('' + msg.id + '')" style="font-size:11px">✓ Wdrożone</button>';
+    }
+    html += '<button class="btn btn-outline btn-sm" onclick="openSitePreview('https://' + msg.site + '','' + msg.client + '')" style="font-size:11px">👁 Podgląd</button>';
+    html += '<a href="mailto:' + msg.email + '" class="btn btn-outline btn-sm" style="font-size:11px">✉️ Odpowiedz</a>';
+    if (!msg.read) {
+      html += '<button class="btn btn-outline btn-sm" onclick="markAdminMsgRead('' + msg.id + '')" style="font-size:11px">Oznacz przeczytane</button>';
+    }
+    html += '</div></div></div></div>';
+  });
+  container.innerHTML = html;
+}
+
+function markAdminMsgDone(id) {
+  var msgs = getAdminMessages();
+  msgs.forEach(function(m){ if(m.id === id){ m.status = 'done'; m.read = true; } });
+  saveAdminMessages(msgs);
+  renderAdminMessages();
+  showToast('Oznaczono jako wdrożone', '✅');
+}
+
+function markAdminMsgRead(id) {
+  var msgs = getAdminMessages();
+  msgs.forEach(function(m){ if(m.id === id) m.read = true; });
+  saveAdminMessages(msgs);
+  renderAdminMessages();
+}
+
+function markAllAdminRead() {
+  var msgs = getAdminMessages();
+  msgs.forEach(function(m){ m.read = true; });
+  saveAdminMessages(msgs);
+  renderAdminMessages();
+  showToast('Wszystkie oznaczone jako przeczytane', '✓');
+}
+
+// ─── Site Preview ───────────────────────────────────
+function openSitePreview(url, name) {
+  document.getElementById('preview-title').textContent = name || 'Podgląd strony';
+  document.getElementById('preview-url').textContent = url;
+  document.getElementById('preview-open-link').href = url;
+  document.getElementById('site-preview-frame').src = url;
+  var ov = document.getElementById('site-preview-overlay');
+  ov.style.display = 'flex';
+}
+function closeSitePreview() {
+  document.getElementById('site-preview-overlay').style.display = 'none';
+  document.getElementById('site-preview-frame').src = '';
+}
+
+// ─── Client Modal ───────────────────────────────────
+function showClientModal(name, email, plan, mrr, site, since) {
+  document.getElementById('cm-name').textContent = name;
+  document.getElementById('cm-email').textContent = email;
+  document.getElementById('cm-plan').textContent = plan;
+  document.getElementById('cm-mrr').textContent = mrr + ' zł/mies.';
+  document.getElementById('cm-site').textContent = site;
+  document.getElementById('cm-since').textContent = since;
+  var previewBtn = document.getElementById('cm-preview-btn');
+  if (previewBtn) previewBtn.setAttribute('onclick', "closeClientModal();openSitePreview('https://" + site + "','" + name + "')");
+  var emailBtn = document.getElementById('cm-email-btn');
+  if (emailBtn) emailBtn.href = 'mailto:' + email;
+  var ov = document.getElementById('client-modal-overlay');
+  ov.style.display = 'flex';
+}
+function closeClientModal() {
+  document.getElementById('client-modal-overlay').style.display = 'none';
+}
+
+// ─── Patch go() — render messages on entry ──────────────────────────────────
+var _origGo = go;
+go = function(id, el) {
+  _origGo(id, el);
+  if (id === 'messages') renderAdminMessages();
+};
+
+// Init badge on load
+window.addEventListener('DOMContentLoaded', function() {
+  setTimeout(function() {
+    var msgs = getAdminMessages();
+    var unread = msgs.filter(function(m){ return !m.read; }).length;
+    var badge = document.getElementById('sb-msg-badge');
+    if (badge) { badge.textContent = unread; badge.style.display = unread > 0 ? '' : 'none'; }
+  }, 200);
+});
+
 // ─── Keyboard ───
+
 document.addEventListener('keydown', e=>{
   if(e.key==='Escape') closeModal();
 });
