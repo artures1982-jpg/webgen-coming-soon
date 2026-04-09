@@ -493,7 +493,7 @@ table.tbl tr:hover td{background:rgba(240,242,247,.02)}
       <div class="ph">
         <div class="ph-left">
           <div class="ph-title">Dashboard webgen.pl</div>
-          <div class="ph-sub">21 marca 2026 · Stripe test mode</div>
+          <div class="ph-sub" id="overview-datetime">Wczytywanie…</div>
         </div>
         <div class="ph-actions">
           <button class="btn btn-outline btn-sm" onclick="showModal('newclient')">+ Dodaj klienta</button>
@@ -1183,16 +1183,17 @@ table.tbl tr:hover td{background:rgba(240,242,247,.02)}
       </div>
 
       <div class="card">
-        <div class="card-header"><div class="card-title">🖥 Historia deployów</div></div>
+        <div class="card-header">
+          <div class="card-title">🖥 Historia deployów — live</div>
+          <button class="card-action" onclick="loadVercelDeployments()">🔄 Odśwież</button>
+        </div>
         <div class="tbl-wrap">
           <table class="tbl">
-            <thead><tr><th>Commit</th><th>Status</th><th>Data</th><th>Autor</th><th>Akcje</th></tr></thead>
-            <tbody>
-              <tr><td style="font-family:var(--mono);font-size:11px">feat: krok 5 Dodatki w generatorze</td><td><span class="badge bg-green">READY</span></td><td style="font-family:var(--mono);font-size:11px">21.03.2026 15:54</td><td>Artur S.</td><td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie logów...','🖥')">Logi</button></td></tr>
-              <tr><td style="font-family:var(--mono);font-size:11px">feat: addons x8 z przyciskami Stripe</td><td><span class="badge bg-green">READY</span></td><td style="font-family:var(--mono);font-size:11px">21.03.2026 14:52</td><td>Artur S.</td><td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie logów...','🖥')">Logi</button></td></tr>
-              <tr><td style="font-family:var(--mono);font-size:11px">feat: auto-konwersja zdjec do WebP lossless</td><td><span class="badge bg-green">READY</span></td><td style="font-family:var(--mono);font-size:11px">15.03.2026 14:29</td><td>Artur S.</td><td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie logów...','🖥')">Logi</button></td></tr>
-              <tr><td style="font-family:var(--mono);font-size:11px">feat: galeria per plan (3/6/12 zdjec)</td><td><span class="badge bg-green">READY</span></td><td style="font-family:var(--mono);font-size:11px">15.03.2026 11:37</td><td>Artur S.</td><td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie logów...','🖥')">Logi</button></td></tr>
-              <tr><td style="font-family:var(--mono);font-size:11px">feat: generator - wybor kolorow, upload logo</td><td><span class="badge bg-green">READY</span></td><td style="font-family:var(--mono);font-size:11px">15.03.2026 09:21</td><td>Artur S.</td><td><button class="btn btn-outline btn-sm" onclick="showToast('Otwieranie logów...','🖥')">Logi</button></td></tr>
+            <thead><tr><th>SHA</th><th>Commit</th><th>Status</th><th>Data</th><th>URL</th></tr></thead>
+            <tbody id="deploys-live">
+              <tr><td colspan="5" style="padding:20px;text-align:center;color:var(--muted);font-family:var(--mono);font-size:12px">
+                ⏳ Pobieranie deployów z Vercel API…
+              </td></tr>
             </tbody>
           </table>
         </div>
@@ -1231,14 +1232,19 @@ const titles = {
 };
 function go(id, el) {
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  // Napraw sidebar active — szukaj po data-view lub po onclick
+  document.querySelectorAll('.nav-item').forEach(function(n) {
+    var oc = n.getAttribute('onclick') || '';
+    n.classList.toggle('active', oc.indexOf("go('" + id + "'") !== -1);
+  });
   const p = document.getElementById('panel-'+id);
   if(p) p.classList.add('active');
-  if(el) el.classList.add('active');
   if(titles[id]){
     document.getElementById('tb-title').textContent = titles[id][0];
     document.getElementById('tb-sub').textContent   = titles[id][1];
   }
+  if(id === 'messages') renderAdminMessages();
+  if(id === 'logs') loadVercelDeployments();
 }
 
 // ─── Sidebar toggle ───
@@ -1529,6 +1535,222 @@ document.addEventListener('keydown', e=>{
     }
   });
 })();
+</script>
+
+
+<!-- ══ LOGIN OVERLAY ══ -->
+<div id="login-overlay" style="
+  position:fixed;inset:0;z-index:9999;
+  background:#03050A;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--head);
+">
+  <div style="
+    background:#07090F;border:1px solid rgba(240,242,247,.1);
+    border-radius:16px;padding:40px 44px;width:380px;max-width:95vw;
+    box-shadow:0 24px 80px rgba(0,0,0,.7);
+  ">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:32px">
+      <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#00E5A0,#0066FF,#7B4FFF);
+        display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;font-weight:700;color:#fff">W</div>
+      <div style="font-size:18px;font-weight:700">webgen <span style="color:rgba(136,146,170,.5)">/ admin</span></div>
+    </div>
+
+    <div id="login-error" style="
+      display:none;margin-bottom:16px;padding:10px 14px;
+      background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.25);
+      border-radius:8px;font-size:13px;color:#F87171;font-family:var(--mono);
+    ">Nieprawidłowy login lub hasło</div>
+
+    <div style="margin-bottom:14px">
+      <label style="display:block;font-size:10px;font-family:var(--mono);color:#8892AA;
+        text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px">Login</label>
+      <input id="adm-login" type="text" autocomplete="username"
+        style="width:100%;background:#0C0F18;border:1.5px solid rgba(240,242,247,.1);
+        border-radius:9px;padding:11px 14px;font-size:14px;color:#F0F2F7;
+        font-family:var(--head);outline:none;transition:border-color .2s"
+        onfocus="this.style.borderColor='#00E5A0'" onblur="this.style.borderColor='rgba(240,242,247,.1)'"
+        onkeydown="if(event.key==='Enter')document.getElementById('adm-pass').focus()">
+    </div>
+
+    <div style="margin-bottom:22px">
+      <label style="display:block;font-size:10px;font-family:var(--mono);color:#8892AA;
+        text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px">Hasło</label>
+      <input id="adm-pass" type="password" autocomplete="current-password"
+        style="width:100%;background:#0C0F18;border:1.5px solid rgba(240,242,247,.1);
+        border-radius:9px;padding:11px 14px;font-size:14px;color:#F0F2F7;
+        font-family:var(--head);outline:none;transition:border-color .2s"
+        onfocus="this.style.borderColor='#00E5A0'" onblur="this.style.borderColor='rgba(240,242,247,.1)'"
+        onkeydown="if(event.key==='Enter')adminLogin()">
+    </div>
+
+    <button onclick="adminLogin()"
+      style="width:100%;background:#00E5A0;color:#03050A;border:none;
+      padding:12px;border-radius:10px;font-size:15px;font-weight:700;
+      cursor:pointer;font-family:var(--head);transition:background .2s"
+      onmouseover="this.style.background='#00C98A'" onmouseout="this.style.background='#00E5A0'">
+      Zaloguj się →
+    </button>
+
+    <div style="margin-top:16px;font-size:11px;color:rgba(136,146,170,.4);text-align:center;font-family:var(--mono)">
+      Panel administracyjny webgen.pl · dostęp tylko dla właściciela
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Admin Auth ───────────────────────────────────────────────────
+var ADMIN_HASH = 'c65d744c3157b13292aba682aec9a58f4a3ab536d6394d04993daad40a30aae5';
+var ADMIN_SESSION_KEY = 'wg_admin_session';
+
+async function sha256(msg) {
+  var buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+async function adminLogin() {
+  var login = (document.getElementById('adm-login') || {}).value || '';
+  var pass  = (document.getElementById('adm-pass')  || {}).value || '';
+  var hash  = await sha256(login + ':' + pass);
+  if (hash === ADMIN_HASH) {
+    sessionStorage.setItem(ADMIN_SESSION_KEY, '1');
+    var ov = document.getElementById('login-overlay');
+    if (ov) ov.style.display = 'none';
+    document.getElementById('login-error') && (document.getElementById('login-error').style.display = 'none');
+    initAdminApp();
+  } else {
+    var err = document.getElementById('login-error');
+    if (err) err.style.display = 'block';
+    var passEl = document.getElementById('adm-pass');
+    if (passEl) { passEl.value = ''; passEl.focus(); }
+  }
+}
+
+// Sprawdź sesję przy załadowaniu
+(function checkAdminAuth() {
+  if (sessionStorage.getItem(ADMIN_SESSION_KEY) === '1') {
+    var ov = document.getElementById('login-overlay');
+    if (ov) ov.style.display = 'none';
+    // Poczekaj na DOM
+    window.addEventListener('DOMContentLoaded', initAdminApp);
+  } else {
+    // Pokaż overlay, ukryj resztę
+    window.addEventListener('DOMContentLoaded', function() {
+      // Focus na login input
+      setTimeout(function() {
+        var l = document.getElementById('adm-login');
+        if (l) l.focus();
+      }, 100);
+    });
+  }
+})();
+
+
+// ── INIT ADMIN APP (po zalogowaniu) ─────────────────────────────────
+function initAdminApp() {
+  // Aktualizuj datę i godzinę
+  var dtEl = document.getElementById('overview-datetime');
+  if (dtEl) {
+    var now = new Date();
+    dtEl.textContent = now.toLocaleDateString('pl-PL',{day:'numeric',month:'long',year:'numeric'}) + ' · Stripe TEST mode';
+  }
+
+  loadStripeAdminData();
+  loadVercelDeployments();
+  // Render wiadomości badge
+  setTimeout(function() {
+    var msgs = getAdminMessages ? getAdminMessages() : [];
+    var unread = msgs.filter(function(m){ return !m.read; }).length;
+    var badge = document.getElementById('sb-msg-badge');
+    if (badge) { badge.textContent = unread; badge.style.display = unread > 0 ? '' : 'none'; }
+  }, 300);
+}
+
+// ── STRIPE LIVE DATA ─────────────────────────────────────────────────
+async function loadStripeAdminData() {
+  try {
+    // Pobierz dane dla każdego klienta z tabeli
+    var emails = [
+      'studiofinezja@gmail.com',
+      'marek@hydraulik.pl',
+      'wild@fryzury.pl',
+      'nowak@elektryk.pl',
+      'natu@salon.pl'
+    ];
+
+    var totalMRR = 0;
+    var activeCount = 0;
+
+    for (var i = 0; i < emails.length; i++) {
+      try {
+        var res = await fetch('/api/dashboard-data?email=' + encodeURIComponent(emails[i]));
+        if (!res.ok) continue;
+        var data = await res.json();
+        if (data.subscription && data.subscription.status === 'active') {
+          activeCount++;
+          totalMRR += (data.subscription.plan_amount || 0) / 100;
+        }
+      } catch(e) {}
+    }
+
+    // Zaktualizuj KPI jeśli są live dane
+    if (totalMRR > 0) {
+      var mrrEls = document.querySelectorAll('.stat-val');
+      // Szukaj karty MRR
+      document.querySelectorAll('.stat').forEach(function(s) {
+        if (s.querySelector('.stat-label') && s.querySelector('.stat-label').textContent === 'MRR') {
+          var v = s.querySelector('.stat-val');
+          if (v) v.textContent = totalMRR.toLocaleString('pl-PL') + ' zł';
+        }
+      });
+    }
+  } catch(e) {
+    console.warn('Admin Stripe load:', e);
+  }
+}
+
+// ── VERCEL DEPLOYMENTS LIVE ───────────────────────────────────────────
+async function loadVercelDeployments() {
+  var container = document.getElementById('deploys-live');
+  if (!container) return;
+  container.innerHTML = '<div style="padding:20px;text-align:center;color:var(--muted);font-family:var(--mono);font-size:12px">Ładowanie deployów…</div>';
+  try {
+    var res = await fetch('https://api.vercel.com/v6/deployments?projectId=prj_NCSHiopDiHYgUCEjGGuedrj62U8H&teamId=team_9GrxtXBkSmlXnZNk3zGsngHW&limit=10', {
+      headers: { 'Authorization': 'Bearer ' + getVercelToken() }
+    });
+    if (!res.ok) throw new Error('Vercel API ' + res.status);
+    var data = await res.json();
+    var deploys = (data.deployments || []);
+    var html = '';
+    deploys.forEach(function(d) {
+      var stateClass = d.state === 'READY' ? 'bg-green' : d.state === 'BUILDING' ? 'bg-yellow' : 'bg-red';
+      var dt = new Date(d.created).toLocaleString('pl-PL', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+      var msg = (d.meta && d.meta.githubCommitMessage) || '—';
+      if (msg.length > 70) msg = msg.slice(0,70) + '…';
+      html += '<tr><td style="font-family:var(--mono);font-size:11px;color:var(--muted)">' + (d.meta && d.meta.githubCommitSha ? d.meta.githubCommitSha.slice(0,7) : d.id.slice(-7)) + '</td>'
+        + '<td style="font-size:12px;max-width:350px">' + msg + '</td>'
+        + '<td><span class="badge ' + stateClass + '">' + d.state + '</span></td>'
+        + '<td style="font-family:var(--mono);font-size:11px;color:var(--muted)">' + dt + '</td>'
+        + '<td><a href="https://' + d.url + '" target="_blank" class="btn btn-outline btn-sm" style="font-size:10px">↗</a></td>'
+        + '</tr>';
+    });
+    container.innerHTML = html || '<tr><td colspan="5" style="padding:20px;text-align:center;color:var(--muted)">Brak deployów</td></tr>';
+  } catch(e) {
+    container.innerHTML = '<tr><td colspan="5"><div class="alert alert-red" style="margin:12px">⚠ Błąd pobierania: ' + e.message + '</div></td></tr>';
+  }
+}
+
+function getVercelToken() {
+  // Token sesyjny — w produkcji użyj env var przez API
+  return sessionStorage.getItem('wg_vercel_token') || '';
+}
+
+// ── PATCH: wywołaj initAdminApp przy DOMContentLoaded jeśli już zalogowany ──
+window.addEventListener('DOMContentLoaded', function() {
+  if (sessionStorage.getItem('wg_admin_session') === '1') {
+    initAdminApp();
+  }
+});
 </script>
 
 </body>
