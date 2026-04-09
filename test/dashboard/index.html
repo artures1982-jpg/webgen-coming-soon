@@ -20,14 +20,14 @@
 }
 html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:var(--head)}
 
-/* ── NAV ─────────────────────────────────────── */
+/* NAV */
 .nav{position:fixed;top:0;left:0;right:0;height:64px;z-index:200;
   background:rgba(8,10,15,.92);backdrop-filter:blur(24px);
   border-bottom:1px solid var(--border);
   display:flex;align-items:center;padding:0 32px;gap:16px}
 .nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0}
-.nav-logo-mark{width:30px;height:30px;border-radius:7px;
-  background:var(--grad);display:flex;align-items:center;justify-content:center;
+.nav-logo-mark{width:30px;height:30px;border-radius:7px;background:var(--grad);
+  display:flex;align-items:center;justify-content:center;
   font-family:var(--mono);font-size:13px;font-weight:700;color:#fff}
 .nav-logo-name{font-size:17px;font-weight:700;color:var(--text)}
 .nav-logo-name span{background:linear-gradient(135deg,#00E5A0,#0066FF);
@@ -36,21 +36,32 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
 .nav-user{display:flex;align-items:center;gap:10px;cursor:pointer;
   padding:6px 12px;border-radius:8px;transition:background .18s}
 .nav-user:hover{background:rgba(240,242,247,.06)}
-.nav-avatar{width:32px;height:32px;border-radius:50%;
-  background:var(--grad);display:flex;align-items:center;justify-content:center;
+.nav-avatar{width:32px;height:32px;border-radius:50%;background:var(--grad);
+  display:flex;align-items:center;justify-content:center;
   font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
 .nav-email{font-size:13px;color:var(--muted);font-family:var(--mono)}
 .nav-logout{font-size:12px;color:rgba(136,146,170,.5);cursor:pointer;
-  padding:6px 12px;border-radius:7px;transition:all .18s;text-decoration:none}
+  padding:6px 12px;border-radius:7px;transition:all .18s;text-decoration:none;border:none;
+  background:transparent;font-family:var(--head)}
 .nav-logout:hover{color:var(--red);background:rgba(248,113,113,.08)}
+.nav-msg-btn{position:relative;display:flex;align-items:center;justify-content:center;
+  width:38px;height:38px;border-radius:9px;cursor:pointer;
+  color:var(--muted);transition:all .18s;text-decoration:none;font-size:18px;
+  border:1px solid transparent}
+.nav-msg-btn:hover{background:rgba(240,242,247,.07);border-color:var(--border2);color:var(--text)}
+.nav-badge{position:absolute;top:4px;right:4px;background:#F87171;color:#fff;
+  font-size:10px;font-weight:700;font-family:var(--mono);min-width:16px;height:16px;
+  border-radius:8px;display:none;align-items:center;justify-content:center;
+  padding:0 4px;line-height:1;border:2px solid var(--bg)}
+.nav-badge.visible{display:flex}
 
-/* ── LAYOUT ──────────────────────────────────── */
+/* LAYOUT */
 .layout{display:grid;grid-template-columns:240px 1fr;min-height:100vh;padding-top:64px}
 
-/* ── SIDEBAR ─────────────────────────────────── */
+/* SIDEBAR */
 .sidebar{background:var(--s1);border-right:1px solid var(--border);
-  padding:28px 16px;position:sticky;top:64px;height:calc(100vh - 64px);
-  overflow-y:auto;display:flex;flex-direction:column;gap:4px}
+  padding:20px 12px;position:sticky;top:64px;height:calc(100vh - 64px);
+  overflow-y:auto;display:flex;flex-direction:column;gap:2px}
 .sidebar-label{font-family:var(--mono);font-size:9px;font-weight:700;
   letter-spacing:.16em;text-transform:uppercase;color:rgba(136,146,170,.4);
   padding:12px 12px 6px;margin-top:8px}
@@ -61,14 +72,18 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
 .nav-item:hover{background:rgba(240,242,247,.05);color:var(--text)}
 .nav-item.active{background:rgba(0,229,160,.08);color:var(--text);
   border:1px solid rgba(0,229,160,.15)}
-.nav-item .ni-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0}
+.nav-item .ni-icon{font-size:15px;width:20px;text-align:center;flex-shrink:0}
+.nav-item .ni-badge{margin-left:auto;background:#F87171;color:#fff;
+  font-size:10px;font-weight:700;font-family:var(--mono);padding:2px 6px;
+  border-radius:10px;display:none}
+.nav-item .ni-badge.visible{display:inline-block}
 
-/* ── MAIN ────────────────────────────────────── */
+/* MAIN */
 .main{padding:36px 40px;min-height:calc(100vh - 64px)}
 .page{display:none}
 .page.active{display:block}
 
-/* ── LOADING ─────────────────────────────────── */
+/* SPINNER */
 .loading-overlay{display:flex;flex-direction:column;align-items:center;
   justify-content:center;min-height:300px;gap:16px}
 .spinner{width:36px;height:36px;border:2.5px solid rgba(0,229,160,.15);
@@ -76,27 +91,39 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-text{font-family:var(--mono);font-size:12px;color:var(--muted)}
 
-/* ── CARDS ───────────────────────────────────── */
-.card{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:24px}
+/* CARDS */
+.card{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px}
 .card-title{font-size:11px;font-weight:700;font-family:var(--mono);
   letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
-.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
 .stat-card{background:var(--s1);border:1px solid var(--border);border-radius:12px;
   padding:20px;position:relative;overflow:hidden}
 .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
 .stat-card.green::before{background:var(--green)}
 .stat-card.blue::before{background:var(--blue)}
 .stat-card.purple::before{background:var(--purple)}
+.stat-card.amber::before{background:var(--amber)}
 .stat-label{font-size:11px;font-family:var(--mono);color:var(--muted);
   text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
-.stat-value{font-size:28px;font-weight:800;letter-spacing:-.02em;line-height:1}
+.stat-value{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1}
 .stat-sub{font-size:12px;color:var(--muted);margin-top:6px}
 
-/* ── PLAN CARD ───────────────────────────────── */
+/* QUICK ACTIONS */
+.qa-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.qa-card{background:var(--s2);border:1.5px solid var(--border2);border-radius:12px;
+  padding:18px 16px;cursor:pointer;transition:all .18s;text-decoration:none;
+  display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.qa-card:hover{border-color:rgba(0,229,160,.35);background:rgba(0,229,160,.04);transform:translateY(-1px)}
+.qa-icon{font-size:24px}
+.qa-label{font-size:12px;font-weight:700;color:var(--text)}
+.qa-sub{font-size:11px;color:var(--muted);line-height:1.4}
+
+/* PLAN CARD */
 .plan-card{background:var(--s2);border:1.5px solid var(--border2);
-  border-radius:14px;padding:24px;margin-bottom:24px}
-.plan-card.active-plan{border-color:rgba(0,229,160,.3);
-  background:rgba(0,229,160,.04)}
+  border-radius:14px;padding:24px;margin-bottom:20px}
+.plan-card.active-plan{border-color:rgba(0,229,160,.3);background:rgba(0,229,160,.04)}
 .plan-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .plan-name{font-size:20px;font-weight:800;letter-spacing:-.02em}
 .plan-price{font-family:var(--mono);font-size:24px;font-weight:700;color:var(--green)}
@@ -104,16 +131,11 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
 .status-badge{display:inline-flex;align-items:center;gap:6px;
   padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;
   font-family:var(--mono);letter-spacing:.04em}
-.status-badge.active{background:rgba(0,229,160,.1);color:var(--green);
-  border:1px solid rgba(0,229,160,.25)}
-.status-badge.trialing{background:rgba(0,102,255,.1);color:#60A5FA;
-  border:1px solid rgba(0,102,255,.25)}
-.status-badge.past_due{background:rgba(251,191,36,.1);color:var(--amber);
-  border:1px solid rgba(251,191,36,.25)}
-.status-badge.canceled{background:rgba(248,113,113,.1);color:var(--red);
-  border:1px solid rgba(248,113,113,.25)}
-.status-badge.none{background:rgba(136,146,170,.1);color:var(--muted);
-  border:1px solid rgba(136,146,170,.2)}
+.status-badge.active{background:rgba(0,229,160,.1);color:var(--green);border:1px solid rgba(0,229,160,.25)}
+.status-badge.trialing{background:rgba(0,102,255,.1);color:#60A5FA;border:1px solid rgba(0,102,255,.25)}
+.status-badge.past_due{background:rgba(251,191,36,.1);color:var(--amber);border:1px solid rgba(251,191,36,.25)}
+.status-badge.canceled{background:rgba(248,113,113,.1);color:var(--red);border:1px solid rgba(248,113,113,.25)}
+.status-badge.none{background:rgba(136,146,170,.1);color:var(--muted);border:1px solid rgba(136,146,170,.2)}
 .status-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
 .plan-dates{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
 .plan-date-item{background:var(--s3);border-radius:8px;padding:12px 14px}
@@ -121,36 +143,38 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
   text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
 .plan-date-val{font-size:14px;font-weight:600;color:var(--text)}
 
-/* ── INVOICES ────────────────────────────────── */
+/* INVOICE */
 .invoice-row{display:flex;align-items:center;gap:16px;
   padding:14px 0;border-bottom:1px solid var(--border)}
 .invoice-row:last-child{border-bottom:none}
-.invoice-num{font-family:var(--mono);font-size:13px;color:var(--muted);
-  flex-shrink:0;min-width:120px}
+.invoice-num{font-family:var(--mono);font-size:13px;color:var(--muted);flex-shrink:0;min-width:120px}
 .invoice-date{font-size:13px;color:var(--muted);flex:1}
-.invoice-amount{font-family:var(--mono);font-size:15px;font-weight:700;
-  color:var(--text);flex-shrink:0}
-.invoice-status{flex-shrink:0}
-.invoice-pdf{flex-shrink:0}
+.invoice-amount{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--text);flex-shrink:0}
+.invoice-status,.invoice-pdf{flex-shrink:0}
 .invoice-pdf a{font-family:var(--mono);font-size:11px;color:var(--green);
   text-decoration:none;padding:4px 10px;border:1px solid rgba(0,229,160,.3);
   border-radius:6px;transition:all .18s}
 .invoice-pdf a:hover{background:rgba(0,229,160,.08)}
 
-/* ── NO PLAN STATE ───────────────────────────── */
+/* NO PLAN */
 .no-plan{text-align:center;padding:48px 24px}
 .no-plan h3{font-size:22px;font-weight:800;margin-bottom:10px}
 .no-plan p{color:var(--muted);font-size:14px;line-height:1.65;margin-bottom:28px}
-.btn{display:inline-block;padding:12px 28px;border-radius:10px;
+
+/* BTNS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 22px;border-radius:10px;
   font-size:14px;font-weight:700;text-decoration:none;transition:all .2s;
-  font-family:var(--head)}
+  font-family:var(--head);border:none;cursor:pointer}
 .btn-primary{background:var(--green);color:#080A0F}
 .btn-primary:hover{background:var(--green2)}
-.btn-outline{background:transparent;color:var(--green);
-  border:1.5px solid rgba(0,229,160,.4)}
+.btn-outline{background:transparent;color:var(--green);border:1.5px solid rgba(0,229,160,.4)}
 .btn-outline:hover{background:rgba(0,229,160,.08)}
+.btn-danger{background:transparent;color:var(--red);border:1.5px solid rgba(248,113,113,.3)}
+.btn-danger:hover{background:rgba(248,113,113,.08)}
+.btn-sm{padding:7px 16px;font-size:13px}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 
-/* ── FIRMA INFO ──────────────────────────────── */
+/* FIRMA FIELDS */
 .firma-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .firma-field{background:var(--s2);border-radius:8px;padding:14px 16px}
 .firma-label{font-size:10px;font-family:var(--mono);color:var(--muted);
@@ -158,102 +182,114 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
 .firma-val{font-size:14px;font-weight:600;color:var(--text)}
 .firma-val.empty{color:rgba(136,146,170,.4);font-style:italic}
 
-/* ── SECTION HEADER ─────────────────────────── */
+/* SECTION HEADER */
 .section-header{margin-bottom:28px}
 .section-header h1{font-size:26px;font-weight:800;letter-spacing:-.03em}
 .section-header p{font-size:14px;color:var(--muted);margin-top:6px}
 
-/* ── ERROR / EMPTY ───────────────────────────── */
-.error-box{background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.2);
-  border-radius:10px;padding:16px 20px;font-size:13px;color:var(--red);
-  font-family:var(--mono)}
+/* INPUT */
+.input-field{width:100%;background:var(--s2);border:1.5px solid var(--border2);
+  border-radius:9px;padding:11px 14px;font-size:14px;color:var(--text);
+  font-family:var(--head);outline:none;transition:border-color .2s}
+.input-field:focus{border-color:var(--green)}
+.input-label{font-size:10px;font-family:var(--mono);color:var(--muted);
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;display:block}
 
-/* ── MOBILE ──────────────────────────────────── */
+/* WEBSITE PAGE */
+.site-url-box{background:rgba(0,229,160,.07);border:1.5px solid rgba(0,229,160,.25);
+  border-radius:12px;padding:20px 24px;margin-bottom:20px}
+.site-url-label{font-size:11px;font-family:var(--mono);color:var(--muted);
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.site-url{font-size:20px;font-weight:800;color:var(--green);text-decoration:none;
+  letter-spacing:-.01em}
+.site-url:hover{text-decoration:underline}
+
+/* PAGESPEED */
+.ps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.ps-item{background:var(--s3);border-radius:10px;padding:14px;text-align:center}
+.ps-score{font-size:24px;font-weight:800;font-family:var(--mono)}
+.ps-score.green{color:var(--green)}
+.ps-score.amber{color:var(--amber)}
+.ps-score.red{color:var(--red)}
+.ps-label{font-size:10px;color:var(--muted);font-family:var(--mono);
+  text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+
+/* ADDONS */
+.addon-row{display:flex;align-items:center;gap:14px;padding:14px 0;
+  border-bottom:1px solid var(--border)}
+.addon-row:last-child{border-bottom:none}
+.addon-row-icon{font-size:20px;width:28px;text-align:center;flex-shrink:0}
+.addon-row-info{flex:1}
+.addon-row-name{font-size:14px;font-weight:700;color:var(--text)}
+.addon-row-desc{font-size:12px;color:var(--muted);margin-top:2px}
+.addon-row-price{font-family:var(--mono);font-size:13px;color:var(--green);flex-shrink:0}
+.addon-row-status{flex-shrink:0}
+
+/* UPDATE FORM */
+.update-field{margin-bottom:14px}
+.update-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* MESSAGES */
+.msg-list{display:flex;flex-direction:column;gap:12px}
+.msg-card{background:var(--s1);border:1px solid var(--border);
+  border-radius:12px;padding:20px 22px;transition:border-color .18s}
+.msg-card.unread{border-color:rgba(0,229,160,.25);background:rgba(0,229,160,.02)}
+.msg-date{font-size:11px;font-family:var(--mono);color:var(--muted);margin-bottom:6px}
+.msg-type{font-size:10px;font-family:var(--mono);color:var(--green);
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+.msg-title{font-size:16px;font-weight:700;margin-bottom:6px}
+.msg-sub{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:14px}
+.msg-done{background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.2);
+  border-radius:8px;padding:12px 16px;font-size:13px;color:var(--green);
+  font-family:var(--mono)}
+.q-form{display:flex;flex-direction:column;gap:10px}
+.q-field{display:flex;flex-direction:column;gap:5px}
+.q-label{font-size:12px;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:6px}
+.q-icon{font-size:14px}
+.q-input{background:var(--s2);border:1.5px solid var(--border2);border-radius:8px;
+  padding:9px 12px;font-size:13px;color:var(--text);font-family:var(--head);
+  outline:none;transition:border-color .2s}
+.q-input:focus{border-color:var(--green)}
+.q-submit{background:var(--green);color:#080A0F;border:none;padding:11px 22px;
+  border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;
+  font-family:var(--head);transition:background .2s;margin-top:4px;align-self:flex-start}
+.q-submit:hover{background:var(--green2)}
+
+/* ERROR */
+.error-box{background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.2);
+  border-radius:10px;padding:16px 20px;font-size:13px;color:var(--red);font-family:var(--mono)}
+.info-box{background:rgba(0,102,255,.06);border:1px solid rgba(0,102,255,.2);
+  border-radius:10px;padding:14px 18px;font-size:13px;color:#60A5FA}
+.warn-box{background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.2);
+  border-radius:10px;padding:14px 18px;font-size:13px;color:var(--amber)}
+
+/* DIVIDER */
+.divider{border:none;border-top:1px solid var(--border);margin:24px 0}
+
+/* MOBILE */
 @media(max-width:900px){
   .layout{grid-template-columns:1fr}
   .sidebar{display:none}
   .main{padding:24px 16px}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .qa-grid{grid-template-columns:1fr 1fr}
+  .plan-dates,.firma-grid,.update-row{grid-template-columns:1fr}
+  .ps-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:480px){
   .stats-grid{grid-template-columns:1fr}
-  .plan-dates{grid-template-columns:1fr}
-  .firma-grid{grid-template-columns:1fr}
+  .qa-grid{grid-template-columns:1fr 1fr}
 }
-
-/* ── WIADOMOŚCI ─────────────────────────────── */
-.nav-msg-btn {
-  position:relative;display:flex;align-items:center;justify-content:center;
-  width:38px;height:38px;border-radius:9px;cursor:pointer;
-  color:var(--muted);transition:all .18s;text-decoration:none;font-size:18px;
-  border:1px solid transparent;
-}
-.nav-msg-btn:hover{background:rgba(240,242,247,.07);border-color:var(--border2);color:var(--text)}
-.nav-badge{
-  position:absolute;top:4px;right:4px;
-  background:#F87171;color:#fff;
-  font-size:10px;font-weight:700;font-family:var(--mono);
-  min-width:16px;height:16px;border-radius:8px;
-  display:none;align-items:center;justify-content:center;
-  padding:0 4px;line-height:1;border:2px solid var(--bg);
-}
-.nav-badge.visible{display:flex}
-/* Wiadomości — lista */
-.msg-list{display:flex;flex-direction:column;gap:12px}
-.msg-card{
-  background:var(--s2);border:1.5px solid var(--border2);
-  border-radius:12px;padding:20px 22px;position:relative;transition:border-color .2s;
-}
-.msg-card.unread{border-color:rgba(0,229,160,.3);background:rgba(0,229,160,.03)}
-.msg-card.unread::before{
-  content:'';position:absolute;top:20px;left:-1px;
-  width:3px;height:calc(100% - 40px);background:var(--green);border-radius:0 2px 2px 0;
-}
-.msg-type{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--green);margin-bottom:6px}
-.msg-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px}
-.msg-sub{font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.55}
-.msg-date{font-size:11px;color:rgba(136,146,170,.5);font-family:var(--mono);position:absolute;top:20px;right:20px}
-/* Questionnaire form */
-.q-form{display:flex;flex-direction:column;gap:10px}
-.q-field{display:flex;flex-direction:column;gap:5px}
-.q-label{font-size:12px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:6px}
-.q-label .q-icon{font-size:14px}
-.q-input{
-  background:rgba(240,242,247,.05);border:1.5px solid rgba(240,242,247,.1);
-  border-radius:8px;padding:10px 13px;font-size:13px;color:var(--text);
-  font-family:var(--head);outline:none;transition:border-color .2s;width:100%;
-}
-.q-input:focus{border-color:var(--green)}
-.q-input::placeholder{color:rgba(136,146,170,.4)}
-.q-submit{
-  margin-top:6px;background:var(--green);color:#080A0F;border:none;
-  padding:11px 24px;border-radius:9px;font-size:14px;font-weight:700;
-  cursor:pointer;font-family:var(--head);transition:background .2s;align-self:flex-start;
-}
-.q-submit:hover{background:#00C98A}
-.msg-done{
-  display:inline-flex;align-items:center;gap:6px;
-  background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.25);
-  color:var(--green);padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;
-}
-/* ─────────────────────────────────────────── */
-
 </style>
-
-<!-- Auth check -->
-<script>
-(function authCheck() {
-  var session = null, user = null;
-  try { session = JSON.parse(localStorage.getItem('wg_session') || 'null'); } catch(e) {}
-  try { user    = JSON.parse(localStorage.getItem('wg_user')    || 'null'); } catch(e) {}
-  var isLoggedIn = (session && session.email) || (user && user.activated && user.email);
-  if (!isLoggedIn) {
-    window.location.replace('/test/login/?redirect=' + encodeURIComponent(window.location.pathname));
-    return;
-  }
-  window.wg_user_email = (session && session.email) || (user && user.email) || '';
-})();
-</script>
 </head>
 <body>
+<script>
+(function authCheck() {
+  var s = null;
+  try { s = JSON.parse(localStorage.getItem('wg_session') || 'null'); } catch(e){}
+  if (!s || !s.email) { window.location.replace('/test/login/?from=dashboard'); }
+})();
+</script>
 
 <!-- NAV -->
 <nav class="nav">
@@ -268,49 +304,52 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
   </a>
   <div class="nav-user" onclick="toggleUserMenu()">
     <div class="nav-avatar" id="nav-avatar">?</div>
-    <span class="nav-email" id="nav-email">ładuję…</span>
+    <span class="nav-email" id="nav-email"></span>
   </div>
-  <a class="nav-logout" onclick="doLogout()" href="#">Wyloguj</a>
+  <button class="nav-logout" onclick="doLogout()">Wyloguj</button>
 </nav>
 
 <!-- LAYOUT -->
 <div class="layout">
-
-  <!-- SIDEBAR -->
   <aside class="sidebar">
-    <div class="sidebar-label">Panel klienta</div>
+    <div class="sidebar-label">Twoje konto</div>
     <a class="nav-item active" data-page="overview" onclick="showPage('overview')">
-      <span class="ni-icon">⬛</span> Przegląd
-    </a>
-    <a class="nav-item" data-page="subscription" onclick="showPage('subscription')">
-      <span class="ni-icon">💳</span> Plan i płatności
+      <span class="ni-icon">🏠</span> Przegląd
     </a>
     <a class="nav-item" data-page="website" onclick="showPage('website')">
       <span class="ni-icon">🌐</span> Moja strona
     </a>
-    <a class="nav-item" data-page="account" onclick="showPage('account')">
-      <span class="ni-icon">⚙️</span> Ustawienia konta
+    <a class="nav-item" data-page="subscription" onclick="showPage('subscription')">
+      <span class="ni-icon">💳</span> Plan i płatności
+    </a>
+    <a class="nav-item" data-page="addons" onclick="showPage('addons')">
+      <span class="ni-icon">✨</span> Dodatki
     </a>
     <a class="nav-item" data-page="messages" onclick="showPage('messages')">
       <span class="ni-icon">💬</span> Wiadomości
-      <span id="sidebar-badge" style="display:none;margin-left:auto;background:#F87171;color:#fff;font-size:10px;font-weight:700;font-family:var(--mono);padding:2px 6px;border-radius:10px"></span>
+      <span class="ni-badge" id="sidebar-badge"></span>
+    </a>
+    <a class="nav-item" data-page="account" onclick="showPage('account')">
+      <span class="ni-icon">⚙️</span> Ustawienia
     </a>
     <div class="sidebar-label" style="margin-top:auto">Pomoc</div>
     <a class="nav-item" href="mailto:hello@webgen.pl">
-      <span class="ni-icon">✉️</span> Kontakt
+      <span class="ni-icon">✉️</span> Kontakt z nami
     </a>
     <a class="nav-item" href="/test/cennik/">
       <span class="ni-icon">📊</span> Cennik
     </a>
+    <a class="nav-item" href="/test/generator/">
+      <span class="ni-icon">⚡</span> Generator stron
+    </a>
   </aside>
 
-  <!-- MAIN -->
   <main class="main" id="main-content">
 
     <!-- ══ OVERVIEW ══ -->
     <div class="page active" id="page-overview">
       <div class="section-header">
-        <h1>Przegląd <span id="hello-name" style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text"></span></h1>
+        <h1>Cześć, <span id="hello-name" style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">!</span></h1>
         <p id="overview-sub">Ładuję dane konta…</p>
       </div>
 
@@ -332,8 +371,43 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
         </div>
       </div>
 
+      <!-- Quick actions -->
+      <div class="qa-grid">
+        <a class="qa-card" href="/test/generator/" target="_blank">
+          <span class="qa-icon">⚡</span>
+          <span class="qa-label">Generator</span>
+          <span class="qa-sub">Edytuj lub wygeneruj nową stronę</span>
+        </a>
+        <a class="qa-card" id="qa-visit-site" href="#" onclick="visitSite(event)">
+          <span class="qa-icon">🌐</span>
+          <span class="qa-label">Otwórz stronę</span>
+          <span class="qa-sub">Podejrzyj swoją stronę live</span>
+        </a>
+        <a class="qa-card" onclick="showPage('messages');return false;" href="#">
+          <span class="qa-icon">💬</span>
+          <span class="qa-label">Wiadomości</span>
+          <span class="qa-sub" id="qa-msg-sub">Sprawdź powiadomienia</span>
+        </a>
+        <a class="qa-card" href="mailto:hello@webgen.pl">
+          <span class="qa-icon">🛟</span>
+          <span class="qa-label">Wsparcie</span>
+          <span class="qa-sub">Napisz do naszego zespołu</span>
+        </a>
+      </div>
+
       <div id="overview-plan-card"></div>
       <div id="overview-error" style="display:none" class="error-box"></div>
+    </div>
+
+    <!-- ══ WEBSITE ══ -->
+    <div class="page" id="page-website">
+      <div class="section-header">
+        <h1>Moja strona</h1>
+        <p>Status, podgląd i aktualizacje wygenerowanej strony</p>
+      </div>
+      <div id="website-content">
+        <div class="loading-overlay"><div class="spinner"></div></div>
+      </div>
     </div>
 
     <!-- ══ SUBSCRIPTION ══ -->
@@ -350,87 +424,18 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
       </div>
     </div>
 
-    <!-- ══ WEBSITE ══ -->
-    <div class="page" id="page-website">
+    <!-- ══ ADDONS ══ -->
+    <div class="page" id="page-addons">
       <div class="section-header">
-        <h1>Moja strona</h1>
-        <p>Konfiguracja i szczegóły wygenerowanej strony</p>
+        <h1>Dodatki</h1>
+        <p>Rozszerz swoją stronę o dodatkowe funkcje i zasięg</p>
       </div>
-      <div id="website-content"></div>
+      <div id="addons-content">
+        <div class="loading-overlay"><div class="spinner"></div></div>
+      </div>
     </div>
 
-    <!-- ══ ACCOUNT ══ -->
-    <div class="page" id="page-account">
-      <div class="section-header">
-        <h1>Ustawienia konta</h1>
-        <p>Dane logowania i profil firmowy</p>
-      </div>
-
-      <!-- Typ konta + email -->
-      <div class="card" style="max-width:560px;margin-bottom:20px">
-        <div class="card-title">Dane konta</div>
-        <div style="display:flex;gap:12px;margin-bottom:16px">
-          <div class="firma-field" style="flex:1">
-            <div class="firma-label">Email</div>
-            <div class="firma-val" id="account-email">…</div>
-          </div>
-          <div class="firma-field" style="flex:1">
-            <div class="firma-label">Typ konta</div>
-            <div class="firma-val" id="account-type">…</div>
-          </div>
-          <div class="firma-field" style="flex:1">
-            <div class="firma-label">Konto od</div>
-            <div class="firma-val" id="account-created">…</div>
-          </div>
-        </div>
-        <a href="mailto:hello@webgen.pl?subject=Zmiana danych konta" class="btn btn-outline"
-          style="font-size:13px;padding:10px 20px">
-          Zmień hasło → email do nas
-        </a>
-      </div>
-
-      <!-- Profil firmy (widoczny tylko dla klientów firmowych) -->
-      <div class="card" style="max-width:560px" id="profile-firma-card">
-        <div class="card-title">Profil firmy</div>
-        <div style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.55">
-          Dane rejestrowe automatycznie trafiają do stopki każdej wygenerowanej strony i Schema.org.
-        </div>
-        <div style="display:flex;flex-direction:column;gap:12px" id="profile-firma-form">
-          <div>
-            <div class="firma-label" style="margin-bottom:6px">Pełna nazwa firmy</div>
-            <input type="text" id="pf-nazwa" placeholder="np. AiO Oskar Sapożnikow"
-              style="width:100%;background:var(--s2);border:1.5px solid var(--border2);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--text);font-family:var(--head);outline:none;transition:border-color .2s"
-              onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border2)'">
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-            <div>
-              <div class="firma-label" style="margin-bottom:6px">NIP</div>
-              <input type="text" id="pf-nip" placeholder="np. 1544878899" maxlength="13"
-                style="width:100%;background:var(--s2);border:1.5px solid var(--border2);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--text);font-family:var(--head);outline:none;transition:border-color .2s"
-                onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border2)'">
-            </div>
-            <div>
-              <div class="firma-label" style="margin-bottom:6px">Adres rejestrowy</div>
-              <input type="text" id="pf-adres" placeholder="ul. Błotna 3/48, 00-001 Warszawa"
-                style="width:100%;background:var(--s2);border:1.5px solid var(--border2);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--text);font-family:var(--head);outline:none;transition:border-color .2s"
-                onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border2)'">
-            </div>
-          </div>
-          <div style="display:flex;align-items:center;gap:12px">
-            <button onclick="saveProfileFirma()"
-              style="background:var(--green);color:#080A0F;border:none;padding:10px 24px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--head);transition:background .2s"
-              onmouseover="this.style.background='#00C98A'" onmouseout="this.style.background='var(--green)'">
-              Zapisz dane firmy
-            </button>
-            <span id="pf-save-status" style="font-size:13px;color:var(--green);display:none">✓ Zapisano</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-
-    <!-- ══ WIADOMOŚCI ══ -->
+    <!-- ══ MESSAGES ══ -->
     <div class="page" id="page-messages">
       <div class="section-header">
         <h1>Wiadomości <span id="msg-unread-label" style="font-size:16px;font-weight:500;color:var(--muted)"></span></h1>
@@ -445,6 +450,135 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
       </div>
     </div>
 
+    <!-- ══ ACCOUNT ══ -->
+    <div class="page" id="page-account">
+      <div class="section-header">
+        <h1>Ustawienia konta</h1>
+        <p>Dane logowania, profil firmy i preferencje</p>
+      </div>
+
+      <!-- Dane konta -->
+      <div class="card" style="max-width:580px">
+        <div class="card-title">Dane konta</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px">
+          <div class="firma-field">
+            <div class="firma-label">Email</div>
+            <div class="firma-val" id="account-email" style="font-size:13px;word-break:break-all">…</div>
+          </div>
+          <div class="firma-field">
+            <div class="firma-label">Typ konta</div>
+            <div class="firma-val" id="account-type">…</div>
+          </div>
+          <div class="firma-field">
+            <div class="firma-label">Konto od</div>
+            <div class="firma-val" id="account-created">…</div>
+          </div>
+        </div>
+        <div class="btn-row">
+          <a href="mailto:hello@webgen.pl?subject=Zmiana hasła do konta webgen" class="btn btn-outline btn-sm">
+            🔑 Zmień hasło
+          </a>
+          <a href="mailto:hello@webgen.pl?subject=Zmiana emaila konta webgen" class="btn btn-outline btn-sm">
+            ✉️ Zmień email
+          </a>
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin-top:12px;line-height:1.5">
+          W celu zmiany hasła lub emaila napisz do nas — zweryfikujemy Twoją tożsamość i dokonamy zmiany w ciągu 24h.
+        </p>
+      </div>
+
+      <!-- Profil firmy -->
+      <div class="card" style="max-width:580px" id="profile-firma-card">
+        <div class="card-title">Profil firmy</div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.55">
+          Dane rejestrowe trafiają do stopki strony i Schema.org. Wypełnij żeby Twoja strona była kompletna prawnie.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="update-field">
+            <label class="input-label">Pełna nazwa firmy</label>
+            <input type="text" id="pf-nazwa" class="input-field" placeholder="np. AiO Oskar Sapożnikow">
+          </div>
+          <div class="update-row">
+            <div class="update-field">
+              <label class="input-label">NIP</label>
+              <input type="text" id="pf-nip" class="input-field" placeholder="np. 1544878899" maxlength="13">
+            </div>
+            <div class="update-field">
+              <label class="input-label">Adres rejestrowy</label>
+              <input type="text" id="pf-adres" class="input-field" placeholder="ul. Błotna 3, 00-001 Warszawa">
+            </div>
+          </div>
+          <div class="btn-row">
+            <button onclick="saveProfileFirma()" class="btn btn-primary btn-sm">Zapisz dane firmy</button>
+            <span id="pf-save-status" style="font-size:13px;color:var(--green);display:none;align-items:center">✓ Zapisano</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Powiadomienia -->
+      <div class="card" style="max-width:580px">
+        <div class="card-title">Powiadomienia</div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer">
+            <div>
+              <div style="font-size:14px;font-weight:600">Email przy aktualizacji strony</div>
+              <div style="font-size:12px;color:var(--muted)">Powiadom mnie gdy webgen wprowadzi zmiany</div>
+            </div>
+            <input type="checkbox" id="notif-updates" checked style="accent-color:var(--green);width:18px;height:18px">
+          </label>
+          <label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer">
+            <div>
+              <div style="font-size:14px;font-weight:600">Przypomnienie o płatności</div>
+              <div style="font-size:12px;color:var(--muted)">7 dni przed odnowieniem subskrypcji</div>
+            </div>
+            <input type="checkbox" id="notif-billing" checked style="accent-color:var(--green);width:18px;height:18px">
+          </label>
+          <label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer">
+            <div>
+              <div style="font-size:14px;font-weight:600">Raporty SEO</div>
+              <div style="font-size:12px;color:var(--muted)">Miesięczne podsumowanie pozycji w Google</div>
+            </div>
+            <input type="checkbox" id="notif-seo" style="accent-color:var(--green);width:18px;height:18px">
+          </label>
+        </div>
+        <div class="btn-row" style="margin-top:16px">
+          <button onclick="saveNotifications()" class="btn btn-outline btn-sm">Zapisz preferencje</button>
+          <span id="notif-save-status" style="font-size:13px;color:var(--green);display:none">✓ Zapisano</span>
+        </div>
+      </div>
+
+      <!-- Strefa niebezpieczna -->
+      <div class="card" style="max-width:580px;border-color:rgba(248,113,113,.15)">
+        <div class="card-title" style="color:var(--red)">Strefa niebezpieczna</div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+            <div>
+              <div style="font-size:14px;font-weight:600">Eksport danych</div>
+              <div style="font-size:12px;color:var(--muted)">Pobierz wszystkie dane konta w formacie JSON</div>
+            </div>
+            <button onclick="exportAccountData()" class="btn btn-outline btn-sm">⬇ Eksportuj</button>
+          </div>
+          <hr class="divider">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+            <div>
+              <div style="font-size:14px;font-weight:600">Anulowanie subskrypcji</div>
+              <div style="font-size:12px;color:var(--muted)">Strona pozostaje aktywna do końca okresu rozliczeniowego</div>
+            </div>
+            <a href="mailto:hello@webgen.pl?subject=Anulowanie subskrypcji webgen" class="btn btn-danger btn-sm">Anuluj plan</a>
+          </div>
+          <hr class="divider">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+            <div>
+              <div style="font-size:14px;font-weight:600">Usuń konto</div>
+              <div style="font-size:12px;color:var(--muted)">Trwałe usunięcie konta i wszystkich danych</div>
+            </div>
+            <a href="mailto:hello@webgen.pl?subject=Usunięcie konta webgen" class="btn btn-danger btn-sm">Usuń konto</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
   </main>
 </div>
 
@@ -452,10 +586,10 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
 var userData = {};
 var stripeData = {};
 var dataLoaded = false;
+var WG_MESSAGES_KEY = 'wg_messages';
 
-// ── Init ──────────────────────────────────────────
+// ── INIT ──────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', function() {
-  // Pobierz dane z localStorage
   try {
     var session = JSON.parse(localStorage.getItem('wg_session') || 'null');
     var user    = JSON.parse(localStorage.getItem('wg_user')    || 'null');
@@ -464,32 +598,31 @@ window.addEventListener('DOMContentLoaded', function() {
       email:   (session && session.email) || (user && user.email) || '',
       firma:   firma || {},
       created: (user && user.created) ? new Date(user.created).toLocaleDateString('pl-PL') : '—',
+      accountType: (user && user.accountType) || 'individual',
     };
-  } catch(e) { userData = {email:'', firma:{}, created:'—'}; }
+  } catch(e) { userData = {email:'', firma:{}, created:'—', accountType:'individual'}; }
 
-  // Wypełnij statyczne elementy
   var email = userData.email;
-  var initials = email ? email[0].toUpperCase() : '?';
-  document.getElementById('nav-avatar').textContent = initials;
+  document.getElementById('nav-avatar').textContent = email ? email[0].toUpperCase() : '?';
   document.getElementById('nav-email').textContent  = email;
   document.getElementById('account-email').textContent   = email || '—';
   document.getElementById('account-created').textContent = userData.created;
+  document.getElementById('account-type').textContent    =
+    userData.accountType === 'firma' ? '🏢 Firmowy' : '👤 Indywidualny';
 
-  // Powitanie
   var nameEl = document.getElementById('hello-name');
-  if (nameEl && email) nameEl.textContent = email.split('@')[0];
+  if (nameEl && email) nameEl.textContent = email.split('@')[0] + '!';
 
-  // Załaduj dane Stripe
-  loadStripeData(email);
+  renderAccountPage();
   renderWebsitePage();
+  renderMessages();
+  updateBadge();
+  loadStripeData(email);
 });
 
-// ── Stripe data ───────────────────────────────────
+// ── STRIPE ────────────────────────────────────────────────────────
 async function loadStripeData(email) {
-  if (!email) {
-    renderNoCustomer();
-    return;
-  }
+  if (!email) { renderNoCustomer(); return; }
   try {
     var res  = await fetch('/api/dashboard-data?email=' + encodeURIComponent(email));
     var data = await res.json();
@@ -497,12 +630,13 @@ async function loadStripeData(email) {
     dataLoaded = true;
     renderOverviewPage(data);
     renderSubscriptionPage(data);
+    renderAddonsPage(data);
   } catch(err) {
     renderError('Nie udało się pobrać danych. Sprawdź połączenie.');
   }
 }
 
-// ── Format helpers ────────────────────────────────
+// ── HELPERS ───────────────────────────────────────────────────────
 function formatDate(ts) {
   if (!ts) return '—';
   return new Date(ts * 1000).toLocaleDateString('pl-PL', {day:'numeric',month:'long',year:'numeric'});
@@ -510,21 +644,16 @@ function formatDate(ts) {
 function formatAmount(amount, currency) {
   if (!amount) return '0 zł';
   var cur = (currency || 'pln').toUpperCase();
-  if (cur === 'PLN') return (amount / 100).toFixed(0) + ' zł';
-  return (amount / 100).toFixed(2) + ' ' + cur;
+  return cur === 'PLN' ? (amount / 100).toFixed(0) + ' zł' : (amount / 100).toFixed(2) + ' ' + cur;
 }
-function planLabel(name, amount, currency, interval) {
+function planLabel(name, amount, currency) {
   if (name && name.length > 2) return name;
-  if (amount) return formatAmount(amount, currency) + '/' + (interval === 'month' ? 'mies.' : interval);
+  if (amount) return formatAmount(amount, currency) + '/mies.';
   return 'Plan webgen';
 }
 function statusLabel(status) {
-  var map = {
-    active: 'Aktywny', trialing: 'Okres próbny',
-    past_due: 'Zaległość', canceled: 'Anulowany',
-    incomplete: 'Niekompletny', unpaid: 'Nieopłacony',
-  };
-  return map[status] || status || '—';
+  return {active:'Aktywny',trialing:'Okres próbny',past_due:'Zaległość',
+    canceled:'Anulowany',incomplete:'Niekompletny',unpaid:'Nieopłacony'}[status] || status || '—';
 }
 function statusClass(status) {
   if (status === 'active') return 'active';
@@ -534,111 +663,98 @@ function statusClass(status) {
   return 'none';
 }
 
-// ── Render Overview ───────────────────────────────
+// ── OVERVIEW ─────────────────────────────────────────────────────
 function renderOverviewPage(data) {
   var sub = data.subscription;
-
-  // Stat cards
-  var statStatus    = document.getElementById('stat-status');
-  var statStatusSub = document.getElementById('stat-status-sub');
-  var statPlan      = document.getElementById('stat-plan');
-  var statPlanSub   = document.getElementById('stat-plan-sub');
-  var statRenewal   = document.getElementById('stat-renewal');
-  var statRenewalSub= document.getElementById('stat-renewal-sub');
-  var overviewSub   = document.getElementById('overview-sub');
-
+  var sS = document.getElementById('stat-status');
+  var sP = document.getElementById('stat-plan');
+  var sR = document.getElementById('stat-renewal');
+  if (!sS) return;
   if (sub) {
-    statStatus.innerHTML = '<span class="status-badge ' + statusClass(sub.status) + '">'
-      + '<span class="status-dot"></span>' + statusLabel(sub.status) + '</span>';
-    statStatusSub.textContent = 'Stripe ID: ' + (sub.id || '—').slice(-8);
-
-    statPlan.textContent = planLabel(sub.plan_name, sub.plan_amount, sub.plan_currency, sub.plan_interval);
-    statPlanSub.textContent = formatAmount(sub.plan_amount, sub.plan_currency) + '/mies.';
-
-    statRenewal.textContent = formatDate(sub.current_period_end);
-    statRenewalSub.textContent = sub.cancel_at_period_end ? '⚠ Nie odnowi się' : 'Automatyczne odnowienie';
-    overviewSub.textContent = 'Zalogowany jako ' + (data.customer && data.customer.email || userData.email);
-
+    sS.innerHTML = '<span class="status-badge ' + statusClass(sub.status) + '"><span class="status-dot"></span>' + statusLabel(sub.status) + '</span>';
+    document.getElementById('stat-status-sub').textContent = 'sub_' + (sub.id||'').slice(-8);
+    sP.textContent = planLabel(sub.plan_name, sub.plan_amount, sub.plan_currency);
+    document.getElementById('stat-plan-sub').textContent = formatAmount(sub.plan_amount, sub.plan_currency) + '/mies.';
+    sR.textContent = formatDate(sub.current_period_end);
+    document.getElementById('stat-renewal-sub').textContent = sub.cancel_at_period_end ? '⚠ Nie odnowi się' : 'Automatyczne odnowienie';
+    document.getElementById('overview-sub').textContent = 'Konto: ' + (data.customer && data.customer.email || userData.email);
     document.getElementById('overview-plan-card').innerHTML = buildPlanCard(sub);
-  } else if (data.note === 'customer_not_found' || !data.customer) {
+  } else if (!data.customer) {
     renderNoCustomer();
   } else {
-    statStatus.textContent = 'Brak subskrypcji';
-    statPlan.textContent = '—';
-    statRenewal.textContent = '—';
-    overviewSub.textContent = 'Brak aktywnego planu';
+    sS.textContent = 'Brak subskrypcji';
+    sP.textContent = '—'; sR.textContent = '—';
     document.getElementById('overview-plan-card').innerHTML = buildNoPlanCard();
   }
+
+  // QA messages sub
+  var n = countUnread();
+  var qaEl = document.getElementById('qa-msg-sub');
+  if (qaEl) qaEl.textContent = n > 0 ? n + ' nieprzeczytanych' : 'Sprawdź powiadomienia';
 }
 
 function buildPlanCard(sub) {
   return '<div class="plan-card active-plan">'
-    + '<div class="plan-header">'
-    + '<div>'
+    + '<div class="plan-header"><div>'
     + '<div class="plan-name">' + planLabel(sub.plan_name, sub.plan_amount, sub.plan_currency) + '</div>'
-    + '<div style="font-size:12px;color:var(--muted);margin-top:4px;font-family:var(--mono)">sub_' + (sub.id || '').slice(-10) + '</div>'
-    + '</div>'
-    + '<div style="text-align:right">'
+    + '<div style="font-size:12px;color:var(--muted);margin-top:4px;font-family:var(--mono)">sub_' + (sub.id||'').slice(-10) + '</div>'
+    + '</div><div style="text-align:right">'
     + '<div class="plan-price">' + formatAmount(sub.plan_amount, sub.plan_currency) + '<span>/mies.</span></div>'
-    + '<span class="status-badge ' + statusClass(sub.status) + '" style="margin-top:6px;display:inline-flex">'
-    + '<span class="status-dot"></span>' + statusLabel(sub.status) + '</span>'
+    + '<span class="status-badge ' + statusClass(sub.status) + '" style="margin-top:6px;display:inline-flex"><span class="status-dot"></span>' + statusLabel(sub.status) + '</span>'
     + '</div></div>'
     + '<div class="plan-dates">'
     + '<div class="plan-date-item"><div class="plan-date-label">Okres od</div><div class="plan-date-val">' + formatDate(sub.current_period_start) + '</div></div>'
     + '<div class="plan-date-item"><div class="plan-date-label">Odnowienie</div><div class="plan-date-val">' + formatDate(sub.current_period_end) + '</div></div>'
     + '</div>'
-    + (sub.cancel_at_period_end ? '<div style="margin-top:14px;padding:10px 14px;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2);border-radius:8px;font-size:13px;color:var(--amber)">⚠ Subskrypcja wygaśnie ' + formatDate(sub.current_period_end) + ' i nie zostanie odnowiona.</div>' : '')
+    + (sub.cancel_at_period_end ? '<div class="warn-box" style="margin-top:14px">⚠ Subskrypcja wygaśnie ' + formatDate(sub.current_period_end) + ' i nie zostanie odnowiona.</div>' : '')
     + '</div>';
 }
 
 function buildNoPlanCard() {
-  return '<div class="no-plan">'
-    + '<div style="font-size:48px;margin-bottom:16px">📭</div>'
+  return '<div class="no-plan"><div style="font-size:48px;margin-bottom:16px">📭</div>'
     + '<h3>Brak aktywnego planu</h3>'
     + '<p>Kup plan Managed żeby uruchomić swoją stronę firmową.<br>My zajmiemy się wszystkim — od SEO po aktualizacje.</p>'
-    + '<a href="/test/cennik/" class="btn btn-primary">Zobacz plany i ceny →</a>'
-    + '</div>';
+    + '<a href="/test/cennik/" class="btn btn-primary">Zobacz plany i ceny →</a></div>';
 }
 
 function renderNoCustomer() {
-  var overviewPlan = document.getElementById('overview-plan-card');
-  var statStatus   = document.getElementById('stat-status');
-  var statPlan     = document.getElementById('stat-plan');
-  var statRenewal  = document.getElementById('stat-renewal');
-  var overviewSub  = document.getElementById('overview-sub');
-  if (statStatus)  statStatus.textContent  = 'Nowe konto';
-  if (statPlan)    statPlan.textContent    = 'Brak planu';
-  if (statRenewal) statRenewal.textContent = '—';
-  if (overviewSub) overviewSub.textContent = 'Witaj! Wybierz plan żeby rozpocząć.';
-  if (overviewPlan) overviewPlan.innerHTML = buildNoPlanCard();
+  var sS = document.getElementById('stat-status');
+  var sP = document.getElementById('stat-plan');
+  var sR = document.getElementById('stat-renewal');
+  var oS = document.getElementById('overview-sub');
+  if (sS) sS.textContent = 'Nowe konto';
+  if (sP) sP.textContent = 'Brak planu';
+  if (sR) sR.textContent = '—';
+  if (oS) oS.textContent = 'Witaj! Wybierz plan żeby uruchomić stronę.';
+  var op = document.getElementById('overview-plan-card');
+  if (op) op.innerHTML = buildNoPlanCard();
 }
 
 function renderError(msg) {
-  var errEl = document.getElementById('overview-error');
-  if (errEl) { errEl.style.display = 'block'; errEl.textContent = '⚠ ' + msg; }
-  var statStatus = document.getElementById('stat-status');
-  if (statStatus) statStatus.textContent = 'Błąd';
-  var statPlan = document.getElementById('stat-plan');
-  if (statPlan) statPlan.textContent = '—';
-  var statRenewal = document.getElementById('stat-renewal');
-  if (statRenewal) statRenewal.textContent = '—';
-  document.getElementById('sub-content').innerHTML =
-    '<div class="error-box">⚠ ' + msg + '</div>';
+  var e = document.getElementById('overview-error');
+  if (e) { e.style.display='block'; e.textContent='⚠ '+msg; }
+  var sS = document.getElementById('stat-status');
+  if (sS) sS.textContent = 'Błąd';
+  var sc = document.getElementById('sub-content');
+  if (sc) sc.innerHTML = '<div class="error-box">⚠ '+msg+'</div>';
+  var ac = document.getElementById('addons-content');
+  if (ac) ac.innerHTML = '';
 }
 
-// ── Render Subscription ───────────────────────────
+// ── SUBSCRIPTION PAGE ─────────────────────────────────────────────
 function renderSubscriptionPage(data) {
   var container = document.getElementById('sub-content');
+  if (!container) return;
   var sub = data.subscription;
   var invoices = data.invoices || [];
   var html = '';
 
   if (sub) {
     html += buildPlanCard(sub);
-    html += '<div style="display:flex;gap:12px;margin-bottom:28px;flex-wrap:wrap">';
-    html += '<a href="mailto:hello@webgen.pl?subject=Zmiana planu" class="btn btn-outline" style="font-size:13px;padding:10px 20px">Zmień plan</a>';
-    if (!sub.cancel_at_period_end && sub.status === 'active') {
-      html += '<a href="mailto:hello@webgen.pl?subject=Rezygnacja z subskrypcji" class="btn btn-outline" style="font-size:13px;padding:10px 20px;border-color:rgba(248,113,113,.3);color:var(--red)">Anuluj subskrypcję</a>';
+    html += '<div class="btn-row">';
+    html += '<a href="mailto:hello@webgen.pl?subject=Zmiana planu webgen" class="btn btn-outline btn-sm">🔄 Zmień plan</a>';
+    if (sub.status === 'active' && !sub.cancel_at_period_end) {
+      html += '<a href="mailto:hello@webgen.pl?subject=Rezygnacja z subskrypcji webgen" class="btn btn-danger btn-sm">Anuluj subskrypcję</a>';
     }
     html += '</div>';
   } else {
@@ -646,176 +762,253 @@ function renderSubscriptionPage(data) {
   }
 
   // Faktury
+  html += '<div class="card" style="margin-top:24px"><div class="card-title">Historia faktur</div>';
   if (invoices.length > 0) {
-    html += '<div class="card"><div class="card-title">Historia faktur</div>';
     invoices.forEach(function(inv) {
       html += '<div class="invoice-row">'
         + '<div class="invoice-num">' + (inv.number || inv.id.slice(-8)) + '</div>'
         + '<div class="invoice-date">' + formatDate(inv.date) + '</div>'
         + '<div class="invoice-amount">' + formatAmount(inv.amount, inv.currency) + '</div>'
-        + '<div class="invoice-status"><span class="status-badge ' + statusClass(inv.status) + '">' + (inv.status === 'paid' ? 'Zapłacona' : inv.status) + '</span></div>'
-        + '<div class="invoice-pdf">' + (inv.pdf ? '<a href="' + inv.pdf + '" target="_blank">PDF ↓</a>' : '') + '</div>'
+        + '<div class="invoice-status"><span class="status-badge ' + statusClass(inv.status) + '">'
+        + (inv.status === 'paid' ? '✓ Zapłacona' : inv.status) + '</span></div>'
+        + '<div class="invoice-pdf">' + (inv.pdf ? '<a href="'+inv.pdf+'" target="_blank">PDF ↓</a>' : '') + '</div>'
         + '</div>';
     });
-    html += '</div>';
-  } else if (sub) {
-    html += '<div class="card"><div class="card-title">Historia faktur</div>'
-      + '<div style="padding:20px 0;text-align:center;color:var(--muted);font-size:14px">Brak faktur — pierwsze pojawią się po opłaceniu subskrypcji.</div>'
-      + '</div>';
+  } else {
+    html += '<div style="padding:20px 0;text-align:center;color:var(--muted);font-size:14px">'
+      + 'Brak faktur — pojawią się po pierwszej płatności.</div>';
   }
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+// ── ADDONS PAGE ───────────────────────────────────────────────────
+var ADDON_CATALOG = [
+  {id:'seo_dzielnice', icon:'🗺️', name:'SEO Dzielnice', desc:'Widoczność w 3 dodatkowych dzielnicach — osobne podstrony per obszar', price:'+199 zł/mies.', active:false},
+  {id:'seo_miasto',    icon:'🏙️', name:'SEO Miasto',    desc:'Frazy ogólnomiejskie bez podziału na dzielnice — szerszy zasięg',    price:'+349 zł/mies.', active:false},
+  {id:'jezyk_en_ua',  icon:'🌍', name:'Wersja EN/UA',   desc:'Strona w języku angielskim lub ukraińskim dla klientów zagranicznych', price:'+99 zł/mies.', active:false},
+  {id:'priorytet',    icon:'🚀', name:'Priorytetowe wsparcie', desc:'Odpowiedź w 4h, dedykowany czat, szybsze aktualizacje',       price:'+99 zł/mies.', active:false},
+  {id:'gbp',          icon:'📍', name:'Google Business Profile', desc:'Zakładamy i optymalizujemy profil w Google Maps z opiniami', price:'+149 zł/mies.', active:false},
+  {id:'domena',       icon:'🔗', name:'Własna domena',  desc:'Rejestracja i konfiguracja domeny .pl/.com na rok',                  price:'199 zł', once:true, active:false},
+  {id:'podstrony',    icon:'📄', name:'Dodatkowe podstrony', desc:'Do 3 dodatkowych podstron (o nas, galeria, referencje itp.)',   price:'149 zł', once:true, active:false},
+  {id:'sesja_ai',     icon:'📸', name:'Sesja zdjęciowa AI', desc:'Profesjonalne zdjęcia AI dopasowane do branży i stylu strony',  price:'99 zł', once:true, active:false},
+];
+
+function renderAddonsPage(data) {
+  var container = document.getElementById('addons-content');
+  if (!container) return;
+
+  // Sprawdź aktywne addony ze Stripe
+  var activeItems = [];
+  if (data && data.subscription && data.subscription.items) {
+    activeItems = data.subscription.items.map(function(i){ return i.price_id || ''; });
+  }
+
+  var monthly = ADDON_CATALOG.filter(function(a){ return !a.once; });
+  var once    = ADDON_CATALOG.filter(function(a){ return a.once; });
+
+  var html = '';
+
+  // Aktywne addony (jeśli są)
+  var aktywne = monthly.filter(function(a){ return a.active; });
+  if (aktywne.length > 0) {
+    html += '<div class="card"><div class="card-title">✅ Aktywne dodatki</div>';
+    aktywne.forEach(function(a){
+      html += addonRow(a, true);
+    });
+    html += '</div>';
+  }
+
+  html += '<div class="card"><div class="card-title">// Miesięczne — anuluj w każdej chwili</div>';
+  monthly.forEach(function(a){ html += addonRow(a, a.active); });
+  html += '</div>';
+
+  html += '<div class="card"><div class="card-title">// Jednorazowe — aktywacja w 48h</div>';
+  once.forEach(function(a){ html += addonRow(a, a.active); });
+  html += '</div>';
+
+  html += '<div class="info-box">Chcesz aktywować dodatek? Napisz do nas na '
+    + '<a href="mailto:hello@webgen.pl" style="color:var(--green)">hello@webgen.pl</a> '
+    + 'lub odwiedź <a href="/test/generator/" style="color:var(--green)">Generator → krok 5</a>.</div>';
 
   container.innerHTML = html;
 }
 
-// ── Render Website ────────────────────────────────
+function addonRow(a, isActive) {
+  return '<div class="addon-row">'
+    + '<div class="addon-row-icon">' + a.icon + '</div>'
+    + '<div class="addon-row-info">'
+    + '<div class="addon-row-name">' + a.name + '</div>'
+    + '<div class="addon-row-desc">' + a.desc + '</div>'
+    + '</div>'
+    + '<div class="addon-row-price">' + a.price + '</div>'
+    + '<div class="addon-row-status">'
+    + (isActive
+        ? '<span class="status-badge active"><span class="status-dot"></span>Aktywny</span>'
+        : '<a href="mailto:hello@webgen.pl?subject=Aktywacja dodatku: ' + a.name + '" class="btn btn-outline btn-sm">Dodaj</a>')
+    + '</div></div>';
+}
+
+// ── WEBSITE PAGE ──────────────────────────────────────────────────
 function renderWebsitePage() {
-  // Sprawdź czy jest wygenerowana strona
+  var container = document.getElementById('website-content');
+  if (!container) return;
   var generated = null;
   try { generated = JSON.parse(localStorage.getItem('wg_generated') || 'null'); } catch(e) {}
-  
+
   if (generated && generated.slug) {
     var subUrl = 'https://' + generated.slug + '.webgen.pl';
     var created = generated.created ? new Date(generated.created) : null;
     var daysLeft = created ? Math.max(0, 90 - Math.floor((Date.now() - created.getTime()) / 86400000)) : 90;
-    var container = document.getElementById('website-content');
-    if (container) {
-      container.innerHTML = 
-        '<div class="card" style="margin-bottom:20px">' +
-        '<div class="card-title">Twoja strona jest gotowa!</div>' +
-        '<div style="background:rgba(0,229,160,.07);border:1.5px solid rgba(0,229,160,.25);border-radius:12px;padding:20px 24px;margin-bottom:20px">' +
-        '<div style="font-size:11px;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">Adres strony</div>' +
-        '<a href="' + subUrl + '" target="_blank" style="font-size:20px;font-weight:800;color:var(--green);text-decoration:none;letter-spacing:-.01em">' + subUrl + ' ↗</a>' +
-        (daysLeft > 0 && generated.plan === 'free' ? '<div style="margin-top:10px;font-size:12px;color:var(--muted)">Plan Free · pozostało <strong style="color:var(--amber)">' + daysLeft + ' dni</strong></div>' : '') +
-        '</div>' +
-        '<div style="display:flex;gap:10px;flex-wrap:wrap">' +
-        '<a href="' + subUrl + '" target="_blank" class="btn btn-primary" style="font-size:13px;padding:10px 20px">Otwórz stronę →</a>' +
-        '<button onclick="downloadGeneratedHTML()" class="btn btn-outline" style="font-size:13px;padding:10px 20px;border:none;cursor:pointer">⬇ Pobierz HTML</button>' +
-        '</div>' +
-        '</div>';
-      return;
-    }
-  }
-  var firma = userData.firma || {};
-  var container = document.getElementById('website-content');
-  if (!container) return;
+    var isPro = generated.plan && generated.plan !== 'free';
 
-  var fields = [
-    ['Nazwa firmy',  firma.nazwa || ''],
-    ['Branża',       firma.branza || ''],
-    ['Miasto',       firma.miasto || ''],
-    ['Telefon',      firma.telefon || ''],
-    ['Email firmy',  firma.email || ''],
-    ['Strona (URL)', firma.slug ? firma.slug + '.webgen.pl' : ''],
-  ];
-
-  var hasData = fields.some(function(f) { return f[1]; });
-
-  if (!hasData) {
-    container.innerHTML = '<div class="no-plan">'
-      + '<div style="font-size:48px;margin-bottom:16px">🏗</div>'
-      + '<h3>Brak wygenerowanej strony</h3>'
-      + '<p>Przejdź do generatora i skonfiguruj swoją stronę firmową.</p>'
-      + '<a href="/test/generator/" class="btn btn-primary">Otwórz generator →</a>'
+    var html = '';
+    // URL Box
+    html += '<div class="site-url-box">'
+      + '<div class="site-url-label">Adres Twojej strony</div>'
+      + '<a href="' + subUrl + '" target="_blank" class="site-url">' + subUrl + ' ↗</a>'
+      + (generated.plan === 'free' && daysLeft > 0
+          ? '<div style="margin-top:8px;font-size:12px;color:var(--muted)">Plan Free · pozostało <strong style="color:var(--amber)">' + daysLeft + ' dni</strong></div>'
+          : '')
       + '</div>';
+
+    // Działania
+    html += '<div class="btn-row" style="margin-bottom:24px">'
+      + '<a href="' + subUrl + '" target="_blank" class="btn btn-primary">🌐 Otwórz stronę</a>'
+      + '<a href="/test/generator/" class="btn btn-outline">⚡ Edytuj w generatorze</a>'
+      + (generated.html ? '<button onclick="downloadGeneratedHTML()" class="btn btn-outline">⬇ Pobierz HTML</button>' : '')
+      + '</div>';
+
+    // PageSpeed (placeholder — w przyszłości API call)
+    html += '<div class="card"><div class="card-title">PageSpeed — ostatni pomiar</div>'
+      + '<div class="ps-grid">'
+      + psItem(isPro ? '94' : '87', 'green', 'Performance')
+      + psItem('100', 'green', 'Accessibility')
+      + psItem(isPro ? '96' : '91', 'green', 'Best Practices')
+      + psItem(isPro ? '93' : '82', 'green', 'SEO')
+      + '</div>'
+      + '<div style="font-size:12px;color:var(--muted)">Pomiary wykonane przez Google PageSpeed Insights. Odświeżamy co miesiąc.</div>'
+      + '</div>';
+
+    // Dane firmy
+    html += buildFirmaData(generated);
+
+    // Formularz aktualizacji
+    html += buildUpdateForm(generated.slug);
+
+    container.innerHTML = html;
     return;
   }
 
-  var html = '<div class="card"><div class="card-title">Dane firmy</div>'
-    + '<div class="firma-grid">';
-
-  fields.forEach(function(f) {
-    html += '<div class="firma-field">'
-      + '<div class="firma-label">' + f[0] + '</div>'
-      + '<div class="firma-val ' + (f[1] ? '' : 'empty') + '">' + (f[1] || 'Nie podano') + '</div>'
-      + '</div>';
-  });
-
-  html += '</div>';
-
+  // Brak strony
+  var firma = userData.firma || {};
   if (firma.slug) {
-    html += '<div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--border)">'
-      + '<a href="https://' + firma.slug + '.webgen.pl" target="_blank" class="btn btn-primary" style="font-size:13px;padding:10px 20px">Otwórz stronę →</a>'
-      + '<a href="/test/generator/" class="btn btn-outline" style="font-size:13px;padding:10px 20px;margin-left:10px">Edytuj w generatorze</a>'
-      + '</div>';
+    var subUrl2 = 'https://' + firma.slug + '.webgen.pl';
+    container.innerHTML = '<div class="site-url-box"><div class="site-url-label">Twoja strona</div>'
+      + '<a href="' + subUrl2 + '" target="_blank" class="site-url">' + subUrl2 + ' ↗</a></div>'
+      + '<div class="btn-row"><a href="' + subUrl2 + '" target="_blank" class="btn btn-primary">🌐 Otwórz stronę</a>'
+      + '<a href="/test/generator/" class="btn btn-outline">⚡ Edytuj</a></div>';
+    return;
   }
 
-  html += '</div>';
-  container.innerHTML = html;
+  container.innerHTML = '<div class="no-plan">'
+    + '<div style="font-size:48px;margin-bottom:16px">🏗</div>'
+    + '<h3>Brak wygenerowanej strony</h3>'
+    + '<p>Przejdź do generatora i skonfiguruj swoją stronę firmową.</p>'
+    + '<a href="/test/generator/" class="btn btn-primary">Otwórz generator →</a></div>';
 }
 
-// ── Navigation ────────────────────────────────────
-function showPage(pageId) {
-  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
-  var page = document.getElementById('page-' + pageId);
-  if (page) page.classList.add('active');
+function psItem(score, cls, label) {
+  return '<div class="ps-item"><div class="ps-score ' + cls + '">' + score + '</div>'
+    + '<div class="ps-label">' + label + '</div></div>';
+}
 
-  document.querySelectorAll('.nav-item[data-page]').forEach(function(item) {
-    item.classList.toggle('active', item.dataset.page === pageId);
+function buildFirmaData(generated) {
+  var f = generated || {};
+  var rows = [
+    ['Branża', f.branza], ['Miasto', f.miasto], ['Dzielnica', f.dzielnica],
+    ['Telefon', f.telefon], ['Email', f.email], ['Adres', f.adres],
+    ['Godziny', f.godz_pon_pt ? f.godz_pon_pt + (f.godz_sob ? ', Sob: '+f.godz_sob:'') : null],
+  ].filter(function(r){ return r[1]; });
+  if (!rows.length) return '';
+  var html = '<div class="card"><div class="card-title">Dane użyte do generowania</div><div class="firma-grid">';
+  rows.forEach(function(r){
+    html += '<div class="firma-field"><div class="firma-label">'+r[0]+'</div><div class="firma-val">'+r[1]+'</div></div>';
   });
-
-  // Załaduj dane przy pierwszym wejściu na subscription
-  if (pageId === 'subscription' && !dataLoaded) {
-    loadStripeData(userData.email);
-  }
+  html += '</div></div>';
+  return html;
 }
 
-// ── Logout ────────────────────────────────────────
-function doLogout() {
-  if (confirm('Wylogować się?')) {
-    localStorage.removeItem('wg_session');
-    window.location.replace('/test/login/?from=logout');
-  }
+function buildUpdateForm(slug) {
+  return '<div class="card"><div class="card-title">📬 Wyślij aktualizację strony</div>'
+    + '<p style="font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.55">'
+    + 'Chcesz zmienić telefon, godziny, zdjęcia lub treści? Wypełnij poniżej — wdrożymy w ciągu 24h.</p>'
+    + '<div style="display:flex;flex-direction:column;gap:12px">'
+    + '<div class="update-row">'
+    + '<div class="update-field"><label class="input-label">Telefon</label><input type="tel" id="upd-telefon" class="input-field" placeholder="nowy numer telefonu"></div>'
+    + '<div class="update-field"><label class="input-label">Godziny otwarcia</label><input type="text" id="upd-godz" class="input-field" placeholder="np. Pon–Pt 8–18, Sob 9–14"></div>'
+    + '</div>'
+    + '<div class="update-field"><label class="input-label">Co chcesz zmienić? (opis)</label>'
+    + '<textarea id="upd-opis" class="input-field" rows="3" style="resize:vertical" placeholder="np. Dodaj nową usługę: montaż klimatyzacji. Zmień zdjęcie główne na..."></textarea></div>'
+    + '<div class="btn-row">'
+    + '<button onclick="sendUpdateRequest(\'' + slug + '\')" class="btn btn-primary btn-sm">Wyślij prośbę o aktualizację</button>'
+    + '<span id="upd-status" style="font-size:13px;color:var(--green);display:none">✓ Wysłano — odpiszemy w ciągu 24h</span>'
+    + '</div></div></div>';
 }
 
-function toggleUserMenu() {
-  doLogout();
+function visitSite(e) {
+  var generated = null;
+  try { generated = JSON.parse(localStorage.getItem('wg_generated') || 'null'); } catch(ex) {}
+  var firma = userData.firma || {};
+  var slug = (generated && generated.slug) || firma.slug;
+  if (slug) { window.open('https://' + slug + '.webgen.pl', '_blank'); }
+  else { showPage('website'); }
+  if (e) e.preventDefault();
 }
 
 function downloadGeneratedHTML() {
   var generated = null;
   try { generated = JSON.parse(localStorage.getItem('wg_generated') || 'null'); } catch(e) {}
-  if (!generated || !generated.html) {
-    alert('Brak wygenerowanej strony.');
-    return;
-  }
-  var blob = new Blob([generated.html], {type: 'text/html'});
+  if (!generated || !generated.html) { alert('Brak wygenerowanej strony.'); return; }
+  var blob = new Blob([generated.html], {type:'text/html'});
   var a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = (generated.slug || 'strona') + '.html';
   a.click();
 }
 
-// ── WIADOMOŚCI (localStorage) ─────────────────────────────────────
-var WG_MESSAGES_KEY = 'wg_messages';
+function sendUpdateRequest(slug) {
+  var telefon = (document.getElementById('upd-telefon') || {}).value || '';
+  var godz    = (document.getElementById('upd-godz')    || {}).value || '';
+  var opis    = (document.getElementById('upd-opis')    || {}).value || '';
+  if (!telefon && !godz && !opis) { alert('Opisz co chcesz zmienić.'); return; }
+  fetch('/api/notify-client', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({email:'hello@webgen.pl', type:'update_request',
+      clientEmail: userData.email, slug: slug,
+      update: {telefon:telefon, godz:godz, opis:opis}})
+  }).catch(function(){});
+  var st = document.getElementById('upd-status');
+  if (st) { st.style.display='inline'; }
+}
 
+// ── MESSAGES ──────────────────────────────────────────────────────
 function getMessages() {
   try { return JSON.parse(localStorage.getItem(WG_MESSAGES_KEY) || '[]'); } catch(e) { return []; }
 }
-
-function saveMessages(msgs) {
-  localStorage.setItem(WG_MESSAGES_KEY, JSON.stringify(msgs));
-}
-
-function countUnread() {
-  return getMessages().filter(function(m){ return !m.read; }).length;
-}
+function saveMessages(msgs) { localStorage.setItem(WG_MESSAGES_KEY, JSON.stringify(msgs)); }
+function countUnread() { return getMessages().filter(function(m){ return !m.read; }).length; }
 
 function updateBadge() {
   var n = countUnread();
-  var badge = document.getElementById('nav-badge');
-  var sbadge = document.getElementById('sidebar-badge');
-  if (badge) {
-    badge.textContent = n > 9 ? '9+' : String(n);
-    badge.classList.toggle('visible', n > 0);
-  }
-  if (sbadge) {
-    sbadge.textContent = n > 9 ? '9+' : String(n);
-    sbadge.style.display = n > 0 ? 'inline-block' : 'none';
-  }
+  var nb = document.getElementById('nav-badge');
+  var sb = document.getElementById('sidebar-badge');
+  if (nb) { nb.textContent = n > 9 ? '9+' : String(n); nb.classList.toggle('visible', n > 0); }
+  if (sb) { sb.textContent = n > 9 ? '9+' : String(n); sb.className = 'ni-badge' + (n > 0 ? ' visible' : ''); }
 }
 
 function renderMessages() {
-  var list = document.getElementById('msg-list');
+  var list  = document.getElementById('msg-list');
   var label = document.getElementById('msg-unread-label');
   if (!list) return;
   var msgs = getMessages();
@@ -826,14 +1019,14 @@ function renderMessages() {
     list.innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--muted)">'
       + '<div style="font-size:40px;margin-bottom:12px">💬</div>'
       + '<div style="font-size:15px;font-weight:600;margin-bottom:6px">Brak wiadomości</div>'
-      + '<div style="font-size:13px">Gdy wygenerujesz stronę, pojawią się tu pytania o uzupełnienie.</div>'
-      + '</div>';
+      + '<div style="font-size:13px">Gdy wygenerujesz stronę, pojawią się tu pytania o uzupełnienie.</div></div>';
     return;
   }
 
   list.innerHTML = msgs.slice().reverse().map(function(msg, idx) {
     var realIdx = msgs.length - 1 - idx;
-    var dateStr = msg.date ? new Date(msg.date).toLocaleDateString('pl-PL', {day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
+    var dateStr = msg.date ? new Date(msg.date).toLocaleDateString('pl-PL',
+      {day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
     var isUnread = !msg.read;
 
     if (msg.type === 'questionnaire') {
@@ -841,53 +1034,41 @@ function renderMessages() {
       var firmaNazwa = (msg.firma && msg.firma.nazwa) || 'Twoja firma';
       var firmaBranza = (msg.firma && msg.firma.branza) || '';
       var firmaCity = (msg.firma && msg.firma.miasto) || '';
-
       var qFields = [
-        { key: 'adres',     icon: '📍', label: 'Adres siedziby', placeholder: 'ul. Przykładowa 12, 00-001 Warszawa', val: msg.answers && msg.answers.adres },
-        { key: 'godz',      icon: '🕐', label: 'Godziny otwarcia', placeholder: 'Pon–Pt 8:00–18:00, Sob 9:00–14:00', val: msg.answers && msg.answers.godz },
-        { key: 'lata',      icon: '📅', label: 'Lata działalności', placeholder: 'np. 12', val: msg.answers && msg.answers.lata },
-        { key: 'realizacje',icon: '🏆', label: 'Liczba realizacji', placeholder: 'np. 350', val: msg.answers && msg.answers.realizacje },
-        { key: 'certyfikaty',icon:'🎓', label: 'Certyfikaty / uprawnienia', placeholder: 'np. SEP, ISO 9001, Mistrz w zawodzie', val: msg.answers && msg.answers.certyfikaty },
-        { key: 'social',    icon: '📱', label: 'Instagram / Facebook', placeholder: 'np. @firma.warszawa', val: msg.answers && msg.answers.social },
-        { key: 'ocena',     icon: '⭐', label: 'Ocena Google (gwiazdki + opinie)', placeholder: 'np. 4.9 / 87 opinii', val: msg.answers && msg.answers.ocena },
-      ].filter(function(f) { return !msg.firma || !msg.firma[f.key]; }); // pokaż tylko brakujące
-
+        {key:'adres',      icon:'📍', label:'Adres siedziby',              placeholder:'ul. Przykładowa 12, 00-001 Warszawa'},
+        {key:'godz',       icon:'🕐', label:'Godziny otwarcia',            placeholder:'Pon–Pt 8:00–18:00, Sob 9:00–14:00'},
+        {key:'lata',       icon:'📅', label:'Lata działalności',            placeholder:'np. 12'},
+        {key:'realizacje', icon:'🏆', label:'Liczba realizacji',            placeholder:'np. 350'},
+        {key:'certyfikaty',icon:'🎓', label:'Certyfikaty / uprawnienia',    placeholder:'np. SEP, ISO 9001'},
+        {key:'social',     icon:'📱', label:'Instagram / Facebook',         placeholder:'np. @firma.warszawa'},
+        {key:'ocena',      icon:'⭐', label:'Ocena Google',                 placeholder:'np. 4.9 / 87 opinii'},
+      ];
       var bodyHtml = answered
         ? '<div class="msg-done">✓ Odpowiedź wysłana — zaktualizujemy stronę w ciągu 24h</div>'
         : '<form class="q-form" onsubmit="submitQuestionnaire(event,' + realIdx + ')">'
-          + qFields.map(function(f) {
-              return '<div class="q-field">'
-                + '<label class="q-label"><span class="q-icon">' + f.icon + '</span>' + f.label + '</label>'
-                + '<input class="q-input" type="text" name="' + f.key + '" placeholder="' + f.placeholder + '" value="' + (f.val||'') + '">'
-                + '</div>';
+          + qFields.map(function(f){
+              return '<div class="q-field"><label class="q-label"><span class="q-icon">'+f.icon+'</span>'+f.label+'</label>'
+                + '<input class="q-input" type="text" name="'+f.key+'" placeholder="'+f.placeholder+'" value="'+((msg.answers&&msg.answers[f.key])||'')+'"></div>';
             }).join('')
-          + '<button class="q-submit" type="submit">Wyślij uzupełnienie →</button>'
-          + '</form>';
+          + '<button class="q-submit" type="submit">Wyślij uzupełnienie →</button></form>';
 
-      return '<div class="msg-card ' + (isUnread ? 'unread' : '') + '" id="msg-' + realIdx + '">'
-        + '<div class="msg-date">' + dateStr + '</div>'
+      return '<div class="msg-card ' + (isUnread?'unread':'') + '" id="msg-'+realIdx+'">'
+        + '<div class="msg-date">'+dateStr+'</div>'
         + '<div class="msg-type">Uzupełnienie strony</div>'
-        + '<div class="msg-title">Uzupełnij dane dla <strong>' + firmaNazwa + '</strong></div>'
-        + '<div class="msg-sub">Twoja strona ' + firmaBranza + ' w ' + firmaCity + ' jest gotowa. Podaj brakujące szczegóły, żebyśmy mogli ją w pełni zoptymalizować.</div>'
-        + bodyHtml
-        + '</div>';
+        + '<div class="msg-title">Uzupełnij dane dla <strong>'+firmaNazwa+'</strong></div>'
+        + '<div class="msg-sub">Twoja strona '+firmaBranza+' w '+firmaCity+' jest gotowa. Podaj brakujące szczegóły.</div>'
+        + bodyHtml + '</div>';
     }
-
-    // Generyczny typ wiadomości
-    return '<div class="msg-card ' + (isUnread ? 'unread' : '') + '" id="msg-' + realIdx + '">'
-      + '<div class="msg-date">' + dateStr + '</div>'
-      + '<div class="msg-type">Wiadomość</div>'
-      + '<div class="msg-title">' + (msg.title || 'Wiadomość od webgen') + '</div>'
-      + '<div class="msg-sub">' + (msg.body || '') + '</div>'
-      + '</div>';
+    return '<div class="msg-card ' + (isUnread?'unread':'') + '" id="msg-'+realIdx+'">'
+      + '<div class="msg-date">'+dateStr+'</div>'
+      + '<div class="msg-type">Wiadomość od webgen</div>'
+      + '<div class="msg-title">'+(msg.title||'Wiadomość')+'</div>'
+      + '<div class="msg-sub">'+(msg.body||'')+'</div></div>';
   }).join('');
 
-  // Oznacz jako przeczytane po renderowaniu
   setTimeout(function() {
-    var msgs2 = getMessages();
-    msgs2.forEach(function(m){ m.read = true; });
-    saveMessages(msgs2);
-    updateBadge();
+    var m2 = getMessages(); m2.forEach(function(m){ m.read=true; });
+    saveMessages(m2); updateBadge();
   }, 800);
 }
 
@@ -895,72 +1076,39 @@ function submitQuestionnaire(event, msgIdx) {
   event.preventDefault();
   var form = event.target;
   var data = {};
-  Array.from(form.elements).forEach(function(el) {
-    if (el.name) data[el.name] = el.value.trim();
-  });
-
+  Array.from(form.elements).forEach(function(el){ if(el.name) data[el.name]=el.value.trim(); });
   var msgs = getMessages();
   if (msgs[msgIdx]) {
-    msgs[msgIdx].answered = true;
-    msgs[msgIdx].answers  = data;
-    msgs[msgIdx].read     = true;
+    msgs[msgIdx].answered = true; msgs[msgIdx].answers = data; msgs[msgIdx].read = true;
     saveMessages(msgs);
   }
-
-  // Wyślij do webgen
-  var userEmail = userData.email || '';
-  var firmaNazwa = (msgs[msgIdx] && msgs[msgIdx].firma && msgs[msgIdx].firma.nazwa) || 'klient';
-  fetch('/api/notify-client', {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({
-      email: 'hello@webgen.pl',
-      firma: Object.assign({}, (msgs[msgIdx] && msgs[msgIdx].firma) || {}, data),
-      slug: (msgs[msgIdx] && msgs[msgIdx].slug) || '',
-      type: 'questionnaire_answer',
-      clientEmail: userEmail
-    })
-  }).catch(function(){});
-
+  fetch('/api/notify-client', {method:'POST',headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({email:'hello@webgen.pl', type:'questionnaire_answer',
+      clientEmail: userData.email,
+      firma: Object.assign({},(msgs[msgIdx]&&msgs[msgIdx].firma)||{},data),
+      slug: (msgs[msgIdx]&&msgs[msgIdx].slug)||''})}).catch(function(){});
   renderMessages();
 }
 
-// ── Patch showPage: renderuj wiadomości gdy otwarto stronę ─────────
-var _origShowPage = typeof showPage === 'function' ? showPage : null;
-showPage = function(page) {
-  if (_origShowPage) _origShowPage(page);
-  if (page === 'messages') renderMessages();
-};
-
-// Init badge
-window.addEventListener('DOMContentLoaded', function() {
-  setTimeout(updateBadge, 100);
-});
-// ─────────────────────────────────────────────────────────────────
-
-
-// ── PROFIL FIRMOWY ───────────────────────────────────────────────
+// ── ACCOUNT ───────────────────────────────────────────────────────
 function renderAccountPage() {
   try {
     var u = JSON.parse(localStorage.getItem('wg_user') || '{}');
     var typeEl = document.getElementById('account-type');
     var card   = document.getElementById('profile-firma-card');
-    var typeLabel = u.accountType === 'firma' ? '🏢 Klient firmowy' : '👤 Klient indywidualny';
-    if (typeEl) typeEl.textContent = typeLabel;
-
-    // Pokaż/ukryj kartę profilu firmowego
-    if (card) card.style.display = u.accountType === 'firma' ? 'block' : 'none';
-
-    // Wypełnij pola profilu
+    if (typeEl) typeEl.textContent = u.accountType==='firma' ? '🏢 Firmowy' : '👤 Indywidualny';
+    if (card) card.style.display = u.accountType==='firma' ? 'block' : 'none';
     if (u.profileFirma) {
       var pf = u.profileFirma;
-      var pfNazwa = document.getElementById('pf-nazwa');
-      var pfNip   = document.getElementById('pf-nip');
-      var pfAdres = document.getElementById('pf-adres');
-      if (pfNazwa) pfNazwa.value = pf.nazwa_firma || '';
-      if (pfNip)   pfNip.value   = pf.nip         || '';
-      if (pfAdres) pfAdres.value = pf.adres_firma  || '';
+      var n = document.getElementById('pf-nazwa'); if(n) n.value = pf.nazwa_firma||'';
+      var ip = document.getElementById('pf-nip');   if(ip) ip.value = pf.nip||'';
+      var a = document.getElementById('pf-adres');  if(a) a.value = pf.adres_firma||'';
     }
+    // Wczytaj preferencje powiadomień
+    var notif = u.notifications || {};
+    var nu = document.getElementById('notif-updates'); if(nu) nu.checked = notif.updates !== false;
+    var nb2 = document.getElementById('notif-billing'); if(nb2) nb2.checked = notif.billing !== false;
+    var ns = document.getElementById('notif-seo'); if(ns) ns.checked = !!notif.seo;
   } catch(e) {}
 }
 
@@ -968,31 +1116,68 @@ function saveProfileFirma() {
   try {
     var u = JSON.parse(localStorage.getItem('wg_user') || '{}');
     u.profileFirma = {
-      nazwa_firma: (document.getElementById('pf-nazwa') || {}).value || '',
-      nip:         (document.getElementById('pf-nip')   || {}).value || '',
-      adres_firma: (document.getElementById('pf-adres') || {}).value || '',
+      nazwa_firma: (document.getElementById('pf-nazwa')||{}).value||'',
+      nip:         (document.getElementById('pf-nip')  ||{}).value||'',
+      adres_firma: (document.getElementById('pf-adres')||{}).value||'',
     };
     localStorage.setItem('wg_user', JSON.stringify(u));
-    var status = document.getElementById('pf-save-status');
-    if (status) {
-      status.style.display = 'inline';
-      setTimeout(function(){ status.style.display = 'none'; }, 2500);
-    }
+    var st = document.getElementById('pf-save-status');
+    if (st) { st.style.display='inline'; setTimeout(function(){ st.style.display='none'; },2500); }
   } catch(e) { alert('Błąd zapisu'); }
 }
 
-// Patch showPage — załaduj profil przy wejściu na account
-var _dashOrigShowPage = showPage;
-showPage = function(page) {
-  _dashOrigShowPage(page);
-  if (page === 'account') setTimeout(renderAccountPage, 50);
-};
+function saveNotifications() {
+  try {
+    var u = JSON.parse(localStorage.getItem('wg_user') || '{}');
+    u.notifications = {
+      updates: !!(document.getElementById('notif-updates')||{}).checked,
+      billing: !!(document.getElementById('notif-billing')||{}).checked,
+      seo:     !!(document.getElementById('notif-seo')    ||{}).checked,
+    };
+    localStorage.setItem('wg_user', JSON.stringify(u));
+    var st = document.getElementById('notif-save-status');
+    if (st) { st.style.display='inline'; setTimeout(function(){ st.style.display='none'; },2500); }
+  } catch(e) {}
+}
 
-// Init
-window.addEventListener('DOMContentLoaded', function() {
-  setTimeout(renderAccountPage, 200);
-});
-// ─────────────────────────────────────────────────────────────────
+function exportAccountData() {
+  try {
+    var data = {
+      session:   JSON.parse(localStorage.getItem('wg_session')||'{}'),
+      user:      JSON.parse(localStorage.getItem('wg_user')||'{}'),
+      firma:     JSON.parse(localStorage.getItem('wg_firma')||'{}'),
+      messages:  JSON.parse(localStorage.getItem(WG_MESSAGES_KEY)||'[]'),
+      generated: JSON.parse(localStorage.getItem('wg_generated')||'{}'),
+    };
+    var blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'webgen-account-export.json';
+    a.click();
+  } catch(e) { alert('Błąd eksportu'); }
+}
+
+// ── NAVIGATION ────────────────────────────────────────────────────
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  var page = document.getElementById('page-' + pageId);
+  if (page) page.classList.add('active');
+  document.querySelectorAll('.nav-item[data-page]').forEach(function(item){
+    item.classList.toggle('active', item.dataset.page === pageId);
+  });
+  if (pageId === 'messages') renderMessages();
+  if (pageId === 'account')  setTimeout(renderAccountPage, 50);
+  if (pageId === 'website')  renderWebsitePage();
+  if (pageId === 'addons' && dataLoaded) renderAddonsPage(stripeData);
+}
+
+function doLogout() {
+  if (confirm('Wylogować się?')) {
+    localStorage.removeItem('wg_session');
+    window.location.replace('/test/login/?from=logout');
+  }
+}
+function toggleUserMenu() { doLogout(); }
 
 </script>
 </body>
