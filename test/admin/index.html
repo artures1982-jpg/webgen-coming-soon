@@ -295,6 +295,17 @@ table.tbl tr:hover td{background:rgba(240,242,247,.02)}
 </style>
 </head>
 <body>
+<script>
+// Natychmiastowe sprawdzenie sesji - ukryj overlay jesli zalogowany
+(function(){
+  if(sessionStorage.getItem('wg_admin_session')==='1'){
+    document.addEventListener('DOMContentLoaded',function(){
+      var ov=document.getElementById('login-overlay');
+      if(ov)ov.style.display='none';
+    });
+  }
+})();
+</script>
 
 <!-- ═══════════════════════════════════════
      SIDEBAR
@@ -1204,23 +1215,7 @@ document.addEventListener('keydown', e=>{
 });
 </script>
 
-<script>
-(function(){
-  var btn = document.getElementById('wg-hamburger');
-  var drawer = document.getElementById('wg-drawer');
-  if(!btn || !drawer) return;
-  btn.addEventListener('click', function(){
-    drawer.classList.toggle('open');
-    btn.textContent = drawer.classList.contains('open') ? '✕' : '☰';
-  });
-  document.addEventListener('click', function(e){
-    if(!btn.contains(e.target) && !drawer.contains(e.target)){
-      drawer.classList.remove('open');
-      btn.textContent = '☰';
-    }
-  });
-})();
-</script>
+
 
 
 <!-- ══ LOGIN OVERLAY ══ -->
@@ -1285,24 +1280,8 @@ document.addEventListener('keydown', e=>{
 
 <script>
 // ── Admin Auth ───────────────────────────────────────────────────
-var ADMIN_HASH = 'c65d744c3157b13292aba682aec9a58f4a3ab536d6394d04993daad40a30aae5';
+var ADMIN_TOKEN = 'QWRtaW4xOTUzNzA6QXJ0ZWtTMjY5MTUh';
 var ADMIN_SESSION_KEY = 'wg_admin_session';
-
-// SHA-256 z fallback dla HTTP (bez crypto.subtle)
-async function sha256(msg) {
-  if (window.crypto && window.crypto.subtle) {
-    var buf = await window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
-    return Array.from(new Uint8Array(buf)).map(function(b){ return b.toString(16).padStart(2,'0'); }).join('');
-  }
-  // Fallback: prosty hash (tylko dla lokalnego testu bez HTTPS)
-  var h = 0, i, chr;
-  for (i = 0; i < msg.length; i++) {
-    chr = msg.charCodeAt(i);
-    h = ((h << 5) - h) + chr;
-    h |= 0;
-  }
-  return 'fallback_' + Math.abs(h).toString(16);
-}
 
 function adminShowError(show) {
   var err = document.getElementById('login-error');
@@ -1316,24 +1295,14 @@ function adminUnlock() {
   initAdminApp();
 }
 
-async function adminLogin() {
+function adminLogin() {
   var loginEl = document.getElementById('adm-login');
   var passEl  = document.getElementById('adm-pass');
   var login = loginEl ? loginEl.value.trim() : '';
   var pass  = passEl  ? passEl.value  : '';
   if (!login || !pass) { adminShowError(true); return; }
-
-  var hash = await sha256(login + ':' + pass);
-
-  // Sprawdz hash lub fallback przez proste porownanie
-  var ok = (hash === ADMIN_HASH);
-
-  // Fallback dla HTTP: direct compare (tylko gdy crypto.subtle niedostepne)
-  if (!ok && (!window.crypto || !window.crypto.subtle)) {
-    ok = (login === 'Admin195370' && pass === 'ArtekS26915!');
-  }
-
-  if (ok) {
+  var token = btoa(login + ':' + pass);
+  if (token === ADMIN_TOKEN) {
     sessionStorage.setItem(ADMIN_SESSION_KEY, '1');
     adminUnlock();
   } else {
@@ -1545,7 +1514,10 @@ initAdminApp = function() {
   loadKanban();
 };
 
-window.addEventListener('DOMContentLoaded', checkAdminAuth);
+window.addEventListener('DOMContentLoaded', function() {
+  // Auth
+  checkAdminAuth();
+});
 </script>
 
 </body>
