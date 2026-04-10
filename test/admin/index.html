@@ -1288,47 +1288,73 @@ document.addEventListener('keydown', e=>{
 var ADMIN_HASH = 'c65d744c3157b13292aba682aec9a58f4a3ab536d6394d04993daad40a30aae5';
 var ADMIN_SESSION_KEY = 'wg_admin_session';
 
+// SHA-256 z fallback dla HTTP (bez crypto.subtle)
 async function sha256(msg) {
-  var buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
-  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  if (window.crypto && window.crypto.subtle) {
+    var buf = await window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
+    return Array.from(new Uint8Array(buf)).map(function(b){ return b.toString(16).padStart(2,'0'); }).join('');
+  }
+  // Fallback: prosty hash (tylko dla lokalnego testu bez HTTPS)
+  var h = 0, i, chr;
+  for (i = 0; i < msg.length; i++) {
+    chr = msg.charCodeAt(i);
+    h = ((h << 5) - h) + chr;
+    h |= 0;
+  }
+  return 'fallback_' + Math.abs(h).toString(16);
+}
+
+function adminShowError(show) {
+  var err = document.getElementById('login-error');
+  if (err) err.style.display = show ? 'block' : 'none';
+}
+
+function adminUnlock() {
+  var ov = document.getElementById('login-overlay');
+  if (ov) ov.style.display = 'none';
+  adminShowError(false);
+  initAdminApp();
 }
 
 async function adminLogin() {
-  var login = (document.getElementById('adm-login') || {}).value || '';
-  var pass  = (document.getElementById('adm-pass')  || {}).value || '';
-  var hash  = await sha256(login + ':' + pass);
-  if (hash === ADMIN_HASH) {
+  var loginEl = document.getElementById('adm-login');
+  var passEl  = document.getElementById('adm-pass');
+  var login = loginEl ? loginEl.value.trim() : '';
+  var pass  = passEl  ? passEl.value  : '';
+  if (!login || !pass) { adminShowError(true); return; }
+
+  var hash = await sha256(login + ':' + pass);
+
+  // Sprawdz hash lub fallback przez proste porownanie
+  var ok = (hash === ADMIN_HASH);
+
+  // Fallback dla HTTP: direct compare (tylko gdy crypto.subtle niedostepne)
+  if (!ok && (!window.crypto || !window.crypto.subtle)) {
+    ok = (login === 'Admin195370' && pass === 'ArtekS26915!');
+  }
+
+  if (ok) {
     sessionStorage.setItem(ADMIN_SESSION_KEY, '1');
-    var ov = document.getElementById('login-overlay');
-    if (ov) ov.style.display = 'none';
-    document.getElementById('login-error') && (document.getElementById('login-error').style.display = 'none');
-    initAdminApp();
+    adminUnlock();
   } else {
-    var err = document.getElementById('login-error');
-    if (err) err.style.display = 'block';
-    var passEl = document.getElementById('adm-pass');
+    adminShowError(true);
     if (passEl) { passEl.value = ''; passEl.focus(); }
   }
 }
 
-// Sprawdź sesję przy załadowaniu
-(function checkAdminAuth() {
+// Auth check — uruchamia sie po zaladowaniu DOM
+function checkAdminAuth() {
   if (sessionStorage.getItem(ADMIN_SESSION_KEY) === '1') {
     var ov = document.getElementById('login-overlay');
     if (ov) ov.style.display = 'none';
-    // Poczekaj na DOM
-    window.addEventListener('DOMContentLoaded', initAdminApp);
+    initAdminApp();
   } else {
-    // Pokaż overlay, ukryj resztę
-    window.addEventListener('DOMContentLoaded', function() {
-      // Focus na login input
-      setTimeout(function() {
-        var l = document.getElementById('adm-login');
-        if (l) l.focus();
-      }, 100);
-    });
+    setTimeout(function() {
+      var l = document.getElementById('adm-login');
+      if (l) l.focus();
+    }, 150);
   }
-})();
+}
 
 
 // ── INIT ADMIN APP (po zalogowaniu) ─────────────────────────────────
@@ -1419,12 +1445,7 @@ function getVercelToken() {
   return sessionStorage.getItem('wg_vercel_token') || '';
 }
 
-// ── PATCH: wywołaj initAdminApp przy DOMContentLoaded jeśli już zalogowany ──
-window.addEventListener('DOMContentLoaded', function() {
-  if (sessionStorage.getItem('wg_admin_session') === '1') {
-    initAdminApp();
-  }
-});
+// auth handled by checkAdminAuth()
 
 // ── LIVE KLIENCI z Stripe ──────────────────────────────────────────────────
 async function loadClientsTable() {
@@ -1523,6 +1544,8 @@ initAdminApp = function() {
   _initAdmin2();
   loadKanban();
 };
+
+window.addEventListener('DOMContentLoaded', checkAdminAuth);
 </script>
 
 </body>
