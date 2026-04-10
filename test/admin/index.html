@@ -435,8 +435,8 @@ table.tbl tr:hover td{background:rgba(240,242,247,.02)}
     <a class="nav-item" onclick="go('messages',this)"><span class="nav-icon">💬</span><span class="nav-label">Wiadomości</span><span class="nav-badge nb-red" id="sb-msg-badge" style="display:none">0</span></a>
 
     <div class="sb-section">Klienci & Sprzedaż</div>
-    <a class="nav-item" onclick="go('clients',this)"><span class="nav-icon">👥</span><span class="nav-label">Klienci</span><span class="nav-badge nb-blue">12</span></a>
-    <a class="nav-item" onclick="go('sites',this)"><span class="nav-icon">🌐</span><span class="nav-label">Aktywne strony</span><span class="nav-badge nb-green">12</span></a>
+    <a class="nav-item" onclick="go('clients',this)"><span class="nav-icon">👥</span><span class="nav-label">Klienci</span><span class="nav-badge nb-blue" id="sb-clients-badge">&#x2026;</span></a>
+    <a class="nav-item" onclick="go('sites',this)"><span class="nav-icon">🌐</span><span class="nav-label">Aktywne strony</span><span class="nav-badge nb-green" id="sb-sites-badge">&#x2026;</span></a>
     <a class="nav-item" onclick="go('tasks',this)"><span class="nav-icon">📋</span><span class="nav-label">Zadania Managed</span><span class="nav-badge nb-red" id="sb-tasks-badge">3</span></a>
     <a class="nav-item" onclick="go('outreach',this)"><span class="nav-icon">📣</span><span class="nav-label">Outreach CRM</span></a>
 
@@ -505,27 +505,27 @@ table.tbl tr:hover td{background:rgba(240,242,247,.02)}
       <div class="stats">
         <div class="stat g">
           <div class="stat-label">MRR</div>
-          <div class="stat-val" style="color:var(--green)">2 988 zł</div>
+          <div class="stat-val" style="color:var(--green)" id="kpi-mrr">&#x2026; zł</div>
           <div class="stat-delta"><span class="up">↑ +18%</span> vs zeszły mies.</div>
         </div>
         <div class="stat b">
           <div class="stat-label">Klienci</div>
-          <div class="stat-val">12</div>
+          <div class="stat-val" id="kpi-klienci">&#x2026;</div>
           <div class="stat-delta"><span class="up">↑ +3</span> ten miesiąc</div>
         </div>
         <div class="stat p">
-          <div class="stat-label">Active stron</div>
-          <div class="stat-val">12</div>
+          <div class="stat-label">Aktywne strony</div>
+          <div class="stat-val" id="kpi-sites">&#x2026;</div>
           <div class="stat-delta"><span class="up">●</span> 100% live</div>
         </div>
         <div class="stat y">
           <div class="stat-label">Zadania open</div>
-          <div class="stat-val" style="color:var(--yellow)">3</div>
+          <div class="stat-val" style="color:var(--yellow)" id="kpi-tasks">&#x2026;</div>
           <div class="stat-delta"><span class="dn">!</span> wymagają uwagi</div>
         </div>
         <div class="stat r">
-          <div class="stat-label">Outreach</div>
-          <div class="stat-val">25</div>
+          <div class="stat-label">Outreach CRM</div>
+          <div class="stat-val" id="kpi-outreach">&#x2026;</div>
           <div class="stat-delta"><span class="neu">→</span> wysłano, 0 odp.</div>
         </div>
       </div>
@@ -541,11 +541,11 @@ table.tbl tr:hover td{background:rgba(240,242,247,.02)}
             <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px">
               <div>
                 <div style="font-size:11px;color:var(--muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px">MRR bieżący</div>
-                <div style="font-size:32px;font-weight:800;color:var(--green)">2 988 <span style="font-size:16px;color:var(--muted)">zł</span></div>
+                <div style="font-size:32px;font-weight:800;color:var(--green)" id="mrr-big">&#x2026; <span style="font-size:16px;color:var(--muted)">zł</span></div>
               </div>
               <div style="text-align:right;font-size:11px;color:var(--muted)">
                 <div>Cel mies.: <span style="color:var(--white)">4 000 zł</span></div>
-                <div style="margin-top:4px">Wykonanie: <span style="color:var(--yellow)">74.7%</span></div>
+                <div style="margin-top:4px">Wykonanie: <span style="color:var(--yellow)" id="mrr-pct">&#x2026;</span></div>
               </div>
             </div>
             <!-- Mini bar chart -->
@@ -615,7 +615,7 @@ table.tbl tr:hover td{background:rgba(240,242,247,.02)}
       <div class="ph">
         <div class="ph-left">
           <div class="ph-title">Wszyscy klienci</div>
-          <div class="ph-sub">12 aktywnych subskrypcji · MRR: 2 988 zł</div>
+          <div class="ph-sub"><span id="clients-sub">Wczytywanie&#x2026;</span></div>
         </div>
         <div class="ph-actions">
           <button class="btn btn-outline btn-sm">⬇ Eksport CSV</button>
@@ -825,7 +825,7 @@ table.tbl tr:hover td{background:rgba(240,242,247,.02)}
       </div>
 
       <div class="stats" style="grid-template-columns:repeat(4,1fr)">
-        <div class="stat g"><div class="stat-label">MRR</div><div class="stat-val" style="color:var(--green)">2 988 zł</div><div class="stat-delta"><span class="up">↑ +18%</span></div></div>
+        <div class="stat g"><div class="stat-label">MRR</div><div class="stat-val" style="color:var(--green)" id="kpi-mrr">&#x2026; zł</div><div class="stat-delta"><span class="up">↑ +18%</span></div></div>
         <div class="stat b"><div class="stat-label">ARR (prognoza)</div><div class="stat-val">35 856 zł</div><div class="stat-delta"><span class="neu">×12</span></div></div>
         <div class="stat p"><div class="stat-label">Avg. sub. wartość</div><div class="stat-val">249 zł</div><div class="stat-delta"><span class="neu">per klient</span></div></div>
         <div class="stat y"><div class="stat-label">Churn (mies.)</div><div class="stat-val" style="color:var(--green)">0%</div><div class="stat-delta"><span class="up">0 odejść</span></div></div>
@@ -1668,45 +1668,34 @@ function initAdminApp() {
 
 // ── STRIPE LIVE DATA ─────────────────────────────────────────────────
 async function loadStripeAdminData() {
-  try {
-    // Pobierz dane dla każdego klienta z tabeli
-    var emails = [
-      'studiofinezja@gmail.com',
-      'marek@hydraulik.pl',
-      'wild@fryzury.pl',
-      'nowak@elektryk.pl',
-      'natu@salon.pl'
-    ];
-
-    var totalMRR = 0;
-    var activeCount = 0;
-
-    for (var i = 0; i < emails.length; i++) {
-      try {
-        var res = await fetch('/api/dashboard-data?email=' + encodeURIComponent(emails[i]));
-        if (!res.ok) continue;
-        var data = await res.json();
-        if (data.subscription && data.subscription.status === 'active') {
-          activeCount++;
-          totalMRR += (data.subscription.plan_amount || 0) / 100;
-        }
-      } catch(e) {}
-    }
-
-    // Zaktualizuj KPI jeśli są live dane
-    if (totalMRR > 0) {
-      var mrrEls = document.querySelectorAll('.stat-val');
-      // Szukaj karty MRR
-      document.querySelectorAll('.stat').forEach(function(s) {
-        if (s.querySelector('.stat-label') && s.querySelector('.stat-label').textContent === 'MRR') {
-          var v = s.querySelector('.stat-val');
-          if (v) v.textContent = totalMRR.toLocaleString('pl-PL') + ' zł';
-        }
-      });
-    }
-  } catch(e) {
-    console.warn('Admin Stripe load:', e);
+  var EM=['studiofinezja@gmail.com','marek@hydraulik.pl','wild@fryzury.pl','nowak@elektryk.pl','natu@salon.pl'];
+  var TARGET=4000;
+  function S(id,v){var e=document.getElementById(id);if(e)e.textContent=v;}
+  ['kpi-mrr','kpi-klienci','kpi-sites','kpi-tasks','kpi-outreach','mrr-big','mrr-pct'].forEach(function(i){S(i,'\u2026');});
+  var mrr=0,active=0,sites=0,errs=0;
+  for(var i=0;i<EM.length;i++){
+    try{
+      var r=await fetch('/api/dashboard-data?email='+encodeURIComponent(EM[i]));
+      if(!r.ok){errs++;continue;}
+      var d=await r.json();
+      if(d.customer||d.subscription) sites++;
+      if(d.subscription){var st=d.subscription.status;if(st==='active'||st==='trialing'){active++;mrr+=Math.round((d.subscription.plan_amount||0)/100);}}
+    }catch(e){errs++;}
   }
+  if(errs===EM.length){['kpi-mrr','kpi-klienci','kpi-sites','kpi-tasks','kpi-outreach','mrr-big'].forEach(function(i){S(i,'err');});return;}
+  var ms=mrr>0?mrr.toLocaleString('pl-PL')+' z\u0142':'0 z\u0142';
+  S('kpi-mrr',ms); S('mrr-big',mrr>0?mrr.toLocaleString('pl-PL'):'0');
+  S('mrr-pct',TARGET>0?Math.round(mrr/TARGET*100)+'%':'--');
+  var cn=active>0?active:EM.length; var sn=sites>0?sites:EM.length;
+  S('kpi-klienci',cn); S('kpi-sites',sn); S('kpi-outreach',25);
+  S('sb-clients-badge',cn); S('sb-sites-badge',sn);
+  var msgs=typeof getAdminMessages==='function'?getAdminMessages():[];
+  var pend=msgs.filter(function(m){return m.status==='pending';}).length;
+  S('kpi-tasks',pend); S('sb-tasks-badge',pend);
+  var tb=document.getElementById('sb-tasks-badge');
+  if(tb) tb.style.display=pend>0?'':'none';
+  var cs=document.getElementById('clients-sub');
+  if(cs) cs.textContent=cn+' aktywnych \u00b7 MRR: '+ms;
 }
 
 // ── VERCEL DEPLOYMENTS LIVE ───────────────────────────────────────────
