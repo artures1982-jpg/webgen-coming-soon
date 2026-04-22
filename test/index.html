@@ -287,6 +287,8 @@ h1 .grad-text{background:var(--grad);-webkit-background-clip:text;-webkit-text-f
 .compare-table td.yes{color:var(--green);font-weight:600}
 .compare-table td.no{color:var(--muted)}
 .compare-table td.highlight{background:rgba(0,229,160,.04)}
+.compare-table th.highlight{color:var(--green);background:rgba(0,229,160,.06);border-bottom:2px solid rgba(0,229,160,.3)}
+.compare-table td.highlight{background:rgba(0,229,160,.04);border-right:1px solid rgba(0,229,160,.12);border-left:1px solid rgba(0,229,160,.12)}
 .compare-table tr:hover td{background:rgba(255,255,255,.02)}
 
 /* ===== FAQ ===== */
@@ -929,6 +931,12 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
 .wg-nav-msg-badge{position:absolute;top:3px;right:3px;background:#F87171;color:#fff;font-size:9px;font-weight:700;min-width:15px;height:15px;border-radius:8px;display:none;align-items:center;justify-content:center;padding:0 3px;line-height:1;border:1.5px solid #080A0F}
 .wg-nav-msg-badge.show{display:flex}
 
+
+/* compare table mobile scroll */
+@media(max-width:768px){
+  .compare-table-desktop{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .compare-table td,.compare-table th{padding:12px 14px;font-size:12px;white-space:nowrap}
+}
 </style>
 </head>
 <body><div style="position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(22,18,6,.95);border-bottom:2px solid rgba(251,191,36,.5);padding:9px 20px;text-align:center;font-family:monospace;font-size:12px;color:#FCD34D"><strong style="color:#FBBF24">STRIPE TEST MODE</strong> &nbsp;|&nbsp; Karta: <strong style="color:#fff">4242 4242 4242 4242</strong> &nbsp;|&nbsp; Data: <strong style="color:#fff">12/29</strong> &nbsp;|&nbsp; CVC: <strong style="color:#fff">123</strong></div><div style="height:40px"></div>
@@ -1138,23 +1146,66 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
     <!-- DESKTOP: tabela -->
     <div class="compare-table-desktop" style="border-radius:14px;border:1px solid var(--border);overflow:hidden">
       <table class="compare-table" style="width:100%;border-collapse:collapse;font-size:14px">
-        
-            
-          <th class="highlight">Webgen Managed</th>
-          <th>Agencja webowa</th>
-          <th>WordPress samemu</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Czas uruchomienia</td><td class="yes highlight">3 minuty</td></tr>
-        <tr><td>Koszt</td><td class="yes highlight">249 zł/mies.</td></tr>
-        <tr><td>Lokalne SEO PL</td><td class="yes highlight">✓ Automatyczne</td></tr>
-        <tr><td>PageSpeed 90+</td><td class="yes highlight">✓ Gwarantowany</td></tr>
-        <tr><td>Aktualizacje treści</td><td class="yes highlight">Email → gotowe</td></tr>
-        <tr><td>Bezpieczeństwo</td><td class="yes highlight">✓ Cloudflare WAF</td></tr>
-      </tbody>
-    </table>
-  </div>
+        <thead>
+          <tr>
+            <th style="width:28%"></th>
+            <th class="highlight" style="width:24%;background:rgba(0,229,160,.04)">⚡ Webgen Managed</th>
+            <th style="width:24%">Agencja webowa</th>
+            <th style="width:24%">WordPress samemu</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Czas uruchomienia</td>
+            <td class="yes highlight">3 minuty</td>
+            <td class="no">2–6 tygodni</td>
+            <td class="no">2–8 tygodni</td>
+          </tr>
+          <tr>
+            <td>Koszt</td>
+            <td class="yes highlight">249 zł/mies.</td>
+            <td class="no">3 000–15 000 zł + utrzymanie</td>
+            <td class="no">200+ zł/mies. (hosting, wtyczki)</td>
+          </tr>
+          <tr>
+            <td>Lokalne SEO PL</td>
+            <td class="yes highlight">✓ Automatyczne</td>
+            <td class="no">Za dopłatą, bez gwarancji</td>
+            <td class="no">✗ Musisz sam konfigurować</td>
+          </tr>
+          <tr>
+            <td>PageSpeed 90+</td>
+            <td class="yes highlight">✓ Gwarantowany</td>
+            <td class="no">Zależy od agencji</td>
+            <td class="no">✗ Wymaga optymalizacji</td>
+          </tr>
+          <tr>
+            <td>Aktualizacje treści</td>
+            <td class="yes highlight">Email → gotowe (1h)</td>
+            <td class="no">Dodatkowa faktura</td>
+            <td class="no">✗ Samodzielnie w WP</td>
+          </tr>
+          <tr>
+            <td>Bezpieczeństwo</td>
+            <td class="yes highlight">✓ Cloudflare WAF</td>
+            <td class="no">Zależy od hostingu</td>
+            <td class="no">✗ Ataki, wtyczki do łatania</td>
+          </tr>
+          <tr>
+            <td>Wiedza techniczna</td>
+            <td class="yes highlight">✓ Zero wymagana</td>
+            <td class="no">Nie (ale koszt wysoki)</td>
+            <td class="no">✗ Dużo — PHP, FTP, wtyczki</td>
+          </tr>
+          <tr>
+            <td>Czas do pierwszego klienta</td>
+            <td class="yes highlight">Tego samego dnia</td>
+            <td class="no">Tygodnie lub miesiące</td>
+            <td class="no">✗ Tygodnie + nauka</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 </section>
 
 <!-- FAQ -->
