@@ -1128,12 +1128,12 @@ function renderAdminMessages() {
     html += '<div style="display:flex;gap:8px;align-items:center">';
     html += statusBadge;
     if (msg.status === 'pending') {
-      html += '<button class="btn btn-green btn-sm" onclick="markAdminMsgDone('' + msg.id + '')" style="font-size:11px">✓ Wdrożone</button>';
+      html += '<button class="btn btn-green btn-sm" data-msgid="' + msg.id + '" onclick="markAdminMsgDone(this.dataset.msgid)" style="font-size:11px">&#x2713; Wdrożone</button>';
     }
-    html += '<button class="btn btn-outline btn-sm" onclick="openSitePreview('https://' + msg.site + '','' + msg.client + '')" style="font-size:11px">👁 Podgląd</button>';
-    html += '<a href="mailto:' + msg.email + '" class="btn btn-outline btn-sm" style="font-size:11px">✉️ Odpowiedz</a>';
+    html += '<button class="btn btn-outline btn-sm" data-url="https://' + msg.site + '" data-name="' + msg.client + '" onclick="openSitePreview(this.dataset.url,this.dataset.name)" style="font-size:11px">&#x1F441; Pogląd</button>';
+    html += '<a href="mailto:' + msg.email + '" class="btn btn-outline btn-sm" style="font-size:11px">&#x2709; Odpowiedz</a>';
     if (!msg.read) {
-      html += '<button class="btn btn-outline btn-sm" onclick="markAdminMsgRead('' + msg.id + '')" style="font-size:11px">Oznacz przeczytane</button>';
+      html += '<button class="btn btn-outline btn-sm" data-msgid="' + msg.id + '" onclick="markAdminMsgRead(this.dataset.msgid)" style="font-size:11px">Oznacz przeczytane</button>';
     }
     html += '</div></div></div></div>';
   });
@@ -1461,7 +1461,7 @@ async function loadClientsTable() {
       + '<td><span style="font-family:var(--mono);font-weight:700;color:var(--green)">' + (mrr||'0') + ' zł</span></td>'
       + '<td>' + statusBadge + '</td>'
       + '<td style="font-family:var(--mono);font-size:11px;color:var(--muted)">' + since + '</td>'
-      + '<td><button class="btn btn-outline btn-sm" onclick="showClientModal('' + name.replace(/'/g,"\'") + "','" + email + "','" + plan + "','" + mrr + "','','"+since+"')">Szczegóły</button></td>'
+      + '<td><button class="btn btn-outline btn-sm" onclick="showClientModal(&quot;' + name.replace(/'/g,'') + '&quot;,&quot;' + email + '&quot;,&quot;' + plan + '&quot;,&quot;' + mrr + '&quot;,&quot;&quot;,&quot;' + since + '&quot;)">Szczegóły</button></td>'
       + '</tr>';
   });
   tbody.innerHTML = rows;
@@ -1480,7 +1480,7 @@ function loadKanban() {
     if (!items.length) { el.innerHTML = '<div style="padding:12px;color:var(--muted);font-size:12px;text-align:center">Brak zadań</div>'; return; }
     el.innerHTML = items.map(function(m) {
       var dt = m.date ? new Date(m.date).toLocaleString('pl-PL',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}) : '';
-      return '<div class="kanban-card" onclick="openSitePreview('https://'+m.site+'',''+m.client+'')">'
+      return '<div class="kanban-card" onclick="openSitePreview(this.dataset.url,this.dataset.name)" data-url="https://'+m.site+'" data-name="'+m.client+'">'
         + '<div class="kc-title">' + (m.title||'Zadanie') + '</div>'
         + '<div class="kc-sub">' + m.client + '</div>'
         + '<div class="kc-footer"><span class="badge bg-blue" style="font-size:9px">' + (m.type==='questionnaire'?'Questionnaire':'Aktualizacja') + '</span><span class="kc-time">' + dt + '</span></div>'
