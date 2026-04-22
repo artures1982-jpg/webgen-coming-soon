@@ -299,10 +299,15 @@ table.tbl tr:hover td{background:rgba(240,242,247,.02)}
 // Natychmiastowe sprawdzenie sesji - ukryj overlay jesli zalogowany
 (function(){
   if(sessionStorage.getItem('wg_admin_session')==='1'){
-    document.addEventListener('DOMContentLoaded',function(){
+    var hideOverlay = function(){
       var ov=document.getElementById('login-overlay');
       if(ov)ov.style.display='none';
-    });
+    };
+    if(document.readyState==='loading'){
+      document.addEventListener('DOMContentLoaded', hideOverlay);
+    } else {
+      hideOverlay();
+    }
   }
 })();
 </script>
@@ -1199,14 +1204,7 @@ go = function(id, el) {
 };
 
 // Init badge on load
-window.addEventListener('DOMContentLoaded', function() {
-  setTimeout(function() {
-    var msgs = getAdminMessages();
-    var unread = msgs.filter(function(m){ return !m.read; }).length;
-    var badge = document.getElementById('sb-msg-badge');
-    if (badge) { badge.textContent = unread; badge.style.display = unread > 0 ? '' : 'none'; }
-  }, 200);
-});
+// Badge init przeniesiony do initAdminApp
 
 // ─── Keyboard ───
 
@@ -1514,10 +1512,12 @@ initAdminApp = function() {
   loadKanban();
 };
 
-window.addEventListener('DOMContentLoaded', function() {
-  // Auth
+// readyState-safe — działa czy DOM załadowany czy nie
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', checkAdminAuth);
+} else {
   checkAdminAuth();
-});
+}
 </script>
 
 </body>
