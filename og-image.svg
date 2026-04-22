@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#080A0F"/>
+      <stop offset="100%" stop-color="#0D1117"/>
+    </linearGradient>
+    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00E5A0"/>
+      <stop offset="50%" stop-color="#0066FF"/>
+      <stop offset="100%" stop-color="#7B4FFF"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="60" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- Glow blobs -->
+  <circle cx="200" cy="200" r="300" fill="#00E5A0" opacity="0.08" filter="url(#glow)"/>
+  <circle cx="1000" cy="450" r="280" fill="#7B4FFF" opacity="0.1" filter="url(#glow)"/>
+  <!-- Logo mark -->
+  <rect x="80" y="60" width="56" height="56" rx="12" fill="url(#grad)"/>
+  <text x="108" y="100" font-family="monospace" font-size="26" font-weight="700" fill="white" text-anchor="middle">W</text>
+  <!-- Logo text -->
+  <text x="152" y="98" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#F0F2F7">web<tspan fill="url(#grad)">gen</tspan></text>
+  <!-- Main headline -->
+  <text x="80" y="260" font-family="Arial, sans-serif" font-size="72" font-weight="800" fill="#F0F2F7" letter-spacing="-2">Strona firmowa</text>
+  <text x="80" y="350" font-family="Arial, sans-serif" font-size="72" font-weight="800" fill="url(#grad)" letter-spacing="-2">w 3 minuty.</text>
+  <!-- Subline -->
+  <text x="80" y="430" font-family="Arial, sans-serif" font-size="28" fill="#8892AA">Bez agencji. Bez WordPress. Zoptymalizowana pod lokalne SEO.</text>
+  <!-- Price badge -->
+  <rect x="80" y="490" width="280" height="60" rx="10" fill="rgba(0,229,160,0.12)" stroke="#00E5A0" stroke-width="1.5" stroke-opacity="0.4"/>
+  <text x="220" y="527" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#00E5A0" text-anchor="middle">Od 249 zł/mies.</text>
+  <!-- Right side decoration -->
+  <rect x="850" y="150" width="260" height="80" rx="12" fill="rgba(0,229,160,0.08)" stroke="rgba(0,229,160,0.2)" stroke-width="1"/>
+  <text x="980" y="200" font-family="monospace" font-size="16" fill="#00E5A0" text-anchor="middle">Hydraulik Mokotów</text>
+  <rect x="880" y="260" width="230" height="80" rx="12" fill="rgba(0,102,255,0.08)" stroke="rgba(0,102,255,0.2)" stroke-width="1"/>
+  <text x="995" y="310" font-family="monospace" font-size="16" fill="#0066FF" text-anchor="middle">Elektryk Kraków</text>
+  <rect x="860" y="370" width="250" height="80" rx="12" fill="rgba(123,79,255,0.08)" stroke="rgba(123,79,255,0.2)" stroke-width="1"/>
+  <text x="985" y="420" font-family="monospace" font-size="16" fill="#7B4FFF" text-anchor="middle">Salon fryzjerski Poznań</text>
+  <rect x="890" y="480" width="220" height="80" rx="12" fill="rgba(0,229,160,0.06)" stroke="rgba(0,229,160,0.15)" stroke-width="1"/>
+  <text x="1000" y="527" font-family="monospace" font-size="16" fill="#8892AA" text-anchor="middle">Firma remontowa Gdańsk</text>
+</svg>
