@@ -252,7 +252,9 @@ h1 .grad-text{background:var(--grad);-webkit-background-clip:text;-webkit-text-f
 .plan-name{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
 .plan-price{font-size:clamp(36px,4vw,52px);font-weight:800;color:var(--text);letter-spacing:-.03em;line-height:1}
 .plan-price sub{font-size:16px;font-weight:400;color:var(--muted);letter-spacing:0}
-.plan-desc{font-size:13px;color:var(--muted);margin-top:10px;margin-bottom:24px;line-height:1.6}
+.plan-desc{font-size:13px;color:var(--muted);margin-top:10px;margin-bottom:0;line-height:1.6}
+.plan-header{min-height:155px;display:flex;flex-direction:column;margin-bottom:24px}
+.plan-tag-spacer{height:22px;margin-bottom:8px}
 .plan-divider{height:1px;background:var(--border);margin-bottom:24px}
 .plan-features{display:flex;flex-direction:column;gap:11px;margin-bottom:32px;flex:1}
 .pf{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text)}
@@ -1083,9 +1085,12 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
     <div class="plans-grid">
       <!-- FREE -->
       <div class="plan">
-        <div class="plan-name">Free</div>
-        <div class="plan-price">0 <sub>zł/mies.</sub></div>
-        <div class="plan-desc">3 miesiące za darmo, bez karty. Potem <strong style="color:var(--green)">plan Managed START 299 zł/mies.</strong> lub upgrade do Managed.</div>
+        <div class="plan-tag-spacer"></div>
+        <div class="plan-header">
+          <div class="plan-name">Free</div>
+          <div class="plan-price">0 <sub>zł/mies.</sub></div>
+          <div class="plan-desc">3 miesiące za darmo, bez karty. Potem <strong style="color:var(--green)">plan Managed START 299 zł/mies.</strong> lub upgrade do Managed.</div>
+        </div>
         <div class="plan-divider"></div>
         <div class="plan-features">
           <div class="pf"><span class="pf-check yes">✓</span>Wygenerowana strona AI</div>
@@ -1100,9 +1105,11 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
       <!-- MANAGED START -->
       <div class="plan featured">
         <div class="plan-tag">NAJPOPULARNIEJSZY</div>
-        <div class="plan-name">Managed START</div>
-        <div class="plan-price">299 <sub>zł/mies.</sub></div>
-        <div class="plan-desc">My robimy wszystko. Ty tylko odbierasz telefony od klientów.</div>
+        <div class="plan-header">
+          <div class="plan-name">Managed START</div>
+          <div class="plan-price">299 <sub>zł/mies.</sub></div>
+          <div class="plan-desc">My robimy wszystko. Ty tylko odbierasz telefony od klientów.</div>
+        </div>
         <div class="plan-divider"></div>
         <div class="plan-features">
           <div class="pf"><span class="pf-check yes">✓</span>Strona na własnej domenie</div>
@@ -1116,9 +1123,12 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
       </div>
       <!-- MANAGED PRO -->
       <div class="plan">
-        <div class="plan-name">Managed PRO</div>
-        <div class="plan-price">399 <sub>zł/mies.</sub></div>
-        <div class="plan-desc">Pełna obsługa + miesięczne raporty SEO i aktywna optymalizacja.</div>
+        <div class="plan-tag-spacer"></div>
+        <div class="plan-header">
+          <div class="plan-name">Managed PRO</div>
+          <div class="plan-price">399 <sub>zł/mies.</sub></div>
+          <div class="plan-desc">Pełna obsługa + miesięczne raporty SEO i aktywna optymalizacja.</div>
+        </div>
         <div class="plan-divider"></div>
         <div class="plan-features">
           <div class="pf"><span class="pf-check yes">✓</span>Wszystko z START</div>
