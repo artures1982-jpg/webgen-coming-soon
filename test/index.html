@@ -1832,240 +1832,307 @@ function ctaSubmit(e) {
 </script>
 
 
+
+
+
+<!-- PREVIEW LIGHTBOX -->
+<div id="pv-lightbox" style="position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.9);backdrop-filter:blur(12px);display:flex;flex-direction:column;align-items:center;padding:16px 20px;opacity:0;pointer-events:none;transition:opacity .25s ease">
+  <div style="width:100%;max-width:1200px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-shrink:0">
+    <span id="pv-lb-url" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#8892AA;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);padding:5px 14px;border-radius:6px"></span>
+    <button id="pv-lb-close" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:13px;padding:6px 18px;border-radius:7px;cursor:pointer">&#x2715; Zamknij</button>
+  </div>
+  <div style="width:100%;max-width:1200px;flex:1;overflow-y:auto;border-radius:10px;border:1px solid rgba(255,255,255,.12);min-height:0;background:#fff">
+    <div id="pv-lb-inner"></div>
+  </div>
+</div>
+
 <script>
 /* ===== LIVE PREVIEW JS ===== */
-var pvIndustries = [
-  {id:'hydraulik',label:'\u{1F527} Hydraulik',accent:'#2563EB',accentDark:'#1546A0',bg:'#EEF2F7',navBg:'#fff',dark:false,badge:'Dost\u0119pny 24/7',tagline:function(n,c){return 'Hydraulik '+c+' 24/7'},desc:function(n,c){return n+' \u2014 awarie, instalacje, \u0142azienki w '+c+'.'},serviceLabels:['Awarie 24/7','Instalacje','\u0141azienki'],serviceDescs:['Przyjazd w 45 min','Wod-kan, gaz','Kompleksowy remont']},
-  {id:'elektryk',label:'\u26A1 Elektryk',accent:'#F59E0B',accentDark:'#0A0E1A',bg:'#0A0E1A',navBg:'#0A0E1A',dark:true,badge:'Certyfikat SEP',tagline:function(n,c){return 'Elektryk '+c},desc:function(n,c){return n+' \u2014 instalacje, awarie, przegl\u0105dy SEP. '+c+'.'},serviceLabels:['Instalacje','Awarie 24/7','Przegl\u0105dy'],serviceDescs:['Nowe i remonty','Dojazd 60 min','Odbiory UDT/SEP']},
-  {id:'salon',label:'\u2702\uFE0F Salon',accent:'#C4703A',accentDark:'#2D1B0E',bg:'#FDF6F0',navBg:'#fff',dark:false,badge:'Rezerwacja online',tagline:function(n,c){return 'Salon urody '+c},desc:function(n,c){return n+' \u2014 strzy\u017cenie, koloryzacja. Um\u00f3w wizyt\u0119.'},serviceLabels:['Strzy\u017cenie','Koloryzacja','Piel\u0119gnacja'],serviceDescs:['Damskie i m\u0119skie','Baleyage, ombre','Zabiegi SPA']},
-  {id:'remonty',label:'\u{1F528} Remonty',accent:'#FF6B35',accentDark:'#1A1A2E',bg:'#F8F9FA',navBg:'#1A1A2E',dark:true,badge:'Bezp\u0142atna wycena',tagline:function(n,c){return 'Remonty pod klucz \u2014 '+c},desc:function(n,c){return n+' \u2014 glazura, tynki, malowanie.'},serviceLabels:['Glazura','Tynki','Malowanie'],serviceDescs:['Ceramika, mozaika','Gipsowe, akrylowe','Wn\u0119trza i elewacje']},
-  {id:'ogrodnik',label:'\u{1F33F} Ogrodnik',accent:'#16A34A',accentDark:'#14532D',bg:'#F0FAF0',navBg:'#fff',dark:false,badge:'Bezp\u0142atna wycena',tagline:function(n,c){return 'Ogrodnik '+c},desc:function(n,c){return n+' \u2014 koszenie, nasadzenia, piel\u0119gnacja.'},serviceLabels:['Koszenie','Nasadzenia','Piel\u0119gnacja'],serviceDescs:['Trawniki i skarp','Drzewa, krzewy','Przycinanie, nawozy']},
-  {id:'sprzatanie',label:'\u{1F9F9} Sprz\u0105tanie',accent:'#0ea5e9',accentDark:'#1e3a5f',bg:'#f0f9ff',navBg:'#fff',dark:false,badge:'Ekologiczne \u015brodki',tagline:function(n,c){return 'Sprz\u0105tanie '+c},desc:function(n,c){return n+' \u2014 sprz\u0105tanie biur i mieszka\u0144 w '+c+'.'}}
-];
-var pvCurrent='hydraulik';
-var pvStyle='classic';
-function pvSlug(s){return s.toLowerCase().replace(/\u0105/g,'a').replace(/\u0119/g,'e').replace(/\u00f3/g,'o').replace(/\u015b/g,'s').replace(/\u0142/g,'l').replace(/[\u017c\u017a]/g,'z').replace(/\u0107/g,'c').replace(/\u0144/g,'n').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');}
-function pvBuildMock(ind,name,city,phone){
-  var n=name||'Twoja Firma',c=city||'Twoje Miasto',p=phone||'\u2014';
-  var isDark=ind.dark||pvStyle==='modern'||pvStyle==='elegant';
-  var accent=pvStyle==='modern'?'#0066FF':pvStyle==='elegant'?'#6D28D9':ind.accent;
-  var pageBg=pvStyle==='elegant'?'#FAF9F7':isDark?'#080A10':ind.bg;
-  var navBg=pvStyle==='elegant'?'#fff':isDark?'#0D111A':ind.navBg;
-  var heroBg=pvStyle==='elegant'?'#FAF9F7':isDark?'rgba(255,255,255,.03)':'#fff';
-  var tc=pvStyle==='elegant'?'#1C1020':isDark?'#fff':ind.accentDark;
-  var mc=pvStyle==='elegant'?'#6B7280':isDark?'rgba(255,255,255,.5)':'#64748B';
-  var nb=pvStyle==='elegant'?'#E9E2F0':isDark?'rgba(255,255,255,.08)':'#e2e8f0';
-  var cardBg=pvStyle==='elegant'?'#fff':isDark?'rgba(255,255,255,.04)':'#f8fafc';
-  var cardBorder=pvStyle==='elegant'?'#DDD6FE':isDark?'rgba(255,255,255,.08)':'#e2e8f0';
-  var br=pvStyle==='elegant'?'2px':pvStyle==='modern'?'4px':'8px';
-  var sl=ind.serviceLabels||['Us\u0142uga 1','Us\u0142uga 2','Us\u0142uga 3'];
-  var sd=ind.serviceDescs||['Opis us\u0142ugi','Opis us\u0142ugi','Opis us\u0142ugi'];
+(function(){
 
-  function card(i){
-    return '<div style="background:'+cardBg+';border:1px solid '+cardBorder
-      +';border-radius:'+br+';padding:14px;border-top:2px solid '+accent+'">'
-      +'<div style="font-size:11px;font-weight:700;color:'+tc+'">'+sl[i]+'</div>'
-      +'<div style="font-size:10px;color:'+mc+';margin-top:3px">'+sd[i]+'</div>'
+var pvIndustries = [
+  {id:'hydraulik', label:'\u{1F527} Hydraulik', accent:'#2563EB', accentDark:'#1546A0', bg:'#EEF2F7', navBg:'#fff', dark:false,
+   badge:'Dost\u0119pny 24/7',
+   tagline:function(n,c){return 'Hydraulik '+c+' 24/7';},
+   desc:function(n,c){return n+' \u2014 awarie, instalacje, \u0142azienki w '+c+'. Szybki dojazd, bez ukrytych kosztów.';},
+   serviceLabels:['Awarie 24/7','Instalacje','\u0141azienki'],
+   serviceDescs:['Przyjazd w 45 min','Wod-kan, gaz','Kompleksowy remont']},
+  {id:'elektryk', label:'\u26A1 Elektryk', accent:'#F59E0B', accentDark:'#0A0E1A', bg:'#0A0E1A', navBg:'#0A0E1A', dark:true,
+   badge:'Certyfikat SEP',
+   tagline:function(n,c){return 'Elektryk '+c;},
+   desc:function(n,c){return n+' \u2014 instalacje elektryczne, awarie, przegl\u0105dy SEP. '+c+' i okolice.';},
+   serviceLabels:['Instalacje','Awarie 24/7','Przegl\u0105dy'],
+   serviceDescs:['Nowe i remonty','Dojazd 60 min','Odbiory UDT/SEP']},
+  {id:'salon', label:'\u2702\uFE0F Salon', accent:'#C4703A', accentDark:'#2D1B0E', bg:'#FDF6F0', navBg:'#fff', dark:false,
+   badge:'Rezerwacja online',
+   tagline:function(n,c){return 'Salon urody '+c;},
+   desc:function(n,c){return n+' \u2014 strzy\u017cenie, koloryzacja, stylizacja. Um\u00f3w wizyt\u0119 online.';},
+   serviceLabels:['Strzy\u017cenie','Koloryzacja','Piel\u0119gnacja'],
+   serviceDescs:['Damskie i m\u0119skie','Baleyage, ombre','Zabiegi SPA']},
+  {id:'remonty', label:'\u{1F528} Remonty', accent:'#FF6B35', accentDark:'#1A1A2E', bg:'#F8F9FA', navBg:'#1A1A2E', dark:true,
+   badge:'Bezp\u0142atna wycena',
+   tagline:function(n,c){return 'Remonty pod klucz \u2014 '+c;},
+   desc:function(n,c){return n+' \u2014 kompleksowe remonty mieszka\u0144 i dom\u00f3w. Glazura, tynki, malowanie.';},
+   serviceLabels:['Glazura','Tynki','Malowanie'],
+   serviceDescs:['Ceramika, mozaika','Gipsowe, akrylowe','Wn\u0119trza i elewacje']},
+  {id:'ogrodnik', label:'\u{1F33F} Ogrodnik', accent:'#16A34A', accentDark:'#14532D', bg:'#F0FAF0', navBg:'#fff', dark:false,
+   badge:'Bezp\u0142atna wycena',
+   tagline:function(n,c){return 'Ogrodnik '+c;},
+   desc:function(n,c){return n+' \u2014 koszenie, nasadzenia, piel\u0119gnacja. Pi\u0119kny ogr\u00f3d przez ca\u0142y rok.';},
+   serviceLabels:['Koszenie','Nasadzenia','Piel\u0119gnacja'],
+   serviceDescs:['Trawniki i skarpy','Drzewa, krzewy','Przycinanie, nawozy']},
+  {id:'sprzatanie', label:'\u{1F9F9} Sprz\u0105tanie', accent:'#0ea5e9', accentDark:'#1e3a5f', bg:'#f0f9ff', navBg:'#fff', dark:false,
+   badge:'Ekologiczne \u015brodki',
+   tagline:function(n,c){return 'Sprz\u0105tanie '+c;},
+   desc:function(n,c){return n+' \u2014 profesjonalne sprz\u0105tanie biur i mieszka\u0144 w '+c+'.';},
+   serviceLabels:['Biura','Mieszkania','Po remoncie'],
+   serviceDescs:['Cykliczne umowy','Jednorazowe','Gruntowne']}
+];
+
+var pvCurrent = 'hydraulik';
+var pvStyle   = 'classic';
+
+function pvSlug(s){
+  return s.toLowerCase()
+    .replace(/\u0105/g,'a').replace(/\u0119/g,'e').replace(/\u00f3/g,'o')
+    .replace(/\u015b/g,'s').replace(/\u0142/g,'l').replace(/[\u017c\u017a]/g,'z')
+    .replace(/\u0107/g,'c').replace(/\u0144/g,'n')
+    .replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+}
+
+function pvTheme(ind){
+  var dark = ind.dark || pvStyle==='modern' || pvStyle==='elegant';
+  var accent    = pvStyle==='modern' ? '#0066FF' : pvStyle==='elegant' ? '#6D28D9' : ind.accent;
+  var pageBg    = pvStyle==='elegant' ? '#FAF9F7' : dark ? '#080A10' : ind.bg;
+  var navBg     = pvStyle==='elegant' ? '#fff'    : dark ? '#0D111A' : ind.navBg;
+  var heroBg    = pvStyle==='elegant' ? '#FAF9F7' : dark ? 'rgba(255,255,255,.03)' : '#fff';
+  var tc        = pvStyle==='elegant' ? '#1C1020' : dark ? '#fff' : ind.accentDark;
+  var mc        = pvStyle==='elegant' ? '#6B7280' : dark ? 'rgba(255,255,255,.5)' : '#64748B';
+  var nb        = pvStyle==='elegant' ? '#E9E2F0' : dark ? 'rgba(255,255,255,.08)' : '#e2e8f0';
+  var cardBg    = pvStyle==='elegant' ? '#fff'    : dark ? 'rgba(255,255,255,.04)' : '#f8fafc';
+  var cardBdr   = pvStyle==='elegant' ? '#DDD6FE' : dark ? 'rgba(255,255,255,.08)' : '#e2e8f0';
+  var br        = pvStyle==='elegant' ? '2px' : pvStyle==='modern' ? '4px' : '8px';
+  return {accent:accent,pageBg:pageBg,navBg:navBg,heroBg:heroBg,tc:tc,mc:mc,nb:nb,cardBg:cardBg,cardBdr:cardBdr,br:br};
+}
+
+function pvBuildMock(ind, n, c, p){
+  n = n||'Twoja Firma'; c = c||'Twoje Miasto'; p = p||'\u2014';
+  var t = pvTheme(ind);
+  var a=t.accent, br=t.br;
+
+  function svc(i){
+    return '<div style="background:'+t.cardBg+';border:1px solid '+t.cardBdr+';border-radius:'+br+';padding:16px;border-top:3px solid '+a+'">'
+      +'<div style="font-size:13px;font-weight:700;color:'+t.tc+';margin-bottom:4px">'+(ind.serviceLabels[i]||'Us\u0142uga')+'</div>'
+      +'<div style="font-size:11px;color:'+t.mc+'">'+(ind.serviceDescs[i]||'')+'</div>'
+      +'</div>';
+  }
+  function stat(val, lbl){
+    return '<div style="text-align:center;background:'+t.cardBg+';border:1px solid '+t.cardBdr+';border-radius:'+br+';padding:14px 10px">'
+      +'<div style="font-size:22px;font-weight:900;color:'+a+'">'+val+'</div>'
+      +'<div style="font-size:10px;color:'+t.mc+';margin-top:2px">'+lbl+'</div>'
+      +'</div>';
+  }
+  function why(ico, title, desc){
+    return '<div style="background:'+t.cardBg+';border:1px solid '+t.cardBdr+';border-radius:'+br+';padding:16px">'
+      +'<div style="font-size:20px;margin-bottom:8px">'+ico+'</div>'
+      +'<div style="font-size:12px;font-weight:700;color:'+t.tc+';margin-bottom:3px">'+title+'</div>'
+      +'<div style="font-size:11px;color:'+t.mc+'">'+desc+'</div>'
+      +'</div>';
+  }
+  function review(text, author){
+    return '<div style="background:'+t.cardBg+';border:1px solid '+t.cardBdr+';border-radius:'+br+';padding:14px">'
+      +'<div style="color:'+a+';font-size:12px;margin-bottom:5px">\u2605\u2605\u2605\u2605\u2605</div>'
+      +'<div style="font-size:12px;color:'+t.tc+';font-style:italic;margin-bottom:5px">"'+text+'"</div>'
+      +'<div style="font-size:10px;color:'+t.mc+'">'+author+' \u00b7 '+c+'</div>'
       +'</div>';
   }
 
-  return (
-    '<div style="font-family:Segoe UI,sans-serif;background:'+pageBg+';width:100%">'
+  var html = '';
 
-    +'<div style="background:'+accent+';padding:5px 32px;display:flex;justify-content:space-between;align-items:center">'
-    +'<span style="font-size:11px;color:rgba(255,255,255,.85)">\uD83D\uDCCD '+c+'\u00a0\u00b7\u00a0Czynne: 8:00\u201318:00</span>'
+  // TOPBAR
+  html += '<div style="background:'+a+';padding:5px 32px;display:flex;justify-content:space-between;align-items:center">'
+    +'<span style="font-size:11px;color:rgba(255,255,255,.85)">\uD83D\uDCCD '+c+' &nbsp;\u00b7&nbsp; Czynne: 8:00\u201318:00</span>'
     +'<span style="font-size:13px;font-weight:700;color:#fff">\uD83D\uDCDE '+p+'</span>'
-    +'</div>'
+    +'</div>';
 
-    +'<nav style="background:'+navBg+';padding:0 32px;height:58px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid '+nb+'">'
-    +'<span style="font-size:17px;font-weight:900;color:'+tc+'">'+n+'</span>'
+  // NAV
+  html += '<nav style="background:'+t.navBg+';padding:0 32px;height:58px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid '+t.nb+'">'
+    +'<span style="font-size:17px;font-weight:900;color:'+t.tc+'">'+n+'</span>'
     +'<div style="display:flex;gap:20px;align-items:center">'
-    +'<span style="font-size:12px;color:'+mc+'">O nas</span>'
-    +'<span style="font-size:12px;color:'+mc+'">Us\u0142ugi</span>'
-    +'<span style="font-size:12px;color:'+mc+'">Kontakt</span>'
-    +'<span style="background:'+accent+';color:#fff;padding:8px 18px;border-radius:'+br+';font-size:12px;font-weight:700">Zadzwo\u0144</span>'
-    +'</div></nav>'
+    +'<span style="font-size:12px;color:'+t.mc+'">O nas</span>'
+    +'<span style="font-size:12px;color:'+t.mc+'">Us\u0142ugi</span>'
+    +'<span style="font-size:12px;color:'+t.mc+'">Cennik</span>'
+    +'<span style="font-size:12px;color:'+t.mc+'">Kontakt</span>'
+    +'<span style="background:'+a+';color:#fff;padding:8px 18px;border-radius:'+br+';font-size:12px;font-weight:700">Zadzwo\u0144</span>'
+    +'</div></nav>';
 
-    +'<div style="display:grid;grid-template-columns:55% 45%">'
-    +'<div style="background:'+heroBg+';padding:40px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid '+nb+'">'
-    +'<div style="display:inline-flex;align-items:center;gap:5px;background:'+accent+'18;border:1px solid '+accent+'44;border-radius:20px;padding:3px 10px;font-size:10px;font-weight:600;color:'+accent+';margin-bottom:14px;width:fit-content">'
+  // HERO
+  html += '<div style="display:grid;grid-template-columns:55% 45%">'
+    +'<div style="background:'+t.heroBg+';padding:44px 40px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid '+t.nb+'">'
+    +'<div style="display:inline-flex;align-items:center;gap:5px;background:'+a+'18;border:1px solid '+a+'44;border-radius:20px;padding:3px 12px;font-size:10px;font-weight:600;color:'+a+';margin-bottom:14px;width:fit-content">'
     +'<span style="width:5px;height:5px;border-radius:50%;background:#22c55e;display:inline-block"></span>'+ind.badge+'</div>'
-    +'<h1 style="font-size:30px;font-weight:900;line-height:1.1;color:'+tc+';margin-bottom:10px">'+ind.tagline(n,c)+'</h1>'
-    +'<p style="font-size:12px;color:'+mc+';line-height:1.6;margin-bottom:20px">'+ind.desc(n,c)+'</p>'
-    +'<div style="display:flex;gap:8px;margin-bottom:24px">'
-    +'<span style="background:'+accent+';color:#fff;padding:10px 20px;border-radius:'+br+';font-size:12px;font-weight:700">Zadzwo\u0144 teraz</span>'
-    +'<span style="border:1.5px solid '+nb+';color:'+tc+';padding:8px 16px;border-radius:'+br+';font-size:12px">Bezp\u0142atna wycena</span>'
+    +'<h1 style="font-size:32px;font-weight:900;line-height:1.1;color:'+t.tc+';margin-bottom:10px">'+ind.tagline(n,c)+'</h1>'
+    +'<p style="font-size:13px;color:'+t.mc+';line-height:1.65;margin-bottom:22px">'+ind.desc(n,c)+'</p>'
+    +'<div style="display:flex;gap:10px;margin-bottom:28px">'
+    +'<span style="background:'+a+';color:#fff;padding:11px 24px;border-radius:'+br+';font-size:13px;font-weight:700">Zadzwo\u0144 teraz</span>'
+    +'<span style="border:1.5px solid '+t.nb+';color:'+t.tc+';padding:9px 20px;border-radius:'+br+';font-size:13px">Bezp\u0142atna wycena</span>'
     +'</div>'
-    +'<div style="display:flex;gap:20px">'
-    +'<div style="text-align:center"><div style="font-size:17px;font-weight:900;color:'+tc+'">4.9\u2605</div><div style="font-size:9px;color:'+mc+'">opinie</div></div>'
-    +'<div style="width:1px;background:'+nb+'"></div>'
-    +'<div style="text-align:center"><div style="font-size:17px;font-weight:900;color:'+tc+'">100+</div><div style="font-size:9px;color:'+mc+'">realizacji</div></div>'
-    +'<div style="width:1px;background:'+nb+'"></div>'
-    +'<div style="text-align:center"><div style="font-size:17px;font-weight:900;color:'+tc+'">24/7</div><div style="font-size:9px;color:'+mc+'">dost\u0119pno\u015b\u0107</div></div>'
+    +'<div style="display:flex;gap:24px">'
+    +'<div style="text-align:center"><div style="font-size:20px;font-weight:900;color:'+t.tc+'">4.9\u2605</div><div style="font-size:10px;color:'+t.mc+'">opinie</div></div>'
+    +'<div style="width:1px;background:'+t.nb+'"></div>'
+    +'<div style="text-align:center"><div style="font-size:20px;font-weight:900;color:'+t.tc+'">100+</div><div style="font-size:10px;color:'+t.mc+'">realizacji</div></div>'
+    +'<div style="width:1px;background:'+t.nb+'"></div>'
+    +'<div style="text-align:center"><div style="font-size:20px;font-weight:900;color:'+t.tc+'">24/7</div><div style="font-size:10px;color:'+t.mc+'">dost\u0119pno\u015b\u0107</div></div>'
     +'</div></div>'
-    +'<div style="background:linear-gradient(145deg,'+ind.accentDark+','+accent+');display:flex;align-items:center;justify-content:center">'
+    +'<div style="background:linear-gradient(145deg,'+ind.accentDark+','+a+');display:flex;align-items:center;justify-content:center">'
     +'<div style="text-align:center;padding:40px">'
-    +'<div style="color:rgba(255,255,255,.7);font-size:22px;font-weight:700;margin-bottom:6px">'+n+'</div>'
-    +'<div style="color:rgba(255,255,255,.5);font-size:13px">\uD83D\uDCCD '+c+'</div>'
-    +'<div style="color:rgba(255,255,255,.5);font-size:13px;margin-top:4px">\uD83D\uDCDE '+p+'</div>'
+    +'<div style="color:rgba(255,255,255,.8);font-size:24px;font-weight:900;margin-bottom:8px">'+n+'</div>'
+    +'<div style="color:rgba(255,255,255,.6);font-size:13px;margin-bottom:4px">\uD83D\uDCCD '+c+'</div>'
+    +'<div style="color:rgba(255,255,255,.6);font-size:13px">\uD83D\uDCDE '+p+'</div>'
     +'</div></div>'
-    +'</div>'
+    +'</div>';
 
-    +'<div style="background:'+pageBg+';padding:28px 32px;border-top:1px solid '+nb+'">'
-    +'<div style="font-size:11px;font-weight:700;color:'+accent+';letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px">Nasze us\u0142ugi</div>'
-    +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">'
-    +card(0)+card(1)+card(2)
-    +'</div></div>'
+  // USLUGI
+  html += '<div style="background:'+t.pageBg+';padding:32px;border-top:1px solid '+t.nb+'">'
+    +'<div style="font-size:11px;font-weight:700;color:'+a+';letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Nasze us\u0142ugi</div>'
+    +'<div style="font-size:22px;font-weight:800;color:'+t.tc+';margin-bottom:16px">Co dla Ciebie zrobimy?</div>'
+    +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">'
+    +svc(0)+svc(1)+svc(2)
+    +'</div></div>';
 
-    +'<div style="background:'+(isDark||pvStyle==='elegant'?pageBg:cardBg)+';padding:20px 32px;border-top:1px solid '+nb+'">'
-    +'<div style="font-size:11px;font-weight:700;color:'+accent+';letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px">Opinie klient\u00f3w</div>'
-    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'
-    +'<div style="background:'+cardBg+';border:1px solid '+cardBorder+';border-radius:'+br+';padding:12px">'
-    +'<div style="color:'+accent+';font-size:11px;margin-bottom:4px">\u2605\u2605\u2605\u2605\u2605</div>'
-    +'<div style="font-size:11px;color:'+tc+';font-style:italic;margin-bottom:4px">"Szybka obs\u0142uga, polecam!"</div>'
-    +'<div style="font-size:10px;color:'+mc+'">Jan K. \u00b7 '+c+'</div>'
-    +'</div>'
-    +'<div style="background:'+cardBg+';border:1px solid '+cardBorder+';border-radius:'+br+';padding:12px">'
-    +'<div style="color:'+accent+';font-size:11px;margin-bottom:4px">\u2605\u2605\u2605\u2605\u2605</div>'
-    +'<div style="font-size:11px;color:'+tc+';font-style:italic;margin-bottom:4px">"Profesjonalnie i na czas."</div>'
-    +'<div style="font-size:10px;color:'+mc+'">Anna M. \u00b7 '+c+'</div>'
-    +'</div></div></div>'
-
-    +'<div style="background:'+heroBg+';padding:28px 32px;border-top:1px solid '+nb+'">'
-    +'<div style="font-size:11px;font-weight:700;color:'+accent+';letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px">O firmie</div>'
-    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">'
+  // O FIRMIE
+  html += '<div style="background:'+t.heroBg+';padding:32px;border-top:1px solid '+t.nb+'">'
+    +'<div style="font-size:11px;font-weight:700;color:'+a+';letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">O firmie</div>'
+    +'<div style="font-size:22px;font-weight:800;color:'+t.tc+';margin-bottom:16px">Kim jeste\u015bmy?</div>'
+    +'<div style="display:grid;grid-template-columns:3fr 2fr;gap:24px;align-items:start">'
     +'<div>'
-    +'<p style="font-size:13px;color:'+mc+';line-height:1.75;margin-bottom:14px">'+n+' to firma z wieloletnim do\u015bwiadczeniem dzia\u0142aj\u0105ca na terenie '+c+' i okolic. Specjalizujemy si\u0119 w szybkiej i profesjonalnej obs\u0142udze klient\u00f3w indywidualnych oraz firm.</p>'
-    +'<p style="font-size:13px;color:'+mc+';line-height:1.75">Gwarantujemy terminowo\u015b\u0107, rzetelno\u015b\u0107 i konkurencyjne ceny. Ka\u017cde zlecenie realizujemy z pe\u0142nym zaanga\u017cowaniem.</p>'
+    +'<p style="font-size:13px;color:'+t.mc+';line-height:1.75;margin-bottom:12px">'+n+' to firma z wieloletnim do\u015bwiadczeniem dzia\u0142aj\u0105ca na terenie '+c+' i okolic. Specjalizujemy si\u0119 w szybkiej i profesjonalnej obs\u0142udze klient\u00f3w indywidualnych oraz firm.</p>'
+    +'<p style="font-size:13px;color:'+t.mc+';line-height:1.75">Gwarantujemy terminowo\u015b\u0107, rzetelno\u015b\u0107 i konkurencyjne ceny. Ka\u017cde zlecenie realizujemy z pe\u0142nym zaanga\u017cowaniem i dbałością o szczegóły. Zapraszamy do kontaktu!</p>'
     +'</div>'
     +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'
-    +'<div style="background:'+cardBg+';border:1px solid '+cardBorder+';border-radius:'+br+';padding:16px;text-align:center">'
-    +'<div style="font-size:24px;font-weight:900;color:'+accent+'">10+</div>'
-    +'<div style="font-size:11px;color:'+mc+'">lat na rynku</div>'
-    +'</div>'
-    +'<div style="background:'+cardBg+';border:1px solid '+cardBorder+';border-radius:'+br+';padding:16px;text-align:center">'
-    +'<div style="font-size:24px;font-weight:900;color:'+accent+'">500+</div>'
-    +'<div style="font-size:11px;color:'+mc+'">realizacji</div>'
-    +'</div>'
-    +'<div style="background:'+cardBg+';border:1px solid '+cardBorder+';border-radius:'+br+';padding:16px;text-align:center">'
-    +'<div style="font-size:24px;font-weight:900;color:'+accent+'">4.9</div>'
-    +'<div style="font-size:11px;color:'+mc+'">\u015brednia ocena</div>'
-    +'</div>'
-    +'<div style="background:'+cardBg+';border:1px solid '+cardBorder+';border-radius:'+br+';padding:16px;text-align:center">'
-    +'<div style="font-size:24px;font-weight:900;color:'+accent+'">24h</div>'
-    +'<div style="font-size:11px;color:'+mc+'">czas reakcji</div>'
-    +'</div>'
-    +'</div></div></div>'
-    +'<div style="background:'+pageBg+';padding:28px 32px;border-top:1px solid '+nb+'">'
-    +'<div style="font-size:11px;font-weight:700;color:'+accent+';letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px">Dlaczego my?</div>'
-    +'<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">'
-    +'<div style="background:'+cardBg+';border:1px solid '+cardBorder+';border-radius:'+br+';padding:16px">'
-    +'<div style="font-size:22px;margin-bottom:8px">\u26a1</div>'
-    +'<div style="font-size:12px;font-weight:700;color:'+tc+';margin-bottom:4px">Szybki dojazd</div>'
-    +'<div style="font-size:11px;color:'+mc+'">Na miejscu w 45 minut</div>'
-    +'</div>'
-    +'<div style="background:'+cardBg+';border:1px solid '+cardBorder+';border-radius:'+br+';padding:16px">'
-    +'<div style="font-size:22px;margin-bottom:8px">\u2713</div>'
-    +'<div style="font-size:12px;font-weight:700;color:'+tc+';margin-bottom:4px">Gwarancja</div>'
-    +'<div style="font-size:11px;color:'+mc+'">2 lata na ka\u017cd\u0105 us\u0142ug\u0119</div>'
-    +'</div>'
-    +'<div style="background:'+cardBg+';border:1px solid '+cardBorder+';border-radius:'+br+';padding:16px">'
-    +'<div style="font-size:22px;margin-bottom:8px">\ud83d\udcb3</div>'
-    +'<div style="font-size:12px;font-weight:700;color:'+tc+';margin-bottom:4px">Faktura VAT</div>'
-    +'<div style="font-size:11px;color:'+mc+'">Dla firm i os\u00f3b prywatnych</div>'
-    +'</div>'
-    +'<div style="background:'+cardBg+';border:1px solid '+cardBorder+';border-radius:'+br+';padding:16px">'
-    +'<div style="font-size:22px;margin-bottom:8px">\ud83d\udcde</div>'
-    +'<div style="font-size:12px;font-weight:700;color:'+tc+';margin-bottom:4px">Bezp\u0142atna wycena</div>'
-    +'<div style="font-size:11px;color:'+mc+'">Zadzwo\u0144, wycenimy za darmo</div>'
-    +'</div>'
-    +'</div></div>'
-    +'<div style="background:'+accent+';padding:32px;text-align:center;border-top:1px solid rgba(255,255,255,.1)">'
-    +'<div style="font-size:22px;font-weight:900;color:#fff;margin-bottom:8px">Skontaktuj si\u0119 z nami</div>'
-    +'<div style="font-size:13px;color:rgba(255,255,255,.8);margin-bottom:20px">Zadzwo\u0144 lub napisz — odpowiadamy w ci\u0105gu godziny</div>'
-    +'<div style="display:flex;justify-content:center;gap:10px">'
-    +'<span style="background:#fff;color:'+accent+';padding:11px 28px;border-radius:'+br+';font-size:14px;font-weight:700">'+p+'</span>'
-    +'<span style="background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.4);padding:11px 24px;border-radius:'+br+';font-size:14px">Napisz do nas</span>'
-    +'</div></div>'
-    +'<div style="background:'+ind.accentDark+';padding:16px 32px;display:flex;justify-content:space-between;align-items:center">'
+    +stat('10+','lat na rynku')+stat('500+','realizacji')
+    +stat('4.9\u2605','\u015brednia ocena')+stat('24h','czas reakcji')
+    +'</div></div></div>';
+
+  // DLACZEGO MY
+  html += '<div style="background:'+t.pageBg+';padding:32px;border-top:1px solid '+t.nb+'">'
+    +'<div style="font-size:11px;font-weight:700;color:'+a+';letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Dlaczego my?</div>'
+    +'<div style="font-size:22px;font-weight:800;color:'+t.tc+';margin-bottom:16px">Nasze atuty</div>'
+    +'<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">'
+    +why('\u26a1','Szybki dojazd','Na miejscu w 45 minut')
+    +why('\u2713','Gwarancja','2 lata na ka\u017cd\u0105 us\u0142ug\u0119')
+    +why('\uD83D\uDCB3','Faktura VAT','Dla firm i os\u00f3b prywatnych')
+    +why('\uD83D\uDCDE','Bezp\u0142atna wycena','Zadzwo\u0144, wycenimy za darmo')
+    +'</div></div>';
+
+  // OPINIE
+  html += '<div style="background:'+t.heroBg+';padding:32px;border-top:1px solid '+t.nb+'">'
+    +'<div style="font-size:11px;font-weight:700;color:'+a+';letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Opinie klient\u00f3w</div>'
+    +'<div style="font-size:22px;font-weight:800;color:'+t.tc+';margin-bottom:16px">Co m\u00f3wi\u0105 o nas klienci?</div>'
+    +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">'
+    +review('Szybka obs\u0142uga, profesjonalizm na najwy\u017cszym poziomie. Polecam!','Jan K.')
+    +review('Fachowa robota, dojechali w ci\u0105gu godziny. Na pewno wr\u00f3c\u0119.','Anna M.')
+    +review('Bardzo solidna firma, uczciwe ceny. Nie ma co szuka\u0107 dalej.','Marek W.')
+    +'</div></div>';
+
+  // KONTAKT CTA
+  html += '<div style="background:'+a+';padding:40px 32px;text-align:center;border-top:1px solid rgba(255,255,255,.1)">'
+    +'<div style="font-size:26px;font-weight:900;color:#fff;margin-bottom:8px">Gotowy na wsp\u00f3\u0142prac\u0119?</div>'
+    +'<div style="font-size:14px;color:rgba(255,255,255,.8);margin-bottom:24px">Zadzwo\u0144 lub napisz \u2014 odpowiadamy w ci\u0105gu godziny. Us\u0142ugujemy '+c+' i okolice.</div>'
+    +'<div style="display:flex;justify-content:center;gap:12px">'
+    +'<span style="background:#fff;color:'+a+';padding:13px 32px;border-radius:'+br+';font-size:15px;font-weight:700">'+p+'</span>'
+    +'<span style="background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.4);padding:13px 28px;border-radius:'+br+';font-size:15px">Napisz do nas</span>'
+    +'</div></div>';
+
+  // FOOTER
+  html += '<div style="background:'+ind.accentDark+';padding:18px 32px;display:flex;justify-content:space-between;align-items:center">'
     +'<span style="color:rgba(255,255,255,.9);font-size:13px;font-weight:700">'+n+'</span>'
-    +'<span style="color:rgba(255,255,255,.6);font-size:11px">'+p+' \u00b7 '+c+'</span>'
-    +'<span style="color:rgba(255,255,255,.35);font-size:10px">Powered by webgen.pl</span>'
-    +'</div>'
-    +'</div>'
-  );
+    +'<span style="color:rgba(255,255,255,.5);font-size:11px">'+p+' &nbsp;\u00b7&nbsp; '+c+'</span>'
+    +'<span style="color:rgba(255,255,255,.3);font-size:10px">Powered by webgen.pl</span>'
+    +'</div>';
+
+  return html;
+}
+
+function pvUpdate(){
+  var n = document.getElementById('pv-name').value.trim();
+  var c = document.getElementById('pv-city').value.trim();
+  var p = document.getElementById('pv-phone').value.trim();
+  var ind = pvIndustries.find(function(i){ return i.id === pvCurrent; });
+  document.getElementById('pv-url').textContent = pvSlug(n||'twoja-firma')+'.webgen.pl';
+  document.getElementById('pv-frame').innerHTML = pvBuildMock(ind, n, c, p);
+  var vp = document.querySelector('.pv-viewport');
+  if(vp){
+    var scale = vp.offsetWidth / 1024;
+    var frame = document.getElementById('pv-frame');
+    frame.style.transform = 'scale('+scale+')';
+    frame.style.width = '1024px';
+    frame.style.height = Math.round(vp.offsetHeight / scale)+'px';
+  }
 }
 
 function pvOpenLightbox(){
-  var name=document.getElementById('pv-name').value.trim();
-  var city=document.getElementById('pv-city').value.trim();
-  var phone=document.getElementById('pv-phone').value.trim();
-  var ind=pvIndustries.find(function(i){return i.id===pvCurrent;});
-  document.getElementById('pv-lb-url').textContent=pvSlug(name||'twoja-firma')+'.webgen.pl';
-  document.getElementById('pv-lb-inner').innerHTML=pvBuildMock(ind,name,city,phone);
-  var lb=document.getElementById('pv-lightbox');
-  lb.style.opacity='1';
-  lb.style.pointerEvents='all';
-  document.body.style.overflow='hidden';
+  var n = document.getElementById('pv-name').value.trim();
+  var c = document.getElementById('pv-city').value.trim();
+  var p = document.getElementById('pv-phone').value.trim();
+  var ind = pvIndustries.find(function(i){ return i.id === pvCurrent; });
+  document.getElementById('pv-lb-url').textContent = pvSlug(n||'twoja-firma')+'.webgen.pl';
+  document.getElementById('pv-lb-inner').innerHTML = pvBuildMock(ind, n, c, p);
+  var lb = document.getElementById('pv-lightbox');
+  lb.style.opacity = '1';
+  lb.style.pointerEvents = 'all';
+  document.body.style.overflow = 'hidden';
 }
 
 function pvCloseLightbox(){
-  var lb=document.getElementById('pv-lightbox');
-  lb.style.opacity='0';
-  lb.style.pointerEvents='none';
-  document.body.style.overflow='';
+  var lb = document.getElementById('pv-lightbox');
+  lb.style.opacity = '0';
+  lb.style.pointerEvents = 'none';
+  document.body.style.overflow = '';
 }
 
-document.addEventListener('keydown',function(e){if(e.key==='Escape')pvCloseLightbox();});
-function pvUpdate(){
-  var name=document.getElementById('pv-name').value.trim();
-  var city=document.getElementById('pv-city').value.trim();
-  var phone=document.getElementById('pv-phone').value.trim();
-  var ind=pvIndustries.find(function(i){return i.id===pvCurrent;});
-  document.getElementById('pv-url').textContent=pvSlug(name||'twoja-firma')+'.webgen.pl';
-  document.getElementById('pv-frame').innerHTML=pvBuildMock(ind,name,city,phone);
-  var scale=document.querySelector('.pv-viewport').offsetWidth/1024;
-  document.getElementById('pv-frame').style.transform='scale('+scale+')';
-  document.getElementById('pv-frame').style.height=Math.round(520/scale)+'px';
-}
-function pvInit(){
-  var grid=document.getElementById('pv-ind-grid');
-  if(!grid)return;
+document.addEventListener('DOMContentLoaded', function(){
+  // Industry buttons
+  var grid = document.getElementById('pv-ind-grid');
   pvIndustries.forEach(function(ind){
-    var btn=document.createElement('button');
-    btn.className='pv-ind-btn'+(ind.id===pvCurrent?' active':'');
-    btn.textContent=ind.label;
-    btn.onclick=function(){pvCurrent=ind.id;document.querySelectorAll('.pv-ind-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');pvUpdate();};
+    var btn = document.createElement('button');
+    btn.className = 'pv-ind-btn' + (ind.id === pvCurrent ? ' active' : '');
+    btn.textContent = ind.label;
+    btn.onclick = function(){
+      pvCurrent = ind.id;
+      document.querySelectorAll('.pv-ind-btn').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      pvUpdate();
+    };
     grid.appendChild(btn);
   });
+
+  // Style buttons
   document.querySelectorAll('.pv-style-btn').forEach(function(btn){
-    btn.onclick=function(){
-      pvStyle=btn.getAttribute('data-style');
-      document.querySelectorAll('.pv-style-btn').forEach(function(b){b.classList.remove('active');});
+    btn.onclick = function(){
+      pvStyle = btn.getAttribute('data-style');
+      document.querySelectorAll('.pv-style-btn').forEach(function(b){ b.classList.remove('active'); });
       btn.classList.add('active');
       pvUpdate();
     };
   });
-  document.getElementById('pv-viewport-wrap').addEventListener('click',pvOpenLightbox);
-  document.getElementById('pv-lb-close').addEventListener('click',pvCloseLightbox);
-  document.getElementById('pv-lightbox').addEventListener('click',function(e){
-    if(e.target===this)pvCloseLightbox();
+
+  // Lightbox
+  document.getElementById('pv-viewport-wrap').addEventListener('click', pvOpenLightbox);
+  document.getElementById('pv-lb-close').addEventListener('click', pvCloseLightbox);
+  document.getElementById('pv-lightbox').addEventListener('click', function(e){
+    if(e.target === this) pvCloseLightbox();
   });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') pvCloseLightbox();
+  });
+
   pvUpdate();
-  window.addEventListener('resize',pvUpdate);
-}
-document.addEventListener('DOMContentLoaded',pvInit);
+  window.addEventListener('resize', pvUpdate);
+});
+
+})();
 </script>
 
-<!-- PREVIEW LIGHTBOX -->
-<div id="pv-lightbox" style="position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);display:flex;flex-direction:column;align-items:center;padding:16px 20px;opacity:0;pointer-events:none;transition:opacity .2s">
-  <div style="width:100%;max-width:1160px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-shrink:0">
-    <span id="pv-lb-url" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#8892AA;background:rgba(255,255,255,.05);border:1px solid rgba(240,242,247,.12);padding:5px 14px;border-radius:6px"></span>
-    <button id="pv-lb-close" style="background:rgba(255,255,255,.08);border:1px solid rgba(240,242,247,.2);color:#F0F2F7;font-size:13px;padding:6px 16px;border-radius:7px;cursor:pointer">Zamknij &times;</button>
-  </div>
-  <div style="width:100%;max-width:1160px;flex:1;overflow-y:auto;border-radius:10px;border:1px solid rgba(240,242,247,.12);min-height:0">
-    <div id="pv-lb-inner"></div>
-  </div>
-</div>
 </body>
 </html>
