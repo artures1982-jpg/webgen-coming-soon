@@ -370,6 +370,19 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:56px 48px
 .pv-disclaimer{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5;padding:10px 14px;background:rgba(255,255,255,.03);border-left:2px solid var(--border2);border-radius:0 6px 6px 0}
 
 
+
+/* ===== PREVIEW LIGHTBOX ===== */
+.pv-lightbox{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s}
+.pv-lightbox.open{opacity:1;pointer-events:all}
+.pv-lightbox-bar{width:100%;max-width:1200px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-shrink:0}
+.pv-lightbox-url{font-family:var(--mono);font-size:12px;color:var(--muted);background:rgba(255,255,255,.05);border:1px solid var(--border);padding:5px 14px;border-radius:6px}
+.pv-lightbox-close{background:rgba(255,255,255,.08);border:1px solid var(--border2);color:var(--text);font-family:var(--mono);font-size:12px;padding:5px 14px;border-radius:6px;cursor:pointer;transition:all .2s}
+.pv-lightbox-close:hover{background:rgba(255,255,255,.15)}
+.pv-lightbox-frame{width:100%;max-width:1200px;flex:1;overflow-y:auto;border-radius:10px;border:1px solid var(--border2);background:#fff;min-height:0}
+.pv-lightbox-inner{width:100%;}
+.pv-viewport-wrap{position:relative;cursor:pointer}
+.pv-viewport-wrap::after{content:'\2922  Kliknij aby rozwin\0105\0107';position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,.6);color:#fff;font-size:11px;padding:4px 10px;border-radius:5px;font-family:var(--mono);pointer-events:none;opacity:0;transition:opacity .2s}
+.pv-viewport-wrap:hover::after{opacity:1}
 /* ===== RESPONSIVE ===== */
 @media(max-width:960px){
   nav{padding:0 20px}.nav-links{display:none}
@@ -1121,11 +1134,11 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
       <div class="preview-browser-wrap">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
           <div class="pv-live-badge"><span class="pv-live-dot"></span>Podgląd na żywo</div>
-          <button onclick="pvOpenFull()" style="background:none;border:1px solid var(--border2);color:var(--muted);font-family:var(--mono);font-size:11px;padding:4px 12px;border-radius:6px;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='var(--green)';this.style.color='var(--green)'" onmouseout="this.style.borderColor='var(--border2)';this.style.color='var(--muted)'">&#8599; Pełny podgląd</button>
+          <button onclick="pvOpenLightbox()" style="background:none;border:1px solid var(--border2);color:var(--muted);font-family:var(--mono);font-size:11px;padding:4px 12px;border-radius:6px;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='var(--green)';this.style.color='var(--green)'" onmouseout="this.style.borderColor='var(--border2)';this.style.color='var(--muted)'">&#8599; Pełny podgląd</button>
         </div>
         <div class="pv-browser">
           <div class="pv-bar"><span class="pv-dot" style="background:#FF5F57"></span><span class="pv-dot" style="background:#FFBD2E"></span><span class="pv-dot" style="background:#28C840"></span><div class="pv-url" id="pv-url">hydraulik-kowalski.webgen.pl</div></div>
-          <div class="pv-viewport"><div class="pv-frame" id="pv-frame"></div></div>
+          <div class="pv-viewport-wrap" onclick="pvOpenLightbox()"><div class="pv-viewport"><div class="pv-frame" id="pv-frame"></div></div></div>
         </div>
               <p class="pv-disclaimer">Podgląd jest ilustracyjny. Wygląd zależy od wybranego stylu &mdash; ostateczną stronę zobaczysz w generatorze.</p>
       </div>
@@ -1939,10 +1952,44 @@ function pvOpenFull(){
   var city=document.getElementById('pv-city').value.trim();
   var phone=document.getElementById('pv-phone').value.trim();
   var ind=pvIndustries.find(function(i){return i.id===pvCurrent;});
-  var html='<!DOCTYPE html><html lang="pl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+( name||'Twoja Firma')+' — podgląd</title></head><body style="margin:0;padding:0">'+pvBuildMock(ind,name,city,phone)+'<style>div[style*="width:1024px"]{width:100%!important;min-width:0!important}</style></body></html>';
+  var html='<!DOCTYPE html><html lang="pl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+( name||'Twoja Firma')+' — podgląd</title></head><body style="margin:0;padding:0">'+pvBuildMock(ind,name,city,phone)+'<style>div[style*="width:1024px"]{width:100%!important;min-width:0!important}</style>
+<!-- PREVIEW LIGHTBOX -->
+<div class="pv-lightbox" id="pv-lightbox" onclick="pvCloseLightbox(event)">
+  <div class="pv-lightbox-bar">
+    <div class="pv-lightbox-url" id="pv-lb-url"></div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <span style="font-family:var(--mono);font-size:11px;color:var(--muted)">ESC aby zamknąć</span>
+      <button class="pv-lightbox-close" onclick="pvCloseLightbox()">&#x2715; Zamknij</button>
+    </div>
+  </div>
+  <div class="pv-lightbox-frame" id="pv-lb-frame" onclick="event.stopPropagation()">
+    <div class="pv-lightbox-inner" id="pv-lb-inner"></div>
+  </div>
+</div>
+</body></html>';
   var w=window.open('','_blank');
   if(w){w.document.open();w.document.write(html);w.document.close();}
 }
+function pvOpenLightbox(){
+  var name=document.getElementById('pv-name').value.trim();
+  var city=document.getElementById('pv-city').value.trim();
+  var phone=document.getElementById('pv-phone').value.trim();
+  var ind=pvIndustries.find(function(i){return i.id===pvCurrent;});
+  var slug=pvSlug(name||'twoja-firma');
+  document.getElementById('pv-lb-url').textContent=slug+'.webgen.pl';
+  var inner=document.getElementById('pv-lb-inner');
+  inner.innerHTML=pvBuildMock(ind,name,city,phone);
+  var el=inner.firstChild;
+  if(el){el.style.width='100%';el.style.maxWidth='100%';}
+  document.getElementById('pv-lightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function pvCloseLightbox(e){
+  if(e&&e.target!==document.getElementById('pv-lightbox'))return;
+  document.getElementById('pv-lightbox').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')pvCloseLightbox();});
 function pvUpdate(){
   var name=document.getElementById('pv-name').value.trim();
   var city=document.getElementById('pv-city').value.trim();
