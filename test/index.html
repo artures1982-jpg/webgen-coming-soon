@@ -1119,7 +1119,10 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
         <div class="pv-cta-note">14 dni za darmo · Bez karty kredytowej</div>
       </div>
       <div class="preview-browser-wrap">
-        <div class="pv-live-badge"><span class="pv-live-dot"></span>Podgląd na żywo</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+          <div class="pv-live-badge"><span class="pv-live-dot"></span>Podgląd na żywo</div>
+          <button onclick="pvOpenFull()" style="background:none;border:1px solid var(--border2);color:var(--muted);font-family:var(--mono);font-size:11px;padding:4px 12px;border-radius:6px;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='var(--green)';this.style.color='var(--green)'" onmouseout="this.style.borderColor='var(--border2)';this.style.color='var(--muted)'">&#8599; Pełny podgląd</button>
+        </div>
         <div class="pv-browser">
           <div class="pv-bar"><span class="pv-dot" style="background:#FF5F57"></span><span class="pv-dot" style="background:#FFBD2E"></span><span class="pv-dot" style="background:#28C840"></span><div class="pv-url" id="pv-url">hydraulik-kowalski.webgen.pl</div></div>
           <div class="pv-viewport"><div class="pv-frame" id="pv-frame"></div></div>
@@ -1834,17 +1837,17 @@ function pvBuildMock(ind,name,city,phone){
   var n=name||'Twoja Firma',c=city||'Twoje Miasto',p=phone||'\u2014';
 
   // Style theme
-  var isDark=pvStyle==='modern'||pvStyle==='elegant';
-  var accent=pvStyle==='modern'?'#0066FF':pvStyle==='elegant'?'#7B4FFF':ind.accent;
-  var pageBg=isDark?'#080A10':ind.bg;
-  var navBg=isDark?'#0D111A':ind.navBg;
-  var heroBg=isDark?'rgba(255,255,255,.03)':'#fff';
-  var tc=isDark?'#fff':ind.accentDark;
-  var mc=isDark?'rgba(255,255,255,.5)':'#64748B';
-  var nb=isDark?'rgba(255,255,255,.08)':'#e2e8f0';
-  var cardBg=isDark?'rgba(255,255,255,.04)':'#f8fafc';
-  var cardBorder=isDark?'rgba(255,255,255,.08)':'#e2e8f0';
-  var br=pvStyle==='elegant'?'0px':pvStyle==='modern'?'4px':'8px';
+  var isDark=ind.dark||pvStyle==='modern'||pvStyle==='elegant';
+  var accent=pvStyle==='modern'?'#0066FF':pvStyle==='elegant'?'#6D28D9':ind.accent;
+  var pageBg=pvStyle==='elegant'?'#FAF9F7':isDark?'#080A10':ind.bg;
+  var navBg=pvStyle==='elegant'?'#fff':isDark?'#0D111A':ind.navBg;
+  var heroBg=pvStyle==='elegant'?'#FAF9F7':isDark?'rgba(255,255,255,.03)':'#fff';
+  var tc=pvStyle==='elegant'?'#1C1020':isDark?'#fff':ind.accentDark;
+  var mc=pvStyle==='elegant'?'#6B7280':isDark?'rgba(255,255,255,.5)':'#64748B';
+  var nb=pvStyle==='elegant'?'#E9E2F0':isDark?'rgba(255,255,255,.08)':'#e2e8f0';
+  var cardBg=pvStyle==='elegant'?'#fff':isDark?'rgba(255,255,255,.04)':'#f8fafc';
+  var cardBorder=pvStyle==='elegant'?'#DDD6FE':isDark?'rgba(255,255,255,.08)':'#e2e8f0';
+  var br=pvStyle==='elegant'?'2px':pvStyle==='modern'?'4px':'8px';
 
   var services=ind.services||['Us\u0142uga 1','Us\u0142uga 2','Us\u0142uga 3'];
 
@@ -1930,6 +1933,15 @@ function pvBuildMock(ind,name,city,phone){
 
     +'</div>'
   );
+}
+function pvOpenFull(){
+  var name=document.getElementById('pv-name').value.trim();
+  var city=document.getElementById('pv-city').value.trim();
+  var phone=document.getElementById('pv-phone').value.trim();
+  var ind=pvIndustries.find(function(i){return i.id===pvCurrent;});
+  var html='<!DOCTYPE html><html lang="pl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+( name||'Twoja Firma')+' — podgląd</title></head><body style="margin:0;padding:0">'+pvBuildMock(ind,name,city,phone)+'<style>div[style*="width:1024px"]{width:100%!important;min-width:0!important}</style></body></html>';
+  var w=window.open('','_blank');
+  if(w){w.document.open();w.document.write(html);w.document.close();}
 }
 function pvUpdate(){
   var name=document.getElementById('pv-name').value.trim();
