@@ -1137,7 +1137,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
           </div>
         <div class="pv-browser">
           <div class="pv-bar"><span class="pv-dot" style="background:#FF5F57"></span><span class="pv-dot" style="background:#FFBD2E"></span><span class="pv-dot" style="background:#28C840"></span><div class="pv-url" id="pv-url">hydraulik-kowalski.webgen.pl</div></div>
-          <div class="pv-viewport-wrap" id="pv-viewport-wrap"><div class="pv-viewport"><div class="pv-frame" id="pv-frame"></div></div></div>
+          <div class="pv-viewport-wrap" id="pv-viewport-wrap" style="touch-action:manipulation"><div class="pv-viewport"><div class="pv-frame" id="pv-frame"></div></div></div>
         </div>
               <p class="pv-disclaimer">Podgląd jest ilustracyjny. Wygląd zależy od wybranego stylu &mdash; ostateczną stronę zobaczysz w generatorze.</p>
       </div>
@@ -1836,13 +1836,17 @@ function ctaSubmit(e) {
 
 
 <!-- PREVIEW LIGHTBOX -->
-<div id="pv-lightbox" style="position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.9);backdrop-filter:blur(12px);display:flex;flex-direction:column;align-items:stretch;padding:12px 16px;opacity:0;pointer-events:none;transition:opacity .25s ease">
-  <div style="width:100%;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-shrink:0">
-    <span id="pv-lb-url" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#8892AA;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);padding:5px 14px;border-radius:6px"></span>
-    <button id="pv-lb-close" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:13px;padding:6px 18px;border-radius:7px;cursor:pointer">&#x2715; Zamknij</button>
+<div id="pv-lb-backdrop" style="position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.9);backdrop-filter:blur(12px);opacity:0;pointer-events:none;transition:opacity .25s ease" onclick="pvCloseLightbox()"></div>
+<div id="pv-lightbox" style="position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .25s ease">
+  <div style="flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(8,10,15,.95)">
+    <span id="pv-lb-url" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#8892AA;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);padding:4px 12px;border-radius:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:60vw"></span>
+    <div style="display:flex;gap:8px;align-items:center">
+      <span style="font-size:11px;color:#8892AA;display:none" id="pv-lb-esc">ESC aby zamknąć</span>
+      <button id="pv-lb-close" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:14px;padding:6px 14px;border-radius:7px;cursor:pointer;touch-action:manipulation">&#x2715;</button>
+    </div>
   </div>
-  <div style="width:100%;flex:1;overflow-y:auto;border-radius:0;border:none;min-height:0;background:#fff">
-    <div id="pv-lb-inner"></div>
+  <div style="flex:1;overflow-y:auto;overflow-x:auto;-webkit-overflow-scrolling:touch;background:#f1f5f9">
+    <div id="pv-lb-inner" style="min-width:320px"></div>
   </div>
 </div>
 
@@ -2077,17 +2081,33 @@ function pvOpenLightbox(){
   var p = document.getElementById('pv-phone').value.trim();
   var ind = pvIndustries.find(function(i){ return i.id === pvCurrent; });
   document.getElementById('pv-lb-url').textContent = pvSlug(n||'twoja-firma')+'.webgen.pl';
-  document.getElementById('pv-lb-inner').innerHTML = pvBuildMock(ind, n, c, p);
+  var inner = document.getElementById('pv-lb-inner');
+  inner.innerHTML = pvBuildMock(ind, n, c, p);
+  var isMobile = window.innerWidth < 768;
+  if(!isMobile){
+    var mockEl = inner.firstElementChild;
+    if(mockEl){
+      var scale = window.innerWidth / 1024;
+      mockEl.style.transformOrigin = 'top left';
+      mockEl.style.transform = 'scale('+scale+')';
+      mockEl.style.width = '1024px';
+      inner.style.height = Math.round(mockEl.scrollHeight * scale + 60)+'px';
+    }
+  }
   var lb = document.getElementById('pv-lightbox');
-  lb.style.opacity = '1';
-  lb.style.pointerEvents = 'all';
+  var bd = document.getElementById('pv-lb-backdrop');
+  lb.style.opacity = '1'; lb.style.pointerEvents = 'all';
+  bd.style.opacity = '1'; bd.style.pointerEvents = 'all';
+  var esc = document.getElementById('pv-lb-esc');
+  if(esc) esc.style.display = isMobile ? 'none' : 'inline';
   document.body.style.overflow = 'hidden';
 }
 
 function pvCloseLightbox(){
   var lb = document.getElementById('pv-lightbox');
-  lb.style.opacity = '0';
-  lb.style.pointerEvents = 'none';
+  var bd = document.getElementById('pv-lb-backdrop');
+  lb.style.opacity = '0'; lb.style.pointerEvents = 'none';
+  bd.style.opacity = '0'; bd.style.pointerEvents = 'none';
   document.body.style.overflow = '';
 }
 
@@ -2120,9 +2140,6 @@ document.addEventListener('DOMContentLoaded', function(){
   // Lightbox
   document.getElementById('pv-viewport-wrap').addEventListener('click', pvOpenLightbox);
   document.getElementById('pv-lb-close').addEventListener('click', pvCloseLightbox);
-  document.getElementById('pv-lightbox').addEventListener('click', function(e){
-    if(e.target === this) pvCloseLightbox();
-  });
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape') pvCloseLightbox();
   });
