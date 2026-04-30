@@ -1137,7 +1137,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
           </div>
         <div class="pv-browser">
           <div class="pv-bar"><span class="pv-dot" style="background:#FF5F57"></span><span class="pv-dot" style="background:#FFBD2E"></span><span class="pv-dot" style="background:#28C840"></span><div class="pv-url" id="pv-url">hydraulik-kowalski.webgen.pl</div></div>
-          <div class="pv-viewport-wrap" onclick="pvOpenLightbox()"><div class="pv-viewport"><div class="pv-frame" id="pv-frame"></div></div></div>
+          <div class="pv-viewport-wrap" id="pv-viewport-wrap"><div class="pv-viewport"><div class="pv-frame" id="pv-frame"></div></div></div>
         </div>
               <p class="pv-disclaimer">Podgląd jest ilustracyjny. Wygląd zależy od wybranego stylu &mdash; ostateczną stronę zobaczysz w generatorze.</p>
       </div>
@@ -1945,20 +1945,21 @@ function pvOpenLightbox(){
   var city=document.getElementById('pv-city').value.trim();
   var phone=document.getElementById('pv-phone').value.trim();
   var ind=pvIndustries.find(function(i){return i.id===pvCurrent;});
-  var slug=pvSlug(name||'twoja-firma');
-  document.getElementById('pv-lb-url').textContent=slug+'.webgen.pl';
-  var inner=document.getElementById('pv-lb-inner');
-  inner.innerHTML=pvBuildMock(ind,name,city,phone);
-  var el=inner.firstChild;
-  if(el){el.style.width='100%';el.style.maxWidth='100%';}
-  document.getElementById('pv-lightbox').classList.add('open');
+  document.getElementById('pv-lb-url').textContent=pvSlug(name||'twoja-firma')+'.webgen.pl';
+  document.getElementById('pv-lb-inner').innerHTML=pvBuildMock(ind,name,city,phone);
+  var lb=document.getElementById('pv-lightbox');
+  lb.style.opacity='1';
+  lb.style.pointerEvents='all';
   document.body.style.overflow='hidden';
 }
-function pvCloseLightbox(e){
-  if(e&&e.target!==document.getElementById('pv-lightbox'))return;
-  document.getElementById('pv-lightbox').classList.remove('open');
+
+function pvCloseLightbox(){
+  var lb=document.getElementById('pv-lightbox');
+  lb.style.opacity='0';
+  lb.style.pointerEvents='none';
   document.body.style.overflow='';
 }
+
 document.addEventListener('keydown',function(e){if(e.key==='Escape')pvCloseLightbox();});
 function pvUpdate(){
   var name=document.getElementById('pv-name').value.trim();
@@ -1989,10 +1990,26 @@ function pvInit(){
       pvUpdate();
     };
   });
+  document.getElementById('pv-viewport-wrap').addEventListener('click',pvOpenLightbox);
+  document.getElementById('pv-lb-close').addEventListener('click',pvCloseLightbox);
+  document.getElementById('pv-lightbox').addEventListener('click',function(e){
+    if(e.target===this)pvCloseLightbox();
+  });
   pvUpdate();
   window.addEventListener('resize',pvUpdate);
 }
 document.addEventListener('DOMContentLoaded',pvInit);
 </script>
+
+<!-- PREVIEW LIGHTBOX -->
+<div id="pv-lightbox" style="position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);display:flex;flex-direction:column;align-items:center;padding:16px 20px;opacity:0;pointer-events:none;transition:opacity .2s">
+  <div style="width:100%;max-width:1160px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-shrink:0">
+    <span id="pv-lb-url" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#8892AA;background:rgba(255,255,255,.05);border:1px solid rgba(240,242,247,.12);padding:5px 14px;border-radius:6px"></span>
+    <button id="pv-lb-close" style="background:rgba(255,255,255,.08);border:1px solid rgba(240,242,247,.2);color:#F0F2F7;font-size:13px;padding:6px 16px;border-radius:7px;cursor:pointer">Zamknij &times;</button>
+  </div>
+  <div style="width:100%;max-width:1160px;flex:1;overflow-y:auto;border-radius:10px;border:1px solid rgba(240,242,247,.12);min-height:0">
+    <div id="pv-lb-inner"></div>
+  </div>
+</div>
 </body>
 </html>
