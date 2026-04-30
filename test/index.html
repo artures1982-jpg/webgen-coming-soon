@@ -336,11 +336,41 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:56px 48px
 .fb-badges{display:flex;gap:10px}
 .fb-badge{font-family:var(--mono);font-size:10px;color:var(--muted);background:rgba(255,255,255,.04);border:1px solid var(--border);padding:4px 10px;border-radius:4px}
 
+
+/* ===== LIVE PREVIEW ===== */
+.preview-section{background:var(--s1);border-top:1px solid var(--border)}
+.preview-inner{max-width:1200px;margin:0 auto}
+.preview-layout{display:grid;grid-template-columns:280px 1fr;gap:40px;margin-top:56px;align-items:start}
+.preview-controls{display:flex;flex-direction:column;gap:14px}
+.pc-field{display:flex;flex-direction:column;gap:6px}
+.pc-label{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.pc-input{background:rgba(255,255,255,.05);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--text);font-family:var(--head);outline:none;transition:border-color .2s}
+.pc-input:focus{border-color:var(--green)}
+.pc-input::placeholder{color:rgba(136,146,170,.5)}
+.pv-ind-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:2px}
+.pv-ind-btn{padding:8px 6px;border:1px solid var(--border);border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;background:var(--s2);color:var(--muted);text-align:center;transition:all .2s;font-family:var(--head);line-height:1.3}
+.pv-ind-btn:hover{border-color:var(--border2);color:var(--text)}
+.pv-ind-btn.active{border-color:var(--green);background:rgba(0,229,160,.08);color:var(--green)}
+.pv-cta-btn{display:block;text-align:center;background:var(--green);color:#080A0F;padding:13px;border-radius:10px;text-decoration:none;font-weight:700;font-size:15px;transition:all .2s;margin-top:4px}
+.pv-cta-btn:hover{background:var(--green2);transform:translateY(-1px)}
+.pv-cta-note{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:center}
+.preview-browser-wrap{display:flex;flex-direction:column;gap:10px}
+.pv-live-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);border-radius:20px;padding:5px 14px;font-family:var(--mono);font-size:11px;color:var(--green);width:fit-content}
+.pv-live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s ease-in-out infinite}
+.pv-browser{background:var(--s2);border:1px solid var(--border2);border-radius:12px;overflow:hidden}
+.pv-bar{background:var(--s3);padding:10px 14px;display:flex;align-items:center;gap:7px;border-bottom:1px solid var(--border)}
+.pv-dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex-shrink:0}
+.pv-url{flex:1;background:rgba(255,255,255,.05);border-radius:5px;padding:4px 12px;font-size:12px;color:var(--muted);font-family:var(--mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pv-viewport{overflow:hidden;height:420px;position:relative;background:#fff}
+.pv-frame{width:1024px;transform-origin:top left;pointer-events:none}
+
 /* ===== RESPONSIVE ===== */
 @media(max-width:960px){
   nav{padding:0 20px}.nav-links{display:none}
   .section,.forwho-inner,.why-inner,.pricing-inner,.compare-inner,.cta-bottom{padding:64px 20px}
   .how-grid,.industries-grid,.plans-grid,.why-grid{grid-template-columns:1fr}
+  .preview-layout{grid-template-columns:1fr}
+  .pv-viewport{height:300px}
   .how-grid,.why-grid{background:transparent;gap:16px}
   .how-step,.why-item{border-radius:12px;border:1px solid var(--border)}
   .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
@@ -1059,6 +1089,32 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
   </div>
 </section>
 
+<!-- LIVE PREVIEW -->
+<section class="section preview-section" id="podglad">
+  <div class="preview-inner">
+    <div class="sec-eyebrow">Podgląd na żywo</div>
+    <h2 class="sec-title">Zobacz jak będzie wyglądać<br><span class="grad">Twoja strona</span></h2>
+    <p class="sec-sub">Wpisz dane firmy poniżej — mockup aktualizuje się natychmiast.</p>
+    <div class="preview-layout">
+      <div class="preview-controls">
+        <div class="pc-field"><label class="pc-label">Nazwa firmy</label><input class="pc-input" type="text" id="pv-name" placeholder="np. Hydraulik Kowalski" value="Hydraulik Kowalski" oninput="pvUpdate()"></div>
+        <div class="pc-field"><label class="pc-label">Miasto</label><input class="pc-input" type="text" id="pv-city" placeholder="np. Warszawa" value="Warszawa" oninput="pvUpdate()"></div>
+        <div class="pc-field"><label class="pc-label">Telefon</label><input class="pc-input" type="text" id="pv-phone" placeholder="np. 600 100 200" value="600 100 200" oninput="pvUpdate()"></div>
+        <div class="pc-field"><label class="pc-label">Branża</label><div class="pv-ind-grid" id="pv-ind-grid"></div></div>
+        <a href="#kontakt" class="pv-cta-btn">Załóż bezpłatnie →</a>
+        <div class="pv-cta-note">14 dni za darmo · Bez karty kredytowej</div>
+      </div>
+      <div class="preview-browser-wrap">
+        <div class="pv-live-badge"><span class="pv-live-dot"></span>Podgląd na żywo</div>
+        <div class="pv-browser">
+          <div class="pv-bar"><span class="pv-dot" style="background:#FF5F57"></span><span class="pv-dot" style="background:#FFBD2E"></span><span class="pv-dot" style="background:#28C840"></span><div class="pv-url" id="pv-url">hydraulik-kowalski.webgen.pl</div></div>
+          <div class="pv-viewport"><div class="pv-frame" id="pv-frame"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FOR WHO -->
 <div class="forwho" id="dla-kogo">
   <div class="forwho-inner">
@@ -1745,5 +1801,75 @@ function ctaSubmit(e) {
 })();
 </script>
 
+
+<script>
+/* ===== LIVE PREVIEW JS ===== */
+var pvIndustries = [
+  {id:'hydraulik',label:'\u{1F527} Hydraulik',accent:'#2563EB',accentDark:'#1546A0',bg:'#EEF2F7',navBg:'#fff',dark:false,badge:'Dost\u0119pny 24/7',tagline:function(n,c){return 'Hydraulik '+c+' 24/7'},desc:function(n,c){return n+' \u2014 awarie, instalacje, \u0142azienki w '+c+'.'}},
+  {id:'elektryk',label:'\u26A1 Elektryk',accent:'#F59E0B',accentDark:'#0A0E1A',bg:'#0A0E1A',navBg:'#0A0E1A',dark:true,badge:'Certyfikat SEP',tagline:function(n,c){return 'Elektryk '+c},desc:function(n,c){return n+' \u2014 instalacje, awarie, przegl\u0105dy SEP. '+c+'.'}},
+  {id:'salon',label:'\u2702\uFE0F Salon',accent:'#C4703A',accentDark:'#2D1B0E',bg:'#FDF6F0',navBg:'#fff',dark:false,badge:'Rezerwacja online',tagline:function(n,c){return 'Salon urody '+c},desc:function(n,c){return n+' \u2014 strzy\u017cenie, koloryzacja. Um\u00f3w wizyt\u0119.'}},
+  {id:'remonty',label:'\u{1F528} Remonty',accent:'#FF6B35',accentDark:'#1A1A2E',bg:'#F8F9FA',navBg:'#1A1A2E',dark:true,badge:'Bezp\u0142atna wycena',tagline:function(n,c){return 'Remonty pod klucz \u2014 '+c},desc:function(n,c){return n+' \u2014 glazura, tynki, malowanie.'}},
+  {id:'ogrodnik',label:'\u{1F33F} Ogrodnik',accent:'#16A34A',accentDark:'#14532D',bg:'#F0FAF0',navBg:'#fff',dark:false,badge:'Bezp\u0142atna wycena',tagline:function(n,c){return 'Ogrodnik '+c},desc:function(n,c){return n+' \u2014 koszenie, nasadzenia, piel\u0119gnacja.'}},
+  {id:'sprzatanie',label:'\u{1F9F9} Sprz\u0105tanie',accent:'#0ea5e9',accentDark:'#1e3a5f',bg:'#f0f9ff',navBg:'#fff',dark:false,badge:'Ekologiczne \u015brodki',tagline:function(n,c){return 'Sprz\u0105tanie '+c},desc:function(n,c){return n+' \u2014 sprz\u0105tanie biur i mieszka\u0144 w '+c+'.'}}
+];
+var pvCurrent='hydraulik';
+function pvSlug(s){return s.toLowerCase().replace(/\u0105/g,'a').replace(/\u0119/g,'e').replace(/\u00f3/g,'o').replace(/\u015b/g,'s').replace(/\u0142/g,'l').replace(/[\u017c\u017a]/g,'z').replace(/\u0107/g,'c').replace(/\u0144/g,'n').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');}
+function pvBuildMock(ind,name,city,phone){
+  var n=name||'Twoja Firma',c=city||'Twoje Miasto',p=phone||'\u2014';
+  var dark=ind.dark,tc=dark?'#fff':ind.accentDark,mc=dark?'rgba(255,255,255,.55)':'#64748B';
+  var nb=dark?'rgba(255,255,255,.08)':'#e2e8f0',tb=dark?'rgba(255,255,255,.07)':ind.accent+'18';
+  return '<div style="font-family:Segoe UI,sans-serif;background:'+ind.bg+';min-height:955px">'
+    +'<div style="background:'+ind.accent+';padding:5px 28px;display:flex;justify-content:space-between"><span style="font-size:11px;color:rgba(255,255,255,.8)">'+c+'</span><span style="font-size:13px;font-weight:700;color:#fff">'+p+'</span></div>'
+    +'<nav style="background:'+ind.navBg+';padding:0 28px;height:56px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid '+nb+'">'
+    +'<span style="font-size:17px;font-weight:900;color:'+tc+'">'+n+' <span style="color:'+ind.accent+'">'+c+'</span></span>'
+    +'<div style="display:flex;gap:14px;align-items:center"><span style="font-size:12px;color:'+mc+'">Us\u0142ugi</span><span style="font-size:12px;color:'+mc+'">Cennik</span>'
+    +'<span style="background:'+ind.accent+';color:#fff;padding:9px 20px;border-radius:7px;font-size:13px;font-weight:700">Zadzwo\u0144</span></div></nav>'
+    +'<div style="display:grid;grid-template-columns:56% 44%;min-height:380px">'
+    +'<div style="background:'+(dark?'rgba(255,255,255,.02)':'#fff')+';padding:44px 40px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid '+nb+'">'
+    +'<div style="display:inline-flex;align-items:center;gap:6px;background:'+tb+';border:1px solid '+ind.accent+'44;border-radius:16px;padding:4px 12px;font-size:10px;font-weight:600;color:'+ind.accent+';margin-bottom:18px;width:fit-content"><span style="width:5px;height:5px;border-radius:50%;background:#22c55e;display:inline-block"></span>'+ind.badge+'</div>'
+    +'<h1 style="font-size:34px;font-weight:900;line-height:1.05;color:'+tc+';margin-bottom:12px">'+ind.tagline(n,c)+'</h1>'
+    +'<p style="font-size:13px;color:'+mc+';line-height:1.65;margin-bottom:24px;max-width:360px">'+ind.desc(n,c)+'</p>'
+    +'<div style="display:flex;gap:10px;margin-bottom:28px">'
+    +'<span style="background:'+ind.accent+';color:#fff;padding:11px 22px;border-radius:7px;font-size:13px;font-weight:700">Zadzwo\u0144 teraz</span>'
+    +'<span style="border:1.5px solid '+(dark?'rgba(255,255,255,.2)':'#CBD5E1')+';color:'+tc+';padding:9px 18px;border-radius:7px;font-size:13px">Wycena</span></div>'
+    +'<div style="display:flex;gap:20px">'
+    +'<div style="text-align:center"><div style="font-size:18px;font-weight:900;color:'+tc+'">4.9\u2605</div><div style="font-size:10px;color:'+mc+'">opinie</div></div>'
+    +'<div style="text-align:center"><div style="font-size:18px;font-weight:900;color:'+tc+'">24/7</div><div style="font-size:10px;color:'+mc+'">dost\u0119pno\u015b\u0107</div></div>'
+    +'<div style="text-align:center"><div style="font-size:18px;font-weight:900;color:'+tc+'">100+</div><div style="font-size:10px;color:'+mc+'">realizacji</div></div>'
+    +'</div></div>'
+    +'<div style="background:linear-gradient(135deg,'+ind.accentDark+','+ind.accent+');display:flex;align-items:center;justify-content:center;min-height:380px">'
+    +'<div style="opacity:.12;font-size:110px">'+ind.label.split(' ')[0]+'</div></div></div>'
+    +'<div style="background:'+ind.accent+';padding:12px 28px;display:flex;justify-content:center;gap:32px">'
+    +'<div style="color:#fff;text-align:center"><div style="font-size:12px;font-weight:700">'+n+'</div><div style="font-size:10px;opacity:.7">'+c+'</div></div>'
+    +'<div style="color:#fff;text-align:center"><div style="font-size:12px;font-weight:700">'+p+'</div><div style="font-size:10px;opacity:.7">Zadzwo\u0144</div></div>'
+    +'<div style="color:#fff;text-align:center"><div style="font-size:12px;font-weight:700">webgen.pl</div><div style="font-size:10px;opacity:.7">Powered by</div></div>'
+    +'</div></div>';
+}
+function pvUpdate(){
+  var name=document.getElementById('pv-name').value.trim();
+  var city=document.getElementById('pv-city').value.trim();
+  var phone=document.getElementById('pv-phone').value.trim();
+  var ind=pvIndustries.find(function(i){return i.id===pvCurrent;});
+  document.getElementById('pv-url').textContent=pvSlug(name||'twoja-firma')+'.webgen.pl';
+  document.getElementById('pv-frame').innerHTML=pvBuildMock(ind,name,city,phone);
+  var scale=document.querySelector('.pv-viewport').offsetWidth/1024;
+  document.getElementById('pv-frame').style.transform='scale('+scale+')';
+  document.getElementById('pv-frame').style.height=Math.round(420/scale)+'px';
+}
+function pvInit(){
+  var grid=document.getElementById('pv-ind-grid');
+  if(!grid)return;
+  pvIndustries.forEach(function(ind){
+    var btn=document.createElement('button');
+    btn.className='pv-ind-btn'+(ind.id===pvCurrent?' active':'');
+    btn.textContent=ind.label;
+    btn.onclick=function(){pvCurrent=ind.id;document.querySelectorAll('.pv-ind-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');pvUpdate();};
+    grid.appendChild(btn);
+  });
+  pvUpdate();
+  window.addEventListener('resize',pvUpdate);
+}
+document.addEventListener('DOMContentLoaded',pvInit);
+</script>
 </body>
 </html>
