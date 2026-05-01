@@ -389,6 +389,10 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:56px 48px
   .section,.forwho-inner,.why-inner,.pricing-inner,.compare-inner,.cta-bottom{padding:64px 20px}
   .how-grid,.industries-grid,.plans-grid,.why-grid{grid-template-columns:1fr}
   .preview-layout{grid-template-columns:1fr}
+  .preview-browser-wrap{display:none}
+  .preview-controls{width:100%}
+  .pc-input{width:100%;box-sizing:border-box}
+  .pv-mobile-preview-btn{display:block!important}
   .pv-viewport{height:240px}
   .how-grid,.why-grid{background:transparent;gap:16px}
   .how-step,.why-item{border-radius:12px;border:1px solid var(--border)}
@@ -1130,6 +1134,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
         </div>
         <a href="#kontakt" class="pv-cta-btn">Załóż bezpłatnie →</a>
         <div class="pv-cta-note">14 dni za darmo · Bez karty kredytowej</div>
+        <button class="pv-mobile-preview-btn" onclick="pvOpenLightbox()" style="display:none;width:100%;margin-top:8px;background:transparent;border:1px solid var(--border2);color:var(--muted);font-family:var(--mono);font-size:12px;padding:10px;border-radius:8px;cursor:pointer;touch-action:manipulation">Zobacz podgląd strony →</button>
       </div>
       <div class="preview-browser-wrap">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
