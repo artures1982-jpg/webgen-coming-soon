@@ -1923,11 +1923,11 @@ function pvBuildMock(ind, n, c, p, isMob){
   n = n||'Twoja Firma'; c = c||'Twoje Miasto'; p = p||'\u2014';
   var t = pvTheme(ind);
   var a=t.accent, br=t.br;
-  var col1='1fr', col2='1fr 1fr', col3='repeat(3,1fr)', col4='repeat(4,1fr)';
-  var heroCol=isMob?'1fr':'55% 45%';
-  var aboutCol=isMob?'1fr':'3fr 2fr';
-  var h1size=isMob?'22px':'32px';
-  var heroRightDisplay=isMob?'none':'flex';
+  var h1=isMob?'22px':'32px';
+  var g3=isMob?'1fr':'repeat(3,1fr)';
+  var g4=isMob?'1fr 1fr':'repeat(4,1fr)';
+  var gAb=isMob?'1fr':'3fr 2fr';
+  var gHero=isMob?'1fr':'55% 45%';
 
   function svc(i){
     return '<div style="background:'+t.cardBg+';border:1px solid '+t.cardBdr+';border-radius:'+br+';padding:16px;border-top:3px solid '+a+'">'
@@ -1935,20 +1935,20 @@ function pvBuildMock(ind, n, c, p, isMob){
       +'<div style="font-size:11px;color:'+t.mc+'">'+(ind.serviceDescs[i]||'')+'</div>'
       +'</div>';
   }
-  function stat(val, lbl){
+  function stat(val,lbl){
     return '<div style="text-align:center;background:'+t.cardBg+';border:1px solid '+t.cardBdr+';border-radius:'+br+';padding:14px 10px">'
       +'<div style="font-size:22px;font-weight:900;color:'+a+'">'+val+'</div>'
       +'<div style="font-size:10px;color:'+t.mc+';margin-top:2px">'+lbl+'</div>'
       +'</div>';
   }
-  function why(ico, title, desc){
+  function why(ico,title,desc){
     return '<div style="background:'+t.cardBg+';border:1px solid '+t.cardBdr+';border-radius:'+br+';padding:16px">'
       +'<div style="font-size:20px;margin-bottom:8px">'+ico+'</div>'
       +'<div style="font-size:12px;font-weight:700;color:'+t.tc+';margin-bottom:3px">'+title+'</div>'
       +'<div style="font-size:11px;color:'+t.mc+'">'+desc+'</div>'
       +'</div>';
   }
-  function review(text, author){
+  function review(text,author){
     return '<div style="background:'+t.cardBg+';border:1px solid '+t.cardBdr+';border-radius:'+br+';padding:14px">'
       +'<div style="color:'+a+';font-size:12px;margin-bottom:5px">\u2605\u2605\u2605\u2605\u2605</div>'
       +'<div style="font-size:12px;color:'+t.tc+';font-style:italic;margin-bottom:5px">"'+text+'"</div>'
@@ -1956,113 +1956,108 @@ function pvBuildMock(ind, n, c, p, isMob){
       +'</div>';
   }
 
-  var html = '';
-
+  var html='';
 
   // TOPBAR
-  html += '<div style="background:'+a+';padding:5px 32px;display:flex;justify-content:space-between;align-items:center">'
-    +'<span style="font-size:11px;color:rgba(255,255,255,.85)">\uD83D\uDCCD '+c+' &nbsp;\u00b7&nbsp; Czynne: 8:00\u201318:00</span>'
+  html+='<div style="background:'+a+';padding:5px 32px;display:flex;justify-content:space-between;align-items:center">'
+    +'<span style="font-size:11px;color:rgba(255,255,255,.85)">\uD83D\uDCCD '+c+' \u00b7 Czynne: 8\u201318</span>'
     +'<span style="font-size:13px;font-weight:700;color:#fff">\uD83D\uDCDE '+p+'</span>'
     +'</div>';
 
   // NAV
-  html += '<nav style="background:'+t.navBg+';padding:0 32px;height:58px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid '+t.nb+'">'
-    +'<span style="font-size:17px;font-weight:900;color:'+t.tc+'">'+n+'</span>'
-    +'<div style="display:flex;gap:20px;align-items:center">'
-    +(isMob?'':'<span style="font-size:12px;color:'+t.mc+'">O nas</span>')
-    +(isMob?'':'<span style="font-size:12px;color:'+t.mc+'">Us\u0142ugi</span>')
-    +(isMob?'':'<span style="font-size:12px;color:'+t.mc+'">Cennik</span>')
-    +(isMob?'':'<span style="font-size:12px;color:'+t.mc+'">Kontakt</span>')
-    +'<span style="background:'+a+';color:#fff;padding:8px 18px;border-radius:'+br+';font-size:12px;font-weight:700">Zadzwo\u0144</span>'
+  html+='<nav style="background:'+t.navBg+';padding:0 24px;height:54px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid '+t.nb+'">'
+    +'<span style="font-size:16px;font-weight:900;color:'+t.tc+'">'+n+'</span>'
+    +'<div style="display:flex;gap:16px;align-items:center">'
+    +(isMob?'':'<span style="font-size:12px;color:'+t.mc+'">Us\u0142ugi</span><span style="font-size:12px;color:'+t.mc+'">Cennik</span><span style="font-size:12px;color:'+t.mc+'">Kontakt</span>')
+    +'<span style="background:'+a+';color:#fff;padding:7px 16px;border-radius:'+br+';font-size:12px;font-weight:700">Zadzwo\u0144</span>'
     +'</div></nav>';
 
   // HERO
-  html += '<div style="display:grid;grid-template-columns:"+heroCol+">'
-    +'<div style="background:'+t.heroBg+';padding:44px 40px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid '+t.nb+'">'
-    +'<div style="display:inline-flex;align-items:center;gap:5px;background:'+a+'18;border:1px solid '+a+'44;border-radius:20px;padding:3px 12px;font-size:10px;font-weight:600;color:'+a+';margin-bottom:14px;width:fit-content">'
+  html+='<div style="display:grid;grid-template-columns:'+gHero+'">'
+    +'<div style="background:'+t.heroBg+';padding:32px 28px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid '+t.nb+'">'
+    +'<div style="display:inline-flex;align-items:center;gap:5px;background:'+a+'18;border:1px solid '+a+'44;border-radius:20px;padding:3px 12px;font-size:10px;font-weight:600;color:'+a+';margin-bottom:12px;width:fit-content">'
     +'<span style="width:5px;height:5px;border-radius:50%;background:#22c55e;display:inline-block"></span>'+ind.badge+'</div>'
-    +'<h1 style="font-size:'+h1size+';font-weight:900;line-height:1.1;color:'+t.tc+';margin-bottom:10px">'+ind.tagline(n,c)+'</h1>'
-    +'<p style="font-size:13px;color:'+t.mc+';line-height:1.65;margin-bottom:22px">'+ind.desc(n,c)+'</p>'
-    +'<div style="display:flex;gap:10px;margin-bottom:28px">'
-    +'<span style="background:'+a+';color:#fff;padding:11px 24px;border-radius:'+br+';font-size:13px;font-weight:700">Zadzwo\u0144 teraz</span>'
-    +'<span style="border:1.5px solid '+t.nb+';color:'+t.tc+';padding:9px 20px;border-radius:'+br+';font-size:13px">Bezp\u0142atna wycena</span>'
+    +'<h1 style="font-size:'+h1+';font-weight:900;line-height:1.1;color:'+t.tc+';margin-bottom:10px">'+ind.tagline(n,c)+'</h1>'
+    +'<p style="font-size:13px;color:'+t.mc+';line-height:1.6;margin-bottom:20px">'+ind.desc(n,c)+'</p>'
+    +'<div style="display:flex;gap:8px;margin-bottom:22px">'
+    +'<span style="background:'+a+';color:#fff;padding:10px 20px;border-radius:'+br+';font-size:12px;font-weight:700">Zadzwo\u0144 teraz</span>'
+    +'<span style="border:1.5px solid '+t.nb+';color:'+t.tc+';padding:8px 16px;border-radius:'+br+';font-size:12px">Wycena</span>'
     +'</div>'
-    +'<div style="display:flex;gap:24px">'
-    +'<div style="text-align:center"><div style="font-size:20px;font-weight:900;color:'+t.tc+'">4.9\u2605</div><div style="font-size:10px;color:'+t.mc+'">opinie</div></div>'
+    +'<div style="display:flex;gap:20px">'
+    +'<div style="text-align:center"><div style="font-size:18px;font-weight:900;color:'+t.tc+'">4.9\u2605</div><div style="font-size:10px;color:'+t.mc+'">opinie</div></div>'
     +'<div style="width:1px;background:'+t.nb+'"></div>'
-    +'<div style="text-align:center"><div style="font-size:20px;font-weight:900;color:'+t.tc+'">100+</div><div style="font-size:10px;color:'+t.mc+'">realizacji</div></div>'
+    +'<div style="text-align:center"><div style="font-size:18px;font-weight:900;color:'+t.tc+'">100+</div><div style="font-size:10px;color:'+t.mc+'">realizacji</div></div>'
     +'<div style="width:1px;background:'+t.nb+'"></div>'
-    +'<div style="text-align:center"><div style="font-size:20px;font-weight:900;color:'+t.tc+'">24/7</div><div style="font-size:10px;color:'+t.mc+'">dost\u0119pno\u015b\u0107</div></div>'
+    +'<div style="text-align:center"><div style="font-size:18px;font-weight:900;color:'+t.tc+'">24/7</div><div style="font-size:10px;color:'+t.mc+'">dost\u0119pno\u015b\u0107</div></div>'
     +'</div></div>'
-    +(isMob?'':'<div style="background:linear-gradient(145deg,'+ind.accentDark+','+a+');display:flex;align-items:center;justify-content:center">'
-    +'<div style="text-align:center;padding:40px">'
-    +'<div style="color:rgba(255,255,255,.8);font-size:24px;font-weight:900;margin-bottom:8px">'+n+'</div>'
-    +'<div style="color:rgba(255,255,255,.6);font-size:13px;margin-bottom:4px">\uD83D\uDCCD '+c+'</div>'
-    +'<div style="color:rgba(255,255,255,.6);font-size:13px">\uD83D\uDCDE '+p+'</div>'
-    +'</div></div>'
+    +(isMob?'':'<div style="background:linear-gradient(145deg,'+ind.accentDark+','+a+');display:flex;align-items:center;justify-content:center;padding:40px;text-align:center">'
+    +'<div><div style="color:rgba(255,255,255,.85);font-size:20px;font-weight:900;margin-bottom:6px">'+n+'</div>'
+    +'<div style="color:rgba(255,255,255,.6);font-size:12px">\uD83D\uDCCD '+c+'</div>'
+    +'<div style="color:rgba(255,255,255,.6);font-size:12px;margin-top:3px">\uD83D\uDCDE '+p+'</div></div></div>')
     +'</div>';
 
   // USLUGI
-  html += '<div style="background:'+t.pageBg+';padding:32px;border-top:1px solid '+t.nb+'">'
+  html+='<div style="background:'+t.pageBg+';padding:28px 28px;border-top:1px solid '+t.nb+'">'
     +'<div style="font-size:11px;font-weight:700;color:'+a+';letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Nasze us\u0142ugi</div>'
-    +'<div style="font-size:22px;font-weight:800;color:'+t.tc+';margin-bottom:16px">Co dla Ciebie zrobimy?</div>'
-    +'<div style="display:grid;grid-template-columns:'+(isMob?'1fr':'repeat(3,1fr)')+';gap:12px">'
+    +'<div style="font-size:20px;font-weight:800;color:'+t.tc+';margin-bottom:14px">Co dla Ciebie zrobimy?</div>'
+    +'<div style="display:grid;grid-template-columns:'+g3+';gap:10px">'
     +svc(0)+svc(1)+svc(2)
     +'</div></div>';
 
   // O FIRMIE
-  html += '<div style="background:'+t.heroBg+';padding:32px;border-top:1px solid '+t.nb+'">'
+  html+='<div style="background:'+t.heroBg+';padding:28px 28px;border-top:1px solid '+t.nb+'">'
     +'<div style="font-size:11px;font-weight:700;color:'+a+';letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">O firmie</div>'
-    +'<div style="font-size:22px;font-weight:800;color:'+t.tc+';margin-bottom:16px">Kim jeste\u015bmy?</div>'
-    +'<div style="display:grid;grid-template-columns:"+aboutCol+";gap:24px;align-items:start">'
+    +'<div style="font-size:20px;font-weight:800;color:'+t.tc+';margin-bottom:14px">Kim jeste\u015bmy?</div>'
+    +'<div style="display:grid;grid-template-columns:'+gAb+';gap:20px;align-items:start">'
     +'<div>'
-    +'<p style="font-size:13px;color:'+t.mc+';line-height:1.75;margin-bottom:12px">'+n+' to firma z wieloletnim do\u015bwiadczeniem dzia\u0142aj\u0105ca na terenie '+c+' i okolic. Specjalizujemy si\u0119 w szybkiej i profesjonalnej obs\u0142udze klient\u00f3w indywidualnych oraz firm.</p>'
-    +'<p style="font-size:13px;color:'+t.mc+';line-height:1.75">Gwarantujemy terminowo\u015b\u0107, rzetelno\u015b\u0107 i konkurencyjne ceny. Ka\u017cde zlecenie realizujemy z pe\u0142nym zaanga\u017cowaniem i dbałością o szczegóły. Zapraszamy do kontaktu!</p>'
+    +'<p style="font-size:13px;color:'+t.mc+';line-height:1.75;margin-bottom:10px">'+n+' to firma z wieloletnim do\u015bwiadczeniem dzia\u0142aj\u0105ca na terenie '+c+' i okolic.</p>'
+    +'<p style="font-size:13px;color:'+t.mc+';line-height:1.75">Gwarantujemy terminowo\u015b\u0107, rzetelno\u015b\u0107 i konkurencyjne ceny.</p>'
     +'</div>'
-    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'
     +stat('10+','lat na rynku')+stat('500+','realizacji')
-    +stat('4.9\u2605','\u015brednia ocena')+stat('24h','czas reakcji')
+    +stat('4.9\u2605','\u015brednio')+stat('24h','reakcja')
     +'</div></div></div>';
 
   // DLACZEGO MY
-  html += '<div style="background:'+t.pageBg+';padding:32px;border-top:1px solid '+t.nb+'">'
+  html+='<div style="background:'+t.pageBg+';padding:28px 28px;border-top:1px solid '+t.nb+'">'
     +'<div style="font-size:11px;font-weight:700;color:'+a+';letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Dlaczego my?</div>'
-    +'<div style="font-size:22px;font-weight:800;color:'+t.tc+';margin-bottom:16px">Nasze atuty</div>'
-    +'<div style="display:grid;grid-template-columns:"+(isMob?col2:col4)+";gap:12px">'
-    +why('\u26a1','Szybki dojazd','Na miejscu w 45 minut')
-    +why('\u2713','Gwarancja','2 lata na ka\u017cd\u0105 us\u0142ug\u0119')
-    +why('\uD83D\uDCB3','Faktura VAT','Dla firm i os\u00f3b prywatnych')
-    +why('\uD83D\uDCDE','Bezp\u0142atna wycena','Zadzwo\u0144, wycenimy za darmo')
+    +'<div style="font-size:20px;font-weight:800;color:'+t.tc+';margin-bottom:14px">Nasze atuty</div>'
+    +'<div style="display:grid;grid-template-columns:'+g4+';gap:10px">'
+    +why('\u26a1','Szybki dojazd','45 minut')
+    +why('\u2713','Gwarancja','2 lata')
+    +why('\uD83D\uDCB3','Faktura VAT','Firma i prywatnie')
+    +why('\uD83D\uDCDE','Wycena gratis','Zadzwo\u0144')
     +'</div></div>';
 
   // OPINIE
-  html += '<div style="background:'+t.heroBg+';padding:32px;border-top:1px solid '+t.nb+'">'
+  html+='<div style="background:'+t.heroBg+';padding:28px 28px;border-top:1px solid '+t.nb+'">'
     +'<div style="font-size:11px;font-weight:700;color:'+a+';letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Opinie klient\u00f3w</div>'
-    +'<div style="font-size:22px;font-weight:800;color:'+t.tc+';margin-bottom:16px">Co m\u00f3wi\u0105 o nas klienci?</div>'
-    +'<div style="display:grid;grid-template-columns:'+(isMob?'1fr':'repeat(3,1fr)')+';gap:12px">'
-    +review('Szybka obs\u0142uga, profesjonalizm na najwy\u017cszym poziomie. Polecam!','Jan K.')
-    +review('Fachowa robota, dojechali w ci\u0105gu godziny. Na pewno wr\u00f3c\u0119.','Anna M.')
-    +review('Bardzo solidna firma, uczciwe ceny. Nie ma co szuka\u0107 dalej.','Marek W.')
+    +'<div style="font-size:20px;font-weight:800;color:'+t.tc+';margin-bottom:14px">Co m\u00f3wi\u0105 klienci?</div>'
+    +'<div style="display:grid;grid-template-columns:'+g3+';gap:10px">'
+    +review('Szybka obs\u0142uga, profesjonalizm. Polecam!','Jan K.')
+    +review('Fachowa robota, dojechali w godzin\u0119.','Anna M.')
+    +review('Solidna firma, uczciwe ceny.','Marek W.')
     +'</div></div>';
 
-  // KONTAKT CTA
-  html += '<div style="background:'+a+';padding:40px 32px;text-align:center;border-top:1px solid rgba(255,255,255,.1)">'
-    +'<div style="font-size:26px;font-weight:900;color:#fff;margin-bottom:8px">Gotowy na wsp\u00f3\u0142prac\u0119?</div>'
-    +'<div style="font-size:14px;color:rgba(255,255,255,.8);margin-bottom:24px">Zadzwo\u0144 lub napisz \u2014 odpowiadamy w ci\u0105gu godziny. Us\u0142ugujemy '+c+' i okolice.</div>'
-    +'<div style="display:flex;justify-content:center;gap:12px">'
-    +'<span style="background:#fff;color:'+a+';padding:13px 32px;border-radius:'+br+';font-size:15px;font-weight:700">'+p+'</span>'
-    +'<span style="background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.4);padding:13px 28px;border-radius:'+br+';font-size:15px">Napisz do nas</span>'
+  // CTA
+  html+='<div style="background:'+a+';padding:32px 28px;text-align:center">'
+    +'<div style="font-size:22px;font-weight:900;color:#fff;margin-bottom:8px">Gotowy na wsp\u00f3\u0142prac\u0119?</div>'
+    +'<div style="font-size:13px;color:rgba(255,255,255,.8);margin-bottom:20px">'+c+' i okolice \u00b7 odpowiadamy w ci\u0105gu godziny</div>'
+    +'<div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap">'
+    +'<span style="background:#fff;color:'+a+';padding:11px 28px;border-radius:'+br+';font-size:14px;font-weight:700">'+p+'</span>'
+    +'<span style="background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.4);padding:11px 24px;border-radius:'+br+';font-size:14px">Napisz</span>'
     +'</div></div>';
 
   // FOOTER
-  html += '<div style="background:'+ind.accentDark+';padding:18px 32px;display:flex;justify-content:space-between;align-items:center">'
+  html+='<div style="background:'+ind.accentDark+';padding:14px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">'
     +'<span style="color:rgba(255,255,255,.9);font-size:13px;font-weight:700">'+n+'</span>'
-    +'<span style="color:rgba(255,255,255,.5);font-size:11px">'+p+' &nbsp;\u00b7&nbsp; '+c+'</span>'
+    +'<span style="color:rgba(255,255,255,.5);font-size:11px">'+p+' \u00b7 '+c+'</span>'
     +'<span style="color:rgba(255,255,255,.3);font-size:10px">Powered by webgen.pl</span>'
     +'</div>';
 
   return html;
 }
+
 
 function pvUpdate(){
   var n = document.getElementById('pv-name').value.trim();
