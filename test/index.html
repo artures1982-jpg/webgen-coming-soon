@@ -1836,13 +1836,13 @@ function ctaSubmit(e) {
 
 
 <!-- PREVIEW LIGHTBOX -->
-<div id="pv-lb-backdrop" style="position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.9);backdrop-filter:blur(12px);opacity:0;pointer-events:none;transition:opacity .25s ease" onclick="pvCloseLightbox()"></div>
+<div id="pv-lb-backdrop" style="position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.9);backdrop-filter:blur(12px);opacity:0;pointer-events:none;transition:opacity .25s ease" id="pv-lb-bd"></div>
 <div id="pv-lightbox" style="position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .25s ease">
   <div style="flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(8,10,15,.95)">
     <span id="pv-lb-url" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#8892AA;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);padding:4px 12px;border-radius:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:60vw"></span>
     <div style="display:flex;gap:8px;align-items:center">
       <span style="font-size:11px;color:#8892AA;display:none" id="pv-lb-esc">ESC aby zamknąć</span>
-      <button id="pv-lb-close" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:14px;padding:6px 14px;border-radius:7px;cursor:pointer;touch-action:manipulation">&#x2715;</button>
+      <button id="pv-lb-close" style="touch-action:manipulation;-webkit-tap-highlight-color:transparent;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:14px;padding:6px 14px;border-radius:7px;cursor:pointer;touch-action:manipulation">&#x2715;</button>
     </div>
   </div>
   <div style="flex:1;overflow-y:auto;overflow-x:auto;-webkit-overflow-scrolling:touch;background:#f1f5f9">
@@ -2096,8 +2096,8 @@ function pvOpenLightbox(){
   }
   var lb = document.getElementById('pv-lightbox');
   var bd = document.getElementById('pv-lb-backdrop');
-  lb.style.opacity = '1'; lb.style.pointerEvents = 'all';
-  bd.style.opacity = '1'; bd.style.pointerEvents = 'all';
+  lb.style.opacity = '1'; lb.style.pointerEvents = 'auto';
+  bd.style.opacity = '1'; bd.style.pointerEvents = 'auto';
   var esc = document.getElementById('pv-lb-esc');
   if(esc) esc.style.display = isMobile ? 'none' : 'inline';
   document.body.style.overflow = 'hidden';
@@ -2140,6 +2140,8 @@ document.addEventListener('DOMContentLoaded', function(){
   // Lightbox
   document.getElementById('pv-viewport-wrap').addEventListener('click', pvOpenLightbox);
   document.getElementById('pv-lb-close').addEventListener('click', pvCloseLightbox);
+  var bd2 = document.getElementById('pv-lb-bd');
+  if(bd2) bd2.addEventListener('click', pvCloseLightbox);
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape') pvCloseLightbox();
   });
