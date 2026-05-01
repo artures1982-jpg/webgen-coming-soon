@@ -1919,10 +1919,15 @@ function pvTheme(ind){
   return {accent:accent,pageBg:pageBg,navBg:navBg,heroBg:heroBg,tc:tc,mc:mc,nb:nb,cardBg:cardBg,cardBdr:cardBdr,br:br};
 }
 
-function pvBuildMock(ind, n, c, p){
+function pvBuildMock(ind, n, c, p, isMob){
   n = n||'Twoja Firma'; c = c||'Twoje Miasto'; p = p||'\u2014';
   var t = pvTheme(ind);
   var a=t.accent, br=t.br;
+  var col1='1fr', col2='1fr 1fr', col3='repeat(3,1fr)', col4='repeat(4,1fr)';
+  var heroCol=isMob?'1fr':'55% 45%';
+  var aboutCol=isMob?'1fr':'3fr 2fr';
+  var h1size=isMob?'22px':'32px';
+  var heroRightDisplay=isMob?'none':'flex';
 
   function svc(i){
     return '<div style="background:'+t.cardBg+';border:1px solid '+t.cardBdr+';border-radius:'+br+';padding:16px;border-top:3px solid '+a+'">'
@@ -1953,11 +1958,8 @@ function pvBuildMock(ind, n, c, p){
 
   var html = '';
 
-  // MOBILE STYLES
-  html += '<style>'+'@media(max-width:640px){'+'[data-mock] nav>div{display:none}'+'[data-mock] .mh{grid-template-columns:1fr!important}'+'[data-mock] .mh>div:last-child{min-height:140px!important}'+'[data-mock] h1{font-size:22px!important}'+'[data-mock] .mg3{grid-template-columns:1fr!important}'+'[data-mock] .mg4{grid-template-columns:1fr 1fr!important}'+'[data-mock] .mab{grid-template-columns:1fr!important}'+'[data-mock] .mrev{grid-template-columns:1fr!important}'+'[data-mock] .mstat{grid-template-columns:1fr 1fr!important}'+'}'+'</style>';
 
   // TOPBAR
-  html += '<div data-mock>';
   html += '<div style="background:'+a+';padding:5px 32px;display:flex;justify-content:space-between;align-items:center">'
     +'<span style="font-size:11px;color:rgba(255,255,255,.85)">\uD83D\uDCCD '+c+' &nbsp;\u00b7&nbsp; Czynne: 8:00\u201318:00</span>'
     +'<span style="font-size:13px;font-weight:700;color:#fff">\uD83D\uDCDE '+p+'</span>'
@@ -1967,19 +1969,19 @@ function pvBuildMock(ind, n, c, p){
   html += '<nav style="background:'+t.navBg+';padding:0 32px;height:58px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid '+t.nb+'">'
     +'<span style="font-size:17px;font-weight:900;color:'+t.tc+'">'+n+'</span>'
     +'<div style="display:flex;gap:20px;align-items:center">'
-    +'<span style="font-size:12px;color:'+t.mc+'">O nas</span>'
-    +'<span style="font-size:12px;color:'+t.mc+'">Us\u0142ugi</span>'
-    +'<span style="font-size:12px;color:'+t.mc+'">Cennik</span>'
-    +'<span style="font-size:12px;color:'+t.mc+'">Kontakt</span>'
+    +(isMob?'':'<span style="font-size:12px;color:'+t.mc+'">O nas</span>')
+    +(isMob?'':'<span style="font-size:12px;color:'+t.mc+'">Us\u0142ugi</span>')
+    +(isMob?'':'<span style="font-size:12px;color:'+t.mc+'">Cennik</span>')
+    +(isMob?'':'<span style="font-size:12px;color:'+t.mc+'">Kontakt</span>')
     +'<span style="background:'+a+';color:#fff;padding:8px 18px;border-radius:'+br+';font-size:12px;font-weight:700">Zadzwo\u0144</span>'
     +'</div></nav>';
 
   // HERO
-  html += '<div class="mh" style="display:grid;grid-template-columns:55% 45%">'
+  html += '<div style="display:grid;grid-template-columns:"+heroCol+">'
     +'<div style="background:'+t.heroBg+';padding:44px 40px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid '+t.nb+'">'
     +'<div style="display:inline-flex;align-items:center;gap:5px;background:'+a+'18;border:1px solid '+a+'44;border-radius:20px;padding:3px 12px;font-size:10px;font-weight:600;color:'+a+';margin-bottom:14px;width:fit-content">'
     +'<span style="width:5px;height:5px;border-radius:50%;background:#22c55e;display:inline-block"></span>'+ind.badge+'</div>'
-    +'<h1 style="font-size:32px;font-weight:900;line-height:1.1;color:'+t.tc+';margin-bottom:10px">'+ind.tagline(n,c)+'</h1>'
+    +'<h1 style="font-size:'+h1size+';font-weight:900;line-height:1.1;color:'+t.tc+';margin-bottom:10px">'+ind.tagline(n,c)+'</h1>'
     +'<p style="font-size:13px;color:'+t.mc+';line-height:1.65;margin-bottom:22px">'+ind.desc(n,c)+'</p>'
     +'<div style="display:flex;gap:10px;margin-bottom:28px">'
     +'<span style="background:'+a+';color:#fff;padding:11px 24px;border-radius:'+br+';font-size:13px;font-weight:700">Zadzwo\u0144 teraz</span>'
@@ -1992,7 +1994,7 @@ function pvBuildMock(ind, n, c, p){
     +'<div style="width:1px;background:'+t.nb+'"></div>'
     +'<div style="text-align:center"><div style="font-size:20px;font-weight:900;color:'+t.tc+'">24/7</div><div style="font-size:10px;color:'+t.mc+'">dost\u0119pno\u015b\u0107</div></div>'
     +'</div></div>'
-    +'<div style="background:linear-gradient(145deg,'+ind.accentDark+','+a+');display:flex;align-items:center;justify-content:center">'
+    +(isMob?'':'<div style="background:linear-gradient(145deg,'+ind.accentDark+','+a+');display:flex;align-items:center;justify-content:center">'
     +'<div style="text-align:center;padding:40px">'
     +'<div style="color:rgba(255,255,255,.8);font-size:24px;font-weight:900;margin-bottom:8px">'+n+'</div>'
     +'<div style="color:rgba(255,255,255,.6);font-size:13px;margin-bottom:4px">\uD83D\uDCCD '+c+'</div>'
@@ -2004,7 +2006,7 @@ function pvBuildMock(ind, n, c, p){
   html += '<div style="background:'+t.pageBg+';padding:32px;border-top:1px solid '+t.nb+'">'
     +'<div style="font-size:11px;font-weight:700;color:'+a+';letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Nasze us\u0142ugi</div>'
     +'<div style="font-size:22px;font-weight:800;color:'+t.tc+';margin-bottom:16px">Co dla Ciebie zrobimy?</div>'
-    +'<div class="mg3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">'
+    +'<div style="display:grid;grid-template-columns:'+(isMob?'1fr':'repeat(3,1fr)')+';gap:12px">'
     +svc(0)+svc(1)+svc(2)
     +'</div></div>';
 
@@ -2012,12 +2014,12 @@ function pvBuildMock(ind, n, c, p){
   html += '<div style="background:'+t.heroBg+';padding:32px;border-top:1px solid '+t.nb+'">'
     +'<div style="font-size:11px;font-weight:700;color:'+a+';letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">O firmie</div>'
     +'<div style="font-size:22px;font-weight:800;color:'+t.tc+';margin-bottom:16px">Kim jeste\u015bmy?</div>'
-    +'<div class="mab" style="display:grid;grid-template-columns:3fr 2fr;gap:24px;align-items:start">'
+    +'<div style="display:grid;grid-template-columns:"+aboutCol+";gap:24px;align-items:start">'
     +'<div>'
     +'<p style="font-size:13px;color:'+t.mc+';line-height:1.75;margin-bottom:12px">'+n+' to firma z wieloletnim do\u015bwiadczeniem dzia\u0142aj\u0105ca na terenie '+c+' i okolic. Specjalizujemy si\u0119 w szybkiej i profesjonalnej obs\u0142udze klient\u00f3w indywidualnych oraz firm.</p>'
     +'<p style="font-size:13px;color:'+t.mc+';line-height:1.75">Gwarantujemy terminowo\u015b\u0107, rzetelno\u015b\u0107 i konkurencyjne ceny. Ka\u017cde zlecenie realizujemy z pe\u0142nym zaanga\u017cowaniem i dbałością o szczegóły. Zapraszamy do kontaktu!</p>'
     +'</div>'
-    +'<div class="mstat" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'
     +stat('10+','lat na rynku')+stat('500+','realizacji')
     +stat('4.9\u2605','\u015brednia ocena')+stat('24h','czas reakcji')
     +'</div></div></div>';
@@ -2026,7 +2028,7 @@ function pvBuildMock(ind, n, c, p){
   html += '<div style="background:'+t.pageBg+';padding:32px;border-top:1px solid '+t.nb+'">'
     +'<div style="font-size:11px;font-weight:700;color:'+a+';letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Dlaczego my?</div>'
     +'<div style="font-size:22px;font-weight:800;color:'+t.tc+';margin-bottom:16px">Nasze atuty</div>'
-    +'<div class="mg4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">'
+    +'<div style="display:grid;grid-template-columns:"+(isMob?col2:col4)+";gap:12px">'
     +why('\u26a1','Szybki dojazd','Na miejscu w 45 minut')
     +why('\u2713','Gwarancja','2 lata na ka\u017cd\u0105 us\u0142ug\u0119')
     +why('\uD83D\uDCB3','Faktura VAT','Dla firm i os\u00f3b prywatnych')
@@ -2037,7 +2039,7 @@ function pvBuildMock(ind, n, c, p){
   html += '<div style="background:'+t.heroBg+';padding:32px;border-top:1px solid '+t.nb+'">'
     +'<div style="font-size:11px;font-weight:700;color:'+a+';letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Opinie klient\u00f3w</div>'
     +'<div style="font-size:22px;font-weight:800;color:'+t.tc+';margin-bottom:16px">Co m\u00f3wi\u0105 o nas klienci?</div>'
-    +'<div class="mrev" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">'
+    +'<div style="display:grid;grid-template-columns:'+(isMob?'1fr':'repeat(3,1fr)')+';gap:12px">'
     +review('Szybka obs\u0142uga, profesjonalizm na najwy\u017cszym poziomie. Polecam!','Jan K.')
     +review('Fachowa robota, dojechali w ci\u0105gu godziny. Na pewno wr\u00f3c\u0119.','Anna M.')
     +review('Bardzo solidna firma, uczciwe ceny. Nie ma co szuka\u0107 dalej.','Marek W.')
@@ -2059,7 +2061,6 @@ function pvBuildMock(ind, n, c, p){
     +'<span style="color:rgba(255,255,255,.3);font-size:10px">Powered by webgen.pl</span>'
     +'</div>';
 
-  html += '</div>'; // data-mock wrapper
   return html;
 }
 
@@ -2069,7 +2070,7 @@ function pvUpdate(){
   var p = document.getElementById('pv-phone').value.trim();
   var ind = pvIndustries.find(function(i){ return i.id === pvCurrent; });
   document.getElementById('pv-url').textContent = pvSlug(n||'twoja-firma')+'.webgen.pl';
-  document.getElementById('pv-frame').innerHTML = pvBuildMock(ind, n, c, p);
+  document.getElementById('pv-frame').innerHTML = pvBuildMock(ind, n, c, p, false);
   var vp = document.querySelector('.pv-viewport');
   if(vp){
     var scale = vp.offsetWidth / 1024;
@@ -2087,7 +2088,7 @@ function pvOpenLightbox(){
   var ind = pvIndustries.find(function(i){ return i.id === pvCurrent; });
   document.getElementById('pv-lb-url').textContent = pvSlug(n||'twoja-firma')+'.webgen.pl';
   var inner = document.getElementById('pv-lb-inner');
-  inner.innerHTML = pvBuildMock(ind, n, c, p);
+  inner.innerHTML = pvBuildMock(ind, n, c, p, (window.innerWidth < 768));
   var isMobile = window.innerWidth < 768;
   if(!isMobile){
     var mockEl = inner.firstElementChild;
