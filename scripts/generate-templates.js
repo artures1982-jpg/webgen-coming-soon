@@ -74,6 +74,7 @@ function buildTokenFirma(industry) {
   return {
     nazwa: '{{NAZWA_STRONY}}',
     nazwa_strony: '{{NAZWA_STRONY}}',
+    slug: '{{SLUG}}',
     branza: industry,
     miasto: '{{MIASTO}}',
     dzielnica: '',

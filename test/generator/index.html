@@ -2213,6 +2213,135 @@ function collectFirmaData() {
   };
 }
 
+// ─── GENEROWANIE Z SZABLONU (Faza 3: free / Faza 4: pro) ───
+function slugifyName(name) {
+  return (name || 'firma')
+    .toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, '-').trim().slice(0, 30) || 'firma';
+}
+
+// Podstawia tokeny {{...}} zamrożonego szablonu prawdziwymi danymi klienta — bez AI,
+// dla darmowej ścieżki. Lista tokenów musi być zgodna z buildTokenFirma() w
+// scripts/generate-templates.js.
+function fillTemplate(html, firma) {
+  var map = {
+    '{{NAZWA_STRONY}}': firma.nazwa_strony || firma.nazwa || firma.branza || 'Firma',
+    '{{MIASTO}}': firma.miasto || '',
+    '{{TELEFON}}': firma.telefon || '',
+    '{{EMAIL}}': firma.email || '',
+    '{{ADRES}}': firma.adres || '',
+    '{{GODZINY_PON_PT}}': firma.godz_pon_pt || '8:00–18:00',
+    '{{GODZINY_SOB}}': firma.godz_sob || '9:00–14:00',
+    '{{SLUG}}': slugifyName(firma.nazwa_strony || firma.nazwa),
+  };
+  var result = html;
+  Object.keys(map).forEach(function (token) { result = result.split(token).join(map[token]); });
+  return result;
+}
+
+function getAccountEmail() {
+  try {
+    var u = JSON.parse(localStorage.getItem('wg_user') || '{}');
+    var s = JSON.parse(localStorage.getItem('wg_session') || '{}');
+    return (s && s.email) || (u && u.email) || '';
+  } catch (e) { return ''; }
+}
+
+function saveQuestionnaireIfMissing(firma) {
+  var _missing = [];
+  if (!firma.adres)       _missing.push('adres');
+  if (!firma.godz_pon_pt) _missing.push('godz');
+  if (!firma.lata)        _missing.push('lata');
+  if (!firma.realizacje)  _missing.push('realizacje');
+  if (!firma.certyfikaty) _missing.push('certyfikaty');
+  if (!firma.instagram && !firma.facebook) _missing.push('social');
+  if (!firma.google_ocena) _missing.push('ocena');
+  if (_missing.length > 0) {
+    var _msgs = [];
+    try { _msgs = JSON.parse(localStorage.getItem('wg_messages') || '[]'); } catch (e) {}
+    _msgs.push({ id: Date.now(), type: 'questionnaire', date: new Date().toISOString(), read: false, answered: false, firma: firma, slug: state.slug, missing: _missing });
+    localStorage.setItem('wg_messages', JSON.stringify(_msgs));
+  }
+  var _userEmail = getAccountEmail();
+  if (_userEmail) {
+    fetch('/api/notify-client', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: _userEmail, firma: firma, slug: state.slug, hasMissing: _missing.length > 0 })
+    }).catch(function () {});
+  }
+}
+
+function finishGenerationFromTemplate(html, _gfs, _clearAll) {
+  state.generatedHTML = html;
+  if (_clearAll) _clearAll();
+  if (_gfs) _gfs.classList.remove('active');
+  try { saveQuestionnaireIfMissing(collectFirmaData()); } catch (e) {}
+  selectVariant(state.templateTier || 'classic');
+}
+
+async function startFromTemplate(firma, _gfs, _clearAll, _fillEl) {
+  var tpl = TEMPLATES_MANIFEST.filter(function (t) { return t.id === state.templateId; })[0];
+  if (!tpl) {
+    if (_clearAll) _clearAll();
+    if (_gfs) _gfs.classList.remove('active');
+    alert('Nie znaleziono wybranego szablonu — wróć do Galerii Startowej i wybierz ponownie.');
+    setStep(1);
+    return;
+  }
+  state.slug = slugifyName(firma.nazwa_strony || firma.nazwa);
+
+  if (state.templateTier === 'free') {
+    try {
+      var res = await fetch('/templates/' + tpl.file);
+      if (!res.ok) throw new Error('Nie udało się pobrać pliku szablonu (' + res.status + ')');
+      var raw = await res.text();
+      if (_fillEl) { _fillEl.style.transition = 'width .3s'; _fillEl.style.width = '100%'; }
+      finishGenerationFromTemplate(fillTemplate(raw, firma), _gfs, _clearAll);
+    } catch (err) {
+      if (_clearAll) _clearAll();
+      if (_gfs) _gfs.classList.remove('active');
+      alert('Błąd wczytywania szablonu: ' + err.message);
+      setStep(6);
+    }
+    return;
+  }
+
+  // pro — pełna personalizacja AI
+  var email = getAccountEmail();
+  if (!email) {
+    if (_clearAll) _clearAll();
+    if (_gfs) _gfs.classList.remove('active');
+    alert('Zaloguj się, żeby użyć personalizacji AI.');
+    setStep(6);
+    return;
+  }
+  try {
+    var r = await fetch('/api/personalize', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ templateId: state.templateId, firma: firma, email: email })
+    });
+    var data = await r.json();
+    if (!data.success || !data.html) {
+      if (data.code === 'PRO_REQUIRED') {
+        if (_clearAll) _clearAll();
+        if (_gfs) _gfs.classList.remove('active');
+        openCheckout();
+        return;
+      }
+      throw new Error(data.error || 'Nie udało się spersonalizować strony');
+    }
+    if (data.slug) state.slug = data.slug;
+    if (_fillEl) { _fillEl.style.transition = 'width .3s'; _fillEl.style.width = '100%'; }
+    finishGenerationFromTemplate(data.html, _gfs, _clearAll);
+  } catch (err) {
+    if (_clearAll) _clearAll();
+    if (_gfs) _gfs.classList.remove('active');
+    alert('Błąd personalizacji: ' + err.message);
+    setStep(6);
+  }
+}
+
 // ─── GENERATE ───
 async function startGenerate() {
   if (!validateStep(4)) return;
@@ -2239,17 +2368,29 @@ async function startGenerate() {
     if (_fillEl) _fillEl.style.width = _prog+'%';
   }, 800);
 
-  // Live messages
-  var _msgs = [
-    ['Analizuję branżę…', firma.branza+' w '+firma.miasto],
-    ['Piszę treści SEO…', 'Nagłówki, opisy usług, meta tagi'],
-    ['Generuję styl Klasyczny…', 'Ciepły, lokalny, profesjonalny'],
-    ['Generuję styl Nowoczesny…', 'Dark mode, neon, glassmorphism'],
-    ['Generuję styl Elegancki…', 'Minimalistyczny, złote akcenty'],
-    ['Optymalizuję strukturę…', 'Schema.org, responsywność, CTA'],
-    ['Finalizuję warianty…', 'Sprawdzam kompletność HTML'],
-    ['Prawie gotowe!', 'Zaraz zobaczysz 3 warianty strony…'],
-  ];
+  // Live messages — różne w zależności od ścieżki (szablon free/pro vs stare generowanie od zera)
+  var _msgs = state.templateId
+    ? (state.templateTier === 'pro'
+        ? [
+            ['Analizuję Twoje dane…', firma.branza+' w '+firma.miasto],
+            ['Personalizuję wybrany szablon…', 'Treść, zdjęcia i kolory dopasowane do Ciebie'],
+            ['Optymalizuję SEO…', 'Meta tagi, Schema.org, nagłówki'],
+            ['Prawie gotowe!', 'Zaraz zobaczysz swoją stronę…'],
+          ]
+        : [
+            ['Wypełniam szablon Twoimi danymi…', firma.branza+' w '+firma.miasto],
+            ['Prawie gotowe!', 'Zaraz zobaczysz swoją stronę…'],
+          ])
+    : [
+        ['Analizuję branżę…', firma.branza+' w '+firma.miasto],
+        ['Piszę treści SEO…', 'Nagłówki, opisy usług, meta tagi'],
+        ['Generuję styl Klasyczny…', 'Ciepły, lokalny, profesjonalny'],
+        ['Generuję styl Nowoczesny…', 'Dark mode, neon, glassmorphism'],
+        ['Generuję styl Elegancki…', 'Minimalistyczny, złote akcenty'],
+        ['Optymalizuję strukturę…', 'Schema.org, responsywność, CTA'],
+        ['Finalizuję warianty…', 'Sprawdzam kompletność HTML'],
+        ['Prawie gotowe!', 'Zaraz zobaczysz 3 warianty strony…'],
+      ];
   var _msgIdx=0, _msgEl=document.getElementById('gen-live-msg'), _subEl=document.getElementById('gen-live-sub');
   var _msgIv = setInterval(function() {
     if (_msgIdx < _msgs.length) {
@@ -2261,7 +2402,14 @@ async function startGenerate() {
 
   function _clearAll() { clearInterval(_timerIv); clearInterval(_progIv); clearInterval(_msgIv); }
 
-  // 3 równoległe fetch — classic / modern / elegant
+  // Ścieżka z Galerii Startowej (Faza 3/4) — tylko jeśli wybrano szablon. Bez wybranego
+  // szablonu (dziś: manifest pusty, czeka na Fazę 1) zachowujemy stare zachowanie niżej,
+  // żeby generator dalej działał zanim realne szablony powstaną.
+  if (state.templateId) {
+    return startFromTemplate(firma, _gfs, _clearAll, _fillEl);
+  }
+
+  // 3 równoległe fetch — classic / modern / elegant (stara ścieżka, bez szablonu)
   state.variants = {};
   state.slug = null;
   var styles = ['classic','modern','elegant'];
