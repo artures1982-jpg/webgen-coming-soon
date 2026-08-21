@@ -62,9 +62,10 @@ module.exports = async (req, res) => {
 </table>
 </body></html>`;
 
+  let emailSent = false;
   try {
     if (RESEND_API_KEY) {
-      await fetch('https://api.resend.com/emails', {
+      const sendRes = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -74,6 +75,11 @@ module.exports = async (req, res) => {
           html,
         }),
       });
+      emailSent = sendRes.ok;
+      if (!sendRes.ok) {
+        const errBody = await sendRes.text();
+        console.error('register: Resend activation email failed', sendRes.status, errBody);
+      }
       // Notyfikacja admina
       fetch('https://api.resend.com/emails', {
         method: 'POST',
@@ -84,11 +90,15 @@ module.exports = async (req, res) => {
           subject: `Nowa rejestracja: ${email}`,
           html: `<p><b>${email}</b> (${name || 'brak imienia'}) — ${new Date().toLocaleString('pl-PL')}</p>`,
         }),
-      }).catch(() => {});
+      }).then((r) => { if (!r.ok) r.text().then((t) => console.error('register: admin notify failed', r.status, t)); }).catch((e) => console.error('register: admin notify error', e));
+    } else {
+      console.error('register: RESEND_API_KEY not set — no activation email sent');
     }
-    return res.status(200).json({ ok: true });
+    // ok:true niezależnie od stanu maila — nie blokujemy rejestracji w localStorage na tym,
+    // ale emailSent:false pozwala frontendowi/logom odróżnić realną awarię wysyłki.
+    return res.status(200).json({ ok: true, emailSent });
   } catch (err) {
     console.error('register error:', err);
-    return res.status(200).json({ ok: true, note: 'fallback' });
+    return res.status(200).json({ ok: true, emailSent: false, note: 'fallback' });
   }
 };
