@@ -783,15 +783,17 @@ function renderSubscriptionPage(data) {
 }
 
 // ── ADDONS PAGE ───────────────────────────────────────────────────
+// 7 dodatków à la carte nad planem Pro (Faza 5) — id musi się zgadzać z ADDON_PRICES
+// w api/create-checkout.js. seo_dzielnice/seo_miasto/jezyk_en_ua zniknęły — SEO jest
+// teraz wbudowane w plan Pro.
 var ADDON_CATALOG = [
-  {id:'seo_dzielnice', icon:'🗺️', name:'SEO Dzielnice', desc:'Widoczność w 3 dodatkowych dzielnicach — osobne podstrony per obszar', price:'+199 zł/mies.', active:false},
-  {id:'seo_miasto',    icon:'🏙️', name:'SEO Miasto',    desc:'Frazy ogólnomiejskie bez podziału na dzielnice — szerszy zasięg',    price:'+349 zł/mies.', active:false},
-  {id:'jezyk_en_ua',  icon:'🌍', name:'Wersja EN/UA',   desc:'Strona w języku angielskim lub ukraińskim dla klientów zagranicznych', price:'+99 zł/mies.', active:false},
-  {id:'priorytet',    icon:'🚀', name:'Priorytetowe wsparcie', desc:'Odpowiedź w 4h, dedykowany czat, szybsze aktualizacje',       price:'+99 zł/mies.', active:false},
-  {id:'gbp',          icon:'📍', name:'Google Business Profile', desc:'Zakładamy i optymalizujemy profil w Google Maps z opiniami', price:'+149 zł/mies.', active:false},
-  {id:'domena',       icon:'🔗', name:'Własna domena',  desc:'Rejestracja i konfiguracja domeny .pl/.com na rok',                  price:'199 zł', once:true, active:false},
-  {id:'podstrony',    icon:'📄', name:'Dodatkowe podstrony', desc:'Do 3 dodatkowych podstron (o nas, galeria, referencje itp.)',   price:'149 zł', once:true, active:false},
-  {id:'sesja_ai',     icon:'📸', name:'Sesja zdjęciowa AI', desc:'Profesjonalne zdjęcia AI dopasowane do branży i stylu strony',  price:'99 zł', once:true, active:false},
+  {id:'priorytetowe_wsparcie', icon:'🚀', name:'Priorytetowe wsparcie',   desc:'Odpowiedź w 4h, dedykowany czat, szybsze aktualizacje',       price:'+99 zł/mies.', active:false},
+  {id:'google_business',       icon:'📍', name:'Google Business Profile', desc:'Zakładamy i optymalizujemy profil w Google Maps z opiniami',  price:'+149 zł/mies.', active:false},
+  {id:'social_media',          icon:'📱', name:'Integracja Social Media', desc:'Live feed z Instagram/Facebook wpięty w Twoją stronę',        price:'+79 zł/mies.', active:false},
+  {id:'statystyki',            icon:'📊', name:'Statystyki odwiedzin',   desc:'Panel z ruchem na stronie, źródłami i konwersjami',           price:'+49 zł/mies.', active:false},
+  {id:'wlasna_domena',         icon:'🔗', name:'Własna domena',          desc:'Podpięcie Twojej domeny + konfiguracja DNS i SSL',            price:'199 zł', once:true, active:false},
+  {id:'dodatkowe_podstrony',   icon:'📄', name:'Dodatkowe podstrony',    desc:'3 osobne podstrony ofertowe (np. per usługa lub lokalizacja)', price:'149 zł', once:true, active:false},
+  {id:'sesja_ai',              icon:'📸', name:'Sesja zdjęciowa AI',     desc:'Zdjęcia AI dopasowane do branży i klimatu firmy',             price:'99 zł', once:true, active:false},
 ];
 
 function renderAddonsPage(data) {
@@ -827,9 +829,7 @@ function renderAddonsPage(data) {
   once.forEach(function(a){ html += addonRow(a, a.active); });
   html += '</div>';
 
-  html += '<div class="info-box">Chcesz aktywować dodatek? Napisz do nas na '
-    + '<a href="mailto:hello@webgen.pl" style="color:var(--green)">hello@webgen.pl</a> '
-    + 'lub odwiedź <a href="/test/generator/" style="color:var(--green)">Generator → krok 5</a>.</div>';
+  html += '<div class="info-box">Dodatki działają w ramach planu Pro — jeśli nie masz go jeszcze aktywnego, checkout doda go razem z wybranym dodatkiem.</div>';
 
   container.innerHTML = html;
 }
@@ -845,8 +845,32 @@ function addonRow(a, isActive) {
     + '<div class="addon-row-status">'
     + (isActive
         ? '<span class="status-badge active"><span class="status-dot"></span>Aktywny</span>'
-        : '<a href="mailto:hello@webgen.pl?subject=Aktywacja dodatku: ' + a.name + '" class="btn btn-outline btn-sm">Dodaj</a>')
+        : '<button type="button" onclick="activateAddon(\'' + a.id + '\')" class="btn btn-outline btn-sm">Dodaj</button>')
     + '</div></div>';
+}
+
+function activateAddon(addonId) {
+  var email = userData.email;
+  if (!email) { alert('Zaloguj się ponownie, żeby dokupić dodatek.'); return; }
+  var generated = null;
+  try { generated = JSON.parse(localStorage.getItem('wg_generated') || 'null'); } catch (e) {}
+  fetch('/api/create-checkout', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      plan: 'pro',
+      billing: 'month',
+      addons: [addonId],
+      firma_slug: (generated && generated.slug) || '',
+      email: email
+    })
+  })
+  .then(function (res) { return res.json(); })
+  .then(function (data) {
+    if (data.checkout_url) window.location.href = data.checkout_url;
+    else alert('Błąd: ' + (data.error || 'nie udało się utworzyć płatności'));
+  })
+  .catch(function () { alert('Błąd połączenia — spróbuj ponownie.'); });
 }
 
 // ── WEBSITE PAGE ──────────────────────────────────────────────────

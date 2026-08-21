@@ -1,37 +1,46 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
+// Model Free/Pro (Faza 5 przebudowy cennika) — jeden płatny plan zamiast START/PRO/PREMIUM.
 const PRICES = {
-  managed_start:              process.env.STRIPE_PRICE_MANAGED_START,
-  managed_start_yearly:       process.env.STRIPE_PRICE_MANAGED_START_YEARLY,
-  managed_pro:                process.env.STRIPE_PRICE_MANAGED_PRO,
-  managed_pro_yearly:         process.env.STRIPE_PRICE_MANAGED_PRO_YEARLY,
-  managed_premium:            process.env.STRIPE_PRICE_MANAGED_PREMIUM,
+  pro:                        process.env.STRIPE_PRICE_PRO,
+  pro_yearly:                 process.env.STRIPE_PRICE_PRO_YEARLY,
 };
 
+// 7 dodatków à la carte nad planem Pro. SEO i formularz/rezerwacje są teraz wbudowane w Pro,
+// więc seo_dzielnice/seo_miasto/wersja_jezykowa zniknęły stąd (patrz plan Fazy 5).
 const ADDON_PRICES = {
-  seo_dzielnice:              process.env.STRIPE_PRICE_ADDON_SEO_DZIELNICE,
-  seo_miasto:                 process.env.STRIPE_PRICE_ADDON_SEO_MIASTO,
-  wersja_jezykowa:            process.env.STRIPE_PRICE_ADDON_WERSJA_JEZYKOWA,
-  priorytetowe_wsparcie:      process.env.STRIPE_PRICE_ADDON_PRIORYTETOWE,
   wlasna_domena:              process.env.STRIPE_PRICE_ADDON_DOMENA,
+  social_media:               process.env.STRIPE_PRICE_ADDON_SOCIAL_MEDIA,
+  statystyki:                 process.env.STRIPE_PRICE_ADDON_STATYSTYKI,
   dodatkowe_podstrony:        process.env.STRIPE_PRICE_ADDON_PODSTRONY,
-  google_business:            process.env.STRIPE_PRICE_ADDON_GBP,
   sesja_ai:                   process.env.STRIPE_PRICE_ADDON_SESJA_AI,
-  };
+  google_business:            process.env.STRIPE_PRICE_ADDON_GBP,
+  priorytetowe_wsparcie:      process.env.STRIPE_PRICE_ADDON_PRIORYTETOWE,
+};
+
+// Dodatki jednorazowe (Stripe Checkout mode:'payment') vs cykliczne (mode:'subscription').
+// wlasna_domena i dodatkowe_podstrony i sesja_ai to setup jednorazowy; reszta miesięczna.
+const ONE_TIME_ADDONS = { wlasna_domena: true, dodatkowe_podstrony: true, sesja_ai: true };
 
 module.exports = async function(req, res) {
   if (req.method !== "POST") return res.status(405).json({error:"Method not allowed"});
   const { plan, billing, addons, firma_slug, email } = req.body;
 
-  var planKey = plan;
-  if (billing === 'year' && PRICES[plan + '_yearly']) {
-    planKey = plan + '_yearly';
+  var lineItems = [];
+  var hasRecurring = false;
+
+  // plan jest opcjonalny — pusty gdy klient z panelu klienta dokupuje sam dodatek
+  // do już aktywnego planu Pro (patrz test/dashboard/index.html addonRow()).
+  if (plan) {
+    var planKey = plan;
+    if (billing === 'year' && PRICES[plan + '_yearly']) {
+      planKey = plan + '_yearly';
+    }
+    const planPriceId = PRICES[planKey];
+    if (!planPriceId) return res.status(400).json({error: "Unknown plan: " + planKey});
+    lineItems.push({ price: planPriceId, quantity: 1 });
+    hasRecurring = true;
   }
-
-  const planPriceId = PRICES[planKey];
-  if (!planPriceId) return res.status(400).json({error: "Unknown plan: " + planKey});
-
-  var lineItems = [{ price: planPriceId, quantity: 1 }];
 
   if (Array.isArray(addons)) {
     for (var i = 0; i < addons.length; i++) {
@@ -39,12 +48,17 @@ module.exports = async function(req, res) {
       var addonPriceId = ADDON_PRICES[addonId];
       if (addonPriceId) {
         lineItems.push({ price: addonPriceId, quantity: 1 });
+        if (!ONE_TIME_ADDONS[addonId]) hasRecurring = true;
       }
     }
   }
 
+  if (lineItems.length === 0) return res.status(400).json({error: "Brak pozycji do zakupu"});
+
   try {
-    var mode = 'subscription';
+    // Stripe wymaga mode:'subscription' tylko gdy jest co najmniej 1 cena cykliczna;
+    // sam zakup jednorazowego dodatku (bez planu) idzie przez mode:'payment'.
+    var mode = hasRecurring ? 'subscription' : 'payment';
     var session = await stripe.checkout.sessions.create({
       mode: mode,
       payment_method_types: ["card"],

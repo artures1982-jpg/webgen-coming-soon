@@ -1000,8 +1000,8 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
     <div id="sidebar-plan-pill" style="display:none;margin-top:auto;padding:10px 14px;background:rgba(0,229,160,.07);border:1px solid rgba(0,229,160,.18);border-radius:9px">
       <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green);opacity:.7;margin-bottom:4px">Wybrany plan</div>
       <div style="display:flex;align-items:baseline;gap:6px">
-        <span id="cp-plan-name" style="font-size:13px;font-weight:700;color:var(--text)">Managed START</span>
-        <span id="cp-total-price" style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--green)">299 zł/mies.</span>
+        <span id="cp-plan-name" style="font-size:13px;font-weight:700;color:var(--text)">Free</span>
+        <span id="cp-total-price" style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--green)">Bezpłatny</span>
       </div>
     </div>
   </div>
@@ -1491,46 +1491,35 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
       </div>
 
       <div class="plan-grid">
-        <div class="plan-card" onclick="selectPlan(this,'free','Free','0')">
+        <div class="plan-card featured-card selected" onclick="selectPlan(this,'free','Free','0')">
           <div class="pc-name">Free</div>
           <div class="pc-price">0 <sub>zł/mies.</sub></div>
-          <div class="pc-desc">Przetestuj przez 3 miesiące na subdomenie webgen.pl</div>
+          <div class="pc-desc">Przeglądaj i aktywuj gotowy szablon — bez karty</div>
           <div class="pc-features">
-            <div class="pcf"><span class="pcf-check">✓</span>Strona AI wygenerowana</div>
-            <div class="pcf"><span class="pcf-check">✓</span>3 miesiące online</div>
-            <div class="pcf" style="opacity:.4"><span>–</span> Własna domena</div>
-            <div class="pcf" style="opacity:.4"><span>–</span> Lokalne SEO</div>
+            <div class="pcf"><span class="pcf-check">✓</span>Pełna Galeria Startowa szablonów</div>
+            <div class="pcf"><span class="pcf-check">✓</span>Hosting na subdomenie webgen.pl</div>
+            <div class="pcf" style="opacity:.4"><span>–</span> Szablony Pro + personalizacja AI</div>
+            <div class="pcf" style="opacity:.4"><span>–</span> Lokalne SEO + formularz kontaktowy</div>
           </div>
         </div>
-        <div class="plan-card featured-card selected" onclick="selectPlan(this,'managed_start','Managed START','299')">
-          <div class="plan-badge">NAJPOPULARNIEJSZY</div>
-          <div class="pc-name">Managed START</div>
-          <div class="pc-price" id="start-price-display">299 <sub>zł/mies.</sub></div>
-          <div class="pc-desc">My robimy wszystko — Ty odbierasz telefony</div>
-          <div class="pc-features">
-            <div class="pcf"><span class="pcf-check">✓</span>Własna domena</div>
-            <div class="pcf"><span class="pcf-check">✓</span>Lokalne SEO</div>
-            <div class="pcf"><span class="pcf-check">✓</span>Aktualizacje przez email</div>
-            <div class="pcf"><span class="pcf-check">✓</span>PageSpeed 90+</div>
-          </div>
-        </div>
-        <div class="plan-card" onclick="selectPlan(this,'managed_pro','Managed PRO','399')">
-          <div class="pc-name">Managed PRO</div>
+        <div class="plan-card" onclick="selectPlan(this,'pro','Pro','399')">
+          <div class="plan-badge">DLA ROSNĄCEJ FIRMY</div>
+          <div class="pc-name">Pro</div>
           <div class="pc-price" id="pro-price-display">399 <sub>zł/mies.</sub></div>
-          <div class="pc-desc">START + raporty SEO + blog + aktywna optymalizacja</div>
+          <div class="pc-desc">Szablony Pro + AI dopasowuje treść, zdjęcia i kolory</div>
           <div class="pc-features">
-            <div class="pcf"><span class="pcf-check">✓</span>Wszystko z START</div>
-            <div class="pcf"><span class="pcf-check">✓</span>Raporty SEO miesięcznie</div>
-            <div class="pcf"><span class="pcf-check">✓</span>Blog 2 wpisy/mies.</div>
-            <div class="pcf"><span class="pcf-check">✓</span>5 podstron dzielnic</div>
+            <div class="pcf"><span class="pcf-check">✓</span>Wszystko z Free</div>
+            <div class="pcf"><span class="pcf-check">✓</span>Dostęp do szablonów Pro</div>
+            <div class="pcf"><span class="pcf-check">✓</span>Pełna personalizacja AI</div>
+            <div class="pcf"><span class="pcf-check">✓</span>Lokalne SEO + formularz kontaktowy</div>
           </div>
         </div>
       </div>
 
-      <!-- HERO PHOTO — tylko dla Managed PREMIUM -->
+      <!-- HERO PHOTO — tylko dla planu Pro -->
       <div id="hero-section" style="display:none;margin-top:28px">
         <div class="field">
-          <label>Zdjęcie hero <span style="font-family:var(--mono);font-size:10px;color:var(--green);margin-left:6px">PREMIUM</span></label>
+          <label>Zdjęcie hero <span style="font-family:var(--mono);font-size:10px;color:var(--green);margin-left:6px">PRO</span></label>
           <button type="button" onclick="openPexels('hero')" class="btn-pexels" id="btn-pexels-hero">
             🖼️ Wybierz zdjęcie hero z Pexels
           </button>
@@ -1567,34 +1556,24 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
       <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:12px">// Miesięczne</div>
       <div class="addon-list">
 
-        <div class="addon-item" onclick="toggleAddon(this,'seo_dzielnice','SEO Dzielnice',199,'month')">
+        <div class="addon-item" onclick="toggleAddon(this,'social_media','Integracja Social Media',79,'month')">
           <div class="addon-check">✓</div>
-          <div class="addon-icon-wrap">🗺️</div>
+          <div class="addon-icon-wrap">📱</div>
           <div class="addon-info">
-            <div class="addon-name">SEO Dzielnice</div>
-            <div class="addon-desc">Widoczność w 3 dodatkowych dzielnicach — osobne podstrony per obszar</div>
+            <div class="addon-name">Integracja Social Media</div>
+            <div class="addon-desc">Live feed z Instagram/Facebook wpięty w Twoją stronę</div>
           </div>
-          <div><div class="addon-price-tag">+199 zł</div><span class="addon-price-type">miesięcznie</span></div>
+          <div><div class="addon-price-tag">+79 zł</div><span class="addon-price-type">miesięcznie</span></div>
         </div>
 
-        <div class="addon-item" onclick="toggleAddon(this,'seo_miasto','SEO Miasto',349,'month')">
+        <div class="addon-item" onclick="toggleAddon(this,'statystyki','Statystyki odwiedzin',49,'month')">
           <div class="addon-check">✓</div>
-          <div class="addon-icon-wrap">🏙️</div>
+          <div class="addon-icon-wrap">📊</div>
           <div class="addon-info">
-            <div class="addon-name">SEO Miasto</div>
-            <div class="addon-desc">Frazy ogólnomiejskie bez podziału na dzielnice — szerszy zasięg</div>
+            <div class="addon-name">Statystyki odwiedzin</div>
+            <div class="addon-desc">Panel z ruchem na stronie, źródłami i konwersjami</div>
           </div>
-          <div><div class="addon-price-tag">+349 zł</div><span class="addon-price-type">miesięcznie</span></div>
-        </div>
-
-        <div class="addon-item" onclick="toggleAddon(this,'wersja_jezykowa','Wersja językowa EN/UA',99,'month')">
-          <div class="addon-check">✓</div>
-          <div class="addon-icon-wrap">🌐</div>
-          <div class="addon-info">
-            <div class="addon-name">Wersja językowa EN/UA</div>
-            <div class="addon-desc">Strona w wersji angielskiej lub ukraińskiej dla klientów zagranicznych</div>
-          </div>
-          <div><div class="addon-price-tag">+99 zł</div><span class="addon-price-type">miesięcznie</span></div>
+          <div><div class="addon-price-tag">+49 zł</div><span class="addon-price-type">miesięcznie</span></div>
         </div>
 
         <div class="addon-item" onclick="toggleAddon(this,'priorytetowe_wsparcie','Priorytetowe wsparcie',99,'month')">
@@ -1654,9 +1633,9 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
       </div>
 
       <div class="addon-summary">
-        <div class="as-row"><span>Plan</span><span id="as-plan-price">299 zł/mies.</span></div>
+        <div class="as-row"><span>Plan</span><span id="as-plan-price">bezpłatny</span></div>
         <div id="as-addon-rows"></div>
-        <div class="as-row total"><span>Razem</span><span id="as-total">299 zł</span></div>
+        <div class="as-row total"><span>Razem</span><span id="as-total">0 zł</span></div>
       </div>
 
       <div class="nav-btns">
@@ -1687,42 +1666,28 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
         <div>
           <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)">Wybierz plan</div>
 
-          <div class="plan6-card" id="p6-managed_start" onclick="selectPlan6('managed_start','Managed START',299)"
+          <div class="plan6-card" id="p6-free" onclick="selectPlan6('free','Free',0)"
             style="position:relative;background:var(--s2);border:1.5px solid var(--green);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;transition:all .2s">
             <div class="p6-badge" style="position:absolute;top:-9px;right:10px;background:var(--green);color:#080A0F;font-size:9px;font-weight:800;padding:2px 9px;border-radius:10px;font-family:var(--mono)">WYBRANY</div>
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-              <div style="font-size:14px;font-weight:700;color:var(--text)">Managed START</div>
-              <div style="font-family:var(--mono);font-size:17px;font-weight:700;color:var(--green)">249 zł<span style="font-size:11px;color:var(--muted)">/mies.</span></div>
+              <div style="font-size:14px;font-weight:700;color:var(--text)">Free</div>
+              <div style="font-family:var(--mono);font-size:17px;font-weight:700;color:var(--green)">0 zł<span style="font-size:11px;color:var(--muted)">/mies.</span></div>
             </div>
             <div style="font-size:11px;color:var(--muted);line-height:1.6">
-              <span style="color:var(--green)">✓</span> Własna domena + lokalne SEO<br>
-              <span style="color:var(--green)">✓</span> Aktualizacje przez email<br>
-              <span style="color:var(--green)">✓</span> PageSpeed 90+
+              <span style="color:var(--green)">✓</span> Pełna Galeria Startowa<br>
+              <span style="color:var(--green)">✓</span> Hosting na subdomenie webgen.pl
             </div>
           </div>
 
-          <div class="plan6-card" id="p6-managed_pro" onclick="selectPlan6('managed_pro','Managed PRO',399)"
-            style="position:relative;background:var(--s2);border:1.5px solid var(--border);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;transition:all .2s">
+          <div class="plan6-card" id="p6-pro" onclick="selectPlan6('pro','Pro',399)"
+            style="position:relative;background:var(--s2);border:1.5px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all .2s">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-              <div style="font-size:14px;font-weight:700;color:var(--text)">Managed PRO</div>
+              <div style="font-size:14px;font-weight:700;color:var(--text)">Pro</div>
               <div style="font-family:var(--mono);font-size:17px;font-weight:700;color:var(--text)">399 zł<span style="font-size:11px;color:var(--muted)">/mies.</span></div>
             </div>
             <div style="font-size:11px;color:var(--muted);line-height:1.6">
-              <span style="color:var(--green)">✓</span> Wszystko z START<br>
-              <span style="color:var(--green)">✓</span> Raport SEO + blog 2 wpisy/mies.<br>
-              <span style="color:var(--green)">✓</span> 5 podstron dzielnicowych
-            </div>
-          </div>
-
-          <div class="plan6-card" id="p6-managed_premium" onclick="selectPlan6('managed_premium','Managed PREMIUM',599)"
-            style="position:relative;background:var(--s2);border:1.5px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all .2s">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-              <div style="font-size:14px;font-weight:700;color:var(--text)">Managed PREMIUM</div>
-              <div style="font-family:var(--mono);font-size:17px;font-weight:700;color:var(--text)">599 zł<span style="font-size:11px;color:var(--muted)">/mies.</span></div>
-            </div>
-            <div style="font-size:11px;color:var(--muted);line-height:1.6">
-              <span style="color:var(--green)">✓</span> PRO + kampanie Ads<br>
-              <span style="color:var(--green)">✓</span> 4 wpisy/mies. + dedykowany opiekun
+              <span style="color:var(--green)">✓</span> Szablony Pro + personalizacja AI<br>
+              <span style="color:var(--green)">✓</span> Lokalne SEO + formularz kontaktowy
             </div>
           </div>
         </div>
@@ -1737,12 +1702,12 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
       <div style="background:var(--s2);border:1px solid var(--border2);border-radius:10px;padding:16px 18px;margin-bottom:20px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
           <span style="font-size:13px;color:var(--muted)">Wybrany plan:</span>
-          <span style="font-size:14px;font-weight:700;color:var(--text)" id="s6-plan-name">Managed START</span>
+          <span style="font-size:14px;font-weight:700;color:var(--text)" id="s6-plan-name">Free</span>
         </div>
         <div id="s6-addons-list" style="margin-bottom:8px"></div>
         <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:10px">
           <span style="font-size:14px;font-weight:700">Razem</span>
-          <span style="font-family:var(--mono);font-size:22px;font-weight:700;color:var(--green)" id="s6-total-price">249 zł/mies.</span>
+          <span style="font-family:var(--mono);font-size:22px;font-weight:700;color:var(--green)" id="s6-total-price">0 zł</span>
         </div>
         <div style="font-size:11px;color:var(--muted);margin-top:4px;text-align:right" id="s6-free-note"></div>
       </div>
@@ -1805,7 +1770,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
     <h3>Aktywuj stronę</h3>
     <p>Podaj email — wyślemy Ci link do płatności Stripe. Możesz zapłacić kartą lub BLIK-iem.</p>
     <div class="modal-plan">
-      <div class="mp-name" id="modal-plan-name">Managed START</div>
+      <div class="mp-name" id="modal-plan-name">Pro</div>
       <div class="mp-price" id="modal-plan-price">249 <sub style="font-size:13px;color:var(--muted)">zł/mies.</sub></div>
     </div>
     <input type="email" class="modal-input" id="checkout-email" placeholder="twoj@email.pl">
@@ -1820,9 +1785,9 @@ const state = {
   billing: 'month',
   currentStep: 1,
   branza: '',
-  plan: 'managed_start',
-  planName: 'Managed START',
-  planPrice: '249',
+  plan: 'free',
+  planName: 'Free',
+  planPrice: '0',
   addons: {},
   generatedHTML: '',
   slug: '',
@@ -1839,7 +1804,7 @@ const TIPS = {
   1: 'Wypełnij jak najwięcej pól — AI wygeneruje lepszą treść.',
   2: 'Godziny otwarcia i lata doświadczenia zwiększają konwersję o 40%.',
   3: 'Firmy z social media mają 2× więcej kontaktów z klientami.',
-  4: 'Managed START to 10× taniej niż agencja webowa.',
+  4: 'Plan Pro to 10× taniej niż agencja webowa.',
 };
 
 // ─── NAVIGATION ───
@@ -2027,11 +1992,11 @@ function selectBranza(btn, name) {
   state.branza = name;
 }
 
-// ─── ADDONY ───
+// ─── ADDONY ─── 7 dodatków à la carte nad planem Pro (Faza 5) — id zgodne z ADDON_PRICES
+// w api/create-checkout.js. seo_dzielnice/seo_miasto/wersja_jezykowa zniknęły (SEO w Pro).
 const ADDONS_CONFIG = {
-  seo_dzielnice:         { name:'SEO Dzielnice',          price:199, type:'month', stripe:'' },
-  seo_miasto:            { name:'SEO Miasto',             price:349, type:'month', stripe:'' },
-  wersja_jezykowa:       { name:'Wersja językowa EN/UA',  price:99,  type:'month', stripe:'' },
+  social_media:          { name:'Integracja Social Media', price:79,  type:'month', stripe:'' },
+  statystyki:            { name:'Statystyki odwiedzin',    price:49,  type:'month', stripe:'' },
   priorytetowe_wsparcie: { name:'Priorytetowe wsparcie',  price:99,  type:'month', stripe:'' },
   google_business:       { name:'Google Business Profile', price:149, type:'month', stripe:'' },
   wlasna_domena:         { name:'Własna domena',          price:199, type:'once',  stripe:'' },
@@ -2071,14 +2036,13 @@ function updateAddonSummary() {
 }
 
 // ─── PLAN ───
-// Limity zdjec per plan (sync z generate.js)
-const PLAN_PHOTO_LIMITS = { free: 3, managed_start: 6, managed_pro: 12, managed_premium: 12 };
+// Limity zdjec per plan (sync z generate.js) — model Free/Pro (Faza 5)
+const PLAN_PHOTO_LIMITS = { free: 3, pro: 12 };
 
 
 function switchBilling(mode) {
   var btnMonth = document.getElementById('bill-month');
   var btnYear  = document.getElementById('bill-year');
-  var startEl  = document.getElementById('start-price-display');
   var proEl    = document.getElementById('pro-price-display');
 
   if (mode === 'year') {
@@ -2088,9 +2052,7 @@ function switchBilling(mode) {
     btnYear.style.background = 'rgba(0,229,160,.15)';
     btnYear.style.border = '1.5px solid var(--green)';
     btnYear.style.color = 'var(--green)';
-    if (startEl) startEl.innerHTML = '249 <sub>zł/mies. <span style="font-size:10px;opacity:.6">rocznie</span></sub>';
-  updateAddonSummary();
-    if (proEl)   proEl.innerHTML   = '332 <sub>zł/mies. <span style="font-size:10px;opacity:.6">rocznie</span></sub>';
+    if (proEl) proEl.innerHTML = '332 <sub>zł/mies. <span style="font-size:10px;opacity:.6">rocznie</span></sub>';
   } else {
     btnMonth.style.background = 'rgba(0,229,160,.15)';
     btnMonth.style.border = '1.5px solid var(--green)';
@@ -2098,11 +2060,10 @@ function switchBilling(mode) {
     btnYear.style.background = 'transparent';
     btnYear.style.border = 'none';
     btnYear.style.color = 'var(--muted)';
-    if (startEl) startEl.innerHTML = '299 <sub>zł/mies.</sub>';
-  updateAddonSummary();
-    if (proEl)   proEl.innerHTML   = '399 <sub>zł/mies.</sub>';
+    if (proEl) proEl.innerHTML = '399 <sub>zł/mies.</sub>';
   }
   state.billing = mode;
+  updateAddonSummary();
 }
 function selectPlan(card, id, name, price) {
   document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
@@ -2118,9 +2079,9 @@ function selectPlan(card, id, name, price) {
   var _yr=state.billing==='year'; var _dp=_yr?Math.round((parseInt(price)||0)*10/12):(parseInt(price)||0); document.getElementById('as-plan-price').textContent=price==='0'?'bezpłatny':(_dp+(_yr?' zł/mies. (rocznie)':' zł/mies.'));
   updateAddonSummary();
 
-  // Pokaż/ukryj hero upload dla PREMIUM
+  // Pokaż/ukryj hero upload dla planu Pro
   const heroSection = document.getElementById('hero-section');
-  if (heroSection) heroSection.style.display = id === 'managed_premium' ? 'block' : 'none';
+  if (heroSection) heroSection.style.display = id === 'pro' ? 'block' : 'none';
 
   // Zaktualizuj info o limicie zdjec galerii (jeśli sekcja widoczna)
   const limit = PLAN_PHOTO_LIMITS[id] || 3;
@@ -2424,7 +2385,7 @@ document.getElementById('checkout-modal').addEventListener('click', function(e) 
 });
 
 // Init
-selectPlan(document.querySelector('.plan-card.selected'), 'managed_start', 'Managed START', '299');
+selectPlan(document.querySelector('.plan-card.selected'), 'free', 'Free', '0');
 
 // ─── EMAIL GATE (panel-0) ────────────────────────────────────────
 function validateGate() {
@@ -2837,8 +2798,9 @@ function initStep6() {
   var addonCount = Object.keys(state.addons).length;
   if (addonsEl) addonsEl.textContent = addonCount > 0 ? addonCount + ' dodatek(ów) wybranych' : 'Brak dodatków';
 
-  // Odśwież wybór planu (domyślnie managed_start)
-  selectPlan6(state.plan, state.planName, parseInt(state.planPrice) || 249);
+  // Odśwież wybór planu (domyślnie Free)
+  var _p6price = parseInt(state.planPrice); if (isNaN(_p6price)) _p6price = 0;
+  selectPlan6(state.plan, state.planName, _p6price);
 }
 // ──────────────────────────────────────────────────────
 
