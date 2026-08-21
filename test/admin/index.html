@@ -522,10 +522,8 @@ table.tbl tr:hover td{background:rgba(240,242,247,.02)}
           <input style="flex:1;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:7px 12px;font-size:13px;color:var(--white);font-family:var(--head);outline:none" placeholder="Szukaj klienta..." oninput="filterTable(this)">
           <select style="background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:7px 12px;font-size:12px;color:var(--white);font-family:var(--head);outline:none">
             <option>Wszystkie plany</option>
-            <option>Managed START</option>
-            <option>Managed PRO</option>
-            <option>Managed PREMIUM</option>
-            <option>Managed</option>
+            <option>Free</option>
+            <option>Pro</option>
           </select>
         </div>
         <div class="tbl-wrap">
@@ -632,7 +630,7 @@ table.tbl tr:hover td{background:rgba(240,242,247,.02)}
       <div class="stats" style="grid-template-columns:repeat(4,1fr)">
         <div class="stat g"><div class="stat-label">MRR</div><div class="stat-val" style="color:var(--green)" id="kpi-mrr">&#x2026; zł</div><div class="stat-delta"><span class="up">↑ +18%</span></div></div>
         <div class="stat b"><div class="stat-label">ARR (prognoza)</div><div class="stat-val">35 856 zł</div><div class="stat-delta"><span class="neu">×12</span></div></div>
-        <div class="stat p"><div class="stat-label">Avg. sub. wartość</div><div class="stat-val">249 zł</div><div class="stat-delta"><span class="neu">per klient</span></div></div>
+        <div class="stat p"><div class="stat-label">Avg. sub. wartość</div><div class="stat-val">399 zł</div><div class="stat-delta"><span class="neu">per klient</span></div></div>
         <div class="stat y"><div class="stat-label">Churn (mies.)</div><div class="stat-val" style="color:var(--green)">0%</div><div class="stat-delta"><span class="up">0 odejść</span></div></div>
       </div>
 
@@ -641,14 +639,10 @@ table.tbl tr:hover td{background:rgba(240,242,247,.02)}
           <div class="card-header"><div class="card-title">📦 Przychód wg planu</div></div>
           <div style="padding:20px">
             <div class="mrr-breakdown">
-              <div class="mrr-row"><span class="mrr-row-label">Managed START (4×249)</span><span class="mrr-row-val" style="color:var(--blue)">996 zł</span></div>
-              <div class="mrr-bar-row"><div class="mrr-bar-fill" style="width:33%;background:var(--blue)"></div></div>
-              <div class="mrr-row"><span class="mrr-row-label">Managed PRO (3×249)</span><span class="mrr-row-val" style="color:var(--purple)">747 zł</span></div>
-              <div class="mrr-bar-row"><div class="mrr-bar-fill" style="width:25%;background:var(--purple)"></div></div>
-              <div class="mrr-row"><span class="mrr-row-label">Managed PREMIUM (2×599)</span><span class="mrr-row-val" style="color:var(--green)">1 198 zł</span></div>
-              <div class="mrr-bar-row"><div class="mrr-bar-fill" style="width:40%;background:var(--green)"></div></div>
-              <div class="mrr-row"><span class="mrr-row-label">Managed</span><span class="mrr-row-val" style="color:var(--muted)">147 zł</span></div>
-              <div class="mrr-bar-row"><div class="mrr-bar-fill" style="width:5%;background:var(--muted)"></div></div>
+              <div class="mrr-row"><span class="mrr-row-label">Pro (7×399)</span><span class="mrr-row-val" style="color:var(--purple)">2 793 zł</span></div>
+              <div class="mrr-bar-row"><div class="mrr-bar-fill" style="width:93%;background:var(--purple)"></div></div>
+              <div class="mrr-row"><span class="mrr-row-label">Dodatki (domena, social, statystyki…)</span><span class="mrr-row-val" style="color:var(--muted)">195 zł</span></div>
+              <div class="mrr-bar-row"><div class="mrr-bar-fill" style="width:7%;background:var(--muted)"></div></div>
             </div>
           </div>
         </div>
@@ -664,7 +658,7 @@ table.tbl tr:hover td{background:rgba(240,242,247,.02)}
               <div class="mrr-row"><span class="mrr-row-label">Cze 2026 (cel)</span><span class="mrr-row-val">10 000 zł</span></div>
               <div class="mrr-bar-row"><div class="mrr-bar-fill" style="width:0%;background:var(--purple)"></div></div>
               <div style="margin-top:16px;padding:12px;background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.15);border-radius:8px;font-size:12px;color:var(--muted)">
-                Potrzeba <strong style="color:var(--white)">~5 klientów Managed START</strong> lub <strong style="color:var(--white)">~2 klientów PREMIUM</strong> do osiągnięcia celu kwi.
+                Potrzeba <strong style="color:var(--white)">~5 nowych klientów Pro</strong> do osiągnięcia celu kwi.
               </div>
             </div>
           </div>
@@ -680,7 +674,7 @@ table.tbl tr:hover td{background:rgba(240,242,247,.02)}
         <div class="ph-left"><div class="ph-title">Aktywne strony</div><div class="ph-sub">12 domen live na *.webgen.pl</div></div>
         <div class="ph-actions">
           <select id="sites-filter" style="background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:7px 12px;font-size:12px;color:var(--white);font-family:var(--head);outline:none">
-            <option>Wszystkie plany</option><option>Managed START</option><option>Managed PRO</option><option>Free</option>
+            <option>Wszystkie plany</option><option>Free</option><option>Pro</option>
           </select>
           <a href="/test/generator/" class="btn btn-green btn-sm">⚡ Nowa strona</a>
         </div>
@@ -822,8 +816,8 @@ table.tbl tr:hover td{background:rgba(240,242,247,.02)}
               <div class="mrr-row"><span class="mrr-row-label">Śr. koszt / generowanie</span><span class="mrr-row-val">~0.08 zł</span></div>
               <div class="mrr-row"><span class="mrr-row-label">Budżet miesięczny API</span><span class="mrr-row-val">50 zł</span></div>
               <div style="margin-top:16px;font-size:12px;color:var(--muted)">
-                Przy 100 generowaniach / mies: ~8 zł kosztu API.<br>
-                Marża na planie Managed START: 49 - 8 = <span style="color:var(--green)">41 zł</span>
+                Przy 100 personalizacjach AI / mies: ~8 zł kosztu API.<br>
+                Marża na planie Pro: 399 - 8 = <span style="color:var(--green)">391 zł</span>
               </div>
             </div>
           </div>
@@ -1009,7 +1003,7 @@ const modals = {
   newclient: {
     title: '+ Nowy klient',
     body: 'Dodaj nowego klienta manualnie do systemu (onboarding bez generatora).',
-    content: `<div class="field"><label>Email klienta</label><input placeholder="klient@firma.pl" type="email"></div><div class="field"><label>Plan</label><select><option>Managed START</option><option>Managed PRO</option><option>Managed PREMIUM</option></select></div><button class="btn btn-green" style="width:100%;margin-top:8px" onclick="closeModal();showToast('Klient dodany i e-mail powitalny wysłany','✅')">Dodaj klienta →</button>`
+    content: `<div class="field"><label>Email klienta</label><input placeholder="klient@firma.pl" type="email"></div><div class="field"><label>Plan</label><select><option>Free</option><option>Pro</option></select></div><button class="btn btn-green" style="width:100%;margin-top:8px" onclick="closeModal();showToast('Klient dodany i e-mail powitalny wysłany','✅')">Dodaj klienta →</button>`
   },
   newoutreach: {
     title: '📣 Nowa fala outreach',
