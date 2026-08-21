@@ -687,25 +687,6 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
 }
 /* ──────────────────────────────────────────────────────── */
 
-/* ── STYLE SELECTOR (krok 6) ─────────────────────────── */
-.style-selector{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
-.style-card{
-  background:var(--s2);border:1.5px solid var(--border);border-radius:12px;
-  padding:16px 14px;cursor:pointer;transition:all .18s;text-align:center;
-}
-.style-card:hover{border-color:rgba(240,242,247,.25);background:rgba(240,242,247,.05)}
-.style-card.selected{border-color:var(--green);background:rgba(0,229,160,.07)}
-.style-card-icon{font-size:26px;margin-bottom:8px}
-.style-card-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}
-.style-card-desc{font-size:11px;color:var(--muted)}
-.style-card-badge{
-  display:inline-block;margin-top:6px;font-family:var(--mono);font-size:9px;
-  font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  padding:2px 8px;border-radius:20px;
-}
-.style-card.selected .style-card-badge{background:rgba(0,229,160,.15);color:var(--green)}
-.style-card:not(.selected) .style-card-badge{background:var(--s3);color:var(--muted)}
-/* ─────────────────────────────────────────────────────── */
 
 /* ── GENERATING FULL-SCREEN ─────────────────────────── */
 #gen-fullscreen{display:none;position:fixed;inset:0;z-index:1000;background:var(--bg);flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px}
@@ -929,6 +910,42 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
   border:1px solid rgba(0,229,160,.12);
   border-radius:10px;
 }
+
+/* GALERIA STARTOWA (Faza 2) */
+.gallery-style-filter{ display:flex;gap:6px;flex-wrap:wrap }
+.gs-filter-btn{
+  background:transparent;border:1.5px solid rgba(240,242,247,.12);color:var(--muted);
+  padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;
+  font-family:var(--head);transition:all .18s;
+}
+.gs-filter-btn:hover{ border-color:rgba(0,229,160,.35);color:var(--green) }
+.gs-filter-btn.active{ border-color:var(--green);color:var(--green);background:rgba(0,229,160,.08) }
+
+.gallery-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;
+}
+.gallery-card{
+  background:rgba(240,242,247,.04);border:1.5px solid rgba(240,242,247,.1);
+  border-radius:12px;overflow:hidden;cursor:pointer;transition:all .18s;
+  display:flex;flex-direction:column;
+}
+.gallery-card:hover{ border-color:rgba(0,229,160,.4) }
+.gallery-card.selected{ border-color:var(--green);box-shadow:0 0 0 3px rgba(0,229,160,.12) }
+.gc-thumb{
+  aspect-ratio:4/3;background:linear-gradient(135deg,rgba(0,229,160,.08),rgba(0,102,255,.08));
+  display:flex;align-items:center;justify-content:center;font-size:34px;position:relative;
+}
+.gc-tier-badge{
+  position:absolute;top:8px;right:8px;font-family:var(--mono);font-size:9px;font-weight:800;
+  padding:3px 9px;border-radius:8px;letter-spacing:.05em;
+}
+.gc-tier-badge.free{ background:rgba(0,229,160,.15);color:var(--green) }
+.gc-tier-badge.pro{ background:rgba(123,79,255,.18);color:#B79CFF }
+.gc-info{ padding:10px 12px 12px }
+.gc-style{ font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px }
+.gc-industry{ font-size:11px;color:var(--muted) }
+.gc-select-hint{ font-size:10px;color:var(--green);margin-top:6px;font-weight:700;opacity:0;transition:opacity .15s }
+.gallery-card:hover .gc-select-hint,.gallery-card.selected .gc-select-hint{ opacity:1 }
 /* ────────────────────────────────────────────────────────────── */
 </style>
 </head>
@@ -1185,6 +1202,24 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
             oninput="selectBranzaFromOther(this.value)"
             onfocus="this.style.borderColor='var(--green)'"
             onblur="this.style.borderColor='rgba(240,242,247,.12)'"></textarea>
+        </div>
+      </div>
+
+      <!-- GALERIA STARTOWA -->
+      <div class="gallery-section" id="gallery-section" style="display:none;margin-top:28px">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px">
+          <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green)">// Galeria Startowa</div>
+          <div class="gallery-style-filter" id="gallery-style-filter">
+            <button class="gs-filter-btn active" onclick="filterGalleryStyle('all', this)">Wszystkie</button>
+            <button class="gs-filter-btn" onclick="filterGalleryStyle('classic', this)">Klasyczny</button>
+            <button class="gs-filter-btn" onclick="filterGalleryStyle('modern', this)">Nowoczesny</button>
+            <button class="gs-filter-btn" onclick="filterGalleryStyle('elegant', this)">Elegancki</button>
+          </div>
+        </div>
+        <div class="gallery-grid" id="gallery-grid"></div>
+        <div id="gallery-empty" style="display:none;text-align:center;padding:30px 10px;color:var(--muted);font-size:13px">Szablony dla tej branży są jeszcze w przygotowaniu — wróć niedługo.</div>
+        <div id="gallery-pro-note" style="display:none;margin-top:14px;padding:12px 16px;background:rgba(123,79,255,.08);border:1px solid rgba(123,79,255,.25);border-radius:10px;font-size:12px;color:#B79CFF">
+          Ten szablon jest dostępny w planie Pro — wybór planu zrobisz w kroku 4. Możesz też przejrzeć darmowe szablony powyżej.
         </div>
       </div>
 
@@ -1728,17 +1763,6 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
     <!-- GENERATING placeholder (używamy fullscreen overlay) -->
     <div class="generating" id="generating" style="display:none"></div>
 
-    <!-- VARIANT PICKER -->
-    <div class="step-panel" id="variant-picker">
-      <div class="sp-header">
-        <div class="sp-eyebrow">// 3 warianty gotowe</div>
-        <h1 class="sp-title">Wybierz styl<br><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">swojej strony</span></h1>
-        <p class="sp-sub">Kliknij wariant, który Ci się podoba.</p>
-      </div>
-      <button onclick="setStep(5)" style="background:transparent;border:none;color:var(--muted);font-size:13px;cursor:pointer;padding:0 0 16px;font-family:var(--head);display:flex;align-items:center;gap:6px" onmouseover="this.style.color='var(--green)'" onmouseout="this.style.color='var(--muted)'">← Wróć do dodatków</button>
-      <div id="variant-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px"></div>
-    </div>
-
     <!-- PREVIEW -->
     <div class="preview-panel" id="preview-panel">
       <div class="sp-header">
@@ -1785,6 +1809,8 @@ const state = {
   billing: 'month',
   currentStep: 1,
   branza: '',
+  templateId: '',
+  templateTier: '',
   plan: 'free',
   planName: 'Free',
   planPrice: '0',
@@ -1862,18 +1888,6 @@ function validateStep(step) {
     if (!document.getElementById('f-email').value.trim()) { alert('Wpisz email'); return false; }
   }
   return true;
-}
-
-
-// ─── KOLOR ───
-function selectLayout(btn, layoutId) {
-  document.querySelectorAll('.layout-card').forEach(b => {
-    b.style.borderColor = 'var(--border)';
-    b.classList.remove('selected');
-  });
-  btn.classList.add('selected');
-  btn.style.borderColor = 'var(--green)';
-  state.layout = layoutId;
 }
 
 
@@ -1967,6 +1981,71 @@ function selectBranzaTile(btn, name) {
   var toggle = document.getElementById('branza-other-toggle');
   if (panel) panel.style.display = 'none';
   if (toggle) toggle.classList.remove('active');
+  showGalleryForBranza();
+}
+
+// ─── GALERIA STARTOWA (Faza 2) ───
+var TEMPLATES_MANIFEST = [];
+var galleryStyleFilter = 'all';
+var galleryManifestLoaded = false;
+
+function loadTemplatesManifest() {
+  if (galleryManifestLoaded) return Promise.resolve();
+  return fetch('/templates/manifest.json')
+    .then(function (res) { return res.ok ? res.json() : []; })
+    .then(function (data) { TEMPLATES_MANIFEST = Array.isArray(data) ? data : []; galleryManifestLoaded = true; })
+    .catch(function () { TEMPLATES_MANIFEST = []; galleryManifestLoaded = true; });
+}
+
+function showGalleryForBranza() {
+  var section = document.getElementById('gallery-section');
+  if (!section || !state.branza) return;
+  section.style.display = 'block';
+  loadTemplatesManifest().then(renderGallery);
+}
+
+function filterGalleryStyle(style, btn) {
+  galleryStyleFilter = style;
+  document.querySelectorAll('.gs-filter-btn').forEach(function (b) { b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  renderGallery();
+}
+
+function renderGallery() {
+  var grid = document.getElementById('gallery-grid');
+  var empty = document.getElementById('gallery-empty');
+  if (!grid) return;
+
+  var items = TEMPLATES_MANIFEST.filter(function (t) { return t.industry === state.branza; });
+  if (galleryStyleFilter !== 'all') items = items.filter(function (t) { return t.style === galleryStyleFilter; });
+
+  if (items.length === 0) {
+    grid.innerHTML = '';
+    if (empty) empty.style.display = 'block';
+    return;
+  }
+  if (empty) empty.style.display = 'none';
+
+  grid.innerHTML = items.map(function (t) {
+    var isSel = state.templateId === t.id;
+    return '<div class="gallery-card' + (isSel ? ' selected' : '') + '" onclick="selectTemplate(\'' + t.id + '\',\'' + t.tier + '\')">'
+      + '<div class="gc-thumb">' + (t.icon || '🖼️')
+      + '<span class="gc-tier-badge ' + t.tier + '">' + (t.tier === 'pro' ? 'PRO' : 'FREE') + '</span>'
+      + '</div>'
+      + '<div class="gc-info">'
+      + '<div class="gc-style">' + (t.styleName || t.style) + '</div>'
+      + '<div class="gc-industry">' + (t.label || t.industry) + '</div>'
+      + '<div class="gc-select-hint">' + (isSel ? '✓ Wybrany' : 'Wybierz →') + '</div>'
+      + '</div></div>';
+  }).join('');
+}
+
+function selectTemplate(id, tier) {
+  state.templateId = id;
+  state.templateTier = tier;
+  var note = document.getElementById('gallery-pro-note');
+  if (note) note.style.display = (tier === 'pro') ? 'block' : 'none';
+  renderGallery();
 }
 
 function toggleBranzaOther() {
@@ -1985,6 +2064,7 @@ function toggleBranzaOther() {
 
 function selectBranzaFromOther(val) {
   state.branza = val.trim() ? val.trim() : '';
+  showGalleryForBranza();
 }
 function selectBranza(btn, name) {
   document.querySelectorAll('.branza-btn').forEach(b => b.classList.remove('selected'));
@@ -2719,19 +2799,6 @@ selectPexelsPhoto = function(url) {
   });
 })();
 
-
-// ─── STYLE SELECTOR ───
-function selectStyle(style, card) {
-  state.selectedStyle = style;
-  document.querySelectorAll('.style-card').forEach(function(c) {
-    c.classList.remove('selected');
-    var badge = c.querySelector('.style-card-badge');
-    if (badge) badge.textContent = 'wybierz';
-  });
-  card.classList.add('selected');
-  var badge = card.querySelector('.style-card-badge');
-  if (badge) badge.textContent = 'WYBRANY';
-}
 
 // ─── WYBÓR PLANU (krok 6) ───────────────────────────
 function selectPlan6(id, name, price) {

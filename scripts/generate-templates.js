@@ -17,40 +17,47 @@ const TEMPLATES_DIR = path.join(ROOT, 'templates');
 const HTML_DIR = path.join(TEMPLATES_DIR, 'html');
 const MANIFEST_PATH = path.join(TEMPLATES_DIR, 'manifest.json');
 
-function loadDotEnv() {
-  if (process.env.ANTHROPIC_API_KEY) return;
-  const envPath = path.join(ROOT, '.env');
+function loadDotEnvFile(envPath) {
   if (!fs.existsSync(envPath)) return;
   const lines = fs.readFileSync(envPath, 'utf8').split('\n');
   for (const line of lines) {
     const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/i);
-    if (m && !process.env[m[1]]) {
+    if (m) {
       process.env[m[1]] = m[2].replace(/^["']|["']$/g, '');
     }
   }
 }
+function loadDotEnv() {
+  if (process.env.ANTHROPIC_API_KEY) return;
+  // .env.local (np. z `vercel env pull`) ma pierwszeństwo nad .env — konwencja jak w Next.js.
+  loadDotEnvFile(path.join(ROOT, '.env'));
+  loadDotEnvFile(path.join(ROOT, '.env.local'));
+}
 loadDotEnv();
 
-// Musi być zgodne 1:1 z wartościami ustawianymi przez selectBranzaTile() w panel-1
-// (test/generator/index.html) — inaczej filtr Galerii Startowej po branży nie dopasuje szablonu.
-// styleFree/stylePro: styl wizualny każdego z dwóch szablonów na branżę (Faza 1: 1 free + 1 pro).
+// `industry` musi być BAJT-W-BAJT zgodne z wartością przekazywaną do selectBranzaTile()
+// w panel-1 (test/generator/index.html), czyli z `state.branza` — NIE ze skróconą etykietą
+// widoczną na kafelku (bt-name). Np. kafelek pokazuje "Remonty & budowa" ale onclick przekazuje
+// 'Firma remontowo-budowlana' — to druga wartość ląduje w state.branza i to ona musi tu być,
+// inaczej filtr Galerii Startowej po branży nigdy nie dopasuje szablonu. `label` to wersja
+// do wyświetlenia w UI galerii (ta sama co bt-name na kafelku).
 const INDUSTRIES = [
-  { industry: 'Hydraulik', icon: '🚧', styleFree: 'classic', stylePro: 'modern' },
-  { industry: 'Elektryk', icon: '⚡', styleFree: 'classic', stylePro: 'modern' },
-  { industry: 'Remonty & budowa', icon: '🏗️', styleFree: 'classic', stylePro: 'modern' },
-  { industry: 'Wykończenia wnętrz', icon: '🪟', styleFree: 'classic', stylePro: 'elegant' },
-  { industry: 'Mechanik', icon: '🔧', styleFree: 'classic', stylePro: 'modern' },
-  { industry: 'Sprzątanie', icon: '🧹', styleFree: 'classic', stylePro: 'modern' },
-  { industry: 'Ogrodnik', icon: '🌿', styleFree: 'classic', stylePro: 'elegant' },
-  { industry: 'Stomatolog', icon: '🦷', styleFree: 'classic', stylePro: 'elegant' },
-  { industry: 'Salon kosmetyczny', icon: '💎', styleFree: 'classic', stylePro: 'elegant' },
-  { industry: 'Fryzjer / Barber', icon: '✂️', styleFree: 'classic', stylePro: 'elegant' },
-  { industry: 'Fizjoterapia', icon: '🦴', styleFree: 'classic', stylePro: 'modern' },
-  { industry: 'Restauracja', icon: '🍽️', styleFree: 'classic', stylePro: 'elegant' },
-  { industry: 'Kawiarnia', icon: '☕', styleFree: 'classic', stylePro: 'elegant' },
-  { industry: 'Trener / Siłownia', icon: '💪', styleFree: 'classic', stylePro: 'modern' },
-  { industry: 'Fotograf', icon: '📷', styleFree: 'classic', stylePro: 'elegant' },
-  { industry: 'Nieruchomości', icon: '🏠', styleFree: 'classic', stylePro: 'modern' },
+  { industry: 'Hydraulik', label: 'Hydraulik', icon: '🚧', styleFree: 'classic', stylePro: 'modern' },
+  { industry: 'Elektryk', label: 'Elektryk', icon: '⚡', styleFree: 'classic', stylePro: 'modern' },
+  { industry: 'Firma remontowo-budowlana', label: 'Remonty & budowa', icon: '🏗️', styleFree: 'classic', stylePro: 'modern' },
+  { industry: 'Wykończenia wnętrz', label: 'Wykończenia wnętrz', icon: '🪟', styleFree: 'classic', stylePro: 'elegant' },
+  { industry: 'Mechanik samochodowy', label: 'Mechanik', icon: '🔧', styleFree: 'classic', stylePro: 'modern' },
+  { industry: 'Sprzątanie', label: 'Sprzątanie', icon: '🧹', styleFree: 'classic', stylePro: 'modern' },
+  { industry: 'Ogrodnik / Pielęgnacja zieleni', label: 'Ogrodnik', icon: '🌿', styleFree: 'classic', stylePro: 'elegant' },
+  { industry: 'Stomatologia', label: 'Stomatolog', icon: '🦷', styleFree: 'classic', stylePro: 'elegant' },
+  { industry: 'Kosmetyczka / Salon kosmetyczny', label: 'Salon kosmetyczny', icon: '💎', styleFree: 'classic', stylePro: 'elegant' },
+  { industry: 'Fryzjer / Barber', label: 'Fryzjer / Barber', icon: '✂️', styleFree: 'classic', stylePro: 'elegant' },
+  { industry: 'Fizjoterapia / Rehabilitacja', label: 'Fizjoterapia', icon: '🦴', styleFree: 'classic', stylePro: 'modern' },
+  { industry: 'Restauracja', label: 'Restauracja', icon: '🍽️', styleFree: 'classic', stylePro: 'elegant' },
+  { industry: 'Kawiarnia / Cukiernia', label: 'Kawiarnia', icon: '☕', styleFree: 'classic', stylePro: 'elegant' },
+  { industry: 'Trener personalny / Siłownia', label: 'Trener / Siłownia', icon: '💪', styleFree: 'classic', stylePro: 'modern' },
+  { industry: 'Fotograf', label: 'Fotograf', icon: '📷', styleFree: 'classic', stylePro: 'elegant' },
+  { industry: 'Agencja nieruchomości', label: 'Nieruchomości', icon: '🏠', styleFree: 'classic', stylePro: 'modern' },
 ];
 
 function slugifyId(industry, tier) {
@@ -179,6 +186,7 @@ async function main() {
         manifest.push({
           id,
           industry: item.industry,
+          label: item.label,
           icon: item.icon,
           style,
           styleName: styleConfig.name,
