@@ -13,10 +13,12 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: 'Hasło musi mieć minimum 6 znaków' });
   }
 
+  const secret = process.env.TOKEN_SECRET;
+  if (!secret) return res.status(500).json({ error: 'Brak TOKEN_SECRET w środowisku' });
+
   // Walidacja tokenu
   try {
     const decoded  = Buffer.from(token, 'base64url').toString('utf8');
-    const secret   = process.env.TOKEN_SECRET || 'webgen2025';
     const parts    = decoded.split(':');
     const tokenEmail = parts[0];
     const timestamp  = parseInt(parts[1]);

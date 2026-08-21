@@ -16,7 +16,8 @@ module.exports = async (req, res) => {
   // akceptujemy login i zwracamy session token.
   // To jest uproszczone — w produkcji hasło musi być zahashowane i porównane z DB.
 
-  const secret = process.env.TOKEN_SECRET || 'webgen2025';
+  const secret = process.env.TOKEN_SECRET;
+  if (!secret) return res.status(500).json({ error: 'Brak TOKEN_SECRET w środowisku' });
 
   // Generuj session token
   const sessionToken = Buffer.from(`${email}:${Date.now()}:session:${secret}`).toString('base64url');

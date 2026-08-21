@@ -11,7 +11,8 @@ module.exports = async (req, res) => {
   const firstName = (name || '').trim() || 'tam';
 
   // Token = base64url(email:timestamp:secret)
-  const secret  = process.env.TOKEN_SECRET || 'webgen2025';
+  const secret = process.env.TOKEN_SECRET;
+  if (!secret) return res.status(500).json({ error: 'Brak TOKEN_SECRET w środowisku' });
   const payload = `${email}:${Date.now()}:${secret}`;
   const token   = Buffer.from(payload).toString('base64url');
 
@@ -41,10 +42,10 @@ module.exports = async (req, res) => {
     </div>
     <div style="background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.15);border-radius:10px;padding:18px 20px">
       <p style="margin:0 0 10px;font-size:12px;color:#00E5A0;font-weight:700;text-transform:uppercase;letter-spacing:.08em">Co dostajesz za darmo:</p>
-      <p style="margin:2px 0;font-size:13px;color:#8892AA">✓ Strona firmowa z lokalnym SEO</p>
-      <p style="margin:2px 0;font-size:13px;color:#8892AA">✓ Hosting na *.webgen.pl przez 3 miesiące</p>
-      <p style="margin:2px 0;font-size:13px;color:#8892AA">✓ Generator AI — gotowe w 3 minuty</p>
-      <p style="margin:0;font-size:13px;color:#8892AA">✓ PageSpeed 90+ automatycznie</p>
+      <p style="margin:2px 0;font-size:13px;color:#8892AA">✓ Pełna Galeria Startowa gotowych szablonów</p>
+      <p style="margin:2px 0;font-size:13px;color:#8892AA">✓ Hosting na *.webgen.pl — bez limitu czasu</p>
+      <p style="margin:2px 0;font-size:13px;color:#8892AA">✓ Aktywacja szablonu w kilka minut</p>
+      <p style="margin:0;font-size:13px;color:#8892AA">✓ Upgrade do Pro w każdej chwili (AI, SEO, formularz)</p>
     </div>
     <p style="margin:24px 0 0;font-size:11px;color:rgba(136,146,170,.4);line-height:1.6">
       Link ważny 24h. Nie zakładałeś/aś konta? Zignoruj tę wiadomość.<br>
