@@ -50,10 +50,43 @@ FEEL: "ekskluzywne atelier", prestiż, jakość bez kompromisów.`
   }
 };
 
+// Ochrona kosztowa (drugi punkt "co jeszcze możemy usprawnić"): ten endpoint woła Claude
+// bezpośrednio i był całkowicie otwarty — bez limitu, bez sprawdzania pochodzenia requestu,
+// z CORS ustawionym na '*'. To ścieżka zapasowa dla generatora (używana tylko gdy klient nie
+// wybrał jeszcze szablonu z Galerii Startowej — patrz test/generator/index.html), ale sam
+// endpoint jest wywoływalny bezpośrednio przez każdego, niezależnie od UI.
+// Poniższe to rozsądny, tani w utrzymaniu kompromis, NIE pełne zabezpieczenie:
+// - allowlist Origin/Referer blokuje wywołania spoza webgen.pl (przeglądarkowe fetch i proste skrypty)
+// - licznik w pamięci modułu ogranicza tempo z jednego adresu IP na cieplej instancji Edge
+// Oba mechanizmy są obchodzalne (fałszywy Origin, wiele instancji/regionów Edge nie dzielą
+// pamięci) — to podniesienie poprzeczki, nie twarda gwarancja. Docelowo ta cała ścieżka
+// zniknie, gdy Faza 1 pokryje wszystkie branże szablonami.
+const ALLOWED_ORIGINS = ['https://webgen.pl', 'https://www.webgen.pl'];
+const RATE_LIMIT_MAX = 10;
+const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
+const rateLimitHits = new Map();
+
+function isAllowedOrigin(req) {
+  const origin = req.headers.get('origin') || '';
+  const referer = req.headers.get('referer') || '';
+  if (ALLOWED_ORIGINS.includes(origin)) return true;
+  return ALLOWED_ORIGINS.some((o) => referer.indexOf(o + '/') === 0);
+}
+
+function isRateLimited(req) {
+  const ip = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown';
+  const now = Date.now();
+  const hits = (rateLimitHits.get(ip) || []).filter((t) => now - t < RATE_LIMIT_WINDOW_MS);
+  hits.push(now);
+  rateLimitHits.set(ip, hits);
+  return hits.length > RATE_LIMIT_MAX;
+}
+
 export default async function handler(req) {
+  const requestOrigin = req.headers.get('origin');
   const corsHeaders = {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': requestOrigin && ALLOWED_ORIGINS.includes(requestOrigin) ? requestOrigin : ALLOWED_ORIGINS[0],
   };
 
   if (req.method === 'OPTIONS') {
@@ -61,6 +94,12 @@ export default async function handler(req) {
   }
   if (req.method !== 'POST') {
     return new Response(JSON.stringify({ error: 'Method not allowed' }), { status: 405, headers: corsHeaders });
+  }
+  if (!isAllowedOrigin(req)) {
+    return new Response(JSON.stringify({ error: 'Forbidden' }), { status: 403, headers: corsHeaders });
+  }
+  if (isRateLimited(req)) {
+    return new Response(JSON.stringify({ error: 'Zbyt wiele żądań — spróbuj ponownie za kilka minut' }), { status: 429, headers: corsHeaders });
   }
 
   try {
