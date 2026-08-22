@@ -3,58 +3,12 @@
 // potrzebne bo wywolanie Claude na pelna strone potrafi trwac dlugo.
 // Gating: bez aktywnego planu Pro w Stripe nie wolamy Claude (kontrola kosztow).
 
-const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
 const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY;
-const STRIPE_PRICE_PRO = process.env.STRIPE_PRICE_PRO;
-const STRIPE_PRICE_PRO_YEARLY = process.env.STRIPE_PRICE_PRO_YEARLY;
 
 const fs = require('fs');
 const path = require('path');
 const { STYLES, buildUserPrompt } = require('../lib/promptBuilder');
-
-async function stripeGet(pathname) {
-  var res = await fetch('https://api.stripe.com/v1' + pathname, {
-    headers: {
-      'Authorization': 'Bearer ' + STRIPE_SECRET_KEY,
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-  });
-  return res.json();
-}
-
-// Zwraca true jesli klient ma aktywna (lub trialing) subskrypcje Pro.
-// Ograniczenie znane i celowe: bez realnych sesji/JWT w projekcie, email z requestu jest
-// ufany tak samo jak w reszcie apki (np. api/dashboard-data.js) — nie probujemy tu naprawiac
-// calego modelu auth, patrz CLAUDE.md "Pending: Supabase Auth".
-async function checkEntitlement(email) {
-  if (!STRIPE_SECRET_KEY || !email) return false;
-  try {
-    var customers = await stripeGet('/customers?email=' + encodeURIComponent(email) + '&limit=1');
-    var customer = customers.data && customers.data[0] ? customers.data[0] : null;
-    if (!customer) return false;
-
-    var subs = await stripeGet('/subscriptions?customer=' + customer.id + '&status=active&limit=10');
-    var list = subs.data || [];
-    if (list.length === 0) {
-      var trialing = await stripeGet('/subscriptions?customer=' + customer.id + '&status=trialing&limit=10');
-      list = trialing.data || [];
-    }
-
-    for (var i = 0; i < list.length; i++) {
-      var items = list[i].items && list[i].items.data || [];
-      for (var j = 0; j < items.length; j++) {
-        var priceId = items[j].price && items[j].price.id;
-        if (priceId && (priceId === STRIPE_PRICE_PRO || priceId === STRIPE_PRICE_PRO_YEARLY)) {
-          return true;
-        }
-      }
-    }
-    return false;
-  } catch (err) {
-    console.error('checkEntitlement error:', err);
-    return false;
-  }
-}
+const { isProEmail } = require('../lib/entitlement');
 
 function slugify(name) {
   return (name || 'firma')
@@ -90,7 +44,7 @@ module.exports = async function (req, res) {
     return res.status(500).json({ error: 'Brak ANTHROPIC_API_KEY w srodowisku' });
   }
 
-  var isPro = await checkEntitlement(email);
+  var isPro = await isProEmail(email);
   if (!isPro) {
     return res.status(402).json({ error: 'Personalizacja AI wymaga aktywnego planu Pro', code: 'PRO_REQUIRED' });
   }

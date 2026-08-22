@@ -1006,14 +1006,24 @@ function sendUpdateRequest(slug) {
   var godz    = (document.getElementById('upd-godz')    || {}).value || '';
   var opis    = (document.getElementById('upd-opis')    || {}).value || '';
   if (!telefon && !godz && !opis) { alert('Opisz co chcesz zmienić.'); return; }
-  fetch('/api/notify-client', {
-    method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({email:'hello@webgen.pl', type:'update_request',
-      clientEmail: userData.email, slug: slug,
-      update: {telefon:telefon, godz:godz, opis:opis}})
-  }).catch(function(){});
   var st = document.getElementById('upd-status');
-  if (st) { st.style.display='inline'; }
+  fetch('/api/update-request', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({
+      clientEmail: userData.email, slug: slug,
+      update: {telefon:telefon, godz:godz, opis:opis}
+    })
+  })
+  .then(function(r){ return r.json().then(function(data){ return {status:r.status, data:data}; }); })
+  .then(function(r){
+    if (r.status === 402) {
+      alert('Aktualizacje treści na życzenie są dostępne w planie Pro. Przejdź na Pro w zakładce Subskrypcja.');
+      return;
+    }
+    if (!r.data.ok) { alert('Błąd: ' + (r.data.error || 'nie udało się wysłać')); return; }
+    if (st) { st.style.display='inline'; }
+  })
+  .catch(function(){ alert('Błąd połączenia — spróbuj ponownie.'); });
 }
 
 // ── MESSAGES ──────────────────────────────────────────────────────
