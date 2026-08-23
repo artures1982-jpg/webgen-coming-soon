@@ -74,7 +74,7 @@ module.exports = async function(req, res) {
         addons: Array.isArray(addons) ? addons.join(',') : ""
       },
       success_url: "https://webgen.pl/success?session_id={CHECKOUT_SESSION_ID}",
-      cancel_url: "https://webgen.pl/test/generator/",
+      cancel_url: "https://webgen.pl/generator/",
     });
     res.json({ checkout_url: checkoutSession.url });
   } catch (err) {

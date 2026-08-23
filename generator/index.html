@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Generator stron Webgen — podaj dane firmy i AI stworzy Twoją profesjonalną stronę w 3 minuty. Zoptymalizowana pod lokalne SEO.">
 <meta name="robots" content="noindex, nofollow">
-<link rel="canonical" href="https://www.webgen.pl/test/generator/">
+<link rel="canonical" href="https://www.webgen.pl/generator/">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://www.webgen.pl/test/generator/">
+<meta property="og:url" content="https://www.webgen.pl/generator/">
 <meta property="og:site_name" content="Webgen">
 <meta property="og:title" content="Generator stron — Webgen | Stwórz stronę w 3 minuty">
 <meta property="og:description" content="Wypełnij formularz, AI generuje profesjonalną stronę zoptymalizowaną pod lokalne SEO. Bez wiedzy technicznej.">
@@ -616,7 +616,7 @@ body.wg-logged-in .wg-nav-drawer-cta{ display:none!important }
 body.wg-logged-in .wg-nav-user{ display:flex!important }
 /* Drawer też */
 body.wg-logged-in .wg-nav-drawer .wg-nav-login{ display:none!important }
-body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!important }
+body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 @media(max-width:900px){
   .wg-nav-user{ display:none }
   body.wg-logged-in .wg-nav-user{ display:flex!important }
@@ -950,35 +950,35 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
 </style>
 </head>
 <body>
-<script src="/test/shared/clerk.js"></script>
+<script src="/shared/clerk.js"></script>
 
 <nav class="wg-nav" id="wg-nav">
-  <a href="/test/" class="wg-nav-logo">
+  <a href="/" class="wg-nav-logo">
     <div class="wg-nav-logo-mark">W</div>
     <div class="wg-nav-logo-name">web<span>gen</span></div>
   </a>
   <ul class="wg-nav-links">
 
-    <li><a href="/test/#jak-dziala">Jak działa</a></li>
-    <li><a href="/test/cennik/">Cennik</a></li>
-    <li><a href="/test/generator/" class="active">Generator</a></li>
-    <li><a href="/test/#faq">FAQ</a></li>
+    <li><a href="/start/#jak-dziala">Jak działa</a></li>
+    <li><a href="/cennik/">Cennik</a></li>
+    <li><a href="/generator/" class="active">Generator</a></li>
+    <li><a href="/start/#faq">FAQ</a></li>
   </ul>
   <div class="wg-nav-right">
-    <a href="/test/login/" class="wg-nav-login">Logowanie</a>
-    <a href="/test/generator/" class="wg-nav-cta">Zacznij za darmo →</a>
+    <a href="/login/" class="wg-nav-login">Logowanie</a>
+    <a href="/generator/" class="wg-nav-cta">Zacznij za darmo →</a>
     <button class="wg-nav-hamburger" id="wg-hamburger" aria-label="Menu">☰</button>
   </div>
 </nav>
 
 <div class="wg-nav-drawer" id="wg-drawer">
 
-  <a href="/test/#jak-dziala">Jak działa</a>
-  <a href="/test/cennik/">Cennik</a>
-  <a href="/test/generator/" class="active">Generator</a>
-  <a href="/test/#faq">FAQ</a>
-  <a href="/test/login/" class="wg-nav-login" style="color:#8892AA">Logowanie</a>
-  <a href="/test/generator/" class="wg-nav-drawer-cta">Zacznij za darmo →</a>
+  <a href="/start/#jak-dziala">Jak działa</a>
+  <a href="/cennik/">Cennik</a>
+  <a href="/generator/" class="active">Generator</a>
+  <a href="/start/#faq">FAQ</a>
+  <a href="/login/" class="wg-nav-login" style="color:#8892AA">Logowanie</a>
+  <a href="/generator/" class="wg-nav-drawer-cta">Zacznij za darmo →</a>
 </div>
 
 <div class="app">
@@ -1078,7 +1078,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
         <input type="checkbox" id="g-rodo" onchange="validateGate()"
           style="width:16px;height:16px;min-width:16px;margin-top:2px;accent-color:var(--green);cursor:pointer">
         <span style="font-size:12px;color:var(--muted);line-height:1.55">
-          Zapoznałem/am się z <a href="/test/polityka-prywatnosci/" target="_blank" style="color:var(--green)">Polityką Prywatności</a> i <a href="/test/regulamin/" target="_blank" style="color:var(--green)">Regulaminem</a>. Wyrażam zgodę na przetwarzanie danych w celu świadczenia usługi.
+          Zapoznałem/am się z <a href="/polityka-prywatnosci/" target="_blank" style="color:var(--green)">Polityką Prywatności</a> i <a href="/regulamin/" target="_blank" style="color:var(--green)">Regulaminem</a>. Wyrażam zgodę na przetwarzanie danych w celu świadczenia usługi.
         </span>
       </label>
 
@@ -2982,7 +2982,7 @@ function onAuthenticated(user) {
       var shortEmail = email.length > 22 ? email.split('@')[0] : email;
       var userEl = document.createElement('a');
       userEl.className = 'wg-nav-user';
-      userEl.href  = '/test/dashboard/';
+      userEl.href  = '/dashboard/';
       userEl.title = email;
       userEl.innerHTML =
         '<div class="wg-nav-avatar">' + initials + '</div>' +
@@ -2993,7 +2993,7 @@ function onAuthenticated(user) {
       if (!navRight.querySelector('.wg-nav-msg')) {
         var msgBtn = document.createElement('a');
         msgBtn.className = 'wg-nav-msg';
-        msgBtn.href  = '/test/dashboard/#messages';
+        msgBtn.href  = '/dashboard/#messages';
         msgBtn.title = 'Wiadomości';
         msgBtn.id    = 'wg-nav-msg-btn';
         msgBtn.innerHTML = '💬<span class="wg-nav-msg-badge" id="wg-nav-msg-badge"></span>';
@@ -3017,7 +3017,7 @@ function onAuthenticated(user) {
     if (drawer && !drawer.querySelector('.wg-drawer-user')) {
       var du = document.createElement('a');
       du.className  = 'wg-drawer-user';
-      du.href       = '/test/dashboard/';
+      du.href       = '/dashboard/';
       du.style.cssText =
         'display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;' +
         'border:1px solid rgba(0,229,160,.25);margin-bottom:6px;text-decoration:none;' +
@@ -3500,7 +3500,7 @@ function prefillFirmaFromProfile() {
       var hint = document.createElement('div');
       hint.style.cssText = 'margin-top:10px;font-size:12px;color:var(--muted)';
       hint.innerHTML = '✓ Dane pobrane z profilu konta. '
-        + '<a href="/test/dashboard/" style="color:var(--green);text-decoration:none">Zmień w ustawieniach →</a>';
+        + '<a href="/dashboard/" style="color:var(--green);text-decoration:none">Zmień w ustawieniach →</a>';
       details.appendChild(hint);
     }
   } catch(e) {}

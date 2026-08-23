@@ -57,7 +57,7 @@ które czytają plik, robią `str.replace()` i zapisują.
 ```python
 paths=[
   "/Users/artursapoznikow/webgen-coming-soon/api/generate.js",
-  "/Users/artursapoznikow/webgen-coming-soon/test/generator/index.html"
+  "/Users/artursapoznikow/webgen-coming-soon/generator/index.html"
 ]
 ```
 
@@ -96,7 +96,6 @@ teamId:    "team_9GrxtXBkSmlXnZNk3zGsngHW"
 
 | Narzędzie | Powód |
 |---|---|
-| `Claude in Chrome` | Projekt to kod lokalny, nie przeglądarka |
 | `Control Chrome` | Nie potrzebujemy kontroli przeglądarki |
 | `Cloudflare Developer Platform` | Hosting na Vercel, nie Cloudflare Workers |
 | `Canva` | Nie tworzymy materiałów graficznych |
@@ -117,23 +116,41 @@ teamId:    "team_9GrxtXBkSmlXnZNk3zGsngHW"
 - **Email**: Resend (`RESEND_API_KEY`)
 - **Płatności**: Stripe (`STRIPE_SECRET_KEY`)
 - **Zdjęcia**: Pexels (`PEXELS_API_KEY`)
+- **Auth**: Clerk (aplikacja `clerk-yellow-pillow`, domena produkcyjna `webgen.pl`) — realne
+  logowanie/rejestracja/sesje dla klientów i panelu admina, zastąpiło stary prowizoryczny system
+  (localStorage + niezweryfikowane hasła). Publishable key jest publiczny i wpisany wprost w
+  `shared/clerk.js`; `CLERK_SECRET_KEY` żyje tylko po stronie API (`lib/clerk-verify.js`).
 
 ---
 
 ## Architektura plików
 
+Od sierpnia 2026 strona NIE ma już prefiksu `/test/` — wszystko żyje pod root (poza `index.html`,
+które zostaje stroną "coming soon" do czasu pełnego startu; dawna pełna strona marketingowa z
+`/test/index.html` przeniosła się pod `/start/`).
+
 ```
-/api/generate.js          Edge — 3x równoległe call Claude, generuje HTML
-/api/notify-client.js     Edge — email po generowaniu (BEZ template literals!)
-/api/pexels.js            Proxy Pexels API
-/api/register.js          Rejestracja użytkownika
-/api/dashboard-data.js    Dane Stripe → dashboard
-/test/generator/index.html  ~3600 linii — główny generator UI
-/test/dashboard/index.html  Panel klienta + wiadomości
-/test/index.html            Landing page
-/test/cennik/               Cennik
-/test/login/                Login
+/index.html                 "Coming soon" — jedyna publicznie indeksowana strona na razie
+/start/index.html           Pełna strona marketingowa (Jak działa/FAQ) — na razie noindex
+/login/, /rejestracja/      Logowanie i rejestracja przez Clerk (Clerk.mountSignIn/mountSignUp)
+/dashboard/index.html       Panel klienta + wiadomości (auth przez Clerk)
+/generator/index.html       ~3600 linii — główny generator UI (panel-0 = Clerk auth)
+/cennik/                    Cennik
+/admin/index.html           Panel admina — Clerk + allowlist emaila (bez hardcoded hasła)
+/shared/clerk.js            Współdzielona inicjalizacja Clerk JS SDK (window.getClerk())
+/api/generate.js            Edge — legacy fallback, 3x równoległe call Claude
+/api/personalize.js         Node — płatna personalizacja AI szablonu (Pro), wymaga Bearer token
+/api/notify-client.js       Edge — email po generowaniu (BEZ template literals!)
+/api/pexels.js              Proxy Pexels API
+/api/dashboard-data.js      Dane Stripe → dashboard, wymaga Bearer token (Clerk)
+/api/create-checkout.js     Stripe Checkout, wymaga Bearer token (Clerk)
+/lib/clerk-verify.js        Weryfikacja tokena Clerk dla API (verifyRequest(req))
 ```
+
+**Uwaga o auth**: `api/login.js`, `api/register.js`, `api/activate.js` zostały usunięte —
+Clerk w pełni je zastąpił. Endpointy `dashboard-data`, `create-checkout`, `personalize`,
+`update-request`, `questionnaire-answer` wymagają nagłówka `Authorization: Bearer <clerk token>`;
+email klienta jest brany wyłącznie ze zweryfikowanej sesji, nigdy z body/query requestu.
 
 ---
 

@@ -42,13 +42,13 @@ export default async function handler(req) {
         + '<div style="font-size:13px;font-weight:700;color:#92400e;margin-bottom:6px">\u{1F4AC} Masz nowa wiadomosc w panelu klienta</div>'
         + '<div style="font-size:13px;color:#78350f;line-height:1.6">Przygotowalismy kilka pytan, ktore pomoga nam zoptymalizowac Twoja strone. Odpowiedz zajmie 2 minuty.</div>'
         + '</div>';
-      ctaBlock = '<a href="https://webgen.pl/test/dashboard/" style="display:block;text-align:center;background:#00E5A0;color:#080A0F;text-decoration:none;padding:14px;border-radius:10px;font-size:15px;font-weight:700;margin-bottom:16px">Otworz panel klienta \u2192</a>';
+      ctaBlock = '<a href="https://webgen.pl/dashboard/" style="display:block;text-align:center;background:#00E5A0;color:#080A0F;text-decoration:none;padding:14px;border-radius:10px;font-size:15px;font-weight:700;margin-bottom:16px">Otworz panel klienta \u2192</a>';
     } else {
       msgBlock = '<div style="background:#f0fff8;border:1px solid #00c98a;border-radius:10px;padding:16px 20px;margin-bottom:20px">'
         + '<div style="font-size:13px;font-weight:700;color:#065f46;margin-bottom:6px">\u2705 Strona jest kompletna</div>'
         + '<div style="font-size:13px;color:#047857;line-height:1.6">Twoja strona jest gotowa do aktywacji. Wybierz plan w panelu klienta.</div>'
         + '</div>';
-      ctaBlock = '<a href="https://webgen.pl/test/dashboard/" style="display:block;text-align:center;background:#00E5A0;color:#080A0F;text-decoration:none;padding:14px;border-radius:10px;font-size:15px;font-weight:700;margin-bottom:16px">Panel klienta \u2192</a>';
+      ctaBlock = '<a href="https://webgen.pl/dashboard/" style="display:block;text-align:center;background:#00E5A0;color:#080A0F;text-decoration:none;padding:14px;border-radius:10px;font-size:15px;font-weight:700;margin-bottom:16px">Panel klienta \u2192</a>';
     }
 
     var footerBlock = '<p style="margin:24px 0 0;font-size:12px;color:#aaa;text-align:center">'

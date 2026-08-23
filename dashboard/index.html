@@ -283,11 +283,11 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
 </style>
 </head>
 <body>
-<script src="/test/shared/clerk.js"></script>
+<script src="/shared/clerk.js"></script>
 
 <!-- NAV -->
 <nav class="nav">
-  <a href="/test/" class="nav-logo">
+  <a href="/" class="nav-logo">
     <div class="nav-logo-mark">W</div>
     <div class="nav-logo-name">web<span>gen</span></div>
   </a>
@@ -330,10 +330,10 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
     <a class="nav-item" href="mailto:hello@webgen.pl">
       <span class="ni-icon">✉️</span> Kontakt z nami
     </a>
-    <a class="nav-item" href="/test/cennik/">
+    <a class="nav-item" href="/cennik/">
       <span class="ni-icon">📊</span> Cennik
     </a>
-    <a class="nav-item" href="/test/generator/">
+    <a class="nav-item" href="/generator/">
       <span class="ni-icon">⚡</span> Generator stron
     </a>
   </aside>
@@ -367,7 +367,7 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
 
       <!-- Quick actions -->
       <div class="qa-grid">
-        <a class="qa-card" href="/test/generator/" target="_blank">
+        <a class="qa-card" href="/generator/" target="_blank">
           <span class="qa-icon">⚡</span>
           <span class="qa-label">Generator</span>
           <span class="qa-sub">Edytuj lub wygeneruj nową stronę</span>
@@ -592,7 +592,7 @@ async function getAuthHeaders() {
 // ── INIT ──────────────────────────────────────────────────────────
 window.getClerk().then(function (Clerk) {
   if (!Clerk.user) {
-    window.location.replace('/test/login/?redirect=' + encodeURIComponent(window.location.pathname));
+    window.location.replace('/login/?redirect=' + encodeURIComponent(window.location.pathname));
     return;
   }
   clerkUser = Clerk.user;
@@ -624,7 +624,7 @@ window.getClerk().then(function (Clerk) {
   loadStripeData(email);
 }).catch(function (err) {
   console.error('Clerk init error:', err);
-  window.location.replace('/test/login/?redirect=' + encodeURIComponent(window.location.pathname));
+  window.location.replace('/login/?redirect=' + encodeURIComponent(window.location.pathname));
 });
 
 // ── STRIPE ────────────────────────────────────────────────────────
@@ -722,7 +722,7 @@ function buildNoPlanCard() {
   return '<div class="no-plan"><div style="font-size:48px;margin-bottom:16px">📭</div>'
     + '<h3>Brak aktywnego planu</h3>'
     + '<p>Kup plan Pro żeby odblokować personalizację AI, SEO i aktualizacje na życzenie.<br>Plan Free wystarczy żeby aktywować darmowy szablon.</p>'
-    + '<a href="/test/cennik/" class="btn btn-primary">Zobacz plany i ceny →</a></div>';
+    + '<a href="/cennik/" class="btn btn-primary">Zobacz plany i ceny →</a></div>';
 }
 
 function renderNoCustomer() {
@@ -907,7 +907,7 @@ function renderWebsitePage() {
     // Działania
     html += '<div class="btn-row" style="margin-bottom:24px">'
       + '<a href="' + subUrl + '" target="_blank" class="btn btn-primary">🌐 Otwórz stronę</a>'
-      + '<a href="/test/generator/" class="btn btn-outline">⚡ Edytuj w generatorze</a>'
+      + '<a href="/generator/" class="btn btn-outline">⚡ Edytuj w generatorze</a>'
       + (generated.html ? '<button onclick="downloadGeneratedHTML()" class="btn btn-outline">⬇ Pobierz HTML</button>' : '')
       + '</div>';
 
@@ -939,7 +939,7 @@ function renderWebsitePage() {
     container.innerHTML = '<div class="site-url-box"><div class="site-url-label">Twoja strona</div>'
       + '<a href="' + subUrl2 + '" target="_blank" class="site-url">' + subUrl2 + ' ↗</a></div>'
       + '<div class="btn-row"><a href="' + subUrl2 + '" target="_blank" class="btn btn-primary">🌐 Otwórz stronę</a>'
-      + '<a href="/test/generator/" class="btn btn-outline">⚡ Edytuj</a></div>';
+      + '<a href="/generator/" class="btn btn-outline">⚡ Edytuj</a></div>';
     return;
   }
 
@@ -947,7 +947,7 @@ function renderWebsitePage() {
     + '<div style="font-size:48px;margin-bottom:16px">🏗</div>'
     + '<h3>Brak wygenerowanej strony</h3>'
     + '<p>Przejdź do generatora i skonfiguruj swoją stronę firmową.</p>'
-    + '<a href="/test/generator/" class="btn btn-primary">Otwórz generator →</a></div>';
+    + '<a href="/generator/" class="btn btn-primary">Otwórz generator →</a></div>';
 }
 
 function psItem(score, cls, label) {
@@ -1220,7 +1220,7 @@ function showPage(pageId) {
 function doLogout() {
   if (confirm('Wylogować się?')) {
     window.Clerk.signOut().then(function () {
-      window.location.replace('/test/login/?from=logout');
+      window.location.replace('/login/?from=logout');
     });
   }
 }

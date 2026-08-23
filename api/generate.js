@@ -317,8 +317,8 @@ ODPOWIEDZ WYŁĄCZNIE KODEM HTML. Pierwsza linia kodu: <!DOCTYPE html>  Ostatnia
     <div style="font-size:46px;margin-bottom:14px">⏰</div>
     <h2 style="font-size:24px;font-weight:800;color:#F0F2F7;margin:0 0 10px;letter-spacing:-.02em">Twój bezpłatny okres wygasł</h2>
     <p style="font-size:14px;color:#8892AA;line-height:1.65;margin:0 0 24px">Darmowy plan trwa 3 miesiące. Wybierz plan Managed — my zajmiemy się resztą.</p>
-    <a href="https://webgen.pl/test/cennik/" style="display:block;background:#00E5A0;color:#080A0F;text-decoration:none;padding:14px;border-radius:10px;font-size:15px;font-weight:700;margin-bottom:10px">Wybierz plan Managed →</a>
-    <a href="https://webgen.pl/test/dashboard/" style="display:block;color:#8892AA;text-decoration:none;font-size:13px">Wróć do panelu</a>
+    <a href="https://webgen.pl/cennik/" style="display:block;background:#00E5A0;color:#080A0F;text-decoration:none;padding:14px;border-radius:10px;font-size:15px;font-weight:700;margin-bottom:10px">Wybierz plan Managed →</a>
+    <a href="https://webgen.pl/dashboard/" style="display:block;color:#8892AA;text-decoration:none;font-size:13px">Wróć do panelu</a>
   </div>
 </div>
 <script>

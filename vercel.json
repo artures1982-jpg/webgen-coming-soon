@@ -39,48 +39,47 @@
   ],
   "rewrites": [
     {
-      "source": "/test/polityka-prywatnosci",
-      "destination": "/test/polityka-prywatnosci/index.html"
+      "source": "/polityka-prywatnosci",
+      "destination": "/polityka-prywatnosci/index.html"
     },
     {
-      "source": "/test/regulamin",
-      "destination": "/test/regulamin/index.html"
-    },
-    {
-      "source": "/test/cennik",
-      "destination": "/test/cennik/index.html"
-    },
-    {
-      "source": "/test/generator",
-      "destination": "/test/generator/index.html"
-    },
-    {
-      "source": "/test/dashboard",
-      "destination": "/test/dashboard/index.html"
-    },
-    {
-      "source": "/test/admin",
-      "destination": "/test/admin/index.html"
-    },
-    {
-      "source": "/test/prywatnosc",
-      "destination": "/test/prywatnosc/index.html"
-    },
-    {
-      "source": "/test/login",
-      "destination": "/test/login/index.html"
-    },
-    {
-      "source": "/test/rejestracja",
-      "destination": "/test/rejestracja/index.html"
-    },
-    {
-      "source": "/test",
-      "destination": "/test/index.html"
+      "source": "/regulamin",
+      "destination": "/regulamin/index.html"
     },
     {
       "source": "/cennik",
       "destination": "/cennik/index.html"
+    },
+    {
+      "source": "/generator",
+      "destination": "/generator/index.html"
+    },
+    {
+      "source": "/dashboard",
+      "destination": "/dashboard/index.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin/index.html"
+    },
+    {
+      "source": "/login",
+      "destination": "/login/index.html"
+    },
+    {
+      "source": "/rejestracja",
+      "destination": "/rejestracja/index.html"
+    },
+    {
+      "source": "/start",
+      "destination": "/start/index.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/prywatnosc",
+      "destination": "/polityka-prywatnosci/",
+      "permanent": true
     }
   ]
 }

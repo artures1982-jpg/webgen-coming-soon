@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Załóż darmowe konto w Webgen i stwórz stronę firmową.">
 <meta name="robots" content="noindex, nofollow">
-<link rel="canonical" href="https://www.webgen.pl/test/rejestracja/">
+<link rel="canonical" href="https://www.webgen.pl/rejestracja/">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://www.webgen.pl/test/rejestracja/">
+<meta property="og:url" content="https://www.webgen.pl/rejestracja/">
 <meta property="og:site_name" content="Webgen">
 <meta property="og:title" content="Rejestracja — Webgen">
 <meta property="og:image" content="https://www.webgen.pl/og-image.png">
@@ -56,7 +56,7 @@ body{display:flex;flex-direction:column;align-items:center;justify-content:cente
 <body>
 
 <nav class="top-bar">
-  <a href="/test/" class="logo">
+  <a href="/" class="logo">
     <div class="logo-mark">W</div>
     <div class="logo-name">web<span>gen</span></div>
   </a>
@@ -70,17 +70,17 @@ body{display:flex;flex-direction:column;align-items:center;justify-content:cente
 
 <div id="clerk-signup"><div class="loading-hint">Ładowanie…</div></div>
 
-<script src="/test/shared/clerk.js"></script>
+<script src="/shared/clerk.js"></script>
 <script>
 (function () {
   window.getClerk().then(function (Clerk) {
     if (Clerk.user) {
-      window.location.replace('/test/generator/');
+      window.location.replace('/generator/');
       return;
     }
-    var redirect = new URLSearchParams(window.location.search).get('redirect') || '/test/generator/';
+    var redirect = new URLSearchParams(window.location.search).get('redirect') || '/generator/';
     Clerk.mountSignUp(document.getElementById('clerk-signup'), {
-      signInUrl: '/test/login/',
+      signInUrl: '/login/',
       forceRedirectUrl: redirect,
       appearance: {
         variables: {

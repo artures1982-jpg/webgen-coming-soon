@@ -1,4 +1,4 @@
-// test/shared/clerk.js — wspoldzielona inicjalizacja Clerk JS SDK (vanilla, bez frameworka).
+// shared/clerk.js — wspoldzielona inicjalizacja Clerk JS SDK (vanilla, bez frameworka).
 // Laduje sie przez <script src="/shared/clerk.js"> na kazdej stronie ktora potrzebuje auth
 // (login, dashboard, generator, cennik, index, regulamin, polityka-prywatnosci, admin).
 (function () {
