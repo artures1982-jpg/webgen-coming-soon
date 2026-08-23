@@ -713,7 +713,7 @@ function buildPlanCard(sub) {
 function buildNoPlanCard() {
   return '<div class="no-plan"><div style="font-size:48px;margin-bottom:16px">📭</div>'
     + '<h3>Brak aktywnego planu</h3>'
-    + '<p>Kup plan Managed żeby uruchomić swoją stronę firmową.<br>My zajmiemy się wszystkim — od SEO po aktualizacje.</p>'
+    + '<p>Kup plan Pro żeby odblokować personalizację AI, SEO i aktualizacje na życzenie.<br>Plan Free wystarczy żeby aktywować darmowy szablon.</p>'
     + '<a href="/test/cennik/" class="btn btn-primary">Zobacz plany i ceny →</a></div>';
 }
 
@@ -752,7 +752,6 @@ function renderSubscriptionPage(data) {
   if (sub) {
     html += buildPlanCard(sub);
     html += '<div class="btn-row">';
-    html += '<a href="mailto:hello@webgen.pl?subject=Zmiana planu webgen" class="btn btn-outline btn-sm">🔄 Zmień plan</a>';
     if (sub.status === 'active' && !sub.cancel_at_period_end) {
       html += '<a href="mailto:hello@webgen.pl?subject=Rezygnacja z subskrypcji webgen" class="btn btn-danger btn-sm">Anuluj subskrypcję</a>';
     }
@@ -1116,8 +1115,8 @@ function submitQuestionnaire(event, msgIdx) {
     msgs[msgIdx].answered = true; msgs[msgIdx].answers = data; msgs[msgIdx].read = true;
     saveMessages(msgs);
   }
-  fetch('/api/notify-client', {method:'POST',headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({email:'hello@webgen.pl', type:'questionnaire_answer',
+  fetch('/api/questionnaire-answer', {method:'POST',headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({
       clientEmail: userData.email,
       firma: Object.assign({},(msgs[msgIdx]&&msgs[msgIdx].firma)||{},data),
       slug: (msgs[msgIdx]&&msgs[msgIdx].slug)||''})}).catch(function(){});
