@@ -80,7 +80,9 @@ body{display:flex;flex-direction:column;align-items:center;justify-content:cente
       return;
     }
     var redirect = new URLSearchParams(window.location.search).get('redirect') || '/dashboard/';
-    Clerk.mountSignIn(document.getElementById('clerk-signin'), {
+    var _mountEl = document.getElementById('clerk-signin');
+    _mountEl.innerHTML = '';
+    Clerk.mountSignIn(_mountEl, {
       signUpUrl: '/rejestracja/',
       forceRedirectUrl: redirect,
       appearance: {

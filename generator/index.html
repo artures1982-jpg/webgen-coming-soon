@@ -2922,6 +2922,7 @@ function mountAuthWidget(kind) {
   if (!authEl) return;
   authEl.style.display = 'block';
   window.getClerk().then(function (Clerk) {
+    authEl.innerHTML = '';
     var opts = { routing: 'virtual', appearance: CLERK_WIDGET_APPEARANCE };
     if (kind === 'signIn') { opts.signUpUrl = '#'; Clerk.mountSignIn(authEl, opts); }
     else { opts.signInUrl = '#'; Clerk.mountSignUp(authEl, opts); }

@@ -79,7 +79,9 @@ body{display:flex;flex-direction:column;align-items:center;justify-content:cente
       return;
     }
     var redirect = new URLSearchParams(window.location.search).get('redirect') || '/generator/';
-    Clerk.mountSignUp(document.getElementById('clerk-signup'), {
+    var _mountEl = document.getElementById('clerk-signup');
+    _mountEl.innerHTML = '';
+    Clerk.mountSignUp(_mountEl, {
       signInUrl: '/login/',
       forceRedirectUrl: redirect,
       appearance: {
