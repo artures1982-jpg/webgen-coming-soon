@@ -295,6 +295,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
 </style>
 </head>
 <body>
+<script src="/test/shared/clerk.js"></script>
 
 <div class="test-banner">
   ⚠️ <strong>TRYB TESTOWY</strong> — Stripe Test Mode · Użyj karty <strong>4242 4242 4242 4242</strong> · Data: dowolna przyszła · CVC: dowolne 3 cyfry
@@ -535,18 +536,20 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
 var _acAddon = null;
 
 function buyAddon(id, name, price, type) {
-  _acAddon = { id: id, name: name, price: price, type: type };
-  document.getElementById('ac-name').textContent = name;
-  document.getElementById('ac-price').textContent = price + (type === 'month' ? ' zł/mies.' : ' zł jednorazowo');
-  var modal = document.getElementById('addon-checkout-modal');
-  if (modal) modal.style.display = 'flex';
-  try {
-    var user = JSON.parse(localStorage.getItem('wg_user') || 'null');
-    var session = JSON.parse(localStorage.getItem('wg_session') || 'null');
-    var email = (session && session.email) || (user && user.email) || '';
+  window.getClerk().then(function (Clerk) {
+    if (!Clerk.user) {
+      window.location.href = '/test/login/?redirect=' + encodeURIComponent(window.location.pathname);
+      return;
+    }
+    _acAddon = { id: id, name: name, price: price, type: type };
+    document.getElementById('ac-name').textContent = name;
+    document.getElementById('ac-price').textContent = price + (type === 'month' ? ' zł/mies.' : ' zł jednorazowo');
+    var modal = document.getElementById('addon-checkout-modal');
+    if (modal) modal.style.display = 'flex';
     var emailInput = document.getElementById('ac-email');
-    if (emailInput && email) emailInput.value = email;
-  } catch (e) {}
+    var email = Clerk.user.primaryEmailAddress ? Clerk.user.primaryEmailAddress.emailAddress : '';
+    if (emailInput && email) { emailInput.value = email; emailInput.readOnly = true; }
+  });
 }
 
 function closeAddonCheckout() {
@@ -554,14 +557,15 @@ function closeAddonCheckout() {
   if (modal) modal.style.display = 'none';
 }
 
-function goToAddonCheckout() {
+async function goToAddonCheckout() {
   if (!_acAddon) return;
-  var email = document.getElementById('ac-email').value.trim();
-  if (!email) { alert('Podaj adres email'); return; }
+  var Clerk = window.Clerk;
+  if (!Clerk || !Clerk.user) { alert('Zaloguj się ponownie.'); return; }
+  var token = await Clerk.session.getToken();
   fetch('/api/create-checkout', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ plan: 'pro', billing: 'month', addons: [_acAddon.id], email: email })
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+    body: JSON.stringify({ plan: 'pro', billing: 'month', addons: [_acAddon.id] })
   })
   .then(function (res) { return res.json(); })
   .then(function (data) {
@@ -593,24 +597,14 @@ function goToAddonCheckout() {
 
 <script>
 (function wgNavAuth() {
-  var session = null, user = null;
-  try { session = JSON.parse(localStorage.getItem('wg_session') || 'null'); } catch(e) {}
-  try { user    = JSON.parse(localStorage.getItem('wg_user')    || 'null'); } catch(e) {}
+  window.getClerk().then(function (Clerk) {
+    if (!Clerk.user) return;
+    var email = Clerk.user.primaryEmailAddress ? Clerk.user.primaryEmailAddress.emailAddress : '';
+    if (!email) return;
+    init(email);
+  }).catch(function () {});
 
-  var email = '';
-  var isLoggedIn = false;
-
-  if (session && session.email) {
-    email = session.email;
-    isLoggedIn = true;
-  } else if (user && user.email) {
-    email = user.email;
-    isLoggedIn = true;
-  }
-
-  if (!isLoggedIn || !email) return;
-
-  function init() {
+  function init(email) {
     document.body.classList.add('wg-logged-in');
 
     var navRight = document.querySelector('.wg-nav-right');
@@ -663,12 +657,6 @@ function goToAddonCheckout() {
         'overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + email + '</span>';
       drawer.insertBefore(du, drawer.firstChild);
     }
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
   }
 })();
 </script>

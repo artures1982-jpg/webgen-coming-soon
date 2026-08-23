@@ -295,22 +295,6 @@ table.tbl tr:hover td{background:rgba(240,242,247,.02)}
 </style>
 </head>
 <body>
-<script>
-// Natychmiastowe sprawdzenie sesji - ukryj overlay jesli zalogowany
-(function(){
-  if(sessionStorage.getItem('wg_admin_session')==='1'){
-    var hideOverlay = function(){
-      var ov=document.getElementById('login-overlay');
-      if(ov)ov.style.display='none';
-    };
-    if(document.readyState==='loading'){
-      document.addEventListener('DOMContentLoaded', hideOverlay);
-    } else {
-      hideOverlay();
-    }
-  }
-})();
-</script>
 
 <!-- ═══════════════════════════════════════
      SIDEBAR
@@ -1232,37 +1216,9 @@ document.addEventListener('keydown', e=>{
       display:none;margin-bottom:16px;padding:10px 14px;
       background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.25);
       border-radius:8px;font-size:13px;color:#F87171;font-family:var(--mono);
-    ">Nieprawidłowy login lub hasło</div>
+    ">Ten adres email nie ma dostępu do panelu admina.</div>
 
-    <div style="margin-bottom:14px">
-      <label style="display:block;font-size:10px;font-family:var(--mono);color:#8892AA;
-        text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px">Login</label>
-      <input id="adm-login" type="text" autocomplete="username"
-        style="width:100%;background:#0C0F18;border:1.5px solid rgba(240,242,247,.1);
-        border-radius:9px;padding:11px 14px;font-size:14px;color:#F0F2F7;
-        font-family:var(--head);outline:none;transition:border-color .2s"
-        onfocus="this.style.borderColor='#00E5A0'" onblur="this.style.borderColor='rgba(240,242,247,.1)'"
-        onkeydown="if(event.key==='Enter')document.getElementById('adm-pass').focus()">
-    </div>
-
-    <div style="margin-bottom:22px">
-      <label style="display:block;font-size:10px;font-family:var(--mono);color:#8892AA;
-        text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px">Hasło</label>
-      <input id="adm-pass" type="password" autocomplete="current-password"
-        style="width:100%;background:#0C0F18;border:1.5px solid rgba(240,242,247,.1);
-        border-radius:9px;padding:11px 14px;font-size:14px;color:#F0F2F7;
-        font-family:var(--head);outline:none;transition:border-color .2s"
-        onfocus="this.style.borderColor='#00E5A0'" onblur="this.style.borderColor='rgba(240,242,247,.1)'"
-        onkeydown="if(event.key==='Enter')adminLogin()">
-    </div>
-
-    <button onclick="adminLogin()"
-      style="width:100%;background:#00E5A0;color:#03050A;border:none;
-      padding:12px;border-radius:10px;font-size:15px;font-weight:700;
-      cursor:pointer;font-family:var(--head);transition:background .2s"
-      onmouseover="this.style.background='#00C98A'" onmouseout="this.style.background='#00E5A0'">
-      Zaloguj się →
-    </button>
+    <div id="admin-clerk-mount"></div>
 
     <div style="margin-top:16px;font-size:11px;color:rgba(136,146,170,.4);text-align:center;font-family:var(--mono)">
       Panel administracyjny webgen.pl · dostęp tylko dla właściciela
@@ -1270,10 +1226,10 @@ document.addEventListener('keydown', e=>{
   </div>
 </div>
 
+<script src="/test/shared/clerk.js"></script>
 <script>
-// ── Admin Auth ───────────────────────────────────────────────────
-var ADMIN_TOKEN = 'QWRtaW4xOTUzNzA6QXJ0ZWtTMjY5MTUh';
-var ADMIN_SESSION_KEY = 'wg_admin_session';
+// ── Admin Auth (Clerk + allowlist) ────────────────────────────────
+var ADMIN_ALLOWED_EMAILS = ['artures1982@icloud.com'];
 
 function adminShowError(show) {
   var err = document.getElementById('login-error');
@@ -1287,34 +1243,45 @@ function adminUnlock() {
   initAdminApp();
 }
 
-function adminLogin() {
-  var loginEl = document.getElementById('adm-login');
-  var passEl  = document.getElementById('adm-pass');
-  var login = loginEl ? loginEl.value.trim() : '';
-  var pass  = passEl  ? passEl.value  : '';
-  if (!login || !pass) { adminShowError(true); return; }
-  var token = btoa(login + ':' + pass);
-  if (token === ADMIN_TOKEN) {
-    sessionStorage.setItem(ADMIN_SESSION_KEY, '1');
-    adminUnlock();
-  } else {
-    adminShowError(true);
-    if (passEl) { passEl.value = ''; passEl.focus(); }
-  }
+function checkAdminAuth() {
+  window.getClerk().then(function (Clerk) {
+    if (Clerk.user) {
+      var email = Clerk.user.primaryEmailAddress ? Clerk.user.primaryEmailAddress.emailAddress : '';
+      if (ADMIN_ALLOWED_EMAILS.indexOf(email) !== -1) {
+        adminUnlock();
+        return;
+      }
+      // Zalogowany, ale nie na allowliście — pokaż błąd i wyloguj.
+      adminShowError(true);
+      Clerk.signOut().then(mountAdminSignIn);
+      return;
+    }
+    mountAdminSignIn();
+  }).catch(function (err) { console.error('Clerk init error:', err); });
 }
 
-// Auth check — uruchamia sie po zaladowaniu DOM
-function checkAdminAuth() {
-  if (sessionStorage.getItem(ADMIN_SESSION_KEY) === '1') {
-    var ov = document.getElementById('login-overlay');
-    if (ov) ov.style.display = 'none';
-    initAdminApp();
-  } else {
-    setTimeout(function() {
-      var l = document.getElementById('adm-login');
-      if (l) l.focus();
-    }, 150);
-  }
+function mountAdminSignIn() {
+  var mount = document.getElementById('admin-clerk-mount');
+  if (!mount) return;
+  window.getClerk().then(function (Clerk) {
+    Clerk.mountSignIn(mount, {
+      routing: 'virtual',
+      appearance: { variables: {
+        colorPrimary: '#00E5A0', colorBackground: '#07090F', colorText: '#F0F2F7',
+        colorTextSecondary: '#8892AA', fontFamily: "'Bricolage Grotesque', sans-serif", borderRadius: '9px'
+      }}
+    });
+    Clerk.addListener(function (payload) {
+      if (!payload.user) return;
+      var email = payload.user.primaryEmailAddress ? payload.user.primaryEmailAddress.emailAddress : '';
+      if (ADMIN_ALLOWED_EMAILS.indexOf(email) !== -1) {
+        adminUnlock();
+      } else {
+        adminShowError(true);
+        Clerk.signOut();
+      }
+    });
+  });
 }
 
 

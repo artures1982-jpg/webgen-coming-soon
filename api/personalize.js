@@ -9,6 +9,7 @@ const fs = require('fs');
 const path = require('path');
 const { STYLES, buildUserPrompt } = require('../lib/promptBuilder');
 const { isProEmail } = require('../lib/entitlement');
+const { verifyRequest } = require('../lib/clerk-verify');
 
 function slugify(name) {
   return (name || 'firma')
@@ -28,17 +29,20 @@ function loadManifest() {
 module.exports = async function (req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+
+  var authSession = await verifyRequest(req);
+  if (!authSession) return res.status(401).json({ error: 'Brak autoryzacji' });
+  var email = authSession.email;
 
   var body = req.body || {};
   var templateId = body.templateId;
   var firma = body.firma;
-  var email = body.email;
 
-  if (!templateId || !firma || !email) {
-    return res.status(400).json({ error: 'Brak templateId, firma lub email' });
+  if (!templateId || !firma) {
+    return res.status(400).json({ error: 'Brak templateId lub firma' });
   }
   if (!ANTHROPIC_KEY) {
     return res.status(500).json({ error: 'Brak ANTHROPIC_API_KEY w srodowisku' });

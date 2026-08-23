@@ -283,13 +283,7 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
 </style>
 </head>
 <body>
-<script>
-(function authCheck() {
-  var s = null;
-  try { s = JSON.parse(localStorage.getItem('wg_session') || 'null'); } catch(e){}
-  if (!s || !s.email) { window.location.replace('/test/login/?from=dashboard'); }
-})();
-</script>
+<script src="/test/shared/clerk.js"></script>
 
 <!-- NAV -->
 <nav class="nav">
@@ -587,20 +581,30 @@ var userData = {};
 var stripeData = {};
 var dataLoaded = false;
 var WG_MESSAGES_KEY = 'wg_messages';
+var clerkUser = null;
+
+async function getAuthHeaders() {
+  if (!clerkUser) return {};
+  var token = await window.Clerk.session.getToken();
+  return token ? { 'Authorization': 'Bearer ' + token } : {};
+}
 
 // ── INIT ──────────────────────────────────────────────────────────
-window.addEventListener('DOMContentLoaded', function() {
-  try {
-    var session = JSON.parse(localStorage.getItem('wg_session') || 'null');
-    var user    = JSON.parse(localStorage.getItem('wg_user')    || 'null');
-    var firma   = JSON.parse(localStorage.getItem('wg_firma')   || 'null');
-    userData = {
-      email:   (session && session.email) || (user && user.email) || '',
-      firma:   firma || {},
-      created: (user && user.created) ? new Date(user.created).toLocaleDateString('pl-PL') : '—',
-      accountType: (user && user.accountType) || 'individual',
-    };
-  } catch(e) { userData = {email:'', firma:{}, created:'—', accountType:'individual'}; }
+window.getClerk().then(function (Clerk) {
+  if (!Clerk.user) {
+    window.location.replace('/test/login/?redirect=' + encodeURIComponent(window.location.pathname));
+    return;
+  }
+  clerkUser = Clerk.user;
+  var meta  = clerkUser.unsafeMetadata || {};
+  var firma = null;
+  try { firma = JSON.parse(localStorage.getItem('wg_firma') || 'null'); } catch(e) {}
+  userData = {
+    email:   clerkUser.primaryEmailAddress ? clerkUser.primaryEmailAddress.emailAddress : '',
+    firma:   firma || {},
+    created: clerkUser.createdAt ? new Date(clerkUser.createdAt).toLocaleDateString('pl-PL') : '—',
+    accountType: meta.accountType || 'individual',
+  };
 
   var email = userData.email;
   document.getElementById('nav-avatar').textContent = email ? email[0].toUpperCase() : '?';
@@ -618,13 +622,17 @@ window.addEventListener('DOMContentLoaded', function() {
   renderMessages();
   updateBadge();
   loadStripeData(email);
+}).catch(function (err) {
+  console.error('Clerk init error:', err);
+  window.location.replace('/test/login/?redirect=' + encodeURIComponent(window.location.pathname));
 });
 
 // ── STRIPE ────────────────────────────────────────────────────────
 async function loadStripeData(email) {
   if (!email) { renderNoCustomer(); return; }
   try {
-    var res  = await fetch('/api/dashboard-data?email=' + encodeURIComponent(email));
+    var headers = await getAuthHeaders();
+    var res  = await fetch('/api/dashboard-data?email=' + encodeURIComponent(email), { headers: headers });
     var data = await res.json();
     stripeData = data;
     dataLoaded = true;
@@ -848,14 +856,15 @@ function addonRow(a, isActive) {
     + '</div></div>';
 }
 
-function activateAddon(addonId) {
+async function activateAddon(addonId) {
   var email = userData.email;
   if (!email) { alert('Zaloguj się ponownie, żeby dokupić dodatek.'); return; }
   var generated = null;
   try { generated = JSON.parse(localStorage.getItem('wg_generated') || 'null'); } catch (e) {}
+  var authHeaders = await getAuthHeaders();
   fetch('/api/create-checkout', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: Object.assign({ 'Content-Type': 'application/json' }, authHeaders),
     body: JSON.stringify({
       plan: 'pro',
       billing: 'month',
@@ -1000,16 +1009,17 @@ function downloadGeneratedHTML() {
   a.click();
 }
 
-function sendUpdateRequest(slug) {
+async function sendUpdateRequest(slug) {
   var telefon = (document.getElementById('upd-telefon') || {}).value || '';
   var godz    = (document.getElementById('upd-godz')    || {}).value || '';
   var opis    = (document.getElementById('upd-opis')    || {}).value || '';
   if (!telefon && !godz && !opis) { alert('Opisz co chcesz zmienić.'); return; }
   var st = document.getElementById('upd-status');
+  var authHeaders = await getAuthHeaders();
   fetch('/api/update-request', {
-    method:'POST', headers:{'Content-Type':'application/json'},
+    method:'POST', headers: Object.assign({'Content-Type':'application/json'}, authHeaders),
     body: JSON.stringify({
-      clientEmail: userData.email, slug: slug,
+      slug: slug,
       update: {telefon:telefon, godz:godz, opis:opis}
     })
   })
@@ -1105,7 +1115,7 @@ function renderMessages() {
   }, 800);
 }
 
-function submitQuestionnaire(event, msgIdx) {
+async function submitQuestionnaire(event, msgIdx) {
   event.preventDefault();
   var form = event.target;
   var data = {};
@@ -1115,9 +1125,9 @@ function submitQuestionnaire(event, msgIdx) {
     msgs[msgIdx].answered = true; msgs[msgIdx].answers = data; msgs[msgIdx].read = true;
     saveMessages(msgs);
   }
-  fetch('/api/questionnaire-answer', {method:'POST',headers:{'Content-Type':'application/json'},
+  var authHeaders = await getAuthHeaders();
+  fetch('/api/questionnaire-answer', {method:'POST',headers: Object.assign({'Content-Type':'application/json'}, authHeaders),
     body: JSON.stringify({
-      clientEmail: userData.email,
       firma: Object.assign({},(msgs[msgIdx]&&msgs[msgIdx].firma)||{},data),
       slug: (msgs[msgIdx]&&msgs[msgIdx].slug)||''})}).catch(function(){});
   renderMessages();
@@ -1126,19 +1136,20 @@ function submitQuestionnaire(event, msgIdx) {
 // ── ACCOUNT ───────────────────────────────────────────────────────
 function renderAccountPage() {
   try {
-    var u = JSON.parse(localStorage.getItem('wg_user') || '{}');
+    if (!clerkUser) return;
+    var meta = clerkUser.unsafeMetadata || {};
     var typeEl = document.getElementById('account-type');
     var card   = document.getElementById('profile-firma-card');
-    if (typeEl) typeEl.textContent = u.accountType==='firma' ? '🏢 Firmowy' : '👤 Indywidualny';
-    if (card) card.style.display = u.accountType==='firma' ? 'block' : 'none';
-    if (u.profileFirma) {
-      var pf = u.profileFirma;
+    if (typeEl) typeEl.textContent = meta.accountType==='firma' ? '🏢 Firmowy' : '👤 Indywidualny';
+    if (card) card.style.display = meta.accountType==='firma' ? 'block' : 'none';
+    if (meta.profileFirma) {
+      var pf = meta.profileFirma;
       var n = document.getElementById('pf-nazwa'); if(n) n.value = pf.nazwa_firma||'';
       var ip = document.getElementById('pf-nip');   if(ip) ip.value = pf.nip||'';
       var a = document.getElementById('pf-adres');  if(a) a.value = pf.adres_firma||'';
     }
     // Wczytaj preferencje powiadomień
-    var notif = u.notifications || {};
+    var notif = meta.notifications || {};
     var nu = document.getElementById('notif-updates'); if(nu) nu.checked = notif.updates !== false;
     var nb2 = document.getElementById('notif-billing'); if(nb2) nb2.checked = notif.billing !== false;
     var ns = document.getElementById('notif-seo'); if(ns) ns.checked = !!notif.seo;
@@ -1146,38 +1157,40 @@ function renderAccountPage() {
 }
 
 function saveProfileFirma() {
-  try {
-    var u = JSON.parse(localStorage.getItem('wg_user') || '{}');
-    u.profileFirma = {
-      nazwa_firma: (document.getElementById('pf-nazwa')||{}).value||'',
-      nip:         (document.getElementById('pf-nip')  ||{}).value||'',
-      adres_firma: (document.getElementById('pf-adres')||{}).value||'',
-    };
-    localStorage.setItem('wg_user', JSON.stringify(u));
-    var st = document.getElementById('pf-save-status');
-    if (st) { st.style.display='inline'; setTimeout(function(){ st.style.display='none'; },2500); }
-  } catch(e) { alert('Błąd zapisu'); }
+  if (!clerkUser) return;
+  var profileFirma = {
+    nazwa_firma: (document.getElementById('pf-nazwa')||{}).value||'',
+    nip:         (document.getElementById('pf-nip')  ||{}).value||'',
+    adres_firma: (document.getElementById('pf-adres')||{}).value||'',
+  };
+  clerkUser.update({ unsafeMetadata: Object.assign({}, clerkUser.unsafeMetadata, { profileFirma: profileFirma }) })
+    .then(function() {
+      var st = document.getElementById('pf-save-status');
+      if (st) { st.style.display='inline'; setTimeout(function(){ st.style.display='none'; },2500); }
+    })
+    .catch(function() { alert('Błąd zapisu'); });
 }
 
 function saveNotifications() {
-  try {
-    var u = JSON.parse(localStorage.getItem('wg_user') || '{}');
-    u.notifications = {
-      updates: !!(document.getElementById('notif-updates')||{}).checked,
-      billing: !!(document.getElementById('notif-billing')||{}).checked,
-      seo:     !!(document.getElementById('notif-seo')    ||{}).checked,
-    };
-    localStorage.setItem('wg_user', JSON.stringify(u));
-    var st = document.getElementById('notif-save-status');
-    if (st) { st.style.display='inline'; setTimeout(function(){ st.style.display='none'; },2500); }
-  } catch(e) {}
+  if (!clerkUser) return;
+  var notifications = {
+    updates: !!(document.getElementById('notif-updates')||{}).checked,
+    billing: !!(document.getElementById('notif-billing')||{}).checked,
+    seo:     !!(document.getElementById('notif-seo')    ||{}).checked,
+  };
+  clerkUser.update({ unsafeMetadata: Object.assign({}, clerkUser.unsafeMetadata, { notifications: notifications }) })
+    .then(function() {
+      var st = document.getElementById('notif-save-status');
+      if (st) { st.style.display='inline'; setTimeout(function(){ st.style.display='none'; },2500); }
+    })
+    .catch(function() {});
 }
 
 function exportAccountData() {
   try {
     var data = {
-      session:   JSON.parse(localStorage.getItem('wg_session')||'{}'),
-      user:      JSON.parse(localStorage.getItem('wg_user')||'{}'),
+      email:     userData.email,
+      metadata:  (clerkUser && clerkUser.unsafeMetadata) || {},
       firma:     JSON.parse(localStorage.getItem('wg_firma')||'{}'),
       messages:  JSON.parse(localStorage.getItem(WG_MESSAGES_KEY)||'[]'),
       generated: JSON.parse(localStorage.getItem('wg_generated')||'{}'),
@@ -1206,8 +1219,9 @@ function showPage(pageId) {
 
 function doLogout() {
   if (confirm('Wylogować się?')) {
-    localStorage.removeItem('wg_session');
-    window.location.replace('/test/login/?from=logout');
+    window.Clerk.signOut().then(function () {
+      window.location.replace('/test/login/?from=logout');
+    });
   }
 }
 function toggleUserMenu() { doLogout(); }

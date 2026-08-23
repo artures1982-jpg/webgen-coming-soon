@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Zaloguj się do panelu Webgen i zarządzaj swoją stroną firmową.">
+<meta name="description" content="Załóż darmowe konto w Webgen i stwórz stronę firmową.">
 <meta name="robots" content="noindex, nofollow">
-<link rel="canonical" href="https://www.webgen.pl/test/login/">
+<link rel="canonical" href="https://www.webgen.pl/test/rejestracja/">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://www.webgen.pl/test/login/">
+<meta property="og:url" content="https://www.webgen.pl/test/rejestracja/">
 <meta property="og:site_name" content="Webgen">
-<meta property="og:title" content="Logowanie — Webgen">
+<meta property="og:title" content="Rejestracja — Webgen">
 <meta property="og:image" content="https://www.webgen.pl/og-image.png">
-<title>Logowanie — webgen.pl</title>
+<title>Rejestracja — webgen.pl</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -49,7 +49,7 @@ body{display:flex;flex-direction:column;align-items:center;justify-content:cente
   line-height:1.15;margin-bottom:10px}
 .heading p{font-size:14px;color:var(--muted);line-height:1.6}
 
-#clerk-signin{width:100%;max-width:440px;min-height:400px;display:flex;align-items:center;justify-content:center}
+#clerk-signup{width:100%;max-width:440px;min-height:400px;display:flex;align-items:center;justify-content:center}
 .loading-hint{font-family:var(--mono);font-size:13px;color:var(--muted)}
 </style>
 </head>
@@ -63,25 +63,24 @@ body{display:flex;flex-direction:column;align-items:center;justify-content:cente
 </nav>
 
 <div class="heading">
-  <div class="eyebrow">// Panel klienta</div>
-  <h1>Zaloguj się<br>do <span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">webgen</span></h1>
-  <p>Wejdź do swojego panelu i zarządzaj stroną firmową.</p>
+  <div class="eyebrow">// Nowe konto</div>
+  <h1>Załóż konto<br>w <span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">webgen</span></h1>
+  <p>Bezpłatnie, w minutę. Wygenerujesz stronę zaraz po rejestracji.</p>
 </div>
 
-<div id="clerk-signin"><div class="loading-hint">Ładowanie…</div></div>
+<div id="clerk-signup"><div class="loading-hint">Ładowanie…</div></div>
 
 <script src="/test/shared/clerk.js"></script>
 <script>
 (function () {
-  // Jesli juz zalogowany — od razu do dashboardu
   window.getClerk().then(function (Clerk) {
     if (Clerk.user) {
-      window.location.replace('/test/dashboard/');
+      window.location.replace('/test/generator/');
       return;
     }
-    var redirect = new URLSearchParams(window.location.search).get('redirect') || '/test/dashboard/';
-    Clerk.mountSignIn(document.getElementById('clerk-signin'), {
-      signUpUrl: '/test/rejestracja/',
+    var redirect = new URLSearchParams(window.location.search).get('redirect') || '/test/generator/';
+    Clerk.mountSignUp(document.getElementById('clerk-signup'), {
+      signInUrl: '/test/login/',
       forceRedirectUrl: redirect,
       appearance: {
         variables: {
@@ -96,8 +95,8 @@ body{display:flex;flex-direction:column;align-items:center;justify-content:cente
     });
   }).catch(function (err) {
     console.error('Clerk load error:', err);
-    document.getElementById('clerk-signin').innerHTML =
-      '<div class="loading-hint">Nie udało się załadować logowania. Odśwież stronę.</div>';
+    document.getElementById('clerk-signup').innerHTML =
+      '<div class="loading-hint">Nie udało się załadować rejestracji. Odśwież stronę.</div>';
   });
 })();
 </script>

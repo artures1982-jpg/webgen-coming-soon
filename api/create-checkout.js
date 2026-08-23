@@ -1,4 +1,5 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const { verifyRequest } = require("../lib/clerk-verify");
 
 // Model Free/Pro (Faza 5 przebudowy cennika) — jeden płatny plan zamiast START/PRO/PREMIUM.
 const PRICES = {
@@ -24,7 +25,10 @@ const ONE_TIME_ADDONS = { wlasna_domena: true, dodatkowe_podstrony: true, sesja_
 
 module.exports = async function(req, res) {
   if (req.method !== "POST") return res.status(405).json({error:"Method not allowed"});
-  const { plan, billing, addons, firma_slug, email } = req.body;
+  const session = await verifyRequest(req);
+  if (!session) return res.status(401).json({error: "Brak autoryzacji"});
+  const email = session.email;
+  const { plan, billing, addons, firma_slug } = req.body;
 
   var lineItems = [];
   var hasRecurring = false;
@@ -59,7 +63,7 @@ module.exports = async function(req, res) {
     // Stripe wymaga mode:'subscription' tylko gdy jest co najmniej 1 cena cykliczna;
     // sam zakup jednorazowego dodatku (bez planu) idzie przez mode:'payment'.
     var mode = hasRecurring ? 'subscription' : 'payment';
-    var session = await stripe.checkout.sessions.create({
+    var checkoutSession = await stripe.checkout.sessions.create({
       mode: mode,
       payment_method_types: ["card"],
       line_items: lineItems,
@@ -72,7 +76,7 @@ module.exports = async function(req, res) {
       success_url: "https://webgen.pl/success?session_id={CHECKOUT_SESSION_ID}",
       cancel_url: "https://webgen.pl/test/generator/",
     });
-    res.json({ checkout_url: session.url });
+    res.json({ checkout_url: checkoutSession.url });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

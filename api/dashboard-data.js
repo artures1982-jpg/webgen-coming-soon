@@ -1,4 +1,5 @@
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
+const { verifyRequest } = require('../lib/clerk-verify');
 
 async function stripeGet(path) {
   const res = await fetch(`https://api.stripe.com/v1${path}`, {
@@ -13,12 +14,13 @@ async function stripeGet(path) {
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
 
-  const email = req.query.email;
-  if (!email) return res.status(400).json({ error: 'Brak email' });
+  const session = await verifyRequest(req);
+  if (!session) return res.status(401).json({ error: 'Brak autoryzacji' });
+  const email = session.email;
 
   if (!STRIPE_SECRET_KEY) {
     return res.status(200).json({

@@ -981,7 +981,9 @@ body.wg-logged-in .wg-nav-drawer a[href="/test/generator/"]{ display:none!import
 }
 </style>
 </head>
-<body><div style="position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(22,18,6,.95);border-bottom:2px solid rgba(251,191,36,.5);padding:9px 20px;text-align:center;font-family:monospace;font-size:12px;color:#FCD34D"><strong style="color:#FBBF24">STRIPE TEST MODE</strong> &nbsp;|&nbsp; Karta: <strong style="color:#fff">4242 4242 4242 4242</strong> &nbsp;|&nbsp; Data: <strong style="color:#fff">12/29</strong> &nbsp;|&nbsp; CVC: <strong style="color:#fff">123</strong></div><div style="height:40px"></div>
+<body>
+<script src="/test/shared/clerk.js"></script>
+<div style="position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(22,18,6,.95);border-bottom:2px solid rgba(251,191,36,.5);padding:9px 20px;text-align:center;font-family:monospace;font-size:12px;color:#FCD34D"><strong style="color:#FBBF24">STRIPE TEST MODE</strong> &nbsp;|&nbsp; Karta: <strong style="color:#fff">4242 4242 4242 4242</strong> &nbsp;|&nbsp; Data: <strong style="color:#fff">12/29</strong> &nbsp;|&nbsp; CVC: <strong style="color:#fff">123</strong></div><div style="height:40px"></div>
 
 <!-- NAV -->
 <nav class="wg-nav" id="wg-nav">
@@ -1724,24 +1726,14 @@ function ctaSubmit(e) {
 
 <script>
 (function wgNavAuth() {
-  var session = null, user = null;
-  try { session = JSON.parse(localStorage.getItem('wg_session') || 'null'); } catch(e) {}
-  try { user    = JSON.parse(localStorage.getItem('wg_user')    || 'null'); } catch(e) {}
+  window.getClerk().then(function (Clerk) {
+    if (!Clerk.user) return;
+    var email = Clerk.user.primaryEmailAddress ? Clerk.user.primaryEmailAddress.emailAddress : '';
+    if (!email) return;
+    init(email);
+  }).catch(function () {});
 
-  var email = '';
-  var isLoggedIn = false;
-
-  if (session && session.email) {
-    email = session.email;
-    isLoggedIn = true;
-  } else if (user && user.email) {
-    email = user.email;
-    isLoggedIn = true;
-  }
-
-  if (!isLoggedIn || !email) return;
-
-  function init() {
+  function init(email) {
     document.body.classList.add('wg-logged-in');
 
     var navRight = document.querySelector('.wg-nav-right');
@@ -1794,12 +1786,6 @@ function ctaSubmit(e) {
         'overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + email + '</span>';
       drawer.insertBefore(du, drawer.firstChild);
     }
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
   }
 })();
 </script>

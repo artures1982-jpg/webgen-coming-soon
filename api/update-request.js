@@ -4,17 +4,22 @@
 // to jako uzasadnienie ceny abonamentu, wiec bramkujemy tak samo jak personalizacje AI.
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const { isProEmail } = require('../lib/entitlement');
+const { verifyRequest } = require('../lib/clerk-verify');
 
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { clientEmail, slug, update } = req.body || {};
-  if (!clientEmail || !update) {
-    return res.status(400).json({ error: 'Brak clientEmail lub update' });
+  const authSession = await verifyRequest(req);
+  if (!authSession) return res.status(401).json({ error: 'Brak autoryzacji' });
+  const clientEmail = authSession.email;
+
+  const { slug, update } = req.body || {};
+  if (!update) {
+    return res.status(400).json({ error: 'Brak update' });
   }
   const telefon = (update.telefon || '').trim();
   const godz = (update.godz || '').trim();
