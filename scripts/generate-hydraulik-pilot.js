@@ -107,12 +107,22 @@ LAYOUT:
     visual: `STYL: „Alarm 24/7" — maksymalna pilność, natychmiastowa reakcja na awarię, konwersja nade wszystko.
 PALETA (jako zmienne CSS): --bg biały/bardzo jasny szary, --accent czerwono-pomarańczowy (kolor alarmu).
 TYPOGRAFIA (jako zmienne CSS): nagłówki bardzo grube, kapitaliki, mocny kontrast; tekst prosty sans.
+
+PRAWDZIWE ZDJĘCIA (Pexels, wyselekcjonowane ręcznie i wizualnie zweryfikowane — użyj DOKŁADNIE
+tych URL-i jako <img src="..."> lub background-image z object-fit:cover; to NIE jest opcjonalne —
+strona MUSI zawierać prawdziwe zdjęcia, nie tylko emoji/ikony i płaskie tło koloru akcentu):
+- HERO (tło pełnoekranowe, ciemny technik/awaria w akcji — dłonie w rękawicach przy instalacji
+  grzewczej): https://images.pexels.com/photos/7859953/pexels-photo-7859953.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+  — na tym zdjęciu zastosuj CIEMNY gradient-overlay (np. linear-gradient z var(--text) + odrobiną
+  var(--accent)) na tyle mocny, żeby biały tekst i telefon OGROMNĄ czcionką były w pełni czytelne.
+- Sekcja zaufania/kontakt, zdjęcie ekipy w akcji (technik z kluczem w kasku i kamizelce, gotowy do
+  wyjazdu): https://images.pexels.com/photos/8486928/pexels-photo-8486928.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
 LAYOUT:
 1. Pulsujący pasek na całą szerokość pod nagłówkiem (CSS @keyframes na tle var(--accent)): "AWARIA? DZWOŃ TERAZ: {{TELEFON}}".
-2. Hero krótki: numer telefonu OGROMNĄ czcionką na środku (nie z boku), pod nim jedno zdanie nagłówka, bez rozbudowanego zdjęcia tła (albo bardzo ciemne, mocno przyciemnione).
+2. Hero pełnoekranowy: zdjęcie HERO z listy powyżej jako tło z ciemnym gradient-overlay, numer telefonu OGROMNĄ czcionką na środku (nie z boku), pod nim jedno zdanie nagłówka, przycisk CTA.
 3. Zaraz pod hero: 3 badge w rzędzie — "Śr. czas dojazdu 30 min" / "Dostępni 24/7/365" / "Bezpłatna wycena telefoniczna".
-4. Sekcja "Rodzaje awarii które usuwamy": siatka 6 ikon (nie zdjęć — szybkie skanowanie wzrokiem) — pęknięta rura, zalanie, brak wody, piec, kanalizacja, instalacja gazowa — każda krótka etykieta.
-5. Krótka sekcja zaufania: 3 liczby w rzędzie (lat na rynku / awarii usuniętych / ocena Google) bez rozbudowanych cytatów.
+4. Sekcja "Rodzaje awarii które usuwamy": siatka 6 ikon (nie zdjęć — to świadomy wybór, szybkie skanowanie wzrokiem w sytuacji awaryjnej działa lepiej niż zdjęcia) — pęknięta rura, zalanie, brak wody, piec, kanalizacja, instalacja gazowa — każda krótka etykieta.
+5. Sekcja zaufania: 2 kolumny — lewo 3 liczby w rzędzie (lat na rynku / awarii usuniętych / ocena Google) + USP, prawo zdjęcie ekipy z listy powyżej (duże, zaokrąglone rogi, cień) — to zdjęcie jest wymagane, nie pomijaj go.
 6. Kontakt: przycisk "ZADZWOŃ TERAZ" powtórzony jeszcze raz jako duży, samodzielny pasek nad formularzem, krótki formularz (telefon + 1 zdanie opisu awarii).
 7. Stopka minimalna: telefon, adres, linki prawne.`
   },
