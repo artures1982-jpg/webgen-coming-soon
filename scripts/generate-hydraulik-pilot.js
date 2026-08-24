@@ -150,10 +150,33 @@ LAYOUT:
     visual: `STYL: ciemny motyw, cyfrowy, "startup lokalny" — formularz wyceny online jako główne CTA zamiast telefonu.
 PALETA (jako zmienne CSS): --bg ciemny grafitowo-niebieski, --surface odrobinę jaśniejszy od --bg, --accent nasycony niebieski/turkusowy neon, --text jasny.
 TYPOGRAFIA (jako zmienne CSS): nagłówki geometryczny sans o dużej wadze (np. Space Grotesk/Sora), tekst neutralny sans.
+
+PRAWDZIWE ZDJĘCIA (Pexels, wyselekcjonowane ręcznie i wizualnie zweryfikowane — użyj DOKŁADNIE
+tych URL-i jako background-image/<img> z object-fit:cover; to NIE jest opcjonalne — ciemny/neonowy
+styl nie zwalnia z wymogu prawdziwej fotografii, strona NIE MOŻE opierać się wyłącznie na
+gradientach/glassmorphism bez żadnego zdjęcia, to dokładnie błąd zgłoszony wcześniej przy innym
+wariancie tego pilota):
+- HERO: zdjęcie w tle CAŁEJ sekcji hero (nie tylko jednej kolumny), z ciemnym gradient-overlay
+  (var(--bg) + odrobiną var(--accent) jako kolorowa poświata) na tyle mocnym, by tekst i szklana
+  karta formularza były w pełni czytelne — overlay musi być na tyle JASNY, żeby zdjęcie było
+  faktycznie widoczne pod spodem, nie renderowało się jak jednolita czerń (sprawdź to wizualnie
+  przed oddaniem pliku, nie tylko w kodzie):
+  https://images.pexels.com/photos/16509869/pexels-photo-16509869.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Karty USŁUGI (glassmorphism) — każda karta dostaje WŁASNE zdjęcie jako górna część karty (nie
+  samą ikonę), pod zdjęciem szklany panel z nazwą usługi:
+  1. "Awarie i naprawy": https://images.pexels.com/photos/15206136/pexels-photo-15206136.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650
+  2. "Instalacje wod-kan": https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650
+  3. "Przeglądy i diagnostyka": https://images.pexels.com/photos/32497162/pexels-photo-32497162.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650
+  4. "Montaż armatury": https://images.pexels.com/photos/30560253/pexels-photo-30560253.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650
+  5. "Instalacje grzewcze": https://images.pexels.com/photos/12644994/pexels-photo-12644994.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650
 LAYOUT:
 1. Sticky nav z przezroczystym tłem + blur po przescrollowaniu.
-2. Hero: 2 kolumny — lewo nagłówek z fragmentem tekstu jako gradient (background-clip:text, gradient z var(--accent)) + krótki opis, prawo kompaktowy formularz "Wyślij zapytanie o wycenę" (imię, telefon, typ usterki, przycisk) w karcie z lekkim border/glassmorphism.
-3. Sekcja USŁUGI jako karty glassmorphism (background rgba niskiej opacity, border subtelny, hover: border-color var(--accent) + glow).
+2. Hero: zdjęcie tła z listy powyżej na całej sekcji (patrz PRAWDZIWE ZDJĘCIA), na nim 2 kolumny —
+   lewo nagłówek z fragmentem tekstu jako gradient (background-clip:text, gradient z var(--accent))
+   + krótki opis, prawo kompaktowy formularz "Wyślij zapytanie o wycenę" (imię, telefon, typ usterki,
+   przycisk) w karcie glassmorphism (border subtelny, tło rgba niskiej opacity, backdrop-filter:blur).
+3. Sekcja USŁUGI jako karty glassmorphism ze zdjęciem z listy powyżej u góry każdej karty (nie sama
+   ikona), border subtelny, hover: border-color var(--accent) + glow.
 4. Sekcja "Jak to działa": 3 kroki numerowane poziomo (Zgłoś się online → Wycena w 15 minut → Fachowiec u Ciebie tego samego dnia).
 5. Sekcja opinii jako statyczna siatka 3 kart (nie karuzela), każda z avatarem-inicjałem.
 6. Pasmo CTA: duży nagłówek + przycisk "Wyceń online" prowadzący do formularza.
