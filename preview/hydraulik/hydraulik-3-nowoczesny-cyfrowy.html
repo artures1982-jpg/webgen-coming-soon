@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{NAZWA_STRONY}} — Hydraulik {{MIASTO}} | tel. {{TELEFON}}</title>
+<meta name="description" content="{{NAZWA_STRONY}} — profesjonalne usługi Hydraulik w mieście {{MIASTO}}. Zadzwoń: {{TELEFON}}">
+<meta name="keywords" content="Hydraulik {{MIASTO}}">
+<link rel="canonical" href="https://{{SLUG}}.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{NAZWA_STRONY}} — Hydraulik {{MIASTO}}">
+<meta property="og:description" content="{{NAZWA_STRONY}} — profesjonalne usługi Hydraulik w mieście {{MIASTO}}. Zadzwoń: {{TELEFON}}">
+<meta property="og:url" content="https://{{SLUG}}.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"{{NAZWA_STRONY}}","telephone":"{{TELEFON}}","email":"{{EMAIL}}","description":"{{NAZWA_STRONY}} — Hydraulik w mieście {{MIASTO}}","address":{"@type":"PostalAddress","addressLocality":"{{MIASTO}}","addressCountry":"PL"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#22d3ee;
+    --accent-dark:#0e7490;
+    --bg:#0a0e17;
+    --surface:#121826;
+    --text:#eef2f7;
+    --muted:#8b94a8;
+    --head:'Space Grotesk', sans-serif;
+    --body:'Inter', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--body);
+    color:var(--text);
+    background:var(--bg);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3,h4{font-family:var(--head);line-height:1.15;font-weight:700;}
+  section{padding:5.5rem 1.5rem;}
+  .wrap{max-width:1160px;margin:0 auto;}
+  .eyebrow{
+    display:inline-block;font-family:var(--body);font-weight:700;font-size:.78rem;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.7rem;
+  }
+  h2{font-size:clamp(1.7rem,3.2vw,2.4rem);margin-bottom:1rem;color:var(--text);}
+  .center{text-align:center;}
+  .lead{color:var(--muted);font-size:1.02rem;max-width:600px;}
+  .center .lead{margin:0 auto;}
+  .btn{
+    display:inline-flex;align-items:center;gap:.5rem;padding:.95rem 1.7rem;border-radius:.6rem;
+    font-weight:700;font-family:var(--body);font-size:.98rem;border:1px solid transparent;
+    cursor:pointer;transition:transform .15s ease, box-shadow .2s ease, background .2s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--accent);color:var(--bg);}
+  .btn-primary:hover{box-shadow:0 0 0 4px color-mix(in srgb, var(--accent) 25%, transparent);}
+  .btn-outline{border-color:color-mix(in srgb, var(--text) 25%, transparent);color:var(--text);background:transparent;}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+
+  header.nav{
+    position:sticky;top:0;z-index:50;background:transparent;
+    transition:background .3s ease, backdrop-filter .3s ease, border-color .3s ease;
+    border-bottom:1px solid transparent;
+  }
+  header.nav.scrolled{
+    background:color-mix(in srgb, var(--bg) 78%, transparent);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  }
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.5rem;}
+  .logo{font-family:var(--head);font-weight:700;font-size:1.25rem;color:var(--text);}
+  .logo span{color:var(--accent);}
+  .nav-links{display:flex;gap:1.7rem;align-items:center;}
+  .nav-links a{font-weight:600;font-size:.9rem;color:color-mix(in srgb, var(--text) 85%, transparent);}
+  .nav-links a:hover{color:var(--accent);}
+  .nav-actions{display:flex;align-items:center;gap:1rem;}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;}
+  .nav-toggle span{width:24px;height:2px;background:var(--text);}
+
+  .hero{
+    position:relative;min-height:94vh;display:flex;align-items:center;overflow:hidden;
+    padding-top:6rem;padding-bottom:4rem;
+  }
+  .hero-bg{position:absolute;inset:0;z-index:0;background:url('https://images.pexels.com/photos/16509869/pexels-photo-16509869.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940') center/cover no-repeat;}
+  .hero-overlay{
+    position:absolute;inset:0;z-index:1;
+    background:
+      linear-gradient(175deg, color-mix(in srgb, var(--bg) 55%, transparent) 0%, color-mix(in srgb, var(--bg) 78%, transparent) 100%),
+      radial-gradient(circle at 82% 25%, color-mix(in srgb, var(--accent) 30%, transparent), transparent 55%);
+  }
+  .hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.15fr .85fr;gap:3.5rem;align-items:center;}
+  .hero-copy h1{font-size:clamp(2.1rem,4.4vw,3.3rem);margin-bottom:1.2rem;}
+  .grad-text{background:linear-gradient(120deg, var(--accent), color-mix(in srgb, var(--accent) 45%, white));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .hero-copy p{color:color-mix(in srgb, var(--text) 82%, transparent);font-size:1.08rem;max-width:520px;margin-bottom:1.8rem;}
+  .hero-badges{display:flex;flex-wrap:wrap;gap:1.4rem;font-size:.85rem;color:color-mix(in srgb, var(--text) 70%, transparent);font-weight:600;}
+  .hero-badges span{display:flex;align-items:center;gap:.4rem;}
+
+  .glass{
+    background:color-mix(in srgb, var(--surface) 60%, transparent);
+    border:1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+    backdrop-filter:blur(16px);
+    border-radius:1.1rem;
+  }
+  .quote-card{padding:1.8rem;}
+  .quote-card h3{font-size:1.15rem;margin-bottom:.3rem;}
+  .quote-card .lead{font-size:.9rem;margin-bottom:1.4rem;}
+  .quote-form label{display:block;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:color-mix(in srgb, var(--text) 75%, transparent);margin-bottom:.35rem;margin-top:1rem;}
+  .quote-form label:first-child{margin-top:0;}
+  .quote-form input, .quote-form select{
+    width:100%;padding:.75rem .9rem;border-radius:.5rem;
+    border:1px solid color-mix(in srgb, var(--text) 22%, transparent);
+    background:color-mix(in srgb, var(--bg) 55%, transparent);color:var(--text);
+    font-family:var(--body);font-size:.92rem;
+  }
+  .quote-form select{appearance:none;}
+  .quote-form button{width:100%;justify-content:center;margin-top:1.3rem;}
+
+  .stats-strip{background:var(--surface);border-top:1px solid color-mix(in srgb, var(--text) 8%, transparent);border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+  .stats-inner{display:grid;grid-template-columns:1.1fr repeat(3,1fr);gap:2rem;align-items:center;}
+  .stats-inner .lead{max-width:none;}
+  .stat b{display:block;font-family:var(--head);font-weight:700;font-size:2rem;color:var(--accent);}
+  .stat span{font-size:.85rem;color:var(--muted);font-weight:600;}
+
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;margin-top:2.8rem;}
+  .service-card{border-radius:1.1rem;overflow:hidden;transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease;}
+  .service-card:hover{transform:translateY(-6px);border-color:color-mix(in srgb, var(--accent) 55%, transparent);box-shadow:0 0 32px color-mix(in srgb, var(--accent) 22%, transparent);}
+  .service-photo{width:100%;height:170px;object-fit:cover;display:block;}
+  .service-body{padding:1.3rem 1.4rem 1.5rem;}
+  .service-body h3{font-size:1.05rem;margin-bottom:.4rem;}
+  .service-body p{font-size:.88rem;color:var(--muted);}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;margin-top:2.8rem;counter-reset:step;}
+  .step{position:relative;padding:2rem 1.4rem 1.6rem;}
+  .step .n{
+    font-family:var(--head);font-weight:700;font-size:2.4rem;color:color-mix(in srgb, var(--accent) 40%, transparent);
+    margin-bottom:.6rem;
+  }
+  .step h3{font-size:1.05rem;margin-bottom:.4rem;}
+  .step p{font-size:.88rem;color:var(--muted);}
+
+  .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.8rem;}
+  .review-card{padding:1.6rem;}
+  .review-card .stars{color:var(--accent);letter-spacing:.15em;margin-bottom:.8rem;font-size:1rem;}
+  .review-card p{font-size:.92rem;color:color-mix(in srgb, var(--text) 88%, transparent);margin-bottom:1rem;}
+  .review-who{display:flex;align-items:center;gap:.7rem;}
+  .review-who .avatar{
+    width:38px;height:38px;border-radius:50%;background:color-mix(in srgb, var(--accent) 20%, transparent);
+    color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;
+  }
+  .review-who .name{font-size:.85rem;font-weight:600;color:var(--muted);}
+
+  .faq-list{max-width:820px;margin:2.8rem auto 0;display:flex;flex-direction:column;gap:.7rem;}
+  details{padding:1.1rem 1.4rem;}
+  details summary{cursor:pointer;font-weight:700;font-family:var(--head);font-size:.98rem;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{content:"+";font-size:1.4rem;color:var(--accent);flex-shrink:0;}
+  details[open] summary::after{content:"–";}
+  details p{color:var(--muted);margin-top:.8rem;font-size:.9rem;}
+
+  .contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:2.8rem;margin-top:2.8rem;align-items:start;}
+  .contact-info{padding:1.8rem;}
+  .contact-info ul{display:flex;flex-direction:column;gap:.9rem;}
+  .contact-info li{font-size:.92rem;color:color-mix(in srgb, var(--text) 90%, transparent);display:flex;gap:.6rem;}
+  .contact-info li b{color:var(--muted);font-weight:700;min-width:100px;display:inline-block;text-transform:uppercase;font-size:.76rem;letter-spacing:.03em;}
+  .contact-info .btn{margin-top:1.4rem;}
+  .map-embed{width:100%;height:340px;border-radius:1.1rem;overflow:hidden;border:1px solid color-mix(in srgb, var(--accent) 22%, transparent);}
+  .map-caption{margin-top:.7rem;font-size:.84rem;color:var(--muted);}
+
+  .cta-band{
+    text-align:center;
+    background:
+      radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 60%),
+      var(--surface);
+    border-top:1px solid color-mix(in srgb, var(--text) 8%, transparent);
+    border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  }
+  .cta-band .lead{margin:0 auto 1.8rem;}
+
+  footer{background:var(--bg);padding:3.5rem 1.5rem 2rem;position:relative;}
+  footer::before{
+    content:"";display:block;height:1px;max-width:1160px;margin:0 auto 3rem;
+    background:linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 45%, transparent), transparent);
+  }
+  .footer-grid{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2.5rem;padding-bottom:2.2rem;}
+  footer h4{font-family:var(--head);color:var(--text);font-size:.95rem;margin-bottom:1rem;}
+  .footer-logo{font-family:var(--head);font-weight:700;font-size:1.2rem;color:var(--text);margin-bottom:.8rem;}
+  footer p{font-size:.88rem;color:var(--muted);}
+  .footer-links li{margin-bottom:.6rem;font-size:.88rem;color:var(--muted);}
+  .footer-links a:hover{color:var(--accent);}
+  .footer-social{display:flex;gap:.8rem;}
+  .footer-social a{
+    width:36px;height:36px;border-radius:50%;border:1px solid color-mix(in srgb, var(--text) 18%, transparent);
+    display:flex;align-items:center;justify-content:center;font-size:.9rem;
+  }
+  .footer-social a:hover{border-color:var(--accent);color:var(--accent);}
+  .footer-bottom{max-width:1160px;margin:1.8rem auto 0;font-size:.78rem;color:color-mix(in srgb, var(--text) 40%, transparent);text-align:center;border-top:1px solid color-mix(in srgb, var(--text) 8%, transparent);padding-top:1.4rem;}
+
+  @media (max-width:960px){
+    .hero-grid{grid-template-columns:1fr;}
+    .stats-inner{grid-template-columns:1fr;text-align:center;gap:1.2rem;}
+    .services-grid{grid-template-columns:repeat(2,1fr);}
+    .steps{grid-template-columns:1fr;}
+    .reviews-grid{grid-template-columns:1fr;}
+    .contact-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:700px){
+    .nav-links{position:absolute;top:100%;left:0;right:0;background:color-mix(in srgb, var(--bg) 96%, transparent);backdrop-filter:blur(14px);flex-direction:column;align-items:flex-start;padding:1.2rem 1.5rem;border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);display:none;}
+    .nav-links.open{display:flex;}
+    .nav-toggle{display:flex;}
+    .services-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    section{padding:3.5rem 1.2rem;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav" id="siteNav">
+  <div class="wrap">
+    <a href="#" class="logo">{{NAZWA_STRONY}}<span>.</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#uslugi">Usługi</a>
+      <a href="#jak-to-dziala">Jak to działa</a>
+      <a href="#opinie">Opinie</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#wycena" class="btn btn-primary">Wyceń online</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu nawigacji">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Hydraulik {{MIASTO}} — online</span>
+      <h1>{{NAZWA_STRONY}} — <span class="grad-text">wycena hydraulika</span> bez czekania na telefon</h1>
+      <p>Zgłoś usterkę online, a wycenę i termin dojazdu dostaniesz zwykle w ciągu 15 minut. Bez kolejki telefonicznej, bez czekania na oddzwonienie.</p>
+      <div class="hero-badges">
+        <span>⚡ Wycena w ~15 min</span>
+        <span>📍 {{MIASTO}} i okolice</span>
+        <span>✓ Bez zobowiązań</span>
+      </div>
+    </div>
+    <div class="glass quote-card" id="wycena">
+      <h3>Wyślij zapytanie o wycenę</h3>
+      <p class="lead">Wypełnij formularz — odezwiemy się z wyceną i proponowanym terminem.</p>
+      <form class="quote-form" id="quoteForm">
+        <label for="qname">Imię</label>
+        <input type="text" id="qname" name="qname" placeholder="Jan Kowalski" required>
+
+        <label for="qphone">Telefon</label>
+        <input type="tel" id="qphone" name="qphone" placeholder="{{TELEFON}}" required>
+
+        <label for="qtype">Typ usterki</label>
+        <select id="qtype" name="qtype" required>
+          <option value="">Wybierz rodzaj usterki</option>
+          <option>Awaria / wyciek</option>
+          <option>Instalacja wod-kan</option>
+          <option>Przegląd / diagnostyka</option>
+          <option>Montaż armatury</option>
+          <option>Instalacja grzewcza</option>
+          <option>Inne</option>
+        </select>
+
+        <button type="submit" class="btn btn-primary">Wyślij zapytanie o wycenę</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="stats-strip">
+  <div class="wrap stats-inner">
+    <div>
+      <span class="eyebrow">O firmie</span>
+      <p class="lead">{{NAZWA_STRONY}} to zespół hydraulików działających cyfrowo — zgłoszenie, wycenę i umówienie terminu załatwisz online, bez czekania w kolejce telefonicznej.</p>
+    </div>
+    <div class="stat"><b>8 lat</b><span>doświadczenia w branży</span></div>
+    <div class="stat"><b>1200+</b><span>wycen online</span></div>
+    <div class="stat"><b>4.9/5</b><span>ocena klientów</span></div>
+  </div>
+</section>
+
+<section id="uslugi">
+  <div class="wrap">
+    <span class="eyebrow">Nasza oferta</span>
+    <h2>Usługi hydrauliczne — {{MIASTO}}</h2>
+    <p class="lead">Wybierz kategorię usterki w formularzu wyceny lub sprawdź pełen zakres poniżej.</p>
+    <div class="services-grid">
+      <div class="service-card glass">
+        <img class="service-photo" src="https://images.pexels.com/photos/15206136/pexels-photo-15206136.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650" alt="Naprawa awarii hydraulicznej przez fachowca" width="650" height="500" loading="lazy">
+        <div class="service-body">
+          <h3>Awarie i naprawy</h3>
+          <p>Usuwanie wycieków, pęknięć instalacji i awaryjnych usterek — szybka wycena online.</p>
+        </div>
+      </div>
+      <div class="service-card glass">
+        <img class="service-photo" src="https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650" alt="Montaż instalacji wodno-kanalizacyjnej" width="650" height="500" loading="lazy">
+        <div class="service-body">
+          <h3>Instalacje wod-kan</h3>
+          <p>Projektowanie i montaż instalacji wodno-kanalizacyjnych w domach i lokalach.</p>
+        </div>
+      </div>
+      <div class="service-card glass">
+        <img class="service-photo" src="https://images.pexels.com/photos/32497162/pexels-photo-32497162.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650" alt="Przegląd i diagnostyka instalacji hydraulicznej" width="650" height="500" loading="lazy">
+        <div class="service-body">
+          <h3>Przeglądy i diagnostyka</h3>
+          <p>Okresowe przeglądy szczelności i diagnostyka kamerą inspekcyjną.</p>
+        </div>
+      </div>
+      <div class="service-card glass">
+        <img class="service-photo" src="https://images.pexels.com/photos/30560253/pexels-photo-30560253.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650" alt="Montaż armatury łazienkowej i urządzeń AGD" width="650" height="500" loading="lazy">
+        <div class="service-body">
+          <h3>Montaż armatury</h3>
+          <p>Podłączenie pralki, zmywarki, bojlera oraz montaż baterii i kabin prysznicowych.</p>
+        </div>
+      </div>
+      <div class="service-card glass">
+        <img class="service-photo" src="https://images.pexels.com/photos/12644994/pexels-photo-12644994.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650" alt="Serwis instalacji grzewczej i ciepłej wody użytkowej" width="650" height="500" loading="lazy">
+        <div class="service-body">
+          <h3>Instalacje grzewcze</h3>
+          <p>Montaż i serwis podgrzewaczy wody, podłączenia pieców i regulacja CO.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="jak-to-dziala" style="background:var(--surface);">
+  <div class="wrap center">
+    <span class="eyebrow">Proces</span>
+    <h2>Jak to działa</h2>
+    <p class="lead" style="margin:0 auto;">Trzy kroki od zgłoszenia do naprawy — bez zbędnych telefonów.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="n">01</div>
+        <h3>Zgłoś się online</h3>
+        <p>Wypełnij krótki formularz wyceny — zajmie mniej niż minutę.</p>
+      </div>
+      <div class="step">
+        <div class="n">02</div>
+        <h3>Wycena w 15 minut</h3>
+        <p>Otrzymasz orientacyjną wycenę i proponowany termin dojazdu.</p>
+      </div>
+      <div class="step">
+        <div class="n">03</div>
+        <h3>Fachowiec tego samego dnia</h3>
+        <p>Po akceptacji wyceny ekipa dociera do Ciebie zwykle jeszcze tego samego dnia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="opinie">
+  <div class="wrap center">
+    <span class="eyebrow">Opinie klientów</span>
+    <h2>Co mówią klienci w mieście {{MIASTO}}</h2>
+    <div class="reviews-grid" style="text-align:left;">
+      <div class="review-card glass">
+        <div class="stars">★★★★★</div>
+        <p>„Zgłoszenie online, wycena po kwadransie, fachowiec tego samego dnia. Dokładnie tak jak obiecane.”</p>
+        <div class="review-who"><span class="avatar">M.</span><span class="name">Marta, {{MIASTO}}</span></div>
+      </div>
+      <div class="review-card glass">
+        <div class="stars">★★★★★</div>
+        <p>„Wygodniejsze niż dzwonienie i czekanie na oddzwonienie — cały proces ogarnąłem z telefonu.”</p>
+        <div class="review-who"><span class="avatar">P.</span><span class="name">Piotr, {{MIASTO}}</span></div>
+      </div>
+      <div class="review-card glass">
+        <div class="stars">★★★★★</div>
+        <p>„Przejrzysta wycena przed przyjazdem, bez niespodzianek w cenie na miejscu.”</p>
+        <div class="review-who"><span class="avatar">K.</span><span class="name">Karolina, {{MIASTO}}</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="background:var(--surface);">
+  <div class="wrap center">
+    <span class="eyebrow">Pytania i odpowiedzi</span>
+    <h2>Najczęstsze pytania — Hydraulik {{MIASTO}}</h2>
+    <div class="faq-list" style="text-align:left;">
+      <details class="glass" open>
+        <summary>Jak szybko dostanę wycenę po wysłaniu formularza?</summary>
+        <p>Zwykle w ciągu 15 minut od zgłoszenia — orientacyjną wycenę i proponowany termin dojazdu przesyłamy na podany numer telefonu.</p>
+      </details>
+      <details class="glass">
+        <summary>Czy wycena online jest wiążąca?</summary>
+        <p>To wycena orientacyjna na podstawie opisu usterki — ostateczna kwota jest potwierdzana przed rozpoczęciem prac, bez ukrytych kosztów.</p>
+      </details>
+      <details class="glass">
+        <summary>Czy obsługujecie cały obszar miasta {{MIASTO}}?</summary>
+        <p>Tak, działamy na terenie miasta {{MIASTO}} oraz w najbliższej okolicy. W formularzu możesz podać dokładny adres do wyceny dojazdu.</p>
+      </details>
+      <details class="glass">
+        <summary>Co jeśli wolę zadzwoić zamiast wypełniać formularz?</summary>
+        <p>Jasne — zadzwoń pod {{TELEFON}}, chętnie pomożemy też telefonicznie.</p>
+      </details>
+      <details class="glass">
+        <summary>Czy naprawa jest objęta gwarancją?</summary>
+        <p>Tak, na wykonane naprawy i zamontowane elementy udzielamy gwarancji — szczegóły ustalimy razem z wyceną.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt">
+  <div class="wrap">
+    <span class="eyebrow">Kontakt</span>
+    <h2>Wolisz kontakt bezpośredni?</h2>
+    <p class="lead">Zadzwoń, napisz e-mail lub wypełnij formularz wyceny powyżej.</p>
+    <div class="contact-grid">
+      <div class="contact-info glass">
+        <ul>
+          <li><b>Telefon</b> <a href="tel:{{TELEFON}}">{{TELEFON}}</a></li>
+          <li><b>E-mail</b> <a href="mailto:{{EMAIL}}">{{EMAIL}}</a></li>
+          <li><b>Adres</b> {{ADRES}}, {{MIASTO}}</li>
+          <li><b>Pon–Pt</b> {{GODZINY_PON_PT}}</li>
+          <li><b>Sobota</b> {{GODZINY_SOB}}</li>
+        </ul>
+        <a href="#wycena" class="btn btn-outline">Wyceń online</a>
+      </div>
+      <div>
+        <iframe class="map-embed" src="https://www.google.com/maps?q={{ADRES}}, {{MIASTO}}&output=embed" title="Mapa dojazdu do {{NAZWA_STRONY}} w mieście {{MIASTO}}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;"></iframe>
+        <p class="map-caption">Mapa dojazdu — {{ADRES}}, {{MIASTO}}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap center">
+    <h2>Gotowy na szybką wycenę?</h2>
+    <p class="lead">Formularz zajmuje mniej niż minutę — resztę załatwiamy my.</p>
+    <a href="#wycena" class="btn btn-primary">Wyceń online</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">{{NAZWA_STRONY}}</div>
+      <p>Hydraulik {{MIASTO}} dostępny online — zgłoszenie, wycena i umówienie terminu bez kolejki telefonicznej.</p>
+      <div class="footer-social" style="margin-top:1.2rem;">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Instagram">ig</a>
+      </div>
+    </div>
+    <div>
+      <h4>Nawigacja</h4>
+      <ul class="footer-links">
+        <li><a href="#uslugi">Usługi</a></li>
+        <li><a href="#opinie">Opinie</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Kontakt</h4>
+      <ul class="footer-links">
+        <li><a href="tel:{{TELEFON}}">{{TELEFON}}</a></li>
+        <li><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></li>
+        <li>{{ADRES}}, {{MIASTO}}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © <span id="year"></span> {{NAZWA_STRONY}} — Hydraulik {{MIASTO}}.
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const nav = document.getElementById('siteNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  const form = document.getElementById('quoteForm');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    form.innerHTML = '<p style="font-weight:700;color:var(--accent);">Dziękujemy! Zapytanie zostało przygotowane do wysyłki — odezwiemy się z wyceną. W pilnych sprawach zadzwoń: <a href="tel:{{TELEFON}}">{{TELEFON}}</a>.</p>';
+  });
+</script>
+
+</body>
+</html>
