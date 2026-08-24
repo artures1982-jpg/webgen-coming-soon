@@ -117,24 +117,28 @@ strona MUSI zawierać prawdziwe zdjęcia, nie tylko emoji/ikony i płaskie tło 
   var(--accent)) na tyle mocny, żeby biały tekst i telefon OGROMNĄ czcionką były w pełni czytelne.
 - Sekcja zaufania/kontakt, zdjęcie ekipy w akcji (technik z kluczem w kasku i kamizelce, gotowy do
   wyjazdu): https://images.pexels.com/photos/8486928/pexels-photo-8486928.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
-- Sekcja "Rodzaje awarii" — TŁO CAŁEJ SEKCJI (nie osobne zdjęcia pod każdą ikoną — dla pojedynczych
-  kategorii typu "brak wody"/"zapchana kanalizacja" nie da się znaleźć trafionych zdjęć na Pexels,
-  sprawdzone), dłonie hydraulika montujące rury z bliska:
-  https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=800&w=1600
-  — UWAGA: overlay musi zostać WYRAŹNIE JAŚNIEJSZY niż w HERO (np. gradient 55%→80% opacity var(--text),
-  nie 88%+ — zbyt ciemny overlay renderuje się jak jednolita czerń i zdjęcie w ogóle nie jest widoczne,
-  to dokładnie ten błąd zgłoszony przez Artura przy pierwszej wersji tej poprawki), zdjęcie MUSI być
-  faktycznie rozpoznawalne pod kartami, nie tylko teoretycznie obecne w kodzie. Nagłówek i lead nad
-  kartami dostają text-shadow (ciemny, rozmyty) zamiast mocnego overlay, żeby zostały czytelne. Karty
-  z ikonami stają się półprzezroczyste "szkło" (background: color-mix(in srgb, #fff 10%, transparent),
-  backdrop-filter: blur) na tym tle, tekst biały.
+- Sekcja "Rodzaje awarii" — Artur był jednoznaczny: chodzi o ZDJĘCIA W KAFELKACH, nie ikony/emoji i
+  nie jedno wspólne zdjęcie w tle sekcji (obie te wersje były już odrzucone). KAŻDA z 6 kart dostaje
+  WŁASNE zdjęcie jako tło karty (background-image, cover), z ciemnym gradientem u dołu (linear-gradient
+  180deg, przezroczysty do ok. 35% → color-mix(in srgb, var(--text) 90%, black) na dole) i podpisem
+  w bieli na tym gradiencie. Dla dosłownych scenariuszy ("zalanie", "brak wody", "zapchana kanalizacja",
+  "instalacja gazowa") Pexels NIE MA trafionych zdjęć (sprawdzone wielokrotnie, różne zapytania) — użyj
+  DOKŁADNIE tych 6 zweryfikowanych, tematycznie pasujących zdjęć hydraulika/instalacji (nie muszą być
+  dosłowną ilustracją każdej awarii, mają być prawdziwą fotografią branżową, nie ikoną):
+  1. Pęknięta rura: https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650
+  2. Zalanie: https://images.pexels.com/photos/13312223/pexels-photo-13312223.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650
+  3. Brak wody: https://images.pexels.com/photos/12271457/pexels-photo-12271457.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650
+  4. Awaria pieca/bojlera: https://images.pexels.com/photos/29226620/pexels-photo-29226620.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650
+  5. Zapchana kanalizacja: https://images.pexels.com/photos/38028968/pexels-photo-38028968.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650
+  6. Instalacja gazowa: https://images.pexels.com/photos/38028966/pexels-photo-38028966.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650
 LAYOUT:
 1. Pulsujący pasek na całą szerokość pod nagłówkiem (CSS @keyframes na tle var(--accent)): "AWARIA? DZWOŃ TERAZ: {{TELEFON}}".
 2. Hero pełnoekranowy: zdjęcie HERO z listy powyżej jako tło z ciemnym gradient-overlay, numer telefonu OGROMNĄ czcionką na środku (nie z boku), pod nim jedno zdanie nagłówka, przycisk CTA.
 3. Zaraz pod hero: 3 badge w rzędzie — "Śr. czas dojazdu 30 min" / "Dostępni 24/7/365" / "Bezpłatna wycena telefoniczna".
-4. Sekcja "Rodzaje awarii które usuwamy": zdjęcie tła sekcji z listy powyżej (wymagane — cała strona
-   NIE MOŻE opierać się wyłącznie na emoji/ikonach), a na nim siatka 6 kart-„szkła" z ikonami —
-   pęknięta rura, zalanie, brak wody, piec, kanalizacja, instalacja gazowa — każda krótka etykieta.
+4. Sekcja "Rodzaje awarii które usuwamy": siatka 6 kart, KAŻDA z własnym zdjęciem tła z listy powyżej
+   (nie emoji/ikony, nie jedno wspólne tło sekcji — to dwie już odrzucone wersje) + podpis w bieli na
+   ciemnym gradiencie u dołu karty — pęknięta rura, zalanie, brak wody, piec/bojler, kanalizacja,
+   instalacja gazowa.
 5. Sekcja zaufania: 2 kolumny — lewo 3 liczby w rzędzie (lat na rynku / awarii usuniętych / ocena Google) + USP, prawo zdjęcie ekipy z listy powyżej (duże, zaokrąglone rogi, cień) — to zdjęcie jest wymagane, nie pomijaj go.
 6. Kontakt: przycisk "ZADZWOŃ TERAZ" powtórzony jeszcze raz jako duży, samodzielny pasek nad formularzem, krótki formularz (telefon + 1 zdanie opisu awarii).
 7. Stopka minimalna: telefon, adres, linki prawne.`

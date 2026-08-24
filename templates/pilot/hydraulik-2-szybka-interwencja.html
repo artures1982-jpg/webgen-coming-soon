@@ -130,26 +130,20 @@
   .badge .num{font-family:var(--head);font-weight:900;font-size:1.15rem;color:var(--accent);}
   .badge .lbl{font-size:.82rem;color:var(--muted);font-weight:600;}
 
-  #awarie{
-    position:relative;
-    background:
-      linear-gradient(180deg, color-mix(in srgb, var(--text) 55%, transparent) 0%, color-mix(in srgb, var(--text) 80%, transparent) 100%),
-      url('https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=800&w=1600') center/cover no-repeat;
-  }
-  #awarie h2{text-shadow:0 2px 12px color-mix(in srgb, black 70%, transparent);}
-  #awarie .lead{text-shadow:0 1px 8px color-mix(in srgb, black 60%, transparent);}
-  #awarie .eyebrow{color:var(--accent);}
-  #awarie h2{color:#fff;}
-  #awarie .lead{color:color-mix(in srgb, #fff 78%, transparent);}
   .awarie-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.5rem;}
   .awaria-item{
-    text-align:center;padding:2rem 1rem;background:color-mix(in srgb, #fff 10%, transparent);border-radius:1rem;
-    border:1px solid color-mix(in srgb, #fff 20%, transparent);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
-    transition:transform .15s ease, border-color .15s ease, background .15s ease;
+    position:relative;border-radius:1rem;overflow:hidden;aspect-ratio:4/3;
+    background-size:cover;background-position:center;
+    transition:transform .15s ease, box-shadow .15s ease;
+    box-shadow:0 1px 2px color-mix(in srgb, var(--text) 10%, transparent);
   }
-  .awaria-item:hover{transform:translateY(-4px);border-color:var(--accent);background:color-mix(in srgb, #fff 16%, transparent);}
-  .awaria-item .icon{font-size:2.4rem;margin-bottom:.8rem;}
-  .awaria-item h3{font-size:.95rem;text-transform:none;font-weight:700;color:#fff;letter-spacing:0;}
+  .awaria-item:hover{transform:translateY(-4px);box-shadow:0 12px 24px color-mix(in srgb, var(--text) 20%, transparent);}
+  .awaria-overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg, transparent 35%, color-mix(in srgb, var(--text) 90%, black) 100%);
+    display:flex;align-items:flex-end;justify-content:center;padding:1.1rem .8rem;
+  }
+  .awaria-item h3{font-size:.92rem;text-transform:none;font-weight:700;color:#fff;letter-spacing:0;text-align:center;margin:0;}
 
   .trust{background:var(--text);color:#fff;}
   .trust h2{color:#fff;text-align:left;}
@@ -275,29 +269,23 @@
     <h2>Rodzaje awarii, które usuwamy</h2>
     <p class="lead">Jeśli Twoja sytuacja pasuje do choć jednego punktu poniżej — nie czekaj, zadzwoń pod {{TELEFON}}.</p>
     <div class="awarie-grid">
-      <div class="awaria-item">
-        <div class="icon" role="img" aria-label="Pęknięta rura">🔧</div>
-        <h3>Pęknięta rura</h3>
+      <div class="awaria-item" style="background-image:url('https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650')" role="img" aria-label="Pęknięta rura">
+        <div class="awaria-overlay"><h3>Pęknięta rura</h3></div>
       </div>
-      <div class="awaria-item">
-        <div class="icon" role="img" aria-label="Zalanie mieszkania">🌊</div>
-        <h3>Zalanie</h3>
+      <div class="awaria-item" style="background-image:url('https://images.pexels.com/photos/13312223/pexels-photo-13312223.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650')" role="img" aria-label="Zalanie mieszkania">
+        <div class="awaria-overlay"><h3>Zalanie</h3></div>
       </div>
-      <div class="awaria-item">
-        <div class="icon" role="img" aria-label="Brak wody w instalacji">🚱</div>
-        <h3>Brak wody</h3>
+      <div class="awaria-item" style="background-image:url('https://images.pexels.com/photos/12271457/pexels-photo-12271457.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650')" role="img" aria-label="Brak wody w instalacji">
+        <div class="awaria-overlay"><h3>Brak wody</h3></div>
       </div>
-      <div class="awaria-item">
-        <div class="icon" role="img" aria-label="Awaria pieca lub bojlera">🔥</div>
-        <h3>Awaria pieca / bojlera</h3>
+      <div class="awaria-item" style="background-image:url('https://images.pexels.com/photos/29226620/pexels-photo-29226620.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650')" role="img" aria-label="Awaria pieca lub bojlera">
+        <div class="awaria-overlay"><h3>Awaria pieca / bojlera</h3></div>
       </div>
-      <div class="awaria-item">
-        <div class="icon" role="img" aria-label="Zapchana kanalizacja">🚽</div>
-        <h3>Zapchana kanalizacja</h3>
+      <div class="awaria-item" style="background-image:url('https://images.pexels.com/photos/38028968/pexels-photo-38028968.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650')" role="img" aria-label="Zapchana kanalizacja">
+        <div class="awaria-overlay"><h3>Zapchana kanalizacja</h3></div>
       </div>
-      <div class="awaria-item">
-        <div class="icon" role="img" aria-label="Awaria instalacji gazowej">⚠️</div>
-        <h3>Instalacja gazowa</h3>
+      <div class="awaria-item" style="background-image:url('https://images.pexels.com/photos/38028966/pexels-photo-38028966.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650')" role="img" aria-label="Awaria instalacji gazowej">
+        <div class="awaria-overlay"><h3>Instalacja gazowa</h3></div>
       </div>
     </div>
   </div>
