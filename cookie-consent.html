@@ -10,8 +10,8 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Poppins', sans-serif;
-  background: #080A0F;
-  color: #F0F2F7;
+  background: #EAF0FB;
+  color: #182335;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -24,16 +24,16 @@ body {
   text-align: center;
   max-width: 600px;
 }
-.demo-page h1 { font-size: 2rem; color: #00E5A0; margin-bottom: 1rem; }
-.demo-page p { color: #8892AA; margin-bottom: 1.5rem; }
+.demo-page h1 { font-size: 2rem; color: #4C6FFF; margin-bottom: 1rem; }
+.demo-page p { color: #5E6B85; margin-bottom: 1.5rem; }
 .demo-btn {
-  background: #00E5A0; color: #080A0F;
+  background: #4C6FFF; color: #fff;
   border: none; padding: 12px 28px;
   border-radius: 8px; font-family: inherit;
   font-size: 15px; font-weight: 700;
   cursor: pointer; transition: background .2s;
 }
-.demo-btn:hover { background: #00C98A; }
+.demo-btn:hover { background: #3555E0; }
 
 /* ════════════════════════════════════════════
    COOKIE BANNER — GŁÓWNY KOMPONENT
@@ -58,8 +58,8 @@ body {
   left: 0;
   right: 0;
   z-index: 9999;
-  background: #0D1117;
-  border-top: 1px solid rgba(0,229,160,0.25);
+  background: #FFFFFF;
+  border-top: 1px solid rgba(76,111,255,.25);
   box-shadow: 0 -8px 40px rgba(0,0,0,0.6);
   padding: 0;
   animation: slideUp 0.35s cubic-bezier(0.16,1,0.3,1);
@@ -101,16 +101,16 @@ body {
 .wg-banner-text h3 {
   font-size: 15px;
   font-weight: 700;
-  color: #F0F2F7;
+  color: #182335;
   margin-bottom: 4px;
 }
 .wg-banner-text p {
   font-size: 13px;
-  color: #8892AA;
+  color: #5E6B85;
   line-height: 1.5;
 }
 .wg-banner-text a {
-  color: #00E5A0;
+  color: #4C6FFF;
   text-decoration: none;
 }
 .wg-banner-text a:hover { text-decoration: underline; }
@@ -136,24 +136,24 @@ body {
   white-space: nowrap;
 }
 .wg-btn-accept {
-  background: #00E5A0;
-  color: #080A0F;
+  background: #4C6FFF;
+  color: #fff;
 }
-.wg-btn-accept:hover { background: #00C98A; transform: translateY(-1px); }
+.wg-btn-accept:hover { background: #3555E0; transform: translateY(-1px); }
 
 .wg-btn-reject {
   background: transparent;
-  color: #8892AA;
-  border: 1px solid rgba(240,242,247,0.15);
+  color: #5E6B85;
+  border: 1px solid rgba(24,35,53,.16);
 }
-.wg-btn-reject:hover { color: #F0F2F7; border-color: rgba(240,242,247,0.3); }
+.wg-btn-reject:hover { color: #182335; border-color: rgba(24,35,53,.3); }
 
 .wg-btn-settings {
   background: transparent;
-  color: #00E5A0;
-  border: 1px solid rgba(0,229,160,0.3);
+  color: #4C6FFF;
+  border: 1px solid rgba(76,111,255,.3);
 }
-.wg-btn-settings:hover { background: rgba(0,229,160,0.08); }
+.wg-btn-settings:hover { background: rgba(76,111,255,.08); }
 
 /* ─── MODAL USTAWIEŃ ─── */
 #wg-cookie-modal {
@@ -168,8 +168,8 @@ body {
 #wg-cookie-modal.active { display: flex; }
 
 .wg-modal-box {
-  background: #0D1117;
-  border: 1px solid rgba(240,242,247,0.1);
+  background: #FFFFFF;
+  border: 1px solid rgba(24,35,53,.12);
   border-radius: 16px;
   max-width: 560px;
   width: 100%;
@@ -185,7 +185,7 @@ body {
 
 .wg-modal-header {
   padding: 24px 24px 0;
-  border-bottom: 1px solid rgba(240,242,247,0.07);
+  border-bottom: 1px solid rgba(24,35,53,.08);
   padding-bottom: 20px;
   position: relative;
 }
@@ -203,23 +203,23 @@ body {
 .wg-modal-header h2 {
   font-size: 18px;
   font-weight: 700;
-  color: #F0F2F7;
+  color: #182335;
   margin-bottom: 6px;
 }
 .wg-modal-header p {
   font-size: 13px;
-  color: #8892AA;
+  color: #5E6B85;
   line-height: 1.6;
 }
-.wg-modal-header p a { color: #00E5A0; text-decoration: none; }
+.wg-modal-header p a { color: #4C6FFF; text-decoration: none; }
 
 .wg-modal-close {
   position: absolute;
   top: 20px;
   right: 20px;
-  background: rgba(240,242,247,0.06);
+  background: rgba(24,35,53,.07);
   border: none;
-  color: #8892AA;
+  color: #5E6B85;
   width: 32px;
   height: 32px;
   border-radius: 8px;
@@ -230,20 +230,20 @@ body {
   justify-content: center;
   transition: all 0.2s;
 }
-.wg-modal-close:hover { background: rgba(240,242,247,0.12); color: #F0F2F7; }
+.wg-modal-close:hover { background: rgba(24,35,53,.14); color: #182335; }
 
 /* ─── KATEGORIE COOKIES ─── */
 .wg-modal-body { padding: 20px 24px; }
 
 .wg-cookie-category {
-  background: #131720;
-  border: 1px solid rgba(240,242,247,0.07);
+  background: #E1EAF9;
+  border: 1px solid rgba(24,35,53,.08);
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 12px;
   transition: border-color 0.2s;
 }
-.wg-cookie-category:hover { border-color: rgba(240,242,247,0.14); }
+.wg-cookie-category:hover { border-color: rgba(24,35,53,.16); }
 
 .wg-cat-header {
   display: flex;
@@ -256,7 +256,7 @@ body {
 .wg-cat-title {
   font-size: 14px;
   font-weight: 700;
-  color: #F0F2F7;
+  color: #182335;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -270,19 +270,19 @@ body {
   letter-spacing: 0.04em;
 }
 .wg-badge-required {
-  background: rgba(0,229,160,0.12);
-  color: #00E5A0;
-  border: 1px solid rgba(0,229,160,0.3);
+  background: rgba(76,111,255,.12);
+  color: #4C6FFF;
+  border: 1px solid rgba(76,111,255,.3);
 }
 .wg-badge-optional {
-  background: rgba(240,242,247,0.06);
-  color: #8892AA;
-  border: 1px solid rgba(240,242,247,0.1);
+  background: rgba(24,35,53,.07);
+  color: #5E6B85;
+  border: 1px solid rgba(24,35,53,.12);
 }
 
 .wg-cat-desc {
   font-size: 12px;
-  color: #8892AA;
+  color: #5E6B85;
   line-height: 1.5;
 }
 
@@ -302,8 +302,8 @@ body {
 .wg-toggle-slider {
   position: absolute;
   inset: 0;
-  background: rgba(240,242,247,0.1);
-  border: 1px solid rgba(240,242,247,0.15);
+  background: rgba(24,35,53,.12);
+  border: 1px solid rgba(24,35,53,.16);
   border-radius: 13px;
   cursor: pointer;
   transition: all 0.25s;
@@ -315,25 +315,25 @@ body {
   width: 18px;
   left: 3px;
   bottom: 3px;
-  background: #8892AA;
+  background: #5E6B85;
   border-radius: 50%;
   transition: all 0.25s;
 }
 .wg-toggle input:checked + .wg-toggle-slider {
-  background: rgba(0,229,160,0.2);
-  border-color: rgba(0,229,160,0.5);
+  background: rgba(76,111,255,.2);
+  border-color: rgba(76,111,255,.5);
 }
 .wg-toggle input:checked + .wg-toggle-slider::before {
   transform: translateX(20px);
-  background: #00E5A0;
+  background: #4C6FFF;
 }
 .wg-toggle input:disabled + .wg-toggle-slider {
   opacity: 0.5;
   cursor: not-allowed;
 }
 .wg-toggle input:disabled:checked + .wg-toggle-slider {
-  background: rgba(0,229,160,0.15);
-  border-color: rgba(0,229,160,0.3);
+  background: rgba(76,111,255,.15);
+  border-color: rgba(76,111,255,.3);
 }
 
 /* Lista cookies w kategorii */
@@ -341,7 +341,7 @@ body {
   display: none;
   margin-top: 14px;
   padding-top: 14px;
-  border-top: 1px solid rgba(240,242,247,0.07);
+  border-top: 1px solid rgba(24,35,53,.08);
 }
 .wg-cat-details.expanded { display: block; }
 
@@ -352,7 +352,7 @@ body {
 }
 .wg-cookie-table th {
   text-align: left;
-  color: #8892AA;
+  color: #5E6B85;
   font-weight: 600;
   padding: 4px 8px;
   letter-spacing: 0.05em;
@@ -361,19 +361,19 @@ body {
 }
 .wg-cookie-table td {
   padding: 6px 8px;
-  color: #8892AA;
-  border-top: 1px solid rgba(240,242,247,0.04);
+  color: #5E6B85;
+  border-top: 1px solid rgba(24,35,53,.05);
 }
 .wg-cookie-table td:first-child {
   font-family: monospace;
-  color: #00E5A0;
+  color: #4C6FFF;
   font-size: 11px;
 }
 
 .wg-expand-btn {
   background: none;
   border: none;
-  color: #8892AA;
+  color: #5E6B85;
   font-family: 'Poppins', sans-serif;
   font-size: 11px;
   cursor: pointer;
@@ -383,38 +383,38 @@ body {
   gap: 4px;
   transition: color 0.2s;
 }
-.wg-expand-btn:hover { color: #00E5A0; }
+.wg-expand-btn:hover { color: #4C6FFF; }
 .wg-expand-icon { transition: transform 0.2s; }
 .wg-expand-btn.open .wg-expand-icon { transform: rotate(180deg); }
 
 /* ─── FOOTER MODALU ─── */
 .wg-modal-footer {
   padding: 16px 24px 24px;
-  border-top: 1px solid rgba(240,242,247,0.07);
+  border-top: 1px solid rgba(24,35,53,.08);
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
 }
 .wg-btn-save {
-  background: #00E5A0;
-  color: #080A0F;
+  background: #4C6FFF;
+  color: #fff;
   flex: 1;
 }
-.wg-btn-save:hover { background: #00C98A; }
+.wg-btn-save:hover { background: #3555E0; }
 .wg-btn-accept-all {
   background: transparent;
-  color: #00E5A0;
-  border: 1px solid rgba(0,229,160,0.3);
+  color: #4C6FFF;
+  border: 1px solid rgba(76,111,255,.3);
   flex: 1;
 }
-.wg-btn-accept-all:hover { background: rgba(0,229,160,0.08); }
+.wg-btn-accept-all:hover { background: rgba(76,111,255,.08); }
 .wg-btn-reject-all {
   background: transparent;
-  color: #8892AA;
-  border: 1px solid rgba(240,242,247,0.12);
+  color: #5E6B85;
+  border: 1px solid rgba(24,35,53,.14);
   width: 100%;
 }
-.wg-btn-reject-all:hover { color: #F0F2F7; border-color: rgba(240,242,247,0.25); }
+.wg-btn-reject-all:hover { color: #182335; border-color: rgba(24,35,53,.25); }
 
 /* ─── FLOATING SETTINGS BTN (po akceptacji) ─── */
 #wg-cookie-settings-btn {
@@ -423,9 +423,9 @@ body {
   bottom: 20px;
   left: 20px;
   z-index: 9990;
-  background: #131720;
-  border: 1px solid rgba(0,229,160,0.25);
-  color: #8892AA;
+  background: #E1EAF9;
+  border: 1px solid rgba(76,111,255,.25);
+  color: #5E6B85;
   padding: 8px 14px;
   border-radius: 8px;
   font-family: 'Poppins', sans-serif;
@@ -440,9 +440,9 @@ body {
   display: flex;
 }
 #wg-cookie-settings-btn:hover {
-  background: #1A1F2E;
-  color: #00E5A0;
-  border-color: rgba(0,229,160,0.4);
+  background: #D3E0F5;
+  color: #4C6FFF;
+  border-color: rgba(76,111,255,.4);
 }
 
 /* ─── STATUS BADGE ─── */
@@ -450,8 +450,8 @@ body {
   position: fixed;
   top: 20px;
   right: 20px;
-  background: #131720;
-  border: 1px solid rgba(240,242,247,0.1);
+  background: #E1EAF9;
+  border: 1px solid rgba(24,35,53,.12);
   border-radius: 10px;
   padding: 12px 16px;
   font-size: 12px;
@@ -460,10 +460,10 @@ body {
   display: none;
 }
 #wg-consent-status.visible { display: block; }
-#wg-consent-status h4 { color: #00E5A0; font-size: 11px; margin-bottom: 6px; letter-spacing: 0.08em; }
-#wg-consent-status .status-row { display: flex; justify-content: space-between; color: #8892AA; margin-bottom: 2px; }
-#wg-consent-status .status-on  { color: #00E5A0; }
-#wg-consent-status .status-off { color: #F87171; }
+#wg-consent-status h4 { color: #4C6FFF; font-size: 11px; margin-bottom: 6px; letter-spacing: 0.08em; }
+#wg-consent-status .status-row { display: flex; justify-content: space-between; color: #5E6B85; margin-bottom: 2px; }
+#wg-consent-status .status-on  { color: #4C6FFF; }
+#wg-consent-status .status-off { color: #D14D5F; }
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 600px) {
