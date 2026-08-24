@@ -60,7 +60,17 @@ Sekcja kontaktowa MUSI zawierać prawdziwy, działający embed Google Maps — N
 zastępczy. Użyj: <iframe src="https://www.google.com/maps?q={{ADRES}}, {{MIASTO}}&output=embed"
 loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;width:100%;height:320px">
 </iframe> (ten format nie wymaga klucza API i zadziała automatycznie, gdy {{ADRES}}/{{MIASTO}}
-zostaną podstawione prawdziwymi danymi przy aktywacji).`;
+zostaną podstawione prawdziwymi danymi przy aktywacji).
+
+PUŁAPKA CSS — aspect-ratio na <img> z atrybutami width/height (KRYTYCZNE, znaleziony realny błąd):
+Jeśli <img> ma HTML-owe atrybuty width="..." height="..." (typowe dla SEO/CLS, np. width="940"
+height="650") ORAZ w CSS ustawiasz mu tylko width (albo max-width) + aspect-ratio bez jawnego
+height, w niektórych przeglądarkach faktyczna wysokość elementu i tak zostaje usztywniona na
+wartość z atrybutu HTML height, IGNORUJĄC aspect-ratio — przy zwężaniu szerokości na mobile obrazek
+robi się drastycznie, nienaturalnie wysoki (potwierdzone w praktyce, nie teoria). Zawsze gdy łączysz
+CSS width/max-width + aspect-ratio na <img> z atrybutami HTML width/height, dopisz też jawne
+height:auto w tej samej regule CSS — inaczej aspect-ratio nie zadziała poprawnie na wąskich
+ekranach.`;
 
 const SYSTEM_BASE = 'Jesteś ekspertem web designu tworzącym profesjonalne strony dla polskich firm lokalnych.\n' +
   'Tworzysz WYŁĄCZNIE kompletny, gotowy do użycia kod HTML z wbudowanym CSS.\n' +
