@@ -100,9 +100,11 @@
 
   .hero{
     background:
-      radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--accent-dark) 35%, transparent), transparent 60%),
-      var(--text);
+      linear-gradient(180deg, color-mix(in srgb, var(--text) 78%, transparent) 0%, color-mix(in srgb, var(--text) 94%, black) 100%),
+      radial-gradient(circle at 50% 10%, color-mix(in srgb, var(--accent-dark) 40%, transparent), transparent 60%),
+      url('https://images.pexels.com/photos/7859953/pexels-photo-7859953.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940') center/cover no-repeat;
     color:#fff;text-align:center;padding:5rem 1.5rem 3.5rem;
+    min-height:88vh;display:flex;align-items:center;justify-content:center;
   }
   .hero .wrap{max-width:720px;}
   .hero-tag{
@@ -138,12 +140,15 @@
   .awaria-item h3{font-size:.95rem;text-transform:none;font-weight:700;color:var(--text);letter-spacing:0;}
 
   .trust{background:var(--text);color:#fff;}
-  .trust h2{color:#fff;}
-  .trust .lead{color:color-mix(in srgb, #fff 75%, transparent);}
-  .trust-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;margin-top:2.5rem;text-align:center;}
+  .trust h2{color:#fff;text-align:left;}
+  .trust .eyebrow{text-align:left;}
+  .trust .lead{color:color-mix(in srgb, #fff 75%, transparent);text-align:left;margin:0;}
+  .trust-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center;margin-top:2rem;}
+  .trust-photo{width:100%;height:100%;min-height:320px;object-fit:cover;border-radius:1.2rem;box-shadow:0 24px 48px color-mix(in srgb, black 45%, transparent);}
+  .trust-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;margin-top:2rem;text-align:left;}
   .trust-stats b{display:block;font-family:var(--head);font-weight:900;font-size:2.2rem;color:var(--accent);}
   .trust-stats span{font-size:.85rem;color:color-mix(in srgb, #fff 70%, transparent);font-weight:600;}
-  .usp-row{display:flex;flex-wrap:wrap;justify-content:center;gap:.8rem;margin-top:2.5rem;}
+  .usp-row{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:.8rem;margin-top:2rem;}
   .usp-pill{
     background:color-mix(in srgb, #fff 8%, transparent);border:1px solid color-mix(in srgb, #fff 18%, transparent);
     padding:.5rem 1.1rem;border-radius:2rem;font-size:.85rem;font-weight:600;
@@ -186,6 +191,8 @@
 
   @media (max-width:900px){
     .awarie-grid{grid-template-columns:repeat(2,1fr);}
+    .trust-grid{grid-template-columns:1fr;}
+    .trust-photo{order:-1;min-height:260px;}
     .trust-stats{grid-template-columns:1fr;gap:1.2rem;}
     .contact-grid{grid-template-columns:1fr;}
     .badges .wrap{grid-template-columns:1fr;}
@@ -286,29 +293,34 @@
 
 <section class="trust" id="zaufanie">
   <div class="wrap">
-    <span class="eyebrow" style="display:block;text-align:center;">Dlaczego dzwonią do nas</span>
-    <h2>{{NAZWA_STRONY}} — pogotowie, na które można liczyć w mieście {{MIASTO}}</h2>
-    <p class="lead">Nie jesteśmy przypadkową ekipą — działamy na terenie miasta {{MIASTO}} od lat, z gotową ekipą interwencyjną 24 godziny na dobę.</p>
-    <div class="trust-stats">
-      <div>
-        <b>14 lat</b>
-        <span>na rynku usług hydraulicznych</span>
+    <div class="trust-grid">
+      <div class="trust-text">
+        <span class="eyebrow">Dlaczego dzwonią do nas</span>
+        <h2>{{NAZWA_STRONY}} — pogotowie, na które można liczyć w mieście {{MIASTO}}</h2>
+        <p class="lead">Nie jesteśmy przypadkową ekipą — działamy na terenie miasta {{MIASTO}} od lat, z gotową ekipą interwencyjną 24 godziny na dobę.</p>
+        <div class="trust-stats">
+          <div>
+            <b>14 lat</b>
+            <span>na rynku usług hydraulicznych</span>
+          </div>
+          <div>
+            <b>5000+</b>
+            <span>usuniętych awarii</span>
+          </div>
+          <div>
+            <b>4.9/5</b>
+            <span>ocena Google</span>
+          </div>
+        </div>
+        <div class="usp-row">
+          <span class="usp-pill">✓ Gwarancja na naprawę</span>
+          <span class="usp-pill">✓ Dojazd gratis — {{MIASTO}}</span>
+          <span class="usp-pill">✓ Bezpłatna wycena telefoniczna</span>
+          <span class="usp-pill">✓ Szybka realizacja</span>
+          <span class="usp-pill">✓ Certyfikowany wykonawca</span>
+        </div>
       </div>
-      <div>
-        <b>5000+</b>
-        <span>usuniętych awarii</span>
-      </div>
-      <div>
-        <b>4.9/5</b>
-        <span>ocena Google</span>
-      </div>
-    </div>
-    <div class="usp-row">
-      <span class="usp-pill">✓ Gwarancja na naprawę</span>
-      <span class="usp-pill">✓ Dojazd gratis — {{MIASTO}}</span>
-      <span class="usp-pill">✓ Bezpłatna wycena telefoniczna</span>
-      <span class="usp-pill">✓ Szybka realizacja</span>
-      <span class="usp-pill">✓ Certyfikowany wykonawca</span>
+      <img class="trust-photo" src="https://images.pexels.com/photos/8486928/pexels-photo-8486928.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Technik hydraulik w kasku i kamizelce odblaskowej, gotowy do wyjazdu interwencyjnego" width="940" height="650" loading="lazy">
     </div>
   </div>
 </section>
