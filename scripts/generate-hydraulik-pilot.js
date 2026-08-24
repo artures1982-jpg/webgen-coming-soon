@@ -121,8 +121,13 @@ strona MUSI zawierać prawdziwe zdjęcia, nie tylko emoji/ikony i płaskie tło 
   kategorii typu "brak wody"/"zapchana kanalizacja" nie da się znaleźć trafionych zdjęć na Pexels,
   sprawdzone), dłonie hydraulika montujące rury z bliska:
   https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=800&w=1600
-  — ciemny gradient-overlay jak w HERO, karty z ikonami stają się półprzezroczyste "szkło"
-  (background: color-mix(in srgb, #fff 10%, transparent), backdrop-filter: blur) na tym tle, tekst biały.
+  — UWAGA: overlay musi zostać WYRAŹNIE JAŚNIEJSZY niż w HERO (np. gradient 55%→80% opacity var(--text),
+  nie 88%+ — zbyt ciemny overlay renderuje się jak jednolita czerń i zdjęcie w ogóle nie jest widoczne,
+  to dokładnie ten błąd zgłoszony przez Artura przy pierwszej wersji tej poprawki), zdjęcie MUSI być
+  faktycznie rozpoznawalne pod kartami, nie tylko teoretycznie obecne w kodzie. Nagłówek i lead nad
+  kartami dostają text-shadow (ciemny, rozmyty) zamiast mocnego overlay, żeby zostały czytelne. Karty
+  z ikonami stają się półprzezroczyste "szkło" (background: color-mix(in srgb, #fff 10%, transparent),
+  backdrop-filter: blur) na tym tle, tekst biały.
 LAYOUT:
 1. Pulsujący pasek na całą szerokość pod nagłówkiem (CSS @keyframes na tle var(--accent)): "AWARIA? DZWOŃ TERAZ: {{TELEFON}}".
 2. Hero pełnoekranowy: zdjęcie HERO z listy powyżej jako tło z ciemnym gradient-overlay, numer telefonu OGROMNĄ czcionką na środku (nie z boku), pod nim jedno zdanie nagłówka, przycisk CTA.
