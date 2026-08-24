@@ -194,13 +194,19 @@ PRAWDZIWE ZDJĘCIA (Pexels, wyselekcjonowane ręcznie i wizualnie zweryfikowane 
 tego URL-a; to NIE jest opcjonalne, ten wariant bardziej niż inne opiera się na prawdziwej
 fotografii, bo cały koncept to "poznaj właściciela"):
 - Jedno zdjęcie, użyte DWUKROTNIE w dwóch różnych kadrach (ta sama osoba w obu miejscach buduje
-  spójność marki — to zamierzone, nie oszczędność): ciepły, uśmiechnięty portret w warsztacie,
-  naturalne światło: https://images.pexels.com/photos/8113545/pexels-photo-8113545.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+  spójność marki — to zamierzone, nie oszczędność): starszy fachowiec w kombinezonie roboczym,
+  uśmiechnięty, ciepłe warsztatowe tło — wygląda jak branżowy rzemieślnik, nie przypadkowa osoba:
+  https://images.pexels.com/photos/8642041/pexels-photo-8642041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
   1. HERO: pełne zdjęcie jako duży wizerunek (np. połowa szerokości hero, zaokrąglony róg/kształt
      organiczny, NIE prostokąt na całą szerokość jak w innych wariantach — to ma wyglądać osobiście,
      nie korporacyjnie), obok tekst + cytat właściciela + CTA.
   2. SEKCJA KONTAKT: ten sam plik, ale węższy kadr przez object-position (zbliżenie na twarz,
      mały okrągły portret ~64-80px obok numeru telefonu).
+  3. UWAGA — ROZMIAR NA MOBILE (KRYTYCZNE, zgłoszony błąd z poprzedniej iteracji): na wąskich
+     ekranach (<700px) organiczny kształt zdjęcia w hero NIE MOŻE przekraczać ok. 180-220px
+     szerokości i musi mieć zredukowany padding-top sekcji hero — inaczej zdjęcie zajmuje CAŁY
+     ekran telefonu i chowa nagłówek/tekst pod fold. Sprawdź to na wąskim viewporcie przed oddaniem
+     pliku, nie tylko na desktopie.
 LAYOUT:
 1. Nav prosta, bez pełnej szerokości, z lekkim marginesem.
 2. Hero: zdjęcie właściciela z listy powyżej (nie samego produktu/narzędzi), krótkie osobiste motto pod nagłówkiem (np. cytat właściciela), jeden ciepły CTA.
