@@ -242,12 +242,26 @@ LAYOUT:
     visual: `STYL: dla firmy pozycjonującej się wyżej cenowo — klienci B2B, deweloperzy, większe realizacje.
 PALETA (jako zmienne CSS): --bg biały, --accent stonowany antracyt lub głęboki granat, dużo jasnoszarego (--surface) jako tło sekcji.
 TYPOGRAFIA (jako zmienne CSS): nagłówki eleganckie, wysoki kontrast grubości, spory letter-spacing na etykietach; tekst neutralny.
+
+PRAWDZIWE ZDJĘCIA (Pexels, wyselekcjonowane ręcznie i wizualnie zweryfikowane — użyj DOKŁADNIE
+tych URL-i; to NIE jest opcjonalne):
+- HERO — duża instalacja przeciwpożarowa/mechaniczna w budynku komercyjnym, inżynier przy pracy
+  (wrażenie skali i doświadczenia, nie zdjęcie portretowe):
+  https://images.pexels.com/photos/16442684/pexels-photo-16442684.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Case study 1 (kompleksowa instalacja przemysłowa): https://images.pexels.com/photos/2569842/pexels-photo-2569842.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Case study 2 (precyzyjna instalacja grzewcza z manometrem): https://images.pexels.com/photos/7937300/pexels-photo-7937300.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Case study 3 (montaż instalacji wod-kan): https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+UWAGA — SEKCJA ZAUFANIA (KRYTYCZNE): "logo/nazwy klientów lub certyfikatów w rzędzie" NIE MOŻE
+zawierać wymyślonych, realnie brzmiących nazw firm ani prawdziwych, istniejących marek/loga (to
+wprowadzałoby w błąd co do realnych referencji) — użyj generycznych etykiet kategorii klienta
+("Deweloperzy mieszkaniowi", "Biura i powierzchnie komercyjne", "Zarządcy nieruchomości") lub
+neutralnych placeholderów typu "Klient sp. z o.o." zamiast fikcyjnego brandingu.
 LAYOUT:
 1. Nav minimalistyczna, cienka linia pod spodem, dużo białej przestrzeni wokół logo.
-2. Hero: jedno duże, wysokiej jakości zdjęcie realizacji (nie portretowe), nagłówek z naciskiem na skalę/doświadczenie firmy, przycisk "Zapytaj o wycenę projektu".
+2. Hero: zdjęcie z listy powyżej jako duży, wysokiej jakości obraz realizacji, nagłówek z naciskiem na skalę/doświadczenie firmy, przycisk "Zapytaj o wycenę projektu".
 3. Sekcja "Nasz proces": 4 kroki w rzędzie z numeracją (Konsultacja → Wycena → Realizacja → Odbiór i gwarancja), cienkie linie łączące kroki.
-4. Sekcja "Realizacje" jako case studies: 2-3 duże karty (zdjęcie + krótki opis zakresu prac + metryka, np. "120 punktów instalacji"), NIE prosta galeria miniatur.
-5. Sekcja zaufania: logo/nazwy klientów lub certyfikatów w rzędzie zamiast gwiazdek/cytatów.
+4. Sekcja "Realizacje" jako case studies: 3 duże karty, każda z WŁASNYM zdjęciem z listy powyżej + krótki opis zakresu prac + metryka, np. "120 punktów instalacji"), NIE prosta galeria miniatur.
+5. Sekcja zaufania: generyczne etykiety kategorii klienta w rzędzie (patrz UWAGA powyżej) zamiast gwiazdek/cytatów.
 6. Kontakt formalny: formularz "Zapytanie o wycenę projektu" z polami (firma, zakres prac, budżet orientacyjny) + dane kontaktowe obok.
 7. Stopka biała/jasnoszara, elegancka, minimalna.`
   },
