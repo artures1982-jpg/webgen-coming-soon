@@ -272,6 +272,18 @@ LAYOUT:
     visual: `STYL: wszystko na jednej stronie, kotwice do sekcji, maksymalna prostota i szybkość.
 PALETA (jako zmienne CSS): bardzo ograniczona — tylko --bg biały i --accent jeden kolor, --text niemal czarny.
 TYPOGRAFIA (jako zmienne CSS): jedna para fontów, prosty neutralny sans na całość.
+
+UWAGA — BRAK ZDJĘĆ I BRAK MAPY W TYM WARIANCIE TO ŚWIADOMY WYBÓR, NIE LUKA (odwrotnie niż w
+wariantach 1-5): ten wariant ma być maksymalnie lekki i szybki, więc celowo pomija PRAWDZIWE
+ZDJĘCIA i WYMÓG — MAPA DOJAZDU ze wspólnych zasad powyżej — nie dodawaj zdjęć ani iframe z mapą,
+adres zostaje czystym tekstem. To jedyny z 6 wariantów z tym wyjątkiem.
+
+UWAGA — NAV BEZ HAMBURGERA NA MOBILE (KRYTYCZNE): ten wariant nie ma rozwijanego menu (w
+przeciwieństwie do innych wariantów) — kotwice + numer telefonu muszą się zmieścić w jednym pasku
+nav na każdej szerokości ekranu. Na wąskich telefonach (<480px) skróć/zwiń albo kotwice (np. mniejszy
+font-size i gap, lub tylko ikony), albo numer telefonu do samej ikony — przetestuj to na wąskim
+viewporcie, żeby nic się nie łamało ani nie nachodziło (to dokładnie ten sam typ błędu co już raz
+naprawiony w innych wariantach, tu ryzyko jest większe bo nie ma hamburgera jako ucieczki).
 LAYOUT:
 1. Nav = wyłącznie kotwice do sekcji (Usługi / O nas / Kontakt) + numer telefonu, bez rozbudowanego menu.
 2. Hero krótki: nagłówek + jedno zdanie opisu + jeden CTA, BEZ dużego zdjęcia tła (lekka, szybka strona) — co najwyżej mała ilustracja/ikona.
