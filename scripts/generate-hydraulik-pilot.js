@@ -37,7 +37,30 @@ hover/tekstu), --bg (tło strony), --surface (tło kart/sekcji), --text (główn
 --muted (pomocniczy kolor tekstu), --head (font-family nagłówków), --body (font-family tekstu).
 W CAŁYM pozostałym CSS używaj WYŁĄCZNIE var(--nazwa) do każdego koloru i fontu — ani jednego
 literału hex ani nazwy fontu poza samą deklaracją w :root. To pozwoli później zmienić całą
-kolorystykę i typografię strony przez podmianę tylko bloku :root, bez dotykania reszty kodu.`;
+kolorystykę i typografię strony przez podmianę tylko bloku :root, bez dotykania reszty kodu.
+
+WYMÓG JĘZYKOWY — ODMIANA NAZWY MIASTA (KRYTYCZNE):
+{{MIASTO}} to token, który przy aktywacji zostanie podstawiony nazwą DOWOLNEGO polskiego miasta
+w mianowniku (Kraków, Warszawa, Łódź, Gdańsk...) — NIE zakładaj żadnej konkretnej odmiany, bo nie
+da się jej automatycznie poprawnie wygenerować dla każdego miasta. Dlatego:
+- NIGDY nie pisz "w {{MIASTO}}", "z {{MIASTO}}", "do {{MIASTO}}", "poza {{MIASTO}}" ani żadnej innej
+  formy wymagającej odmiany nazwy własnej przez przyimek — to gramatycznie niepoprawne dla większości
+  miast ("w Kraków" zamiast "w Krakowie").
+- Zamiast tego używaj BEZPIECZNYCH konstrukcji, które działają dla każdej nazwy miasta w mianowniku:
+  "w mieście {{MIASTO}}", "na terenie miasta {{MIASTO}}", "poza miastem {{MIASTO}}" (rzeczownik
+  pospolity "miasto" się odmienia, nazwa własna zostaje w mianowniku jako dopowiedzenie — to
+  poprawna polszczyzna), ALBO usuń przyimek i użyj myślnika/dwukropka: "Usługi — {{MIASTO}}",
+  "Dojazd gratis — {{MIASTO}}".
+- Wyjątek: {{MIASTO}} użyte SAMODZIELNIE bez przyimka (np. w adresie "{{ADRES}}, {{MIASTO}}",
+  w tagu lokalizacji, w tytule strony, w podpisie "Imię, {{MIASTO}}") jest zawsze bezpieczne —
+  mianownik nie wymaga żadnej zmiany.
+
+WYMÓG — MAPA DOJAZDU (KRYTYCZNE):
+Sekcja kontaktowa MUSI zawierać prawdziwy, działający embed Google Maps — NIE placeholder/prostokąt
+zastępczy. Użyj: <iframe src="https://www.google.com/maps?q={{ADRES}}, {{MIASTO}}&output=embed"
+loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;width:100%;height:320px">
+</iframe> (ten format nie wymaga klucza API i zadziała automatycznie, gdy {{ADRES}}/{{MIASTO}}
+zostaną podstawione prawdziwymi danymi przy aktywacji).`;
 
 const SYSTEM_BASE = 'Jesteś ekspertem web designu tworzącym profesjonalne strony dla polskich firm lokalnych.\n' +
   'Tworzysz WYŁĄCZNIE kompletny, gotowy do użycia kod HTML z wbudowanym CSS.\n' +
@@ -73,7 +96,7 @@ LAYOUT:
 5. Sekcja O NAS: tekst po lewej (lata doświadczenia, liczby), po prawej dwa nachodzące na siebie zdjęcia z listy powyżej + duża wyblakła ikona klucza/rury w tle jako watermark.
 6. Pasmo zaufania na ciemnym tle (var(--text) lub pochodna): duży badge oceny z gwiazdkami po lewej, 2 krótkie cytaty klientów z inicjałem w kółku po prawej.
 7. Sekcja "Dlaczego my" — 4 punkty z ikonami w rzędzie (Licencjonowani i ubezpieczeni / Szybki dojazd / Gwarancja na usługę / Uczciwa wycena).
-8. Kontakt: duży numer telefonu, dane kontaktowe + formularz (imię, telefon, wiadomość) obok siebie, miejsce na mapę pod spodem (prostokąt placeholder z podpisem "Mapa dojazdu").
+8. Kontakt: duży numer telefonu, dane kontaktowe + formularz (imię, telefon, wiadomość) obok siebie, mapa dojazdu pod spodem (patrz WYMÓG — MAPA DOJAZDU poniżej).
 9. Pasmo CTA tuż przed stopką: "Awaria hydrauliczna? Jesteśmy pod telefonem" + przycisk.
 10. Stopka ciemna, dane kontaktowe + linki.`
   },
