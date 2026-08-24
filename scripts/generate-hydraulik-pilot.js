@@ -117,11 +117,19 @@ strona MUSI zawierać prawdziwe zdjęcia, nie tylko emoji/ikony i płaskie tło 
   var(--accent)) na tyle mocny, żeby biały tekst i telefon OGROMNĄ czcionką były w pełni czytelne.
 - Sekcja zaufania/kontakt, zdjęcie ekipy w akcji (technik z kluczem w kasku i kamizelce, gotowy do
   wyjazdu): https://images.pexels.com/photos/8486928/pexels-photo-8486928.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Sekcja "Rodzaje awarii" — TŁO CAŁEJ SEKCJI (nie osobne zdjęcia pod każdą ikoną — dla pojedynczych
+  kategorii typu "brak wody"/"zapchana kanalizacja" nie da się znaleźć trafionych zdjęć na Pexels,
+  sprawdzone), dłonie hydraulika montujące rury z bliska:
+  https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=800&w=1600
+  — ciemny gradient-overlay jak w HERO, karty z ikonami stają się półprzezroczyste "szkło"
+  (background: color-mix(in srgb, #fff 10%, transparent), backdrop-filter: blur) na tym tle, tekst biały.
 LAYOUT:
 1. Pulsujący pasek na całą szerokość pod nagłówkiem (CSS @keyframes na tle var(--accent)): "AWARIA? DZWOŃ TERAZ: {{TELEFON}}".
 2. Hero pełnoekranowy: zdjęcie HERO z listy powyżej jako tło z ciemnym gradient-overlay, numer telefonu OGROMNĄ czcionką na środku (nie z boku), pod nim jedno zdanie nagłówka, przycisk CTA.
 3. Zaraz pod hero: 3 badge w rzędzie — "Śr. czas dojazdu 30 min" / "Dostępni 24/7/365" / "Bezpłatna wycena telefoniczna".
-4. Sekcja "Rodzaje awarii które usuwamy": siatka 6 ikon (nie zdjęć — to świadomy wybór, szybkie skanowanie wzrokiem w sytuacji awaryjnej działa lepiej niż zdjęcia) — pęknięta rura, zalanie, brak wody, piec, kanalizacja, instalacja gazowa — każda krótka etykieta.
+4. Sekcja "Rodzaje awarii które usuwamy": zdjęcie tła sekcji z listy powyżej (wymagane — cała strona
+   NIE MOŻE opierać się wyłącznie na emoji/ikonach), a na nim siatka 6 kart-„szkła" z ikonami —
+   pęknięta rura, zalanie, brak wody, piec, kanalizacja, instalacja gazowa — każda krótka etykieta.
 5. Sekcja zaufania: 2 kolumny — lewo 3 liczby w rzędzie (lat na rynku / awarii usuniętych / ocena Google) + USP, prawo zdjęcie ekipy z listy powyżej (duże, zaokrąglone rogi, cień) — to zdjęcie jest wymagane, nie pomijaj go.
 6. Kontakt: przycisk "ZADZWOŃ TERAZ" powtórzony jeszcze raz jako duży, samodzielny pasek nad formularzem, krótki formularz (telefon + 1 zdanie opisu awarii).
 7. Stopka minimalna: telefon, adres, linki prawne.`

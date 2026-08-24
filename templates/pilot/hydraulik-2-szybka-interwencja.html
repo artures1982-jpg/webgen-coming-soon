@@ -130,14 +130,24 @@
   .badge .num{font-family:var(--head);font-weight:900;font-size:1.15rem;color:var(--accent);}
   .badge .lbl{font-size:.82rem;color:var(--muted);font-weight:600;}
 
+  #awarie{
+    position:relative;
+    background:
+      linear-gradient(180deg, color-mix(in srgb, var(--text) 88%, transparent) 0%, color-mix(in srgb, var(--text) 95%, black) 100%),
+      url('https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=800&w=1600') center/cover no-repeat;
+  }
+  #awarie .eyebrow{color:var(--accent);}
+  #awarie h2{color:#fff;}
+  #awarie .lead{color:color-mix(in srgb, #fff 78%, transparent);}
   .awarie-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.5rem;}
   .awaria-item{
-    text-align:center;padding:2rem 1rem;background:var(--surface);border-radius:1rem;
-    border:1px solid color-mix(in srgb, var(--text) 8%, transparent);transition:transform .15s ease, border-color .15s ease;
+    text-align:center;padding:2rem 1rem;background:color-mix(in srgb, #fff 10%, transparent);border-radius:1rem;
+    border:1px solid color-mix(in srgb, #fff 20%, transparent);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    transition:transform .15s ease, border-color .15s ease, background .15s ease;
   }
-  .awaria-item:hover{transform:translateY(-4px);border-color:var(--accent);}
+  .awaria-item:hover{transform:translateY(-4px);border-color:var(--accent);background:color-mix(in srgb, #fff 16%, transparent);}
   .awaria-item .icon{font-size:2.4rem;margin-bottom:.8rem;}
-  .awaria-item h3{font-size:.95rem;text-transform:none;font-weight:700;color:var(--text);letter-spacing:0;}
+  .awaria-item h3{font-size:.95rem;text-transform:none;font-weight:700;color:#fff;letter-spacing:0;}
 
   .trust{background:var(--text);color:#fff;}
   .trust h2{color:#fff;text-align:left;}
