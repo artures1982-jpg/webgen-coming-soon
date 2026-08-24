@@ -1,219 +1,569 @@
-<!DOCTYPE html> <html lang="pl"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>{{NAZWA_STRONY}} — Hydraulik {{MIASTO}} | tel. {{TELEFON}}</title> <meta name="description" content="{{NAZWA_STRONY}} — profesjonalne usługi Hydraulik w {{MIASTO}}. Zadzwoń: {{TELEFON}}"> <meta name="keywords" content="Hydraulik {{MIASTO}}"> <link rel="canonical" href="https://{{SLUG}}.webgen.pl"> <meta property="og:type" content="website"> <meta property="og:title" content="{{NAZWA_STRONY}} — Hydraulik {{MIASTO}}"> <meta property="og:description" content="{{NAZWA_STRONY}} — profesjonalne usługi Hydraulik w {{MIASTO}}. Zadzwoń: {{TELEFON}}"> <meta property="og:url" content="https://{{SLUG}}.webgen.pl"> <meta name="twitter:card" content="summary_large_image"> <meta name="robots" content="index, follow"> <script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"{{NAZWA_STRONY}}","telephone":"{{TELEFON}}","email":"{{EMAIL}}","description":"{{NAZWA_STRONY}} — Hydraulik w {{MIASTO}}","address":{"@type":"PostalAddress","addressLocality":"{{MIASTO}}","addressCountry":"PL"}}</script> <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"> <style> :root{ --accent:#0F8FA8; --accent-dark:#0A6376; --bg:#FFFFFF; --surface:#F2F6F8; --text:#23282D; --muted:#6B757E; --head:'Sora',system-ui,sans-serif; --body:'Inter',system-ui,sans-serif; } *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth;scroll-padding-top:110px} body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.65;font-size:16px;-webkit-font-smoothing:antialiased} h1,h2,h3,h4,.logo,.stat-num,.rating-num{font-family:var(--head);line-height:1.15;letter-spacing:-.02em} a{color:inherit;text-decoration:none} img{max-width:100%;display:block} .wrap{width:100%;max-width:1180px;margin:0 auto;padding:0 20px} .btn{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:var(--bg);font-family:var(--head);font-weight:700;font-size:1.02rem;padding:16px 28px;border-radius:6px;border:2px solid var(--accent);transition:.2s;box-shadow:0 8px 22px color-mix(in srgb, var(--accent) 32%, transparent)} .btn:hover{background:var(--accent-dark);border-color:var(--accent-dark);transform:translateY(-2px)} .btn-ghost{background:transparent;color:var(--bg);border:2px solid color-mix(in srgb, var(--bg) 70%, transparent);box-shadow:none} .btn-ghost:hover{background:var(--bg);color:var(--text);border-color:var(--bg)} .btn-sm{padding:11px 20px;font-size:.92rem} .sec{padding:88px 0} .sec-alt{background:var(--surface)} .eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--head);font-weight:700;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px} h2{font-size:clamp(1.85rem,4vw,2.7rem);font-weight:800;margin-bottom:16px} .lead{color:var(--muted);font-size:1.06rem;max-width:640px} .sec-head{margin-bottom:48px}
-/* ---------- TOPBAR ---------- */
-.topbar{background:var(--accent);color:var(--bg);font-size:.9rem;font-weight:500}
-.topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:42px;flex-wrap:wrap}
-.topbar strong{font-family:var(--head);font-weight:700;letter-spacing:.02em}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{NAZWA_STRONY}} — Hydraulik {{MIASTO}} | tel. {{TELEFON}}</title>
+<meta name="description" content="{{NAZWA_STRONY}} — profesjonalne usługi Hydraulik w {{MIASTO}}. Zadzwoń: {{TELEFON}}">
+<meta name="keywords" content="Hydraulik {{MIASTO}}">
+<link rel="canonical" href="https://{{SLUG}}.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{NAZWA_STRONY}} — Hydraulik {{MIASTO}}">
+<meta property="og:description" content="{{NAZWA_STRONY}} — profesjonalne usługi Hydraulik w {{MIASTO}}. Zadzwoń: {{TELEFON}}">
+<meta property="og:url" content="https://{{SLUG}}.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"{{NAZWA_STRONY}}","telephone":"{{TELEFON}}","email":"{{EMAIL}}","description":"{{NAZWA_STRONY}} — Hydraulik w {{MIASTO}}","address":{"@type":"PostalAddress","addressLocality":"{{MIASTO}}","addressCountry":"PL"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#0891b2;
+    --accent-dark:#0a5b68;
+    --bg:#ffffff;
+    --surface:#f2f7f8;
+    --text:#20272b;
+    --muted:#5c6a6e;
+    --head:'Bricolage Grotesque', sans-serif;
+    --body:'Inter', sans-serif;
+  }
 
-/* ---------- NAV ---------- */
-.nav{position:sticky;top:0;z-index:60;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);box-shadow:0 2px 18px color-mix(in srgb, var(--text) 6%, transparent)}
-.nav .wrap{display:flex;align-items:center;justify-content:space-between;min-height:74px;gap:18px}
-.logo{font-weight:800;font-size:1.3rem;display:flex;align-items:center;gap:10px}
-.logo span{color:var(--accent)}
-.nav-links{display:none;gap:28px;font-weight:500;font-size:.97rem}
-.nav-links a{color:var(--text);transition:.2s;position:relative;padding:4px 0}
-.nav-links a:hover{color:var(--accent)}
-.nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--accent);transition:.25s}
-.nav-links a:hover::after{width:100%}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--body);
+    color:var(--text);
+    background:var(--bg);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3,h4{font-family:var(--head);line-height:1.15;font-weight:800;}
+  section{padding:5rem 1.5rem;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  .eyebrow{
+    display:inline-block;
+    font-family:var(--body);
+    font-weight:700;
+    font-size:.8rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:.6rem;
+  }
+  h2{font-size:clamp(1.7rem,3.2vw,2.5rem);margin-bottom:1rem;color:var(--text);}
+  .lead{color:var(--muted);font-size:1.05rem;max-width:640px;}
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:.5rem;
+    padding:.9rem 1.6rem;
+    border-radius:.55rem;
+    font-weight:700;
+    font-family:var(--body);
+    font-size:1rem;
+    border:2px solid transparent;
+    cursor:pointer;
+    transition:transform .15s ease, background .2s ease, color .2s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--accent);color:#fff;}
+  .btn-primary:hover{background:var(--accent-dark);}
+  .btn-outline{border-color:color-mix(in srgb, var(--text) 20%, transparent);color:var(--text);background:transparent;}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+  .btn-light{background:#fff;color:var(--accent-dark);}
+  .btn-light:hover{background:color-mix(in srgb, #fff 85%, var(--accent));}
 
-/* ---------- HERO ---------- */
-.hero{position:relative;min-height:calc(100vh - 116px);display:flex;align-items:center;color:var(--bg);overflow:hidden;text-align:center}
-.hero-bg{position:absolute;inset:0;background:
-linear-gradient(115deg, color-mix(in srgb, var(--text) 92%, transparent) 0%, color-mix(in srgb, var(--text) 72%, transparent) 45%, color-mix(in srgb, var(--accent-dark) 78%, transparent) 100%),
-repeating-linear-gradient(58deg, color-mix(in srgb, var(--bg) 5%, transparent) 0 3px, transparent 3px 42px),
-radial-gradient(circle at 78% 22%, var(--accent) 0%, var(--accent-dark) 38%, var(--text) 78%);
-z-index:0}
-.hero-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%, color-mix(in srgb, var(--text) 70%, transparent) 0%, transparent 62%)}
-.hero .wrap{position:relative;z-index:2;padding-top:70px;padding-bottom:70px}
-.pin{display:inline-flex;align-items:center;gap:9px;background:color-mix(in srgb, var(--bg) 14%, transparent);border:1px solid color-mix(in srgb, var(--bg) 32%, transparent);padding:9px 20px;border-radius:100px;font-weight:600;font-size:.92rem;margin-bottom:26px;backdrop-filter:blur(6px)}
-.hero h1{font-size:clamp(2.15rem,6.2vw,4.1rem);font-weight:800;max-width:940px;margin:0 auto 22px;text-shadow:0 4px 30px color-mix(in srgb, var(--text) 55%, transparent)}
-.hero h1 em{font-style:normal;color:var(--accent);filter:brightness(1.5)}
-.hero p{font-size:clamp(1.03rem,2.2vw,1.22rem);max-width:660px;margin:0 auto 38px;color:color-mix(in srgb, var(--bg) 88%, transparent)}
-.hero-cta{display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
-.hero-badges{display:flex;flex-wrap:wrap;gap:14px 34px;justify-content:center;margin-top:52px;font-size:.93rem;font-weight:600;color:color-mix(in srgb, var(--bg) 85%, transparent)}
-.hero-badges span{display:inline-flex;align-items:center;gap:9px}
+  .topbar{background:var(--accent);color:#fff;font-size:.85rem;font-weight:600;}
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;padding:.5rem 1.5rem;}
+  .topbar a{display:flex;align-items:center;gap:.4rem;}
 
-/* ---------- USP STRIP ---------- */
-.usp{background:var(--surface);border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent)}
-.usp .wrap{display:grid;grid-template-columns:1fr;gap:2px;padding:0}
-.usp-item{padding:26px 20px;display:flex;align-items:center;gap:14px;background:var(--surface)}
-.usp-item b{font-family:var(--head);display:block;font-size:1rem}
-.usp-item small{color:var(--muted);font-size:.87rem}
-.usp-ico{font-size:1.6rem;line-height:1}
+  header.nav{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;}
+  .logo{font-family:var(--head);font-weight:800;font-size:1.3rem;color:var(--text);}
+  .logo span{color:var(--accent);}
+  .nav-links{display:flex;gap:1.8rem;align-items:center;}
+  .nav-links a{font-weight:600;font-size:.95rem;color:var(--text);}
+  .nav-links a:hover{color:var(--accent);}
+  .nav-actions{display:flex;align-items:center;gap:1rem;}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;}
+  .nav-toggle span{width:26px;height:2px;background:var(--text);}
 
-/* ---------- USŁUGI ---------- */
-.cats{display:grid;grid-template-columns:1fr;gap:30px}
-.cat{background:var(--bg);border:1px solid color-mix(in srgb, var(--text) 10%, transparent);border-radius:10px;overflow:hidden;transition:.25s;display:flex;flex-direction:column}
-.cat:hover{transform:translateY(-5px);box-shadow:0 18px 44px color-mix(in srgb, var(--text) 14%, transparent);border-color:color-mix(in srgb, var(--accent) 45%, transparent)}
-.cat-img{height:200px;position:relative;display:flex;align-items:center;justify-content:center;font-size:3.4rem;color:var(--bg)}
-.cat-img.i1{background:linear-gradient(140deg, var(--accent-dark), var(--accent))}
-.cat-img.i2{background:linear-gradient(140deg, var(--text), var(--accent-dark))}
-.cat-img.i3{background:linear-gradient(140deg, var(--accent), color-mix(in srgb, var(--text) 60%, var(--accent-dark)))}
-.cat-img::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg, color-mix(in srgb, var(--bg) 7%, transparent) 0 2px, transparent 2px 26px)}
-.cat-body{padding:26px 26px 30px;flex:1}
-.cat h3{font-size:1.32rem;font-weight:700;margin-bottom:14px}
-.cat ul{list-style:none}
-.cat li{position:relative;padding-left:26px;margin-bottom:9px;color:var(--muted);font-size:.97rem}
-.cat li::before{content:"✓";position:absolute;left:0;top:0;color:var(--accent);font-weight:700}
+  .hero{position:relative;min-height:92vh;display:flex;align-items:center;color:#fff;overflow:hidden;}
+  .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+  .hero-overlay{
+    position:absolute;inset:0;z-index:1;
+    background:
+      linear-gradient(180deg, color-mix(in srgb, var(--text) 55%, transparent) 0%, color-mix(in srgb, var(--text) 90%, black) 100%),
+      radial-gradient(circle at 80% 75%, color-mix(in srgb, var(--accent-dark) 45%, transparent), transparent 55%);
+  }
+  .hero-inner{position:relative;z-index:2;max-width:760px;margin:0 auto;padding:0 1.5rem;text-align:center;}
+  .pin{
+    display:inline-flex;align-items:center;gap:.4rem;
+    background:color-mix(in srgb, #fff 15%, transparent);
+    border:1px solid color-mix(in srgb, #fff 30%, transparent);
+    padding:.4rem .9rem;border-radius:2rem;font-size:.85rem;font-weight:600;margin-bottom:1.5rem;
+  }
+  .hero h1{font-size:clamp(2.2rem,5.5vw,3.6rem);color:#fff;margin-bottom:1.1rem;}
+  .hero h1 em{color:color-mix(in srgb, var(--accent) 55%, #fff);font-style:normal;}
+  .hero p{font-size:1.15rem;color:color-mix(in srgb, #fff 85%, transparent);max-width:560px;margin:0 auto 2.2rem;}
+  .hero-ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.8rem;}
+  .hero-badges{display:flex;gap:1.6rem;justify-content:center;flex-wrap:wrap;font-size:.9rem;color:color-mix(in srgb, #fff 80%, transparent);font-weight:600;}
+  .hero-badges span{display:flex;align-items:center;gap:.4rem;}
 
-.grid6{display:grid;grid-template-columns:1fr;gap:22px;margin-top:56px}
-.card{background:var(--bg);border:1px solid color-mix(in srgb, var(--text) 10%, transparent);border-left:4px solid var(--accent);border-radius:8px;padding:28px 24px;transition:.22s}
-.card:hover{background:color-mix(in srgb, var(--accent) 5%, var(--bg));box-shadow:0 12px 30px color-mix(in srgb, var(--text) 10%, transparent)}
-.card .ico{font-size:2rem;margin-bottom:14px;display:block}
-.card h3{font-size:1.12rem;font-weight:700;margin-bottom:9px}
-.card p{color:var(--muted);font-size:.95rem}
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;margin-top:2.5rem;}
+  .service-card{background:var(--surface);border-radius:1rem;overflow:hidden;border:1px solid color-mix(in srgb, var(--text) 8%, transparent);transition:transform .2s ease, box-shadow .2s ease;}
+  .service-card:hover{transform:translateY(-6px);box-shadow:0 18px 34px color-mix(in srgb, var(--text) 14%, transparent);}
+  .service-photo{width:100%;height:180px;object-fit:cover;}
+  .service-photo-icon{
+    height:180px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;
+    background:linear-gradient(135deg, var(--accent), var(--accent-dark));color:#fff;
+  }
+  .service-body{padding:1.5rem;}
+  .service-body .cat{font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem;display:block;}
+  .service-body h3{font-size:1.2rem;margin-bottom:.8rem;}
+  .service-body ul li{display:flex;gap:.5rem;font-size:.92rem;color:var(--muted);margin-bottom:.5rem;}
+  .service-body ul li::before{content:"✓";color:var(--accent);font-weight:700;}
 
-/* ---------- O NAS ---------- */
-.about{display:grid;grid-template-columns:1fr;gap:56px;align-items:center;position:relative}
-.about-txt p{color:var(--muted);margin-bottom:18px;font-size:1.03rem}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
-.stat{background:var(--surface);border-radius:8px;padding:22px 16px;text-align:center;border-bottom:3px solid var(--accent)}
-.stat-num{display:block;font-size:2.05rem;font-weight:800;color:var(--accent);line-height:1}
-.stat small{color:var(--muted);font-size:.83rem;font-weight:600;display:block;margin-top:6px}
-.about-media{position:relative;min-height:400px}
-.watermark{position:absolute;right:-30px;top:50%;transform:translateY(-50%);width:min(420px,90%);color:var(--accent);opacity:.07;z-index:0;pointer-events:none}
-.photo{position:absolute;border-radius:10px;box-shadow:0 22px 55px color-mix(in srgb, var(--text) 26%, transparent);display:flex;align-items:flex-end;color:var(--bg);font-family:var(--head);font-weight:700;font-size:.9rem;padding:18px;z-index:1;border:5px solid var(--bg)}
-.photo::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(50deg, color-mix(in srgb, var(--bg) 8%, transparent) 0 2px, transparent 2px 24px);border-radius:5px}
-.photo span{position:relative;z-index:2;text-shadow:0 2px 10px color-mix(in srgb, var(--text) 60%, transparent)}
-.photo-a{width:70%;height:270px;top:0;left:0;background:linear-gradient(150deg, var(--accent), var(--accent-dark))}
-.photo-b{width:62%;height:250px;bottom:0;right:0;background:linear-gradient(150deg, color-mix(in srgb, var(--text) 85%, var(--accent)), var(--accent-dark))}
+  .about{background:var(--bg);}
+  .about .wrap{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;}
+  .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-top:2rem;}
+  .stat{background:var(--surface);border-radius:.8rem;padding:1.2rem 1rem;border-left:4px solid var(--accent);}
+  .stat b{display:block;font-family:var(--head);font-size:1.7rem;color:var(--text);}
+  .stat span{font-size:.85rem;color:var(--muted);}
+  .about-visual{position:relative;min-height:380px;}
+  .about-visual .watermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:16rem;color:color-mix(in srgb, var(--accent) 12%, transparent);z-index:0;pointer-events:none;line-height:1;}
+  .photo-stack{position:relative;height:100%;z-index:1;}
+  .photo-a, .photo-b{position:absolute;border-radius:1rem;box-shadow:0 20px 40px color-mix(in srgb, var(--text) 20%, transparent);object-fit:cover;}
+  .photo-a{width:70%;height:270px;top:0;left:0;border:6px solid var(--bg);}
+  .photo-b{width:60%;height:230px;bottom:0;right:0;border:6px solid var(--bg);}
+  .area-note{margin-top:1.6rem;font-size:.92rem;color:var(--muted);background:var(--surface);padding:1rem 1.2rem;border-radius:.7rem;}
 
-/* ---------- ZAUFANIE ---------- */
-.trust{background:var(--text);color:var(--bg);padding:74px 0}
-.trust-grid{display:grid;grid-template-columns:1fr;gap:44px;align-items:center}
-.rating{text-align:center;background:color-mix(in srgb, var(--bg) 8%, transparent);border:1px solid color-mix(in srgb, var(--bg) 18%, transparent);border-radius:12px;padding:34px 26px}
-.rating-num{font-size:3.6rem;font-weight:800;line-height:1;color:var(--accent);filter:brightness(1.45)}
-.stars{font-size:1.4rem;letter-spacing:4px;margin:12px 0 8px}
-.rating p{color:color-mix(in srgb, var(--bg) 72%, transparent);font-size:.93rem}
-.quotes{display:grid;gap:20px}
-.quote{display:flex;gap:18px;align-items:flex-start;background:color-mix(in srgb, var(--bg) 6%, transparent);border-radius:10px;padding:22px 24px;border-left:3px solid var(--accent)}
-.avatar{flex:0 0 46px;width:46px;height:46px;border-radius:50%;background:var(--accent);color:var(--bg);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:700;font-size:1.05rem}
-.quote p{font-size:.97rem;color:color-mix(in srgb, var(--bg) 88%, transparent);margin-bottom:7px}
-.quote b{font-size:.85rem;color:color-mix(in srgb, var(--bg) 60%, transparent);font-weight:600}
+  .trust{background:var(--text);color:#fff;}
+  .trust .wrap{display:grid;grid-template-columns:1fr 1.4fr;gap:3rem;align-items:center;}
+  .rating-badge{text-align:center;padding:2rem;background:color-mix(in srgb, #fff 6%, transparent);border-radius:1rem;}
+  .rating-badge .score{font-family:var(--head);font-size:3.2rem;font-weight:800;}
+  .stars{color:#f5b700;font-size:1.3rem;margin:.5rem 0;letter-spacing:.15em;}
+  .rating-badge p{color:color-mix(in srgb, #fff 70%, transparent);font-size:.9rem;}
+  .quotes{display:flex;flex-direction:column;gap:1.5rem;}
+  .quote{background:color-mix(in srgb, #fff 6%, transparent);border-radius:.9rem;padding:1.4rem 1.6rem;display:flex;gap:1rem;}
+  .quote .avatar{flex-shrink:0;width:44px;height:44px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;}
+  .quote p{font-size:.95rem;color:color-mix(in srgb, #fff 90%, transparent);margin-bottom:.4rem;}
+  .quote .name{font-size:.82rem;color:color-mix(in srgb, #fff 60%, transparent);font-weight:600;}
 
-/* ---------- DLACZEGO MY ---------- */
-.why{display:grid;grid-template-columns:1fr;gap:32px;text-align:center}
-.why-item .ico{width:74px;height:74px;margin:0 auto 18px;border-radius:50%;background:color-mix(in srgb, var(--accent) 12%, transparent);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:2rem;border:2px solid color-mix(in srgb, var(--accent) 30%, transparent)}
-.why-item h3{font-size:1.1rem;font-weight:700;margin-bottom:8px}
-.why-item p{color:var(--muted);font-size:.94rem}
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6rem;margin-top:2.5rem;}
+  .why-item{text-align:center;padding:1.6rem 1rem;}
+  .why-item .icon{width:64px;height:64px;border-radius:50%;background:color-mix(in srgb, var(--accent) 12%, transparent);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.7rem;margin:0 auto 1rem;}
+  .why-item h3{font-size:1.05rem;margin-bottom:.4rem;}
+  .why-item p{font-size:.88rem;color:var(--muted);}
 
-/* ---------- OBSZAR ---------- */
-.area{display:grid;grid-template-columns:1fr;gap:40px;align-items:center}
-.area-list{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
-.tag{background:var(--bg);border:1px solid color-mix(in srgb, var(--accent) 35%, transparent);color:var(--accent-dark);padding:8px 16px;border-radius:100px;font-size:.9rem;font-weight:600}
+  .faq-list{max-width:800px;margin:2.5rem auto 0;display:flex;flex-direction:column;gap:.8rem;}
+  details{background:var(--surface);border-radius:.7rem;padding:1.1rem 1.4rem;border:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+  details summary{cursor:pointer;font-weight:700;font-family:var(--head);font-size:1rem;list-style:none;display:flex;justify-content:space-between;align-items:center;}
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{content:"+";font-size:1.4rem;color:var(--accent);}
+  details[open] summary::after{content:"–";}
+  details p{color:var(--muted);margin-top:.8rem;font-size:.94rem;}
 
-/* ---------- FAQ ---------- */
-.faq{max-width:840px;margin:0 auto}
-.faq details{background:var(--bg);border:1px solid color-mix(in srgb, var(--text) 12%, transparent);border-radius:8px;margin-bottom:14px;overflow:hidden}
-.faq details[open]{border-color:color-mix(in srgb, var(--accent) 50%, transparent);box-shadow:0 10px 26px color-mix(in srgb, var(--text) 8%, transparent)}
-.faq summary{cursor:pointer;list-style:none;padding:20px 56px 20px 24px;font-family:var(--head);font-weight:700;font-size:1.03rem;position:relative}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";position:absolute;right:22px;top:50%;transform:translateY(-50%);font-size:1.6rem;color:var(--accent);line-height:1}
-.faq details[open] summary::after{content:"–"}
-.faq p{padding:0 24px 22px;color:var(--muted);font-size:.98rem}
+  .contact{background:var(--surface);}
+  .contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:3rem;margin-top:2.5rem;}
+  .contact-info .phone-big{font-family:var(--head);font-size:2.4rem;color:var(--accent);display:inline-block;margin:1rem 0 1.5rem;}
+  .contact-info ul{display:flex;flex-direction:column;gap:.9rem;}
+  .contact-info li{font-size:.95rem;color:var(--text);display:flex;gap:.6rem;}
+  .contact-info li b{color:var(--muted);font-weight:600;min-width:110px;display:inline-block;}
+  .contact-form{background:var(--bg);padding:2rem;border-radius:1rem;border:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+  .contact-form label{display:block;font-size:.85rem;font-weight:700;margin-bottom:.4rem;margin-top:1rem;}
+  .contact-form label:first-child{margin-top:0;}
+  .contact-form input, .contact-form textarea{width:100%;padding:.8rem 1rem;border-radius:.5rem;border:1px solid color-mix(in srgb, var(--text) 20%, transparent);font-family:var(--body);font-size:.95rem;background:var(--bg);color:var(--text);}
+  .contact-form textarea{resize:vertical;min-height:110px;}
+  .contact-form button{width:100%;justify-content:center;margin-top:1.4rem;}
+  .form-note{font-size:.8rem;color:var(--muted);margin-top:.8rem;}
 
-/* ---------- KONTAKT ---------- */
-.contact-grid{display:grid;grid-template-columns:1fr;gap:44px}
-.bignum{display:inline-block;font-family:var(--head);font-weight:800;font-size:clamp(1.8rem,5vw,2.7rem);color:var(--accent);margin:6px 0 26px;letter-spacing:-.02em}
-.bignum:hover{color:var(--accent-dark)}
-.info-row{display:flex;gap:14px;padding:15px 0;border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent)}
-.info-row b{font-family:var(--head);display:block;font-size:.93rem}
-.info-row span{color:var(--muted);font-size:.95rem}
-.info-ico{font-size:1.25rem;flex:0 0 26px}
-form{background:var(--surface);border-radius:10px;padding:30px 26px;border:1px solid color-mix(in srgb, var(--text) 9%, transparent)}
-form h3{font-size:1.25rem;margin-bottom:6px}
-form .lead{font-size:.93rem;margin-bottom:22px}
-label{display:block;font-weight:600;font-size:.88rem;margin-bottom:6px}
-input,textarea{width:100%;padding:13px 15px;border:1px solid color-mix(in srgb, var(--text) 18%, transparent);border-radius:6px;font-family:var(--body);font-size:.97rem;margin-bottom:16px;background:var(--bg);color:var(--text)}
-input:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent)}
-textarea{min-height:120px;resize:vertical}
-form .btn{width:100%;justify-content:center;cursor:pointer}
-.map{margin-top:48px}
-.map-box{border-radius:10px;overflow:hidden;border:1px solid color-mix(in srgb, var(--text) 14%, transparent);background:var(--surface);height:380px}
-.map iframe{width:100%;height:100%;border:0;display:block;filter:grayscale(.25)}
-.map figcaption{text-align:center;color:var(--muted);font-size:.9rem;margin-top:12px;font-weight:600}
+  .map-wrap{margin-top:2.5rem;}
+  .map-embed{width:100%;height:320px;border-radius:1rem;overflow:hidden;border:1px solid color-mix(in srgb, var(--text) 12%, transparent);background:var(--bg);position:relative;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--muted);font-weight:600;}
+  .map-caption{margin-top:.7rem;font-size:.85rem;color:var(--muted);}
 
-/* ---------- CTA BAND ---------- */
-.cta-band{background:linear-gradient(115deg, var(--accent-dark), var(--accent));color:var(--bg);padding:66px 0;text-align:center;position:relative;overflow:hidden}
-.cta-band::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(60deg, color-mix(in srgb, var(--bg) 6%, transparent) 0 3px, transparent 3px 38px)}
-.cta-band .wrap{position:relative;z-index:2}
-.cta-band h2{margin-bottom:12px}
-.cta-band p{max-width:600px;margin:0 auto 30px;color:color-mix(in srgb, var(--bg) 88%, transparent)}
-.cta-band .btn{background:var(--bg);color:var(--accent-dark);border-color:var(--bg);box-shadow:0 10px 30px color-mix(in srgb, var(--text) 25%, transparent)}
-.cta-band .btn:hover{background:var(--text);color:var(--bg);border-color:var(--text)}
+  .cta-band{background:linear-gradient(120deg, var(--accent-dark), var(--accent));color:#fff;text-align:center;}
+  .cta-band h2{color:#fff;margin-bottom:1.6rem;}
 
-/* ---------- FOOTER ---------- */
-footer{background:var(--text);color:color-mix(in srgb, var(--bg) 72%, transparent);padding:64px 0 0;font-size:.94rem}
-.foot-grid{display:grid;grid-template-columns:1fr;gap:36px;padding-bottom:44px}
-footer h4{color:var(--bg);font-size:1.05rem;margin-bottom:16px;font-weight:700}
-footer .logo{color:var(--bg);margin-bottom:14px}
-footer ul{list-style:none}
-footer li{margin-bottom:9px}
-footer a:hover{color:var(--accent);filter:brightness(1.4)}
-.foot-bot{border-top:1px solid color-mix(in srgb, var(--bg) 15%, transparent);padding:22px 0;text-align:center;font-size:.87rem;color:color-mix(in srgb, var(--bg) 55%, transparent)}
+  footer{background:var(--text);color:color-mix(in srgb, #fff 85%, transparent);padding:3.5rem 1.5rem 2rem;}
+  .footer-grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid color-mix(in srgb, #fff 15%, transparent);}
+  footer h4{font-family:var(--head);color:#fff;font-size:1rem;margin-bottom:1rem;}
+  .footer-logo{font-family:var(--head);font-weight:800;font-size:1.3rem;color:#fff;margin-bottom:.8rem;}
+  footer p{font-size:.9rem;color:color-mix(in srgb, #fff 65%, transparent);}
+  .footer-links li{margin-bottom:.6rem;font-size:.9rem;}
+  .footer-links a:hover{color:var(--accent);}
+  .footer-bottom{max-width:1180px;margin:1.5rem auto 0;font-size:.8rem;color:color-mix(in srgb, #fff 50%, transparent);text-align:center;}
 
-@media(min-width:640px){
-.usp .wrap{grid-template-columns:repeat(2,1fr)}
-.why{grid-template-columns:repeat(2,1fr)}
-.grid6{grid-template-columns:repeat(2,1fr)}
-.foot-grid{grid-template-columns:repeat(2,1fr)}
-}
-@media(min-width:960px){
-.nav-links{display:flex}
-.usp .wrap{grid-template-columns:repeat(4,1fr)}
-.cats{grid-template-columns:repeat(3,1fr)}
-.grid6{grid-template-columns:repeat(3,1fr)}
-.why{grid-template-columns:repeat(4,1fr)}
-.about{grid-template-columns:1.05fr 1fr;gap:70px}
-.trust-grid{grid-template-columns:.85fr 1.4fr;gap:56px}
-.area{grid-template-columns:1fr 1fr}
-.contact-grid{grid-template-columns:1fr 1fr;gap:56px}
-.foot-grid{grid-template-columns:1.4fr 1fr 1fr 1fr}
-}
+  @media (max-width:960px){
+    .services-grid{grid-template-columns:repeat(2,1fr);}
+    .about .wrap{grid-template-columns:1fr;}
+    .about-visual{min-height:300px;order:-1;}
+    .trust .wrap{grid-template-columns:1fr;}
+    .why-grid{grid-template-columns:repeat(2,1fr);}
+    .contact-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:700px){
+    .nav-links{position:absolute;top:100%;left:0;right:0;background:var(--bg);flex-direction:column;align-items:flex-start;padding:1.2rem 1.5rem;border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);display:none;}
+    .nav-links.open{display:flex;}
+    .nav-toggle{display:flex;}
+    .services-grid{grid-template-columns:1fr;}
+    .why-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    .topbar .wrap{font-size:.75rem;}
+    section{padding:3.5rem 1.2rem;}
+  }
 </style>
+</head>
+<body>
 
-</head> <body> <div class="topbar"> <div class="wrap"> <span>🚨 Pracujemy 24/7 — awarie hydrauliczne w {{MIASTO}}</span> <a href="tel:{{TELEFON}}"><strong>ZADZWOŃ: {{TELEFON}}</strong></a> </div> </div> <nav class="nav"> <div class="wrap"> <a href="#hero" class="logo">🔧 {{NAZWA_STRONY}}<span>.</span></a> <div class="nav-links"> <a href="#uslugi">Usługi</a> <a href="#o-nas">O nas</a> <a href="#opinie">Opinie</a> <a href="#obszar">Obszar</a> <a href="#faq">FAQ</a> <a href="#kontakt">Kontakt</a> </div> <a href="tel:{{TELEFON}}" class="btn btn-sm">📞 Zadzwoń: {{TELEFON}}</a> </div> </nav> <header class="hero" id="hero"> <div class="hero-bg" role="img" aria-label="Instalacja hydrauliczna — rury i narzędzia hydraulika w {{MIASTO}}"></div> <div class="wrap"> <span class="pin">📍 {{MIASTO}} i okolice</span> <h1>{{NAZWA_STRONY}} — <em>hydraulik {{MIASTO}}</em>, który przyjedzie na czas</h1> <p>Usuwamy awarie, montujemy instalacje i robimy przeglądy. Bez ukrytych kosztów — cenę znasz przed rozpoczęciem pracy. Dojazd na terenie {{MIASTO}} nawet w 60 minut.</p> <div class="hero-cta"> <a href="tel:{{TELEFON}}" class="btn">📞 Zadzwoń: {{TELEFON}}</a> <a href="#kontakt" class="btn btn-ghost">Bezpłatna wycena</a> </div> <div class="hero-badges"> <span>✅ Licencjonowani i ubezpieczeni</span> <span>⏱️ Dojazd tego samego dnia</span> <span>🛡️ 24 miesiące gwarancji</span> <span>💬 Wycena przez telefon</span> </div> </div> </header> <section class="usp"> <div class="wrap"> <div class="usp-item"><span class="usp-ico">🛡️</span><span><b>Gwarancja 24 mies.</b><small>na robociznę i materiał</small></span></div> <div class="usp-item"><span class="usp-ico">🚚</span><span><b>Dojazd gratis</b><small>na terenie {{MIASTO}}</small></span></div> <div class="usp-item"><span class="usp-ico">💰</span><span><b>Bezpłatna wycena</b><small>przed rozpoczęciem prac</small></span></div> <div class="usp-item"><span class="usp-ico">📜</span><span><b>Certyfikowany wykonawca</b><small>uprawnienia gazowe i sanitarne</small></span></div> </div> </section> <section class="sec" id="uslugi"> <div class="wrap"> <div class="sec-head"> <span class="eyebrow">Zakres prac</span> <h2>Usługi hydrauliczne w {{MIASTO}}</h2> <p class="lead">Od cieknącego kranu po kompletną instalację w nowym domu. Jeden fachowiec, jedna faktura, pełna odpowiedzialność za wykonaną pracę.</p> </div>
-<div class="cats">
-  <article class="cat">
-    <div class="cat-img i1" role="img" aria-label="Awaryjne naprawy hydrauliczne w {{MIASTO}}"><span style="position:relative;z-index:2">🚨</span></div>
-    <div class="cat-body">
-      <h3>Awarie i naprawy</h3>
-      <ul>
-        <li>Usuwanie przecieków i pękniętych rur</li>
-        <li>Udrażnianie zatkanych odpływów i pionów</li>
-        <li>Naprawa spłuczek, baterii i syfonów</li>
-      </ul>
-    </div>
-  </article>
-  <article class="cat">
-    <div class="cat-img i2" role="img" aria-label="Montaż instalacji wodno-kanalizacyjnych w {{MIASTO}}"><span style="position:relative;z-index:2">🔧</span></div>
-    <div class="cat-body">
-      <h3>Instalacje</h3>
-      <ul>
-        <li>Instalacje wod-kan w domach i mieszkaniach</li>
-        <li>Montaż armatury, kabin i wanien</li>
-        <li>Podłączenie pralek, zmywarek i bojlerów</li>
-      </ul>
-    </div>
-  </article>
-  <article class="cat">
-    <div class="cat-img i3" role="img" aria-label="Przeglądy techniczne instalacji hydraulicznych w {{MIASTO}}"><span style="position:relative;z-index:2">🔍</span></div>
-    <div class="cat-body">
-      <h3>Przeglądy</h3>
-      <ul>
-        <li>Kontrola szczelności instalacji</li>
-        <li>Serwis i odkamienianie kotłów</li>
-        <li>Przeglądy przed odbiorem mieszkania</li>
-      </ul>
-    </div>
-  </article>
+<div class="topbar">
+  <div class="wrap">
+    <span>🕐 Pracujemy 24/7</span>
+    <a href="tel:{{TELEFON}}">📞 ZADZWOŃ: {{TELEFON}}</a>
+  </div>
 </div>
 
-<div class="grid6">
-  <div class="card"><span class="ico">💧</span><h3>Usuwanie awarii wodnych</h3><p>Lokalizujemy i naprawiamy przecieki bez zbędnego kucia — kamerą inspekcyjną i detektorem wycieków. Przyjeżdżamy również wieczorem i w weekendy.</p></div>
-  <div class="card"><span class="ico">🚿</span><h3>Montaż armatury i białego montażu</h3><p>Baterie, umywalki, WC podtynkowe, kabiny prysznicowe i brodziki. Montaż z uszczelnieniem, poziomowaniem i sprzątnięciem po pracy.</p></div>
-  <div class="card"><span class="ico">🔥</span><h3>Instalacje CO i wymiana grzejników</h3><p>Podłączenie pieców, wymiana grzejników, montaż zaworów termostatycznych oraz odpowietrzanie i napełnianie układu centralnego ogrzewania.</p></div>
-  <div class="card"><span class="ico">🌀</span><h3>Udrażnianie kanalizacji</h3><p>Mechaniczne przepychanie spirala oraz płukanie hydrodynamiczne. Usuwamy zatory w kuchni, łazience i pionach kanalizacyjnych.</p></div>
-  <div class="card"><span class="ico">🛁</span><h3>Kompleksowy remont łazienki</h3><p>Rozprowadzenie instalacji wod-kan, podejścia pod urządzenia, próba szczelności i finalny montaż. Współpracujemy z płytkarzami z {{MIASTO}}.</p></div>
-  <div class="card"><span class="ico">📷</span><h3>Inspekcja kamerą i lokalizacja rur</h3><p>Sprawdzamy stan rur bez demontażu i wskazujemy dokładne miejsce usterki. Otrzymujesz nagranie oraz opis zalecanych napraw.</p></div>
-</div>
-</div> </section> <section class="sec sec-alt" id="o-nas"> <div class="wrap about"> <div class="about-txt"> <span class="eyebrow">O nas</span> <h2>Lokalny hydraulik z {{MIASTO}} — od 15 lat na budowach i w domach</h2> <p>{{NAZWA_STRONY}} to firma prowadzona przez fachowca, który sam bierze telefon i sam przyjeżdża na zlecenie. Nie zostawiamy klienta z podwykonawcą, którego widzi pierwszy raz w życiu.</p> <p>Znamy budownictwo w {{MIASTO}} — od kamienic z żeliwnymi pionami po nowe osiedla z instalacjami podtynkowymi. Dzięki temu wiemy, gdzie szukać usterki i jak ją naprawić tak, żeby nie wróciła za pół roku.</p> <p>Pracujemy na sprawdzonych materiałach, wystawiamy fakturę VAT i dajemy pisemną gwarancję na każdą wykonaną usługę. Cenę podajemy przed rozpoczęciem pracy — bez doliczania „niespodzianek” na koniec.</p> <div class="stats"> <div class="stat"><span class="stat-num">15</span><small>LAT DOŚWIADCZENIA</small></div> <div class="stat"><span class="stat-num">3200+</span><small>ZADOWOLONYCH KLIENTÓW</small></div> <div class="stat"><span class="stat-num">60</span><small>MINUT NA DOJAZD</small></div> </div> </div> <div class="about-media"> <svg class="watermark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg> <div class="photo photo-a" role="img" aria-label="Realizacja {{NAZWA_STRONY}} — montaż instalacji wodnej w {{MIASTO}}"><span>Instalacja wod-kan · {{MIASTO}}</span></div> <div class="photo photo-b" role="img" aria-label="Realizacja {{NAZWA_STRONY}} — wymiana pionu kanalizacyjnego w {{MIASTO}}"><span>Wymiana pionu · realizacja 2025</span></div> </div> </div> </section> <section class="trust" id="opinie"> <div class="wrap trust-grid"> <div class="rating"> <span class="rating-num">4,9</span> <div class="stars" aria-label="Ocena 4,9 na 5 gwiazdek">★★★★★</div> <p>Średnia ocena na podstawie<br>187 opinii klientów z {{MIASTO}}</p> </div> <div class="quotes"> <div class="quote"> <div class="avatar" aria-hidden="true">M</div> <div> <p>„Zalało nam łazienkę w sobotę wieczorem. Pan przyjechał w niecałą godzinę, znalazł pęknięcie i naprawił od ręki. Cena dokładnie taka, jak przez telefon.”</p> <b>Marta K. — {{MIASTO}}</b> </div> </div> <div class="quote"> <div class="avatar" aria-hidden="true">P</div> <div> <p>„Kompleksowa hydraulika przy remoncie mieszkania. Wszystko zrobione terminowo, po sobie posprzątane, faktura bez problemu. Polecam każdemu w okolicy.”</p> <b>Paweł Z. — {{MIASTO}}</b> </div> </div> </div> </div> </section> <section class="sec"> <div class="wrap"> <div class="sec-head" style="text-align:center"> <span class="eyebrow">Dlaczego my</span> <h2>Cztery powody, dla których klienci wracają</h2> </div> <div class="why"> <div class="why-item"> <div class="ico" aria-hidden="true">📜</div> <h3>Licencjonowani i ubezpieczeni</h3> <p>Posiadamy uprawnienia sanitarne i gazowe oraz polisę OC — Twoje mieszkanie jest zabezpieczone na czas prac.</p> </div> <div class="why-item"> <div class="ico" aria-hidden="true">⚡</div> <h3>Szybki dojazd</h3> <p>Przy awariach jesteśmy na miejscu w {{MIASTO}} zwykle w 60 minut. Odbieramy telefon także po godzinach.</p> </div> <div class="why-item"> <div class="ico" aria-hidden="true">🛡️</div> <h3>Gwarancja na usługę</h3> <p>Do 24 miesięcy pisemnej gwarancji na robociznę. Jeśli usterka wróci — wracamy i naprawiamy bezpłatnie.</p> </div> <div class="why-item"> <div class="ico" aria-hidden="true">🤝</div> <h3>Uczciwa wycena</h3> <p>Cenę ustalamy przed pracą, na podstawie zakresu i materiałów. Bez doliczania ukrytych kosztów na fakturze.</p> </div> </div> </div> </section> <section class="sec sec-alt" id="obszar"> <div class="wrap area"> <div> <span class="eyebrow">Obszar działania</span> <h2>Hydraulik {{MIASTO}} i okolice</h2> <p class="lead">Działamy przede wszystkim na terenie {{MIASTO}} — tu dojeżdżamy najszybciej i tu realizujemy większość zleceń. Obsługujemy również gminy sąsiednie w promieniu około 30 km, zarówno klientów indywidualnych, jak i wspólnoty mieszkaniowe, biura oraz lokale usługowe.</p> <p class="lead" style="margin-top:16px">Nie wiesz, czy Twoja miejscowość mieści się w naszym zasięgu? Zadzwoń pod <a href="tel:{{TELEFON}}" style="color:var(--accent);font-weight:700">{{TELEFON}}</a> — potwierdzimy dojazd i orientacyjny czas przyjazdu jeszcze w trakcie rozmowy.</p> </div> <div> <div class="area-list"> <span class="tag">📍 {{MIASTO}} — centrum</span> <span class="tag">📍 Osiedla i przedmieścia</span> <span class="tag">📍 Gminy ościenne</span> <span class="tag">📍 Domy jednorodzinne</span> <span class="tag">📍 Bloki i kamienice</span> <span class="tag">📍 Wspólnoty mieszkaniowe</span> <span class="tag">📍 Lokale usługowe i biura</span> <span class="tag">📍 Budowy i remonty</span> </div> </div> </div> </section> <section class="sec" id="faq"> <div class="wrap"> <div class="sec-head" style="text-align:center"> <span class="eyebrow">FAQ</span> <h2>Najczęstsze pytania o usługi hydrauliczne</h2> </div> <div class="faq"> <details open> <summary>Ile kosztuje dojazd hydraulika w {{MIASTO}}?</summary> <p>Na terenie {{MIASTO}} dojazd jest bezpłatny przy zleceniu naprawy. Poza miastem doliczamy jedynie koszt paliwa, o którym informujemy przez telefon — zanim wyruszymy. Sama wycena naprawy również nic nie kosztuje.</p> </details> <details> <summary>Jak szybko przyjedziecie przy awarii?</summary> <p>Przy zalaniu lub pękniętej rurze traktujemy zgłoszenie priorytetowo — w granicach {{MIASTO}} jesteśmy zwykle na miejscu w ciągu 60 minut. Telefon odbieramy 24/7, także w weekendy i święta. Przy zgłoszeniach planowych umawiamy termin zwykle na ten sam lub następny dzień roboczy.</p> </details> <details> <summary>Czy wystawiacie fakturę VAT i gwarancję?</summary> <p>Tak. Każde zlecenie kończy się paragonem lub fakturą VAT oraz pisemną gwarancją na wykonaną usługę — do 24 miesięcy na robociznę i zgodnie z warunkami producenta na zamontowane materiały.</p> </details> <details> <summary>Czy naprawa wymaga kucia ścian?</summary> <p>W większości przypadków nie. Używamy kamery inspekcyjnej i detektora wycieków, żeby precyzyjnie zlokalizować usterkę. Jeśli dostęp do rury jest konieczny, wykonujemy minimalne, punktowe otwarcie i zawsze ustalamy to z klientem przed rozpoczęciem prac.</p> </details> <details> <summary>Czy mogę dostać wycenę przez telefon?</summary> <p>Przy typowych pracach — wymiana baterii, udrożnienie odpływu, montaż zlewu — podajemy widełki cenowe od razu podczas rozmowy. Przy większych zleceniach, takich jak instalacja w całym mieszkaniu, przyjeżdżamy na bezpłatne oględziny i przygotowujemy wycenę na piśmie.</p> </details> </div> </div> </section> <section class="sec sec-alt" id="kontakt"> <div class="wrap"> <div class="sec-head"> <span class="eyebrow">Kontakt</span> <h2>Skontaktuj się z hydraulikiem w {{MIASTO}}</h2> <p class="lead">Najszybciej załatwimy sprawę przez telefon — opisz problem, a od razu powiemy, co da się zrobić i ile to kosztuje.</p> </div> <div class="contact-grid"> <div> <span class="eyebrow">Zadzwoń teraz</span><br> <a href="tel:{{TELEFON}}" class="bignum">{{TELEFON}}</a> <div class="info-row"><span class="info-ico" aria-hidden="true">📍</span><span><b>Adres</b><span>{{ADRES}}, {{MIASTO}}</span></span></div> <div class="info-row"><span class="info-ico" aria-hidden="true">✉️</span><span><b>E-mail</b><span><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></span></span></div> <div class="info-row"><span class="info-ico" aria-hidden="true">🕘</span><span><b>Poniedziałek – Piątek</b><span>{{GODZINY_PON_PT}}</span></span></div> <div class="info-row"><span class="info-ico" aria-hidden="true">🕘</span><span><b>Sobota</b><span>{{GODZINY_SOB}}</span></span></div> <div class="info-row"><span class="info-ico" aria-hidden="true">🚨</span><span><b>Awarie</b><span>Zgłoszenia awaryjne przyjmujemy 24/7</span></span></div> </div> <form onsubmit="event.preventDefault();this.querySelector('.form-msg').hidden=false;"> <h3>Napisz do nas</h3> <p class="lead">Oddzwonimy zwykle w ciągu 30 minut w godzinach pracy.</p> <label for="imie">Imię</label> <input type="text" id="imie" name="imie" placeholder="Jak się do Ciebie zwracać?" required> <label for="telefon">Telefon</label> <input type="tel" id="telefon" name="telefon" placeholder="Numer do kontaktu" required> <label for="wiadomosc">Wiadomość</label> <textarea id="wiadomosc" name="wiadomosc" placeholder="Opisz krótko usterkę lub zakres prac..." required></textarea> <button type="submit" class="btn">Wyślij zgłoszenie</button> <p class="form-msg" hidden style="margin-top:14px;color:var(--accent-dark);font-weight:600">Dziękujemy! Odezwiemy się najszybciej, jak to możliwe.</p> </form> </div> <figure class="map"> <div class="map-box"> <iframe src="https://maps.google.com/maps?q={{MIASTO}}&z=13&output=embed" title="Mapa dojazdu — {{NAZWA_STRONY}}, {{MIASTO}}" loading="lazy" width="1180" height="380" referrerpolicy="no-referrer-when-downgrade"></iframe> </div> <figcaption>Mapa dojazdu — {{ADRES}}, {{MIASTO}}</figcaption> </figure> </div> </section> <section class="cta-band"> <div class="wrap"> <h2>Awaria hydrauliczna? Jesteśmy pod telefonem</h2> <p>Nie czekaj, aż woda zaleje sąsiadów. Jeden telefon i już wiesz, kiedy przyjedziemy i ile to kosztuje.</p> <a href="tel:{{TELEFON}}" class="btn">📞 Zadzwoń: {{TELEFON}}</a> </div> </section> <footer> <div class="wrap"> <div class="foot-grid"> <div> <div class="logo">🔧 {{NAZWA_STRONY}}</div> <p>Hydraulik {{MIASTO}} — awarie, instalacje i przeglądy. Licencjonowany fachowiec z gwarancją na wykonaną usługę.</p> </div> <div> <h4>Usługi</h4> <ul> <li><a href="#uslugi">Usuwanie awarii</a></li> <li><a href="#uslugi">Instalacje wod-kan</a></li> <li><a href="#uslugi">Udrażnianie kanalizacji</a></li> <li><a href="#uslugi">Przeglądy i serwis</a></li> </ul> </div> <div> <h4>Firma</h4> <ul> <li><a href="#o-nas">O nas</a></li> <li><a href="#opinie">Opinie klientów</a></li> <li><a href="#obszar">Obszar działania</a></li> <li><a href="#faq">FAQ</a></li> </ul> </div> <div> <h4>Kontakt</h4> <ul> <li><a href="tel:{{TELEFON}}">📞 {{TELEFON}}</a></li> <li><a href="mailto:{{EMAIL}}">✉️ {{EMAIL}}</a></li> <li>📍 {{ADRES}}, {{MIASTO}}</li> <li>🕘 Pon–Pt: {{GODZINY_PON_PT}}</li> <li>🕘 Sobota: {{GODZINY_SOB}}</li> </ul> </div> </div> <div class="foot-bot">© <span id="rok">2026</span> {{NAZWA_STRONY}} — Hydraulik {{MIASTO}}. Wszelkie prawa zastrzeżone.</div> </div> </footer> <script>document.getElementById('rok').textContent=new Date().getFullYear();</script> </body> </html>
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo">{{NAZWA_STRONY}}<span>.</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#o-nas">O nas</a>
+      <a href="#uslugi">Usługi</a>
+      <a href="#dlaczego-my">Dlaczego my</a>
+      <a href="#opinie">Opinie</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="tel:{{TELEFON}}" class="btn btn-primary">Zadzwoń: {{TELEFON}}</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu nawigacji">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.pexels.com/photos/29226620/pexels-photo-29226620.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Hydraulik podczas pracy przy instalacji wodociągowej" width="940" height="650" fetchpriority="high">
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <span class="pin">📍 {{MIASTO}} i okolice</span>
+    <h1>{{NAZWA_STRONY}} — <em>Hydraulik</em> w {{MIASTO}}, na którym można polegać</h1>
+    <p>Awarie, instalacje, przeglądy i montaże. Szybki dojazd, uczciwa wycena i gwarancja na każdą wykonaną usługę — dzień i noc, 7 dni w tygodniu.</p>
+    <div class="hero-ctas">
+      <a href="tel:{{TELEFON}}" class="btn btn-primary">📞 Zadzwoń: {{TELEFON}}</a>
+      <a href="#kontakt" class="btn btn-outline" style="color:#fff;border-color:color-mix(in srgb, #fff 35%, transparent);">Umów bezpłatną wycenę</a>
+    </div>
+    <div class="hero-badges">
+      <span>✓ Bezpłatna wycena</span>
+      <span>✓ Dojazd gratis w {{MIASTO}}</span>
+      <span>✓ Szybka realizacja</span>
+      <span>✓ Certyfikowany wykonawca</span>
+    </div>
+  </div>
+</section>
+
+<section id="uslugi">
+  <div class="wrap">
+    <span class="eyebrow">Nasza oferta</span>
+    <h2>Usługi hydrauliczne w {{MIASTO}}</h2>
+    <p class="lead">Od drobnych napraw po kompleksowe instalacje — zajmujemy się każdym zleceniem z taką samą starannością.</p>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <img class="service-photo" src="https://images.pexels.com/photos/15206136/pexels-photo-15206136.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Naprawa awarii hydraulicznej przez fachowca" width="940" height="650" loading="lazy">
+        <div class="service-body">
+          <span class="cat">Awarie i naprawy</span>
+          <h3>Awarie i naprawy hydrauliczne</h3>
+          <ul>
+            <li>Usuwanie wycieków i pęknięć instalacji</li>
+            <li>Naprawa i wymiana zaworów, baterii, syfonów</li>
+            <li>Dojazd interwencyjny 24/7 w {{MIASTO}}</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <img class="service-photo" src="https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Montaż instalacji wodno-kanalizacyjnej" width="940" height="650" loading="lazy">
+        <div class="service-body">
+          <span class="cat">Instalacje</span>
+          <h3>Instalacje wodno-kanalizacyjne</h3>
+          <ul>
+            <li>Projektowanie i montaż nowych instalacji</li>
+            <li>Podłączenia w łazienkach i kuchniach</li>
+            <li>Instalacje w domach, mieszkaniach i lokalach</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <img class="service-photo" src="https://images.pexels.com/photos/32497162/pexels-photo-32497162.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Przegląd techniczny instalacji hydraulicznej" width="940" height="650" loading="lazy">
+        <div class="service-body">
+          <span class="cat">Przeglądy</span>
+          <h3>Przeglądy i konserwacja</h3>
+          <ul>
+            <li>Okresowe przeglądy szczelności instalacji</li>
+            <li>Czyszczenie i konserwacja podzespołów</li>
+            <li>Diagnostyka kamerą inspekcyjną</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-photo-icon" role="img" aria-label="Udrażnianie rur kanalizacyjnych">🚿</div>
+        <div class="service-body">
+          <span class="cat">Kanalizacja</span>
+          <h3>Udrażnianie kanalizacji</h3>
+          <ul>
+            <li>Udrażnianie rur i syfonów</li>
+            <li>Czyszczenie kanalizacji ciśnieniowo</li>
+            <li>Usuwanie zatorów w pionach i przykanalikach</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <img class="service-photo" src="https://images.pexels.com/photos/30560253/pexels-photo-30560253.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Montaż armatury łazienkowej i urządzeń AGD" width="940" height="650" loading="lazy">
+        <div class="service-body">
+          <span class="cat">Montaż</span>
+          <h3>Montaż armatury i urządzeń</h3>
+          <ul>
+            <li>Podłączenie pralki, zmywarki, bojlera</li>
+            <li>Montaż baterii, brodzików, kabin prysznicowych</li>
+            <li>Wymiana grzejników i podejść wodnych</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <img class="service-photo" src="https://images.pexels.com/photos/12644994/pexels-photo-12644994.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Serwis instalacji grzewczej i ciepłej wody użytkowej" width="940" height="650" loading="lazy">
+        <div class="service-body">
+          <span class="cat">Ogrzewanie</span>
+          <h3>Instalacje grzewcze i c.w.u.</h3>
+          <ul>
+            <li>Montaż i serwis podgrzewaczy wody</li>
+            <li>Podłączenia pieców i kotłów</li>
+            <li>Regulacja i odpowietrzanie instalacji CO</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="o-nas">
+  <div class="wrap">
+    <div class="about-text">
+      <span class="eyebrow">O firmie</span>
+      <h2>Hydraulik w {{MIASTO}}, który zna się na rzeczy</h2>
+      <p class="lead">{{NAZWA_STRONY}} to zespół doświadczonych hydraulików działających na terenie {{MIASTO}}. Stawiamy na rzetelność, szybką reakcję i jasne zasady współpracy — bez niedomówień i ukrytych kosztów. Każde zlecenie, od drobnej naprawy kranu po kompleksową instalację, traktujemy z taką samą starannością.</p>
+      <div class="about-stats">
+        <div class="stat"><b>12 lat</b><span>doświadczenia w branży</span></div>
+        <div class="stat"><b>3200+</b><span>zrealizowanych zleceń</span></div>
+        <div class="stat"><b>98%</b><span>zadowolonych klientów</span></div>
+        <div class="stat"><b>~60 min</b><span>średni czas dojazdu</span></div>
+      </div>
+      <div class="area-note">
+        <strong>Obszar działania:</strong> pracujemy głównie na terenie {{MIASTO}} oraz w promieniu do ok. 30 km — obsługujemy okoliczne miejscowości, osiedla i gminy sąsiadujące z {{MIASTO}}. Zadzwoń pod {{TELEFON}}, aby potwierdzić dojazd do Twojej lokalizacji.
+      </div>
+    </div>
+    <div class="about-visual">
+      <div class="watermark">🔧</div>
+      <div class="photo-stack">
+        <img class="photo-a" src="https://images.pexels.com/photos/16509869/pexels-photo-16509869.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Zrealizowana instalacja hydrauliczna" width="940" height="650" loading="lazy">
+        <img class="photo-b" src="https://images.pexels.com/photos/13726337/pexels-photo-13726337.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Ekipa hydraulików podczas pracy" width="940" height="650" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trust" id="opinie">
+  <div class="wrap">
+    <div class="rating-badge">
+      <div class="score">4.9/5</div>
+      <div class="stars">★★★★★</div>
+      <p>na podstawie opinii klientów z {{MIASTO}}</p>
+    </div>
+    <div class="quotes">
+      <div class="quote">
+        <div class="avatar">M.</div>
+        <div>
+          <p>„Awaria zdarzyła się wieczorem, a ekipa była u mnie w niecałą godzinę. Sprawnie, czysto i bez niespodzianek w cenie.”</p>
+          <div class="name">Marta, {{MIASTO}}</div>
+        </div>
+      </div>
+      <div class="quote">
+        <div class="avatar">P.</div>
+        <div>
+          <p>„Kompleksowa wymiana instalacji w łazience — profesjonalne doradztwo i dotrzymany termin. Polecam każdemu.”</p>
+          <div class="name">Piotr, {{MIASTO}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="dlaczego-my">
+  <div class="wrap" style="text-align:center;">
+    <span class="eyebrow">Dlaczego my</span>
+    <h2>Dlaczego klienci w {{MIASTO}} wybierają {{NAZWA_STRONY}}</h2>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="icon">🛡️</div>
+        <h3>Licencjonowani i ubezpieczeni</h3>
+        <p>Pracujemy legalnie, z pełnym ubezpieczeniem OC działalności.</p>
+      </div>
+      <div class="why-item">
+        <div class="icon">⚡</div>
+        <h3>Szybki dojazd</h3>
+        <p>Ekipa dociera na miejsce w {{MIASTO}} zwykle w ciągu 60 minut.</p>
+      </div>
+      <div class="why-item">
+        <div class="icon">✅</div>
+        <h3>Gwarancja na usługę</h3>
+        <p>Do 24 miesięcy gwarancji na wykonane prace i montaże.</p>
+      </div>
+      <div class="why-item">
+        <div class="icon">💬</div>
+        <h3>Uczciwa wycena</h3>
+        <p>Cenę ustalamy przed rozpoczęciem prac — bez ukrytych kosztów.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="background:var(--surface);">
+  <div class="wrap">
+    <span class="eyebrow">Pytania i odpowiedzi</span>
+    <h2 style="text-align:center;">Najczęstsze pytania o hydraulika w {{MIASTO}}</h2>
+    <div class="faq-list">
+      <details open>
+        <summary>Jak szybko hydraulik dotrze na miejsce w {{MIASTO}}?</summary>
+        <p>W przypadku awarii staramy się dotrzeć na miejsce w ciągu 60 minut na terenie {{MIASTO}} i najbliższych okolic. Pracujemy 24/7, także w weekendy i święta.</p>
+      </details>
+      <details>
+        <summary>Czy wycena usługi jest bezpłatna?</summary>
+        <p>Tak. Przed rozpoczęciem prac zawsze przedstawiamy jasną wycenę i nie pobieramy opłat za dojazd oraz oszacowanie zakresu prac na terenie {{MIASTO}}.</p>
+      </details>
+      <details>
+        <summary>Jakie obszary poza {{MIASTO}} obsługujecie?</summary>
+        <p>Oprócz {{MIASTO}} obsługujemy okoliczne miejscowości w promieniu do ok. 30 km. Zapytaj telefonicznie pod numerem {{TELEFON}}, czy dojedziemy do Twojej lokalizacji.</p>
+      </details>
+      <details>
+        <summary>Czy udzielacie gwarancji na wykonane usługi?</summary>
+        <p>Tak, na wykonane prace i zamontowane elementy udzielamy gwarancji do 24 miesięcy, w zależności od zakresu zlecenia.</p>
+      </details>
+      <details>
+        <summary>Czy pracujecie również w weekendy i w nocy?</summary>
+        <p>Tak, w sytuacjach awaryjnych jesteśmy dostępni całą dobę, 7 dni w tygodniu, również w weekendy i święta.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="kontakt">
+  <div class="wrap">
+    <span class="eyebrow">Kontakt</span>
+    <h2>Skontaktuj się z nami</h2>
+    <p class="lead">Zadzwoń, napisz lub zostaw wiadomość — odpowiemy najszybciej jak to możliwe.</p>
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <a href="tel:{{TELEFON}}" class="phone-big">{{TELEFON}}</a>
+        <ul>
+          <li><b>Adres:</b> {{ADRES}}, {{MIASTO}}</li>
+          <li><b>Telefon:</b> <a href="tel:{{TELEFON}}">{{TELEFON}}</a></li>
+          <li><b>E-mail:</b> <a href="mailto:{{EMAIL}}">{{EMAIL}}</a></li>
+          <li><b>Pon–Pt:</b> {{GODZINY_PON_PT}}</li>
+          <li><b>Sobota:</b> {{GODZINY_SOB}}</li>
+          <li><b>Awarie:</b> 24/7 — cała doba</li>
+        </ul>
+      </div>
+
+      <form class="contact-form" id="contactForm">
+        <label for="name">Imię i nazwisko</label>
+        <input type="text" id="name" name="name" placeholder="Jan Kowalski" required>
+
+        <label for="phone">Telefon</label>
+        <input type="tel" id="phone" name="phone" placeholder="{{TELEFON}}" required>
+
+        <label for="message">Wiadomość</label>
+        <textarea id="message" name="message" placeholder="Opisz krótko, w czym możemy pomóc..." required></textarea>
+
+        <button type="submit" class="btn btn-primary">Wyślij zapytanie</button>
+        <p class="form-note">Odpowiadamy zwykle w ciągu kilku godzin roboczych.</p>
+      </form>
+    </div>
+
+    <div class="map-wrap">
+      <div class="map-embed" role="img" aria-label="Mapa dojazdu do {{NAZWA_STRONY}} w {{MIASTO}}">Mapa dojazdu</div>
+      <p class="map-caption">Mapa dojazdu — {{ADRES}}, {{MIASTO}}</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Awaria hydrauliczna? Jesteśmy pod telefonem</h2>
+    <a href="tel:{{TELEFON}}" class="btn btn-light">📞 Zadzwoń: {{TELEFON}}</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">{{NAZWA_STRONY}}</div>
+      <p>Profesjonalne usługi hydrauliczne w {{MIASTO}} i okolicy. Awarie, instalacje, przeglądy i montaże — szybko, uczciwie i z gwarancją.</p>
+    </div>
+    <div>
+      <h4>Nawigacja</h4>
+      <ul class="footer-links">
+        <li><a href="#o-nas">O nas</a></li>
+        <li><a href="#uslugi">Usługi</a></li>
+        <li><a href="#opinie">Opinie</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Kontakt</h4>
+      <ul class="footer-links">
+        <li><a href="tel:{{TELEFON}}">📞 {{TELEFON}}</a></li>
+        <li><a href="mailto:{{EMAIL}}">✉️ {{EMAIL}}</a></li>
+        <li>{{ADRES}}, {{MIASTO}}</li>
+        <li>Pon–Pt: {{GODZINY_PON_PT}}</li>
+        <li>Sobota: {{GODZINY_SOB}}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © <span id="year"></span> {{NAZWA_STRONY}} — Hydraulik {{MIASTO}}. Wszystkie prawa zastrzeżone.
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    form.innerHTML = '<p style="font-weight:700;color:var(--accent);">Dziękujemy! Twoja wiadomość została przygotowana do wysyłki. Skontaktujemy się wkrótce, a w pilnych sprawach zadzwoń: <a href="tel:{{TELEFON}}">{{TELEFON}}</a>.</p>';
+  });
+</script>
+
+</body>
+</html>

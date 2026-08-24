@@ -51,12 +51,26 @@ const VARIANTS = [
     visual: `STYL: „Zaufany fachowiec" — ciepły, lokalny, sprawdzona struktura budująca zaufanie do rzemieślnika.
 PALETA (jako zmienne CSS): --bg biały, --accent niebiesko-turkusowy (kolor kojarzony z hydrauliką/wodą), --text ciemny grafit.
 TYPOGRAFIA (jako zmienne CSS): nagłówki mocny, pewny sans-serif (np. Bricolage Grotesque/Sora), tekst czytelny sans (np. Inter/Source Sans Pro).
+
+PRAWDZIWE ZDJĘCIA (Pexels, wyselekcjonowane ręcznie pod tę branżę — użyj DOKŁADNIE tych URL-i,
+jako <img src="..."> lub background-image, z sensownym object-fit:cover; NIE wymyślaj innych
+zdjęć ani nie zostawiaj tam pustych placeholderów):
+- HERO (tło pełnoekranowe, z ciemnym gradient-overlay dla czytelności tekstu): https://images.pexels.com/photos/29226620/pexels-photo-29226620.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Karta usługi "Awarie i naprawy": https://images.pexels.com/photos/15206136/pexels-photo-15206136.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Karta usługi "Instalacje wod-kan": https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Karta usługi "Przeglądy i konserwacja": https://images.pexels.com/photos/32497162/pexels-photo-32497162.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Karta usługi "Montaż armatury i urządzeń": https://images.pexels.com/photos/30560253/pexels-photo-30560253.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Karta usługi "Instalacje grzewcze i c.w.u.": https://images.pexels.com/photos/12644994/pexels-photo-12644994.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Karta usługi "Udrażnianie kanalizacji": BRAK dobrego zdjęcia — zostaw tę jedną kartę z samą dużą ikoną/emoji zamiast zdjęcia, tak jak resztę struktury karty (nie łam layoutu, po prostu bez obrazka u góry tej jednej karty).
+- Sekcja O NAS, zdjęcie realizacji 1 (z dwóch nachodzących na siebie): https://images.pexels.com/photos/16509869/pexels-photo-16509869.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Sekcja O NAS, zdjęcie realizacji 2 (z dwóch nachodzących na siebie): https://images.pexels.com/photos/13726337/pexels-photo-13726337.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+
 LAYOUT:
 1. Pasek nad nawigacją, tło var(--accent), tekst biały: "Pracujemy 24/7" po lewej, "ZADZWOŃ: {{TELEFON}}" po prawej.
 2. Sticky nav biała: logo/nazwa + linki + przycisk telefonu.
-3. Hero pełnoekranowy: ciemne zdjęciowe tło (gradient overlay na zdjęciu instalacji/rury/narzędzi), pinezka lokalizacji nad nagłówkiem, duży pogrubiony nagłówek H1, jeden wyraźny przycisk CTA "Zadzwoń: {{TELEFON}}".
-4. Sekcja USŁUGI: 3 kolumny, każda ze zdjęciem u góry + kategoria (np. Awarie i naprawy / Instalacje / Przeglądy) + lista 3 punktów pod spodem.
-5. Sekcja O NAS: tekst po lewej (lata doświadczenia, liczby), po prawej dwa nachodzące na siebie zdjęcia realizacji + duża wyblakła ikona klucza/rury w tle jako watermark.
+3. Hero pełnoekranowy: zdjęcie z listy powyżej jako tło z ciemnym gradient-overlay, pinezka lokalizacji nad nagłówkiem, duży pogrubiony nagłówek H1, jeden wyraźny przycisk CTA "Zadzwoń: {{TELEFON}}".
+4. Sekcja USŁUGI: 3 kolumny, każda ze zdjęciem z listy powyżej u góry (poza kartą "Udrażnianie kanalizacji" — patrz wyżej) + kategoria + lista 3 punktów pod spodem.
+5. Sekcja O NAS: tekst po lewej (lata doświadczenia, liczby), po prawej dwa nachodzące na siebie zdjęcia z listy powyżej + duża wyblakła ikona klucza/rury w tle jako watermark.
 6. Pasmo zaufania na ciemnym tle (var(--text) lub pochodna): duży badge oceny z gwiazdkami po lewej, 2 krótkie cytaty klientów z inicjałem w kółku po prawej.
 7. Sekcja "Dlaczego my" — 4 punkty z ikonami w rzędzie (Licencjonowani i ubezpieczeni / Szybki dojazd / Gwarancja na usługę / Uczciwa wycena).
 8. Kontakt: duży numer telefonu, dane kontaktowe + formularz (imię, telefon, wiadomość) obok siebie, miejsce na mapę pod spodem (prostokąt placeholder z podpisem "Mapa dojazdu").
