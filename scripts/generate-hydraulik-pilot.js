@@ -189,13 +189,27 @@ LAYOUT:
     visual: `STYL: osobisty, ciepły, "poznaj mnie" — jednoosobowa/rodzinna działalność, mniej korporacyjnie.
 PALETA (jako zmienne CSS): --bg ciepły kremowy (nie czysta biel), --accent stonowany, ciepły odcień (np. terakota lub ciepły niebieski), --text ciemny brąz-grafit.
 TYPOGRAFIA (jako zmienne CSS): nagłówki z charakterem, lekko zaokrąglone kształty liter (np. Poppins/Fredoka), tekst przyjazny sans.
+
+PRAWDZIWE ZDJĘCIA (Pexels, wyselekcjonowane ręcznie i wizualnie zweryfikowane — użyj DOKŁADNIE
+tego URL-a; to NIE jest opcjonalne, ten wariant bardziej niż inne opiera się na prawdziwej
+fotografii, bo cały koncept to "poznaj właściciela"):
+- Jedno zdjęcie, użyte DWUKROTNIE w dwóch różnych kadrach (ta sama osoba w obu miejscach buduje
+  spójność marki — to zamierzone, nie oszczędność): ciepły, uśmiechnięty portret w warsztacie,
+  naturalne światło: https://images.pexels.com/photos/8113545/pexels-photo-8113545.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+  1. HERO: pełne zdjęcie jako duży wizerunek (np. połowa szerokości hero, zaokrąglony róg/kształt
+     organiczny, NIE prostokąt na całą szerokość jak w innych wariantach — to ma wyglądać osobiście,
+     nie korporacyjnie), obok tekst + cytat właściciela + CTA.
+  2. SEKCJA KONTAKT: ten sam plik, ale węższy kadr przez object-position (zbliżenie na twarz,
+     mały okrągły portret ~64-80px obok numeru telefonu).
 LAYOUT:
 1. Nav prosta, bez pełnej szerokości, z lekkim marginesem.
-2. Hero: duże zdjęcie właściciela/ekipy przy pracy (nie samego produktu/narzędzi), krótkie osobiste motto pod nagłówkiem (np. cytat właściciela), jeden ciepły CTA.
+2. Hero: zdjęcie właściciela z listy powyżej (nie samego produktu/narzędzi), krótkie osobiste motto pod nagłówkiem (np. cytat właściciela), jeden ciepły CTA.
 3. Sekcja "Nasza historia": pozioma oś czasu (rok założenia → dziś, 3-4 punkty) z krótkimi opisami.
 4. Sekcja USŁUGI jako prostsza lista (nie karty ze zdjęciami) — nazwa usługi + jedno zdanie opisu, mniej "sprzedażowo" niż w innych wariantach.
 5. Sekcja z jednym dużym cytatem klienta na całą szerokość (duży cudzysłów dekoracyjny, cytat wyśrodkowany).
-6. Sekcja kontakt osobisty: "Zadzwoń bezpośrednio do mnie — [Imię]" z małym zdjęciem portretowym obok numeru telefonu.
+6. Sekcja kontakt osobisty: "Zadzwoń bezpośrednio do mnie — {{NAZWA_STRONY}}" (UWAGA: nie ma tokenu na
+   imię właściciela, tylko {{NAZWA_STRONY}} — nie wymyślaj fikcyjnego imienia w wersji z tokenami)
+   z małym okrągłym zdjęciem portretowym (z listy powyżej) obok numeru telefonu.
 7. Stopka jasna, ciepła, prosta.`
   },
   {
