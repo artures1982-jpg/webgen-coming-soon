@@ -70,7 +70,14 @@ wartość z atrybutu HTML height, IGNORUJĄC aspect-ratio — przy zwężaniu sz
 robi się drastycznie, nienaturalnie wysoki (potwierdzone w praktyce, nie teoria). Zawsze gdy łączysz
 CSS width/max-width + aspect-ratio na <img> z atrybutami HTML width/height, dopisz też jawne
 height:auto w tej samej regule CSS — inaczej aspect-ratio nie zadziała poprawnie na wąskich
-ekranach.`;
+ekranach.
+
+PUŁAPKA — przycisk telefonu z pełnym numerem w nav na mobile (KRYTYCZNE, znaleziony realny błąd):
+Jeśli nav (sticky header) ma przycisk z pełnym tekstem "Zadzwoń: {{TELEFON}}" obok hamburgera na
+wąskich ekranach, tekst z numerem telefonu nie mieści się w dostępnej szerokości i się łamie —
+rozpycha pigułkę/pasek nawigacji, nachodzi na logo i ikonę menu. Na <700px zwiń ten przycisk do
+samej ikony (np. okrągły przycisk ~44x44px z emoji 📞, bez tekstu) — pełny tekst "Zadzwoń: {{TELEFON}}"
+zostaw tylko w dedykowanych, szerszych miejscach (hero, sekcja kontakt), nie w ciasnym pasku nav.`;
 
 const SYSTEM_BASE = 'Jesteś ekspertem web designu tworzącym profesjonalne strony dla polskich firm lokalnych.\n' +
   'Tworzysz WYŁĄCZNIE kompletny, gotowy do użycia kod HTML z wbudowanym CSS.\n' +
