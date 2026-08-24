@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{NAZWA_STRONY}} — Hydraulik {{MIASTO}} | tel. {{TELEFON}}</title>
+<meta name="description" content="{{NAZWA_STRONY}} — profesjonalne usługi Hydraulik w mieście {{MIASTO}}. Zadzwoń: {{TELEFON}}">
+<meta name="keywords" content="Hydraulik {{MIASTO}}">
+<link rel="canonical" href="https://{{SLUG}}.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{NAZWA_STRONY}} — Hydraulik {{MIASTO}}">
+<meta property="og:description" content="{{NAZWA_STRONY}} — profesjonalne usługi Hydraulik w mieście {{MIASTO}}. Zadzwoń: {{TELEFON}}">
+<meta property="og:url" content="https://{{SLUG}}.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"{{NAZWA_STRONY}}","telephone":"{{TELEFON}}","email":"{{EMAIL}}","description":"{{NAZWA_STRONY}} — Hydraulik w mieście {{MIASTO}}","address":{"@type":"PostalAddress","addressLocality":"{{MIASTO}}","addressCountry":"PL"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#e0361c;
+    --accent-dark:#a3230f;
+    --bg:#ffffff;
+    --surface:#f5f5f4;
+    --text:#1c1917;
+    --muted:#6b6560;
+    --head:'Archivo', sans-serif;
+    --body:'Inter', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--body);
+    color:var(--text);
+    background:var(--bg);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3,h4{font-family:var(--head);line-height:1.1;font-weight:900;text-transform:uppercase;letter-spacing:.01em;}
+  section{padding:4.5rem 1.5rem;}
+  .wrap{max-width:1140px;margin:0 auto;}
+  .eyebrow{
+    display:inline-block;
+    font-family:var(--body);
+    font-weight:800;
+    font-size:.78rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:.6rem;
+  }
+  h2{font-size:clamp(1.6rem,3vw,2.3rem);margin-bottom:1rem;color:var(--text);text-align:center;}
+  .lead{color:var(--muted);font-size:1.02rem;max-width:620px;margin:0 auto;text-align:center;}
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:.5rem;
+    padding:1rem 1.8rem;
+    border-radius:.5rem;
+    font-weight:800;
+    font-family:var(--head);
+    text-transform:uppercase;
+    letter-spacing:.03em;
+    font-size:1rem;
+    border:2px solid transparent;
+    cursor:pointer;
+    transition:transform .15s ease, background .2s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--accent);color:#fff;}
+  .btn-primary:hover{background:var(--accent-dark);}
+  .btn-light{background:#fff;color:var(--accent-dark);}
+  .btn-light:hover{background:color-mix(in srgb, #fff 85%, var(--accent));}
+
+  @keyframes pulseAlert{
+    0%,100%{background:var(--accent);box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent);}
+    50%{background:var(--accent-dark);box-shadow:0 0 0 8px color-mix(in srgb, var(--accent) 0%, transparent);}
+  }
+  .alert-bar{
+    color:#fff;text-align:center;font-family:var(--head);font-weight:800;
+    text-transform:uppercase;letter-spacing:.04em;font-size:.95rem;
+    padding:.8rem 1rem;animation:pulseAlert 1.8s ease-in-out infinite;
+  }
+  .alert-bar a{text-decoration:underline;text-underline-offset:3px;}
+
+  header.nav{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;}
+  .logo{font-family:var(--head);font-weight:900;font-size:1.25rem;color:var(--text);text-transform:uppercase;}
+  .logo span{color:var(--accent);}
+  .nav-links{display:flex;gap:1.6rem;align-items:center;}
+  .nav-links a{font-weight:700;font-size:.9rem;color:var(--text);}
+  .nav-links a:hover{color:var(--accent);}
+  .nav-actions{display:flex;align-items:center;gap:1rem;}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;}
+  .nav-toggle span{width:26px;height:2px;background:var(--text);}
+
+  .hero{
+    background:
+      radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--accent-dark) 35%, transparent), transparent 60%),
+      var(--text);
+    color:#fff;text-align:center;padding:5rem 1.5rem 3.5rem;
+  }
+  .hero .wrap{max-width:720px;}
+  .hero-tag{
+    display:inline-flex;align-items:center;gap:.4rem;background:color-mix(in srgb, var(--accent) 85%, transparent);
+    padding:.4rem 1rem;border-radius:2rem;font-size:.8rem;font-weight:800;text-transform:uppercase;
+    letter-spacing:.06em;margin-bottom:1.6rem;
+  }
+  .hero-phone{
+    display:block;font-family:var(--head);font-weight:900;
+    font-size:clamp(2.6rem,9vw,4.6rem);color:#fff;letter-spacing:.01em;margin-bottom:1rem;
+    text-decoration:none;
+  }
+  .hero-phone:hover{color:color-mix(in srgb, #fff 80%, var(--accent));}
+  .hero h1{font-size:clamp(1.2rem,2.6vw,1.6rem);color:color-mix(in srgb, #fff 92%, transparent);text-transform:none;margin-bottom:2.2rem;font-weight:700;letter-spacing:0;}
+  .hero-cta{margin-bottom:0;}
+
+  .badges{background:var(--surface);}
+  .badges .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;padding:1.8rem 1.5rem;}
+  .badge{
+    display:flex;flex-direction:column;align-items:center;text-align:center;gap:.4rem;
+    padding:1.2rem 1rem;background:var(--bg);border-radius:.8rem;border:1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  }
+  .badge .num{font-family:var(--head);font-weight:900;font-size:1.15rem;color:var(--accent);}
+  .badge .lbl{font-size:.82rem;color:var(--muted);font-weight:600;}
+
+  .awarie-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.5rem;}
+  .awaria-item{
+    text-align:center;padding:2rem 1rem;background:var(--surface);border-radius:1rem;
+    border:1px solid color-mix(in srgb, var(--text) 8%, transparent);transition:transform .15s ease, border-color .15s ease;
+  }
+  .awaria-item:hover{transform:translateY(-4px);border-color:var(--accent);}
+  .awaria-item .icon{font-size:2.4rem;margin-bottom:.8rem;}
+  .awaria-item h3{font-size:.95rem;text-transform:none;font-weight:700;color:var(--text);letter-spacing:0;}
+
+  .trust{background:var(--text);color:#fff;}
+  .trust h2{color:#fff;}
+  .trust .lead{color:color-mix(in srgb, #fff 75%, transparent);}
+  .trust-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;margin-top:2.5rem;text-align:center;}
+  .trust-stats b{display:block;font-family:var(--head);font-weight:900;font-size:2.2rem;color:var(--accent);}
+  .trust-stats span{font-size:.85rem;color:color-mix(in srgb, #fff 70%, transparent);font-weight:600;}
+  .usp-row{display:flex;flex-wrap:wrap;justify-content:center;gap:.8rem;margin-top:2.5rem;}
+  .usp-pill{
+    background:color-mix(in srgb, #fff 8%, transparent);border:1px solid color-mix(in srgb, #fff 18%, transparent);
+    padding:.5rem 1.1rem;border-radius:2rem;font-size:.85rem;font-weight:600;
+  }
+
+  .faq-list{max-width:780px;margin:2.5rem auto 0;display:flex;flex-direction:column;gap:.7rem;}
+  details{background:var(--surface);border-radius:.7rem;padding:1.1rem 1.4rem;border:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+  details summary{cursor:pointer;font-weight:800;font-family:var(--head);font-size:.95rem;text-transform:none;letter-spacing:0;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{content:"+";font-size:1.4rem;color:var(--accent);flex-shrink:0;}
+  details[open] summary::after{content:"–";}
+  details p{color:var(--muted);margin-top:.8rem;font-size:.92rem;text-transform:none;}
+
+  .contact{background:var(--surface);}
+  .contact-cta{
+    background:var(--accent);text-align:center;padding:2rem 1.5rem;border-radius:1rem;margin:2.5rem 0;
+  }
+  .contact-cta p{color:color-mix(in srgb, #fff 90%, transparent);font-weight:600;margin-bottom:1.2rem;}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start;}
+  .contact-info ul{display:flex;flex-direction:column;gap:.9rem;}
+  .contact-info li{font-size:.92rem;color:var(--text);display:flex;gap:.6rem;}
+  .contact-info li b{color:var(--muted);font-weight:700;min-width:100px;display:inline-block;text-transform:uppercase;font-size:.78rem;letter-spacing:.03em;}
+  .contact-form{background:var(--bg);padding:1.8rem;border-radius:1rem;border:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+  .contact-form label{display:block;font-size:.8rem;font-weight:700;margin-bottom:.4rem;margin-top:1rem;text-transform:uppercase;letter-spacing:.03em;}
+  .contact-form label:first-child{margin-top:0;}
+  .contact-form input, .contact-form textarea{width:100%;padding:.8rem 1rem;border-radius:.5rem;border:1px solid color-mix(in srgb, var(--text) 20%, transparent);font-family:var(--body);font-size:.95rem;background:var(--bg);color:var(--text);}
+  .contact-form textarea{resize:vertical;min-height:90px;}
+  .contact-form button{width:100%;justify-content:center;margin-top:1.3rem;}
+
+  .map-wrap{margin-top:2.5rem;}
+  .map-embed{width:100%;height:320px;border-radius:1rem;overflow:hidden;border:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .map-caption{margin-top:.7rem;font-size:.85rem;color:var(--muted);text-align:center;}
+
+  footer{background:var(--text);color:color-mix(in srgb, #fff 75%, transparent);padding:2.5rem 1.5rem;}
+  .footer-wrap{max-width:1140px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;gap:1.5rem;align-items:center;}
+  .footer-phone{font-family:var(--head);font-weight:900;color:#fff;font-size:1.1rem;}
+  .footer-links{display:flex;gap:1.2rem;font-size:.82rem;}
+  .footer-links a:hover{color:var(--accent);}
+  .footer-bottom{max-width:1140px;margin:1.5rem auto 0;font-size:.78rem;color:color-mix(in srgb, #fff 45%, transparent);text-align:center;border-top:1px solid color-mix(in srgb, #fff 12%, transparent);padding-top:1.2rem;}
+
+  @media (max-width:900px){
+    .awarie-grid{grid-template-columns:repeat(2,1fr);}
+    .trust-stats{grid-template-columns:1fr;gap:1.2rem;}
+    .contact-grid{grid-template-columns:1fr;}
+    .badges .wrap{grid-template-columns:1fr;}
+  }
+  @media (max-width:700px){
+    .nav-links{position:absolute;top:100%;left:0;right:0;background:var(--bg);flex-direction:column;align-items:flex-start;padding:1.2rem 1.5rem;border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);display:none;}
+    .nav-links.open{display:flex;}
+    .nav-toggle{display:flex;}
+    .awarie-grid{grid-template-columns:1fr;}
+    section{padding:3rem 1.2rem;}
+    .footer-wrap{flex-direction:column;text-align:center;}
+  }
+</style>
+</head>
+<body>
+
+<div class="alert-bar">
+  🚨 Awaria? Dzwoń teraz: <a href="tel:{{TELEFON}}">{{TELEFON}}</a>
+</div>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo">{{NAZWA_STRONY}}<span>.</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#awarie">Awarie</a>
+      <a href="#zaufanie">Dlaczego my</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="tel:{{TELEFON}}" class="btn btn-primary">Zadzwoń: {{TELEFON}}</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu nawigacji">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="hero-tag">📍 Awaryjny dojazd — {{MIASTO}}</span>
+    <a href="tel:{{TELEFON}}" class="hero-phone">{{TELEFON}}</a>
+    <h1>{{NAZWA_STRONY}} — pogotowie hydrauliczne. Dzwonisz, jedziemy, naprawiamy — bez czekania do jutra.</h1>
+    <a href="tel:{{TELEFON}}" class="btn btn-primary hero-cta">📞 Zadzwoń teraz</a>
+  </div>
+</section>
+
+<section class="badges">
+  <div class="wrap">
+    <div class="badge">
+      <span class="num">~30 min</span>
+      <span class="lbl">Śr. czas dojazdu</span>
+    </div>
+    <div class="badge">
+      <span class="num">24/7/365</span>
+      <span class="lbl">Dostępni bez przerwy</span>
+    </div>
+    <div class="badge">
+      <span class="num">0 zł</span>
+      <span class="lbl">Bezpłatna wycena telefoniczna</span>
+    </div>
+  </div>
+</section>
+
+<section id="awarie">
+  <div class="wrap">
+    <span class="eyebrow" style="display:block;text-align:center;">Interweniujemy natychmiast</span>
+    <h2>Rodzaje awarii, które usuwamy</h2>
+    <p class="lead">Jeśli Twoja sytuacja pasuje do choć jednego punktu poniżej — nie czekaj, zadzwoń pod {{TELEFON}}.</p>
+    <div class="awarie-grid">
+      <div class="awaria-item">
+        <div class="icon" role="img" aria-label="Pęknięta rura">🔧</div>
+        <h3>Pęknięta rura</h3>
+      </div>
+      <div class="awaria-item">
+        <div class="icon" role="img" aria-label="Zalanie mieszkania">🌊</div>
+        <h3>Zalanie</h3>
+      </div>
+      <div class="awaria-item">
+        <div class="icon" role="img" aria-label="Brak wody w instalacji">🚱</div>
+        <h3>Brak wody</h3>
+      </div>
+      <div class="awaria-item">
+        <div class="icon" role="img" aria-label="Awaria pieca lub bojlera">🔥</div>
+        <h3>Awaria pieca / bojlera</h3>
+      </div>
+      <div class="awaria-item">
+        <div class="icon" role="img" aria-label="Zapchana kanalizacja">🚽</div>
+        <h3>Zapchana kanalizacja</h3>
+      </div>
+      <div class="awaria-item">
+        <div class="icon" role="img" aria-label="Awaria instalacji gazowej">⚠️</div>
+        <h3>Instalacja gazowa</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trust" id="zaufanie">
+  <div class="wrap">
+    <span class="eyebrow" style="display:block;text-align:center;">Dlaczego dzwonią do nas</span>
+    <h2>{{NAZWA_STRONY}} — pogotowie, na które można liczyć w mieście {{MIASTO}}</h2>
+    <p class="lead">Nie jesteśmy przypadkową ekipą — działamy na terenie miasta {{MIASTO}} od lat, z gotową ekipą interwencyjną 24 godziny na dobę.</p>
+    <div class="trust-stats">
+      <div>
+        <b>14 lat</b>
+        <span>na rynku usług hydraulicznych</span>
+      </div>
+      <div>
+        <b>5000+</b>
+        <span>usuniętych awarii</span>
+      </div>
+      <div>
+        <b>4.9/5</b>
+        <span>ocena Google</span>
+      </div>
+    </div>
+    <div class="usp-row">
+      <span class="usp-pill">✓ Gwarancja na naprawę</span>
+      <span class="usp-pill">✓ Dojazd gratis — {{MIASTO}}</span>
+      <span class="usp-pill">✓ Bezpłatna wycena telefoniczna</span>
+      <span class="usp-pill">✓ Szybka realizacja</span>
+      <span class="usp-pill">✓ Certyfikowany wykonawca</span>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="background:var(--surface);">
+  <div class="wrap">
+    <span class="eyebrow" style="display:block;text-align:center;">Pytania i odpowiedzi</span>
+    <h2>Najczęstsze pytania o awarie hydrauliczne — {{MIASTO}}</h2>
+    <div class="faq-list">
+      <details open>
+        <summary>Jak szybko dojedziecie w mieście {{MIASTO}}?</summary>
+        <p>Średni czas dojazdu ekipy interwencyjnej na terenie miasta {{MIASTO}} to około 30 minut od zgłoszenia. Pracujemy całą dobę, również w nocy i w weekendy.</p>
+      </details>
+      <details>
+        <summary>Czy wycena telefoniczna jest naprawdę bezpłatna?</summary>
+        <p>Tak. Po telefonie pod {{TELEFON}} przedstawimy orientacyjną wycenę bez żadnych opłat — dopiero po Twojej akceptacji ekipa wyrusza na miejsce.</p>
+      </details>
+      <details>
+        <summary>Czy pracujecie w nocy, w weekendy i święta?</summary>
+        <p>Tak, jesteśmy dostępni 24 godziny na dobę, 7 dni w tygodniu, także w święta — awaria nie wybiera pory dnia, więc my też nie robimy sobie przerwy.</p>
+      </details>
+      <details>
+        <summary>Co jeśli podejrzewam wyciek gazu?</summary>
+        <p>To sytuacja wymagająca natychmiastowej reakcji — zadzwoń od razu pod {{TELEFON}}, przewietrz pomieszczenie i nie używaj otwartego ognia ani przełączników do czasu przyjazdu ekipy.</p>
+      </details>
+      <details>
+        <summary>Czy naprawa jest objęta gwarancją?</summary>
+        <p>Tak, na każdą wykonaną naprawę i wymienione elementy udzielamy gwarancji — szczegóły ustalimy telefonicznie w zależności od zakresu interwencji.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="kontakt">
+  <div class="wrap">
+    <span class="eyebrow" style="display:block;text-align:center;">Kontakt awaryjny</span>
+    <h2>Awaria? Nie czekaj</h2>
+
+    <div class="contact-cta">
+      <p>Każda minuta się liczy — zadzwoń bezpośrednio, to najszybsza droga do pomocy.</p>
+      <a href="tel:{{TELEFON}}" class="btn btn-light">📞 Zadzwoń teraz: {{TELEFON}}</a>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <ul>
+          <li><b>Telefon</b> <a href="tel:{{TELEFON}}">{{TELEFON}}</a></li>
+          <li><b>E-mail</b> <a href="mailto:{{EMAIL}}">{{EMAIL}}</a></li>
+          <li><b>Adres</b> {{ADRES}}, {{MIASTO}}</li>
+          <li><b>Pon–Pt</b> {{GODZINY_PON_PT}}</li>
+          <li><b>Sobota</b> {{GODZINY_SOB}}</li>
+          <li><b>Awarie</b> 24/7 — cała doba</li>
+        </ul>
+      </div>
+
+      <form class="contact-form" id="contactForm">
+        <label for="phone">Telefon</label>
+        <input type="tel" id="phone" name="phone" placeholder="500 123 456" required>
+
+        <label for="message">Krótki opis awarii</label>
+        <textarea id="message" name="message" placeholder="Np. pęknięta rura pod zlewem, zalewa łazienkę..." required></textarea>
+
+        <button type="submit" class="btn btn-primary">Wyślij zgłoszenie</button>
+      </form>
+    </div>
+
+    <div class="map-wrap">
+      <iframe class="map-embed" src="https://www.google.com/maps?q={{ADRES}}, {{MIASTO}}&output=embed" title="Mapa dojazdu do {{NAZWA_STRONY}} w mieście {{MIASTO}}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;"></iframe>
+      <p class="map-caption">Mapa dojazdu — {{ADRES}}, {{MIASTO}}</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-wrap">
+    <a href="tel:{{TELEFON}}" class="footer-phone">📞 {{TELEFON}}</a>
+    <span>{{ADRES}}, {{MIASTO}}</span>
+    <div class="footer-links">
+      <a href="#kontakt">Kontakt</a>
+      <a href="#faq">FAQ</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © <span id="year"></span> {{NAZWA_STRONY}} — Hydraulik {{MIASTO}}.
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    form.innerHTML = '<p style="font-weight:700;color:var(--accent);">Dziękujemy! Zgłoszenie zostało przygotowane do wysyłki. W pilnych sprawach zadzwoń bezpośrednio: <a href="tel:{{TELEFON}}">{{TELEFON}}</a>.</p>';
+  });
+</script>
+
+</body>
+</html>
