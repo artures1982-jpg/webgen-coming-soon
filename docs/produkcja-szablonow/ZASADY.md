@@ -20,24 +20,24 @@ W całym pozostałym CSS — wyłącznie `var(--nazwa)`. Cel: zmiana kolorystyki
 przez podmianę **samego bloku `:root`**, bez dotykania reszty kodu (personalizacja bez
 regeneracji przez AI).
 
-### Stan faktyczny — reguła nie jest spełniona w 4 z 6 wariantów
+### Stan faktyczny — 25.08.2026, doprowadzone do stanu 3/4 we wszystkich 6 wariantach
 
 | Wariant | Literały poza `:root` |
 |---------|----------------------|
-| 1 — Zaufany fachowiec | `#fff` ×28, `#f5b700` ×1 (gwiazdki oceny) |
-| 2 — Szybka interwencja | `#fff` ×20 |
+| 1 — Zaufany fachowiec | ✅ brak (było `#fff` ×28, `#f5b700` ×1 na gwiazdki) |
+| 2 — Szybka interwencja | ✅ brak (było `#fff` ×20) |
 | 3 — Nowoczesny cyfrowy | ✅ brak |
 | 4 — Rodzinna firma | ✅ brak |
-| 5 — Premium | `#fff` ×3 |
-| 6 — Minimalistyczny | `#fff` ×1 |
+| 5 — Premium | ✅ brak (było `#fff` ×3) |
+| 6 — Minimalistyczny | ✅ brak (było `#fff` ×1) |
 
-**Skutek:** biały tekst na tle akcentu nie zaadaptuje się przy podmianie `:root` na jasny
-akcent — napis zniknie (biały na jasnym). Warianty 3 i 4 pokazują, że da się to zrobić
-czysto: zamiast `color:#fff` używają `color:var(--surface)` albo
-`color-mix(in srgb, var(--text) …)`.
-
-**Decyzja do podjęcia:** albo doprowadzić 1/2/5/6 do stanu 3/4, albo świadomie zapisać, że
-`--accent` musi zawsze być ciemny. Do rozstrzygnięcia przy pierwszej realnej personalizacji.
+**Decyzja podjęta i wdrożona:** 1/2/5/6 doprowadzone do stanu 3/4 (commit `0fc126c`). Reguła
+zastosowana: `#fff` samodzielny (kolor tekstu/tła) → `var(--bg)` (identyczna wartość
+`#ffffff` w każdym z tych 4 wariantów, zero zmiany wizualnej); `#fff` wewnątrz `color-mix()`
+→ słowo kluczowe `white`; wariant 1 dodatkowo `#f5b700` (gwiazdki oceny) → `var(--accent)`.
+Każdy z 6 wariantów ma teraz dokładnie 6 unikalnych hexów, każdy występujący raz — czyli
+wyłącznie w `:root`. Sprawdzone: `grep -oE '#[0-9a-fA-F]{3,6}' <plik> | sort | uniq -c` daje
+6 wierszy z licznikiem 1 dla każdego wariantu.
 
 > Przyjęty wyjątek: słowa kluczowe `white` / `black` **wewnątrz `color-mix()`** są dopuszczone
 > jako neutralne punkty odniesienia (np. `color-mix(in srgb, var(--text) 90%, black)`).
@@ -97,11 +97,16 @@ Wyjątek: wariant 6 celowo nie ma mapy.
 - Ciemny/neonowy styl **nie zwalnia** z wymogu prawdziwej fotografii — sama gradientowa
   poświata i glassmorphism to za mało (zgłoszone: „to nie może tak wyglądać").
 
-### Znane: powtarzalność zdjęć między wariantami
+### Naprawione: powtarzalność zdjęć między wariantami
 
-Zdjęcie **6419128** występuje w wariantach 1, 2, 3 i 5. Przy prezentacji wszystkich wariantów
-obok siebie (galeria `preview/hydraulik/index.html`) powtórzenie jest widoczne. Do rozważenia
-przy rozszerzaniu pilota na kolejne branże.
+Zdjęcie **6419128** występowało w wariantach 1, 2, 3 i 5 — przy prezentacji wszystkich
+wariantów obok siebie (galeria `preview/hydraulik/index.html`) powtórzenie było widoczne.
+Zamienione (commit `0fc126c`) w wariantach 1, 2, 3 na inne, już zweryfikowane zdjęcia
+(odpowiednio `38028968`, `16509869`, `38028966`), każde dobrane tak, by nie kolidować z
+fotografiami już użytymi w tym samym wariancie. Wariant 5 zostaje przy `6419128` — jedyne
+pozostałe użycie. Przy rozszerzaniu pilota na kolejne branże warto pilnować tej samej zasady:
+sprawdzać przed użyciem, czy dane zdjęcie nie powtarza się już w innym wariancie tej samej
+branży.
 
 ---
 
