@@ -6,6 +6,11 @@ Projekt zbiera **proces wytwarzania szablonów stron** dla webgen.pl: jak powsta
 wariant wizualny, jakie zasady musi spełnić, jak go zweryfikować i jak wygląda podział pracy.
 Powstał na bazie pilota branży **Hydraulik** (6 wariantów, komplet ukończony).
 
+**Zanim zaczniesz kolejny wariant w drugiej (lub dowolnej następnej) branży, przeczytaj
+`ZASADY.md` sekcja 0** — każda branża dostaje bespoke wykonanie, zero kopiowania layoutu z
+odpowiednika w innej branży. Ta zasada była złamana dwukrotnie (elektryk-1, elektryk-4) zanim
+trafiła do dokumentu.
+
 Dokumenty w tym katalogu:
 
 | Plik | Zawartość |

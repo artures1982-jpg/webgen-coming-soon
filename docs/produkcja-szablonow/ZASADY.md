@@ -8,6 +8,59 @@ w `scripts/generate-hydraulik-pilot.js`; ten plik ją tłumaczy i uzupełnia o k
 
 ---
 
+## 0. Bespoke wykonanie per branża — ZERO reużycia layoutu między branżami
+
+**Decyzja produktowa (24.08.2026, potwierdzona wprost przez Artura przy wyborze między dwiema
+opcjami):** każda z 16 branż dostaje **własne, bespoke wykonanie** każdego z 6 archetypów —
+docelowo 16 × 6 = **96 osobno zaprojektowanych szablonów**, NIE 6 layoutów reużywanych między
+branżami ze zmienionym kolorem/fontem/treścią/zdjęciem.
+
+To była już dwukrotnie złamana zasada, zanim trafiła do tego dokumentu — za pierwszym razem
+niezauważona (`elektryk-1-zaufany-fachowiec.html`, ~86% CSS identyczne z
+`hydraulik-1-zaufany-fachowiec.html` — cała struktura hero, sekcji "o nas", stopki, formularza
+kontaktowego, odznaki ratingu skopiowana 1:1), za drugim razem złapana przez Artura na żywym
+deployu (`elektryk-4-rodzinna-firma.html` skopiowany z `hydraulik-4-rodzinna-firma.html`: "identyczny
+z hydraulikiem, a nie miało być wszystko na jedno kopyto"). Oba przypadki miały wspólną przyczynę:
+ta zasada żyła wcześniej wyłącznie w pamięci jednej sesji Claude Code, nie w repo — żadna inna
+sesja ani subagent nie miały jak jej znać. Stąd jest teraz tutaj, w kanonicznym dokumencie.
+
+**Co wolno, a czego nie:**
+- Plik odpowiednika archetypu w innej branży (np. `hydraulik-4-rodzinna-firma.html` przy pisaniu
+  `elektryk-4-rodzinna-firma.html`) wolno przeczytać wyłącznie jako **inspirację ducha archetypu**
+  (ton, ogólny cel, np. "Rodzinna firma" = osobisty ton + zdjęcie właściciela + bezpośredni
+  kontakt) — NIGDY jako plik bazowy do skopiowania i przemalowania.
+- Każda sekcja (nav, hero, prezentacja usług, historia/oś czasu, kontakt, stopka) ma dostać
+  **inny mechanizm wizualny** niż odpowiednik w innej branży — inny sposób pokazania tej samej
+  koncepcji, nie ten sam kod z innymi zmiennymi CSS. Przykład z realnej naprawy: hydraulik-4 ma
+  pływający pigułkowy nav + organiczny "blob" kształt zdjęcia w hero + poziomą oś czasu z
+  ponumerowanymi kropkami + wyśrodkowaną sekcję z gigantycznym cudzysłowem + okrągły portret w
+  kontakcie — elektryk-4 dostał: zwykły pełnoszerokościowy nav + prostokątne zdjęcie z dymkiem
+  cytatu + narrację tekstową z plakietkami zamiast osi czasu + cytat jako notatkę w sekcji
+  kontaktu (bez osobnej sekcji) + kwadratową "wizytówkę" zamiast okrągłego portretu.
+- Wspólne mogą (i powinny) zostać: **techniczne wymogi** z sekcji 1-7 poniżej (architektura
+  CSS-var, gramatyka `{{MIASTO}}`, format embedu mapy, pułapki mobile, tryb tokenów) — to są
+  reguły branżowo-niezależne, wypracowane raz i mające obowiązywać wszędzie. Różnicować trzeba
+  WYKONANIE (layout, komponenty, kompozycję), nie te reguły.
+
+**Szybkie sprawdzenie przy odbiorze wariantu** (rób to zawsze, gdy analogiczny archetyp istnieje
+już w innej branży):
+
+```bash
+# % linii CSS identycznych z odpowiednikiem w innej branży — jeśli wynik >40-50%
+# (poza generycznym resetem: *, body, html, a, ul, img, .btn, .wrap), to sygnał kopiowania
+diff <(sed -n '/<style>/,/<\/style>/p' templates/pilot/<nowy>.html) \
+     <(sed -n '/<style>/,/<\/style>/p' templates/pilot/<odpowiednik-innej-branzy>.html) | wc -l
+```
+
+Gdy briefujesz subagenta `designer-ux-ui` do Design QA na wariancie, który ma odpowiednik w innej
+branży: NIE mów mu, że podobieństwo strukturalne do tego odpowiednika jest zamierzone/oczekiwane —
+to dokładnie ta pomyłka, która pozwoliła błędowi w `elektryk-4` przejść przez pierwszy QA pass
+niezauważenie. Zamiast tego każ mu aktywnie polować na 1:1 powtórzenia (nazwy klas z tymi samymi
+wartościami, te same proporcje grid, te same mechanizmy komponentów) i raportować je jako problem
+domyślnie, chyba że to jeden z technicznych wymogów wspólnych z akapitu wyżej.
+
+---
+
 ## 1. Architektura CSS-var
 
 W `:root` definiuje się **dokładnie 8 zmiennych**:
