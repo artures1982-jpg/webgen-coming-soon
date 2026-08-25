@@ -71,17 +71,17 @@
     transition:transform .15s ease, background .2s ease;
   }
   .btn:hover{transform:translateY(-2px);}
-  .btn-primary{background:var(--accent);color:#fff;}
+  .btn-primary{background:var(--accent);color:var(--bg);}
   .btn-primary:hover{background:var(--accent-dark);}
-  .btn-light{background:#fff;color:var(--accent-dark);}
-  .btn-light:hover{background:color-mix(in srgb, #fff 85%, var(--accent));}
+  .btn-light{background:var(--bg);color:var(--accent-dark);}
+  .btn-light:hover{background:color-mix(in srgb, white 85%, var(--accent));}
 
   @keyframes pulseAlert{
     0%,100%{background:var(--accent);box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent);}
     50%{background:var(--accent-dark);box-shadow:0 0 0 8px color-mix(in srgb, var(--accent) 0%, transparent);}
   }
   .alert-bar{
-    color:#fff;text-align:center;font-family:var(--head);font-weight:800;
+    color:var(--bg);text-align:center;font-family:var(--head);font-weight:800;
     text-transform:uppercase;letter-spacing:.04em;font-size:.95rem;
     padding:.8rem 1rem;animation:pulseAlert 1.8s ease-in-out infinite;
   }
@@ -104,7 +104,7 @@
       linear-gradient(180deg, color-mix(in srgb, var(--text) 78%, transparent) 0%, color-mix(in srgb, var(--text) 94%, black) 100%),
       radial-gradient(circle at 50% 10%, color-mix(in srgb, var(--accent-dark) 40%, transparent), transparent 60%),
       url('https://images.pexels.com/photos/7859953/pexels-photo-7859953.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940') center/cover no-repeat;
-    color:#fff;text-align:center;padding:5rem 1.5rem 3.5rem;
+    color:var(--bg);text-align:center;padding:5rem 1.5rem 3.5rem;
     min-height:88vh;display:flex;align-items:center;justify-content:center;
   }
   .hero .wrap{max-width:720px;}
@@ -115,11 +115,11 @@
   }
   .hero-phone{
     display:block;font-family:var(--head);font-weight:900;
-    font-size:clamp(2.6rem,9vw,4.6rem);color:#fff;letter-spacing:.01em;margin-bottom:1rem;
+    font-size:clamp(2.6rem,9vw,4.6rem);color:var(--bg);letter-spacing:.01em;margin-bottom:1rem;
     text-decoration:none;
   }
-  .hero-phone:hover{color:color-mix(in srgb, #fff 80%, var(--accent));}
-  .hero h1{font-size:clamp(1.2rem,2.6vw,1.6rem);color:color-mix(in srgb, #fff 92%, transparent);text-transform:none;margin-bottom:2.2rem;font-weight:700;letter-spacing:0;}
+  .hero-phone:hover{color:color-mix(in srgb, white 80%, var(--accent));}
+  .hero h1{font-size:clamp(1.2rem,2.6vw,1.6rem);color:color-mix(in srgb, white 92%, transparent);text-transform:none;margin-bottom:2.2rem;font-weight:700;letter-spacing:0;}
   .hero-cta{margin-bottom:0;}
 
   .badges{background:var(--surface);}
@@ -144,20 +144,20 @@
     background:linear-gradient(180deg, transparent 35%, color-mix(in srgb, var(--text) 90%, black) 100%);
     display:flex;align-items:flex-end;justify-content:center;padding:1.1rem .8rem;
   }
-  .awaria-item h3{font-size:.92rem;text-transform:none;font-weight:700;color:#fff;letter-spacing:0;text-align:center;margin:0;}
+  .awaria-item h3{font-size:.92rem;text-transform:none;font-weight:700;color:var(--bg);letter-spacing:0;text-align:center;margin:0;}
 
-  .trust{background:var(--text);color:#fff;}
-  .trust h2{color:#fff;text-align:left;}
+  .trust{background:var(--text);color:var(--bg);}
+  .trust h2{color:var(--bg);text-align:left;}
   .trust .eyebrow{text-align:left;}
-  .trust .lead{color:color-mix(in srgb, #fff 75%, transparent);text-align:left;margin:0;}
+  .trust .lead{color:color-mix(in srgb, white 75%, transparent);text-align:left;margin:0;}
   .trust-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center;margin-top:2rem;}
   .trust-photo{width:100%;height:100%;min-height:320px;object-fit:cover;border-radius:1.2rem;box-shadow:0 24px 48px color-mix(in srgb, black 45%, transparent);}
   .trust-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;margin-top:2rem;text-align:left;}
   .trust-stats b{display:block;font-family:var(--head);font-weight:900;font-size:2.2rem;color:var(--accent);}
-  .trust-stats span{font-size:.85rem;color:color-mix(in srgb, #fff 70%, transparent);font-weight:600;}
+  .trust-stats span{font-size:.85rem;color:color-mix(in srgb, white 70%, transparent);font-weight:600;}
   .usp-row{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:.8rem;margin-top:2rem;}
   .usp-pill{
-    background:color-mix(in srgb, #fff 8%, transparent);border:1px solid color-mix(in srgb, #fff 18%, transparent);
+    background:color-mix(in srgb, white 8%, transparent);border:1px solid color-mix(in srgb, white 18%, transparent);
     padding:.5rem 1.1rem;border-radius:2rem;font-size:.85rem;font-weight:600;
   }
 
@@ -173,7 +173,7 @@
   .contact-cta{
     background:var(--accent);text-align:center;padding:2rem 1.5rem;border-radius:1rem;margin:2.5rem 0;
   }
-  .contact-cta p{color:color-mix(in srgb, #fff 90%, transparent);font-weight:600;margin-bottom:1.2rem;}
+  .contact-cta p{color:color-mix(in srgb, white 90%, transparent);font-weight:600;margin-bottom:1.2rem;}
   .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start;}
   .contact-info ul{display:flex;flex-direction:column;gap:.9rem;}
   .contact-info li{font-size:.92rem;color:var(--text);display:flex;gap:.6rem;}
@@ -189,12 +189,12 @@
   .map-embed{width:100%;height:320px;border-radius:1rem;overflow:hidden;border:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
   .map-caption{margin-top:.7rem;font-size:.85rem;color:var(--muted);text-align:center;}
 
-  footer{background:var(--text);color:color-mix(in srgb, #fff 75%, transparent);padding:2.5rem 1.5rem;}
+  footer{background:var(--text);color:color-mix(in srgb, white 75%, transparent);padding:2.5rem 1.5rem;}
   .footer-wrap{max-width:1140px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;gap:1.5rem;align-items:center;}
-  .footer-phone{font-family:var(--head);font-weight:900;color:#fff;font-size:1.1rem;}
+  .footer-phone{font-family:var(--head);font-weight:900;color:var(--bg);font-size:1.1rem;}
   .footer-links{display:flex;gap:1.2rem;font-size:.82rem;}
   .footer-links a:hover{color:var(--accent);}
-  .footer-bottom{max-width:1140px;margin:1.5rem auto 0;font-size:.78rem;color:color-mix(in srgb, #fff 45%, transparent);text-align:center;border-top:1px solid color-mix(in srgb, #fff 12%, transparent);padding-top:1.2rem;}
+  .footer-bottom{max-width:1140px;margin:1.5rem auto 0;font-size:.78rem;color:color-mix(in srgb, white 45%, transparent);text-align:center;border-top:1px solid color-mix(in srgb, white 12%, transparent);padding-top:1.2rem;}
 
   @media (max-width:900px){
     .awarie-grid{grid-template-columns:repeat(2,1fr);}
@@ -273,7 +273,7 @@
     <h2>Rodzaje awarii, które usuwamy</h2>
     <p class="lead">Jeśli Twoja sytuacja pasuje do choć jednego punktu poniżej — nie czekaj, zadzwoń pod {{TELEFON}}.</p>
     <div class="awarie-grid">
-      <div class="awaria-item" style="background-image:url('https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650')" role="img" aria-label="Pęknięta rura">
+      <div class="awaria-item" style="background-image:url('https://images.pexels.com/photos/16509869/pexels-photo-16509869.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650')" role="img" aria-label="Pęknięta rura">
         <div class="awaria-overlay"><h3>Pęknięta rura</h3></div>
       </div>
       <div class="awaria-item" style="background-image:url('https://images.pexels.com/photos/13312223/pexels-photo-13312223.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650')" role="img" aria-label="Zalanie mieszkania">
