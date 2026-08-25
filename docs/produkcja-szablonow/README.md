@@ -17,23 +17,38 @@ Dokumenty w tym katalogu:
 
 ## Pipeline — jak powstaje jeden wariant
 
+Od 25.08.2026 pipeline korzysta z dwóch subagentów zdefiniowanych w `.claude/agents/`
+(`designer-ux-ui`, `copywriter-szablonow`) — dostępnych dla **każdej** sesji Claude Code
+pracującej na tym repo, nie tylko dla tej, która je odpaliła. Nie zastępują sesji „generacja"
+(patrz niżej) — dochodzą jako przegląd/QA wokół jej pracy.
+
 ```
-1. BRIEF        scripts/generate-hydraulik-pilot.js → VARIANTS[n].visual
-                  + stała CSS_VAR_REQUIREMENT (wspólna dla wszystkich wariantów)
-                  ↓
-2. PROMPT       lib/promptBuilder.js → buildTemplatePrompt(styleConfig, firmaTokens)
-                  (skleja: SYSTEM_BASE + visual + CSS_VAR_REQUIREMENT + dane/tokeny + TRYB SZABLONU)
-                  ↓
-3. GENERACJA    node scripts/generate-hydraulik-pilot.js   ← wymaga ANTHROPIC_API_KEY
-                  ALBO autorsko, na podstawie tego samego briefu (patrz „Stan środowiska")
-                  ↓
-4. WERYFIKACJA  podgląd w przeglądarce, sekcja po sekcji (checklista w ZASADY.md)
-                  ↓
-5. 3 PLIKI      templates/pilot/<id>.html              ← literalne tokeny {{...}}
-                preview/hydraulik/<id>.html            ← identyczna kopia
-                preview/hydraulik/<id>-preview-wypelniony.html ← dane przykładowe
-                  ↓
-6. COMMIT       branch preview/hydraulik-pilot → push → podgląd na Vercelu
+1. BRIEF          scripts/generate-hydraulik-pilot.js → VARIANTS[n].visual
+                    + stała CSS_VAR_REQUIREMENT (wspólna dla wszystkich wariantów)
+                    ↓
+2. DESIGN BRIEF   subagent designer-ux-ui czyta rodzeństwo wariantów (tej i innych branż)
+                    i proponuje layout różnicujący nav/hero/usługi/sekcje — zanim powstanie kod
+                    ↓
+3. PROMPT         lib/promptBuilder.js → buildTemplatePrompt(styleConfig, firmaTokens)
+                    (skleja: SYSTEM_BASE + visual + CSS_VAR_REQUIREMENT + dane/tokeny + TRYB SZABLONU)
+                    ↓
+4. GENERACJA      node scripts/generate-hydraulik-pilot.js   ← wymaga ANTHROPIC_API_KEY
+                    ALBO autorsko, na podstawie tego samego briefu (patrz „Stan środowiska")
+                    ↓
+5. COPY PASS      subagent copywriter-szablonow przepisuje treść wygenerowanego pliku pod
+                    ton wariantu + gramatykę {{MIASTO}}/referencji (ZASADY.md sekcje 2 i 5)
+                    ↓
+6. DESIGN QA PASS subagent designer-ux-ui na gotowym pliku: literały hex poza :root, zdjęcia,
+                    mapa, pułapki mobile (ZASADY.md sekcje 1/3/4/6) + czy copy nie rozjechał layoutu
+                    ↓
+7. WERYFIKACJA    podgląd w przeglądarce, sekcja po sekcji (checklista w ZASADY.md) — robi to
+                    główna sesja, subagenci nie mają dostępu do przeglądarki
+                    ↓
+8. 3 PLIKI        templates/pilot/<id>.html              ← literalne tokeny {{...}}
+                  preview/hydraulik/<id>.html            ← identyczna kopia
+                  preview/hydraulik/<id>-preview-wypelniony.html ← dane przykładowe
+                    ↓
+9. COMMIT         branch preview/hydraulik-pilot → push → podgląd na Vercelu
 ```
 
 ### Dane przykładowe (wersja „wypełniony")
@@ -87,7 +102,11 @@ Pilot powstawał w dwóch równoległych sesjach Claude Code na tym samym repo:
 | Rola | Zakres |
 |------|--------|
 | Sesja „brief + release" | Dopracowuje `VARIANTS[n].visual`, wybiera i weryfikuje zdjęcia, robi commit + push, sprawdza na Vercelu |
-| Sesja „generacja" | Czyta brief z repo, tworzy 3 pliki, weryfikuje w przeglądarce, oddaje **niescommitowane** |
+| Sesja „generacja" | Czyta brief z repo, autorsko pisze HTML (krok 4), odpala subagentów `copywriter-szablonow` i `designer-ux-ui` (kroki 5–6) zamiast ręcznie pilnować całej ZASADY.md z pamięci, weryfikuje w przeglądarce, oddaje **niescommitowane** |
+
+Subagenci nie są przypisani do żadnej z dwóch sesji — żyją w `.claude/agents/` i każda sesja
+pracująca na tym repo może je odpalić. W praktyce najczęściej robi to sesja „generacja", bo to
+ona ma gotowy plik do przeglądu.
 
 Wnioski z tego trybu pracy:
 

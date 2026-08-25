@@ -131,6 +131,30 @@ LAYOUT:
 9. Pasmo CTA tuż przed stopką: "Awaria elektryczna? Jesteśmy pod telefonem" + przycisk.
 10. Stopka ciemna, dane kontaktowe + linki.`
   },
+  {
+    id: 'elektryk-2-szybka-interwencja',
+    tier: 'pro',
+    name: 'Szybka interwencja 24h',
+    visual: `STYL: „Szybka interwencja 24h" — pilny, wysoki kontrast, budowany wokół natychmiastowego telefonu. Odróżnij się od wariantu 1 (bez fotograficznego hero, bez siatki kart usług ze zdjęciami) i od odpowiednika w branży Hydraulik (inna paleta, inna typografia, siatka zagrożeń jako DUŻE IKONY, nie zdjęcia w tle, sekcja zaufania jako pozioma listwa certyfikacji zamiast splitu tekst+zdjęcie).
+PALETA (jako zmienne CSS): --bg biały dla sekcji treściowych ale --text bardzo ciemny prawie czarny grafit używany jako tło hero/paska alarmowego, --accent pomarańcz bezpieczeństwa/hi-vis (np. #ff5a1f — NIE bursztynowy żółty wariantu 1, NIE czerwień), --accent-dark spalona rdzawa pomarańcz (np. #b8390a).
+TYPOGRAFIA (jako zmienne CSS): nagłówki wąski, techniczny, „alarmowy" font (np. Barlow Condensed/Oswald, wersaliki), tekst czytelny sans inny niż w wariancie 1 (np. Work Sans zamiast Inter).
+
+PRAWDZIWE ZDJĘCIA — TODO (dobrane, zweryfikowane wizualnie):
+- Sekcja BEZPIECZEŃSTWO/ZAUFANIE, jedyne zdjęcie na stronie: elektryk mierzący napięcie multimetrem przy otwartej rozdzielnicy, ostre skupienie, ręce z sondami pomiarowymi — https://images.pexels.com/photos/34054464/pexels-photo-34054464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Reszta strony (hero, siatka zagrożeń) świadomie BEZ zdjęć — duże emoji/ikony zamiast fotografii, żeby różnić się strukturalnie od wariantu 1 i szybko skanować się wzrokiem w sytuacji awaryjnej.
+
+LAYOUT:
+1. Pulsujący pasek alarmowy nad nawigacją, tło var(--accent): "⚡ Porażenie prądem, iskrzenie, pożar instalacji? Dzwoń natychmiast: {{TELEFON}}".
+2. Sticky nav CIEMNA (var(--text) jako tło, nie biała jak wariant 1): logo + skrócone linki (Zagrożenia / Bezpieczeństwo / FAQ / Kontakt) + przycisk telefonu zwinięty do samej ikony poniżej 700px.
+3. Hero BEZ zdjęcia w tle: ciemne tło (var(--text)) + subtelny radial-gradient akcentu jak elektryczna poświata, tag lokalizacji nad ogromnym klikalnym numerem telefonu (duża czcionka jak w hero-phone), pod numerem jednozdaniowy nagłówek pilności, jeden przycisk CTA "Zadzwoń teraz".
+4. Pasek 3 liczbowych odznak pod hero (jasne tło): średni czas dojazdu / dostępność 24/7/365 / bezpłatna wycena telefoniczna.
+5. Sekcja ZAGROŻENIA: siatka 6 kafli z DUŻĄ IKONĄ/EMOJI (nie zdjęciem) + krótką etykietą: Porażenie prądem, Pożar instalacji / zwarcie, Iskrzenie gniazdka, Brak prądu w całym domu, Uszkodzony licznik/rozdzielnica, Zapach spalenizny z instalacji. Kafle na ciemnym tle z akcentowym obramowaniem, hover unoszący.
+6. Sekcja BEZPIECZEŃSTWO: pozioma listwa 4 odznak (nie split 2-kolumnowy jak w wariancie 1) — Uprawnienia SEP / Ubezpieczenie OC / Zgodność z normami PPOŻ / Ekipa w gotowości 24/7 — każda duża ikona + krótki opis; obok/pod listwą jedyne zdjęcie strony (patrz PRAWDZIWE ZDJĘCIA).
+7. Sekcja FAQ — accordion, jak w pozostałych wariantach.
+8. Kontakt: pasek ostrzegawczy na górze sekcji ("Nie dotykaj uszkodzonej instalacji — zadzwoń, nie naprawiaj samodzielnie"), formularz (telefon + krótki opis zagrożenia) obok danych kontaktowych, mapa dojazdu pod spodem (patrz WYMÓG — MAPA DOJAZDU).
+9. Pasmo CTA przed stopką z akcentowym tłem, powtórzone wezwanie do dzwonienia.
+10. Stopka ciemna, prosta: telefon + adres + 2 linki (krótsza niż w wariancie 1, jak w archetypie „szybka interwencja").`
+  },
 ];
 
 async function callClaude(system, userPrompt) {
