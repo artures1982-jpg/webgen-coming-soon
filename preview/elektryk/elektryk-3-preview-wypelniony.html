@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElektroMax — Elektryk Kraków | Wycena online | tel. 500 123 456</title>
+<meta name="description" content="ElektroMax — elektryk w mieście Kraków z wyceną online. Zgłoś usterkę przez formularz, wycenę dostaniesz zwykle w 15 minut. Tel. 500 123 456">
+<meta name="keywords" content="Elektryk Kraków, wycena elektryka online">
+<link rel="canonical" href="https://elektromax-krakow.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ElektroMax — Elektryk Kraków online">
+<meta property="og:description" content="ElektroMax — zgłoś usterkę elektryczną online w mieście Kraków, wycena zwykle w 15 minut.">
+<meta property="og:url" content="https://elektromax-krakow.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"ElektroMax","telephone":"500 123 456","email":"kontakt@elektromax.pl","description":"ElektroMax — Elektryk w mieście Kraków z wyceną online","address":{"@type":"PostalAddress","addressLocality":"Kraków","addressCountry":"PL"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#7c5cff;
+    --accent-dark:#5233c4;
+    --bg:#0d0a1a;
+    --surface:#171029;
+    --text:#f3f0ff;
+    --muted:#9a91b8;
+    --head:'Sora', sans-serif;
+    --body:'Inter', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--body);
+    color:var(--text);
+    background:var(--bg);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3,h4{font-family:var(--head);line-height:1.15;font-weight:700;}
+  section{padding:5.5rem 1.5rem;}
+  .wrap{max-width:1160px;margin:0 auto;}
+  .center{text-align:center;}
+  .eyebrow{
+    display:inline-block;font-family:var(--body);font-weight:700;font-size:.78rem;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.7rem;
+  }
+  h2{font-size:clamp(1.7rem,3.2vw,2.4rem);margin-bottom:1rem;color:var(--text);}
+  .lead{color:var(--muted);font-size:1.02rem;max-width:600px;}
+  .center .lead{margin:0 auto;}
+  .btn{
+    display:inline-flex;align-items:center;gap:.5rem;padding:.95rem 1.7rem;border-radius:.6rem;
+    font-weight:700;font-family:var(--body);font-size:.98rem;border:1px solid transparent;
+    cursor:pointer;transition:transform .15s ease, box-shadow .2s ease, background .2s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--accent);color:var(--bg);}
+  .btn-primary:hover{box-shadow:0 0 0 4px color-mix(in srgb, var(--accent) 25%, transparent);}
+  .btn-outline{border-color:color-mix(in srgb, var(--text) 25%, transparent);color:var(--text);background:transparent;}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+
+  header.nav{
+    position:sticky;top:0;z-index:50;background:transparent;
+    transition:background .3s ease, backdrop-filter .3s ease, border-color .3s ease;
+    border-bottom:1px solid transparent;
+  }
+  header.nav.scrolled{
+    background:color-mix(in srgb, var(--bg) 78%, transparent);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  }
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.5rem;}
+  .logo{font-family:var(--head);font-weight:700;font-size:1.25rem;color:var(--text);}
+  .logo span{color:var(--accent);}
+  .nav-links{display:flex;gap:1.6rem;align-items:center;}
+  .nav-links a{font-weight:600;font-size:.9rem;color:color-mix(in srgb, var(--text) 85%, transparent);}
+  .nav-links a:hover{color:var(--accent);}
+  .nav-actions{display:flex;align-items:center;gap:.8rem;}
+  .nav-phone{
+    width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    border:1px solid color-mix(in srgb, var(--text) 22%, transparent);font-size:1.1rem;flex-shrink:0;
+  }
+  .nav-phone:hover{border-color:var(--accent);color:var(--accent);}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;}
+  .nav-toggle span{width:24px;height:2px;background:var(--text);}
+
+  .hero{
+    position:relative;min-height:94vh;display:flex;align-items:center;overflow:hidden;
+    padding-top:6rem;padding-bottom:4rem;
+  }
+  .hero-bg{position:absolute;inset:0;z-index:0;background:url('https://images.pexels.com/photos/31996522/pexels-photo-31996522.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940') center/cover no-repeat;}
+  .hero-overlay{
+    position:absolute;inset:0;z-index:1;
+    background:
+      linear-gradient(100deg, color-mix(in srgb, var(--bg) 82%, transparent) 0%, color-mix(in srgb, var(--bg) 40%, transparent) 55%, color-mix(in srgb, var(--bg) 20%, transparent) 100%),
+      radial-gradient(circle at 15% 85%, color-mix(in srgb, var(--accent) 25%, transparent), transparent 55%);
+  }
+  .hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr .9fr;gap:3.5rem;align-items:center;}
+  .hero-copy h1{font-size:clamp(2.1rem,4.4vw,3.2rem);margin-bottom:1.2rem;}
+  .grad-text{background:linear-gradient(120deg, var(--accent), color-mix(in srgb, var(--accent) 45%, white));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .hero-copy p{color:color-mix(in srgb, var(--text) 85%, transparent);font-size:1.08rem;max-width:520px;margin-bottom:1.8rem;}
+  .hero-badges{display:flex;flex-wrap:wrap;gap:1.4rem;font-size:.85rem;color:color-mix(in srgb, var(--text) 72%, transparent);font-weight:600;}
+  .hero-badges span{display:flex;align-items:center;gap:.4rem;}
+
+  .glass{
+    background:color-mix(in srgb, var(--surface) 62%, transparent);
+    border:1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+    backdrop-filter:blur(16px);
+    border-radius:1.1rem;
+  }
+  .quote-card{padding:1.8rem;}
+  .quote-card h3{font-size:1.15rem;margin-bottom:.3rem;}
+  .quote-card .lead{font-size:.9rem;margin-bottom:1.2rem;}
+  .quote-form label{display:block;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:color-mix(in srgb, var(--text) 75%, transparent);margin-bottom:.5rem;margin-top:1rem;}
+  .quote-form label:first-child{margin-top:0;}
+  .quote-form input{
+    width:100%;padding:.75rem .9rem;border-radius:.5rem;
+    border:1px solid color-mix(in srgb, var(--text) 22%, transparent);
+    background:color-mix(in srgb, var(--bg) 55%, transparent);color:var(--text);
+    font-family:var(--body);font-size:.92rem;
+  }
+  .pill-group{display:flex;flex-wrap:wrap;gap:.5rem;}
+  .pill-group input{position:absolute;opacity:0;width:1px;height:1px;}
+  .pill-group label{
+    display:inline-flex;align-items:center;margin:0;padding:.5rem .9rem;border-radius:2rem;
+    border:1px solid color-mix(in srgb, var(--text) 22%, transparent);
+    font-size:.82rem;font-weight:600;text-transform:none;letter-spacing:0;
+    color:color-mix(in srgb, var(--text) 82%, transparent);cursor:pointer;transition:all .15s ease;
+  }
+  .pill-group input:checked + label{background:var(--accent);border-color:var(--accent);color:var(--bg);}
+  .quote-form button{width:100%;justify-content:center;margin-top:1.4rem;}
+
+  .stats-strip{background:var(--surface);border-top:1px solid color-mix(in srgb, var(--text) 8%, transparent);border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+  .stats-inner{display:grid;grid-template-columns:1.1fr repeat(3,1fr);gap:2rem;align-items:center;}
+  .stats-inner .lead{max-width:none;}
+  .stat b{display:block;font-family:var(--head);font-weight:700;font-size:2rem;color:var(--accent);}
+  .stat span{font-size:.85rem;color:var(--muted);font-weight:600;}
+
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;margin-top:2.8rem;}
+  .service-card{border-radius:1.1rem;overflow:hidden;transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease;}
+  .service-card:hover{transform:translateY(-6px);border-color:color-mix(in srgb, var(--accent) 55%, transparent);box-shadow:0 0 32px color-mix(in srgb, var(--accent) 22%, transparent);}
+  .service-photo{width:100%;height:170px;object-fit:cover;display:block;}
+  .service-icon{
+    width:100%;height:170px;display:flex;align-items:center;justify-content:center;font-size:3rem;
+    background:radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 70%);
+  }
+  .service-body{padding:1.3rem 1.4rem 1.5rem;}
+  .service-body h3{font-size:1.05rem;margin-bottom:.4rem;}
+  .service-body p{font-size:.88rem;color:var(--muted);}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;margin-top:2.8rem;}
+  .step{position:relative;padding:2rem 1.4rem 1.6rem;}
+  .step .n{
+    font-family:var(--head);font-weight:700;font-size:2.4rem;color:color-mix(in srgb, var(--accent) 40%, transparent);
+    margin-bottom:.6rem;
+  }
+  .step h3{font-size:1.05rem;margin-bottom:.4rem;}
+  .step p{font-size:.88rem;color:var(--muted);}
+
+  .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.8rem;}
+  .review-card{padding:1.6rem;}
+  .review-card .stars{color:var(--accent);letter-spacing:.15em;margin-bottom:.8rem;font-size:1rem;}
+  .review-card p{font-size:.92rem;color:color-mix(in srgb, var(--text) 88%, transparent);margin-bottom:1rem;}
+  .review-who{display:flex;align-items:center;gap:.7rem;}
+  .review-who .avatar{
+    width:38px;height:38px;border-radius:50%;background:color-mix(in srgb, var(--accent) 20%, transparent);
+    color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;
+  }
+  .review-who .name{font-size:.85rem;font-weight:600;color:var(--muted);}
+
+  .faq-list{max-width:820px;margin:2.8rem auto 0;display:flex;flex-direction:column;gap:.7rem;}
+  details{padding:1.1rem 1.4rem;}
+  details summary{cursor:pointer;font-weight:700;font-family:var(--head);font-size:.98rem;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{content:"+";font-size:1.4rem;color:var(--accent);flex-shrink:0;}
+  details[open] summary::after{content:"–";}
+  details p{color:var(--muted);margin-top:.8rem;font-size:.9rem;}
+
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem;margin-top:2.8rem;}
+  .why-item{padding:1.6rem 1.3rem;text-align:center;}
+  .why-item .icon{
+    width:54px;height:54px;border-radius:50%;margin:0 auto .9rem;display:flex;align-items:center;justify-content:center;
+    font-size:1.4rem;background:color-mix(in srgb, var(--accent) 18%, transparent);color:var(--accent);
+  }
+  .why-item h3{font-size:.98rem;margin-bottom:.4rem;}
+  .why-item p{font-size:.85rem;color:var(--muted);}
+
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-top:2.8rem;}
+  .contact-info{padding:1.8rem;}
+  .contact-info ul{display:flex;flex-direction:column;gap:.9rem;}
+  .contact-info li{font-size:.92rem;color:color-mix(in srgb, var(--text) 90%, transparent);display:flex;gap:.6rem;}
+  .contact-info li b{color:var(--muted);font-weight:700;min-width:90px;display:inline-block;text-transform:uppercase;font-size:.76rem;letter-spacing:.03em;}
+  .contact-form{padding:1.8rem;}
+  .contact-form label{display:block;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:color-mix(in srgb, var(--text) 75%, transparent);margin-bottom:.5rem;margin-top:1rem;}
+  .contact-form label:first-child{margin-top:0;}
+  .contact-form input, .contact-form textarea{
+    width:100%;padding:.75rem .9rem;border-radius:.5rem;
+    border:1px solid color-mix(in srgb, var(--text) 22%, transparent);
+    background:color-mix(in srgb, var(--bg) 55%, transparent);color:var(--text);
+    font-family:var(--body);font-size:.92rem;
+  }
+  .contact-form textarea{resize:vertical;min-height:80px;}
+  .contact-form button{width:100%;justify-content:center;margin-top:1.3rem;}
+  .map-wrap{margin-top:1.6rem;}
+  .map-embed{width:100%;height:320px;border-radius:1.1rem;overflow:hidden;border:1px solid color-mix(in srgb, var(--accent) 22%, transparent);}
+  .map-caption{margin-top:.7rem;font-size:.84rem;color:var(--muted);text-align:center;}
+
+  .cta-band{
+    text-align:center;
+    background:
+      radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 60%),
+      var(--surface);
+    border-top:1px solid color-mix(in srgb, var(--text) 8%, transparent);
+    border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  }
+  .cta-band .lead{margin:0 auto 1.8rem;}
+
+  footer{background:var(--bg);padding:3.5rem 1.5rem 2rem;position:relative;}
+  footer::before{
+    content:"";display:block;height:1px;max-width:1160px;margin:0 auto 3rem;
+    background:linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 45%, transparent), transparent);
+  }
+  .footer-grid{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2.5rem;padding-bottom:2.2rem;}
+  footer h4{font-family:var(--head);color:var(--text);font-size:.95rem;margin-bottom:1rem;}
+  .footer-logo{font-family:var(--head);font-weight:700;font-size:1.2rem;color:var(--text);margin-bottom:.8rem;}
+  footer p{font-size:.88rem;color:var(--muted);}
+  .footer-links li{margin-bottom:.6rem;font-size:.88rem;color:var(--muted);}
+  .footer-links a:hover{color:var(--accent);}
+  .footer-social{display:flex;gap:.8rem;}
+  .footer-social a{
+    width:36px;height:36px;border-radius:50%;border:1px solid color-mix(in srgb, var(--text) 18%, transparent);
+    display:flex;align-items:center;justify-content:center;font-size:.9rem;
+  }
+  .footer-social a:hover{border-color:var(--accent);color:var(--accent);}
+  .footer-bottom{max-width:1160px;margin:1.8rem auto 0;font-size:.78rem;color:color-mix(in srgb, var(--text) 40%, transparent);text-align:center;border-top:1px solid color-mix(in srgb, var(--text) 8%, transparent);padding-top:1.4rem;}
+
+  @media (max-width:960px){
+    .hero-grid{grid-template-columns:1fr;}
+    .stats-inner{grid-template-columns:1fr;text-align:center;gap:1.2rem;}
+    .services-grid{grid-template-columns:repeat(2,1fr);}
+    .steps{grid-template-columns:1fr;}
+    .reviews-grid{grid-template-columns:1fr;}
+    .why-grid{grid-template-columns:repeat(2,1fr);}
+    .contact-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:700px){
+    .nav .wrap{padding:.9rem 1.1rem;}
+    .nav-links{position:absolute;top:100%;left:0;right:0;background:color-mix(in srgb, var(--bg) 96%, transparent);backdrop-filter:blur(14px);flex-direction:column;align-items:flex-start;padding:1.2rem 1.5rem;border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);display:none;}
+    .nav-links.open{display:flex;}
+    .nav-toggle{display:flex;flex-shrink:0;}
+    .logo{font-size:1.05rem;flex-shrink:0;}
+    .nav-actions{gap:.5rem;}
+    .nav-actions .btn-primary{padding:.6rem 1rem;font-size:.82rem;white-space:nowrap;flex-shrink:0;}
+    .nav-phone{width:38px;height:38px;font-size:1rem;flex-shrink:0;}
+    .services-grid{grid-template-columns:1fr;}
+    .why-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    section{padding:3.5rem 1.2rem;}
+  }
+  @media (max-width:480px){
+    .nav .wrap{padding:.75rem .85rem;overflow-x:auto;}
+    .logo{font-size:.95rem;}
+    .nav-actions{gap:.4rem;}
+    .nav-actions .btn-primary{padding:.5rem .8rem;font-size:.74rem;}
+    .nav-phone{width:34px;height:34px;font-size:.92rem;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav" id="siteNav">
+  <div class="wrap">
+    <a href="#" class="logo">ElektroMax<span>.</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#uslugi">Usługi</a>
+      <a href="#jak-to-dziala">Jak to działa</a>
+      <a href="#opinie">Opinie</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#wycena" class="btn btn-primary">Wyceń online</a>
+      <a href="tel:500 123 456" class="nav-phone" aria-label="Zadzwoń: 500 123 456">📞</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu nawigacji">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Elektryk Kraków — online</span>
+      <h1>ElektroMax — <span class="grad-text">wycena elektryka</span> bez czekania na oddzwonienie</h1>
+      <p>Opisz usterkę w formularzu, a wycenę i proponowany termin dostaniesz zwykle w ciągu 15 minut. Bez kolejki telefonicznej — cały proces ogarniesz z telefonu.</p>
+      <div class="hero-badges">
+        <span>⏱️ Odpowiedź w ~15 min</span>
+        <span>📍 Kraków i okolice</span>
+        <span>🔒 Zero zobowiązań</span>
+      </div>
+    </div>
+    <div class="glass quote-card" id="wycena">
+      <h3>Sprawdź wycenę online</h3>
+      <p class="lead">Kilka pól, zero rozmowy z konsultantem — odpiszemy z wyceną i terminem, zwykle w kwadrans.</p>
+      <form class="quote-form" id="quoteForm">
+        <label for="qname">Imię</label>
+        <input type="text" id="qname" name="qname" placeholder="Jan Kowalski" required>
+
+        <label for="qphone">Telefon</label>
+        <input type="tel" id="qphone" name="qphone" placeholder="500 123 456" required>
+
+        <label>Rodzaj usterki</label>
+        <div class="pill-group">
+          <input type="radio" id="t1" name="qtype" value="Awaria" checked><label for="t1">Awaria</label>
+          <input type="radio" id="t2" name="qtype" value="Instalacja"><label for="t2">Instalacja</label>
+          <input type="radio" id="t3" name="qtype" value="Smart home"><label for="t3">Smart home</label>
+          <input type="radio" id="t4" name="qtype" value="Fotowoltaika"><label for="t4">Fotowoltaika</label>
+          <input type="radio" id="t5" name="qtype" value="Przegląd"><label for="t5">Przegląd</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Wyślij zapytanie o wycenę</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="stats-strip">
+  <div class="wrap stats-inner">
+    <div>
+      <span class="eyebrow">O firmie</span>
+      <p class="lead">ElektroMax działa jak cyfrowy serwis, nie tradycyjny zakład rzemieślniczy — zero numerka w kolejce, zero czekania na oddzwonienie. Zgłoszenie, wycenę i termin ogarniasz z telefonu w kilka minut.</p>
+    </div>
+    <div class="stat"><b>7 lat</b><span>doświadczenia w branży</span></div>
+    <div class="stat"><b>900+</b><span>wycen online</span></div>
+    <div class="stat"><b>4.9/5</b><span>ocena klientów</span></div>
+  </div>
+</section>
+
+<section id="uslugi">
+  <div class="wrap">
+    <span class="eyebrow">Nasza oferta</span>
+    <h2>Usługi elektryczne — Kraków</h2>
+    <p class="lead">Kategorie w formularzu wyceny odpowiadają kartom poniżej — wybierz swoją albo przewiń dalej po szczegóły.</p>
+    <div class="services-grid">
+      <div class="service-card glass">
+        <img class="service-photo" src="https://images.pexels.com/photos/27928761/pexels-photo-27928761.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650" alt="Elektryk naprawiający otwartą szafę sterowniczą" width="650" height="500" loading="lazy">
+        <div class="service-body">
+          <h3>Awarie i naprawy</h3>
+          <p>Zwarcia, przerwy w obwodach, nagłe usterki — zgłaszasz online, wycenę dostajesz bez rozmowy telefonicznej.</p>
+        </div>
+      </div>
+      <div class="service-card glass">
+        <img class="service-photo" src="https://images.pexels.com/photos/28950842/pexels-photo-28950842.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650" alt="Uporządkowana rozdzielnica z kolorowymi przewodami" width="650" height="500" loading="lazy">
+        <div class="service-body">
+          <h3>Instalacje elektryczne</h3>
+          <p>Nowa instalacja od podstaw albo modernizacja starej — projekt, montaż i odbiór zgodny z normami.</p>
+        </div>
+      </div>
+      <div class="service-card glass">
+        <img class="service-photo" src="https://images.pexels.com/photos/22307556/pexels-photo-22307556.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650" alt="Urządzenia inteligentnego domu — kamera, czujnik, telefon" width="650" height="500" loading="lazy">
+        <div class="service-body">
+          <h3>Inteligentne systemy</h3>
+          <p>Oświetlenie, czujniki i sterowanie domem z poziomu aplikacji — konfigurujemy tak, żeby działało od razu.</p>
+        </div>
+      </div>
+      <div class="service-card glass">
+        <img class="service-photo" src="https://images.pexels.com/photos/9875418/pexels-photo-9875418.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650" alt="Montaż panelu fotowoltaicznego na dachu" width="650" height="500" loading="lazy">
+        <div class="service-body">
+          <h3>Instalacje fotowoltaiczne</h3>
+          <p>Projekt, montaż i uruchomienie instalacji PV wraz z formalnościami zgłoszeniowymi.</p>
+        </div>
+      </div>
+      <div class="service-card glass">
+        <div class="service-icon">📏</div>
+        <div class="service-body">
+          <h3>Przeglądy i pomiary</h3>
+          <p>Okresowe pomiary skuteczności ochrony przeciwporażeniowej i stanu instalacji.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="jak-to-dziala" style="background:var(--surface);">
+  <div class="wrap center">
+    <span class="eyebrow">Proces</span>
+    <h2>Jak to działa</h2>
+    <p class="lead" style="margin:0 auto;">Zero gry w kotka i myszkę z infolinią — cały proces zamknięty online, od zgłoszenia po fakturę.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="n">01</div>
+        <h3>Opisz usterkę online</h3>
+        <p>Wybierz rodzaj usterki jako pigułkę w formularzu i dodaj krótki opis — szybciej niż rozmowa z konsultantem.</p>
+      </div>
+      <div class="step">
+        <div class="n">02</div>
+        <h3>Wycena i termin tego samego dnia</h3>
+        <p>Orientacyjna kwota i proponowany termin dojazdu lądują na Twoim telefonie — nie musisz niczego odbierać ani przełączać rozmów.</p>
+      </div>
+      <div class="step">
+        <div class="n">03</div>
+        <h3>Elektryk z uprawnieniami SEP u Ciebie</h3>
+        <p>Po Twojej akceptacji wyceny ekipa dociera na miejsce i usuwa usterkę zgodnie z obowiązującymi normami.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="opinie">
+  <div class="wrap center">
+    <span class="eyebrow">Opinie klientów</span>
+    <h2>Opinie po zgłoszeniach online — Kraków</h2>
+    <div class="reviews-grid" style="text-align:left;">
+      <div class="review-card glass">
+        <div class="stars">★★★★★</div>
+        <p>„Formularz wypełniłam wieczorem, rano miałam już wycenę i termin na SMS-ie. Zero telefonów, zero czekania na oddzwonienie.”</p>
+        <div class="review-who"><span class="avatar">A.</span><span class="name">Anna, Kraków</span></div>
+      </div>
+      <div class="review-card glass">
+        <div class="stars">★★★★★</div>
+        <p>„Nie musiałem nigdzie dzwonić — cały proces, od zgłoszenia po płatność, ogarnąłem z telefonu w przerwie na kawę.”</p>
+        <div class="review-who"><span class="avatar">T.</span><span class="name">Tomasz, Kraków</span></div>
+      </div>
+      <div class="review-card glass">
+        <div class="stars">★★★★★</div>
+        <p>„Wycena przyszła na maila, zanim ktokolwiek wyjechał w trasę. Konkretna kwota, żadnych niespodzianek na miejscu.”</p>
+        <div class="review-who"><span class="avatar">M.</span><span class="name">Magda, Kraków</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="background:var(--surface);">
+  <div class="wrap center">
+    <span class="eyebrow">Pytania i odpowiedzi</span>
+    <h2>Najczęstsze pytania — Elektryk Kraków</h2>
+    <div class="faq-list" style="text-align:left;">
+      <details class="glass" open>
+        <summary>Czy wycena online jest wiążąca?</summary>
+        <p>Nie — to szacunek na podstawie tego, co opiszesz w formularzu. Ostateczną kwotę potwierdzamy dopiero po obejrzeniu usterki na miejscu, zanim ktokolwiek weźmie do ręki narzędzia.</p>
+      </details>
+      <details class="glass">
+        <summary>Jak szybko dostanę odpowiedź na zgłoszenie?</summary>
+        <p>Formularz trafia do nas od razu, a odpowiedź z wyceną i proponowanym terminem wysyłamy SMS-em lub mailem — zwykle nie czekasz dłużej niż kwadrans.</p>
+      </details>
+      <details class="glass">
+        <summary>Czy mogę zamiast formularza po prostu zadzwonić?</summary>
+        <p>Oczywiście, telefon nigdzie nie zniknął — zadzwoń pod 500 123 456. Formularz po prostu omija kolejkę i działa też po godzinach pracy biura.</p>
+      </details>
+      <details class="glass">
+        <summary>Czy naprawa ma gwarancję?</summary>
+        <p>Tak — każda naprawa i zamontowany element mają gwarancję. Jej długość widzisz od razu w wycenie, jeszcze zanim ją zaakceptujesz.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section id="dlaczego-my">
+  <div class="wrap center">
+    <span class="eyebrow">Dlaczego my</span>
+    <h2>Cyfrowo, ale z realnymi uprawnieniami</h2>
+    <div class="why-grid">
+      <div class="why-item glass">
+        <div class="icon">🛡️</div>
+        <h3>Uprawnienia SEP</h3>
+        <p>Aktualne uprawnienia do prac przy urządzeniach i instalacjach elektrycznych.</p>
+      </div>
+      <div class="why-item glass">
+        <div class="icon">⚡</div>
+        <h3>Wycena online w 15 minut</h3>
+        <p>Bez kolejki telefonicznej — odpowiedź na zgłoszenie zwykle w kwadrans.</p>
+      </div>
+      <div class="why-item glass">
+        <div class="icon">✅</div>
+        <h3>Gwarancja na usługę</h3>
+        <p>Każda naprawa i zamontowany element objęte są gwarancją.</p>
+      </div>
+      <div class="why-item glass">
+        <div class="icon">💳</div>
+        <h3>Płatność online po odbiorze</h3>
+        <p>Płacisz dopiero po wykonaniu i odbiorze usługi, wygodnie online.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt">
+  <div class="wrap">
+    <span class="eyebrow">Kontakt</span>
+    <h2>Formularz to nie jedyna droga</h2>
+    <p class="lead">Telefon i e-mail działają tak samo jak zawsze — obok formularza wyceny, nie zamiast niego.</p>
+    <div class="contact-grid">
+      <div class="contact-info glass">
+        <ul>
+          <li><b>Telefon</b> <a href="tel:500 123 456">500 123 456</a></li>
+          <li><b>E-mail</b> <a href="mailto:kontakt@elektromax.pl">kontakt@elektromax.pl</a></li>
+          <li><b>Adres</b> ul. Przykładowa 12, Kraków</li>
+          <li><b>Pon–Pt</b> 7:00 - 20:00</li>
+          <li><b>Sobota</b> 8:00 - 14:00</li>
+        </ul>
+      </div>
+      <form class="contact-form glass" id="contactForm">
+        <label for="cname">Imię</label>
+        <input type="text" id="cname" name="cname" placeholder="Jan Kowalski" required>
+
+        <label for="cphone">Telefon</label>
+        <input type="tel" id="cphone" name="cphone" placeholder="500 123 456" required>
+
+        <label for="cmessage">Wiadomość</label>
+        <textarea id="cmessage" name="cmessage" placeholder="Opisz krótko, w czym możemy pomóc..." required></textarea>
+
+        <button type="submit" class="btn btn-primary">Wyślij wiadomość</button>
+      </form>
+    </div>
+    <div class="map-wrap">
+      <iframe class="map-embed" src="https://www.google.com/maps?q=ul. Przykładowa 12, Kraków&output=embed" title="Mapa dojazdu do ElektroMax w mieście Kraków" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;"></iframe>
+      <p class="map-caption">Mapa dojazdu — ul. Przykładowa 12, Kraków</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap center">
+    <h2>Zero telefonu, zero czekania — gotowy?</h2>
+    <p class="lead">Wypełnienie formularza zajmuje mniej czasu niż rozmowa z konsultantem infolinii.</p>
+    <a href="#wycena" class="btn btn-primary">Wyceń online</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">ElektroMax</div>
+      <p>Cyfrowy elektryk w mieście Kraków — zgłaszasz usterkę z telefonu, resztą zajmujemy się my, bez kolejki i bez oddzwaniania.</p>
+      <div class="footer-social" style="margin-top:1.2rem;">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Instagram">ig</a>
+      </div>
+    </div>
+    <div>
+      <h4>Nawigacja</h4>
+      <ul class="footer-links">
+        <li><a href="#uslugi">Usługi</a></li>
+        <li><a href="#opinie">Opinie</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Kontakt</h4>
+      <ul class="footer-links">
+        <li><a href="tel:500 123 456">500 123 456</a></li>
+        <li><a href="mailto:kontakt@elektromax.pl">kontakt@elektromax.pl</a></li>
+        <li>ul. Przykładowa 12, Kraków</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © <span id="year"></span> ElektroMax — Elektryk Kraków.
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const nav = document.getElementById('siteNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  const quoteForm = document.getElementById('quoteForm');
+  quoteForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    quoteForm.innerHTML = '<p style="font-weight:700;color:var(--accent);">Dziękujemy! Zapytanie zostało przygotowane do wysyłki — odezwiemy się z wyceną. W pilnych sprawach zadzwoń: <a href="tel:500 123 456">500 123 456</a>.</p>';
+  });
+
+  const contactForm = document.getElementById('contactForm');
+  contactForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    contactForm.innerHTML = '<p style="font-weight:700;color:var(--accent);">Dziękujemy! Wiadomość została przygotowana do wysyłki. W pilnych sprawach zadzwoń: <a href="tel:500 123 456">500 123 456</a>.</p>';
+  });
+</script>
+
+</body>
+</html>

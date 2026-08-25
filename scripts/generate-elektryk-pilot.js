@@ -155,6 +155,75 @@ LAYOUT:
 9. Pasmo CTA przed stopką z akcentowym tłem, powtórzone wezwanie do dzwonienia.
 10. Stopka ciemna, prosta: telefon + adres + 2 linki (krótsza niż w wariancie 1, jak w archetypie „szybka interwencja").`
   },
+  {
+    id: 'elektryk-3-nowoczesny-cyfrowy',
+    tier: 'pro',
+    name: 'Nowoczesny cyfrowy',
+    visual: `STYL: ciemny motyw, cyfrowy, "startup lokalny" — formularz wyceny online jako główne CTA zamiast telefonu. Odróżnij się od wariantu 1 (jasny, ciepły, telefon jako CTA) i wariantu 2 (alarmowy, hi-vis pomarańcz, siatka ikon zagrożeń) oraz od odpowiednika w branży Hydraulik (inna paleta — niebiesko-fioletowy neon zamiast turkusu, inne kategorie usług, inne zdjęcia).
+PALETA (jako zmienne CSS): --bg ciemny grafitowo-fioletowy (odrobinę chłodniejszy niż niebieski hydraulika, np. w stronę indygo), --surface odrobinę jaśniejszy od --bg, --accent nasycony elektryczny fiolet/indygo neon (np. #7c5cff — wyraźnie inny od turkusu hydraulika i od bursztynu/pomarańczu wariantów 1-2 tej branży), --accent-dark ciemniejsza pochodna do hover, --text jasny (prawie biały).
+TYPOGRAFIA (jako zmienne CSS): nagłówki geometryczny sans o dużej wadze — Sora (NIE Space Grotesk —
+tego fontu już realnie używa hydraulik-3-nowoczesny-cyfrowy, dwa ciemne warianty "Nowoczesny cyfrowy"
+w różnych branżach nie powinny mieć identycznego font-pairingu), tekst neutralny sans (np. Inter) —
+inny font-pairing niż warianty 1 (Bricolage/Inter) i 2 (Barlow Condensed/Work Sans).
+
+PRAWDZIWE ZDJĘCIA (Pexels, wyselekcjonowane ręcznie i wizualnie zweryfikowane — użyj DOKŁADNIE
+tych URL-i jako background-image/<img> z object-fit:cover; to NIE jest opcjonalne — ciemny/neonowy
+styl nie zwalnia z wymogu prawdziwej fotografii, strona NIE MOŻE opierać się wyłącznie na
+gradientach/glassmorphism bez żadnego zdjęcia):
+- HERO: zdjęcie w tle CAŁEJ sekcji hero (nie tylko jednej kolumny) — makro ciemnych analogowych
+  woltomierzy w rzędzie, mocno klimatyczne, z rozmytymi fioletowo-różowymi światłami bokeh w tle:
+  https://images.pexels.com/photos/31996522/pexels-photo-31996522.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+  — zdjęcie jest już samo w sobie ciemne, więc gradient-overlay może być lżejszy niż zwykle (np.
+  linear-gradient z var(--bg) tylko przy dolnej/lewej krawędzi dla czytelności tekstu) — NIE
+  przyciemniaj go tak mocno, żeby zdjęcie przestało być widoczne (sprawdź to wizualnie).
+- Karta USŁUGA "Awarie i naprawy elektryczne" (glassmorphism, zdjęcie jako górna część karty):
+  elektryk w bluzie roboczej naprawiający otwartą szafę sterowniczą żółtym wkrętakiem akumulatorowym:
+  https://images.pexels.com/photos/27928761/pexels-photo-27928761.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650
+- Karta USŁUGA "Instalacje elektryczne": zbliżenie na uporządkowaną rozdzielnicę z kolorowymi
+  przewodami (czerwony/żółty/niebieski) i rzędem wyłączników nadprądowych:
+  https://images.pexels.com/photos/28950842/pexels-photo-28950842.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650
+- Karta USŁUGA "Inteligentne systemy i automatyka domowa" (różnicuje ten wariant od wariantu 1 —
+  tej kategorii tam nie ma): kamera IP, czujnik i telefon jako urządzenia smart home na ciemnym tle:
+  https://images.pexels.com/photos/22307556/pexels-photo-22307556.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650
+- Karta USŁUGA "Instalacje fotowoltaiczne": mężczyzna montujący panel słoneczny na dachu:
+  https://images.pexels.com/photos/9875418/pexels-photo-9875418.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650
+- Karta USŁUGA "Przeglądy i pomiary instalacji": BRAK dobrego zdjęcia bez obcojęzycznych napisów/
+  cudzych marek na sprzęcie (sprawdzone wielokrotnie) — zostaw tę jedną kartę z samą dużą ikoną/
+  emoji zamiast zdjęcia, tak jak resztę struktury karty (ten sam wzorzec co "Rozdzielnice i
+  zabezpieczenia" w wariancie 1, ale tu dotyczy innej kategorii — celowa odmienność).
+
+LAYOUT:
+1. Sticky nav z przezroczystym tłem + blur po przescrollowaniu (backdrop-filter). Główny przycisk
+   nav-actions to "Wyceń online" (kotwica do formularza) — spójne z tezą wariantu, że formularz
+   zastępuje telefon jako CTA; telefon obok jako drugorzędna, ZAWSZE samo-ikonowa okrągła kapsułka
+   (nie tylko <700px, w odróżnieniu od wariantów 1-2 gdzie telefon jest głównym CTA nav).
+2. Hero: zdjęcie tła z listy powyżej na całej sekcji (patrz PRAWDZIWE ZDJĘCIA), na nim 2 kolumny —
+   lewo nagłówek z fragmentem tekstu jako gradient (background-clip:text, gradient z var(--accent))
+   + krótki opis, prawo kompaktowy formularz "Wyślij zapytanie o wycenę" (imię, telefon, typ usterki
+   jako rząd klikalnych "pigułek" — Awaria / Instalacja / Smart home / Fotowoltaika / Przegląd, nie
+   zwykły <select> — linkuje wizualnie do 5 kart usług niżej, przycisk) w karcie glassmorphism (border
+   subtelny, tło rgba niskiej opacity, backdrop-filter:blur).
+3. Sekcja USŁUGI: 5 kart glassmorphism — 4 ze zdjęciem z listy powyżej u góry każdej karty (nie sama
+   ikona), border subtelny, hover: border-color var(--accent) + glow; piąta karta ("Przeglądy i
+   pomiary") bez zdjęcia, sama duża ikona/emoji zamiast fotografii (patrz PRAWDZIWE ZDJĘCIA). Treść
+   każdej karty: nagłówek + 1-2 zdania opisu, BEZ listy punktowanej jak w wariancie 1 — inna gęstość
+   informacji niż elektryk-1, to celowa różnica.
+4. Sekcja "Jak to działa": 3 kroki numerowane poziomo, treść WŁASNA dla elektryka (nie kopiuj
+   1:1 hydraulik-3, tam jest "Zgłoś się online / Wycena w 15 minut / Fachowiec tego samego dnia") —
+   np. "Opisz usterkę online" → "Wycena i termin tego samego dnia" → "Elektryk z uprawnieniami SEP
+   u Ciebie".
+5. Sekcja opinii jako statyczna siatka 3 kart (nie karuzela), każda z avatarem-inicjałem.
+6. Sekcja FAQ — accordion, jak w pozostałych wariantach elektryka, 3-4 pytania dopasowane do modelu
+   "cyfrowego": "Czy wycena online jest wiążąca?", "Jak szybko dostanę odpowiedź na zgłoszenie?",
+   "Czy mogę zamiast formularza po prostu zadzwonić?", "Czy naprawa ma gwarancję?".
+7. Sekcja "Dlaczego my" — 4 punkty z ikonami w rzędzie, w stylistyce glass-card (spójnej z resztą
+   wariantu, nie płaski wzorzec koło-ikona+tekst z wariantu 1) — Uprawnienia SEP / Wycena online w
+   15 minut / Gwarancja na usługę / Płatność online po odbiorze.
+8. Kontakt: dane kontaktowe + formularz (imię, telefon, wiadomość) w karcie glassmorphism, mapa
+   dojazdu pod spodem (patrz WYMÓG — MAPA DOJAZDU).
+9. Pasmo CTA: duży nagłówek + przycisk "Wyceń online" prowadzący do formularza.
+10. Stopka ciemna z linkami social i gradientowym separatorem.`
+  },
 ];
 
 async function callClaude(system, userPrompt) {
