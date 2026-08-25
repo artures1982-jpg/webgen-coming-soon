@@ -224,6 +224,19 @@ panel-6: Generuj — 3 warianty równolegle (klasyczny/nowoczesny/elegancki)
 
 ---
 
+## Produkcja szablonów
+
+Proces wytwarzania szablonów (pipeline, twarde zasady, pułapki, checklista weryfikacji)
+żyje w `docs/produkcja-szablonow/`:
+
+- `README.md` — pipeline brief → prompt → generacja → 3 pliki, status pilota, podział pracy
+- `ZASADY.md` — architektura CSS-var, gramatyka `{{MIASTO}}`, mapa, zdjęcia, pułapki mobile
+
+**Przed tworzeniem lub poprawianiem wariantu szablonu przeczytaj `ZASADY.md`** — każda reguła
+tam wynika z realnego błędu, który już raz kosztował poprawkę.
+
+---
+
 ## Pending
 
 - [ ] Test pełnego flow generowania end-to-end
