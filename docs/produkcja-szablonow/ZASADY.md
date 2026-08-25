@@ -42,6 +42,16 @@ sesja ani subagent nie miały jak jej znać. Stąd jest teraz tutaj, w kanoniczn
   reguły branżowo-niezależne, wypracowane raz i mające obowiązywać wszędzie. Różnicować trzeba
   WYKONANIE (layout, komponenty, kompozycję), nie te reguły.
 
+**Różnicowanie dotyczy też palety, nie tylko layoutu (dodane 26.08.2026).** Struktura może się
+różnić sekcja po sekcji, a paleta i tak wpadać w ten sam rejestr — jeden stonowany akcent na
+białym/kremowym tle w każdym wariancie. To też jest reskin, tylko po kolorze zamiast po layoucie.
+Wymagaj od `designer-ux-ui` żeby aktywnie różnicował jasność i temperaturę tła (nie tylko odcień
+`--accent`), rozważał ciemne/mocno tintowane tła, duotone/gradient tam gdzie pasuje, i stosował
+"sprawdzian mrużenia oczu" — dwa warianty obok siebie powinny się różnić nastrojem koloru samym
+w sobie, bez patrzenia na layout. Szczegóły i konkretne wskazówki: `.claude/agents/designer-ux-ui.md`,
+sekcja "Baw się jasnością i tłem". Nie zwalnia to z architektury CSS-var (sekcja 1 niżej) —
+odważny kolor i dokładnie 8 zmiennych w `:root` nie wykluczają się.
+
 **Szybkie sprawdzenie przy odbiorze wariantu** (rób to zawsze, gdy analogiczny archetyp istnieje
 już w innej branży):
 

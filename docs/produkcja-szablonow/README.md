@@ -45,6 +45,10 @@ pracującej na tym repo, nie tylko dla tej, która je odpaliła. Nie zastępują
                     ↓
 6. DESIGN QA PASS subagent designer-ux-ui na gotowym pliku: literały hex poza :root, zdjęcia,
                     mapa, pułapki mobile (ZASADY.md sekcje 1/3/4/6) + czy copy nie rozjechał layoutu
+                    + jeśli odpowiednik archetypu istnieje w innej branży: diff CSS (ZASADY.md
+                    sekcja 0) — NIE briefuj agenta że podobieństwo jest zamierzone, każ mu polować
+                    + paleta odróżnia się nastrojem (jasność/tło/kontrast), nie tylko odcieniem
+                    akcentu na tym samym jasnym tle
                     ↓
 7. WERYFIKACJA    podgląd w przeglądarce, sekcja po sekcji (checklista w ZASADY.md) — robi to
                     główna sesja, subagenci nie mają dostępu do przeglądarki
