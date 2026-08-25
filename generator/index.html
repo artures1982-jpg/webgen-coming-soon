@@ -21,15 +21,15 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#EAF0FB;--s1:#FFFFFF;--s2:#E1EAF9;--s3:#D3E0F5;
-  --green:#4C6FFF;--green2:#3555E0;--blue:#2F5FD1;--purple:#6B5FC9;
+  --bg:#F2F3F5;--s1:#FFFFFF;--s2:#F8F9FA;--s3:#EDEEF1;
+  --green:#3D4EBF;--green2:#2E3A94;--blue:#2F5FD1;--purple:#6B5FC9;
   --good:#1B8F6B;
-  --text:#182335;--muted:#5E6B85;
-  --border:rgba(24,35,53,.08);--border2:rgba(24,35,53,.16);
+  --text:#14161C;--muted:#6B7280;
+  --border:rgba(20,22,28,.08);--border2:rgba(20,22,28,.16);
   --red:#D14D5F;
   --head:'Bricolage Grotesque',sans-serif;
   --mono:'JetBrains Mono',monospace;
-  --grad:linear-gradient(135deg,#4C6FFF,#8FA6FF);
+  --grad:linear-gradient(135deg,#3D4EBF,#7B85C9);
   --brand-grad:linear-gradient(135deg,#00E5A0,#0066FF,#7B4FFF);
 }
 html{scroll-behavior:smooth}
@@ -55,7 +55,7 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
 /* SIDEBAR */
 .sidebar{
   background:var(--s1);
-  border-right:1px solid rgba(24,35,53,.08);
+  border-right:1px solid rgba(20,22,28,.08);
   padding:28px 24px;
   position:sticky;
   top:64px;
@@ -65,7 +65,7 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
   flex-direction:column;
   gap:0;
 }
-.steps-label{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(24,35,53,.2);margin-bottom:16px}
+.steps-label{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(20,22,28,.2);margin-bottom:16px}
 .steps{display:flex;flex-direction:column;gap:2px}
 .step{
   display:flex;
@@ -204,7 +204,7 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
 .modal-overlay.active{display:flex}
 .modal{background:var(--s2);border:1px solid var(--border2);border-radius:16px;padding:40px;max-width:480px;width:90%;position:relative}
 .modal-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:6px;transition:background .2s}
-.modal-close:hover{background:rgba(24,35,53,.06)}
+.modal-close:hover{background:rgba(20,22,28,.06)}
 .modal h3{font-size:22px;font-weight:800;color:var(--text);margin-bottom:6px}
 .modal p{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.6}
 .modal-plan{background:rgba(76,111,255,.06);border:1px solid rgba(76,111,255,.2);border-radius:10px;padding:16px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center}
@@ -224,7 +224,7 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
 .addon-item.selected{border-color:var(--green);background:rgba(76,111,255,.06)}
 .addon-check{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;font-size:12px;font-weight:700;color:transparent}
 .addon-item.selected .addon-check{background:var(--green);border-color:var(--green);color:#fff}
-.addon-icon-wrap{font-size:22px;width:42px;height:42px;background:rgba(24,35,53,.04);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.addon-icon-wrap{font-size:22px;width:42px;height:42px;background:rgba(20,22,28,.04);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .addon-info{flex:1}
 .addon-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}
 .addon-desc{font-size:12px;color:var(--muted)}
@@ -250,7 +250,7 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
 .kolor-pair:hover{border-color:var(--border2)}
 .kolor-pair.selected{border-color:var(--green);background:rgba(76,111,255,.06)}
 .kolor-swatch{display:flex;gap:5px;flex-shrink:0}
-.kolor-swatch span{width:20px;height:20px;border-radius:5px;display:block;border:1px solid rgba(24,35,53,.1)}
+.kolor-swatch span{width:20px;height:20px;border-radius:5px;display:block;border:1px solid rgba(20,22,28,.1)}
 .kolor-name{font-size:12px;font-weight:700;color:var(--text);line-height:1.3}
 .kolor-desc{font-size:11px;color:var(--muted)}
 
@@ -269,7 +269,7 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
 .lp-header{padding:10px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--s2)}
 .lp-label{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .lp-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:4px}
-.img-zone{position:relative;cursor:pointer;overflow:hidden;background:rgba(24,35,53,.05);border:1.5px dashed rgba(24,35,53,.16);transition:all .2s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.img-zone{position:relative;cursor:pointer;overflow:hidden;background:rgba(20,22,28,.05);border:1.5px dashed rgba(20,22,28,.16);transition:all .2s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
 .img-zone:hover{border-color:rgba(76,111,255,.5);background:rgba(76,111,255,.06)}
 .img-zone.has-img{border-style:solid;border-color:rgba(76,111,255,.4)}
 .img-zone img.zone-preview{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;border-radius:inherit}
@@ -283,7 +283,7 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
 .img-zone-btns{display:flex;gap:6px;margin-top:6px}
 .btn-zone-pexels{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;background:rgba(76,111,255,.08);border:1px solid rgba(76,111,255,.25);color:var(--green);padding:7px 10px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--head);transition:all .18s}
 .btn-zone-pexels:hover{background:rgba(0,229,160,.18);border-color:rgba(76,111,255,.5)}
-.btn-zone-clear{background:rgba(24,35,53,.06);border:1px solid var(--border2);color:var(--muted);padding:7px 10px;border-radius:8px;font-size:12px;cursor:pointer;font-family:var(--head);transition:all .18s;display:none}
+.btn-zone-clear{background:rgba(20,22,28,.06);border:1px solid var(--border2);color:var(--muted);padding:7px 10px;border-radius:8px;font-size:12px;cursor:pointer;font-family:var(--head);transition:all .18s;display:none}
 .btn-zone-clear.visible{display:block}
 .btn-zone-clear:hover{color:var(--red);border-color:var(--red)}
 /* SEO fields */
@@ -315,7 +315,7 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
   height:64px;
   display:flex;align-items:center;justify-content:space-between;
   background:rgba(255,255,255,.85);backdrop-filter:blur(24px);
-  border-bottom:1px solid rgba(24,35,53,.08);
+  border-bottom:1px solid rgba(20,22,28,.08);
   font-family:'Bricolage Grotesque','Poppins',sans-serif;
 }
 .wg-nav > * {
@@ -341,56 +341,56 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
   display:flex;align-items:center;justify-content:center;
   font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#fff;
 }
-.wg-nav-logo-name{font-size:17px;font-weight:700;color:#182335;letter-spacing:-.02em}
+.wg-nav-logo-name{font-size:17px;font-weight:700;color:#14161C;letter-spacing:-.02em}
 .wg-nav-logo-name span{background:linear-gradient(135deg,#00E5A0,#0066FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .wg-nav-links{
   display:flex;align-items:center;gap:4px;list-style:none;
   margin:0;padding:0;
 }
 .wg-nav-links a{
-  font-size:14px;font-weight:500;color:#5E6B85;text-decoration:none;
+  font-size:14px;font-weight:500;color:#6B7280;text-decoration:none;
   padding:6px 12px;border-radius:7px;transition:all .18s;white-space:nowrap;
 }
-.wg-nav-links a:hover{color:#182335;background:rgba(24,35,53,.07)}
-.wg-nav-links a.active{color:#182335;background:rgba(24,35,53,.09)}
+.wg-nav-links a:hover{color:#14161C;background:rgba(20,22,28,.07)}
+.wg-nav-links a.active{color:#14161C;background:rgba(20,22,28,.09)}
 .wg-nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
 .wg-nav-login{
-  font-size:13px;font-weight:600;color:#5E6B85;text-decoration:none;
+  font-size:13px;font-weight:600;color:#6B7280;text-decoration:none;
   padding:7px 14px;border-radius:8px;transition:all .18s;white-space:nowrap;
 }
-.wg-nav-login:hover{color:#182335;background:rgba(24,35,53,.07)}
+.wg-nav-login:hover{color:#14161C;background:rgba(20,22,28,.07)}
 .wg-nav-cta{
-  background:#4C6FFF;color:#fff;
+  background:#3D4EBF;color:#fff;
   padding:8px 18px;border-radius:8px;
   font-size:14px;font-weight:700;text-decoration:none;
   transition:background .18s;white-space:nowrap;
 }
-.wg-nav-cta:hover{background:#3555E0}
+.wg-nav-cta:hover{background:#2E3A94}
 .wg-nav-hamburger{
   display:none;background:none;border:none;
-  color:#5E6B85;font-size:22px;cursor:pointer;
+  color:#6B7280;font-size:22px;cursor:pointer;
   padding:4px;line-height:1;
 }
 /* Mobile drawer */
 .wg-nav-drawer{
   display:none;position:fixed;top:64px;left:0;right:0;
   background:rgba(255,255,255,.92);backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(24,35,53,.09);
+  border-bottom:1px solid rgba(20,22,28,.09);
   padding:12px 20px 20px;z-index:499;
   flex-direction:column;gap:4px;
 }
 .wg-nav-drawer.open{display:flex}
 .wg-nav-drawer a{
-  font-size:15px;font-weight:500;color:#5E6B85;text-decoration:none;
+  font-size:15px;font-weight:500;color:#6B7280;text-decoration:none;
   padding:11px 14px;border-radius:8px;transition:all .18s;
 }
-.wg-nav-drawer a:hover{color:#182335;background:rgba(24,35,53,.07)}
-.wg-nav-drawer a.active{color:#182335;background:rgba(24,35,53,.09)}
+.wg-nav-drawer a:hover{color:#14161C;background:rgba(20,22,28,.07)}
+.wg-nav-drawer a.active{color:#14161C;background:rgba(20,22,28,.09)}
 .wg-nav-drawer-cta{
-  margin-top:8px;background:#4C6FFF;color:#fff!important;
+  margin-top:8px;background:#3D4EBF;color:#fff!important;
   text-align:center;font-weight:700!important;border-radius:9px;
 }
-.wg-nav-drawer-cta:hover{background:#3555E0!important}
+.wg-nav-drawer-cta:hover{background:#2E3A94!important}
 @media(max-width:900px){
   .wg-nav-links{display:none}
   .wg-nav-login{display:none}
@@ -408,7 +408,7 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
 .step{position:relative}
 .step.active .step-num{background:var(--green)!important;color:#fff!important;border-color:var(--green)!important}
 .step.done .step-num{background:rgba(76,111,255,.15)!important;color:var(--green)!important;border-color:rgba(76,111,255,.3)!important}
-.step.active{color:var(--text)!important;background:rgba(24,35,53,.06)!important}
+.step.active{color:var(--text)!important;background:rgba(20,22,28,.06)!important}
 .step.done{color:var(--green)!important}
 
 /* Linia łącząca kroki */
@@ -429,8 +429,8 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
 .form-label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:8px;letter-spacing:.06em;text-transform:uppercase;font-family:var(--mono)}
 input[type=text],input[type=email],input[type=tel],textarea,select{
   width:100%;
-  background:rgba(24,35,53,.05);
-  border:1.5px solid rgba(24,35,53,.12);
+  background:rgba(20,22,28,.05);
+  border:1.5px solid rgba(20,22,28,.12);
   border-radius:10px;
   padding:13px 16px;
   font-size:14px;
@@ -448,8 +448,8 @@ input::placeholder,textarea::placeholder{color:rgba(94,107,133,.5)}
 /* Branża grid — lepsze karty */
 .branza-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
 .branza-card{
-  background:rgba(24,35,53,.04);
-  border:1.5px solid rgba(24,35,53,.09);
+  background:rgba(20,22,28,.04);
+  border:1.5px solid rgba(20,22,28,.09);
   border-radius:12px;
   padding:16px 12px;
   cursor:pointer;
@@ -459,7 +459,7 @@ input::placeholder,textarea::placeholder{color:rgba(94,107,133,.5)}
   font-weight:600;
   color:var(--muted);
 }
-.branza-card:hover{background:rgba(24,35,53,.08);border-color:rgba(240,242,247,.2);color:var(--text)}
+.branza-card:hover{background:rgba(20,22,28,.08);border-color:rgba(240,242,247,.2);color:var(--text)}
 .branza-card.selected{
   background:rgba(76,111,255,.08);
   border-color:var(--green);
@@ -469,16 +469,16 @@ input::placeholder,textarea::placeholder{color:rgba(94,107,133,.5)}
 
 /* Addon cards - bardziej premium */
 .addon-item{
-  background:rgba(24,35,53,.04)!important;
-  border:1.5px solid rgba(24,35,53,.09)!important;
+  background:rgba(20,22,28,.04)!important;
+  border:1.5px solid rgba(20,22,28,.09)!important;
   border-radius:12px!important;
   transition:all .2s!important;
 }
-.addon-item:hover{background:rgba(24,35,53,.07)!important;border-color:rgba(24,35,53,.16)!important}
+.addon-item:hover{background:rgba(20,22,28,.07)!important;border-color:rgba(20,22,28,.16)!important}
 .addon-item.selected{background:rgba(76,111,255,.06)!important;border-color:var(--green)!important}
 .addon-check{
-  background:rgba(24,35,53,.07)!important;
-  border:1.5px solid rgba(24,35,53,.12)!important;
+  background:rgba(20,22,28,.07)!important;
+  border:1.5px solid rgba(20,22,28,.12)!important;
   color:transparent!important;
   transition:all .2s!important;
 }
@@ -512,7 +512,7 @@ input::placeholder,textarea::placeholder{color:rgba(94,107,133,.5)}
 .gen-sub{font-size:14px;color:var(--muted);margin-bottom:28px}
 .gen-log{
   font-family:var(--mono);font-size:12px;color:var(--muted);
-  background:rgba(24,35,53,.04);
+  background:rgba(20,22,28,.04);
   border:1px solid var(--border);
   border-radius:10px;
   padding:14px 18px;
@@ -536,7 +536,7 @@ input::placeholder,textarea::placeholder{color:rgba(94,107,133,.5)}
   transition:background .2s;
   display:flex;align-items:center;gap:8px;
 }
-.btn-next:hover{background:var(--green2,#3555E0)}
+.btn-next:hover{background:var(--green2,#2E3A94)}
 .btn-generate{
   background:var(--green);
   color:#fff;
@@ -550,12 +550,12 @@ input::placeholder,textarea::placeholder{color:rgba(94,107,133,.5)}
   transition:background .2s;
   display:flex;align-items:center;gap:10px;
 }
-.btn-generate:hover{background:var(--green2,#3555E0)}
+.btn-generate:hover{background:var(--green2,#2E3A94)}
 
 /* Kolor progress: addons summary */
 .addon-summary{
-  background:rgba(24,35,53,.04)!important;
-  border:1px solid rgba(24,35,53,.09)!important;
+  background:rgba(20,22,28,.04)!important;
+  border:1px solid rgba(20,22,28,.09)!important;
   border-radius:12px!important;
 }
 .as-row.total{
@@ -575,11 +575,11 @@ input::placeholder,textarea::placeholder{color:rgba(94,107,133,.5)}
   padding:5px 10px 5px 5px;
   border-radius:9px;
   cursor:pointer;
-  border:1px solid rgba(24,35,53,.12);
+  border:1px solid rgba(20,22,28,.12);
   transition:all .18s;
   text-decoration:none;
 }
-.wg-nav-user:hover{background:rgba(24,35,53,.07);border-color:rgba(240,242,247,.18)}
+.wg-nav-user:hover{background:rgba(20,22,28,.07);border-color:rgba(240,242,247,.18)}
 .wg-nav-avatar{
   width:26px;height:26px;border-radius:50%;
   background:linear-gradient(135deg,#00E5A0,#0066FF);
@@ -600,7 +600,7 @@ input::placeholder,textarea::placeholder{color:rgba(94,107,133,.5)}
   color:var(--muted);transition:all .18s;text-decoration:none;font-size:17px;
   border:1px solid transparent;flex-shrink:0;
 }
-.wg-nav-msg:hover{background:rgba(24,35,53,.09);border-color:rgba(24,35,53,.16);color:var(--text)}
+.wg-nav-msg:hover{background:rgba(20,22,28,.09);border-color:rgba(20,22,28,.16);color:var(--text)}
 .wg-nav-msg-badge{
   position:absolute;top:3px;right:3px;
   background:#D14D5F;color:#fff;
@@ -671,7 +671,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 .wg-log-entry:last-child{border-bottom:none}
 .wg-log-entry.err{color:#D14D5F}
 .wg-log-entry.warn{color:#FFB347}
-.wg-log-entry.info{color:#4C6FFF}
+.wg-log-entry.info{color:#3D4EBF}
 .wg-log-entry.api{color:#7EB8FF}
 .wg-log-time{color:rgba(255,255,255,.25);flex-shrink:0;font-size:10px;margin-top:1px}
 .wg-log-msg{word-break:break-all;flex:1}
@@ -716,7 +716,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 .vp-title{font-size:17px;font-weight:800;letter-spacing:-.02em;color:var(--text)}
 .vp-tabs{display:flex;gap:6px}
 .vp-tab{padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid var(--border2);color:var(--muted);background:transparent;font-family:var(--head);transition:all .18s;white-space:nowrap}
-.vp-tab:hover{color:var(--text);border-color:rgba(24,35,53,.25)}
+.vp-tab:hover{color:var(--text);border-color:rgba(20,22,28,.25)}
 .vp-tab.active{background:var(--green);color:#fff;border-color:var(--green)}
 .vp-body{flex:1;overflow:hidden;position:relative}
 .vp-frame-wrap{position:absolute;inset:0;display:none;flex-direction:column;overflow:hidden}
@@ -730,7 +730,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 .btn-vp-back{background:transparent;border:1px solid var(--border2);color:var(--muted);padding:10px 18px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--head);transition:all .18s}
 .btn-vp-back:hover{color:var(--text);border-color:rgba(240,242,247,.3)}
 .btn-vp-select{background:var(--green);color:#fff;border:none;padding:10px 26px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--head);transition:background .18s;display:flex;align-items:center;gap:8px}
-.btn-vp-select:hover{background:#3555E0}
+.btn-vp-select:hover{background:#2E3A94}
 
 /* ── PEXELS BUTTONS ─────────────────────────────────────── */
 .btn-pexels{
@@ -745,7 +745,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 .btn-pexels-sm{
   width:100%;display:flex;align-items:center;justify-content:center;
   gap:6px;background:transparent;
-  border:1px solid rgba(24,35,53,.16);color:var(--muted);
+  border:1px solid rgba(20,22,28,.16);color:var(--muted);
   padding:8px 12px;border-radius:8px;font-size:12px;font-weight:600;
   cursor:pointer;font-family:var(--head);transition:all .2s;margin-top:7px;
 }
@@ -766,22 +766,22 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 }
 .pexels-modal.open{display:flex}
 .pexels-box{
-  background:#FFFFFF;border:1px solid rgba(24,35,53,.14);
+  background:#FFFFFF;border:1px solid rgba(20,22,28,.14);
   border-radius:18px;width:min(780px,95vw);max-height:90vh;
   display:flex;flex-direction:column;overflow:hidden;
 }
 .pexels-header{
-  padding:20px 24px 16px;border-bottom:1px solid rgba(24,35,53,.08);
+  padding:20px 24px 16px;border-bottom:1px solid rgba(20,22,28,.08);
   display:flex;align-items:center;gap:12px;
 }
 .pexels-header h3{font-size:17px;font-weight:800;flex:1}
 .pexels-search-wrap{
   display:flex;gap:10px;padding:16px 24px;
-  border-bottom:1px solid rgba(24,35,53,.08);
+  border-bottom:1px solid rgba(20,22,28,.08);
 }
 .pexels-search{
-  flex:1;background:rgba(24,35,53,.06);border:1.5px solid rgba(24,35,53,.12);
-  border-radius:9px;padding:10px 14px;font-size:14px;color:#182335;
+  flex:1;background:rgba(20,22,28,.06);border:1.5px solid rgba(20,22,28,.12);
+  border-radius:9px;padding:10px 14px;font-size:14px;color:#14161C;
   font-family:var(--head);outline:none;
 }
 .pexels-search:focus{border-color:var(--green)}
@@ -804,7 +804,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
   color:var(--muted);font-family:var(--mono);font-size:13px;
 }
 .pexels-footer{
-  padding:14px 24px;border-top:1px solid rgba(24,35,53,.08);
+  padding:14px 24px;border-top:1px solid rgba(20,22,28,.08);
   font-size:11px;color:rgba(94,107,133,.4);font-family:var(--mono);
   text-align:center;
 }
@@ -816,11 +816,11 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 /* ── TYP KONTA ───────────────────────────── */
 .account-type-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
 .account-type-card{
-  background:rgba(24,35,53,.04);border:2px solid rgba(24,35,53,.12);
+  background:rgba(20,22,28,.04);border:2px solid rgba(20,22,28,.12);
   border-radius:14px;padding:20px 16px;cursor:pointer;text-align:center;
   transition:all .18s;user-select:none;
 }
-.account-type-card:hover{background:rgba(24,35,53,.07);border-color:rgba(24,35,53,.25)}
+.account-type-card:hover{background:rgba(20,22,28,.07);border-color:rgba(20,22,28,.25)}
 .account-type-card.selected{background:rgba(76,111,255,.07);border-color:var(--green)}
 .account-type-icon{font-size:32px;margin-bottom:10px}
 .account-type-name{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px}
@@ -839,16 +839,16 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 /* ── BRANŻA DROPDOWN ─────────────────────────────── */
 .branza-select-wrap{position:relative;margin-bottom:20px}
 .branza-select{
-  width:100%;background:rgba(24,35,53,.06);
-  border:1.5px solid rgba(24,35,53,.14);border-radius:12px;
+  width:100%;background:rgba(20,22,28,.06);
+  border:1.5px solid rgba(20,22,28,.14);border-radius:12px;
   padding:14px 44px 14px 16px;font-size:15px;font-weight:600;
   color:var(--text);font-family:var(--head);outline:none;
   cursor:pointer;appearance:none;-webkit-appearance:none;
   transition:border-color .2s,background .2s;
 }
 .branza-select:focus{border-color:var(--green);background:rgba(76,111,255,.05)}
-.branza-select option{background:#E1EAF9;color:#182335;font-weight:400}
-.branza-select optgroup{background:#D3E0F5;color:#5E6B85;font-size:11px;font-weight:700;letter-spacing:.08em}
+.branza-select option{background:#F8F9FA;color:#14161C;font-weight:400}
+.branza-select optgroup{background:#EDEEF1;color:#6B7280;font-size:11px;font-weight:700;letter-spacing:.08em}
 .branza-select-arrow{
   position:absolute;right:14px;top:50%;transform:translateY(-50%);
   pointer-events:none;color:var(--muted);font-size:14px;
@@ -875,8 +875,8 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 .branza-tile{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:8px;padding:16px 10px;
-  background:rgba(24,35,53,.05);
-  border:1.5px solid rgba(24,35,53,.12);
+  background:rgba(20,22,28,.05);
+  border:1.5px solid rgba(20,22,28,.12);
   border-radius:12px;cursor:pointer;
   transition:all .18s;text-align:center;
   font-family:var(--head);
@@ -899,7 +899,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
   display:flex;align-items:center;gap:10px;
   width:100%;padding:12px 16px;
   background:transparent;
-  border:1.5px dashed rgba(24,35,53,.16);
+  border:1.5px dashed rgba(20,22,28,.16);
   border-radius:10px;cursor:pointer;
   font-family:var(--head);font-size:13px;font-weight:600;color:var(--muted);
   transition:all .18s;
@@ -916,7 +916,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 /* GALERIA STARTOWA (Faza 2) */
 .gallery-style-filter{ display:flex;gap:6px;flex-wrap:wrap }
 .gs-filter-btn{
-  background:transparent;border:1.5px solid rgba(24,35,53,.14);color:var(--muted);
+  background:transparent;border:1.5px solid rgba(20,22,28,.14);color:var(--muted);
   padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;
   font-family:var(--head);transition:all .18s;
 }
@@ -927,7 +927,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
   display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;
 }
 .gallery-card{
-  background:rgba(24,35,53,.05);border:1.5px solid rgba(24,35,53,.12);
+  background:rgba(20,22,28,.05);border:1.5px solid rgba(20,22,28,.12);
   border-radius:12px;overflow:hidden;cursor:pointer;transition:all .18s;
   display:flex;flex-direction:column;
 }
@@ -979,7 +979,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
   <a href="/cennik/">Cennik</a>
   <a href="/generator/" class="active">Generator</a>
   <a href="/start/#faq">FAQ</a>
-  <a href="/login/" class="wg-nav-login" style="color:#5E6B85">Logowanie</a>
+  <a href="/login/" class="wg-nav-login" style="color:#6B7280">Logowanie</a>
   <a href="/generator/" class="wg-nav-drawer-cta">Zacznij za darmo →</a>
 </div>
 
@@ -1085,7 +1085,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
       </label>
 
       <button id="g-gate-btn" onclick="proceedToAuth()" disabled
-        style="width:100%;background:rgba(76,111,255,.3);color:rgba(24,35,53,.5);border:none;padding:15px 24px;border-radius:10px;font-size:16px;font-weight:700;cursor:not-allowed;font-family:var(--head);transition:all .2s">
+        style="width:100%;background:rgba(76,111,255,.3);color:rgba(20,22,28,.5);border:none;padding:15px 24px;border-radius:10px;font-size:16px;font-weight:700;cursor:not-allowed;font-family:var(--head);transition:all .2s">
         Dalej →
       </button>
 
@@ -1190,11 +1190,11 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
           <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:10px;opacity:.8">// Opisz czym się zajmujesz</div>
           <p style="font-size:13px;color:var(--muted);margin:0 0 12px;line-height:1.6">Każda firma jest wyjątkowa. Napisz kilka słów o tym, co robisz — AI dobierze odpowiedni styl, treści i słowa kluczowe specjalnie dla Ciebie.</p>
           <textarea id="f-branza-opis" rows="3"
-            style="width:100%;background:rgba(24,35,53,.06);border:1.5px solid rgba(24,35,53,.14);border-radius:10px;padding:12px 14px;font-size:14px;color:var(--text);font-family:var(--body);resize:vertical;outline:none;transition:border-color .2s;box-sizing:border-box"
+            style="width:100%;background:rgba(20,22,28,.06);border:1.5px solid rgba(20,22,28,.14);border-radius:10px;padding:12px 14px;font-size:14px;color:var(--text);font-family:var(--body);resize:vertical;outline:none;transition:border-color .2s;box-sizing:border-box"
             placeholder="np. Prowadzę warsztat tapicerski, specjalizuję się w renowacji mebli i tapicerce samochodowej."
             oninput="selectBranzaFromOther(this.value)"
             onfocus="this.style.borderColor='var(--green)'"
-            onblur="this.style.borderColor='rgba(24,35,53,.14)'"></textarea>
+            onblur="this.style.borderColor='rgba(20,22,28,.14)'"></textarea>
         </div>
       </div>
 
@@ -1289,12 +1289,12 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
         </div>
         <!-- ── BLOK 3: DANE FIRMOWE (prawne) ──────────────────── -->
         <details style="margin-bottom:4px">
-          <summary style="cursor:pointer;user-select:none;padding:14px 18px;background:rgba(24,35,53,.04);border:1px solid rgba(24,35,53,.12);border-radius:10px;font-size:13px;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:8px;list-style:none">
+          <summary style="cursor:pointer;user-select:none;padding:14px 18px;background:rgba(20,22,28,.04);border:1px solid rgba(20,22,28,.12);border-radius:10px;font-size:13px;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:8px;list-style:none">
             <span style="font-size:15px">🏢</span>
             Dane firmowe — pełna nazwa, NIP, adres rejestrowy
             <span style="margin-left:auto;font-size:11px;font-family:var(--mono);color:rgba(94,107,133,.5)">opcjonalnie</span>
           </summary>
-          <div style="padding:16px 18px 4px;border:1px solid rgba(24,35,53,.12);border-top:none;border-radius:0 0 10px 10px;background:rgba(240,242,247,.02)">
+          <div style="padding:16px 18px 4px;border:1px solid rgba(20,22,28,.12);border-top:none;border-radius:0 0 10px 10px;background:rgba(240,242,247,.02)">
             <div style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.55;padding:10px 12px;background:rgba(76,111,255,.05);border-radius:7px;border-left:3px solid rgba(76,111,255,.3)">
               💡 Te dane trafiają wyłącznie do <strong style="color:var(--text)">stopki strony i danych Schema.org</strong> (legalName). Klienci B2B często sprawdzają NIP przed zamówieniem.
             </div>
@@ -1350,9 +1350,9 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
             </div>
             <div style="padding:12px">
               <!-- NAV -->
-              <div style="display:flex;align-items:center;justify-content:space-between;padding:5px 8px;background:rgba(24,35,53,.07);border-radius:4px;margin-bottom:8px;border:0.5px solid rgba(24,35,53,.12)">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:5px 8px;background:rgba(20,22,28,.07);border-radius:4px;margin-bottom:8px;border:0.5px solid rgba(20,22,28,.12)">
                 <div id="mock-nazwa" style="width:40px;height:6px;background:rgba(76,111,255,.5);border-radius:3px;overflow:hidden;white-space:nowrap;font-size:7px;color:rgba(0,229,160,.9);display:flex;align-items:center;padding:0 4px;font-family:monospace;font-weight:700"></div>
-                <div style="display:flex;gap:5px"><div style="width:22px;height:4px;background:rgba(24,35,53,.16);border-radius:2px"></div><div style="width:22px;height:4px;background:rgba(24,35,53,.16);border-radius:2px"></div><div style="width:22px;height:4px;background:rgba(24,35,53,.16);border-radius:2px"></div></div>
+                <div style="display:flex;gap:5px"><div style="width:22px;height:4px;background:rgba(20,22,28,.16);border-radius:2px"></div><div style="width:22px;height:4px;background:rgba(20,22,28,.16);border-radius:2px"></div><div style="width:22px;height:4px;background:rgba(20,22,28,.16);border-radius:2px"></div></div>
                 <div style="width:30px;height:6px;background:rgba(76,111,255,.3);border-radius:3px"></div>
               </div>
               <!-- HERO ZONE -->
@@ -1371,27 +1371,27 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
                 </div>
               </div>
               <!-- O NAS -->
-              <div style="background:rgba(24,35,53,.04);border-radius:6px;padding:8px;margin-bottom:7px;border:0.5px solid rgba(24,35,53,.09)">
+              <div style="background:rgba(20,22,28,.04);border-radius:6px;padding:8px;margin-bottom:7px;border:0.5px solid rgba(20,22,28,.09)">
                 <div style="font-size:8px;color:rgba(94,107,133,.4);font-family:monospace;margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em">// O nas</div>
                 <div style="display:flex;gap:8px;align-items:center">
-                  <div style="flex:1"><div style="height:5px;background:rgba(24,35,53,.14);border-radius:2px;margin-bottom:3px;width:75%"></div><div style="height:3px;background:rgba(24,35,53,.08);border-radius:2px;margin-bottom:2px"></div><div style="height:3px;background:rgba(24,35,53,.08);border-radius:2px;width:85%"></div></div>
+                  <div style="flex:1"><div style="height:5px;background:rgba(20,22,28,.14);border-radius:2px;margin-bottom:3px;width:75%"></div><div style="height:3px;background:rgba(20,22,28,.08);border-radius:2px;margin-bottom:2px"></div><div style="height:3px;background:rgba(20,22,28,.08);border-radius:2px;width:85%"></div></div>
                   <div style="display:flex;gap:8px;flex-shrink:0">
-                    <div style="text-align:center"><div id="mock-lata" style="font-size:11px;font-weight:700;color:rgba(0,229,160,.7);min-width:24px">10+</div><div style="height:3px;background:rgba(24,35,53,.09);border-radius:1px;width:24px;margin-top:2px"></div></div>
-                    <div style="text-align:center"><div id="mock-real" style="font-size:11px;font-weight:700;color:rgba(0,229,160,.7);min-width:28px">250</div><div style="height:3px;background:rgba(24,35,53,.09);border-radius:1px;width:28px;margin-top:2px"></div></div>
+                    <div style="text-align:center"><div id="mock-lata" style="font-size:11px;font-weight:700;color:rgba(0,229,160,.7);min-width:24px">10+</div><div style="height:3px;background:rgba(20,22,28,.09);border-radius:1px;width:24px;margin-top:2px"></div></div>
+                    <div style="text-align:center"><div id="mock-real" style="font-size:11px;font-weight:700;color:rgba(0,229,160,.7);min-width:28px">250</div><div style="height:3px;background:rgba(20,22,28,.09);border-radius:1px;width:28px;margin-top:2px"></div></div>
                   </div>
                 </div>
               </div>
               <!-- USŁUGI -->
-              <div style="background:rgba(24,35,53,.04);border-radius:6px;padding:8px;margin-bottom:7px;border:0.5px solid rgba(24,35,53,.09)">
+              <div style="background:rgba(20,22,28,.04);border-radius:6px;padding:8px;margin-bottom:7px;border:0.5px solid rgba(20,22,28,.09)">
                 <div style="font-size:8px;color:rgba(94,107,133,.4);font-family:monospace;margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em">// Usługi</div>
                 <div id="mock-uslugi-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px">
-                  <div style="background:rgba(24,35,53,.06);border-radius:4px;padding:5px;border-left:2px solid rgba(76,111,255,.4)"><div style="font-size:9px;font-weight:600;color:rgba(24,35,53,.6);margin-bottom:2px" id="mock-s1">Usługa 1</div><div style="height:3px;background:rgba(24,35,53,.08);border-radius:1px"></div></div>
-                  <div style="background:rgba(24,35,53,.06);border-radius:4px;padding:5px;border-left:2px solid rgba(76,111,255,.4)"><div style="font-size:9px;font-weight:600;color:rgba(24,35,53,.6);margin-bottom:2px" id="mock-s2">Usługa 2</div><div style="height:3px;background:rgba(24,35,53,.08);border-radius:1px"></div></div>
-                  <div style="background:rgba(24,35,53,.06);border-radius:4px;padding:5px;border-left:2px solid rgba(76,111,255,.4)"><div style="font-size:9px;font-weight:600;color:rgba(24,35,53,.6);margin-bottom:2px" id="mock-s3">Usługa 3</div><div style="height:3px;background:rgba(24,35,53,.08);border-radius:1px"></div></div>
+                  <div style="background:rgba(20,22,28,.06);border-radius:4px;padding:5px;border-left:2px solid rgba(76,111,255,.4)"><div style="font-size:9px;font-weight:600;color:rgba(20,22,28,.6);margin-bottom:2px" id="mock-s1">Usługa 1</div><div style="height:3px;background:rgba(20,22,28,.08);border-radius:1px"></div></div>
+                  <div style="background:rgba(20,22,28,.06);border-radius:4px;padding:5px;border-left:2px solid rgba(76,111,255,.4)"><div style="font-size:9px;font-weight:600;color:rgba(20,22,28,.6);margin-bottom:2px" id="mock-s2">Usługa 2</div><div style="height:3px;background:rgba(20,22,28,.08);border-radius:1px"></div></div>
+                  <div style="background:rgba(20,22,28,.06);border-radius:4px;padding:5px;border-left:2px solid rgba(76,111,255,.4)"><div style="font-size:9px;font-weight:600;color:rgba(20,22,28,.6);margin-bottom:2px" id="mock-s3">Usługa 3</div><div style="height:3px;background:rgba(20,22,28,.08);border-radius:1px"></div></div>
                 </div>
               </div>
               <!-- GALERIA — 2 zdjęcia content -->
-              <div style="background:rgba(24,35,53,.04);border-radius:6px;padding:8px;margin-bottom:7px;border:0.5px solid rgba(24,35,53,.09)">
+              <div style="background:rgba(20,22,28,.04);border-radius:6px;padding:8px;margin-bottom:7px;border:0.5px solid rgba(20,22,28,.09)">
                 <div style="font-size:8px;color:rgba(94,107,133,.4);font-family:monospace;margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em">// Galeria / Realizacje</div>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
                   <div>
@@ -1417,14 +1417,14 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
                 </div>
               </div>
               <!-- KONTAKT -->
-              <div style="background:rgba(24,35,53,.04);border-radius:6px;padding:8px;margin-bottom:7px;border:0.5px solid rgba(24,35,53,.09)">
+              <div style="background:rgba(20,22,28,.04);border-radius:6px;padding:8px;margin-bottom:7px;border:0.5px solid rgba(20,22,28,.09)">
                 <div style="font-size:8px;color:rgba(94,107,133,.4);font-family:monospace;margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em">// Kontakt</div>
-                <div style="display:flex;gap:8px"><div style="flex:1"><div style="height:4px;background:rgba(24,35,53,.12);border-radius:1px;margin-bottom:3px;width:55%"></div><div style="height:3px;background:rgba(24,35,53,.08);border-radius:1px;margin-bottom:2px"></div><div style="height:3px;background:rgba(24,35,53,.08);border-radius:1px;width:80%"></div></div><div style="width:70px;height:42px;border:0.5px dashed rgba(24,35,53,.16);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:9px;color:rgba(136,146,170,.3)">map</span></div></div>
+                <div style="display:flex;gap:8px"><div style="flex:1"><div style="height:4px;background:rgba(20,22,28,.12);border-radius:1px;margin-bottom:3px;width:55%"></div><div style="height:3px;background:rgba(20,22,28,.08);border-radius:1px;margin-bottom:2px"></div><div style="height:3px;background:rgba(20,22,28,.08);border-radius:1px;width:80%"></div></div><div style="width:70px;height:42px;border:0.5px dashed rgba(20,22,28,.16);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:9px;color:rgba(136,146,170,.3)">map</span></div></div>
               </div>
               <!-- FOOTER -->
-              <div style="background:rgba(24,35,53,.06);border-radius:4px;padding:5px 8px;display:flex;justify-content:space-between;align-items:center;border:0.5px solid rgba(24,35,53,.09)">
+              <div style="background:rgba(20,22,28,.06);border-radius:4px;padding:5px 8px;display:flex;justify-content:space-between;align-items:center;border:0.5px solid rgba(20,22,28,.09)">
                 <div style="width:32px;height:5px;background:rgba(76,111,255,.3);border-radius:2px"></div>
-                <div style="display:flex;gap:4px"><div style="width:16px;height:3px;background:rgba(24,35,53,.12);border-radius:1px"></div><div style="width:16px;height:3px;background:rgba(24,35,53,.12);border-radius:1px"></div><div style="width:16px;height:3px;background:rgba(24,35,53,.12);border-radius:1px"></div></div>
+                <div style="display:flex;gap:4px"><div style="width:16px;height:3px;background:rgba(20,22,28,.12);border-radius:1px"></div><div style="width:16px;height:3px;background:rgba(20,22,28,.12);border-radius:1px"></div><div style="width:16px;height:3px;background:rgba(20,22,28,.12);border-radius:1px"></div></div>
               </div>
             </div>
           </div>
@@ -1507,7 +1507,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
       </div>
 
       <!-- BILLING TOGGLE -->
-      <div style="display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:24px;background:rgba(24,35,53,.07);border:1.5px solid rgba(24,35,53,.12);border-radius:10px;padding:4px;width:fit-content;margin-left:auto;margin-right:auto">
+      <div style="display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:24px;background:rgba(20,22,28,.07);border:1.5px solid rgba(20,22,28,.12);border-radius:10px;padding:4px;width:fit-content;margin-left:auto;margin-right:auto">
         <button id="bill-month" onclick="switchBilling('month')"
           style="background:rgba(76,111,255,.15);border:1.5px solid var(--green);color:var(--green);padding:8px 20px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--head);transition:all .2s">
           Miesięcznie
@@ -1669,7 +1669,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 
       <div class="nav-btns">
         <button class="btn-prev" onclick="prevStep(5)">← Wróć</button>
-        <button class="btn-next" onclick="nextStep(5)" style="background:var(--green);color:#fff;border:none;padding:14px 28px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--head);display:flex;align-items:center;gap:8px;transition:background .2s" onmouseover="this.style.background='#3555E0'" onmouseout="this.style.background='var(--green)'">
+        <button class="btn-next" onclick="nextStep(5)" style="background:var(--green);color:#fff;border:none;padding:14px 28px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--head);display:flex;align-items:center;gap:8px;transition:background .2s" onmouseover="this.style.background='#2E3A94'" onmouseout="this.style.background='var(--green)'">
           Dalej — generuj stronę →
         </button>
       </div>
@@ -1747,7 +1747,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
         <button id="btn-start-gen"
           style="background:var(--green);color:#fff;border:none;padding:14px 32px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;font-family:var(--head);display:flex;align-items:center;gap:10px;transition:background .2s"
           onclick="startGenerate()"
-          onmouseover="this.style.background='#3555E0'"
+          onmouseover="this.style.background='#2E3A94'"
           onmouseout="this.style.background='var(--green)'">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="width:18px;height:18px"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
           ⚡ Generuj 3 warianty strony
@@ -1767,7 +1767,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
       </div>
       <div class="preview-toolbar">
         <div class="pt-info">
-          <button onclick="showVariantPicker()" style="background:transparent;border:1px solid rgba(24,35,53,.16);color:var(--muted);padding:7px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--head);transition:all .2s;margin-right:10px" onmouseover="this.style.borderColor='rgba(76,111,255,.35)';this.style.color='var(--green)'" onmouseout="this.style.borderColor='rgba(24,35,53,.16)';this.style.color='var(--muted)'">← Zmień styl</button>
+          <button onclick="showVariantPicker()" style="background:transparent;border:1px solid rgba(20,22,28,.16);color:var(--muted);padding:7px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--head);transition:all .2s;margin-right:10px" onmouseover="this.style.borderColor='rgba(76,111,255,.35)';this.style.color='var(--green)'" onmouseout="this.style.borderColor='rgba(20,22,28,.16)';this.style.color='var(--muted)'">← Zmień styl</button>
           <div class="pt-label">Podgląd strony</div>
           <div class="pt-url" id="preview-url">preview.webgen.pl/twoja-firma</div>
         </div>
@@ -2875,9 +2875,9 @@ function initStep6() {
 var _accountType = 'individual';
 var _pendingProfileFirma = null;
 var CLERK_WIDGET_APPEARANCE = { variables: {
-  colorPrimary: '#4C6FFF', colorBackground: '#FFFFFF', colorText: '#182335',
-  colorTextSecondary: '#5E6B85', colorInputBackground: '#E1EAF9', colorInputText: '#182335',
-  colorNeutral: '#182335', fontFamily: "'Bricolage Grotesque', sans-serif", borderRadius: '10px'
+  colorPrimary: '#3D4EBF', colorBackground: '#FFFFFF', colorText: '#14161C',
+  colorTextSecondary: '#6B7280', colorInputBackground: '#F8F9FA', colorInputText: '#14161C',
+  colorNeutral: '#14161C', fontFamily: "'Bricolage Grotesque', sans-serif", borderRadius: '10px'
 }};
 
 function selectAccountType(type) {
@@ -2895,7 +2895,7 @@ function validateGate() {
   if (!btn) return;
   btn.disabled = !rodo;
   btn.style.background = rodo ? 'var(--green)' : 'rgba(76,111,255,.3)';
-  btn.style.color      = rodo ? '#fff'      : 'rgba(24,35,53,.5)';
+  btn.style.color      = rodo ? '#fff'      : 'rgba(20,22,28,.5)';
   btn.style.cursor     = rodo ? 'pointer'      : 'not-allowed';
 }
 
@@ -3031,7 +3031,7 @@ function onAuthenticated(user) {
         'background:linear-gradient(135deg,#00E5A0,#0066FF);display:flex;' +
         'align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;">' +
         email[0].toUpperCase() + '</div>' +
-        '<span style="font-size:13px;color:#182335;font-family:var(--mono);' +
+        '<span style="font-size:13px;color:#14161C;font-family:var(--mono);' +
         'overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + email + '</span>';
       drawer.insertBefore(du, drawer.firstChild);
     }
@@ -3085,14 +3085,14 @@ async function searchPexels() {
   var grid = document.getElementById('pexels-grid');
   if (!inp || !grid) return;
   var q = inp.value.trim() || 'business';
-  grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:32px;color:#5E6B85;font-size:13px">Szukam...</div>';
+  grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:32px;color:#6B7280;font-size:13px">Szukam...</div>';
   try {
     var res = await fetch('/api/pexels?q=' + encodeURIComponent(q) + '&per_page=36');
     if (!res.ok) throw new Error('HTTP ' + res.status);
     var data = await res.json();
     var photos = data.photos || [];
     if (!photos.length) {
-      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:32px;color:#5E6B85;font-size:13px">Brak wynikow dla: ' + q + '</div>';
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:32px;color:#6B7280;font-size:13px">Brak wynikow dla: ' + q + '</div>';
       return;
     }
     grid.innerHTML = photos.map(function(p) {
@@ -3100,7 +3100,7 @@ async function searchPexels() {
       var full = p.src && (p.src.large2x || p.src.large || p.src.original);
       if (!src) return '';
       var safe = (full||src).replace(/'/g,'%27');
-      return '<div onclick="selectPexelsPhoto(\'' + safe + '\')" style="cursor:pointer;border-radius:10px;overflow:hidden;border:2px solid transparent;transition:all .18s" onmouseover="this.style.borderColor=\'#4C6FFF\';this.style.transform=\'scale(1.03)\'" onmouseout="this.style.borderColor=\'transparent\';this.style.transform=\'scale(1)\'">'
+      return '<div onclick="selectPexelsPhoto(\'' + safe + '\')" style="cursor:pointer;border-radius:10px;overflow:hidden;border:2px solid transparent;transition:all .18s" onmouseover="this.style.borderColor=\'#3D4EBF\';this.style.transform=\'scale(1.03)\'" onmouseout="this.style.borderColor=\'transparent\';this.style.transform=\'scale(1)\'">'
         + '<img src="' + src + '" loading="lazy" style="width:100%;height:auto;display:block;border-radius:8px">'
         + '</div>';
     }).filter(Boolean).join('');
@@ -3129,8 +3129,8 @@ function selectPexelsPhoto(url) {
       var d = document.createElement('div');
       d.style.cssText = 'position:relative;display:inline-block;flex-shrink:0';
       var idx = _galeriaUrls.length - 1;
-      d.innerHTML = '<img src="' + url + '" style="width:72px;height:54px;object-fit:cover;border-radius:6px;border:1px solid rgba(24,35,53,.16)">'
-        + '<button onclick="removeGaleriaPhoto(' + idx + ',this.parentNode)" style="position:absolute;top:-5px;right:-5px;background:#FFFFFF;border:1px solid rgba(240,242,247,.2);border-radius:50%;width:18px;height:18px;font-size:10px;cursor:pointer;color:#5E6B85;line-height:18px;text-align:center">x</button>';
+      d.innerHTML = '<img src="' + url + '" style="width:72px;height:54px;object-fit:cover;border-radius:6px;border:1px solid rgba(20,22,28,.16)">'
+        + '<button onclick="removeGaleriaPhoto(' + idx + ',this.parentNode)" style="position:absolute;top:-5px;right:-5px;background:#FFFFFF;border:1px solid rgba(240,242,247,.2);border-radius:50%;width:18px;height:18px;font-size:10px;cursor:pointer;color:#6B7280;line-height:18px;text-align:center">x</button>';
       wrap.appendChild(d);
     }
     var slotIdx = _galeriaUrls.length - 1;
@@ -3288,27 +3288,27 @@ function goToActivation() {
 
 <!-- ══ PEXELS MODAL ══ -->
 <div id="pexels-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);align-items:center;justify-content:center" onclick="if(event.target===this)closePexels()">
-  <div style="background:#FFFFFF;border:1px solid rgba(24,35,53,.14);border-radius:18px;width:min(1100px,96vw);max-height:92vh;display:flex;flex-direction:column;overflow:hidden">
+  <div style="background:#FFFFFF;border:1px solid rgba(20,22,28,.14);border-radius:18px;width:min(1100px,96vw);max-height:92vh;display:flex;flex-direction:column;overflow:hidden">
 
-    <div style="padding:18px 24px 14px;border-bottom:1px solid rgba(24,35,53,.08);display:flex;align-items:center;gap:12px">
+    <div style="padding:18px 24px 14px;border-bottom:1px solid rgba(20,22,28,.08);display:flex;align-items:center;gap:12px">
       <span style="font-size:20px">📸</span>
-      <h3 style="flex:1;font-size:17px;font-weight:800;margin:0">Wybierz zdjęcie — <span style="color:#4C6FFF">Pexels</span></h3>
-      <button onclick="closePexels()" style="background:none;border:none;color:#5E6B85;font-size:22px;cursor:pointer;line-height:1;padding:4px 8px;border-radius:6px">✕</button>
+      <h3 style="flex:1;font-size:17px;font-weight:800;margin:0">Wybierz zdjęcie — <span style="color:#3D4EBF">Pexels</span></h3>
+      <button onclick="closePexels()" style="background:none;border:none;color:#6B7280;font-size:22px;cursor:pointer;line-height:1;padding:4px 8px;border-radius:6px">✕</button>
     </div>
 
-    <div style="display:flex;gap:10px;padding:14px 24px;border-bottom:1px solid rgba(24,35,53,.08)">
+    <div style="display:flex;gap:10px;padding:14px 24px;border-bottom:1px solid rgba(20,22,28,.08)">
       <input id="pexels-q" oninput="this.dataset.userSet=1" placeholder="np. hydraulik, remont, fryzjer…"
         onkeydown="if(event.key==='Enter')searchPexels()"
-        style="flex:1;background:rgba(24,35,53,.06);border:1.5px solid rgba(24,35,53,.12);border-radius:9px;padding:10px 14px;font-size:14px;color:#182335;font-family:var(--head);outline:none">
-      <button onclick="searchPexels()" style="background:#4C6FFF;color:#fff;border:none;padding:10px 22px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--head)">Szukaj →</button>
+        style="flex:1;background:rgba(20,22,28,.06);border:1.5px solid rgba(20,22,28,.12);border-radius:9px;padding:10px 14px;font-size:14px;color:#14161C;font-family:var(--head);outline:none">
+      <button onclick="searchPexels()" style="background:#3D4EBF;color:#fff;border:none;padding:10px 22px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--head)">Szukaj →</button>
     </div>
 
     <div id="pexels-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px 20px;overflow-y:scroll;flex:1;min-height:280px;max-height:65vh;align-content:start">
-      <div style="grid-column:1/-1;text-align:center;padding:40px;color:#5E6B85;font-family:var(--mono);font-size:13px">Wpisz frazę i kliknij Szukaj</div>
+      <div style="grid-column:1/-1;text-align:center;padding:40px;color:#6B7280;font-family:var(--mono);font-size:13px">Wpisz frazę i kliknij Szukaj</div>
     </div>
 
-    <div style="padding:12px 24px;border-top:1px solid rgba(24,35,53,.08);font-size:11px;color:rgba(94,107,133,.4);font-family:var(--mono);text-align:center">
-      Zdjęcia: <a href="https://pexels.com" target="_blank" style="color:#4C6FFF;text-decoration:none">Pexels</a> · bezpłatne do użytku komercyjnego
+    <div style="padding:12px 24px;border-top:1px solid rgba(20,22,28,.08);font-size:11px;color:rgba(94,107,133,.4);font-family:var(--mono);text-align:center">
+      Zdjęcia: <a href="https://pexels.com" target="_blank" style="color:#3D4EBF;text-decoration:none">Pexels</a> · bezpłatne do użytku komercyjnego
     </div>
   </div>
 </div>

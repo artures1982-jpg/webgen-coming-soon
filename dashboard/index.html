@@ -9,12 +9,12 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#EAF0FB;--s1:#FFFFFF;--s2:#E1EAF9;--s3:#D3E0F5;
-  --text:#182335;--muted:#5E6B85;--subtle:rgba(24,35,53,.4);
-  --border:rgba(24,35,53,.08);--border2:rgba(24,35,53,.16);
-  --green:#4C6FFF;--green2:#3555E0;--blue:#2F5FD1;--purple:#6B5FC9;
+  --bg:#F2F3F5;--s1:#FFFFFF;--s2:#F8F9FA;--s3:#EDEEF1;
+  --text:#14161C;--muted:#6B7280;--subtle:rgba(20,22,28,.4);
+  --border:rgba(20,22,28,.08);--border2:rgba(20,22,28,.16);
+  --green:#3D4EBF;--green2:#2E3A94;--blue:#2F5FD1;--purple:#6B5FC9;
   --red:#D14D5F;--amber:#C9861A;--good:#1B8F6B;
-  --grad:linear-gradient(135deg,#4C6FFF,#8FA6FF);
+  --grad:linear-gradient(135deg,#3D4EBF,#7B85C9);
   --brand-grad:linear-gradient(135deg,#00E5A0,#0066FF,#7B4FFF);
   --head:'Bricolage Grotesque',sans-serif;
   --mono:'JetBrains Mono',monospace;
@@ -36,7 +36,7 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
 .nav-spacer{flex:1}
 .nav-user{display:flex;align-items:center;gap:10px;cursor:pointer;
   padding:6px 12px;border-radius:8px;transition:background .18s}
-.nav-user:hover{background:rgba(24,35,53,.07)}
+.nav-user:hover{background:rgba(20,22,28,.07)}
 .nav-avatar{width:32px;height:32px;border-radius:50%;background:var(--brand-grad);
   display:flex;align-items:center;justify-content:center;
   font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
@@ -49,7 +49,7 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
   width:38px;height:38px;border-radius:9px;cursor:pointer;
   color:var(--muted);transition:all .18s;text-decoration:none;font-size:18px;
   border:1px solid transparent}
-.nav-msg-btn:hover{background:rgba(24,35,53,.08);border-color:var(--border2);color:var(--text)}
+.nav-msg-btn:hover{background:rgba(20,22,28,.08);border-color:var(--border2);color:var(--text)}
 .nav-badge{position:absolute;top:4px;right:4px;background:#D14D5F;color:#fff;
   font-size:10px;font-weight:700;font-family:var(--mono);min-width:16px;height:16px;
   border-radius:8px;display:none;align-items:center;justify-content:center;
@@ -70,7 +70,7 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
 .nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;
   border-radius:9px;cursor:pointer;transition:all .18s;
   color:var(--muted);font-size:14px;font-weight:500;text-decoration:none}
-.nav-item:hover{background:rgba(24,35,53,.06);color:var(--text)}
+.nav-item:hover{background:rgba(20,22,28,.06);color:var(--text)}
 .nav-item.active{background:rgba(76,111,255,.08);color:var(--text);
   border:1px solid rgba(76,111,255,.15)}
 .nav-item .ni-icon{font-size:15px;width:20px;text-align:center;flex-shrink:0}
