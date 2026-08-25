@@ -234,6 +234,19 @@ zdjęciami, sekcja zaufania z gwiazdkami) i od odpowiednika w branży Hydraulik 
 fachowiec" z wąsem; tu MŁODSZY właściciel — inne pokolenie tej samej idei "rodzinna firma", np.
 firma prowadzona od niedawna przez kogoś, kto przejął rzemiosło po rodzicu, nie musisz pisać
 dosłownie tej historii, ale ton ma być "młody, ale już zaufany", nie "senior z dekadami stażu").
+
+UWAGA — KRYTYCZNE, PRZECZYTAJ PRZED KODOWANIEM (poprawka po realnym błędzie z 25.08.2026): pierwsza
+wersja tego wariantu skopiowała CSS/markup 1:1 z hydraulik-4-rodzinna-firma.html i tylko przekolorowała
+— Artur to złapał natychmiast na żywym deployu ("identyczny z hydraulikiem, a nie miało być wszystko na
+jedno kopyto"). Decyzja projektowa (2026-08-24, patrz docs/produkcja-szablonow/README.md i pamięć sesji)
+jest jednoznaczna: każda branża dostaje BESPOKE wykonanie każdego archetypu — hydraulik-4 wolno użyć
+WYŁĄCZNIE jako inspirację ducha archetypu ("Rodzinna firma" = osobisty ton, zdjęcie właściciela,
+bezpośredni kontakt), NIGDY jako plik bazowy do kopiowania. Poniższy LAYOUT celowo NIE używa żadnego z
+charakterystycznych zabiegów wizualnych hydraulik-4 (pływający pigułkowy pasek nav, organiczny "blob"
+kształt zdjęcia obok tekstu, pozioma oś czasu z ponumerowanymi kropkami, wyśrodkowana sekcja z ogromnym
+dekoracyjnym cudzysłowem, mały okrągły portret w rzędzie z telefonem) — zamiast tego użyj DOKŁADNIE
+mechanizmów opisanych niżej, nawet jeśli intuicyjnie chciałoby się sięgnąć po prostszy, znany wzorzec.
+
 PALETA (jako zmienne CSS): --bg ciepły kremowy (nie czysta biel), --accent stonowana ciepła szałwiowa
 zieleń (np. #6b8f5e — wyraźnie inna od bursztynu wariantu 1, pomarańczu wariantu 2, fioletu
 wariantu 3 i od terakoty/niebieskiego hydraulik-4), --text ciemny brąz-grafit.
@@ -248,33 +261,48 @@ fotografii, bo cały koncept to "poznaj właściciela"):
 - Jedno zdjęcie, użyte DWUKROTNIE w dwóch różnych kadrach (ta sama osoba w obu miejscach buduje
   spójność marki — to zamierzone, nie oszczędność): młody elektryk z kręconymi włosami, w jasnej
   koszuli, uśmiechnięty, montujący/regulujący gniazdko na ścianie w ciepłym, jasnym wnętrzu (nie
-  warsztat — wygląda jak praca u klienta w domu, naturalne światło):
+  warsztat — wygląda jak praca u klienta w domu, naturalne światło). Twarz jest w kadrze mniej
+  więcej na ~25-30% / 45-55% (od lewej / od góry) — celuj tam przy object-position:
   https://images.pexels.com/photos/7647233/pexels-photo-7647233.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
-  1. HERO: pełne zdjęcie jako duży wizerunek (np. połowa szerokości hero, zaokrąglony róg/kształt
-     organiczny, NIE prostokąt na całą szerokość jak w innych wariantach — to ma wyglądać osobiście,
-     nie korporacyjnie), obok tekst + cytat właściciela + CTA.
-  2. SEKCJA KONTAKT: ten sam plik, ale węższy kadr przez object-position (zbliżenie na twarz,
-     mały okrągły portret ~64-80px obok numeru telefonu).
-  3. UWAGA — ROZMIAR NA MOBILE (KRYTYCZNE, ten sam błąd zgłoszony już raz w analogicznym wariancie
-     Hydraulika — nie powtarzaj go): na wąskich ekranach (<700px) organiczny kształt zdjęcia w hero
-     NIE MOŻE przekraczać ok. 180-220px szerokości i musi mieć zredukowany padding-top sekcji hero —
-     inaczej zdjęcie zajmuje CAŁY ekran telefonu i chowa nagłówek/tekst pod fold. Sprawdź to na
-     wąskim viewporcie przed oddaniem pliku, nie tylko na desktopie.
+  1. HERO: zdjęcie jako zaokrąglony PROSTOKĄT (skończone, czyste rogi — NIE organiczny "blob"
+     kształt), zajmujący ok. 45-50% szerokości hero. Osobisty cytat właściciela NIE stoi obok
+     zdjęcia w tekście — jest dymkiem (speech-bubble: karta z małym trójkątnym "ogonkiem"
+     wskazującym na zdjęcie) NACHODZĄCYM na dolną krawędź zdjęcia, jakby właściciel właśnie to
+     powiedział. Kolumna tekstowa obok zdjęcia zawiera tylko eyebrow + H1 + CTA, bez cytatu.
+  2. SEKCJA KONTAKT (patrz punkt 7 layoutu): ten sam plik, ale w KWADRATOWEJ ramce ze
+     zaokrąglonymi rogami (nie okrąg), w stylu "wizytówki" — nie mały portret w rzędzie z numerem.
+  3. UWAGA — ROZMIAR NA MOBILE (KRYTYCZNE): na wąskich ekranach (<700px) zdjęcie w hero NIE MOŻE
+     przekraczać ok. 240-280px szerokości (nieco szersze niż blob z hydraulik-4, bo to teraz
+     prostokąt z dymkiem cytatu pod spodem, potrzebuje więcej miejsca na czytelność dymku) i musi
+     mieć zredukowany padding-top sekcji hero — inaczej zdjęcie+dymek zajmują CAŁY ekran telefonu
+     i chowają nagłówek pod fold. Sprawdź to na wąskim viewporcie przed oddaniem pliku.
+
 LAYOUT:
-1. Nav prosta, bez pełnej szerokości, z lekkim marginesem.
-2. Hero: zdjęcie właściciela z listy powyżej (nie samego produktu/narzędzi), krótkie osobiste motto pod nagłówkiem (np. cytat właściciela), jeden ciepły CTA.
-3. Sekcja "Nasza historia": pozioma oś czasu (rok założenia → dziś, 3-4 punkty) z krótkimi opisami.
-4. Sekcja USŁUGI jako prostsza lista (nie karty ze zdjęciami) — nazwa usługi + jedno zdanie opisu, mniej "sprzedażowo" niż w innych wariantach.
-5. Sekcja z jednym dużym cytatem klienta na całą szerokość (duży cudzysłów dekoracyjny, cytat wyśrodkowany).
-6. Kompaktowe FAQ (3-4 pytania, jak w hydraulik-4-rodzinna-firma i pozostałych wariantach elektryka —
-   pominięcie FAQ byłoby tu przeoczeniem, nie świadomym wyjątkiem) — dopasowane do osobistego tonu,
-   np. "Czy to Ty osobiście przyjeżdżasz na zlecenia?", "Czy pracujesz też poza miastem {{MIASTO}}?",
-   "Czy wystawiasz fakturę?", "Czy naprawa ma gwarancję?".
-7. Sekcja kontakt osobisty: "Zadzwoń bezpośrednio do mnie — {{NAZWA_STRONY}}" (UWAGA: nie ma tokenu na
-   imię właściciela, tylko {{NAZWA_STRONY}} — nie wymyślaj fikcyjnego imienia w wersji z tokenami)
-   z małym okrągłym zdjęciem portretowym (z listy powyżej, kadr wycentrowany mniej więcej na
-   ~25-30% / 45-55% object-position, tam jest twarz na tym zdjęciu) obok numeru telefonu.
-8. Stopka jasna, ciepła, prosta.`
+1. Nav: PEŁNA szerokość, zwykły pasek (NIE pływająca zaokrąglona "pigułka" jak w hydraulik-4) —
+   logo + linki + przycisk telefonu, który na <700px zwija się do samej ikony (wzorzec z
+   elektryk-1/2, .nav-phone .txt/.icon toggle), nie do specjalnego "call button" hydraulik-4.
+2. Hero: zdjęcie-prostokąt z dymkiem cytatu z listy powyżej (patrz PRAWDZIWE ZDJĘCIA pkt 1), obok
+   krótki eyebrow + H1 + jeden ciepły CTA — bez cytatu w tekście, cytat żyje wyłącznie w dymku.
+3. Sekcja "Nasza historia": BEZ osi czasu i BEZ ponumerowanych kropek. Zamiast tego: płynąca
+   narracja w 2 kolumnach — lewo krótki akapit (3-4 zdania, kiedy i dlaczego zaczął, co go
+   wyróżnia), prawo 3 wyróżnione "chipy"/etykiety pionowo w rzędzie (np. "od {{ROK}} na własny
+   rachunek" — użyj realnego roku jak 2019, nie tokenu — "0 podwykonawców", "uprawnienia SEP") w
+   formie zaokrąglonych plakietek z liczbą/frazą, nie w formie osi czasu z kropkami.
+4. Sekcja USŁUGI jako 2-kolumnowa siatka prostych pozycji (nie jedna kolumna wierszy jak w
+   hydraulik-4) — nazwa usługi + jedno zdanie opisu + mała ikona ✓ zamiast kropki, wciąż bez
+   zdjęć, mniej "sprzedażowo" niż w innych wariantach elektryka.
+5. Kompaktowe FAQ (3-4 pytania, accordion jak w pozostałych wariantach elektryka) — dopasowane do
+   osobistego tonu, np. "Czy to Ty osobiście przyjeżdżasz na zlecenia?", "Czy pracujesz też poza
+   miastem {{MIASTO}}?", "Czy wystawiasz fakturę?", "Czy naprawa ma gwarancję?".
+6. Sekcja kontakt osobisty jako "wizytówka": bordowana karta (border, nie pływający cień jak
+   hydraulik-4) w 2 kolumnach — lewo zdjęcie z listy powyżej w KWADRATOWEJ ramce z zaokrąglonymi
+   rogami (nie okrągły portret), prawo "Zadzwoń bezpośrednio do mnie — {{NAZWA_STRONY}}" (UWAGA:
+   nie ma tokenu na imię właściciela, tylko {{NAZWA_STRONY}} — nie wymyślaj fikcyjnego imienia w
+   wersji z tokenami) + numer telefonu jako duży przycisk (nie sam tekst-link) + JEDEN krótki
+   cytat zadowolonego klienta jako mała, nieopisowa notatka pod przyciskiem (to jedyne miejsce w
+   tym wariancie na cytat klienta — nie ma osobnej wyśrodkowanej sekcji z wielkim cudzysłowem jak
+   w hydraulik-4) + dane kontaktowe/mapa pod spodem.
+7. Stopka jasna, ciepła, prosta.`
   },
 ];
 
