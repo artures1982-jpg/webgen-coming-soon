@@ -119,10 +119,24 @@ branży.
 - **Nie ma tokenu na imię właściciela** — istnieje tylko `{{NAZWA_STRONY}}` (nazwa firmy).
   W wersji z literalnymi tokenami nie wstawiaj wymyślonego imienia ani `[Imię]`;
   pisz „Zadzwoń bezpośrednio do mnie — `{{NAZWA_STRONY}}`".
-- **Nie wymyślaj konkretnych dat rocznych** (rok założenia itp.) — używaj etykiet względnych
-  („Skromny początek", „Dziś").
 - Reszta treści (USP, FAQ, opisy usług, obszar działania) to **docelowy tekst marketingowy**,
   nie placeholder — ma być gotowy do publikacji.
+
+### Konkretne liczby i daty — DOZWOLONE (decyzja produktowa, 25.08.2026)
+
+Lata na rynku, liczba klientów, rok założenia, procenty w sekcji „o nas", konkretne punkty
+osi czasu (np. `2005 / 2011 / 2016 / Dziś`) — **wstawiaj normalnie**. To docelowa treść
+szablonu, którą **klient nadpisuje podczas edycji strony**; konkret sprzedaje lepiej niż
+etykiety względne i lepiej wygląda w porównywarce wariantów.
+
+> Wcześniej ten dokument zakazywał wymyślonych dat rocznych. Zakaz **zniesiony** — kolidował
+> z briefem, który wprost prosi o oś czasu „rok założenia → dziś", i z założeniem promptu, że
+> treść jest docelowa, nie placeholderowa. **Nie „naprawiaj" konkretnych liczb w istniejących
+> wariantach** — patrz wariant 4 (`2005 / 2011 / 2016`), to jest poprawne.
+
+Granica pozostaje przy **stwierdzeniach o osobach trzecich**: fikcyjne nazwy firm-klientów
+w sekcji „zaufali nam" (punkt pierwszy powyżej) i wymyślone imię właściciela dalej są zakazane —
+tego klient nie „poprawia przy edycji", tylko musiałby najpierw zauważyć, że jest nieprawdziwe.
 
 ---
 
@@ -190,7 +204,7 @@ Przejść **w przeglądarce**, na wersji wypełnionej, sekcja po sekcji:
 - [ ] Wąski ekran (<480 px): nic się nie rozjeżdża, zdjęcia nie są nienaturalnie wysokie
 - [ ] Formularz przyjmuje dane i pokazuje potwierdzenie po wysłaniu
 - [ ] `grep -c '{{'` na wersji z tokenami > 0 — tokeny nie zostały przypadkiem podstawione
-- [ ] Brak `[Imię]`, wymyślonych nazw firm i fikcyjnych dat
+- [ ] Brak `[Imię]` i wymyślonych nazw firm-klientów *(konkretne liczby i daty są OK — sekcja 5)*
 - [ ] Brak `w {{MIASTO}}` / `z {{MIASTO}}` / `poza {{MIASTO}}` bez rzeczownika „miasto"
 - [ ] Świadome wyjątki wariantu (patrz `README.md`) nie zostały „naprawione"
 
