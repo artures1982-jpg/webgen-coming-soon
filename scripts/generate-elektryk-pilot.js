@@ -224,6 +224,58 @@ LAYOUT:
 9. Pasmo CTA: duży nagłówek + przycisk "Wyceń online" prowadzący do formularza.
 10. Stopka ciemna z linkami social i gradientowym separatorem.`
   },
+  {
+    id: 'elektryk-4-rodzinna-firma',
+    tier: 'pro',
+    name: 'Rodzinna firma',
+    visual: `STYL: osobisty, ciepły, "poznaj mnie" — jednoosobowa/rodzinna działalność, mniej korporacyjnie.
+Odróżnij się od wariantu 1 (tam też ciepło, ale strukturalnie standardowo — siatka kart usług ze
+zdjęciami, sekcja zaufania z gwiazdkami) i od odpowiednika w branży Hydraulik (tam "starszy
+fachowiec" z wąsem; tu MŁODSZY właściciel — inne pokolenie tej samej idei "rodzinna firma", np.
+firma prowadzona od niedawna przez kogoś, kto przejął rzemiosło po rodzicu, nie musisz pisać
+dosłownie tej historii, ale ton ma być "młody, ale już zaufany", nie "senior z dekadami stażu").
+PALETA (jako zmienne CSS): --bg ciepły kremowy (nie czysta biel), --accent stonowana ciepła szałwiowa
+zieleń (np. #6b8f5e — wyraźnie inna od bursztynu wariantu 1, pomarańczu wariantu 2, fioletu
+wariantu 3 i od terakoty/niebieskiego hydraulik-4), --text ciemny brąz-grafit.
+TYPOGRAFIA (jako zmienne CSS): nagłówki z charakterem, lekko zaokrąglone kształty liter — Quicksand
+(NIE Fredoka — tego fontu już realnie używa hydraulik-4-rodzinna-firma, dwa "ciepłe rodzinne"
+warianty w różnych branżach nie powinny mieć identycznego font-pairingu), tekst przyjazny sans (np.
+Karla).
+
+PRAWDZIWE ZDJĘCIA (Pexels, wyselekcjonowane ręcznie i wizualnie zweryfikowane — użyj DOKŁADNIE
+tego URL-a; to NIE jest opcjonalne, ten wariant bardziej niż inne opiera się na prawdziwej
+fotografii, bo cały koncept to "poznaj właściciela"):
+- Jedno zdjęcie, użyte DWUKROTNIE w dwóch różnych kadrach (ta sama osoba w obu miejscach buduje
+  spójność marki — to zamierzone, nie oszczędność): młody elektryk z kręconymi włosami, w jasnej
+  koszuli, uśmiechnięty, montujący/regulujący gniazdko na ścianie w ciepłym, jasnym wnętrzu (nie
+  warsztat — wygląda jak praca u klienta w domu, naturalne światło):
+  https://images.pexels.com/photos/7647233/pexels-photo-7647233.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+  1. HERO: pełne zdjęcie jako duży wizerunek (np. połowa szerokości hero, zaokrąglony róg/kształt
+     organiczny, NIE prostokąt na całą szerokość jak w innych wariantach — to ma wyglądać osobiście,
+     nie korporacyjnie), obok tekst + cytat właściciela + CTA.
+  2. SEKCJA KONTAKT: ten sam plik, ale węższy kadr przez object-position (zbliżenie na twarz,
+     mały okrągły portret ~64-80px obok numeru telefonu).
+  3. UWAGA — ROZMIAR NA MOBILE (KRYTYCZNE, ten sam błąd zgłoszony już raz w analogicznym wariancie
+     Hydraulika — nie powtarzaj go): na wąskich ekranach (<700px) organiczny kształt zdjęcia w hero
+     NIE MOŻE przekraczać ok. 180-220px szerokości i musi mieć zredukowany padding-top sekcji hero —
+     inaczej zdjęcie zajmuje CAŁY ekran telefonu i chowa nagłówek/tekst pod fold. Sprawdź to na
+     wąskim viewporcie przed oddaniem pliku, nie tylko na desktopie.
+LAYOUT:
+1. Nav prosta, bez pełnej szerokości, z lekkim marginesem.
+2. Hero: zdjęcie właściciela z listy powyżej (nie samego produktu/narzędzi), krótkie osobiste motto pod nagłówkiem (np. cytat właściciela), jeden ciepły CTA.
+3. Sekcja "Nasza historia": pozioma oś czasu (rok założenia → dziś, 3-4 punkty) z krótkimi opisami.
+4. Sekcja USŁUGI jako prostsza lista (nie karty ze zdjęciami) — nazwa usługi + jedno zdanie opisu, mniej "sprzedażowo" niż w innych wariantach.
+5. Sekcja z jednym dużym cytatem klienta na całą szerokość (duży cudzysłów dekoracyjny, cytat wyśrodkowany).
+6. Kompaktowe FAQ (3-4 pytania, jak w hydraulik-4-rodzinna-firma i pozostałych wariantach elektryka —
+   pominięcie FAQ byłoby tu przeoczeniem, nie świadomym wyjątkiem) — dopasowane do osobistego tonu,
+   np. "Czy to Ty osobiście przyjeżdżasz na zlecenia?", "Czy pracujesz też poza miastem {{MIASTO}}?",
+   "Czy wystawiasz fakturę?", "Czy naprawa ma gwarancję?".
+7. Sekcja kontakt osobisty: "Zadzwoń bezpośrednio do mnie — {{NAZWA_STRONY}}" (UWAGA: nie ma tokenu na
+   imię właściciela, tylko {{NAZWA_STRONY}} — nie wymyślaj fikcyjnego imienia w wersji z tokenami)
+   z małym okrągłym zdjęciem portretowym (z listy powyżej, kadr wycentrowany mniej więcej na
+   ~25-30% / 45-55% object-position, tam jest twarz na tym zdjęciu) obok numeru telefonu.
+8. Stopka jasna, ciepła, prosta.`
+  },
 ];
 
 async function callClaude(system, userPrompt) {

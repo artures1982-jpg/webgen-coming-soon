@@ -9,3 +9,4 @@ CONTEXT.md
 .vercel
 .env*.local
 .env*
+.claude/settings.local.json
