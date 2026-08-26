@@ -304,6 +304,75 @@ LAYOUT:
    w hydraulik-4) + dane kontaktowe/mapa pod spodem.
 7. Stopka jasna, ciepła, prosta.`
   },
+  {
+    id: 'elektryk-5-premium-korporacyjny',
+    tier: 'pro',
+    name: 'Premium / korporacyjny',
+    visual: `STYL: dla firmy pozycjonującej się wyżej cenowo — klienci B2B, deweloperzy, zarządcy
+budynków, większe realizacje (instalacje w biurowcach, obiektach przemysłowych, fotowoltaika
+komercyjna). Odpowiednik archetypu w branży Hydraulik to hydraulik-5-premium-korporacyjny.html —
+przeczytaj go WYŁĄCZNIE jako inspirację ducha archetypu (B2B, elegancja, case studies zamiast
+gwiazdek), NIGDY jako plik bazowy do kopiowania (ZASADY.md sekcja 0). Poniższy brief celowo używa
+innych mechanizmów wizualnych niż hydraulik-5 w KAŻDEJ sekcji — trzymaj się ich.
+
+PALETA (jako zmienne CSS) — inna niż hydraulik-5 (tam biel + głęboki granat) i inna niż pozostałe
+warianty elektryka (bursztyn/pomarańcz/fiolet/szałwia — wszystkie na jasnym LUB ciemnym tle bez
+tintu): --bg chłodny, lekko tintowany jasny grafit (NIE czysta biel, NIE kremowy jak wariant 4 —
+np. #f2f4f6), --surface odrobinę ciemniejszy chłodny szary (np. #e4e8ec), --accent głęboka miedź/
+brąz (np. #a85c32 — nawiązanie do miedzianego przewodu, ciepły akcent na chłodnym tle to celowy
+kontrast), --accent-dark ciemniejsza miedź/espresso (np. #7a3f1f), --text prawie czarny chłodny
+grafit, --muted chłodny szary. To ma dawać inny nastrój niż hydraulik-5 nawet z zamkniętymi
+oczami na strukturę — chłodne tło + ciepły metaliczny akcent, nie ciepłe/białe tło + chłodny
+granat.
+TYPOGRAFIA (jako zmienne CSS): nagłówki elegancki, wysokokontrastowy serif — Bodoni Moda (NIE
+Fraunces — tego fontu już realnie używa hydraulik-5), tekst neutralny sans o korporacyjnym
+charakterze (np. IBM Plex Sans, inny niż Inter używany w hydraulik-5 i w elektryk-3).
+
+PRAWDZIWE ZDJĘCIA (Pexels, wyselekcjonowane ręcznie i wizualnie zweryfikowane — użyj DOKŁADNIE
+tych URL-i; to NIE jest opcjonalne):
+- HERO — rozległy, uporządkowany korytarz rozdzielni/serwerowni przemysłowej z rzędami paneli
+  sterowniczych po obu stronach (wrażenie skali i powagi, nie zdjęcie portretowe, brak osób):
+  https://images.pexels.com/photos/38217230/pexels-photo-38217230.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Case study "wyróżniony" (duże zdjęcie): nowoczesna, czysta rozdzielnica z cyfrowymi licznikami
+  i wyłącznikami, bardzo uporządkowana, wysokiej jakości wykonanie:
+  https://images.pexels.com/photos/35573433/pexels-photo-35573433.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Case study kompaktowy (małe zdjęcie): rozległa instalacja fotowoltaiczna na dachu obiektu
+  przemysłowego, ujęcie z lotu ptaka, wrażenie ogromnej skali:
+  https://images.pexels.com/photos/29923348/pexels-photo-29923348.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=500&w=650
+- Trzeci case study CELOWO bez zdjęcia (żaden z przeszukanych wyników nie pasował wystarczająco
+  dobrze — biurowce/oświetlenie komercyjne — więc zamiast wymuszać słabe zdjęcie, ten jeden case
+  study jest tekstowy/metryką, nie zdjęciem; ten sam wzorzec co "brak dobrego zdjęcia" w innych
+  wariantach, patrz ZASADY.md sekcja 4).
+UWAGA — SEKCJA ZAUFANIA (KRYTYCZNE): generyczne etykiety kategorii klienta ("Deweloperzy
+mieszkaniowi", "Biura i powierzchnie komercyjne", "Zarządcy nieruchomości", "Inwestorzy
+przemysłowi") — NIGDY wymyślone, realnie brzmiące nazwy firm ani prawdziwe marki/loga.
+
+LAYOUT — każdy mechanizm inny niż hydraulik-5:
+1. Nav: cienka pionowa kreska między logo a krótkim tagline ("Instalacje elektryczne B2B") zamiast
+   samego logo, przycisk główny WYPEŁNIONY "Umów konsultację" (nie telefon jako nav-actions jak
+   w hydraulik-5) + telefon jako drugorzędny link tekstowy obok.
+2. Hero: zdjęcie jako szeroki, kinowy pas na całej szerokości NAD tekstem (nie split 2-kolumnowy
+   obok tekstu jak w hydraulik-5) — pod zdjęciem 2 kolumny: nagłówek + lead | pionowa lista 3
+   mikro-statystyk (np. "15 lat doświadczenia", "180+ realizacji B2B", "40 000 m² rocznie") jako
+   plakietki z cienką linią-obwódką, nie boksy w osobnej sekcji stats-strip.
+3. Sekcja "Nasz proces": PIONOWA lista kroków z lewą linią-kręgosłupem łączącą numerowane kółka
+   (jak formalny protokół/checklist), NIE pozioma siatka 4 kolumn z liniami między nimi jak w
+   hydraulik-5.
+4. Sekcja "Realizacje": asymetryczny układ — JEDEN duży wyróżniony case study (case study
+   "wyróżniony" powyżej, większe zdjęcie + dłuższy opis + metryka) obok DWÓCH kompaktowych wpisów
+   w węższej kolumnie (jeden ze zdjęciem, jeden tekstowy bez zdjęcia) — NIE siatka 3 równych kart
+   jak w hydraulik-5.
+5. Sekcja zaufania: bordowany poziomy "rejestr" z pionowymi liniami-separatorami między
+   etykietami kategorii klienta (jak lista w formalnym dokumencie), NIE luźne pigułki (trust-pill)
+   jak w hydraulik-5.
+6. FAQ — accordion, jak w pozostałych wariantach elektryka.
+7. Kontakt: formularz "Zapytanie o wycenę projektu" (pola: firma, zakres prac, budżet
+   orientacyjny — te same co hydraulik-5, to uzasadniona treść formularza B2B) jako karta na
+   PEŁNĄ szerokość na górze sekcji (nie w splicie 1fr/1fr z danymi kontaktowymi obok), dane
+   kontaktowe + mapa POD formularzem w poziomym pasku, nie obok niego.
+8. Stopka: cienka linia-akcent (kolor --accent) nad stopką + 2 kolumny (krótki opis firmy | linki
+   kontaktowe), NIE pojedynczy poziomy rząd flex-space-between jak w hydraulik-5.`
+  },
 ];
 
 async function callClaude(system, userPrompt) {
