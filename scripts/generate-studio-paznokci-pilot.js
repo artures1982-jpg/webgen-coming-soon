@@ -466,6 +466,144 @@ poprawione tak, żeby tego uniknąć:
 7. Stopka: jasna, prosta, wyśrodkowana, jedna linia + copyright (bez plakietek/badge'y — inny,
    bardziej stonowany pomysł niż stopki wariantów 2/3).`
   },
+  {
+    id: 'studio-paznokci-5-premium',
+    tier: 'pro',
+    name: 'Premium',
+    visual: `STYL: adaptacja archetypu "Premium/korporacyjny" — w Hydrauliku/Elektryku to dosłownie
+B2B: deweloperzy, biura, zarządcy nieruchomości, inwestorzy przemysłowi, wyceny projektów
+instalacyjnych na setki tysięcy złotych. DLA STUDIA PAZNOKCI TEGO NIE DA SIĘ ZROBIĆ DOSŁOWNIE —
+firma budowlana/deweloper nie zamawia "instalacji paznokci". To NIE jest reframing typu wariant 2
+(gdzie dało się 1:1 podmienić słowo-klucz) — tu trzeba przenieść DUCHA archetypu (premium tier,
+podwyższone oczekiwania klienta, sformalizowany proces, edytorialna estetyka, portfolio
+dowodowe, "zaufali nam" jako rejestr zaufania) na realistyczny odpowiednik w branży beauty, a NIE
+wymuszać słownictwa deweloperskiego. Zrealizowany pomysł: studio premium, które — poza zwykłymi
+klientkami indywidualnymi oczekującymi najwyższego poziomu — realizuje też pracę dla PRAWDZIWYCH,
+istniejących w tej branży kategorii instytucjonalnych/eventowych: sesje zdjęciowe i kampanie
+marek kosmetycznych, stylizacje ślubne (panna młoda + druhny), wieczory panieńskie grupowe,
+prezenty/eventy firmowe (bony podarunkowe dla pracownic, mobilny "nail bar" na evencie firmowym)
+— to są prawdziwe, powszechne usługi premium studiów paznokci, nie wymyślone naciąganie. Duch:
+"poziom, który zauważą kamery, druhny i dział HR kupujący bony na Dzień Kobiet".
+
+Piąty i OSTATNI wariant tej branży (system schodzi do 5 archetypów, patrz retirement archetypu 6
+w ZASADY.md i README.md) — ZASADY.md sekcja 0 (bespoke względem hydraulik-5-premium-korporacyjny.html
+i elektryk-5-premium-korporacyjny.html, przeczytaj OBA WYŁĄCZNIE jako inspirację ducha i MECHANIKI
+STRUKTURALNEJ — stats-strip/hero-stats, "Jak pracujemy" jako oś procesu, portfolio "realizacje",
+rejestr zaufania, PEŁNY formularz zapytania zamiast telefonu jako primary CTA — te mechanizmy
+architektoniczne WOLNO przenieść, bo to esencja "premium = formalny proces", ale KAŻDA treść i
+KAŻDY mechanizm wizualny sekcji musi dostać inny wygląd niż OBA te pliki, patrz LAYOUT poniżej) i
+różnicowanie względem studio-paznokci-1 (jasna kość słoniowa+dusty-rose), studio-paznokci-2 (ciemny
+plum+magenta), studio-paznokci-3 (ciemny grafit+emerald), studio-paznokci-4 (ciepły beż-taupe+karmel).
+
+To wariant PRO (najwyższy tier tej branży) — może używać ruchu, ale duch "premium/edytorialny" w
+OBU punktach odniesienia jest wyciszony, precyzyjny, bez zabawek marketingowych (żadnego z nich nie
+używa shimmer/marquee/pulsowania) — zachowaj tę konwencję archetypu: WYŁĄCZNIE jednorazowy
+fade-in+translateY (IntersectionObserver) na kartach portfolio i wierszach rejestru zaufania przy
+wejściu w viewport, zero pętli/keyframes. To spójne z tym, co już ustalono dla wariantu 4 tej samej
+branży (ten sam archetyp-rodzina "stonowany, formalny proces" co "rodzinna firma", tylko przesunięty
+w stronę edytorialnego luksusu zamiast osobistej bliskości).
+
+WYMÓG prefers-reduced-motion: fade-in kart portfolio i wierszy rejestru zaufania musi mieć
+natychmiastowy stan końcowy (opacity:1, bez translateY) pod reduced-motion, treść nigdy nie chowana.
+Zwykłe hover-transition (przyciski, karty) nie wymaga wyłączania.
+
+PALETA (jako zmienne CSS) — inna niż OBA punkty odniesienia (hydraulik-5: granat #1f3350 na czystej
+bieli #ffffff, elektryk-5: terakota-brąz #a85c32 na chłodnym szarym #f2f4f6) i inna niż WSZYSTKIE
+cztery poprzednie warianty tej branży (dusty-rose/ivory #c9718c/#faf3ee, plum/magenta #ff4d8f/#1f1420,
+grafit/emerald #2dd4a7/#0e1116, karmel/beż-taupe #b8763f/#ece1d3): --bg jasny, zneutralizowany écru,
+WYRAŹNIE mniej różowy niż studio-paznokci-1's ciepły #faf3ee (np. #f1eee6 — sprawdź: R-G delta tylko
+ok. 3 zamiast 7 jak w faf3ee, żeby realnie zbić różowy odcień, nie tylko deklaratywnie) i wyraźnie
+jaśniejszy niż studio-paznokci-4's #ece1d3. --surface: UWAGA — pierwotnie rozważany #e9e2d3 okazał się
+PRAKTYCZNIE IDENTYCZNY (różnica R3/G1/B0, nierozróżnialna gołym okiem) ze studio-paznokci-4's --bg
+#ece1d3 — sekcje tego wariantu na --surface wyglądałyby jak cała strona studio-4. Użyj zamiast tego
+chłodniejszego, bardziej "kamiennego"/zneutralizowanego odcienia, wyraźnie mniej pomarańczowo-karmelowego
+niż ece1d3 (np. --surface:#dedad0 — bardziej szary/stonowany, spójny z achromatycznym duchem akcentu
+poniżej), --accent i --accent-dark: ZAMIAST kolejnego nasyconego koloru
+(róż/magenta/emerald/karmel już zajęte) użyj achromatycznego, "czarno-atramentowego" akcentu — bliski
+czerni, ciepły, edytorialny (np. --accent:#2a2622, --accent-dark:#141210 — potwierdzone grepem po
+"--accent:" w templates/pilot/*.html że ŻADEN wariant w całym systemie, nie tylko tej branży, nie
+używa achromatycznego akcentu) — to najbardziej premium/luksusowy, edytorialny wybór (czerń+écru, zero
+koloru, jak kampanie beauty klasy premium) i jest to jedyny wariant tej branży bez kolorowego akcentu,
+więc test mrużenia oczu jest oczywisty: monochromatyczny vs kolorowe rodzeństwo. --text prawie czarny
+ciepły, --muted ciepły szaro-beż.
+TYPOGRAFIA (jako zmienne CSS): nagłówki elegancki, cienki, edytorialny serif (np. Cormorant
+Garamond — inny niż Playfair Display/Fraunces/Bodoni Moda/Lora already used w systemie), tekst
+czytelny geometryczny sans (np. Epilogue — inny niż wszystkie już użyte). Sprawdź grep po
+templates/pilot/*.html żeby potwierdzić brak kolizji.
+
+PRAWDZIWE ZDJĘCIA (Pexels, wizualnie zweryfikowane — sprawdzone że nie kolidują z żadnym zdjęciem już
+użytym w templates/pilot/*.html):
+- HERO PHOTO (jako duże zdjęcie WEWNĄTRZ 2-kolumnowego gridu hero obok tekstu — NIE pełnoszerokościowy
+  baner NAD sekcją jak elektryk-5, patrz LAYOUT pkt 2 poniżej): edytorialny top-down flat-lay — dłonie
+  z eleganckim burgundowym manicure i pierścionkiem, oparte na białym marmurowym blacie, miękkie
+  naturalne światło. Wybrane jako zamiennik po odrzuceniu kandydata 13068371 (ta sama fotosesja co
+  już użyte 13068379 w studio-paznokci-3 — patrz historia w komentarzu wyżej). Zweryfikowane wizualnie,
+  bez brandingu, ID nie koliduje z żadnym już użytym w templates/pilot/*.html:
+  https://images.pexels.com/photos/4661286/pexels-photo-4661286.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- PORTFOLIO, case wyróżniony (czarne paznokcie ze złotymi charms/krzyżykami, biżuteria, edytorialne,
+  ciemne tło): https://images.pexels.com/photos/18730147/pexels-photo-18730147.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- PORTFOLIO, case kompaktowy (delikatny nude manicure z pierścionkiem z brylantem, biała tiulowa
+  tkanina w tle, ślubny klimat): https://images.pexels.com/photos/5978139/pexels-photo-5978139.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+
+LAYOUT — inny mechanizm niż hydraulik-5 (statyczny nav bez blur, hero 2-kolumnowy tekst+zdjęcie,
+stats-strip 3-kolumnowa, process 4-kolumnowy poziomy z linią, cases-grid 3 równe karty, trust-row
+luźne pigułki, kontakt 2-kolumnowy formularz+dane) i elektryk-5 (nav z tagline+divider i
+overflow-x:auto na .wrap — UWAGA, to jest DOKŁADNIE wzorzec z ZASADY.md 6.4 do naśladowania z
+desktop/mobile split, NIE do kopiowania samego overflow-x, pełnoszerokościowy hero-banner jako
+osobny <img> NAD sekcją hero-info, hero-info 2-kolumnowy tekst+hero-stats jako pionowa lista
+kart, process-list PIONOWY z numerowanymi kółkami i łączącą linią, cases-layout 1 duży
+case-featured + 2 kompaktowe case-compact (jeden z prawdziwym zdjęciem, jeden z .no-photo
+text-badge), trust-register jako pozioma tabela komórek z obramowaniem, kontakt jako PEŁNA
+szerokość formularz + dane poniżej w 2 kolumnach) — i inny niż studio-paznokci-1/2/3/4:
+1. Nav: jasna, sticky, statyczna (bez blur — jak hydraulik-5, nie jak elektryk-5). Logo BEZ
+   taglinu obok (inny pomysł niż elektryk-5's "brand-divider+tagline"). CTA to PEŁNY przycisk
+   "Zapytaj o dostępność" (NIE "Umów konsultację" jak elektryk-5, NIE telefon jako primary jak
+   hydraulik-5's nav-phone) — HAMBURGER MUSI używać wzorca ZASADY.md 6.4: .nav-links-desktop /
+   .nav-links-mobile jako rodzeństwo .wrap wewnątrz header.nav, JS getElementById('navLinks') —
+   TEN WZORZEC JEST OBOWIĄZKOWY niezależnie od tego że hydraulik-5 go nie ma (to plik sprzed
+   odkrycia buga, nie kopiuj jego navu 1:1).
+2. Hero: BEZ osobnego pełnoszerokościowego banera-zdjęcia jak elektryk-5 — zamiast tego duże
+   zdjęcie hero jako część 2-kolumnowego gridu (jak hydraulik-5), ale odwrócone proporcje kolumn
+   (np. 1.15fr/.85fr) i BEZ stats-strip jako osobnej sekcji pod herem — zamiast tego wstaw 3
+   kompaktowe liczby jako POZIOMY pasek WEWNĄTRZ hero-copy, pod CTA, oddzielony cienką linią
+   górną (nie osobna pełnoszerokościowa sekcja jak hydraulik-5, nie pionowa lista kart jak
+   elektryk-5's hero-stats).
+3. Sekcja "Jak pracujemy": 4 kroki jako pozioma siatka KART (nie linia z numerkami w kółkach jak
+   hydraulik-5, nie pionowa lista z łączącą linią jak elektryk-5) — każda karta z dużą cienką
+   cyfrą-numerem w tle rogu karty (np. font-size 3rem, opacity niska, pozycja absolute) i tytułem/
+   opisem na pierwszym planie. Kroki: Konsultacja → Dobór stylizacji i wycena → Realizacja w
+   prywatnym gabinecie → Pielęgnacja i termin kolejnej wizyty (NIE "Odbiór i gwarancja" — to nie
+   pasuje do usługi beauty, zamiast tego naturalny follow-up/aftercare).
+4. Sekcja "Portfolio" / "Wybrane realizacje": 1 case wyróżniony (duże zdjęcie NA GÓRZE, opis POD
+   spodem na pełną szerokość — nie obok jak elektryk-5's case-featured) + POniżej pozioma siatka 3
+   kompaktowych kart (nie pionowa lista jak elektryk-5) — dwie z prawdziwym zdjęciem/tekstem, jedna
+   BEZ zdjęcia (text-badge z literą, jak elektryk-5's .no-photo — ten jeden konkretny mechanizm
+   wolno powtórzyć, to trywialny fallback-pattern, nie właściwy layout różnicujący). Kategorie
+   (BEZ zmyślania nazw marek/firm-klientów — generyczne etykiety kategorii, zgodnie z WYMÓG TREŚCI
+   powyżej): "Sesja zdjęciowa dla marki kosmetycznej" (zdjęcie 18730147), "Stylizacja ślubna —
+   panna młoda i druhny" (zdjęcie 5978139), "Wieczór panieński grupowy" (bez zdjęcia, text-badge).
+5. Sekcja zaufania: "Współpracujemy z" (NIE dosłowne "Zaufali nam" 1:1 z obu referencji — to samo
+   znaczenie, inne słowa) — rejestr POZIOMY jak elektryk-5, ale jako pozioma lista PIGUŁEK z cienką
+   ramką (nie tabela-komórki z borderami jak elektryk-5, nie luźne pigułki jak hydraulik-5 — dodaj
+   mały monogram-inicjał w kółku przed każdą etykietą, np. "M" dla marek, "P" dla panien młodych)
+   z fade-in przy scrollu. Kategorie (generyczne, nie zmyślone nazwy): "Marki kosmetyczne (sesje i
+   kampanie)", "Panny młode i druhny", "Organizatorki wieczorów panieńskich", "Firmy (bony i
+   eventy firmowe)".
+6. FAQ — accordion, jasna, edytorialna stylistyka spójna z resztą wariantu. Pytania: czy studio
+   przyjmuje grupy (wieczory panieńskie), czy realizuje sesje zdjęciowe/kampanie dla marek, czy
+   wystawia faktury dla firm (bony podarunkowe), jak wygląda rezerwacja terminu premium, ile z
+   wyprzedzeniem rezerwować duże wydarzenia (ślub/event grupowy).
+7. Kontakt: PEŁNY formularz zapytania (nie telefon jako primary CTA — to KLUCZOWA cecha
+   archetypu "premium", zachowaj ją) — pola: Imię i nazwisko, Rodzaj zapytania (select: Wizyta
+   indywidualna premium / Wieczór panieński grupowy / Sesja zdjęciowa lub współpraca z marką /
+   Event firmowy — bony podarunkowe), Wiadomość (textarea), przycisk "Wyślij zapytanie" z tym
+   samym JS-owym potwierdzeniem inline co hydraulik-5/elektryk-5 (zamiana treści formularza po
+   submit). Pod formularzem pasek danych kontaktowych + mapa dojazdu (patrz WYMÓG — MAPA DOJAZDU
+   powyżej) — telefon i email jako fallback, nie jako primary CTA.
+8. Stopka: jasna, edytorialna, z cienką linią-akcentem u góry w kolorze --accent (jak elektryk-5's
+   footer-accent, to trywialny, niedominujący detal, wolno powtórzyć), 2-kolumnowy układ logo+opis
+   / dane kontaktowe.`
+  },
 ];
 
 async function callClaude(system, userPrompt) {
