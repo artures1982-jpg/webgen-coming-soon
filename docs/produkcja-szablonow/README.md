@@ -11,6 +11,17 @@ Powstał na bazie pilota branży **Hydraulik** (6 wariantów, komplet ukończony
 odpowiednika w innej branży. Ta zasada była złamana dwukrotnie (elektryk-1, elektryk-4) zanim
 trafiła do dokumentu.
 
+**Decyzja produktowa (26.08.2026): archetyp 6 „Minimalistyczny one-pager" jest WYCOFANY z
+systemu na przyszłość.** Nowe branże (Elektryk, Studio paznokci i kolejne) dostają tylko 5
+archetypów: 1 (free, „Zaufany fachowiec") + 2–5 (pro). Nie buduj już wariantu 6 dla żadnej
+branży — Elektryk zostaje na 5/5 po ukończeniu wariantu 5, nie ma zaplanowanego wariantu 6.
+Dodatkowo: **wariant 2 i wyżej to szablony premium (pro) — wolno (należy) używać tam ruchu**
+(animacje, poświata/glow, fade-in przy scrollu, shimmer, poruszające się paski) jako trzeciego
+wymiaru różnicowania obok struktury i palety — patrz `.claude/agents/designer-ux-ui.md` sekcja
+„Wariant 1 (free) spokojny, wariant 2+ (pro) może żyć". `hydraulik-6-minimalistyczny.html`
+zostaje jako już wysłana, historyczna praca — ta decyzja NIE każe go usuwać ani wycofywać,
+dotyczy wyłącznie tego, co budujemy od teraz.
+
 Dokumenty w tym katalogu:
 
 | Plik | Zawartość |

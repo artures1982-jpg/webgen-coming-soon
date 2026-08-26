@@ -6,6 +6,12 @@ Wszystko poniżej wynika z realnych błędów wykrytych w pilocie Hydraulika —
 kosztowała co najmniej jedną poprawkę. Kanoniczne źródło reguł to stała `CSS_VAR_REQUIREMENT`
 w `scripts/generate-hydraulik-pilot.js`; ten plik ją tłumaczy i uzupełnia o kontekst.
 
+**Aktualizacja 26.08.2026 — archetyp 6 wycofany na przyszłość:** system schodzi z 6 do 5
+archetypów dla wszystkich nowych branż — patrz `README.md` u góry po szczegóły. Wzmianki o
+"wariancie 6" niżej w tym dokumencie (sekcje o mapie/nav/hex) opisują już wysłany, historyczny
+`hydraulik-6-minimalistyczny.html` i zostają jako dokumentacja tamtego wyjątku — nie buduj już
+nowych wariantów 6.
+
 ---
 
 ## 0. Bespoke wykonanie per branża — ZERO reużycia layoutu między branżami
