@@ -58,9 +58,11 @@
   .nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.5rem;gap:1rem;}
   .logo{font-family:var(--head);font-weight:700;font-size:1.2rem;color:var(--text);}
   .logo span{color:var(--accent);}
-  .nav-links{display:flex;gap:1.6rem;align-items:center;}
+  .nav-links{gap:1.6rem;align-items:center;}
   .nav-links a{font-weight:500;font-size:.86rem;color:var(--muted);}
   .nav-links a:hover{color:var(--text);}
+  .nav-links-desktop{display:flex;}
+  .nav-links-mobile{display:none;}
   .nav-actions{display:flex;align-items:center;gap:.9rem;}
   .avail-badge{display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;font-weight:600;color:var(--text);background:color-mix(in srgb, var(--accent) 18%, transparent);border:1px solid color-mix(in srgb, var(--accent) 40%, transparent);border-radius:2rem;padding:.4rem .8rem;white-space:nowrap;}
   .avail-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulseDot 1.6s ease-in-out infinite;flex-shrink:0;}
@@ -141,12 +143,13 @@
     .usp-grid{grid-template-columns:repeat(2,1fr);}
   }
   @media (max-width:700px){
-    .nav-links{
+    .nav-links-desktop{display:none;}
+    .nav-links-mobile{
       position:absolute;top:100%;left:0;right:0;background:var(--bg);
       flex-direction:column;align-items:flex-start;gap:1rem;padding:1.2rem 1.5rem;
       border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);display:none;
     }
-    .nav-links.open{display:flex;}
+    .nav-links-mobile.open{display:flex;}
     header.nav{position:sticky;}
     .nav-toggle{display:flex;}
     .avail-badge span.txt{display:none;}
@@ -172,7 +175,7 @@
 <header class="nav">
   <div class="wrap">
     <a href="#" class="logo">{{NAZWA_STRONY}}<span>.</span></a>
-    <nav class="nav-links">
+    <nav class="nav-links nav-links-desktop">
       <a href="#zabiegi">Zabiegi</a>
       <a href="#faq">FAQ</a>
       <a href="#kontakt">Kontakt</a>
@@ -185,6 +188,11 @@
       </button>
     </div>
   </div>
+  <nav class="nav-links nav-links-mobile" id="navLinks">
+    <a href="#zabiegi">Zabiegi</a>
+    <a href="#faq">FAQ</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
 </header>
 
 <section class="hero">
@@ -290,8 +298,12 @@
   document.getElementById('year').textContent = new Date().getFullYear();
 
   const navToggle = document.getElementById('navToggle');
+  const navLinksMobile = document.getElementById('navLinks');
   navToggle.addEventListener('click', () => {
-    document.querySelector('.nav-links').classList.toggle('open');
+    navLinksMobile.classList.toggle('open');
+  });
+  navLinksMobile.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinksMobile.classList.remove('open'));
   });
 
   const io = new IntersectionObserver((entries) => {

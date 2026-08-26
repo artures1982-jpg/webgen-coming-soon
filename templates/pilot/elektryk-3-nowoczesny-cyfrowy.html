@@ -55,9 +55,11 @@
   .nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.5rem;}
   .logo{font-family:var(--head);font-weight:700;font-size:1.25rem;color:var(--text);}
   .logo span{color:var(--accent);}
-  .nav-links{display:flex;gap:1.6rem;align-items:center;}
+  .nav-links{gap:1.6rem;align-items:center;}
   .nav-links a{font-weight:600;font-size:.9rem;color:color-mix(in srgb, var(--text) 85%, transparent);}
   .nav-links a:hover{color:var(--accent);}
+  .nav-links-desktop{display:flex;}
+  .nav-links-mobile{display:none;}
   .nav-actions{display:flex;align-items:center;gap:.8rem;}
   .nav-phone{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid color-mix(in srgb, var(--text) 22%, transparent);font-size:1.1rem;flex-shrink:0;}
   .nav-phone:hover{border-color:var(--accent);color:var(--accent);}
@@ -173,8 +175,9 @@
   }
   @media (max-width:700px){
     .nav .wrap{padding:.9rem 1.1rem;}
-    .nav-links{position:absolute;top:100%;left:0;right:0;background:color-mix(in srgb, var(--bg) 96%, transparent);backdrop-filter:blur(14px);flex-direction:column;align-items:flex-start;padding:1.2rem 1.5rem;border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);display:none;}
-    .nav-links.open{display:flex;}
+    .nav-links-desktop{display:none;}
+    .nav-links-mobile{position:absolute;top:100%;left:0;right:0;background:color-mix(in srgb, var(--bg) 96%, transparent);backdrop-filter:blur(14px);flex-direction:column;align-items:flex-start;padding:1.2rem 1.5rem;border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);display:none;}
+    .nav-links-mobile.open{display:flex;}
     .nav-toggle{display:flex;flex-shrink:0;}
     .logo{font-size:1.05rem;flex-shrink:0;}
     .nav-actions{gap:.5rem;}
@@ -197,7 +200,7 @@
 <header class="nav">
   <div class="wrap">
     <a href="#" class="logo">{{NAZWA_STRONY}}<span>.</span></a>
-    <nav class="nav-links" id="navLinks">
+    <nav class="nav-links nav-links-desktop">
       <a href="#uslugi">Usługi</a>
       <a href="#jak-to-dziala">Jak to działa</a>
       <a href="#opinie">Opinie</a>
@@ -212,6 +215,13 @@
       </button>
     </div>
   </div>
+  <nav class="nav-links nav-links-mobile" id="navLinks">
+    <a href="#uslugi">Usługi</a>
+    <a href="#jak-to-dziala">Jak to działa</a>
+    <a href="#opinie">Opinie</a>
+    <a href="#faq">FAQ</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
 </header>
 
 <section class="hero">

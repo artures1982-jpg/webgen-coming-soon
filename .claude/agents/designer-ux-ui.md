@@ -39,6 +39,13 @@ zmrużyć oczy, dwie różne struktury nadal wyglądają jak ta sama aplikacja p
 - **Mobile**: `<img>` z `width`/`height` HTML musi mieć `height:auto` obok `aspect-ratio` w CSS.
   Przycisk telefonu w nav zwija się do samej ikony <700px. Nav bez hamburgera musi mieścić się
   na każdej szerokości (mniejszy font/gap <480px, `overflow-x:auto` jako ostatnia linia obrony).
+- **Jeśli wariant MA hamburger + `overflow-x:auto` na `.nav .wrap`**: dropdown mobilny (`.nav-links`)
+  NIE może być zagnieżdżony wewnątrz elementu z `overflow-x:auto` — `overflow-x` inny niż `visible`
+  wymusza `overflow-y:auto`, co przycina dropdown wystający pod paskiem nav (ZASADY.md 6.4, realny
+  błąd na 3 wysłanych plikach — "hamburger nie działa" mimo poprawnie wyglądającego CSS). Dropdown
+  ma być rodzeństwem `.wrap`, nie jego potomkiem. Zawsze **faktycznie kliknij** hamburger w
+  przeglądarce na wąskim viewporcie przy weryfikacji — sam odczyt CSS to za mało, ten błąd trzy
+  razy przeszedł taki odczyt niezauważony.
 
 ## Różnicowanie — to jest sedno zadania
 

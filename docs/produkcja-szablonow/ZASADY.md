@@ -246,6 +246,61 @@ szerokości. Zastosowany zestaw zabezpieczeń: mniejszy `font-size` i `gap` poni
 telefon zwinięty do ikony, `white-space:nowrap` na elementach oraz `overflow-x:auto` na całym
 pasku (bez widocznego scrollbara) jako ostatnia linia obrony.
 
+### 6.4 `overflow-x:auto` na `.nav .wrap` PRZYCINA rozwijane menu mobilne (KRYTYCZNE,
+znaleziony realny błąd — hamburger "nie działał" na trzech już wysłanych plikach)
+
+Jeśli wariant MA hamburger (w odróżnieniu od 6.3) i mobilny dropdown (`.nav-links` z
+`position:absolute; top:100%`) jest zagnieżdżony WEWNĄTRZ `.nav .wrap`, a `.wrap` dostaje
+`overflow-x:auto` jako zabezpieczenie przed poziomym rozjechaniem (patrz 6.3) — to `overflow-x`
+ustawione na cokolwiek innego niż `visible`, przy `overflow-y` domyślnie `visible`, jest z
+definicji CSS **wymuszane na `overflow-y:auto`** też. Efekt: `.wrap` zaczyna przycinać wszystko,
+co wystaje poza jego wysokość — łącznie z rozwijanym menu, które z założenia ma wystawać *pod*
+pasek nav. JS poprawnie przełącza klasę `.open`, `display:flex` się włącza, ale menu jest
+niewidoczne (przycięte do zera wysokości paska nav) — wygląda jak "hamburger nie działa", choć
+kliknięcie technicznie działa.
+
+Znaleziony na żywo w `elektryk-3-nowoczesny-cyfrowy.html`, `elektryk-5-premium-korporacyjny.html`
+(tam nawet bez media query — `overflow-x:auto` był bezwarunkowy) i `studio-paznokci-2-express.html`
+(26.08.2026, zgłoszony bezpośrednio przez Artura: "Hamburger nie działa widoku mobilnym").
+`studio-paznokci-1-zaufany-fachowiec.html` przypadkiem tego uniknął, bo mobilny dropdown już był
+tam osobnym elementem `<nav class="mobile-menu">` poza `.wrap` — nie przez świadome unikanie tej
+pułapki, tylko przez inną strukturę HTML.
+
+**Naprawa — rozdziel nav linki na dwie kopie, jedną wewnątrz `.wrap` (desktop), jedną jako
+rodzeństwo `.wrap` wewnątrz `header.nav` (mobilny dropdown), nie jeden wspólny element:**
+
+```html
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo">...</a>
+    <nav class="nav-links nav-links-desktop">...</nav> <!-- widoczny >700px -->
+    <div class="nav-actions">...<button class="nav-toggle" id="navToggle">...</button></div>
+  </div>
+  <nav class="nav-links nav-links-mobile" id="navLinks">...</nav> <!-- dropdown, POZA .wrap -->
+</header>
+```
+
+```css
+.nav-links-desktop{ display:flex; }
+.nav-links-mobile{ display:none; }
+@media (max-width:700px){
+  .nav-links-desktop{ display:none; }
+  .nav-links-mobile{ position:absolute; top:100%; left:0; right:0; display:none; /* ...reszta stylu dropdownu... */ }
+  .nav-links-mobile.open{ display:flex; }
+}
+```
+
+JS musi celować w element PO ID (`getElementById('navLinks')`), nigdy `querySelector('.nav-links')`
+— po rozdwojeniu klasy `.nav-links` na dwa elementy, `querySelector` złapie pierwszy w kolejności
+DOM (desktopowy), nie mobilny dropdown, co jest drugim, niezależnym sposobem na "hamburger nie
+działa" nawet przy poprawnej strukturze HTML.
+
+**Sprawdzenie przy odbiorze wariantu z hamburgerem:** jeśli plik ma zarówno `overflow-x:auto`,
+jak i rozwijany dropdown nav, zweryfikuj że dropdown NIE jest potomkiem elementu z tym
+`overflow-x:auto` — i zawsze faktycznie KLIKNIJ hamburger w przeglądarce na wąskim viewporcie,
+nie tylko sprawdź CSS na papierze (dokładnie to trzykrotnie przeszło przez QA niezauważone, bo
+sam CSS *wyglądał* poprawnie — problem był w interakcji z ancestor-em, nie w regule dropdownu).
+
 ---
 
 ## 7. Tryb szablonu

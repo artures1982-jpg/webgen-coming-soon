@@ -54,9 +54,11 @@
   .logo{font-family:var(--head);font-weight:700;font-size:1.3rem;color:var(--text);letter-spacing:.01em;}
   .brand-divider{width:1px;height:22px;background:color-mix(in srgb, var(--text) 25%, transparent);}
   .tagline{font-size:.78rem;color:var(--muted);letter-spacing:.02em;white-space:nowrap;}
-  .nav-links{display:flex;gap:2rem;align-items:center;}
+  .nav-links{gap:2rem;align-items:center;}
   .nav-links a{font-weight:500;font-size:.85rem;letter-spacing:.02em;color:var(--text);}
   .nav-links a:hover{color:var(--accent-dark);}
+  .nav-links-desktop{display:flex;}
+  .nav-links-mobile{display:none;}
   .nav-actions{display:flex;align-items:center;gap:1.1rem;}
   .nav-phone-link{font-size:.85rem;font-weight:600;color:var(--text);white-space:nowrap;}
   .nav-phone-link:hover{color:var(--accent-dark);}
@@ -154,8 +156,9 @@
     .footer-inner{grid-template-columns:1fr;}
   }
   @media (max-width:700px){
-    .nav-links{position:absolute;top:100%;left:0;right:0;background:var(--bg);flex-direction:column;align-items:flex-start;padding:1.2rem 1.5rem;border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);display:none;gap:1rem;}
-    .nav-links.open{display:flex;}
+    .nav-links-desktop{display:none;}
+    .nav-links-mobile{position:absolute;top:100%;left:0;right:0;background:var(--bg);flex-direction:column;align-items:flex-start;padding:1.2rem 1.5rem;border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);display:none;gap:1rem;}
+    .nav-links-mobile.open{display:flex;}
     .nav-toggle{display:flex;}
     header.nav{position:sticky;}
     .tagline{display:none;}
@@ -184,7 +187,7 @@
       <span class="brand-divider"></span>
       <span class="tagline">Instalacje elektryczne B2B</span>
     </div>
-    <nav class="nav-links" id="navLinks">
+    <nav class="nav-links nav-links-desktop">
       <a href="#proces">Proces</a>
       <a href="#realizacje">Realizacje</a>
       <a href="#faq">FAQ</a>
@@ -198,6 +201,12 @@
       </button>
     </div>
   </div>
+  <nav class="nav-links nav-links-mobile" id="navLinks">
+    <a href="#proces">Proces</a>
+    <a href="#realizacje">Realizacje</a>
+    <a href="#faq">FAQ</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
 </header>
 
 <img class="hero-banner" src="https://images.pexels.com/photos/38217230/pexels-photo-38217230.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Korytarz rozdzielni przemysłowej z rzędami paneli sterowniczych" width="940" height="650" fetchpriority="high">
