@@ -266,6 +266,98 @@ cennik-menu, galeria, medaliony, minimalistyczne cytaty):
    (ten sam powód co wariant 1 — telefon jest szybszy niż formularz dla usługi "na już").
 8. Stopka: ciemna, wyśrodkowana, minimalna, jedna linia + copyright.`
   },
+  {
+    id: 'studio-paznokci-3-nowoczesny-cyfrowy',
+    tier: 'pro',
+    name: 'Nowoczesny cyfrowy',
+    visual: `STYL: adaptacja archetypu "Nowoczesny cyfrowy" — w Hydrauliku/Elektryku to formularz
+wyceny/zgłoszenia zamiast telefonu jako primary CTA. Dla studia paznokci to NATURALNE 1:1 —
+rezerwacja online (Booksy-style) zamiast dzwonienia jest realną, powszechną praktyką w tej
+branży, nie wymaga reframingu jak archetyp 2. Duch: "umów wizytę online w 60 sekund, zobacz
+dostępne terminy od razu, bez rozmowy telefonicznej".
+
+Trzeci wariant tej branży — ZASADY.md sekcja 0 (bespoke względem hydraulik-3-nowoczesny-cyfrowy.html
+i elektryk-3-nowoczesny-cyfrowy.html, przeczytaj OBA wyłącznie jako inspirację ducha, nie jako
+plik bazowy) i różnicowanie względem studio-paznokci-1 (jasna kość słoniowa+dusty-rose) i
+studio-paznokci-2 (ciemny plum+neonowa magenta) — ten wariant też ciemny (spójne z archetypem
+"Nowoczesny cyfrowy" u obu poprzedników), ale INNY odcień ciemnego tła i INNY akcent niż wariant 2,
+żeby te dwa ciemne warianty tej samej branży nie zlewały się w jeden nastrój.
+
+To wariant PRO — może/powinien używać ruchu (patrz .claude/agents/designer-ux-ui.md sekcja
+"Wariant 1 spokojny, wariant 2+ może żyć"), ale UŻYJ INNYCH technik animacji niż wariant 2 (tam:
+shimmer-sweep na CTA, marquee pasek, pulsująca kropka, PULSUJĄCA POŚWIATA W TLE — hero-glow/
+contact-glow z keyframe glowPulse skalujący/zmieniający opacity radial-gradientu w pętli — i
+fade-in kart) — powtórz co najwyżej fade-in przy scrollu (to uniwersalna, sensowna technika),
+resztę zróżnicuj: UNIKAJ ciągle pulsującej plamy w tle (to już wariant 2), zamiast tego użyj (a)
+wypełniającej się linii-gradientu w krokach "Jak to działa" (jednorazowa, odtwarzana przy wejściu
+w viewport, NIE pętla) i (b) statycznej/hover-only poświaty-obwódki (box-shadow z color-mix w
+--accent, BEZ własnego keyframe/pętli — czysty :hover transition) na kartach-chipach zabiegów,
+zamiast marquee.
+
+WYMÓG prefers-reduced-motion — KONKRETNA LISTA dla tego wariantu (nie polegaj wyłącznie na
+ogólnej klauzuli): (1) jednorazowe fade-in+translateY kart-chipów w sekcji "Zabiegi" przy wejściu
+w viewport, (2) jednorazowe wypełnianie się linii-gradientu między krokami w sekcji "Jak to
+działa" przy wejściu w viewport — pod reduced-motion oba muszą pojawić się od razu w stanie
+docelowym (opacity:1, linia wypełniona), bez animowanego przejścia, treść nigdy nie chowana.
+Zwykłe hover-transition (np. obwódka na kartach-chipach, podświetlenie "wolnych" chipów godzin w
+widgecie rezerwacji) NIE wymaga wyłączania pod reduced-motion — to nie jest nietrywialna
+animacja w rozumieniu tego wymogu.
+
+PALETA (jako zmienne CSS) — inna niż OBA punkty odniesienia (hydraulik-3: cyjan #22d3ee na
+prawie-czarnym granacie #0a0e17, elektryk-3: fiolet #7c5cff na ciemnym fiolecie #0d0a1a) i inna
+niż studio-paznokci-2 (plum+magenta): --bg chłodny, neutralny prawie-czarny grafit (NIE fioletowy/
+plum jak wariant 2 — np. #0e1116), --surface odrobinę jaśniejszy chłodny grafit (np. #171b21),
+--accent świeża emerald/mięta (np. #2dd4a7 — kolor wprost ze zdjęcia hero, inna rodzina barw niż
+cyjan/fiolet/magenta already used), --accent-dark głębsza zieleń morska (np. #1a9873), --text
+chłodna biel, --muted stonowany chłodny szary.
+TYPOGRAFIA (jako zmienne CSS): nagłówki nowoczesny geometryczny sans (np. Plus Jakarta Sans —
+inny niż Space Grotesk/Sora u poprzedników), tekst czytelny sans (np. Instrument Sans).
+
+PRAWDZIWE ZDJĘCIA (Pexels, wyselekcjonowane ręcznie i wizualnie zweryfikowane — użyj DOKŁADNIE
+tych URL-i; to NIE jest opcjonalne):
+- HERO (mały, częściowo zasłonięty przez widget rezerwacji — patrz LAYOUT pkt 2): eleganckie
+  dłonie ze stylizacją w odcieniach turkusu/zieleni, ciemne, nastrojowe tło, pierścionek z perłą:
+  https://images.pexels.com/photos/34971922/pexels-photo-34971922.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- GALERIA, zdjęcie 1 (wnętrze salonu — nowoczesne, czarno-białe, eleganckie): https://images.pexels.com/photos/13068379/pexels-photo-13068379.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- GALERIA, zdjęcie 2 (stylizacja czarno-brokatowa z biżuterią, eleganckie tło): https://images.pexels.com/photos/32334805/pexels-photo-32334805.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+
+LAYOUT — inny mechanizm niż hydraulik-3/elektryk-3 (nav transparent→blur-on-scroll lub stały blur,
+hero z pełnym zdjęciem/gradientem+formularz-karta, stats-strip/kpi-tiles, siatka/karuzela usług,
+kroki numerowane/flow, siatka/lista opinii, why-grid, kontakt split/pełna-szerokość, stopka
+gradient-line/scentrowana) i inny niż studio-paznokci-1/2:
+1. Nav: ciemna, sticky, blur stały (nie transition-on-scroll). CTA to pigułka z małą ikoną
+   kalendarza + "Rezerwuj online" (nie "Zapisz się"/"Wyceń online" — inne słownictwo niż
+   poprzednicy), telefon jako drugorzędny link ikonowy obok.
+2. Hero: 2 kolumny — lewo tekst (eyebrow, H1, lead, CTA), prawo GŁÓWNY element to makieta
+   "widgetu rezerwacji" (glassmorphism karta): pozioma lista dni tygodnia (Pn Wt Śr Czw Pt Sob,
+   jeden podświetlony jako wybrany) + siatka 6-8 "chipów" godzin, część wyszarzona ("zajęte"),
+   część podświetlona akcentem ("wolne") — wygląda jak fragment realnej appki do rezerwacji, NIE
+   zdjęcie ani gradient-mesh jak u poprzedników. Zdjęcie hero z listy powyżej widoczne jako
+   zaokrąglony akcent PRZY/ZA widgetem (częściowo, mniejszy kadr, nie pełnoekranowe tło) — to
+   spełnia wymóg prawdziwej fotografii bez robienia z niej dominującego elementu hero.
+3. Sekcja "Jak to działa": 3 kroki jako pozioma listwa POŁĄCZONYCH kółek z wypełniającą się
+   linią-gradientem między nimi (progress-bar/appka style — NIE numerowane boksy jak
+   hydraulik-3, NIE flow ze strzałkami jak elektryk-3, NIE pionowy kręgosłup): Wybierz zabieg →
+   Wybierz termin → Potwierdź rezerwację.
+4. Sekcja "Zabiegi": siatka "wybieralnych" kart-chipów (nazwa + cena + mały wizualny znacznik
+   przypominający zaznaczony checkbox/radio w rogu karty, na hover podświetlenie obwódką
+   --accent) — styl appki do wyboru usługi, nie zwykłe karty z briefu wariantu 1/2. Fade-in przy
+   scrollu (IntersectionObserver).
+5. Sekcja "Galeria": 2 zdjęcia z listy powyżej w asymetrycznym układzie (jedno duże + jedno
+   mniejsze z małą "pływającą" plakietką w stylu social media, np. "📍 Zobacz więcej w naszym
+   studiu") — inny mechanizm niż siatka 3 równych kwadratów z wariantu 1.
+6. Sekcja zaufania: mała pozioma listwa "⭐ 4.9 z X rezerwacji online" + JEDEN krótki cytat w
+   stylu dymka czatu (chat-bubble, zaokrąglony róg jak w komunikatorze) — nie 2 duże cytaty jak
+   wariant 1, nie brak sekcji jak wariant 2.
+7. FAQ — accordion, ciemna stylistyka.
+8. Kontakt/rezerwacja: rozbudowana, szersza wersja widgetu rezerwacji z hero (dni+godziny) jako
+   finalne CTA + pod spodem pasek danych kontaktowych + mapa dojazdu (patrz WYMÓG — MAPA DOJAZDU
+   powyżej). UWAGA — ŚWIADOMY WYJĄTEK: bez tradycyjnego formularza kontaktowego (imię/telefon/
+   wiadomość) — widget rezerwacji JEST formularzem tego wariantu, zgodnie z duchem "cyfrowy,
+   samoobsługowy".
+9. Stopka: ciemna, prosta, z małą plakietką "🟢 Rezerwacja online czynna 24/7" (cyfrowy akcent,
+   inny pomysł niż linia-akcent wariantu 2 czy wyśrodkowana stopka wariantu 1).`
+  },
 ];
 
 async function callClaude(system, userPrompt) {
