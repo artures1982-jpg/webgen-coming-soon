@@ -24,6 +24,11 @@ zmrużyć oczy, dwie różne struktury nadal wyglądają jak ta sama aplikacja p
 3. Obejrzyj HTML rodzeństwa wariantu w `templates/pilot/` i `preview/<branża>/` — sekcja po
    sekcji: układ nav, struktura hero, czy usługi są kartami/listą/gridem, czy jest oś czasu,
    jak wygląda CTA.
+4. Jeśli dosłowna rama archetypu z briefu rodzeństwa (np. "klienci B2B/deweloperzy" dla
+   archetypu 5, "zagrożenie/awaria" dla archetypu 2) nie ma sensu w tej branży — nie wymuszaj
+   jej. Zachowaj tier/ducha (np. 5 = premium pozycjonowanie i wyższa cena, niekoniecznie
+   dosłownie "B2B"), przeformułuj treść tak, żeby pasowała (patrz ZASADY.md sekcja 0, akapit
+   "Opis archetypu to duch/tier, nie dosłowna treść").
 
 ## Egzekwuj zawsze (z ZASADY.md)
 

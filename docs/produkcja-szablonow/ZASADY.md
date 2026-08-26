@@ -48,6 +48,19 @@ sesja ani subagent nie miały jak jej znać. Stąd jest teraz tutaj, w kanoniczn
   reguły branżowo-niezależne, wypracowane raz i mające obowiązywać wszędzie. Różnicować trzeba
   WYKONANIE (layout, komponenty, kompozycję), nie te reguły.
 
+**Opis archetypu to duch/tier, nie dosłowna treść do wymuszenia na każdej branży (dodane
+26.08.2026).** Przykładowe sformułowania w briefie danego archetypu (np. archetyp 5
+"Premium/korporacyjny" opisany dla Hydraulika/Elektryka jako "klienci B2B, deweloperzy, case
+studies") są ilustracją TEGO, jak ten archetyp wyszedł w KONKRETNEJ branży — nie specyfikacją do
+powielenia słowo w słowo w każdej kolejnej. Artur wprost: "studio paznokci korporacyjnej nie
+zrobisz, więc stwórz po prostu kolejny szablon premium". Gdy dosłowna rama archetypu nie pasuje do
+branży (nie ma tu klientów B2B ani deweloperów), zachowaj TIER/DUCHA (np. archetyp 5 = wyżej
+pozycjonowana, premium jakość, wyższa cena, poważniejszy ton — niekoniecznie dosłownie "B2B") i
+przeprojektuj treść tak, żeby miała sens w tej branży. To ten sam ruch, który już raz zadziałał
+przy archetypie 2 ("Szybka interwencja 24h" = alarm/zagrożenie u Hydraulika/Elektryka →
+przeformułowane na "pilność przez ograniczoną dostępność terminu" w Studio paznokci, bo zagrożenia
+tam nie ma) — teraz to jawna, ogólna zasada, nie decyzja ad-hoc za każdym razem.
+
 **Różnicowanie dotyczy też palety, nie tylko layoutu (dodane 26.08.2026).** Struktura może się
 różnić sekcja po sekcji, a paleta i tak wpadać w ten sam rejestr — jeden stonowany akcent na
 białym/kremowym tle w każdym wariancie. To też jest reskin, tylko po kolorze zamiast po layoucie.
