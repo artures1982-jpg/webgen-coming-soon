@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{{NAZWA_STRONY}} — Studio paznokci {{MIASTO}} | tel. {{TELEFON}}</title>
-<meta name="description" content="{{NAZWA_STRONY}} — studio paznokci w mieście {{MIASTO}} prowadzone osobiście, bez korporacyjnego dystansu. Poznasz mnie z imienia, nie tylko z Instagrama. Tel. {{TELEFON}}">
+<meta name="description" content="{{NAZWA_STRONY}} — studio paznokci w mieście {{MIASTO}} prowadzone osobiście, bez korporacyjnego dystansu. Zawsze ta sama para rąk, ten sam telefon. Tel. {{TELEFON}}">
 <meta name="keywords" content="Studio paznokci {{MIASTO}}, manicure {{MIASTO}}, rodzinne studio paznokci">
 <link rel="canonical" href="https://{{SLUG}}.webgen.pl">
 <meta property="og:type" content="website">
 <meta property="og:title" content="{{NAZWA_STRONY}} — Studio paznokci {{MIASTO}}">
-<meta property="og:description" content="Poznasz mnie z imienia, nie tylko z Instagrama — studio paznokci prowadzone osobiście w mieście {{MIASTO}}.">
+<meta property="og:description" content="Zawsze ta sama para rąk, ten sam telefon — studio paznokci prowadzone osobiście w mieście {{MIASTO}}.">
 <meta property="og:url" content="https://{{SLUG}}.webgen.pl">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="index, follow">
@@ -49,34 +49,59 @@
   .btn-primary{background:var(--accent);color:var(--surface);}
   .btn-primary:hover{background:var(--accent-dark);}
 
-  header.nav{background:var(--surface);border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);position:sticky;top:0;z-index:50;}
-  .nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.5rem;gap:1rem;}
-  .logo{font-family:var(--head);font-weight:700;font-size:1.2rem;color:var(--text);}
-  .logo span{color:var(--accent);}
+  /* --- Nav: two-row, non-sticky (scrolls away), no CTA pill in header --- */
+  header.nav{background:var(--surface);}
+  .nav-top{background:var(--accent-dark);color:var(--surface);}
+  .nav-top-wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.5rem 1.5rem;font-size:.76rem;letter-spacing:.02em;}
+  .nav-top-wrap a{color:var(--surface);opacity:.88;}
+  .nav-top-wrap a:hover{opacity:1;text-decoration:underline;}
+  .nav-main{position:relative;border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);}
+  .nav-main .wrap{display:flex;align-items:center;justify-content:space-between;padding:1.05rem 1.5rem;gap:1rem;}
+  .logo-lockup{display:flex;flex-direction:column;line-height:1.15;min-width:0;}
+  .logo-name{font-family:var(--head);font-weight:700;font-size:1.18rem;color:var(--text);}
+  .logo-tag{font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:.15rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .nav-links{gap:1.6rem;align-items:center;}
   .nav-links a{font-weight:600;font-size:.9rem;color:var(--text);}
   .nav-links a:hover{color:var(--accent-dark);}
   .nav-links-desktop{display:flex;}
   .nav-links-mobile{display:none;}
-  .nav-actions{display:flex;align-items:center;gap:.9rem;}
-  .nav-actions .btn-primary{padding:.75rem 1.4rem;font-size:.88rem;}
-  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;flex-shrink:0;}
   .nav-toggle span{width:22px;height:2px;background:var(--text);}
+  .nav-mobile-phone{color:var(--accent-dark);font-weight:700;}
 
-  .hero .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:3.5rem;align-items:center;}
-  .hero-photo-frame{position:relative;}
-  .hero-photo-behind{position:absolute;inset:0;transform:translate(14px,14px);background:var(--surface);border-radius:2rem;border:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
-  .hero-photo{position:relative;z-index:1;width:100%;height:400px;object-fit:cover;border-radius:2rem;box-shadow:0 20px 40px color-mix(in srgb, var(--text) 16%, transparent);}
-  .hero-copy .eyebrow{margin-bottom:.8rem;}
-  .hero-copy h1{font-size:clamp(2rem,4vw,2.7rem);margin-bottom:1.1rem;}
-  .hero-copy p{color:var(--muted);font-size:1.02rem;max-width:480px;margin-bottom:1.8rem;}
+  /* --- Floating call button (replaces nav CTA pill), fades in once hero scrolls out of view --- */
+  .fab-call{
+    position:fixed;right:1.2rem;bottom:1.2rem;z-index:60;
+    width:56px;height:56px;border-radius:50%;
+    background:var(--accent);color:var(--surface);
+    display:flex;align-items:center;justify-content:center;font-size:1.4rem;
+    box-shadow:0 10px 24px color-mix(in srgb, var(--text) 26%, transparent);
+    opacity:0;transform:translateY(16px) scale(.9);pointer-events:none;
+    transition:opacity .35s ease, transform .35s ease, background .2s ease;
+  }
+  .fab-call.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+  .fab-call:hover{background:var(--accent-dark);}
 
+  /* --- Hero: full-bleed split, text left / edge-to-edge photo right, no card/frame/blob --- */
+  .hero{padding:0;background:var(--bg);}
+  .hero-flex{display:flex;align-items:stretch;min-height:600px;}
+  .hero-copy-col{flex:1 1 52%;display:flex;align-items:center;padding:4.5rem clamp(1.5rem,6vw,4.5rem);}
+  .hero-copy-col .inner{max-width:540px;margin-left:auto;}
+  .hero-copy-col .eyebrow{margin-bottom:.8rem;}
+  .hero-copy-col h1{font-size:clamp(2rem,4vw,2.6rem);margin-bottom:1.1rem;}
+  .hero-copy-col p{color:var(--muted);font-size:1.02rem;margin-bottom:1.3rem;}
+  .signoff{font-family:var(--head);font-style:italic;color:var(--accent-dark);font-size:1.1rem;margin-bottom:1.8rem;}
+  .hero-photo-col{flex:1 1 48%;position:relative;min-height:420px;background:var(--surface);}
+  .hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 25%;}
+
+  /* --- Historia: vertical timeline with year labels --- */
   .milestones{max-width:640px;margin:2.8rem auto 0;position:relative;padding-left:2.6rem;text-align:left;}
   .milestones::before{content:"";position:absolute;top:6px;bottom:6px;left:11px;width:2px;background:color-mix(in srgb, var(--accent) 35%, transparent);}
   .milestone{position:relative;padding-bottom:2.4rem;opacity:0;transform:translateY(14px);transition:opacity .5s ease, transform .5s ease;}
   .milestone:last-child{padding-bottom:0;}
   .milestone.visible{opacity:1;transform:translateY(0);}
   .milestone .marker{position:absolute;left:-2.6rem;top:.15rem;width:24px;height:24px;border-radius:50%;background:var(--accent);border:3px solid var(--bg);box-shadow:0 0 0 2px color-mix(in srgb, var(--accent) 40%, transparent);}
+  .milestone-year{display:block;font-family:var(--body);font-weight:800;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:.3rem;}
   .milestone h3{font-size:1.06rem;margin-bottom:.4rem;}
   .milestone p{font-size:.94rem;color:var(--muted);}
 
@@ -102,17 +127,21 @@
   details[open] summary::after{content:"–";}
   details p{color:var(--muted);margin-top:.8rem;font-size:.92rem;}
 
-  .contact{background:var(--surface);}
-  .contact-card{
-    display:flex;gap:1.6rem;align-items:center;max-width:680px;margin:0 auto 2.2rem;
-    background:var(--bg);border-radius:1.4rem;padding:1.8rem;
+  /* --- Kontakt: pull-quote + business-card panel (no photo), map below --- */
+  .pull-quote{max-width:620px;margin:0 auto 2.6rem;text-align:center;font-family:var(--head);font-style:italic;font-size:1.2rem;color:var(--text);padding:0 1.5rem;}
+  .pull-quote cite{display:block;margin-top:.7rem;font-style:normal;font-size:.85rem;color:var(--muted);}
+  .contact-panel{
+    max-width:760px;margin:0 auto 2.4rem;
+    display:grid;grid-template-columns:1fr 1fr;gap:2rem;
+    background:var(--surface);border-radius:1.4rem;padding:2rem;
+    border:1px solid color-mix(in srgb, var(--text) 8%, transparent);
   }
-  .contact-card img{width:104px;height:104px;object-fit:cover;border-radius:1.4rem;flex-shrink:0;box-shadow:0 10px 20px color-mix(in srgb, var(--text) 14%, transparent);}
-  .contact-card .phone-big{font-family:var(--head);font-size:1.5rem;color:var(--accent-dark);display:inline-block;margin:.3rem 0 .8rem;}
-  .contact-quote{font-size:.92rem;font-style:italic;color:var(--muted);}
-  .contact-info-row{display:flex;flex-wrap:wrap;justify-content:center;gap:1.8rem;margin-top:1rem;font-size:.9rem;color:var(--muted);}
-  .contact-info-row b{display:block;color:var(--text);font-size:.75rem;text-transform:uppercase;letter-spacing:.03em;margin-bottom:.2rem;}
-  .map-embed{width:100%;max-width:760px;margin:2.2rem auto 0;height:280px;border-radius:1.2rem;overflow:hidden;border:1px solid color-mix(in srgb, var(--text) 10%, transparent);display:block;}
+  .contact-call .lead{margin-bottom:.4rem;}
+  .phone-big{font-family:var(--head);font-size:1.6rem;font-weight:700;color:var(--accent-dark);}
+  .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem 1.4rem;}
+  .info-grid dt{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:.15rem;}
+  .info-grid dd{font-size:.92rem;color:var(--text);}
+  .map-embed{width:100%;max-width:760px;margin:0 auto;height:280px;border-radius:1.2rem;overflow:hidden;border:1px solid color-mix(in srgb, var(--text) 10%, transparent);display:block;}
 
   footer{padding:2.2rem 1.5rem;text-align:center;}
   footer p{font-size:.86rem;color:var(--muted);}
@@ -121,33 +150,30 @@
   @media (prefers-reduced-motion: reduce){
     .milestone,.cennik-row{transition:none;opacity:1;transform:none;}
     .btn:hover{transform:none;}
+    .fab-call{transition:none;}
   }
 
   @media (max-width:900px){
-    .hero .wrap{grid-template-columns:1fr;}
-    .hero-photo-frame{max-width:340px;margin:0 auto 1.6rem;}
-    .hero-photo{height:320px;}
-    .hero-copy{text-align:center;}
-    .hero-copy p{margin-left:auto;margin-right:auto;}
+    .hero-flex{flex-direction:column;min-height:0;}
+    .hero-copy-col{padding:3rem 1.5rem 2.5rem;}
+    .hero-copy-col .inner{margin:0;max-width:100%;}
+    .hero-photo-col{min-height:300px;order:-1;}
   }
   @media (max-width:700px){
     .nav-links-desktop{display:none;}
     .nav-links-mobile{
       position:absolute;top:100%;left:0;right:0;background:var(--surface);
       flex-direction:column;align-items:flex-start;gap:1rem;padding:1.2rem 1.5rem;
-      border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);display:none;
+      border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);display:none;z-index:40;
     }
     .nav-links-mobile.open{display:flex;}
     .nav-toggle{display:flex;}
+    .nav-top{display:none;}
     section{padding:3.5rem 1.2rem;}
-    .contact-card{flex-direction:column;text-align:center;padding:1.6rem;}
+    .contact-panel{grid-template-columns:1fr;}
   }
   @media (max-width:480px){
-    .nav .wrap{gap:.5rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
-    .nav .wrap::-webkit-scrollbar{display:none;}
-    .logo{font-size:1.02rem;}
-    .nav-actions .btn-primary .cta-text{display:none;}
-    .nav-actions .btn-primary{padding:.65rem .9rem;gap:0;}
+    .logo-tag{display:none;}
     .cennik-row{align-items:flex-start;}
   }
 </style>
@@ -155,40 +181,53 @@
 <body>
 
 <header class="nav">
-  <div class="wrap">
-    <a href="#" class="logo">{{NAZWA_STRONY}}<span>.</span></a>
-    <nav class="nav-links nav-links-desktop">
-      <a href="#historia">Moja historia</a>
-      <a href="#uslugi">Usługi</a>
-      <a href="#faq">FAQ</a>
-      <a href="#kontakt">Kontakt</a>
-    </nav>
-    <div class="nav-actions">
-      <a href="tel:{{TELEFON}}" class="btn btn-primary"><span aria-hidden="true">📞</span><span class="cta-text">Zadzwoń: {{TELEFON}}</span></a>
+  <div class="nav-top">
+    <div class="wrap nav-top-wrap">
+      <span>Pon–Pt {{GODZINY_PON_PT}} · Sobota {{GODZINY_SOB}}</span>
+      <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+    </div>
+  </div>
+  <div class="nav-main">
+    <div class="wrap">
+      <a href="#" class="logo-lockup">
+        <span class="logo-name">{{NAZWA_STRONY}}</span>
+        <span class="logo-tag">studio paznokci · {{MIASTO}}</span>
+      </a>
+      <nav class="nav-links nav-links-desktop">
+        <a href="#historia">Moja historia</a>
+        <a href="#uslugi">Cennik</a>
+        <a href="#faq">FAQ</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
       <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu nawigacji">
         <span></span><span></span><span></span>
       </button>
     </div>
+    <nav class="nav-links nav-links-mobile" id="navLinks">
+      <a href="#historia">Moja historia</a>
+      <a href="#uslugi">Cennik</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontakt">Kontakt</a>
+      <a href="tel:{{TELEFON}}" class="nav-mobile-phone">📞 Zadzwoń: {{TELEFON}}</a>
+    </nav>
   </div>
-  <nav class="nav-links nav-links-mobile" id="navLinks">
-    <a href="#historia">Moja historia</a>
-    <a href="#uslugi">Usługi</a>
-    <a href="#faq">FAQ</a>
-    <a href="#kontakt">Kontakt</a>
-  </nav>
 </header>
 
+<a href="tel:{{TELEFON}}" class="fab-call" id="fabCall" aria-label="Zadzwoń: {{TELEFON}}">📞</a>
+
 <section class="hero">
-  <div class="wrap">
-    <div class="hero-photo-frame">
-      <div class="hero-photo-behind"></div>
-      <img class="hero-photo" src="https://images.pexels.com/photos/18090215/pexels-photo-18090215.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Właścicielka {{NAZWA_STRONY}} w swoim studiu paznokci">
+  <div class="hero-flex">
+    <div class="hero-copy-col">
+      <div class="inner">
+        <span class="eyebrow">Bez recepcji, bez grafiku na cały etat — {{MIASTO}}</span>
+        <h1>{{NAZWA_STRONY}}: zawsze ta sama para rąk, ten sam telefon</h1>
+        <p>Nie zatrudniam dodatkowych stylistek i nie umawiam klientek „na kogo wypadnie” — każdą wizytę, od pierwszego telefonu po polerowanie na koniec, prowadzę osobiście.</p>
+        <p class="signoff">— {{NAZWA_STRONY}}</p>
+        <a href="tel:{{TELEFON}}" class="btn btn-primary">📞 Zadzwoń: {{TELEFON}}</a>
+      </div>
     </div>
-    <div class="hero-copy">
-      <span class="eyebrow">Studio paznokci {{MIASTO}} — jedna osoba, nie zespół</span>
-      <h1>{{NAZWA_STRONY}} — stylistka, którą poznasz z imienia, nie tylko z Instagrama</h1>
-      <p>Bez korporacyjnego dystansu i przypadkowych zmienniczek przy stanowisku — każdą wizytę umawiasz i odbywasz ze mną, tą samą osobą od pierwszego kontaktu.</p>
-      <a href="tel:{{TELEFON}}" class="btn btn-primary">📞 Zadzwoń: {{TELEFON}}</a>
+    <div class="hero-photo-col">
+      <img class="hero-photo" src="https://images.pexels.com/photos/18090215/pexels-photo-18090215.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=760" width="760" height="900" alt="Właścicielka {{NAZWA_STRONY}} w swoim studiu paznokci">
     </div>
   </div>
 </section>
@@ -201,16 +240,19 @@
     <div class="milestones">
       <div class="milestone">
         <span class="marker"></span>
+        <span class="milestone-year">2016</span>
         <h3>Pierwsze wizyty</h3>
         <p>Zaczynałam sama, w jednym gabinecie, z jednym fotelem i notesem pełnym numerów telefonów zamiast systemu rezerwacji.</p>
       </div>
       <div class="milestone">
         <span class="marker"></span>
+        <span class="milestone-year">2020</span>
         <h3>Polecenia, nie reklamy</h3>
         <p>Nie miałam budżetu na reklamę, więc rosłam tak, jak rosną dobre stylistki — z ust do ust, z jednego zdjęcia w lokalnej grupie na Facebooku, z jednej dobrze zrobionej hybrydy naraz.</p>
       </div>
       <div class="milestone">
         <span class="marker"></span>
+        <span class="milestone-year">Dziś</span>
         <h3>Dziś</h3>
         <p>Mam więcej stałych klientek niż wolnych terminów w tygodniu, ale zasada się nie zmieniła — nadal to ja odbieram telefon i nadal to ja siedzę po drugiej stronie stolika.</p>
       </div>
@@ -278,22 +320,21 @@
 </section>
 
 <section class="contact" id="kontakt">
-  <div class="wrap center">
-    <span class="eyebrow">Kontakt</span>
-    <h2>Porozmawiajmy</h2>
-    <div class="contact-card">
-      <img src="https://images.pexels.com/photos/18090215/pexels-photo-18090215.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Właścicielka {{NAZWA_STRONY}}" loading="lazy">
-      <div style="text-align:left;">
-        <p class="lead" style="margin-bottom:.1rem;">Zadzwoń bezpośrednio do mnie — {{NAZWA_STRONY}}</p>
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Kontakt</span>
+    <h2 class="center">Porozmawiajmy</h2>
+    <blockquote class="pull-quote">„Umawiam się tu regularnie od dwóch lat i zawsze wiem, na kogo trafię — to w innych miejscach szybko się traci.”<cite>— klientka, {{MIASTO}}</cite></blockquote>
+    <div class="contact-panel">
+      <div class="contact-call">
+        <p class="lead">Zadzwoń bezpośrednio do mnie — {{NAZWA_STRONY}}</p>
         <a href="tel:{{TELEFON}}" class="phone-big">{{TELEFON}}</a>
-        <p class="contact-quote">„Umawiam się tu regularnie od dwóch lat i zawsze wiem, na kogo trafię — to w innych miejscach szybko się traci.” — klientka, {{MIASTO}}</p>
       </div>
-    </div>
-    <div class="contact-info-row">
-      <span><b>E-mail</b>{{EMAIL}}</span>
-      <span><b>Adres</b>{{ADRES}}, {{MIASTO}}</span>
-      <span><b>Pon–Pt</b>{{GODZINY_PON_PT}}</span>
-      <span><b>Sobota</b>{{GODZINY_SOB}}</span>
+      <dl class="info-grid">
+        <div><dt>E-mail</dt><dd>{{EMAIL}}</dd></div>
+        <div><dt>Adres</dt><dd>{{ADRES}}, {{MIASTO}}</dd></div>
+        <div><dt>Pon–Pt</dt><dd>{{GODZINY_PON_PT}}</dd></div>
+        <div><dt>Sobota</dt><dd>{{GODZINY_SOB}}</dd></div>
+      </dl>
     </div>
     <iframe class="map-embed" src="https://www.google.com/maps?q={{ADRES}}, {{MIASTO}}&output=embed" title="Mapa dojazdu do {{NAZWA_STRONY}} w mieście {{MIASTO}}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;"></iframe>
   </div>
@@ -319,6 +360,16 @@
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.2 });
   document.querySelectorAll('.milestone, .cennik-row').forEach(el => io.observe(el));
+
+  // Floating call button appears once the hero has scrolled out of view.
+  const hero = document.querySelector('.hero');
+  const fab = document.getElementById('fabCall');
+  if (hero && fab) {
+    const heroIo = new IntersectionObserver((entries) => {
+      entries.forEach(e => fab.classList.toggle('show', !e.isIntersecting));
+    }, { threshold: 0 });
+    heroIo.observe(hero);
+  }
 </script>
 
 </body>
