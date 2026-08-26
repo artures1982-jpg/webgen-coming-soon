@@ -186,6 +186,86 @@ polaroid w "o nas", jasna siatka opinii, karty z numerem i górnym paskiem, bane
 10. Stopka: prosta, wyśrodkowana, jedna kolumna (nie 3-kolumnowa jak hydraulik-1, nie 2-kolumnowa
     jak elektryk-1) — logo, krótki opis, linki kontaktowe w rzędzie, copyright.`
   },
+  {
+    id: 'studio-paznokci-2-express',
+    tier: 'pro',
+    name: 'Express / ostatnia chwila',
+    visual: `STYL: pierwszy wariant PRO tej branży — adaptacja archetypu "Szybka interwencja 24h"
+(znanego z Hydraulika/Elektryka) na branżę beauty. KRYTYCZNE: w hydraulik-2/elektryk-2 pilność
+wynika z ZAGROŻENIA (awaria, porażenie prądem) — w studiu paznokci NIE MA zagrożenia, więc NIE
+kopiuj tamtej ramy "ostrzeżenie/niebezpieczeństwo". Tu pilność wynika z OGRANICZONEJ DOSTĘPNOŚCI
+i tempa: "masz wydarzenie dziś wieczorem i potrzebujesz paznokci NA JUŻ", "wpadka w manicure przed
+ważnym spotkaniem", ekspresowe zabiegi 20-30 minut, zapisy na ostatnią chwilę. To ENERGIA i TEMPO,
+nie ALARM.
+
+To pierwszy wariant PRO w systemie po decyzji z 26.08.2026 (patrz .claude/agents/designer-ux-ui.md
+sekcja "Wariant 1 spokojny, wariant 2+ może żyć") — NALEŻY użyć ruchu: poświata/glow, shimmer,
+pulsowanie, poruszający się pasek. Animuj transform/opacity, nie box-shadow/width w pętli.
+
+WYMÓG prefers-reduced-motion — KONKRETNA LISTA (nie polegaj wyłącznie na ogólnej klauzuli
+powyżej, wymień to explicite w CSS): WSZYSTKIE poniższe animowane elementy muszą mieć swój
+keyframe/transition wyłączony albo zredukowany do zwykłego przejścia statycznego pod
+@media (prefers-reduced-motion: reduce) — (1) pulsująca plakietka "Dziś dostępne miejsca" w nav,
+(2) świecąca plama w tle hero, (3) shimmer-sweep na przycisku CTA w nav, (4) shimmer-sweep na
+przycisku CTA w hero, (5) marquee/przesuwanie paska "Dziś dostępne" (pod reduced-motion: pasek
+statyczny, nie przesuwający się — treść wciąż czytelna, nie ukryta), (6) jednorazowy shimmer kart
+zabiegów przy wjeździe w viewport, (7) fade-in+translateY sekcji USP, (8) pulsujące tło banera
+w sekcji kontakt. Żadna z tych ośmiu animacji nie jest zwolniona z tego wymogu.
+
+PALETA (jako zmienne CSS) — ciemna, świecąca, inna niż OBA punkty odniesienia (hydraulik-2:
+czerwień #e0361c na BIAŁYM tle, elektryk-2: pomarańcz #ff5a1f na BIAŁYM tle — oba jasne w tle) i
+inna niż studio-paznokci-1 (ciepła kość słoniowa + dusty-rose): --bg głęboki ciemny bakłażan/plum
+(np. #1f1420), --surface odrobinę jaśniejszy ciemny plum (np. #2c1c2c), --accent żywy neonowy
+róż/magenta (np. #ff4d8f — kolor ze zdjęcia hero, NIE czerwień/pomarańcz hazardu jak
+hydraulik-2/elektryk-2), --accent-dark głębsza magenta/wiśnia (np. #c22a68), --text ciepła
+biel, --muted stonowany mauve-szary.
+TYPOGRAFIA (jako zmienne CSS): nagłówki odważny, ekspresyjny display font (np. Unbounded — inny
+niż Playfair Display z wariantu 1, inny niż Archivo/Barlow Condensed z hydraulik-2/elektryk-2),
+tekst czytelny geometryczny sans (np. Outfit).
+
+PRAWDZIWE ZDJĘCIA (Pexels, wyselekcjonowane ręcznie i wizualnie zweryfikowane — użyj DOKŁADNIE
+tego URL-a; to NIE jest opcjonalne):
+- JEDYNE zdjęcie strony, tło hero: dramatyczne zbliżenie na dłoń z manicure w neonowym
+  różowo-fioletowym oświetleniu, mocno stylizowane, klimat "nocnego expressu":
+  https://images.pexels.com/photos/7230841/pexels-photo-7230841.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+  UWAGA — ŚWIADOMY WYJĄTEK: reszta strony (w tym karty zabiegów w sekcji "Ekspresowe zabiegi")
+  ŚWIADOMIE bez zdjęć — glow/kolor/ruch niosą estetykę zamiast fotografii (kontrast wobec
+  wariantu 1, który jest bardzo fotograficzny — galeria portfolio); to odstępstwo od ogólnej
+  zasady ZASADY.md "każda karta usługi dostaje własne zdjęcie", nie przeoczenie — nie zgłaszać
+  w QA jako brak.
+
+LAYOUT — inny mechanizm niż hydraulik-2/elektryk-2 (pulsujący pasek alarmowy nad nav, gigantyczny
+klikalny numer telefonu w hero, siatka ikon zagrożeń, pozioma listwa bezpieczeństwa+zdjęcie,
+warn-box w kontakcie) i inny niż studio-paznokci-1 (wyśrodkowany nav, split hero+karta rezerwacji,
+cennik-menu, galeria, medaliony, minimalistyczne cytaty):
+1. Nav: ciemna, logo PO LEWEJ (nie wyśrodkowane jak wariant 1) + linki, obok CTA mała świecąca
+   plakietka pulsująca "🟢 Dziś dostępne miejsca" (animacja: delikatne pulsowanie opacity/scale
+   w pętli, wyłączona pod prefers-reduced-motion) + przycisk "Zapisz się express" z efektem
+   glow/shimmer na hover (przesuwający się gradient — animowany background-position).
+2. Hero: zdjęcie z listy powyżej jako pełnoekranowe tło z ciemnym gradient-overlay, ZA tekstem
+   animowana świecąca plama (radial-gradient w --accent, keyframe pulsujący opacity/scale w tle,
+   subtelnie, wyłączona pod prefers-reduced-motion), nagłówek o ekspresowych zabiegach na już,
+   duży przycisk CTA telefon z animowanym shimmer-sweep (przesuwający się jasny pasek przez
+   przycisk w pętli, NIE ring-pulse jak w elektryk-2 — inny mechanizm animacji).
+3. PASEK "Dziś dostępne" — poruszający się poziomo pasek (marquee: @keyframes translateX w pętli,
+   pauza na hover, wyłączony/statyczny pod prefers-reduced-motion) z rotującymi dostępnymi
+   godzinami na dziś (np. "14:30 wolne · 16:00 wolne · 17:45 wolne · Zadzwoń: {{TELEFON}} ·"
+   powtórzone w pętli) — to dosłowne zastosowanie "poruszającego się paska" z nowych wytycznych.
+4. Sekcja "Ekspresowe zabiegi": siatka 3-4 kart krótkich zabiegów (Express manicure 20 min,
+   Poprawka na już 15 min, Express pedicure 25 min, Doklejenie 1-2 paznokci) z czasem+ceną,
+   subtelny glow-border (box-shadow z color-mix w --accent) na hover, i JEDNORAZOWY shimmer-sweep
+   odtwarzany raz gdy karta wjeżdża w viewport (IntersectionObserver + klasa .visible).
+5. Sekcja "Dlaczego u nas na już": 3-4 plakietki USP (Zawsze mamy okienko na ekspresowy zabieg /
+   Certyfikowane produkty / Sterylne narzędzia / Płatność online z góry) z fade-in przy scrollu
+   (IntersectionObserver, opacity+translateY), NIE statyczna siatka jak w innych wariantach.
+6. FAQ — accordion, ciemna stylistyka spójna z resztą wariantu.
+7. Kontakt: pasmo CTA na ciemnym tle z animowanym tłem (delikatny pulsujący radial-gradient jak
+   w hero, spójność), duży przycisk telefonu z shimmer, pod spodem pasek danych kontaktowych +
+   mapa dojazdu (patrz WYMÓG — MAPA DOJAZDU powyżej; mapa może zostać w jasnej wersji Google Maps
+   w ramce z --accent border, to nie problem estetyczny). UWAGA — ŚWIADOMY WYJĄTEK: bez formularza
+   (ten sam powód co wariant 1 — telefon jest szybszy niż formularz dla usługi "na już").
+8. Stopka: ciemna, wyśrodkowana, minimalna, jedna linia + copyright.`
+  },
 ];
 
 async function callClaude(system, userPrompt) {
