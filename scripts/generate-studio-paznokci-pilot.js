@@ -358,6 +358,114 @@ gradient-line/scentrowana) i inny niż studio-paznokci-1/2:
 9. Stopka: ciemna, prosta, z małą plakietką "🟢 Rezerwacja online czynna 24/7" (cyfrowy akcent,
    inny pomysł niż linia-akcent wariantu 2 czy wyśrodkowana stopka wariantu 1).`
   },
+  {
+    id: 'studio-paznokci-4-rodzinna-firma',
+    tier: 'pro',
+    name: 'Rodzinna firma',
+    visual: `STYL: archetyp "Rodzinna firma" — w Hydrauliku/Elektryku to jednoosobowa działalność,
+którą poznajesz z imienia, nie tylko z faktury. Dla studia paznokci to NATURALNE 1:1, tak jak
+u poprzedników — jednoosobowe/rodzinne studio, właścicielka znana klientkom z imienia, bez
+korporacyjnego dystansu. Duch: "nie jesteś tu kolejnym numerem w kalendarzu — jestem tu ja, ta
+sama osoba od pierwszej wizyty do dzisiaj". Drobna, świadoma różnica w słownictwie względem
+poprzedników (którzy piszą "nie tylko z faktury") — u nas naturalniejsze dla tej branży jest
+"nie tylko z Instagrama" (bo w branży beauty umawianie się przez DM na Instagramie jest bardzo
+powszechną, rozpoznawalną praktyką) — użyj tego zamiennika w H1/eyebrow zamiast kopiować frazę
+"z faktury" 1:1.
+
+Czwarty wariant tej branży — ZASADY.md sekcja 0 (bespoke względem
+hydraulik-4-rodzinna-firma.html i elektryk-4-rodzinna-firma.html, przeczytaj OBA wyłącznie jako
+inspirację ducha, nie jako plik bazowy) i różnicowanie względem studio-paznokci-1 (jasna kość
+słoniowa+dusty-rose), studio-paznokci-2 (ciemny plum+neonowa magenta) i studio-paznokci-3 (ciemny
+grafit+emerald) — ten wariant wraca do jasnej, ciepłej palety jak wariant 1, ale INNY odcień i
+INNA temperatura tła niż wariant 1, żeby te dwa jasne warianty tej samej branży nie zlewały się —
+patrz PALETA poniżej.
+
+To wariant PRO — może używać ruchu (patrz .claude/agents/designer-ux-ui.md sekcja "Wariant 1
+spokojny, wariant 2+ może żyć"), ale ton archetypu jest ciepły/osobisty/stonowany, nie
+cyfrowy/appkowy jak wariant 3 ani pilny jak wariant 2 — dlatego ogranicz się do JEDNEJ,
+delikatnej, uniwersalnej techniki: jednorazowy fade-in+translateY (IntersectionObserver) na
+elementach listy "Nasza historia" i wierszach cennika przy wejściu w viewport — to ta sama
+uniwersalna technika co w wariancie 3 (tam użyta na kartach-chipach), dozwolona do powtórzenia
+wprost z brief-u wariantu 3. NIE dodawaj shimmer/marquee/pulsującej kropki/pulsującej poświaty ani
+żadnej pętlącej się animacji — to złamałoby ciepły, spokojny ton tego archetypu w każdej branży
+(hydraulik-4 i elektryk-4 też są całkowicie statyczne, bez ruchu — to nie przypadek, to spójne
+z duchem "rodzinna firma, bez sztuczek marketingowych").
+
+WYMÓG prefers-reduced-motion: fade-in listy "Nasza historia" i wierszy cennika musi mieć
+natychmiastowy stan końcowy (opacity:1, bez translateY) pod reduced-motion, bez animowanego
+przejścia, treść nigdy nie chowana. Zwykłe hover-transition (np. na przyciskach, wierszach
+cennika) nie wymaga wyłączania.
+
+PALETA (jako zmienne CSS) — inna niż OBA punkty odniesienia (hydraulik-4: terakota #c1613a na
+prawie-białej kości słoniowej #faf1e4, elektryk-4: szałwiowa zieleń #6b8f5e na prawie-białej
+kremowej #faf6ec) i inna niż studio-paznokci-1 (dusty-rose #c9718c na prawie-białej #faf3ee):
+--bg ciepły, WYRAŹNIE ciemniejszy/bardziej nasycony niż wszystkie trzy powyższe jasne tła —
+ciepły beż-taupe, NIE prawie-biały (np. #ece1d3), --surface cieplejsza, jaśniejsza karta (np.
+#f7efe3), --accent ciepły karmel/miodowy brąz-złoto (np. #b8763f — inna rodzina barw niż
+róż/terakota-czerwień/zieleń already used, bliżej żółci/brązu), --accent-dark głębszy karmel
+(np. #8a5527), --text ciepły ciemny brąz, --muted stonowany ciepły szaro-brąz.
+TYPOGRAFIA (jako zmienne CSS): nagłówki ciepły, osobisty serif (np. Lora — inny niż Playfair
+Display/Fredoka/Quicksand u poprzedników), tekst czytelny sans (np. Figtree — inny niż
+Mulish/Nunito/Karla/Outfit/Instrument Sans already used). Sprawdź grep po innych plikach
+templates/pilot/*.html żeby potwierdzić że ta para nie koliduje z żadną już użytą.
+
+PRAWDZIWE ZDJĘCIE (Pexels, wyselekcjonowane ręcznie i wizualnie zweryfikowane — użyj DOKŁADNIE
+tego URL-a; to NIE jest opcjonalne; użyj tego SAMEGO zdjęcia w hero i w sekcji kontakt, mniejsze,
+DOKŁADNIE jak robią to hydraulik-4 i elektryk-4 — to świadomy, powtarzalny element archetypu
+"poznaj osobę za firmą", nie naruszenie zasady bespoke):
+- Uśmiechnięta stylistka paznokci w okularach, trzymająca frezarkę, jasne neutralne tło studyjne,
+  ciepły, bezpośredni uśmiech: https://images.pexels.com/photos/18090215/pexels-photo-18090215.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+
+LAYOUT — inny mechanizm niż hydraulik-4 (owalne/blob zdjęcie + pozioma 4-punktowa oś czasu +
+lista usług z kropkami + quote-band na całą szerokość), elektryk-4 (zdjęcie z dymkiem-cytatem +
+2-kolumnowy grid historia/chipy + siatka usług z checkmarkami + karta kontaktowa 2-kolumnowa) —
+i UWAGA, sprawdź też realny plik studio-paznokci-1-zaufany-fachowiec.html, nie tylko 2/3: jego hero
+to DOKŁADNIE "proste duże zaokrąglenie (1.4rem), zdjęcie po prawej stronie obok tekstu, bez
+blob/bez bąbla" (.hero-photo-wrap/.hero-photo), a jego sekcja cennika to DOKŁADNIE kropkowany
+dotted-leader "bistro menu" (.cennik-row .dots{border-bottom:2px dotted...}) — czyli oba mechanizmy
+poniżej, w wersji "sprawdź oba pliki referencyjne i wybierz przeciwny", kolidowałyby z najbliższym
+sąsiadem tej samej branży, nie tylko z hydraulik-4/elektryk-4. Poniższe punkty 2 i 4 są już
+poprawione tak, żeby tego uniknąć:
+1. Nav: jasna, statyczna (bez blur/sticky-transition, prosty sticky), CTA to zwykły przycisk
+   "Zadzwoń: {{TELEFON}}" (nie pigułka z ikoną kalendarza jak wariant 3, nie avail-badge jak
+   wariant 2) — telefon jako GŁÓWNE CTA tego wariantu (nie rezerwacja online jak wariant 3, zgodnie
+   z duchem "osobisty kontakt z właścicielką", nie appka).
+2. Hero: zdjęcie w prostym dużym zaokrągleniu (np. 2rem, NIE blob-organiczny jak hydraulik-4, NIE
+   1.4rem plain-rounded-rect jak studio-paznokci-1) w kwadratowym/pionowym kadrze PO LEWEJ stronie
+   (studio-paznokci-1 ma zdjęcie po prawej — wybierz lewo, żeby nie powielić 1:1 jego mechanizmu;
+   to też inny wybór niż hydraulik-4/elektryk-4, które akurat obie mają zdjęcie po lewej, ale ich
+   kształt zdjęcia — blob / dymek-cytat — jest inny niż tu, więc sama strona nie wystarczy jako
+   różnicowanie), obok tekst: eyebrow, H1 z frazą "z Instagrama" (patrz STYL powyżej), krótki
+   spersonalizowany lead (1-2 zdania, NIE hero-quote w osobnym bloku jak hydraulik-4 ani
+   hero-bubble jak elektryk-4 — cytat/osobisty akcent umieść WYŁĄCZNIE w sekcji kontakt, nie
+   duplikuj go w hero), CTA telefon. Żeby dodatkowo odróżnić kadr od studio-paznokci-1 (który ma
+   tylko cień pod zdjęciem, bez żadnej ramki), dodaj prosty, płaski blok w kolorze --surface
+   przesunięty o ok. 12-16px w prawo-dół ZA zdjęciem (offset "widoczna karta w tle" — nie
+   organiczny blob, nie dymek, tylko drugi prostokąt z tym samym dużym border-radius wystający
+   spod zdjęcia) — to samodzielny, rozpoznawalny mechanizm ramowania zdjęcia, którego nie ma żaden
+   z trzech plików referencyjnych.
+3. Sekcja "Nasza historia": PIONOWA lista 3 kamieni milowych z cienką pionową linią-kręgosłupem
+   po lewej i małymi kółkami-znacznikami na linii (NIE pozioma oś z 4 kropkami jak hydraulik-4,
+   NIE 2-kolumnowy grid tekst+chipy jak elektryk-4, NIE medaliony z liczbami jak studio-paznokci-1)
+   — fade-in przy scrollu.
+4. Sekcja "Nasze usługi" / cennik: lista w stylu "rodzinny cennik", ale INNY mechanizm niż
+   studio-paznokci-1 (który już używa dokładnie kropkowanego dotted-leadera w 2-kolumnowym gridzie,
+   .cennik-row .dots{border-bottom:2px dotted...}) — tu zamiast tego: JEDNOKOLUMNOWA lista
+   pogrupowana pod 2 krótkimi nagłówkami podkategorii (np. "Rączki" i "Stópki"), każdy wiersz usługi
+   to nazwa + czas trwania po lewej i cena PO PRAWEJ w zaokrąglonej plakietce (pill) z tłem
+   color-mix(in srgb, var(--accent) 14%, transparent) i tekstem var(--accent-dark) — bez kropkowanej
+   linii-wypełniacza, wiersze oddzielone tylko cienką linią border-bottom w kolorze
+   color-mix(in srgb, var(--text) 10%, transparent) (NIE lista z kropkami jak hydraulik-4, NIE grid
+   z checkmarkami jak elektryk-4, NIE karty-chipy jak wariant 3, NIE dotted leader jak wariant 1) —
+   ciepły, osobisty, "rodzinny cennik" feel. Fade-in przy scrollu.
+5. FAQ — accordion, jasna stylistyka spójna z resztą wariantu.
+6. Kontakt: karta z zaokrąglonym zdjęciem właścicielki (to samo zdjęcie co hero, mniejsze),
+   bezpośredni numer telefonu jako duży, czytelny link, JEDEN krótki, ciepły cytat klientki POD
+   zdjęciem/numerem (to jedyne miejsce w tym wariancie z cytatem klientki), pod spodem pasek
+   danych kontaktowych + mapa dojazdu (patrz WYMÓG — MAPA DOJAZDU powyżej).
+7. Stopka: jasna, prosta, wyśrodkowana, jedna linia + copyright (bez plakietek/badge'y — inny,
+   bardziej stonowany pomysł niż stopki wariantów 2/3).`
+  },
 ];
 
 async function callClaude(system, userPrompt) {
