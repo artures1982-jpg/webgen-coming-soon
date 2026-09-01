@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{NAZWA_STRONY}} — remonty i wykończenia {{MIASTO}} | tel. {{TELEFON}}</title>
+<meta name="description" content="{{NAZWA_STRONY}} — remonty i wykończenia w mieście {{MIASTO}}. Łazienki, kuchnie, mieszkania po deweloperze. Bezpłatna wycena: {{TELEFON}}">
+<meta name="keywords" content="remonty {{MIASTO}}, firma remontowo-budowlana {{MIASTO}}, wykończenia wnętrz {{MIASTO}}">
+<link rel="canonical" href="https://{{SLUG}}.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{NAZWA_STRONY}} — remonty i wykończenia {{MIASTO}}">
+<meta property="og:description" content="{{NAZWA_STRONY}} — remonty i wykończenia w mieście {{MIASTO}}. Bezpłatna wycena: {{TELEFON}}">
+<meta property="og:url" content="https://{{SLUG}}.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"GeneralContractor","name":"{{NAZWA_STRONY}}","telephone":"{{TELEFON}}","email":"{{EMAIL}}","description":"{{NAZWA_STRONY}} — remonty i wykończenia w mieście {{MIASTO}}","address":{"@type":"PostalAddress","addressLocality":"{{MIASTO}}","addressCountry":"PL"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700;800&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#4a6572;
+    --accent-dark:#2c3e46;
+    --bg:#eef2f3;
+    --surface:#dde4e6;
+    --text:#1e2a2e;
+    --muted:#5c6b6f;
+    --head:'Barlow', sans-serif;
+    --body:'Noto Sans', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3,h4{font-family:var(--head);line-height:1.15;font-weight:800;}
+  section{padding:5.5rem 1.5rem;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  .eyebrow{display:inline-block;font-family:var(--body);font-weight:700;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:.8rem;}
+  h2{font-size:clamp(1.8rem,3.2vw,2.6rem);margin-bottom:1rem;color:var(--text);}
+  .lead{color:var(--muted);font-size:1.05rem;max-width:640px;}
+  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.95rem 1.8rem;font-weight:700;font-family:var(--body);font-size:.98rem;border:2px solid transparent;cursor:pointer;transition:transform .15s ease, background .2s ease, color .2s ease, border-color .2s ease;border-radius:999px;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--accent);color:var(--bg);}
+  .btn-primary:hover{background:var(--accent-dark);}
+  .btn-outline-light{border-color:color-mix(in srgb, var(--bg) 55%, transparent);color:var(--bg);background:transparent;}
+  .btn-outline-light:hover{border-color:var(--bg);background:color-mix(in srgb, var(--bg) 12%, transparent);}
+  .btn-outline{border-color:var(--accent);color:var(--accent-dark);background:transparent;}
+  .btn-outline:hover{background:var(--accent);color:var(--bg);}
+
+  /* NAV */
+  header.nav{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .nav .wrap{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1rem;padding:1rem 1.5rem;}
+  .logo{display:flex;align-items:center;gap:.6rem;}
+  .logo-icon{width:38px;height:38px;flex-shrink:0;}
+  .logo-name{font-family:var(--head);font-weight:800;font-size:1.25rem;color:var(--text);white-space:nowrap;letter-spacing:-.01em;}
+  .nav-links-desktop{display:flex;gap:1.8rem;align-items:center;justify-self:center;}
+  .nav-links-desktop a{font-weight:600;font-size:.93rem;color:var(--text);}
+  .nav-links-desktop a:hover{color:var(--accent-dark);}
+  .nav-links-mobile{display:none;}
+  .nav-actions{display:flex;align-items:center;gap:1.2rem;justify-self:end;}
+  .nav-phone-link{font-size:.88rem;font-weight:600;color:var(--muted);white-space:nowrap;display:flex;align-items:center;gap:.35rem;}
+  .nav-phone-link:hover{color:var(--accent-dark);}
+  .nav-phone-link .icon{display:none;font-size:1.1rem;}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.3rem;}
+  .nav-toggle span{width:24px;height:2px;background:var(--text);}
+
+  /* HERO */
+  .hero{position:relative;min-height:86vh;display:flex;align-items:center;color:var(--bg);overflow:hidden;}
+  .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+  .hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(100deg, color-mix(in srgb, var(--accent-dark) 92%, black) 30%, color-mix(in srgb, var(--accent-dark) 55%, transparent) 68%, color-mix(in srgb, var(--accent-dark) 15%, transparent) 100%);}
+  .hero-inner{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:0 1.5rem;width:100%;}
+  .hero-content{max-width:640px;}
+  .hero-eyebrow{display:inline-block;font-weight:700;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb, var(--bg) 85%, transparent);margin-bottom:1.1rem;}
+  .hero h1{font-size:clamp(2.2rem,4.6vw,3.4rem);color:var(--bg);margin-bottom:1.2rem;}
+  .hero h1 em{color:color-mix(in srgb, var(--accent) 25%, var(--bg) 75%);font-style:normal;}
+  .hero p{font-size:1.1rem;color:color-mix(in srgb, var(--bg) 90%, transparent);max-width:540px;margin:0 0 2.2rem;}
+  .hero-ctas{display:flex;gap:1.4rem;align-items:center;flex-wrap:wrap;}
+  .hero-ctas .link{font-weight:700;font-size:.95rem;color:var(--bg);border-bottom:2px solid color-mix(in srgb, var(--bg) 50%, transparent);padding-bottom:2px;}
+  .hero-ctas .link:hover{border-color:var(--bg);}
+
+  /* HISTORIA */
+  .historia{background:var(--surface);}
+  .historia-inner{max-width:760px;margin:0 auto;text-align:left;}
+  .historia-pull{font-family:var(--head);font-weight:700;font-size:clamp(1.4rem,2.6vw,1.9rem);line-height:1.35;color:var(--accent-dark);margin-bottom:1.6rem;}
+  .historia p{font-size:1.05rem;color:var(--text);margin-bottom:1.1rem;}
+  .historia p:last-child{margin-bottom:0;}
+  .historia-sign{margin-top:1.8rem;font-family:var(--head);font-weight:700;font-size:1.05rem;color:var(--accent-dark);}
+
+  /* REALIZACJE */
+  .realizacje-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.2rem;margin-top:2.8rem;}
+  .realizacja-card{background:var(--surface);}
+  .realizacja-photo{width:100%;height:290px;aspect-ratio:940/650;object-fit:cover;}
+  .realizacja-body{padding:1.6rem 1.7rem 1.8rem;}
+  .realizacja-body h3{font-size:1.2rem;margin-bottom:.55rem;}
+  .realizacja-body p{color:var(--muted);font-size:.94rem;}
+  .realizacja-meta{display:flex;gap:1.1rem;flex-wrap:wrap;margin-top:.9rem;font-size:.82rem;font-weight:700;color:var(--accent-dark);}
+  .realizacja-meta span{background:color-mix(in srgb, var(--accent) 14%, transparent);padding:.3rem .7rem;border-radius:999px;}
+
+  /* CENNIK */
+  .cennik-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.8rem;}
+  .cennik-card{background:var(--surface);padding:1.7rem 1.6rem;border-top:4px solid var(--accent);}
+  .cennik-card h3{font-size:1.05rem;margin-bottom:.5rem;}
+  .cennik-card .price{font-family:var(--head);font-weight:800;font-size:1.5rem;color:var(--accent-dark);margin-bottom:.5rem;}
+  .cennik-card .price small{font-family:var(--body);font-weight:600;font-size:.72rem;color:var(--muted);}
+  .cennik-card p{color:var(--muted);font-size:.88rem;}
+  .cennik-note{margin-top:2rem;font-size:.88rem;color:var(--muted);max-width:640px;}
+
+  /* PROCES */
+  .proces{background:var(--accent-dark);color:var(--bg);}
+  .proces .eyebrow{color:color-mix(in srgb, var(--bg) 75%, transparent);}
+  .proces h2{color:var(--bg);}
+  .proces-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6rem;margin-top:2.8rem;counter-reset:step;}
+  .proces-step{position:relative;padding-top:2.6rem;}
+  .proces-step::before{counter-increment:step;content:counter(step);position:absolute;top:0;left:0;width:2.4rem;height:2.4rem;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:800;font-size:1.05rem;}
+  .proces-step h3{font-size:1.02rem;margin-bottom:.5rem;color:var(--bg);}
+  .proces-step p{font-size:.88rem;color:color-mix(in srgb, var(--bg) 78%, transparent);}
+
+  /* OPINIE */
+  .opinie-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;margin-top:2.8rem;}
+  .opinia{background:var(--surface);padding:1.8rem;}
+  .opinia p{font-style:italic;font-size:.98rem;margin-bottom:1.1rem;}
+  .opinia-who{font-weight:700;font-size:.88rem;color:var(--accent-dark);}
+  .opinia-who small{display:block;font-weight:400;color:var(--muted);margin-top:.15rem;}
+
+  /* FAQ */
+  .faq-item{border-bottom:1px solid color-mix(in srgb, var(--text) 14%, transparent);}
+  .faq-q{width:100%;text-align:left;background:none;border:none;padding:1.3rem 0;font-family:var(--head);font-weight:700;font-size:1.02rem;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+  .faq-q .plus{font-size:1.4rem;color:var(--accent);flex-shrink:0;transition:transform .2s ease;}
+  .faq-item.open .faq-q .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .faq-item.open .faq-a{max-height:300px;}
+  .faq-a p{padding-bottom:1.3rem;color:var(--muted);font-size:.95rem;max-width:640px;}
+
+  /* KONTAKT */
+  .kontakt{background:var(--surface);}
+  .kontakt-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2.8rem;}
+  .form-group{margin-bottom:1.1rem;}
+  .form-group label{display:block;font-size:.85rem;font-weight:700;margin-bottom:.4rem;}
+  .form-group input, .form-group textarea{width:100%;padding:.8rem 1rem;border:1px solid color-mix(in srgb, var(--text) 22%, transparent);background:var(--bg);font-family:var(--body);font-size:.95rem;color:var(--text);}
+  .form-group textarea{min-height:110px;resize:vertical;}
+  .form-status{margin-top:1rem;font-weight:700;font-size:.9rem;color:var(--accent-dark);display:none;}
+  .kontakt-info p{margin-bottom:.6rem;font-size:.98rem;}
+  .kontakt-info a{font-weight:700;color:var(--accent-dark);}
+  .kontakt-map{margin-top:1.4rem;overflow:hidden;}
+  .kontakt-map iframe{width:100%;height:280px;border:0;display:block;}
+
+  footer{background:var(--accent-dark);color:var(--bg);padding:3.2rem 1.5rem 2rem;}
+  .footer-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:2.5rem;max-width:1180px;margin:0 auto;}
+  .footer-grid .logo-name{color:var(--bg);}
+  footer p{color:color-mix(in srgb, var(--bg) 72%, transparent);font-size:.92rem;margin-top:.8rem;max-width:380px;}
+  .footer-links{display:flex;flex-direction:column;gap:.6rem;}
+  .footer-links a{font-size:.92rem;color:color-mix(in srgb, var(--bg) 82%, transparent);}
+  .footer-links a:hover{color:var(--bg);}
+  .footer-bottom{max-width:1180px;margin:2.4rem auto 0;padding-top:1.6rem;border-top:1px solid color-mix(in srgb, var(--bg) 15%, transparent);font-size:.8rem;color:color-mix(in srgb, var(--bg) 55%, transparent);}
+
+  @media (max-width:900px){
+    .realizacje-grid, .cennik-grid, .proces-steps, .opinie-grid, .kontakt-grid, .footer-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:700px){
+    .nav-links-desktop{display:none;}
+    .nav-toggle{display:flex;}
+    .nav-links-mobile{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);flex-direction:column;padding:.5rem 1.5rem 1.2rem;gap:.2rem;}
+    .nav-links-mobile.open{display:flex;}
+    .nav-links-mobile a{padding:.8rem 0;font-weight:600;border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+    .nav-phone-link .txt{display:none;}
+    .nav-phone-link .icon{display:inline;}
+    .nav-phone-link{width:40px;height:40px;justify-content:center;border-radius:50%;background:var(--surface);}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="8" fill="var(--accent)"/>
+        <path d="M11 27L27 11M27 11H18M27 11V20" stroke="var(--bg)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="logo-name">{{NAZWA_STRONY}}</span>
+    </a>
+    <nav class="nav-links-desktop">
+      <a href="#historia">O nas</a>
+      <a href="#realizacje">Realizacje</a>
+      <a href="#cennik">Cennik</a>
+      <a href="#proces">Jak pracujemy</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="tel:{{TELEFON}}" class="nav-phone-link"><span class="icon">📞</span><span class="txt">{{TELEFON}}</span></a>
+      <a href="#kontakt" class="btn btn-primary">Bezpłatna wycena</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-links-mobile" id="navLinks">
+    <a href="#historia">O nas</a>
+    <a href="#realizacje">Realizacje</a>
+    <a href="#cennik">Cennik</a>
+    <a href="#proces">Jak pracujemy</a>
+    <a href="#faq">FAQ</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+</header>
+
+<section class="hero" style="padding:0;">
+  <img class="hero-img" src="https://images.pexels.com/photos/36035073/pexels-photo-36035073.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Mieszkanie w trakcie remontu — gołe ściany, drabina, prace wykończeniowe">
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <span class="hero-eyebrow">{{NAZWA_STRONY}} — remonty i wykończenia, {{MIASTO}}</span>
+      <h1>Remont, który zaczyna się <em>od rozmowy</em>, nie od cennika</h1>
+      <p>Zanim podamy jakąkolwiek kwotę, przyjeżdżamy, mierzymy, słuchamy, co ma się zmienić — i dopiero wtedy liczymy. Bez tego żadna wycena nic nie znaczy.</p>
+      <div class="hero-ctas">
+        <a href="#kontakt" class="btn btn-outline-light">Bezpłatna wycena</a>
+        <a href="#realizacje" class="link">Zobacz realizacje</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="historia" id="historia">
+  <div class="wrap historia-inner">
+    <span class="eyebrow">Nasza historia</span>
+    <p class="historia-pull">Zaczynałem sam, z jednym busem i skrzynką narzędzi po ojcu.</p>
+    <p>Był rok 2011. W dzień pracowałem jeszcze na etacie, a remonty robiłem po godzinach i w weekendy — pierwsze zlecenie to była łazienka 4 metry kwadratowe na Podgórzu, którą skończyłem w dwa tygodnie, bo szybciej się po prostu nie dało pracować samemu. Klientka, u której ją robiłem, poleciła mnie sąsiadce. Sąsiadka — koledze z pracy. Tak to się zaczęło, bez jednej złotówki wydanej na reklamę.</p>
+    <p>Dziś {{NAZWA_STRONY}} to trzy stałe ekipy i harmonogram wypełniony na dwa miesiące do przodu, ale zasada, którą wyniosłem z tamtej pierwszej łazienki, się nie zmieniła: każdy remont odbieram osobiście, zanim ekipa spakuje narzędzia i wyjedzie z placu budowy. Jeśli coś mi się nie spodoba, wracają — zanim zobaczy to klient, nie po.</p>
+    <p class="historia-sign">— założyciel {{NAZWA_STRONY}}</p>
+  </div>
+</section>
+
+<section id="realizacje">
+  <div class="wrap">
+    <span class="eyebrow">Realizacje</span>
+    <h2>Ostatnie remonty, które oddaliśmy</h2>
+    <p class="lead">Konkretne metraże i zakresy prac — nie stockowe "przed/po", tylko to, co faktycznie zrobiliśmy.</p>
+    <div class="realizacje-grid">
+      <article class="realizacja-card">
+        <img class="realizacja-photo" src="https://images.pexels.com/photos/7031840/pexels-photo-7031840.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Nowoczesna łazienka po remoncie — szklana kabina prysznicowa" style="height:290px;width:100%;object-fit:cover;">
+        <div class="realizacja-body">
+          <h3>Łazienka, {{MIASTO}}-Krowodrza</h3>
+          <p>Demontaż do gołych ścian, nowa hydraulika i wentylacja, ogrzewanie podłogowe, płytki wielkoformatowe, kabina prysznicowa walk-in zamiast starej wanny.</p>
+          <div class="realizacja-meta"><span>6 m²</span><span>9 dni roboczych</span><span>Pod klucz</span></div>
+        </div>
+      </article>
+      <article class="realizacja-card">
+        <img class="realizacja-photo" src="https://images.pexels.com/photos/7166645/pexels-photo-7166645.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Nowoczesna kuchnia po remoncie — jasna zabudowa, okrągły stół" style="height:290px;width:100%;object-fit:cover;">
+        <div class="realizacja-body">
+          <h3>Kuchnia otwarta na salon, {{MIASTO}}</h3>
+          <p>Wyburzenie ściany działowej (z projektem konstrukcyjnym), nowa instalacja elektryczna pod zabudowę, gładzie, malowanie, montaż mebli kuchennych klienta.</p>
+          <div class="realizacja-meta"><span>18 m²</span><span>3 tygodnie</span><span>Z wyburzeniem</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="cennik" style="background:var(--surface);">
+  <div class="wrap">
+    <span class="eyebrow">Cennik</span>
+    <h2>Orientacyjne ceny za m²</h2>
+    <p class="lead">Widełki zależą od stanu wyjściowego i standardu wykończenia — dokładną kwotę podajemy dopiero po oględzinach, bezpłatnie.</p>
+    <div class="cennik-grid">
+      <div class="cennik-card">
+        <h3>Malowanie i gładzie</h3>
+        <div class="price">od 35 zł <small>/ m²</small></div>
+        <p>Gładź gipsowa, dwie warstwy farby, zabezpieczenie podłóg i mebli.</p>
+      </div>
+      <div class="cennik-card">
+        <h3>Podłogi i panele</h3>
+        <div class="price">od 65 zł <small>/ m²</small></div>
+        <p>Wylewka wyrównująca, montaż paneli lub desek, listwy przypodłogowe.</p>
+      </div>
+      <div class="cennik-card">
+        <h3>Remont łazienki pod klucz</h3>
+        <div class="price">od 850 zł <small>/ m²</small></div>
+        <p>Hydraulika, płytki, biały montaż, wentylacja — od skucia do odbioru.</p>
+      </div>
+      <div class="cennik-card">
+        <h3>Remont kuchni pod klucz</h3>
+        <div class="price">od 750 zł <small>/ m²</small></div>
+        <p>Instalacje pod zabudowę, gładzie, malowanie, montaż mebli.</p>
+      </div>
+      <div class="cennik-card">
+        <h3>Wykończenie po deweloperze</h3>
+        <div class="price">od 950 zł <small>/ m²</small></div>
+        <p>Cały lokal od stanu deweloperskiego do gotowego mieszkania.</p>
+      </div>
+      <div class="cennik-card">
+        <h3>Drobne naprawy budowlane</h3>
+        <div class="price">wycena indywidualna</div>
+        <p>Fugowanie, uszczelnienia, drobne poprawki po innych ekipach.</p>
+      </div>
+    </div>
+    <p class="cennik-note">Ceny nie obejmują materiałów wykończeniowych (płytki, armatura, farby) — te dobiera i kupuje klient, my doradzamy przy wyborze i rozliczamy się wyłącznie z robocizny.</p>
+  </div>
+</section>
+
+<section class="proces" id="proces">
+  <div class="wrap">
+    <span class="eyebrow">Jak pracujemy</span>
+    <h2>Od pierwszej rozmowy do odbioru kluczy</h2>
+    <div class="proces-steps">
+      <div class="proces-step">
+        <h3>Bezpłatne oględziny i wycena</h3>
+        <p>Przyjeżdżamy, mierzymy, rozmawiamy o oczekiwaniach — wycena pisemna w 2-3 dni.</p>
+      </div>
+      <div class="proces-step">
+        <h3>Projekt i harmonogram</h3>
+        <p>Ustalamy zakres prac, kolejność, terminy i daty odbiorów cząstkowych.</p>
+      </div>
+      <div class="proces-step">
+        <h3>Realizacja z raportem</h3>
+        <p>Co tydzień zdjęcia postępu prac i krótkie podsumowanie — bez czekania w niepewności.</p>
+      </div>
+      <div class="proces-step">
+        <h3>Odbiór i gwarancja</h3>
+        <p>Wspólny odbiór, protokół, 3 lata gwarancji na robociznę.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="opinie">
+  <div class="wrap">
+    <span class="eyebrow">Opinie</span>
+    <h2>Co mówią klienci</h2>
+    <div class="opinie-grid">
+      <div class="opinia">
+        <p>"Ekipa przyjeżdżała punktualnie każdego dnia, a cotygodniowe zdjęcia postępu prac naprawdę uspokajały — nie czułam się jak w czarnej dziurze remontowej."</p>
+        <div class="opinia-who">Marta W. <small>Remont łazienki, {{MIASTO}}</small></div>
+      </div>
+      <div class="opinia">
+        <p>"Wycena po oględzinach zgadzała się z fakturą końcową co do złotówki. Żadnych niespodzianek w trakcie, o które słyszałam od znajomych po innych ekipach."</p>
+        <div class="opinia-who">Piotr K. <small>Wykończenie mieszkania, {{MIASTO}}</small></div>
+      </div>
+      <div class="opinia">
+        <p>"Wyburzenie ściany w kuchni robili z pełną dokumentacją konstrukcyjną, nie na wyczucie — to dało mi spokój przy odbiorze technicznym mieszkania."</p>
+        <div class="opinia-who">Anna S. <small>Remont kuchni, {{MIASTO}}</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="background:var(--surface);">
+  <div class="wrap">
+    <span class="eyebrow">FAQ</span>
+    <h2>Najczęstsze pytania</h2>
+    <div class="faq-list" style="margin-top:2rem;max-width:760px;">
+      <div class="faq-item">
+        <button class="faq-q">Czy wycena jest naprawdę bezpłatna i niezobowiązująca? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Tak — przyjazd, oględziny i pisemna wycena nic nie kosztują, niezależnie od tego, czy zdecydujesz się na współpracę.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Kto kupuje materiały wykończeniowe? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Materiały (płytki, armatura, farby, panele) zwykle wybiera i kupuje klient — doradzamy przy wyborze i możemy pojechać razem do hurtowni. Rozliczamy się z robocizny.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Ile trwa remont łazienki lub kuchni? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Standardowa łazienka pod klucz to 7-12 dni roboczych, kuchnia bez wyburzeń 2-3 tygodnie. Dokładny termin wpisujemy w harmonogram już na etapie wyceny.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Czy pracujecie też poza miastem {{MIASTO}}? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Tak, w promieniu ok. 30 km — przy dojazdach dalszych niż na terenie miasta doliczamy tylko koszt transportu ekipy, bez dodatkowej marży.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="kontakt" id="kontakt">
+  <div class="wrap">
+    <span class="eyebrow">Kontakt</span>
+    <h2>Umów bezpłatne oględziny</h2>
+    <div class="kontakt-grid">
+      <form id="kontaktForm">
+        <div class="form-group">
+          <label for="imie">Imię i nazwisko</label>
+          <input type="text" id="imie" name="imie" required>
+        </div>
+        <div class="form-group">
+          <label for="tel">Telefon</label>
+          <input type="tel" id="tel" name="tel" required>
+        </div>
+        <div class="form-group">
+          <label for="wiadomosc">Co planujesz wyremontować?</label>
+          <textarea id="wiadomosc" name="wiadomosc" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Wyślij zapytanie</button>
+        <p class="form-status" id="formStatus">Dziękujemy! Odezwiemy się w ciągu 24 godzin.</p>
+      </form>
+      <div class="kontakt-info">
+        <p><strong>{{NAZWA_STRONY}}</strong></p>
+        <p>{{ADRES}}, {{MIASTO}}</p>
+        <p>Tel: <a href="tel:{{TELEFON}}">{{TELEFON}}</a></p>
+        <p>Email: <a href="mailto:{{EMAIL}}">{{EMAIL}}</a></p>
+        <p>Pon-Pt: {{GODZINY_PON_PT}} · Sob: {{GODZINY_SOB}}</p>
+        <div class="kontakt-map">
+          <iframe src="https://www.google.com/maps?q={{ADRES}}, {{MIASTO}}&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;width:100%;height:280px"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <span class="logo-name">{{NAZWA_STRONY}}</span>
+      <p>Remonty i wykończenia mieszkań oraz domów w mieście {{MIASTO}} i okolicy. Bezpłatna wycena po oględzinach, gwarancja na robociznę.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#historia">O nas</a>
+      <a href="#realizacje">Realizacje</a>
+      <a href="#cennik">Cennik</a>
+      <a href="#kontakt">Kontakt</a>
+    </div>
+  </div>
+  <div class="footer-bottom wrap">© {{NAZWA_STRONY}} — wszystkie prawa zastrzeżone.</div>
+</footer>
+
+<script>
+  var navToggle = document.getElementById('navToggle');
+  var navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', function(){
+    navLinks.classList.toggle('open');
+  });
+
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    item.querySelector('.faq-q').addEventListener('click', function(){
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
+      if(!wasOpen){ item.classList.add('open'); }
+    });
+  });
+
+  document.getElementById('kontaktForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('formStatus').style.display = 'block';
+    this.reset();
+  });
+</script>
+
+</body>
+</html>

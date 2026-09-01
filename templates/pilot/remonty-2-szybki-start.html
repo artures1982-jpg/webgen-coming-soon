@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{NAZWA_STRONY}} — szybki start remontu {{MIASTO}} | tel. {{TELEFON}}</title>
+<meta name="description" content="{{NAZWA_STRONY}} — remonty i naprawy bez czekania miesiącami w mieście {{MIASTO}}. Wolne terminy w tym tygodniu. Zadzwoń: {{TELEFON}}">
+<meta name="keywords" content="szybki remont {{MIASTO}}, pilny remont {{MIASTO}}, naprawy budowlane {{MIASTO}}">
+<link rel="canonical" href="https://{{SLUG}}.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{NAZWA_STRONY}} — szybki start remontu {{MIASTO}}">
+<meta property="og:description" content="{{NAZWA_STRONY}} — wolne terminy w tym tygodniu. Zadzwoń: {{TELEFON}}">
+<meta property="og:url" content="https://{{SLUG}}.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"GeneralContractor","name":"{{NAZWA_STRONY}}","telephone":"{{TELEFON}}","email":"{{EMAIL}}","description":"{{NAZWA_STRONY}} — remonty i naprawy bez długiego oczekiwania w mieście {{MIASTO}}","address":{"@type":"PostalAddress","addressLocality":"{{MIASTO}}","addressCountry":"PL"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#c9d92e;
+    --accent-dark:#8a9820;
+    --bg:#16181a;
+    --surface:#212426;
+    --text:#eef0e6;
+    --muted:#9aa39c;
+    --head:'Anton', sans-serif;
+    --body:'Rubik', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3{font-family:var(--head);font-weight:400;line-height:1.05;letter-spacing:.01em;text-transform:uppercase;}
+  section{padding:5.5rem 1.5rem;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  .eyebrow{display:inline-block;font-family:var(--body);font-weight:700;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem;}
+  h2{font-size:clamp(1.9rem,3.4vw,2.7rem);margin-bottom:1rem;color:var(--text);}
+  .lead{color:var(--muted);font-size:1.05rem;max-width:640px;}
+  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:1rem 1.9rem;font-weight:700;font-family:var(--body);font-size:.98rem;border:2px solid transparent;cursor:pointer;transition:transform .15s ease, background .2s ease, color .2s ease;border-radius:999px;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--accent);color:var(--bg);}
+  .btn-primary:hover{background:var(--accent-dark);}
+  .btn-glow{position:relative;overflow:hidden;}
+  .btn-glow::before{content:'';position:absolute;inset:-2px;background:linear-gradient(90deg, transparent, color-mix(in srgb, var(--text) 65%, transparent), transparent);background-size:220% 100%;animation:sweep 2.6s linear infinite;}
+  .btn-glow span{position:relative;z-index:1;display:flex;align-items:center;gap:.55rem;}
+  @keyframes sweep{0%{background-position:-120% 0;}100%{background-position:120% 0;}}
+  .link{font-weight:700;font-size:.95rem;color:var(--text);border-bottom:2px solid color-mix(in srgb, var(--text) 45%, transparent);padding-bottom:2px;}
+  .link:hover{border-color:var(--text);}
+
+  /* NAV */
+  header.nav{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .nav .wrap{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1rem;padding:1rem 1.5rem;}
+  .logo{display:flex;align-items:center;gap:.6rem;}
+  .logo-icon{width:38px;height:38px;flex-shrink:0;}
+  .logo-name{font-family:var(--body);font-weight:800;font-size:1.2rem;color:var(--text);white-space:nowrap;letter-spacing:-.01em;}
+  .nav-links-desktop{display:flex;gap:1.8rem;align-items:center;justify-self:center;}
+  .nav-links-desktop a{font-weight:600;font-size:.93rem;color:var(--text);}
+  .nav-links-desktop a:hover{color:var(--accent);}
+  .nav-links-mobile{display:none;}
+  .nav-actions{display:flex;align-items:center;gap:1rem;justify-self:end;}
+  .avail-badge{display:flex;align-items:center;gap:.45rem;font-size:.8rem;font-weight:700;background:color-mix(in srgb, var(--accent) 16%, transparent);color:var(--accent);padding:.4rem .8rem;border-radius:999px;white-space:nowrap;}
+  .avail-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 1.8s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(1.3);}}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.3rem;}
+  .nav-toggle span{width:24px;height:2px;background:var(--text);}
+
+  /* HERO */
+  .hero{position:relative;padding:6rem 1.5rem 4rem;overflow:hidden;}
+  .hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg, color-mix(in srgb, var(--accent) 6%, transparent) 0 22px, transparent 22px 44px);z-index:0;}
+  .hero-inner{position:relative;z-index:1;max-width:760px;margin:0 auto;text-align:center;}
+  .hero h1{font-size:clamp(2.3rem,5.2vw,3.7rem);margin-bottom:1.3rem;}
+  .hero h1 .hl{color:var(--accent);}
+  .hero p{font-size:1.1rem;color:var(--muted);max-width:560px;margin:0 auto 2.2rem;text-transform:none;}
+  .hero-ctas{display:flex;gap:1.4rem;justify-content:center;align-items:center;flex-wrap:wrap;}
+
+  /* MARQUEE */
+  .marquee-wrap{background:var(--surface);border-top:1px solid color-mix(in srgb, var(--text) 10%, transparent);border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);overflow:hidden;padding:.9rem 0;}
+  .marquee-track{display:flex;white-space:nowrap;animation:marquee 22s linear infinite;width:max-content;}
+  .marquee-wrap:hover .marquee-track{animation-play-state:paused;}
+  .marquee-track span{font-weight:700;font-size:.92rem;color:var(--accent);padding:0 1.4rem;}
+  @keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+  /* STORYTELLING */
+  .story{background:var(--surface);}
+  .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-top:1rem;}
+  .story-photo{width:100%;aspect-ratio:940/650;height:auto;object-fit:cover;}
+  .story-text p{font-size:1.02rem;color:var(--text);margin-bottom:1rem;text-transform:none;}
+  .story-text p:last-child{margin-bottom:0;}
+  .story-text .fade-in{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease;}
+  .story-text .fade-in.visible{opacity:1;transform:translateY(0);}
+
+  /* NAPRAWIMY SZYBKO */
+  .fix-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;margin-top:2.8rem;}
+  .fix-card{background:var(--surface);border:1px solid color-mix(in srgb, var(--text) 8%, transparent);overflow:hidden;transition:box-shadow .2s ease, border-color .2s ease, opacity .5s ease, transform .5s ease;opacity:0;transform:translateY(18px);}
+  .fix-card.visible{opacity:1;transform:translateY(0);}
+  .fix-card:hover{border-color:var(--accent);box-shadow:0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent), 0 8px 24px color-mix(in srgb, var(--accent) 12%, transparent);}
+  .fix-grid .fix-card:nth-child(1){transition-delay:0s;}
+  .fix-grid .fix-card:nth-child(2){transition-delay:.08s;}
+  .fix-grid .fix-card:nth-child(3){transition-delay:.16s;}
+  .fix-grid .fix-card:nth-child(4){transition-delay:.24s;}
+  .fix-grid .fix-card:nth-child(5){transition-delay:.32s;}
+  .fix-grid .fix-card:nth-child(6){transition-delay:.4s;}
+  .fix-photo-wrap{position:relative;overflow:hidden;aspect-ratio:940/650;}
+  .fix-photo{width:100%;height:auto;object-fit:cover;transition:transform .5s ease;}
+  .fix-card:hover .fix-photo{transform:scale(1.07);}
+  .fix-ico{position:absolute;top:.8rem;left:.8rem;width:2.5rem;height:2.5rem;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:1.15rem;box-shadow:0 3px 10px color-mix(in srgb, black 40%, transparent);transition:transform .3s ease;}
+  .fix-card:hover .fix-ico{transform:scale(1.1) rotate(-6deg);}
+  .fix-body{padding:1.4rem 1.5rem 1.6rem;}
+  .fix-card h3{font-family:var(--body);font-weight:700;font-size:1rem;text-transform:none;margin-bottom:.4rem;letter-spacing:0;}
+  .fix-card p{color:var(--muted);font-size:.9rem;}
+
+  /* USP */
+  .usp-row{display:flex;gap:1.3rem;flex-wrap:wrap;margin-top:2.6rem;}
+  .usp-badge{flex:1 1 220px;background:var(--surface);padding:1.3rem 1.4rem;border-left:3px solid var(--accent);opacity:0;transform:translateY(14px);transition:opacity .5s ease, transform .5s ease;}
+  .usp-badge.visible{opacity:1;transform:translateY(0);}
+  .usp-badge h3{font-family:var(--body);font-weight:700;font-size:.98rem;text-transform:none;margin-bottom:.4rem;letter-spacing:0;}
+  .usp-badge p{color:var(--muted);font-size:.88rem;}
+
+  /* FAQ */
+  .faq-item{border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .faq-q{width:100%;text-align:left;background:none;border:none;padding:1.3rem 0;font-family:var(--body);font-weight:700;font-size:1.02rem;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+  .faq-q .plus{font-size:1.4rem;color:var(--accent);flex-shrink:0;transition:transform .2s ease;}
+  .faq-item.open .faq-q .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .faq-item.open .faq-a{max-height:300px;}
+  .faq-a p{padding-bottom:1.3rem;color:var(--muted);font-size:.95rem;max-width:640px;}
+
+  /* KONTAKT */
+  .kontakt{background:var(--surface);text-align:center;}
+  .kontakt .wrap{max-width:640px;}
+  .kontakt-info{margin-top:1.6rem;display:flex;flex-direction:column;gap:.5rem;color:var(--muted);}
+  .kontakt-info a{color:var(--text);font-weight:700;}
+  .kontakt-map{margin-top:2rem;overflow:hidden;text-align:left;}
+  .kontakt-map iframe{width:100%;height:280px;border:0;display:block;}
+
+  footer{background:var(--bg);border-top:1px solid color-mix(in srgb, var(--text) 10%, transparent);padding:2.2rem 1.5rem;text-align:center;}
+  footer p{color:var(--muted);font-size:.85rem;}
+
+  @media (max-width:900px){
+    .story-grid, .fix-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:700px){
+    .nav-links-desktop{display:none;}
+    .nav-toggle{display:flex;}
+    .avail-badge .txt{display:none;}
+    .nav-links-mobile{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);flex-direction:column;padding:.5rem 1.5rem 1.2rem;gap:.2rem;}
+    .nav-links-mobile.open{display:flex;}
+    .nav-links-mobile a{padding:.8rem 0;font-weight:600;border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .avail-dot{animation:none;opacity:1;transform:none;}
+    .marquee-track{animation:none;}
+    .btn-glow::before{animation:none;display:none;}
+    .story-text .fade-in{opacity:1;transform:none;transition:none;}
+    .usp-badge{opacity:1;transform:none;transition:none;}
+    .fix-card{opacity:1;transform:none;transition:none;}
+    .fix-card:hover .fix-photo{transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="8" fill="var(--accent)"/>
+        <path d="M11 27L27 11M27 11H18M27 11V20" stroke="var(--bg)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="logo-name">{{NAZWA_STRONY}}</span>
+    </a>
+    <nav class="nav-links-desktop">
+      <a href="#historia">O nas</a>
+      <a href="#naprawimy">Zakres prac</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="nav-actions">
+      <span class="avail-badge"><span class="avail-dot"></span><span class="txt">Wolne terminy w tym tygodniu</span></span>
+      <a href="tel:{{TELEFON}}" class="btn btn-primary">{{TELEFON}}</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-links-mobile" id="navLinks">
+    <a href="#historia">O nas</a>
+    <a href="#naprawimy">Zakres prac</a>
+    <a href="#faq">FAQ</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">{{NAZWA_STRONY}} — {{MIASTO}}</span>
+    <h1>Inne ekipy każą czekać <span class="hl">do wiosny</span>. My zaczynamy w tym tygodniu.</h1>
+    <p>Trzymamy stały bufor mocy przerobowej na pilne i mniejsze zlecenia — awarie, poprawki przed sprzedażą, szkody po zalaniu. Bez trzymiesięcznej kolejki.</p>
+    <div class="hero-ctas">
+      <a href="tel:{{TELEFON}}" class="btn btn-primary btn-glow"><span>📞 {{TELEFON}}</span></a>
+      <a href="#kontakt" class="link">Zobacz wolne terminy</a>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>PONIEDZIAŁEK — WOLNY TERMIN</span><span>ŚRODA — WOLNY TERMIN</span><span>CZWARTEK — WOLNY TERMIN</span><span>ZADZWOŃ: {{TELEFON}}</span>
+    <span>PONIEDZIAŁEK — WOLNY TERMIN</span><span>ŚRODA — WOLNY TERMIN</span><span>CZWARTEK — WOLNY TERMIN</span><span>ZADZWOŃ: {{TELEFON}}</span>
+  </div>
+</div>
+
+<section class="story" id="historia">
+  <div class="wrap story-grid">
+    <img class="story-photo" src="https://images.pexels.com/photos/6454230/pexels-photo-6454230.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Ekipa {{NAZWA_STRONY}} przy pracy nad zabudową z drewna">
+    <div class="story-text">
+      <span class="eyebrow">Dlaczego mamy wolne terminy</span>
+      <div class="fade-in" id="storyFade">
+        <p>W zeszłym miesiącu zadzwoniła do nas pani, której zalało łazienkę dzień przed wprowadzeniem się najemcy — dziura w suficie, mokra podłoga, zero czasu. Standardowa wycena i harmonogram na trzy tygodnie do przodu jej nie pomogły. Byliśmy na miejscu następnego dnia rano.</p>
+        <p>Dlatego celowo nie zapełniamy grafiku ekip w stu procentach dużymi remontami — trzymamy margines na właśnie takie sytuacje. Jeśli Twoja sprawa nie wymaga miesięcy planowania, duże szanse, że zaczniemy w tym tygodniu, nie w przyszłym kwartale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="naprawimy">
+  <div class="wrap">
+    <span class="eyebrow">Naprawimy szybko</span>
+    <h2>Zakres prac, które zwykle robimy od ręki</h2>
+    <p class="lead" style="text-transform:none;">Mniejsze i pilne zlecenia — nie pełne remonty pod klucz (te znajdziesz w naszej podstawowej ofercie).</p>
+    <div class="fix-grid">
+      <div class="fix-card">
+        <div class="fix-photo-wrap"><img class="fix-photo" src="https://images.pexels.com/photos/36237047/pexels-photo-36237047.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Uszkodzony dach po burzy"><span class="fix-ico">🌧️</span></div>
+        <div class="fix-body"><h3>Przeciekający dach po burzy</h3><p>Tymczasowe i docelowe uszczelnienie, naprawa pokrycia.</p></div>
+      </div>
+      <div class="fix-card">
+        <div class="fix-photo-wrap"><img class="fix-photo" src="https://images.pexels.com/photos/8488060/pexels-photo-8488060.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Klucz hydrauliczny — naprawa pękniętej rury"><span class="fix-ico">💧</span></div>
+        <div class="fix-body"><h3>Pęknięta rura, zalana podłoga</h3><p>Naprawa hydrauliki, osuszanie, wymiana zniszczonych warstw.</p></div>
+      </div>
+      <div class="fix-card">
+        <div class="fix-photo-wrap"><img class="fix-photo" src="https://images.pexels.com/photos/8146330/pexels-photo-8146330.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Puste mieszkanie przygotowane do sprzedaży"><span class="fix-ico">🏷️</span></div>
+        <div class="fix-body"><h3>Poprawki przed sprzedażą mieszkania</h3><p>Drobne usterki, które pytają o nie kupujący na oględzinach.</p></div>
+      </div>
+      <div class="fix-card">
+        <div class="fix-photo-wrap"><img class="fix-photo" src="https://images.pexels.com/photos/8624464/pexels-photo-8624464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Zacieki na suficie po zalaniu"><span class="fix-ico">🧯</span></div>
+        <div class="fix-body"><h3>Szkody po zalaniu sąsiada</h3><p>Osuszanie, gładzie, malowanie, dokumentacja dla ubezpieczyciela.</p></div>
+      </div>
+      <div class="fix-card">
+        <div class="fix-photo-wrap"><img class="fix-photo" src="https://images.pexels.com/photos/8082327/pexels-photo-8082327.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Puste mieszkanie w trakcie drobnego odświeżenia przed najmem"><span class="fix-ico">🔑</span></div>
+        <div class="fix-body"><h3>Drobne prace przed odbiorem najmu</h3><p>Odświeżenie mieszkania między jednym najemcą a drugim.</p></div>
+      </div>
+      <div class="fix-card">
+        <div class="fix-photo-wrap"><img class="fix-photo" src="https://images.pexels.com/photos/5691588/pexels-photo-5691588.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Naprawa instalacji elektrycznej po awarii"><span class="fix-ico">🛠️</span></div>
+        <div class="fix-body"><h3>Naprawa po awarii instalacji</h3><p>Usunięcie skutków awarii elektrycznej lub hydraulicznej.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--surface);">
+  <div class="wrap">
+    <span class="eyebrow">Dlaczego szybciej niż inni</span>
+    <h2>Trzy rzeczy, które robimy inaczej</h2>
+    <div class="usp-row">
+      <div class="usp-badge"><h3>Rezerwowy bufor w grafiku</h3><p>Celowo nie zapełniamy ekip w 100% — zawsze zostaje miejsce na pilne zlecenie.</p></div>
+      <div class="usp-badge"><h3>Wycena tego samego dnia</h3><p>Przy pilnych sprawach oglądamy i wyceniamy zwykle w ciągu 24 godzin.</p></div>
+      <div class="usp-badge"><h3>Bez podwyżki za pośpiech</h3><p>Szybszy start nie oznacza wyższej ceny za tę samą pracę.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <span class="eyebrow">FAQ</span>
+    <h2>Najczęstsze pytania</h2>
+    <div class="faq-list" style="margin-top:2rem;max-width:760px;">
+      <div class="faq-item">
+        <button class="faq-q">Jak szybko możecie zacząć? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Przy mniejszych i pilnych zleceniach zwykle w ciągu 2-5 dni roboczych od pierwszego kontaktu, czasem następnego dnia.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Czy robicie też duże remonty pod klucz? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Tak — to nasza podstawowa oferta, ale te projekty planujemy z wyprzedzeniem. Ten wariant dotyczy mniejszych i pilnych zleceń wpasowanych w bufor grafiku.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Czy wystawiacie dokumentację dla ubezpieczyciela? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Tak, przy szkodach po zalaniu czy awarii przygotowujemy zdjęcia i opis zakresu prac na potrzeby zgłoszenia szkody.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Czy pracujecie też poza miastem {{MIASTO}}? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Tak, w promieniu ok. 30 km — przy pilnych zleceniach dojazd zwykle nie wydłuża czasu reakcji.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="kontakt" id="kontakt">
+  <div class="wrap">
+    <span class="eyebrow">Kontakt</span>
+    <h2>Zadzwoń, opisz sprawę</h2>
+    <p class="lead" style="text-transform:none;margin:0 auto;">Powiedz nam, co się stało — od razu ocenimy, czy pasujesz w nasz najbliższy wolny termin.</p>
+    <a href="tel:{{TELEFON}}" class="btn btn-primary btn-glow" style="margin-top:1.8rem;"><span>📞 {{TELEFON}}</span></a>
+    <div class="kontakt-info">
+      <p>{{NAZWA_STRONY}} · {{ADRES}}, {{MIASTO}}</p>
+      <p>Email: <a href="mailto:{{EMAIL}}">{{EMAIL}}</a></p>
+      <p>Pon-Pt: {{GODZINY_PON_PT}} · Sob: {{GODZINY_SOB}}</p>
+    </div>
+    <div class="kontakt-map">
+      <iframe src="https://www.google.com/maps?q={{ADRES}}, {{MIASTO}}&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;width:100%;height:280px"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© {{NAZWA_STRONY}} — wszystkie prawa zastrzeżone.</p>
+</footer>
+
+<script>
+  var navToggle = document.getElementById('navToggle');
+  var navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', function(){
+    navLinks.classList.toggle('open');
+  });
+
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    item.querySelector('.faq-q').addEventListener('click', function(){
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
+      if(!wasOpen){ item.classList.add('open'); }
+    });
+  });
+
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold:.2});
+  document.querySelectorAll('.fade-in, .usp-badge, .fix-card').forEach(function(el){ observer.observe(el); });
+</script>
+
+</body>
+</html>
