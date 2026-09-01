@@ -279,4 +279,80 @@ elektryk-4/fryzjer-4 (przeczytaj wszystkie trzy) zanim zaprojektujesz:
 8. Stopka: jasna, prosta, wyśrodkowana, jedna linia + copyright.`,
 });
 
+VARIANTS.push({
+  id: 'remonty-5-premium',
+  tier: 'pro',
+  name: 'Premium',
+  visual: `STYL: adaptacja archetypu "Premium/korporacyjny" — dla firmy remontowo-budowlanej to
+NAJBARDZIEJ DOSŁOWNY z dotychczasowych transferów tego archetypu w systemie (w odróżnieniu od
+studio-paznokci-5/fryzjer-barber-5, gdzie trzeba było przenosić ducha na eventy — tu B2B jest
+naturalną, realną częścią tej branży): deweloperzy, zarządcy nieruchomości komercyjnych, biura
+i lokale usługowe, inwestorzy remontujący pod wynajem/sprzedaż. Duch: sformalizowany proces,
+dedykowany kierownik projektu, dokumentacja, harmonogramy — poziom obsługi, którego oczekuje
+klient instytucjonalny, nie tylko właściciel jednego mieszkania.
+
+Piąty i ostatni wariant tej branży — ZASADY.md sekcja 0 (bespoke względem hydraulik-5,
+elektryk-5, studio-paznokci-5, fryzjer-barber-5 — przeczytaj WSZYSTKIE cztery wyłącznie jako
+inspirację ducha/mechaniki: stats-strip, oś procesu, portfolio realizacji, rejestr zaufania,
+PEŁNY formularz zamiast telefonu — ale KAŻDY mechanizm wizualny sekcji musi wyglądać inaczej niż
+wszystkie cztery) i różnicowanie względem remonty-1 (stalowo-szary/#4a6572), remonty-2 (ciemny
+asfalt/lime), remonty-3 (indygo-fiolet), remonty-4 (oliwkowo-musztardowy/kamienny beż).
+
+PALETA (zablokowane, sprawdzone grepem że nie kolidują z żadnym wariantem w systemie — i
+świadomie UNIKAJĄCE achromatycznego podejścia studio-5/fryzjer-5, żeby nie powielić 1:1 tego
+samego pomysłu "czerń+akcent" po raz trzeci): --bg chłodny, ŚREDNIO-ciemny łupkowy
+grafit-niebieski (NIE kolejny "prawie czarny" — w systemie jest już ich sporo — np. #232a30,
+podobna strategia jasności co remonty-3, ale w chłodnej niebiesko-szarej rodzinie zamiast
+fioletowej), --surface jaśniejszy chłodny łupek (np. #2d363d), --accent ZDESATUROWANY
+platynowo-stalowy szary-niebieski (np. #9fb0b8 — metaliczny, "stal i szkło architektury",
+GENUINE świeży mechanizm: żaden inny wariant w systemie nie używa zdesaturowanego metalicznego
+akcentu, wszystkie inne są nasycone kolorystycznie albo czysto achromatyczne), --accent-dark
+głębszy stalowy (np. #6b7d85), --text chłodna prawie-biel (np. #eef2f4), --muted stonowany
+chłodny szaro-niebieski (np. #8a99a1).
+TYPOGRAFIA: nagłówki elegancki, architektoniczny serif (np. Noto Serif Display — nieużyty
+jeszcze w systemie), tekst czytelny geometryczny sans (np. Jost — nieużyty jeszcze w systemie).
+Zweryfikuj grepem przed finalizacją.
+
+ZDJĘCIA (już wyszukane i wizualnie zweryfikowane, zero kolizji ID, zero widocznych logo/marek
+osób trzecich):
+- HERO (duże, w ramce z cienką metaliczną obwódką): minimalistyczna betonowo-stalowa klatka
+  schodowa, architektoniczna, chłodna — wspiera "stal i beton, precyzja wykonania":
+  https://images.pexels.com/photos/33335187/pexels-photo-33335187.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- REALIZACJA 1 (lokal usługowy po wykończeniu, czysty, nowoczesny wnętrze bez widocznych
+  logo/szyldów marek): https://images.pexels.com/photos/37080685/pexels-photo-37080685.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- REALIZACJA 2 (biuro po wykończeniu, otwarta przestrzeń, rośliny, biurka):
+  https://images.pexels.com/photos/9300768/pexels-photo-9300768.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+
+WYCISZONY, PRECYZYJNY RUCH (spójne z konwencją archetypu 5 u wszystkich czterech poprzedników —
+żaden nie używa shimmer/marquee/pulsowania): WYŁĄCZNIE jednorazowy fade-in na kartach realizacji
+i wierszach rejestru zaufania, zero pętli/keyframes, zero ambientowego glow. WYMÓG
+prefers-reduced-motion: fade-in musi mieć natychmiastowy stan końcowy.
+
+TREŚĆ — ZASADY.md sekcja 5: rejestr zaufania WYŁĄCZNIE generyczne kategorie klientów
+(Deweloperzy mieszkaniowi / Zarządcy nieruchomości komercyjnych / Biura i lokale usługowe /
+Inwestorzy pod wynajem), zero wymyślonych nazw firm.
+
+LAYOUT — inny mechanizm niż hydraulik-5/elektryk-5/studio-paznokci-5/fryzjer-barber-5 (sprawdź
+wszystkie cztery konkretne mechanizmy nav/hero/stats/process/cases/trust/kontakt przed
+projektowaniem) i inny niż remonty-1/2/3/4:
+1. Nav: ciemna, statyczna, CTA "Umów konsultację" jako obrysowany (outline) przycisk w kolorze
+   --accent.
+2. Hero: 2 kolumny — lewo tekst (eyebrow, H1 nie-etykieta, lead), PRAWO duże zdjęcie w ramce z
+   cienką metaliczną (1-2px, var(--accent)) obwódką. POD hero (nie w środku, nie jako osobna
+   sekcja) wąski pasek 3 statystyk z cienkimi pionowymi separatorami.
+3. Sekcja "Realizacje": 2 duże karty case-study OBOK SIEBIE (nie naprzemiennie jak
+   fryzjer-barber-5, nie 1 duży+2 kompaktowe jak elektryk-5) — każda: zdjęcie, kategoria-tag,
+   krótki opis zakresu (metraż, typ lokalu, czas realizacji), fade-in przy scrollu.
+4. Sekcja "Jak pracujemy": 4 kroki jako pozioma lista z cienką linią-podkreśleniem pod numerem
+   (nie numery rzymskie jak fryzjer-5, nie numerowane kółka z łączącą linią jak hydraulik-5/
+   elektryk-5) — Briefing i audyt → Projekt wykonawczy i harmonogram → Realizacja z dedykowanym
+   kierownikiem → Odbiór i dokumentacja powykonawcza.
+5. Sekcja "Zaufali nam": pozioma lista kategorii klientów jako proste pigułki z cienką obwódką
+   (nie tabela jak elektryk-5, nie luźne pigułki jak hydraulik-5), fade-in przy scrollu.
+6. FAQ — accordion, ciemna stylistyka.
+7. Kontakt: PEŁNY formularz zapytania (nazwa firmy, typ projektu, metraż, termin, wiadomość)
+   jako primary CTA zamiast telefonu, pod spodem pasek danych + mapa.
+8. Stopka: ciemna, minimalna, jedna linia + copyright.`,
+});
+
 module.exports = { VARIANTS, SAMPLE_TOKENS };

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{NAZWA_STRONY}} — wykończenia komercyjne {{MIASTO}} | tel. {{TELEFON}}</title>
+<meta name="description" content="{{NAZWA_STRONY}} — wykończenia lokali komercyjnych i biur w mieście {{MIASTO}}. Dla deweloperów, zarządców nieruchomości i inwestorów. Umów konsultację.">
+<meta name="keywords" content="wykończenia komercyjne {{MIASTO}}, generalny wykonawca {{MIASTO}}, fit-out biur {{MIASTO}}">
+<link rel="canonical" href="https://{{SLUG}}.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{NAZWA_STRONY}} — wykończenia komercyjne {{MIASTO}}">
+<meta property="og:description" content="{{NAZWA_STRONY}} — dla deweloperów, zarządców nieruchomości i inwestorów w mieście {{MIASTO}}.">
+<meta property="og:url" content="https://{{SLUG}}.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"GeneralContractor","name":"{{NAZWA_STRONY}}","telephone":"{{TELEFON}}","email":"{{EMAIL}}","description":"{{NAZWA_STRONY}} — wykończenia komercyjne w mieście {{MIASTO}}","address":{"@type":"PostalAddress","addressLocality":"{{MIASTO}}","addressCountry":"PL"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@500;600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#9fb0b8;
+    --accent-dark:#6b7d85;
+    --bg:#232a30;
+    --surface:#2d363d;
+    --text:#eef2f4;
+    --muted:#8a99a1;
+    --head:'Noto Serif Display', serif;
+    --body:'Jost', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3{font-family:var(--head);font-weight:600;line-height:1.2;}
+  section{padding:5.5rem 1.5rem;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  .eyebrow{display:inline-block;font-family:var(--body);font-weight:600;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:.9rem;}
+  h2{font-size:clamp(1.8rem,3.2vw,2.5rem);margin-bottom:1rem;color:var(--text);}
+  .lead{color:var(--muted);font-size:1.05rem;max-width:620px;}
+  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.95rem 1.9rem;font-weight:600;font-family:var(--body);font-size:.96rem;letter-spacing:.02em;cursor:pointer;transition:background .2s ease, color .2s ease;}
+  .btn-outline{border:1px solid var(--accent);color:var(--accent);background:transparent;}
+  .btn-outline:hover{background:var(--accent);color:var(--bg);}
+  .btn-primary{border:none;background:var(--accent);color:var(--bg);}
+  .btn-primary:hover{background:var(--accent-dark);}
+
+  /* NAV */
+  header.nav{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);}
+  .nav .wrap{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1rem;padding:1.1rem 1.5rem;}
+  .logo{display:flex;align-items:center;gap:.6rem;}
+  .logo-icon{width:34px;height:34px;flex-shrink:0;}
+  .logo-name{font-family:var(--head);font-weight:600;font-size:1.15rem;color:var(--text);letter-spacing:.02em;white-space:nowrap;}
+  .nav-links-desktop{display:flex;gap:1.9rem;align-items:center;justify-self:center;}
+  .nav-links-desktop a{font-weight:500;font-size:.9rem;letter-spacing:.03em;color:var(--muted);}
+  .nav-links-desktop a:hover{color:var(--text);}
+  .nav-links-mobile{display:none;}
+  .nav-actions{display:flex;align-items:center;gap:1rem;justify-self:end;}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.3rem;}
+  .nav-toggle span{width:24px;height:2px;background:var(--text);}
+
+  /* HERO */
+  .hero-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:3.5rem;align-items:center;}
+  .hero h1{font-size:clamp(2rem,3.8vw,2.9rem);margin-bottom:1.2rem;}
+  .hero h1 em{color:var(--accent);font-style:normal;}
+  .hero p{font-size:1.05rem;color:var(--muted);max-width:480px;margin-bottom:2rem;}
+  .hero-photo-frame{border:1px solid var(--accent);padding:.6rem;}
+  .hero-photo{width:100%;aspect-ratio:940/650;height:auto;object-fit:cover;}
+
+  /* STATS STRIP */
+  .stats-strip{border-top:1px solid color-mix(in srgb, var(--text) 10%, transparent);border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);padding:2.2rem 1.5rem;}
+  .stats-row{max-width:1180px;margin:0 auto;display:flex;}
+  .stat{flex:1;text-align:center;padding:0 1.5rem;border-left:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .stat:first-child{border-left:none;}
+  .stat .num{font-family:var(--head);font-weight:600;font-size:2rem;color:var(--accent);}
+  .stat .lbl{font-size:.82rem;color:var(--muted);margin-top:.3rem;}
+
+  /* REALIZACJE */
+  .cases-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.2rem;margin-top:2.8rem;}
+  .case-card{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
+  .case-card.visible{opacity:1;transform:translateY(0);}
+  .case-photo{width:100%;aspect-ratio:940/650;height:auto;object-fit:cover;}
+  .case-tag{display:inline-block;margin-top:1.2rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);}
+  .case-card h3{font-size:1.15rem;margin:.5rem 0 .6rem;}
+  .case-card p{color:var(--muted);font-size:.92rem;}
+
+  /* JAK PRACUJEMY */
+  .proces-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-top:2.8rem;}
+  .proces-step .num{font-family:var(--head);font-weight:600;font-size:1.3rem;color:var(--accent);border-bottom:2px solid var(--accent);display:inline-block;padding-bottom:.4rem;margin-bottom:.9rem;}
+  .proces-step h3{font-size:1rem;margin-bottom:.5rem;}
+  .proces-step p{font-size:.88rem;color:var(--muted);}
+
+  /* ZAUFALI NAM */
+  .trust-row{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.4rem;}
+  .trust-pill{opacity:0;transform:translateY(14px);transition:opacity .5s ease, transform .5s ease;border:1px solid color-mix(in srgb, var(--text) 18%, transparent);padding:.7rem 1.3rem;font-size:.9rem;color:var(--muted);}
+  .trust-pill.visible{opacity:1;transform:translateY(0);}
+
+  /* FAQ */
+  .faq-item{border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .faq-q{width:100%;text-align:left;background:none;border:none;padding:1.3rem 0;font-family:var(--head);font-weight:600;font-size:1rem;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+  .faq-q .plus{font-size:1.4rem;color:var(--accent);flex-shrink:0;transition:transform .2s ease;}
+  .faq-item.open .faq-q .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .faq-item.open .faq-a{max-height:300px;}
+  .faq-a p{padding-bottom:1.3rem;color:var(--muted);font-size:.95rem;max-width:640px;}
+
+  /* KONTAKT */
+  .kontakt{background:var(--surface);}
+  .kontakt-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;margin-top:2.8rem;}
+  .form-group{margin-bottom:1.1rem;}
+  .form-group label{display:block;font-size:.82rem;font-weight:500;margin-bottom:.4rem;color:var(--muted);}
+  .form-group input, .form-group select, .form-group textarea{width:100%;padding:.8rem 1rem;border:1px solid color-mix(in srgb, var(--text) 20%, transparent);background:var(--bg);font-family:var(--body);font-size:.94rem;color:var(--text);}
+  .form-group textarea{min-height:100px;resize:vertical;}
+  .form-status{margin-top:1rem;font-weight:600;font-size:.9rem;color:var(--accent);display:none;}
+  .kontakt-info p{margin-bottom:.6rem;font-size:.95rem;color:var(--muted);}
+  .kontakt-info a{font-weight:600;color:var(--text);}
+  .kontakt-map{margin-top:1.4rem;overflow:hidden;}
+  .kontakt-map iframe{width:100%;height:260px;border:0;display:block;}
+
+  footer{border-top:1px solid color-mix(in srgb, var(--text) 10%, transparent);padding:2.2rem 1.5rem;text-align:center;}
+  footer p{color:var(--muted);font-size:.85rem;letter-spacing:.02em;}
+
+  @media (max-width:900px){
+    .hero-grid, .cases-grid, .kontakt-grid{grid-template-columns:1fr;}
+    .proces-steps{grid-template-columns:1fr 1fr;}
+    .stats-row{flex-wrap:wrap;gap:1.2rem;}
+    .stat{flex:1 1 40%;border-left:none;}
+  }
+  @media (max-width:700px){
+    .nav-links-desktop{display:none;}
+    .nav-toggle{display:flex;}
+    .nav-links-mobile{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);flex-direction:column;padding:.5rem 1.5rem 1.2rem;gap:.2rem;}
+    .nav-links-mobile.open{display:flex;}
+    .nav-links-mobile a{padding:.8rem 0;font-weight:500;border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+    .proces-steps{grid-template-columns:1fr;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .case-card, .trust-pill{opacity:1;transform:none;transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="4" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+        <path d="M11 27L27 11M27 11H18M27 11V20" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="logo-name">{{NAZWA_STRONY}}</span>
+    </a>
+    <nav class="nav-links-desktop">
+      <a href="#realizacje">Realizacje</a>
+      <a href="#proces">Jak pracujemy</a>
+      <a href="#zaufanie">Klienci</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#kontakt" class="btn btn-outline">Umów konsultację</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-links-mobile" id="navLinks">
+    <a href="#realizacje">Realizacje</a>
+    <a href="#proces">Jak pracujemy</a>
+    <a href="#zaufanie">Klienci</a>
+    <a href="#faq">FAQ</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">{{NAZWA_STRONY}} — wykończenia komercyjne, {{MIASTO}}</span>
+      <h1>Generalne wykonawstwo dla klientów, <em>którzy nie mogą sobie pozwolić na poślizg</em></h1>
+      <p>Wykończenia lokali komercyjnych, biur i inwestycji deweloperskich — z dedykowanym kierownikiem projektu, harmonogramem i dokumentacją powykonawczą na każdym etapie.</p>
+      <a href="#kontakt" class="btn btn-primary">Umów konsultację</a>
+    </div>
+    <div class="hero-photo-frame">
+      <img class="hero-photo" src="https://images.pexels.com/photos/33335187/pexels-photo-33335187.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Nowoczesna klatka schodowa — beton i stal">
+    </div>
+  </div>
+</section>
+
+<div class="stats-strip">
+  <div class="stats-row">
+    <div class="stat"><div class="num">14 lat</div><div class="lbl">na rynku wykonawstwa</div></div>
+    <div class="stat"><div class="num">60+</div><div class="lbl">zrealizowanych lokali komercyjnych</div></div>
+    <div class="stat"><div class="num">100%</div><div class="lbl">projektów z dokumentacją powykonawczą</div></div>
+  </div>
+</div>
+
+<section id="realizacje">
+  <div class="wrap">
+    <span class="eyebrow">Realizacje</span>
+    <h2>Wybrane projekty</h2>
+    <p class="lead">Wykończenia lokali usługowych i biur — od stanu surowego do gotowej przestrzeni.</p>
+    <div class="cases-grid">
+      <article class="case-card">
+        <img class="case-photo" src="https://images.pexels.com/photos/37080685/pexels-photo-37080685.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Wykończony lokal usługowy">
+        <span class="case-tag">Lokal usługowy</span>
+        <h3>Wykończenie salonu w centrum handlowym</h3>
+        <p>180 m², pełna zabudowa meblowa, oświetlenie ekspozycyjne. Realizacja: 6 tygodni, zgodnie z harmonogramem najemcy.</p>
+      </article>
+      <article class="case-card">
+        <img class="case-photo" src="https://images.pexels.com/photos/9300768/pexels-photo-9300768.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Wykończone biuro open space">
+        <span class="case-tag">Biuro</span>
+        <h3>Fit-out biura open space dla najemcy</h3>
+        <p>420 m², instalacje pod IT i klimatyzację, strefy wspólne. Realizacja: 9 tygodni, odbiór bez uwag.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="proces" style="background:var(--surface);">
+  <div class="wrap">
+    <span class="eyebrow">Jak pracujemy</span>
+    <h2>Sformalizowany proces, nie ustne ustalenia</h2>
+    <div class="proces-steps">
+      <div class="proces-step"><div class="num">01</div><h3>Briefing i audyt</h3><p>Analiza lokalu, wymagań technicznych i harmonogramu najmu/sprzedaży.</p></div>
+      <div class="proces-step"><div class="num">02</div><h3>Projekt wykonawczy</h3><p>Harmonogram, kosztorys, dobór podwykonawców branżowych.</p></div>
+      <div class="proces-step"><div class="num">03</div><h3>Realizacja</h3><p>Dedykowany kierownik projektu, cotygodniowe raporty postępu.</p></div>
+      <div class="proces-step"><div class="num">04</div><h3>Odbiór</h3><p>Protokół odbioru i pełna dokumentacja powykonawcza.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="zaufanie">
+  <div class="wrap">
+    <span class="eyebrow">Zaufali nam</span>
+    <h2>Kto z nami pracuje</h2>
+    <div class="trust-row">
+      <div class="trust-pill">Deweloperzy mieszkaniowi</div>
+      <div class="trust-pill">Zarządcy nieruchomości komercyjnych</div>
+      <div class="trust-pill">Biura i lokale usługowe</div>
+      <div class="trust-pill">Inwestorzy pod wynajem</div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="background:var(--surface);">
+  <div class="wrap">
+    <span class="eyebrow">FAQ</span>
+    <h2>Najczęstsze pytania</h2>
+    <div class="faq-list" style="margin-top:2rem;max-width:760px;">
+      <div class="faq-item">
+        <button class="faq-q">Czy pracujecie na podstawie umów ramowych z deweloperami? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Tak — dla klientów realizujących wiele lokali rocznie proponujemy stałe stawki i priorytetowy harmonogram.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Czy zapewniacie ubezpieczenie OC na czas realizacji? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Tak, każdy projekt komercyjny jest objęty polisą OC działalności na czas trwania prac.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Jak wygląda raportowanie postępu prac? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Cotygodniowe raporty ze zdjęciami i statusem harmonogramu, przekazywane bezpośrednio do osoby kontaktowej po stronie klienta.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Czy realizujecie projekty poza miastem {{MIASTO}}? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Tak, przy większych projektach komercyjnych dojeżdżamy również poza granice miasta — warunki ustalane indywidualnie.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="kontakt" id="kontakt">
+  <div class="wrap">
+    <span class="eyebrow">Kontakt</span>
+    <h2>Zapytaj o wycenę projektu</h2>
+    <div class="kontakt-grid">
+      <form id="kontaktForm">
+        <div class="form-group">
+          <label for="firma">Nazwa firmy</label>
+          <input type="text" id="firma" name="firma" required>
+        </div>
+        <div class="form-group">
+          <label for="typ">Typ projektu</label>
+          <select id="typ" name="typ">
+            <option>Lokal usługowy</option>
+            <option>Biuro</option>
+            <option>Inwestycja deweloperska</option>
+            <option>Inne</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="metraz">Metraż (m²)</label>
+          <input type="number" id="metraz" name="metraz">
+        </div>
+        <div class="form-group">
+          <label for="wiadomosc">Opis projektu</label>
+          <textarea id="wiadomosc" name="wiadomosc" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Wyślij zapytanie</button>
+        <p class="form-status" id="formStatus">Dziękujemy — odezwiemy się w ciągu 24 godzin.</p>
+      </form>
+      <div class="kontakt-info">
+        <p><strong style="color:var(--text)">{{NAZWA_STRONY}}</strong></p>
+        <p>{{ADRES}}, {{MIASTO}}</p>
+        <p>Tel: <a href="tel:{{TELEFON}}">{{TELEFON}}</a></p>
+        <p>Email: <a href="mailto:{{EMAIL}}">{{EMAIL}}</a></p>
+        <p>Pon-Pt: {{GODZINY_PON_PT}} · Sob: {{GODZINY_SOB}}</p>
+        <div class="kontakt-map">
+          <iframe src="https://www.google.com/maps?q={{ADRES}}, {{MIASTO}}&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;width:100%;height:260px"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© {{NAZWA_STRONY}} — wszystkie prawa zastrzeżone.</p>
+</footer>
+
+<script>
+  var navToggle = document.getElementById('navToggle');
+  var navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', function(){ navLinks.classList.toggle('open'); });
+
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    item.querySelector('.faq-q').addEventListener('click', function(){
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
+      if(!wasOpen){ item.classList.add('open'); }
+    });
+  });
+
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){ entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+  }, {threshold:.2});
+  document.querySelectorAll('.case-card, .trust-pill').forEach(function(el){ observer.observe(el); });
+
+  document.getElementById('kontaktForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('formStatus').style.display = 'block';
+    this.reset();
+  });
+</script>
+
+</body>
+</html>
