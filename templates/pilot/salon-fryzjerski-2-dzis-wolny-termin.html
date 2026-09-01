@@ -88,13 +88,19 @@
   .zaj-grid .zaj-card:nth-child(2){transition-delay:.1s;}
   .zaj-grid .zaj-card:nth-child(3){transition-delay:.2s;}
   .zaj-grid .zaj-card:nth-child(4){transition-delay:.3s;}
-  .zaj-card .ico{font-size:1.5rem;margin-bottom:.7rem;}
+  .zaj-card{padding:0;overflow:hidden;}
+  .zaj-photo-wrap{position:relative;aspect-ratio:940/560;overflow:hidden;}
+  .zaj-photo{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
+  .zaj-card:hover .zaj-photo{transform:scale(1.06);}
+  .zaj-ico{position:absolute;top:.7rem;left:.7rem;width:2.2rem;height:2.2rem;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:1rem;box-shadow:0 3px 10px rgba(0,0,0,.18);}
+  .zaj-body{padding:1.3rem 1.4rem 1.5rem;}
   .zaj-card h3{font-size:1rem;margin-bottom:.4rem;}
   .zaj-card p{color:var(--muted);font-size:.88rem;}
 
   /* STORY */
   .story{background:var(--surface);}
-  .story .wrap{max-width:720px;}
+  .story .wrap{max-width:1000px;display:grid;grid-template-columns:.9fr 1.1fr;gap:2.8rem;align-items:center;}
+  .story-photo{width:100%;aspect-ratio:940/1100;height:auto;object-fit:cover;border-radius:1.4rem;}
   .story-pull{font-family:var(--head);font-weight:700;font-size:clamp(1.3rem,2.4vw,1.7rem);line-height:1.4;color:var(--accent-dark);margin-bottom:1.2rem;}
   .fade-in{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease;}
   .fade-in.visible{opacity:1;transform:translateY(0);}
@@ -122,6 +128,7 @@
 
   @media (max-width:900px){
     .zaj-grid{grid-template-columns:1fr 1fr;}
+    .story .wrap{grid-template-columns:1fr;}
   }
   @media (max-width:700px){
     .nav-links-desktop{display:none;}
@@ -188,21 +195,36 @@
     <span class="eyebrow">Dla zapracowanych</span>
     <h2>Fryzjer, który pasuje do Twojego kalendarza</h2>
     <div class="zaj-grid">
-      <div class="zaj-card"><div class="ico">🌅</div><h3>Szybkie zmiany przed pracą</h3><p>Poranne sloty od 8:00 dla klasycznych strzyżeń.</p></div>
-      <div class="zaj-card"><div class="ico">🌙</div><h3>Wieczory do 20:00</h3><p>Koloryzacja i stylizacja bez brania wolnego z pracy.</p></div>
-      <div class="zaj-card"><div class="ico">📅</div><h3>Soboty bez czekania</h3><p>Osobny grafik weekendowy, nie tłok jednego dnia.</p></div>
-      <div class="zaj-card"><div class="ico">📱</div><h3>Zapis o dowolnej porze</h3><p>Umów się online w nocy, potwierdzimy rano.</p></div>
+      <div class="zaj-card">
+        <div class="zaj-photo-wrap"><img class="zaj-photo" src="https://images.pexels.com/photos/8834072/pexels-photo-8834072.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Szybkie strzyżenie przed pracą"><span class="zaj-ico">🌅</span></div>
+        <div class="zaj-body"><h3>Szybkie zmiany przed pracą</h3><p>Poranne sloty od 8:00 dla klasycznych strzyżeń.</p></div>
+      </div>
+      <div class="zaj-card">
+        <div class="zaj-photo-wrap"><img class="zaj-photo" src="https://images.pexels.com/photos/29548298/pexels-photo-29548298.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Wieczorna koloryzacja włosów"><span class="zaj-ico">🌙</span></div>
+        <div class="zaj-body"><h3>Wieczory do 20:00</h3><p>Koloryzacja i stylizacja bez brania wolnego z pracy.</p></div>
+      </div>
+      <div class="zaj-card">
+        <div class="zaj-photo-wrap"><img class="zaj-photo" src="https://images.pexels.com/photos/7755171/pexels-photo-7755171.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Spokojna sobotnia wizyta bez pośpiechu"><span class="zaj-ico">📅</span></div>
+        <div class="zaj-body"><h3>Soboty bez czekania</h3><p>Osobny grafik weekendowy, nie tłok jednego dnia.</p></div>
+      </div>
+      <div class="zaj-card">
+        <div class="zaj-photo-wrap"><img class="zaj-photo" src="https://images.pexels.com/photos/7516240/pexels-photo-7516240.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Zapis na wizytę o dowolnej porze"><span class="zaj-ico">📱</span></div>
+        <div class="zaj-body"><h3>Zapis o dowolnej porze</h3><p>Umów się online w nocy, potwierdzimy rano.</p></div>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="story">
   <div class="wrap">
-    <span class="eyebrow">Dlaczego to dla nas ważne</span>
-    <p class="story-pull fade-in">Klientka zadzwoniła o 20:15, dzień przed ważnym wydarzeniem — my byliśmy jedynym salonem w mieście z wolnym terminem tego wieczoru.</p>
-    <div class="fade-in">
-      <p>Większość salonów w mieście {{MIASTO}} zamyka się o 18:00, dokładnie wtedy, kiedy większość ludzi kończy pracę. Zbudowaliśmy grafik odwrotnie — nasze najbardziej obłożone godziny to 18:00-20:00 i całe soboty, nie środek dnia roboczego.</p>
-      <p>Nie jest to "usługa ekspresowa" w cenie premium — te same ceny, ten sam standard, po prostu w godzinach, które faktycznie pasują do życia większości naszych klientów.</p>
+    <img class="story-photo" src="https://images.pexels.com/photos/3993465/pexels-photo-3993465.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Zadowolona klientka po wieczornej wizycie">
+    <div>
+      <span class="eyebrow">Dlaczego to dla nas ważne</span>
+      <p class="story-pull fade-in">Klientka zadzwoniła o 20:15, dzień przed ważnym wydarzeniem — my byliśmy jedynym salonem w mieście z wolnym terminem tego wieczoru.</p>
+      <div class="fade-in">
+        <p>Większość salonów w mieście {{MIASTO}} zamyka się o 18:00, dokładnie wtedy, kiedy większość ludzi kończy pracę. Zbudowaliśmy grafik odwrotnie — nasze najbardziej obłożone godziny to 18:00-20:00 i całe soboty, nie środek dnia roboczego.</p>
+        <p>Nie jest to "usługa ekspresowa" w cenie premium — te same ceny, ten sam standard, po prostu w godzinach, które faktycznie pasują do życia większości naszych klientów.</p>
+      </div>
     </div>
   </div>
 </section>
