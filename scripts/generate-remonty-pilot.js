@@ -210,4 +210,62 @@ remonty-1/2:
 8. Stopka: ciemna, minimalna.`,
 });
 
+VARIANTS.push({
+  id: 'remonty-4-rodzinna-firma',
+  tier: 'pro',
+  name: 'Rodzinna firma',
+  visual: `STYL: archetyp "Rodzinna firma" — firma rodzinna, stała, mała ekipa, którą klient
+poznaje osobiście, nie anonimowi podwykonawcy zmieniający się z remontu na remont. Duch: "za
+każdym razem ta sama ekipa — nie loteria, kogo firma akurat wyśle".
+
+RÓŻNICA WOBEC REMONTY-1: wariant 1 już opowiada historię założyciela (2011, jeden bus) w duchu
+transparentności/zaufania (to teraz uniwersalny wymóg storytellingu, nie unikalna cecha
+wariantu 1) — wariant 4 NIE powtarza tej samej historii innymi słowami. Tu punkt ciężkości to
+CIĄGŁOŚĆ i ZNAJOMOŚĆ ekipy TERAZ (kto przyjedzie, ile lat razem pracują), nie geneza firmy.
+
+WAŻNE OGRANICZENIE: zdjęcie przedstawia dwóch konkretnych, prawdziwych ludzi ze zdjęcia
+stockowego — NIE przypisuj im wymyślonej relacji (np. "ojciec i syn") ani imion, to byłoby
+zmyślanie faktu o rozpoznawalnych osobach. Pisz o "naszej stałej ekipie" / "tym samym zespole"
+ogólnie, bez fabrykowania szczegółów biograficznych konkretnych osób na zdjęciu.
+
+WYCISZONY RUCH (świadomy wyjątek od nowego progu ruchu dla wariantów 2+, patrz
+.claude/agents/designer-ux-ui.md — archetyp 4 zostaje spokojny mimo tieru pro): WYŁĄCZNIE
+jednorazowy fade-in przy scrollu na liście/kartach, zero ambientowego glow w tle, zero
+shimmer na CTA. WYMÓG prefers-reduced-motion: fade-in musi mieć natychmiastowy stan końcowy.
+
+PALETA (zablokowane, sprawdzone grepem że nie kolidują z żadnym wariantem w systemie): --bg
+ciepły, jasny "glina/piasek" (WYRAŹNIE cieplejszy i bardziej nasycony niż chłodne
+stalowo-szare remonty-1 #eef2f3 — np. #f2e6d8), --surface głębsza, cieplejsza karta (np.
+#e8d7c2), --accent ceglasta czerwień (np. #a14a3a — cegła, materiał budowlany, inna rodzina niż
+istniejące terakoty/pomarańcze w systemie — sprawdź konkretnie odległość od #c1613a i #a85c32),
+--accent-dark głębszy ceglasty brąz (np. #7a3327), --text ciepły ciemny brąz, --muted stonowany
+ciepły szaro-brąz.
+TYPOGRAFIA: nagłówki ciepły literacki serif (np. Spectral — nieużyty jeszcze w systemie), tekst
+czytelny sans (np. Be Vietnam Pro — nieużyty jeszcze w systemie). Zweryfikuj grepem.
+
+ZDJĘCIE (już wyszukane, zero kolizji ID): dwóch uśmiechniętych pracowników budowlanych w
+identycznych kombinezonach roboczych, ciepła, autentyczna scena — wspiera narrację "stała
+ekipa, nie przypadkowi ludzie":
+https://images.pexels.com/photos/3879758/pexels-photo-3879758.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+Użyte w hero (duży kadr) i w kontakcie (mniejszy) — ten sam powtarzalny wzorzec co
+hydraulik-4/elektryk-4/fryzjer-4/studio-4.
+
+LAYOUT — inny mechanizm niż remonty-1/2/3 i sprawdź konkretne mechanizmy hydraulik-4/
+elektryk-4/fryzjer-4 (przeczytaj wszystkie trzy) zanim zaprojektujesz:
+1. Nav: jasna, statyczna, prosty sticky, CTA "Zadzwoń: {{TELEFON}}" jako główne CTA (osobisty
+   kontakt, nie kalkulator/marquee jak poprzednie warianty).
+2. Hero: zdjęcie w dużym zaokrąglonym kwadracie PO PRAWEJ + tekst po lewej (eyebrow, H1 o
+   ciągłości ekipy — nie etykieta, lead, CTA telefon).
+3. Sekcja "Poznaj naszą ekipę": zdjęcie (to samo, mniejsze) PO LEWEJ tym razem (odwrócona
+   kolejność względem hero) + tekst PO PRAWEJ o stałości zespołu, z konkretem (lata razem, ile
+   realizacji rocznie) — fade-in przy scrollu.
+4. Sekcja usług: JEDNOKOLUMNOWA lista (nie siatka kart jak remonty-1) — nazwa usługi + krótki
+   opis + ikona, oddzielone cienką linią, fade-in przy scrollu.
+5. Sekcja opinii: JEDEN duży, wyśrodkowany cytat (nie siatka 3 jak remonty-1).
+6. FAQ — accordion, jasna stylistyka.
+7. Kontakt: zdjęcie (małe, okrągłe) + telefon jako duży link + dane + mapa. Bez formularza —
+   telefon jest głównym, osobistym kanałem kontaktu tego wariantu.
+8. Stopka: jasna, prosta, wyśrodkowana, jedna linia + copyright.`,
+});
+
 module.exports = { VARIANTS, SAMPLE_TOKENS };

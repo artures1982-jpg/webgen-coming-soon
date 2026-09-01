@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RenoMax — rodzinna firma remontowa Kraków | tel. 500 123 456</title>
+<meta name="description" content="RenoMax — rodzinna firma remontowa w mieście Kraków. Zawsze ta sama, stała ekipa. Zadzwoń: 500 123 456">
+<meta name="keywords" content="rodzinna firma remontowa Kraków, sprawdzona ekipa remontowa Kraków">
+<link rel="canonical" href="https://renomax-krakow.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="RenoMax — rodzinna firma remontowa Kraków">
+<meta property="og:description" content="RenoMax — zawsze ta sama, stała ekipa. Zadzwoń: 500 123 456">
+<meta property="og:url" content="https://renomax-krakow.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"GeneralContractor","name":"RenoMax","telephone":"500 123 456","email":"kontakt@renomax.pl","description":"RenoMax — rodzinna firma remontowa w mieście Kraków","address":{"@type":"PostalAddress","addressLocality":"Kraków","addressCountry":"PL"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#a14a3a;
+    --accent-dark:#7a3327;
+    --bg:#f2e6d8;
+    --surface:#e8d7c2;
+    --text:#3a281f;
+    --muted:#8a7365;
+    --head:'Spectral', serif;
+    --body:'Be Vietnam Pro', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3{font-family:var(--head);font-weight:700;line-height:1.2;}
+  section{padding:5.5rem 1.5rem;}
+  .wrap{max-width:1100px;margin:0 auto;}
+  .eyebrow{display:inline-block;font-family:var(--body);font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:.8rem;}
+  h2{font-size:clamp(1.8rem,3.2vw,2.5rem);margin-bottom:1rem;color:var(--text);}
+  .lead{color:var(--muted);font-size:1.05rem;max-width:600px;}
+  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.95rem 1.8rem;font-weight:700;font-family:var(--body);font-size:.98rem;border:2px solid transparent;cursor:pointer;transition:transform .15s ease, background .2s ease, color .2s ease;border-radius:.5rem;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--accent);color:var(--bg);}
+  .btn-primary:hover{background:var(--accent-dark);}
+
+  /* NAV */
+  header.nav{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .nav .wrap{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1rem;padding:1rem 1.5rem;}
+  .logo{display:flex;align-items:center;gap:.6rem;}
+  .logo-icon{width:36px;height:36px;flex-shrink:0;}
+  .logo-name{font-family:var(--head);font-weight:700;font-size:1.2rem;color:var(--text);white-space:nowrap;}
+  .nav-links-desktop{display:flex;gap:1.8rem;align-items:center;justify-self:center;}
+  .nav-links-desktop a{font-weight:600;font-size:.93rem;color:var(--text);}
+  .nav-links-desktop a:hover{color:var(--accent);}
+  .nav-links-mobile{display:none;}
+  .nav-actions{display:flex;align-items:center;gap:1rem;justify-self:end;}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.3rem;}
+  .nav-toggle span{width:24px;height:2px;background:var(--text);}
+
+  /* HERO */
+  .hero .wrap{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;}
+  .hero-photo{width:100%;aspect-ratio:940/650;height:auto;object-fit:cover;border-radius:2rem;}
+  .hero h1{font-size:clamp(2.1rem,4vw,3rem);margin-bottom:1.2rem;}
+  .hero h1 em{color:var(--accent);font-style:normal;}
+  .hero p{font-size:1.08rem;color:var(--muted);max-width:480px;margin-bottom:2rem;}
+
+  /* EKIPA */
+  .ekipa{background:var(--surface);}
+  .ekipa .wrap{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;}
+  .ekipa-photo{width:100%;aspect-ratio:940/650;height:auto;object-fit:cover;border-radius:2rem;}
+  .ekipa-text p{margin-bottom:1rem;font-size:1.02rem;}
+  .ekipa-text p:last-child{margin-bottom:0;}
+  .fade-in{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+  .ekipa-stats{display:flex;gap:2.2rem;margin-top:1.6rem;}
+  .ekipa-stat{font-family:var(--head);font-weight:700;font-size:1.6rem;color:var(--accent);}
+  .ekipa-stat span{display:block;font-family:var(--body);font-weight:500;font-size:.82rem;color:var(--muted);}
+
+  /* USŁUGI */
+  .uslugi-list{max-width:760px;margin-top:2.4rem;}
+  .usluga-row{display:flex;gap:1.2rem;align-items:flex-start;padding:1.4rem 0;border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .usluga-row .ico{font-size:1.5rem;flex-shrink:0;}
+  .usluga-row h3{font-size:1.05rem;margin-bottom:.35rem;}
+  .usluga-row p{color:var(--muted);font-size:.92rem;}
+
+  /* OPINIA */
+  .opinia-wrap{background:var(--surface);text-align:center;}
+  .opinia-quote{max-width:680px;margin:0 auto;font-family:var(--head);font-size:clamp(1.3rem,2.4vw,1.7rem);line-height:1.5;color:var(--text);font-style:italic;}
+  .opinia-who{margin-top:1.4rem;font-weight:700;color:var(--accent-dark);font-size:.95rem;}
+
+  /* FAQ */
+  .faq-item{border-bottom:1px solid color-mix(in srgb, var(--text) 14%, transparent);}
+  .faq-q{width:100%;text-align:left;background:none;border:none;padding:1.3rem 0;font-family:var(--head);font-weight:700;font-size:1.02rem;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+  .faq-q .plus{font-size:1.4rem;color:var(--accent);flex-shrink:0;transition:transform .2s ease;}
+  .faq-item.open .faq-q .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .faq-item.open .faq-a{max-height:300px;}
+  .faq-a p{padding-bottom:1.3rem;color:var(--muted);font-size:.95rem;max-width:640px;}
+
+  /* KONTAKT */
+  .kontakt{text-align:center;}
+  .kontakt .wrap{max-width:520px;}
+  .kontakt-photo{width:96px;height:96px;border-radius:50%;object-fit:cover;margin:0 auto 1.4rem;border:3px solid var(--surface);}
+  .kontakt-info{margin-top:1.6rem;display:flex;flex-direction:column;gap:.5rem;color:var(--muted);}
+  .kontakt-info a{color:var(--text);font-weight:700;}
+  .kontakt-map{margin-top:2rem;overflow:hidden;border-radius:1rem;text-align:left;}
+  .kontakt-map iframe{width:100%;height:280px;border:0;display:block;}
+
+  footer{background:var(--surface);padding:2.4rem 1.5rem;text-align:center;}
+  footer p{color:var(--muted);font-size:.85rem;}
+
+  @media (max-width:900px){
+    .hero .wrap, .ekipa .wrap{grid-template-columns:1fr;}
+    .ekipa .wrap{display:flex;flex-direction:column-reverse;}
+  }
+  @media (max-width:700px){
+    .nav-links-desktop{display:none;}
+    .nav-toggle{display:flex;}
+    .nav-links-mobile{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);flex-direction:column;padding:.5rem 1.5rem 1.2rem;gap:.2rem;}
+    .nav-links-mobile.open{display:flex;}
+    .nav-links-mobile a{padding:.8rem 0;font-weight:600;border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .fade-in{opacity:1;transform:none;transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="8" fill="var(--accent)"/>
+        <path d="M11 27L27 11M27 11H18M27 11V20" stroke="var(--bg)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="logo-name">RenoMax</span>
+    </a>
+    <nav class="nav-links-desktop">
+      <a href="#ekipa">Nasza ekipa</a>
+      <a href="#uslugi">Usługi</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="tel:500 123 456" class="btn btn-primary">Zadzwoń: 500 123 456</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-links-mobile" id="navLinks">
+    <a href="#ekipa">Nasza ekipa</a>
+    <a href="#uslugi">Usługi</a>
+    <a href="#faq">FAQ</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">RenoMax — Kraków</span>
+      <h1>Za każdym razem <em>ta sama ekipa</em>, nie loteria kogo wyślą</h1>
+      <p>Nie podzlecamy remontów przypadkowym ludziom. Ten sam, mały zespół, który wycenia pracę, jest tym samym, który ją wykonuje — od pierwszego dnia do odbioru.</p>
+      <a href="tel:500 123 456" class="btn btn-primary">📞 Zadzwoń: 500 123 456</a>
+    </div>
+    <img class="hero-photo" src="https://images.pexels.com/photos/3879758/pexels-photo-3879758.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Stała ekipa RenoMax">
+  </div>
+</section>
+
+<section class="ekipa" id="ekipa">
+  <div class="wrap">
+    <img class="ekipa-photo" src="https://images.pexels.com/photos/3879758/pexels-photo-3879758.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Nasza stała ekipa przy pracy">
+    <div class="ekipa-text fade-in">
+      <span class="eyebrow">Poznaj naszą ekipę</span>
+      <h2>Rodzinna firma, nie giełda podwykonawców</h2>
+      <p>Pracujemy razem od lat, nie od projektu do projektu. Kiedy umawiamy oględziny, to my sami — nie przedstawiciel handlowy, który zniknie, gdy zacznie się prawdziwa robota — jesteśmy na miejscu od pierwszego dnia do odbioru kluczy.</p>
+      <p>Dzięki temu nie musisz tłumaczyć swoich oczekiwań nowej osobie co tydzień — rozmawiasz z tymi samymi ludźmi przez cały remont.</p>
+      <div class="ekipa-stats">
+        <div class="ekipa-stat">9 lat<span>razem jako zespół</span></div>
+        <div class="ekipa-stat">40+<span>remontów rocznie</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="uslugi">
+  <div class="wrap">
+    <span class="eyebrow">Usługi</span>
+    <h2>Czym się zajmujemy</h2>
+    <div class="uslugi-list">
+      <div class="usluga-row fade-in"><div class="ico">🛁</div><div><h3>Remonty łazienek</h3><p>Pod klucz — od skucia starych płytek do odbioru gotowego wnętrza.</p></div></div>
+      <div class="usluga-row fade-in"><div class="ico">🍳</div><div><h3>Remonty kuchni</h3><p>Instalacje pod zabudowę, gładzie, malowanie, montaż mebli.</p></div></div>
+      <div class="usluga-row fade-in"><div class="ico">🏠</div><div><h3>Wykończenia po deweloperze</h3><p>Cały lokal od stanu deweloperskiego do gotowego mieszkania.</p></div></div>
+      <div class="usluga-row fade-in"><div class="ico">🎨</div><div><h3>Malowanie i gładzie</h3><p>Precyzyjne wykończenie ścian i sufitów, bez zacieków i smug.</p></div></div>
+      <div class="usluga-row fade-in"><div class="ico">🔧</div><div><h3>Drobne naprawy budowlane</h3><p>Fugowanie, uszczelnienia, poprawki po innych ekipach.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="opinia-wrap">
+  <div class="wrap">
+    <p class="opinia-quote">"Trzy tygodnie remontu i codziennie ci sami dwaj panowie — nie musiałam nikomu drugi raz tłumaczyć, o co mi chodzi z tą łazienką."</p>
+    <p class="opinia-who">Ewa T., Kraków</p>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <span class="eyebrow">FAQ</span>
+    <h2>Najczęstsze pytania</h2>
+    <div class="faq-list" style="margin-top:2rem;max-width:760px;">
+      <div class="faq-item">
+        <button class="faq-q">Czy naprawdę przyjeżdżacie zawsze we dwóch tych samych? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Tak — przy większych zleceniach dochodzi czasem jedna dodatkowa osoba na konkretny etap (np. elektryka), ale rdzeń ekipy zostaje ten sam przez cały remont.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Ile trwa typowy remont łazienki? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Zwykle 7-12 dni roboczych, w zależności od zakresu prac i dostępności materiałów.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Czy podpisujecie umowę? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Tak, zawsze — z zakresem prac, terminem i ceną ustaloną z góry, bez niespodzianek w trakcie.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Czy pracujecie też poza miastem Kraków? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Tak, w promieniu ok. 30 km — bez zmiany składu ekipy.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="kontakt" id="kontakt">
+  <div class="wrap">
+    <img class="kontakt-photo" src="https://images.pexels.com/photos/3879758/pexels-photo-3879758.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Nasza ekipa">
+    <span class="eyebrow">Kontakt</span>
+    <h2>Porozmawiajmy o Twoim remoncie</h2>
+    <a href="tel:500 123 456" class="btn btn-primary">📞 500 123 456</a>
+    <div class="kontakt-info">
+      <p>RenoMax · ul. Przykładowa 12, Kraków</p>
+      <p>Email: <a href="mailto:kontakt@renomax.pl">kontakt@renomax.pl</a></p>
+      <p>Pon-Pt: 7:00 – 18:00 · Sob: 9:00 – 13:00</p>
+    </div>
+    <div class="kontakt-map">
+      <iframe src="https://www.google.com/maps?q=ul. Przykładowa 12, Kraków&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;width:100%;height:280px"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© RenoMax — wszystkie prawa zastrzeżone.</p>
+</footer>
+
+<script>
+  var navToggle = document.getElementById('navToggle');
+  var navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', function(){ navLinks.classList.toggle('open'); });
+
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    item.querySelector('.faq-q').addEventListener('click', function(){
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
+      if(!wasOpen){ item.classList.add('open'); }
+    });
+  });
+
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){ entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+  }, {threshold:.2});
+  document.querySelectorAll('.fade-in').forEach(function(el){ observer.observe(el); });
+</script>
+
+</body>
+</html>
