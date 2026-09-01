@@ -141,4 +141,73 @@ LAYOUT:
 9. Stopka: ciemna, minimalna, jedna linia + copyright.`,
 });
 
+VARIANTS.push({
+  id: 'remonty-3-kalkulator-online',
+  tier: 'pro',
+  name: 'Nowoczesny cyfrowy',
+  visual: `STYL: adaptacja archetypu "Nowoczesny cyfrowy" — w innych branżach to formularz
+wyceny/rezerwacja online jako primary CTA. Dla remontów naturalny cyfrowy odpowiednik to
+KALKULATOR KOSZTU REMONTU ONLINE — wybierasz typ pomieszczenia, metraż i standard wykończenia,
+widget od razu pokazuje orientacyjne widełki cenowe. Duch: "policz orientacyjny koszt w 60
+sekund, zanim jeszcze zadzwonisz" — samoobsługowa transparentność zamiast czekania na telefon
+od handlowca.
+
+Trzeci wariant tej branży — różnicowanie względem remonty-1 (jasny stalowo-szary, hero pełne
+zdjęcie) i remonty-2 (ciemny neutralny asfalt + limonka, hero typograficzny na hazard-stripe):
+ten wariant ciemny, ale INNY odcień niż wariant 2 — nie kolejny "prawie czarny" neutralny
+grafit, tylko średnio-ciemny indygo-fiolet (żeby nie wpaść w ten sam rejestr "prawie czarny"
+co większość dark-mode wariantów w całym systemie).
+
+WYMAGANY RUCH: kalkulator MUSI być realnie interaktywny (JS, nie tylko wygląda jak widget) —
+klik w typ pomieszczenia/standard aktualizuje wyświetlaną wycenę. Poprawka 2026-09-01 (Artur:
+"czemu wciąż brak błysków/refleksów i ruchu") — pierwsza wersja była zbyt spokojna jak na tier
+pro; dodano: pulsująca poświata w tle hero za kalkulatorem (radial-gradient, keyframe
+heroGlowPulse, pętla), shimmer-sweep na przyciskach CTA (.btn-glow, ten sam mechanizm co
+remonty-2 — dopuszczalne powtórzenie uniwersalnej techniki), świecący pierścień na AKTYWNYM
+chipie (box-shadow, statyczny, nie pętla), jednorazowy błysk/flash-sweep na boksie wyniku przy
+KAŻDYM przeliczeniu (klasa .flash dodawana w JS przy recalc, animacja .7s). Dodatkowo:
+jednorazowy fade-in sekcji "Jak to działa" i kart zaufania. WYMÓG prefers-reduced-motion —
+KONKRETNA LISTA: (1) pulsująca poświata hero, (2) shimmer-sweep na CTA, (3) flash-sweep na
+wyniku kalkulatora, (4) fade-in sekcji. Sama aktualizacja liczby w kalkulatorze (zmiana treści)
+nie wymaga wyłącznika, ale towarzyszący jej flash-sweep (ruch wizualny) już tak.
+
+PALETA (zablokowane, sprawdzone grepem że nie kolidują z żadnym wariantem w systemie): --bg
+średnio-ciemny indygo-fiolet, WYRAŹNIE jaśniejszy niż "prawie czarne" tła innych dark-mode
+wariantów w systemie, żeby nie zlewać się z tamtym rejestrem (np. #221f42), --surface jaśniejszy
+indygo (np. #2c2856), --accent nasycony elektryczny fiolet-magenta (np. #a855f7 — inna rodzina
+niż niebiesko-fioletowy #7c5cff z elektryk-3), --accent-dark głębszy fiolet (np. #7c3aed), --text
+jasna lawenda-biel (np. #f0edf9), --muted stonowany fioletowo-szary (np. #a79bc7).
+TYPOGRAFIA: nagłówki mocny geometryczny grotesk (np. Chivo — nieużyty jeszcze w systemie), tekst
+czytelny sans (np. Hanken Grotesk — nieużyty jeszcze w systemie). Zweryfikuj grepem.
+
+ZDJĘCIE (już wyszukane, zero kolizji ID): dłonie analizujące plan pomieszczeń na papierze —
+wspiera narrację "planowanie/wycena zanim zaczniemy pracę fizycznie":
+https://images.pexels.com/photos/9052461/pexels-photo-9052461.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+Użyte jako mniejszy, inset element w hero (obok/za kalkulatorem), NIE jako dominujące tło —
+kalkulator jest głównym elementem wizualnym hero.
+
+STORYTELLING: sekcja z konkretnym powodem zbudowania kalkulatora (np. frustracja klientów
+rozbieżnymi, nieporównywalnymi wycenami od różnych ekip — real pain point), nie ogólnik.
+
+LAYOUT — inny mechanizm niż hydraulik-3/elektryk-3/studio-paznokci-3/fryzjer-barber-3 (sprawdź
+te pliki dla przypomnienia ich konkretnych mechanizmów przed projektowaniem) i inny niż
+remonty-1/2:
+1. Nav: ciemna, sticky, CTA "Policz koszt" (pigułka) przewija do kalkulatora w hero.
+2. Hero: 2 kolumny — lewo tekst (eyebrow, H1 nie-etykieta, lead, brak CTA telefon jako primary —
+   scroll-link do kalkulatora), prawo KALKULATOR: 4 chipy typu pomieszczenia (Łazienka / Kuchnia
+   / Salon / Całe mieszkanie), pole/suwak metrażu, 3 chipy standardu (Podstawowy / Standard /
+   Premium), duży wynik "Orientacyjny koszt: XX XXX – YY YYY zł" aktualizowany po każdej zmianie
+   (prosta matematyka w JS: stawka za m² × metraż, różna stawka per pomieszczenie+standard).
+   Zdjęcie z listy powyżej jako mały, częściowo zasłonięty inset za/obok kalkulatora.
+3. Sekcja storytelling: dlaczego kalkulator (patrz wyżej), fade-in przy scrollu.
+4. Sekcja "Jak to działa": 3 kroki (Policz orientacyjny koszt online → Umów bezpłatne oględziny
+   → Otrzymaj dokładną wycenę pisemną) jako pozioma lista, fade-in przy scrollu.
+5. Sekcja zaufania: mała statystyka "X wyliczeń w tym miesiącu" + jeden krótki cytat w stylu
+   dymka czatu.
+6. FAQ — accordion, ciemna stylistyka.
+7. Kontakt: skrót wyniku z kalkulatora (jeśli użyty) + CTA "Umów oględziny" + dane + mapa. Bez
+   pełnego formularza — kalkulator + jeden przycisk to primary CTA tego wariantu.
+8. Stopka: ciemna, minimalna.`,
+});
+
 module.exports = { VARIANTS, SAMPLE_TOKENS };

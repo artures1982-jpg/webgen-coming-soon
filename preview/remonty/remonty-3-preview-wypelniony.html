@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RenoMax — kalkulator kosztu remontu Kraków | tel. 500 123 456</title>
+<meta name="description" content="RenoMax — policz orientacyjny koszt remontu online w mieście Kraków. Kalkulator kosztu w 60 sekund, bez czekania na telefon. 500 123 456">
+<meta name="keywords" content="kalkulator kosztu remontu Kraków, wycena remontu online Kraków, koszt remontu Kraków">
+<link rel="canonical" href="https://renomax-krakow.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="RenoMax — kalkulator kosztu remontu Kraków">
+<meta property="og:description" content="RenoMax — policz orientacyjny koszt remontu online w 60 sekund.">
+<meta property="og:url" content="https://renomax-krakow.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"GeneralContractor","name":"RenoMax","telephone":"500 123 456","email":"kontakt@renomax.pl","description":"RenoMax — remonty w mieście Kraków z kalkulatorem kosztu online","address":{"@type":"PostalAddress","addressLocality":"Kraków","addressCountry":"PL"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chivo:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#a855f7;
+    --accent-dark:#7c3aed;
+    --bg:#221f42;
+    --surface:#2c2856;
+    --text:#f0edf9;
+    --muted:#a79bc7;
+    --head:'Chivo', sans-serif;
+    --body:'Hanken Grotesk', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;overflow-x:hidden;overflow-y:visible;}
+  body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;overflow-y:visible;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3{font-family:var(--head);font-weight:800;line-height:1.15;}
+  section{padding:5.5rem 1.5rem;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  .eyebrow{display:inline-block;font-family:var(--body);font-weight:700;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem;}
+  h2{font-size:clamp(1.8rem,3.2vw,2.6rem);margin-bottom:1rem;color:var(--text);}
+  .lead{color:var(--muted);font-size:1.05rem;max-width:640px;}
+  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.95rem 1.8rem;font-weight:700;font-family:var(--body);font-size:.98rem;border:2px solid transparent;cursor:pointer;transition:transform .15s ease, background .2s ease, color .2s ease;border-radius:999px;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--accent);color:var(--bg);}
+  .btn-primary:hover{background:var(--accent-dark);color:var(--text);}
+  .btn-outline{border-color:color-mix(in srgb, var(--text) 40%, transparent);color:var(--text);background:transparent;}
+  .btn-outline:hover{border-color:var(--text);}
+
+  /* NAV */
+  header.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--bg) 92%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);}
+  .nav .wrap{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1rem;padding:1rem 1.5rem;}
+  .logo{display:flex;align-items:center;gap:.6rem;}
+  .logo-icon{width:38px;height:38px;flex-shrink:0;}
+  .logo-name{font-family:var(--head);font-weight:800;font-size:1.2rem;color:var(--text);white-space:nowrap;}
+  .nav-links-desktop{display:flex;gap:1.8rem;align-items:center;justify-self:center;}
+  .nav-links-desktop a{font-weight:600;font-size:.93rem;color:var(--text);}
+  .nav-links-desktop a:hover{color:var(--accent);}
+  .nav-links-mobile{display:none;}
+  .nav-actions{display:flex;align-items:center;gap:1rem;justify-self:end;}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.3rem;}
+  .nav-toggle span{width:24px;height:2px;background:var(--text);}
+
+  /* HERO */
+  .hero{position:relative;padding:5rem 1.5rem 4rem;overflow:hidden;}
+  .hero-glow{position:absolute;top:-10%;right:-6%;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle, color-mix(in srgb, var(--accent) 38%, transparent) 0%, transparent 68%);z-index:0;pointer-events:none;animation:heroGlowPulse 6s ease-in-out infinite;}
+  @keyframes heroGlowPulse{0%,100%{opacity:.55;transform:scale(1);}50%{opacity:.95;transform:scale(1.12);}}
+  .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1.05fr;gap:3rem;align-items:center;}
+  .hero h1{font-size:clamp(2.1rem,4vw,3rem);margin-bottom:1.2rem;}
+  .hero h1 .hl{color:var(--accent);}
+  .hero p{font-size:1.08rem;color:var(--muted);max-width:480px;margin-bottom:2rem;}
+
+  /* SHIMMER CTA */
+  .btn-glow{position:relative;overflow:hidden;}
+  .btn-glow::before{content:'';position:absolute;inset:-2px;background:linear-gradient(90deg, transparent, color-mix(in srgb, var(--text) 55%, transparent), transparent);background-size:220% 100%;animation:sweep 2.8s linear infinite;}
+  .btn-glow span{position:relative;z-index:1;}
+  @keyframes sweep{0%{background-position:-120% 0;}100%{background-position:120% 0;}}
+
+  /* CALC WIDGET */
+  .calc-wrap{position:relative;}
+  .calc-photo{position:absolute;top:-1.6rem;right:-1.6rem;width:120px;height:120px;border-radius:1.2rem;object-fit:cover;border:3px solid var(--bg);box-shadow:0 12px 30px rgba(0,0,0,.4);z-index:2;}
+  .calc-card{position:relative;background:var(--surface);border-radius:1.4rem;padding:1.9rem;box-shadow:0 20px 50px rgba(0,0,0,.35), 0 0 60px color-mix(in srgb, var(--accent) 22%, transparent);}
+  .calc-label{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;}
+  .chip-row{display:flex;gap:.55rem;flex-wrap:wrap;margin-bottom:1.5rem;}
+  .chip{padding:.6rem 1rem;border-radius:999px;border:1px solid color-mix(in srgb, var(--text) 18%, transparent);background:transparent;color:var(--text);font-family:var(--body);font-weight:600;font-size:.88rem;cursor:pointer;transition:border-color .2s ease, background .2s ease, box-shadow .2s ease;}
+  .chip:hover{border-color:var(--accent);box-shadow:0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent);}
+  .chip.active{background:var(--accent);border-color:var(--accent);color:var(--bg);box-shadow:0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent), 0 0 18px color-mix(in srgb, var(--accent) 55%, transparent);}
+  .m2-row{display:flex;align-items:center;gap:1rem;margin-bottom:1.6rem;}
+  .m2-row input[type=range]{flex:1;accent-color:var(--accent);}
+  .m2-value{font-family:var(--head);font-weight:800;font-size:1.15rem;min-width:64px;text-align:right;}
+  .calc-result{position:relative;overflow:hidden;background:color-mix(in srgb, var(--accent) 14%, transparent);border-radius:1rem;padding:1.3rem 1.4rem;text-align:center;}
+  .calc-result .amount{position:relative;z-index:1;font-family:var(--head);font-weight:800;font-size:1.7rem;color:var(--text);}
+  .calc-result .caption{position:relative;z-index:1;font-size:.82rem;color:var(--muted);margin-top:.3rem;}
+  .calc-result::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg, transparent 30%, color-mix(in srgb, var(--text) 35%, transparent) 48%, transparent 66%);transform:translateX(-120%);}
+  .calc-result.flash::after{animation:resultFlash .7s ease;}
+  @keyframes resultFlash{0%{transform:translateX(-120%);}100%{transform:translateX(120%);}}
+
+  /* STORYTELLING */
+  .story{background:var(--surface);}
+  .story .wrap{max-width:760px;}
+  .story-pull{font-family:var(--head);font-weight:800;font-size:clamp(1.4rem,2.6vw,1.9rem);line-height:1.35;color:var(--accent);margin-bottom:1.4rem;}
+  .story p{font-size:1.02rem;margin-bottom:1rem;}
+  .story p:last-child{margin-bottom:0;}
+  .fade-in{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+
+  /* JAK TO DZIAŁA */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;margin-top:2.8rem;counter-reset:step;}
+  .step{position:relative;padding-top:2.6rem;}
+  .step::before{counter-increment:step;content:counter(step);position:absolute;top:0;left:0;width:2.4rem;height:2.4rem;border-radius:50%;background:var(--accent);color:var(--bg);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:800;font-size:1.05rem;}
+  .step h3{font-size:1.02rem;margin-bottom:.5rem;}
+  .step p{font-size:.9rem;color:var(--muted);}
+
+  /* ZAUFANIE */
+  .trust-row{display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap;margin-top:2.2rem;}
+  .trust-stat{font-family:var(--head);font-weight:800;font-size:1.8rem;color:var(--accent);}
+  .trust-stat span{display:block;font-family:var(--body);font-weight:600;font-size:.82rem;color:var(--muted);}
+  .chat-bubble{background:var(--surface);border-radius:1.2rem 1.2rem 1.2rem .2rem;padding:1.2rem 1.4rem;max-width:420px;font-size:.95rem;}
+  .chat-bubble .who{display:block;margin-top:.6rem;font-size:.82rem;color:var(--muted);}
+
+  /* FAQ */
+  .faq-item{border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .faq-q{width:100%;text-align:left;background:none;border:none;padding:1.3rem 0;font-family:var(--head);font-weight:700;font-size:1.02rem;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+  .faq-q .plus{font-size:1.4rem;color:var(--accent);flex-shrink:0;transition:transform .2s ease;}
+  .faq-item.open .faq-q .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .faq-item.open .faq-a{max-height:300px;}
+  .faq-a p{padding-bottom:1.3rem;color:var(--muted);font-size:.95rem;max-width:640px;}
+
+  /* KONTAKT */
+  .kontakt{background:var(--surface);text-align:center;}
+  .kontakt .wrap{max-width:640px;}
+  .kontakt-recap{background:var(--bg);border-radius:1rem;padding:1.2rem 1.4rem;margin:1.6rem 0;font-size:.95rem;color:var(--muted);}
+  .kontakt-recap strong{color:var(--text);}
+  .kontakt-info{margin-top:1.6rem;display:flex;flex-direction:column;gap:.5rem;color:var(--muted);}
+  .kontakt-info a{color:var(--text);font-weight:700;}
+  .kontakt-map{margin-top:2rem;overflow:hidden;text-align:left;border-radius:1rem;}
+  .kontakt-map iframe{width:100%;height:280px;border:0;display:block;}
+
+  footer{background:var(--bg);border-top:1px solid color-mix(in srgb, var(--text) 10%, transparent);padding:2.2rem 1.5rem;text-align:center;}
+  footer p{color:var(--muted);font-size:.85rem;}
+
+  @media (max-width:900px){
+    .hero-grid, .steps{grid-template-columns:1fr;}
+    .calc-photo{display:none;}
+  }
+  @media (max-width:700px){
+    .nav-links-desktop{display:none;}
+    .nav-toggle{display:flex;}
+    .nav-links-mobile{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);flex-direction:column;padding:.5rem 1.5rem 1.2rem;gap:.2rem;}
+    .nav-links-mobile.open{display:flex;}
+    .nav-links-mobile a{padding:.8rem 0;font-weight:600;border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .fade-in{opacity:1;transform:none;transition:none;}
+    .hero-glow{animation:none;opacity:.55;transform:none;}
+    .btn-glow::before{animation:none;display:none;}
+    .calc-result.flash::after{animation:none;display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="8" fill="var(--accent)"/>
+        <path d="M11 27L27 11M27 11H18M27 11V20" stroke="var(--bg)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="logo-name">RenoMax</span>
+    </a>
+    <nav class="nav-links-desktop">
+      <a href="#kalkulator">Kalkulator</a>
+      <a href="#jak-to-dziala">Jak to działa</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#kalkulator" class="btn btn-primary btn-glow"><span>Policz koszt</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-links-mobile" id="navLinks">
+    <a href="#kalkulator">Kalkulator</a>
+    <a href="#jak-to-dziala">Jak to działa</a>
+    <a href="#faq">FAQ</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+</header>
+
+<section class="hero" id="kalkulator">
+  <div class="hero-glow"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">RenoMax — Kraków</span>
+      <h1>Poznaj <span class="hl">orientacyjny koszt</span> remontu, zanim zadzwonisz</h1>
+      <p>Wybierz pomieszczenie, metraż i standard wykończenia — widełki cenowe zobaczysz od razu, bez czekania na telefon od handlowca.</p>
+      <a href="#kontakt" class="btn btn-outline">Umów bezpłatne oględziny →</a>
+    </div>
+    <div class="calc-wrap">
+      <img class="calc-photo" src="https://images.pexels.com/photos/9052461/pexels-photo-9052461.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Analiza planu pomieszczeń przed wyceną remontu">
+      <div class="calc-card">
+        <div class="calc-label">Pomieszczenie</div>
+        <div class="chip-row" id="roomRow">
+          <button class="chip active" data-room="lazienka">Łazienka</button>
+          <button class="chip" data-room="kuchnia">Kuchnia</button>
+          <button class="chip" data-room="salon">Salon</button>
+          <button class="chip" data-room="mieszkanie">Całe mieszkanie</button>
+        </div>
+        <div class="calc-label">Standard wykończenia</div>
+        <div class="chip-row" id="standardRow">
+          <button class="chip" data-standard="podstawowy">Podstawowy</button>
+          <button class="chip active" data-standard="standard">Standard</button>
+          <button class="chip" data-standard="premium">Premium</button>
+        </div>
+        <div class="calc-label">Metraż</div>
+        <div class="m2-row">
+          <input type="range" id="m2Range" min="3" max="15" value="6" step="1">
+          <span class="m2-value" id="m2Value">6 m²</span>
+        </div>
+        <div class="calc-result">
+          <div class="amount" id="calcAmount">21 000 – 24 200 zł</div>
+          <div class="caption">Orientacyjne widełki — dokładna wycena po bezpłatnych oględzinach</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="story">
+  <div class="wrap">
+    <span class="eyebrow">Dlaczego kalkulator</span>
+    <p class="story-pull fade-in" id="storyFade">Trzy różne ekipy, trzy zupełnie różne wyceny za to samo — i żadna nie mówiła dlaczego.</p>
+    <div class="fade-in">
+      <p>Zanim zbudowaliśmy ten kalkulator, słyszeliśmy to samo pytanie na każdych oględzinach: "dlaczego u konkurencji było 15 tysięcy taniej/drożej za praktycznie ten sam zakres?". Zwykle chodziło o różne założenia co do standardu materiałów, których klient nie widział na etapie pierwszej rozmowy telefonicznej.</p>
+      <p>Dlatego pokazujemy nasze własne stawki za m² otwarcie, zanim jeszcze się spotkamy — żebyś wiedział, w jakich widełkach się poruszamy, i mógł nas porównać z każdą inną ofertą na tych samych zasadach.</p>
+    </div>
+  </div>
+</section>
+
+<section id="jak-to-dziala">
+  <div class="wrap">
+    <span class="eyebrow">Jak to działa</span>
+    <h2>Trzy kroki do dokładnej wyceny</h2>
+    <div class="steps">
+      <div class="step fade-in"><h3>Policz orientacyjny koszt online</h3><p>Kalkulator powyżej — 60 sekund, bez podawania danych kontaktowych.</p></div>
+      <div class="step fade-in"><h3>Umów bezpłatne oględziny</h3><p>Przyjeżdżamy, mierzymy, sprawdzamy stan wyjściowy pomieszczenia.</p></div>
+      <div class="step fade-in"><h3>Otrzymaj dokładną wycenę pisemną</h3><p>Z rozbiciem na materiały i robociznę, ważną 30 dni.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--surface);">
+  <div class="wrap">
+    <span class="eyebrow">Zaufanie</span>
+    <h2>Zanim zapytasz — inni już policzyli</h2>
+    <div class="trust-row">
+      <div class="trust-stat">140+<span>wyliczeń w tym miesiącu</span></div>
+      <div class="chat-bubble">"Kalkulator dał mi realny punkt odniesienia zanim jeszcze zadzwoniłam — żadna z wcześniejszych rozmów z innymi ekipami tego nie dawała."<span class="who">Katarzyna M., Kraków</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <span class="eyebrow">FAQ</span>
+    <h2>Najczęstsze pytania</h2>
+    <div class="faq-list" style="margin-top:2rem;max-width:760px;">
+      <div class="faq-item">
+        <button class="faq-q">Czy wynik kalkulatora to ostateczna cena? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Nie — to orientacyjne widełki na podstawie średnich stawek. Dokładną kwotę podajemy pisemnie po bezpłatnych oględzinach.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Dlaczego widełki są tak szerokie? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Stan wyjściowy pomieszczenia (np. konieczność wymiany instalacji) potrafi znacząco zmienić zakres prac — dokładamy to dopiero po oględzinach.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Co obejmuje stawka za m²? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Robociznę i materiały podstawowe (kleje, wylewki, elektryka/hydraulika). Płytki, armaturę i meble klient dobiera i kupuje sam.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Czy pracujecie też poza miastem Kraków? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Tak, w promieniu ok. 30 km — kalkulator działa tak samo niezależnie od dokładnej lokalizacji.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="kontakt" id="kontakt">
+  <div class="wrap">
+    <span class="eyebrow">Kontakt</span>
+    <h2>Umów bezpłatne oględziny</h2>
+    <p class="lead" style="margin:0 auto;">Potwierdzimy orientacyjną wycenę na miejscu i podamy dokładną kwotę pisemnie.</p>
+    <div class="kontakt-recap" id="kontaktRecap">Twoje wyliczenie: <strong id="recapText">Łazienka, standard, 6 m² — 21 000 – 24 200 zł</strong></div>
+    <a href="tel:500 123 456" class="btn btn-primary btn-glow"><span>📞 500 123 456</span></a>
+    <div class="kontakt-info">
+      <p>RenoMax · ul. Przykładowa 12, Kraków</p>
+      <p>Email: <a href="mailto:kontakt@renomax.pl">kontakt@renomax.pl</a></p>
+      <p>Pon-Pt: 7:00 – 18:00 · Sob: 9:00 – 13:00</p>
+    </div>
+    <div class="kontakt-map">
+      <iframe src="https://www.google.com/maps?q=ul. Przykładowa 12, Kraków&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;width:100%;height:280px"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© RenoMax — wszystkie prawa zastrzeżone.</p>
+</footer>
+
+<script>
+  var navToggle = document.getElementById('navToggle');
+  var navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', function(){ navLinks.classList.toggle('open'); });
+
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    item.querySelector('.faq-q').addEventListener('click', function(){
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
+      if(!wasOpen){ item.classList.add('open'); }
+    });
+  });
+
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){ entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+  }, {threshold:.2});
+  document.querySelectorAll('.fade-in').forEach(function(el){ observer.observe(el); });
+
+  // KALKULATOR
+  var RATES = {
+    lazienka:  { podstawowy:700, standard:900,  premium:1300, min:3,  max:15, label:'Łazienka' },
+    kuchnia:   { podstawowy:600, standard:800,  premium:1200, min:6,  max:25, label:'Kuchnia' },
+    salon:     { podstawowy:300, standard:450,  premium:700,  min:12, max:40, label:'Salon' },
+    mieszkanie:{ podstawowy:500, standard:750,  premium:1100, min:30, max:150, label:'Całe mieszkanie' }
+  };
+  var STANDARD_LABEL = { podstawowy:'podstawowy', standard:'standard', premium:'premium' };
+
+  var state = { room:'lazienka', standard:'standard' };
+  var m2Range = document.getElementById('m2Range');
+  var m2Value = document.getElementById('m2Value');
+  var calcAmount = document.getElementById('calcAmount');
+  var recapText = document.getElementById('recapText');
+
+  function formatPLN(n){
+    return Math.round(n / 100) * 100;
+  }
+
+  function recalc(){
+    var cfg = RATES[state.room];
+    var rate = cfg[state.standard];
+    var m2 = parseInt(m2Range.value, 10);
+    var base = rate * m2;
+    var low = formatPLN(base * 0.9);
+    var high = formatPLN(base * 1.15);
+    calcAmount.textContent = low.toLocaleString('pl-PL') + ' – ' + high.toLocaleString('pl-PL') + ' zł';
+    m2Value.textContent = m2 + ' m²';
+    recapText.textContent = cfg.label + ', ' + STANDARD_LABEL[state.standard] + ', ' + m2 + ' m² — ' + low.toLocaleString('pl-PL') + ' – ' + high.toLocaleString('pl-PL') + ' zł';
+
+    var resultBox = document.querySelector('.calc-result');
+    resultBox.classList.remove('flash');
+    void resultBox.offsetWidth;
+    resultBox.classList.add('flash');
+  }
+
+  document.querySelectorAll('#roomRow .chip').forEach(function(chip){
+    chip.addEventListener('click', function(){
+      document.querySelectorAll('#roomRow .chip').forEach(function(c){ c.classList.remove('active'); });
+      chip.classList.add('active');
+      state.room = chip.dataset.room;
+      var cfg = RATES[state.room];
+      m2Range.min = cfg.min;
+      m2Range.max = cfg.max;
+      m2Range.value = Math.round((cfg.min + cfg.max) / 4);
+      recalc();
+    });
+  });
+
+  document.querySelectorAll('#standardRow .chip').forEach(function(chip){
+    chip.addEventListener('click', function(){
+      document.querySelectorAll('#standardRow .chip').forEach(function(c){ c.classList.remove('active'); });
+      chip.classList.add('active');
+      state.standard = chip.dataset.standard;
+      recalc();
+    });
+  });
+
+  m2Range.addEventListener('input', recalc);
+  recalc();
+</script>
+
+</body>
+</html>
