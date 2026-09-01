@@ -115,6 +115,33 @@ Każdy z nich był kiedyś zgłoszony jako „brak" i wymagał wyjaśnienia. Są
 
 ---
 
+## Status pilota Remonty (firma remontowo-budowlana) — 5/5
+
+Szósta branża w systemie, pierwsza zbudowana w trybie "jeden wariant na raz, akceptacja po
+każdym" (patrz pamięć `feedback_sequential_variant_workflow`).
+
+| # | ID | Nazwa | Tier | Charakterystyka |
+|---|----|-------|------|-----------------|
+| 1 | `remonty-1-zaufany-fachowiec` | Zaufany fachowiec | free | Stalowo-szary, storytelling z historią założyciela, cennik za m² |
+| 2 | `remonty-2-szybki-start` | Szybki start / bez czekania | pro | Ciemny asfalt + hi-vis limonka, marquee wolnych terminów, kalkulator-adjacent karty ze zdjęciami |
+| 3 | `remonty-3-kalkulator-online` | Nowoczesny cyfrowy | pro | Indygo-fiolet, realnie interaktywny kalkulator kosztu remontu (JS) |
+| 4 | `remonty-4-rodzinna-firma` | Rodzinna firma | pro | Oliwkowo-musztardowy/kamienny beż, stała ekipa, świadomie wyciszony ruch |
+| 5 | `remonty-5-premium` | Premium | pro | Zdesaturowana platyna na chłodnym łupku, B2B (deweloperzy/zarządcy/inwestorzy), pełny formularz |
+
+### Poprawki po feedbacku — warto znać przy kolejnych branżach
+
+- **Wariant 4** pierwotnie użył jednego zdjęcia 3× (hero/ekipa/kontakt) i ciepłej
+  kremowo-czerwonej palety, która percepcyjnie powielała fryzjer-barber-1/hydraulik-4, mimo
+  innych liczb hex — poprawione na dwa różne zdjęcia i oliwkowo-musztardowy rejestr.
+  Wniosek: różnica hex nie wystarczy, sprawdzaj nastrój "na oko" (sprawdzian mrużenia oczu),
+  szczególnie dla ciepłych jasnych palet, których w systemie jest już dużo.
+- **Wariant 2 i 3** pierwotnie wyszły za spokojne jak na tier pro — teraz obowiązuje
+  konkretny minimalny próg ruchu dla każdego wariantu 2+ (patrz
+  `.claude/agents/designer-ux-ui.md` sekcja "Nie czekaj aż użytkownik poprosi o więcej
+  ruchu"), z wyjątkiem archetypu 4 (zostaje wyciszony świadomie).
+
+---
+
 ## Podział pracy między sesjami
 
 Pilot powstawał w dwóch równoległych sesjach Claude Code na tym samym repo:
