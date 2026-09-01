@@ -90,4 +90,61 @@ LAYOUT — celowo inny mechanizm niż studio-paznokci-1 i fryzjer-barber-1:
   },
 ];
 
+VARIANTS.push({
+  id: 'salon-fryzjerski-2-dzis-wolny-termin',
+  tier: 'pro',
+  name: 'Dziś wolny termin',
+  visual: `STYL: adaptacja archetypu "Szybka interwencja 24h" — dla salonu fryzjerskiego to NIE
+zagrożenie (jak hydraulik/elektryk) ani czysto "bez kolejki" (jak fryzjer-barber-2/remonty-2 —
+unikaj powielania 1:1 ram tamtych wariantów). Tu pilność wynika z realnego bólu klientów salonów:
+większość pracuje 9-17 i nie może umówić wizyty w standardowych godzinach. Duch: "wieczorne i
+weekendowe terminy dla zapracowanych — dziś sprawdzisz, dziś się umówisz".
+
+Drugi wariant tej branży — różnicowanie względem salon-fryzjerski-1 (ciepłe ivory + teal, hero
+magazynowy) i względem fryzjer-barber-2/remonty-2 (oba ciemne, oba z hi-vis limonką — TEN
+wariant NIE MOŻE być kolejnym ciemnym+limonkowym, to już trzeci raz ten sam pomysł w systemie).
+
+WYMAGANY RUCH (obowiązkowy próg dla wariantu 2+, patrz .claude/agents/designer-ux-ui.md sekcja
+"Nie czekaj aż użytkownik poprosi o więcej ruchu"): ambientowa poświata w tle hero, shimmer na
+primary CTA, wizualna reakcja na interakcję (jeśli dodajesz cokolwiek klikalnego), stopniowany
+fade-in kart. WYMÓG prefers-reduced-motion: wymień explicite każdą nietrywialną animację.
+
+PALETA (zablokowane, sprawdzone grepem że nie kolidują z żadnym wariantem w systemie) —
+ŚWIADOMIE JASNA (przełamuje serię ciemnych wariantów 2 w systemie — hydraulik-2/elektryk-2
+też były jasne, to nie jest nowość, tylko powrót do sprawdzonego wzorca): --bg prawie biały,
+ciepły (np. #fffaf0), --surface ciepły jasnożółty (np. #fff4d6), --accent nasycony, czysty
+złoto-żółty (np. #f0c419 — genuinie inna rodzina niż stonowane bursztynowo-brązowe złota już w
+systemie: #e0a527/#e8a317/#a8813a/#9c7238/#7d6b2e są wszystkie przygaszone/brązowe, ten jest
+czysty, jaskrawy, "highlighter/karteczka post-it — dziś wolny termin"), --accent-dark głębszy
+bursztyn do tekstu/hover (np. #b8860a — czysty żółty jako tekst jest nieczytelny, ten hover-
+-shade rozwiązuje kontrast), --text ciepły prawie-czarny brąz, --muted stonowany ciepły szary.
+TYPOGRAFIA: nagłówki energiczny geometryczny display (np. Familjen Grotesk — nieużyty jeszcze w
+systemie), tekst czytelny sans (np. Onest — nieużyty jeszcze w systemie). Zweryfikuj grepem
+przed finalizacją, jeśli kolizja wybierz najbliższy dostępny odpowiednik z Google Fonts.
+
+ZDJĘCIE (już wyszukane, zero kolizji ID): dynamiczne zbliżenie na dłonie tnące włosy grzebieniem
+i nożyczkami, dramatyczne światło z bokeh w tle — energia, tempo:
+https://images.pexels.com/photos/3993447/pexels-photo-3993447.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+
+STORYTELLING: konkretny scenariusz (np. klientka umawiająca się na 19:30 przed wydarzeniem
+następnego dnia, bo żaden inny salon w mieście nie miał wieczornych terminów) — nie ogólnik.
+
+LAYOUT — inny mechanizm niż salon-fryzjerski-1, fryzjer-barber-2, remonty-2 (sprawdź oba
+ciemne warianty żeby nie powielić marquee+hi-vis+ciemne tło 1:1):
+1. Nav: jasna, CTA "Sprawdź wolne terminy" jako wypełniona pigułka ze shimmer-sweep.
+2. Hero: zdjęcie jako pełnoekranowe tło z jasnym gradient-overlay (nie ciemnym — zachowaj jasny
+   charakter), ambientowa poświata (radial-gradient w --accent, pulsująca, keyframe) za tekstem.
+   H1 nie-etykieta, konkretny hook o wieczornych/weekendowych terminach.
+3. Pasek "Dziś wolne": pozioma lista rotujących dostępnych godzin (może być marquee — to
+   uniwersalna technika, dozwolona do powtórzenia — ale w JASNEJ kolorystyce, nie ciemnej jak
+   poprzednicy, żeby mechanizm wizualnie różnił się mimo tej samej podstawowej idei).
+4. Sekcja "Dla zapracowanych": siatka 3-4 kart scenariuszy (poranne szybkie zmiany przed pracą /
+   wieczorne terminy do 20:00 / soboty bez czekania / zapis online o dowolnej porze) ze
+   stopniowanym fade-in.
+5. Sekcja storytelling: konkretny scenariusz (patrz wyżej), fade-in.
+6. FAQ — accordion, jasna stylistyka.
+7. Kontakt: baner CTA z shimmer, dane + mapa.
+8. Stopka: jasna, prosta.`,
+});
+
 module.exports = { VARIANTS, SAMPLE_TOKENS };

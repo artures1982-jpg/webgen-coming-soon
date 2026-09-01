@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{NAZWA_STRONY}} — wieczorne i weekendowe terminy {{MIASTO}} | tel. {{TELEFON}}</title>
+<meta name="description" content="{{NAZWA_STRONY}} — salon fryzjerski z wieczornymi i weekendowymi terminami w mieście {{MIASTO}}. Sprawdź wolne terminy dziś. {{TELEFON}}">
+<meta name="keywords" content="fryzjer wieczorem {{MIASTO}}, fryzjer weekend {{MIASTO}}, wolne terminy fryzjer {{MIASTO}}">
+<link rel="canonical" href="https://{{SLUG}}.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{NAZWA_STRONY}} — wieczorne terminy {{MIASTO}}">
+<meta property="og:description" content="{{NAZWA_STRONY}} — dla zapracowanych. Wieczory i weekendy. {{TELEFON}}">
+<meta property="og:url" content="https://{{SLUG}}.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"HairSalon","name":"{{NAZWA_STRONY}}","telephone":"{{TELEFON}}","email":"{{EMAIL}}","description":"{{NAZWA_STRONY}} — salon fryzjerski z wieczornymi i weekendowymi terminami w mieście {{MIASTO}}","address":{"@type":"PostalAddress","addressLocality":"{{MIASTO}}","addressCountry":"PL"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#f0c419;
+    --accent-dark:#b8860a;
+    --bg:#fffaf0;
+    --surface:#fff4d6;
+    --text:#241f16;
+    --muted:#8a8172;
+    --head:'Familjen Grotesk', sans-serif;
+    --body:'Onest', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3{font-family:var(--head);font-weight:700;line-height:1.15;}
+  section{padding:5.5rem 1.5rem;}
+  .wrap{max-width:1140px;margin:0 auto;}
+  .eyebrow{display:inline-block;font-family:var(--body);font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:.8rem;}
+  h2{font-size:clamp(1.8rem,3.2vw,2.5rem);margin-bottom:1rem;color:var(--text);}
+  .lead{color:var(--muted);font-size:1.05rem;max-width:620px;}
+  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.95rem 1.9rem;font-weight:700;font-family:var(--body);font-size:.98rem;border:2px solid transparent;cursor:pointer;transition:transform .15s ease, background .2s ease;border-radius:999px;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--accent);color:var(--text);}
+  .btn-primary:hover{background:var(--accent-dark);color:var(--bg);}
+  .btn-glow{position:relative;overflow:hidden;}
+  .btn-glow::before{content:'';position:absolute;inset:-2px;background:linear-gradient(90deg, transparent, color-mix(in srgb, var(--bg) 70%, transparent), transparent);background-size:220% 100%;animation:sweep 2.6s linear infinite;}
+  .btn-glow span{position:relative;z-index:1;}
+  @keyframes sweep{0%{background-position:-120% 0;}100%{background-position:120% 0;}}
+
+  /* NAV */
+  header.nav{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);}
+  .nav .wrap{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1rem;padding:1rem 1.5rem;}
+  .logo-name{font-family:var(--head);font-weight:700;font-size:1.3rem;color:var(--text);white-space:nowrap;}
+  .nav-links-desktop{display:flex;gap:1.8rem;align-items:center;justify-self:center;}
+  .nav-links-desktop a{font-weight:500;font-size:.92rem;color:var(--text);}
+  .nav-links-desktop a:hover{color:var(--accent-dark);}
+  .nav-links-mobile{display:none;}
+  .nav-actions{display:flex;align-items:center;gap:1rem;justify-self:end;}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.3rem;}
+  .nav-toggle span{width:24px;height:2px;background:var(--text);}
+
+  /* HERO */
+  .hero{position:relative;min-height:80vh;display:flex;align-items:center;overflow:hidden;}
+  .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+  .hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(100deg, color-mix(in srgb, var(--bg) 96%, transparent) 32%, color-mix(in srgb, var(--bg) 70%, transparent) 62%, color-mix(in srgb, var(--bg) 20%, transparent) 100%);}
+  .hero-glow{position:absolute;top:20%;left:10%;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle, color-mix(in srgb, var(--accent) 45%, transparent) 0%, transparent 68%);z-index:1;animation:glowPulse 5s ease-in-out infinite;pointer-events:none;}
+  @keyframes glowPulse{0%,100%{opacity:.5;transform:scale(1);}50%{opacity:.9;transform:scale(1.1);}}
+  .hero-inner{position:relative;z-index:2;max-width:600px;padding:0 1.5rem;margin:0 auto;width:100%;}
+  .hero h1{font-size:clamp(2.1rem,4.4vw,3.2rem);margin-bottom:1.2rem;}
+  .hero h1 .hl{color:var(--accent-dark);}
+  .hero p{font-size:1.08rem;color:var(--muted);margin-bottom:2.2rem;}
+
+  /* MARQUEE */
+  .marquee-wrap{background:var(--surface);border-top:1px solid color-mix(in srgb, var(--text) 10%, transparent);border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);overflow:hidden;padding:.9rem 0;}
+  .marquee-track{display:flex;white-space:nowrap;animation:marquee 22s linear infinite;width:max-content;}
+  .marquee-wrap:hover .marquee-track{animation-play-state:paused;}
+  .marquee-track span{font-weight:700;font-size:.92rem;color:var(--accent-dark);padding:0 1.4rem;}
+  @keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+  /* DLA ZAPRACOWANYCH */
+  .zaj-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.3rem;margin-top:2.8rem;}
+  .zaj-card{background:var(--surface);padding:1.6rem 1.5rem;border-radius:1.1rem;opacity:0;transform:translateY(18px);transition:opacity .5s ease, transform .5s ease;}
+  .zaj-card.visible{opacity:1;transform:translateY(0);}
+  .zaj-grid .zaj-card:nth-child(1){transition-delay:0s;}
+  .zaj-grid .zaj-card:nth-child(2){transition-delay:.1s;}
+  .zaj-grid .zaj-card:nth-child(3){transition-delay:.2s;}
+  .zaj-grid .zaj-card:nth-child(4){transition-delay:.3s;}
+  .zaj-card .ico{font-size:1.5rem;margin-bottom:.7rem;}
+  .zaj-card h3{font-size:1rem;margin-bottom:.4rem;}
+  .zaj-card p{color:var(--muted);font-size:.88rem;}
+
+  /* STORY */
+  .story{background:var(--surface);}
+  .story .wrap{max-width:720px;}
+  .story-pull{font-family:var(--head);font-weight:700;font-size:clamp(1.3rem,2.4vw,1.7rem);line-height:1.4;color:var(--accent-dark);margin-bottom:1.2rem;}
+  .fade-in{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+  .story p{font-size:1.02rem;margin-bottom:1rem;}
+
+  /* FAQ */
+  .faq-item{border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .faq-q{width:100%;text-align:left;background:none;border:none;padding:1.3rem 0;font-family:var(--head);font-weight:700;font-size:1.02rem;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+  .faq-q .plus{font-size:1.4rem;color:var(--accent-dark);flex-shrink:0;transition:transform .2s ease;}
+  .faq-item.open .faq-q .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .faq-item.open .faq-a{max-height:300px;}
+  .faq-a p{padding-bottom:1.3rem;color:var(--muted);font-size:.95rem;max-width:640px;}
+
+  /* KONTAKT */
+  .kontakt{text-align:center;}
+  .kontakt .wrap{max-width:560px;}
+  .kontakt-info{margin-top:1.6rem;display:flex;flex-direction:column;gap:.5rem;color:var(--muted);}
+  .kontakt-info a{color:var(--text);font-weight:700;}
+  .kontakt-map{margin-top:2rem;overflow:hidden;border-radius:1rem;text-align:left;}
+  .kontakt-map iframe{width:100%;height:280px;border:0;display:block;}
+
+  footer{background:var(--surface);padding:2.2rem 1.5rem;text-align:center;}
+  footer p{color:var(--muted);font-size:.85rem;}
+
+  @media (max-width:900px){
+    .zaj-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:700px){
+    .nav-links-desktop{display:none;}
+    .nav-toggle{display:flex;}
+    .nav-links-mobile{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);flex-direction:column;padding:.5rem 1.5rem 1.2rem;gap:.2rem;}
+    .nav-links-mobile.open{display:flex;}
+    .nav-links-mobile a{padding:.8rem 0;font-weight:600;border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+    .zaj-grid{grid-template-columns:1fr;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-glow{animation:none;opacity:.5;transform:none;}
+    .marquee-track{animation:none;}
+    .btn-glow::before{animation:none;display:none;}
+    .zaj-card, .fade-in{opacity:1;transform:none;transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo-name">{{NAZWA_STRONY}}</a>
+    <nav class="nav-links-desktop">
+      <a href="#zapracowani">Dla zapracowanych</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#kontakt" class="btn btn-primary btn-glow"><span>Sprawdź wolne terminy</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-links-mobile" id="navLinks">
+    <a href="#zapracowani">Dla zapracowanych</a>
+    <a href="#faq">FAQ</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.pexels.com/photos/3993447/pexels-photo-3993447.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Precyzyjne strzyżenie — dynamiczne zbliżenie">
+  <div class="hero-overlay"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <span class="eyebrow">{{NAZWA_STRONY}} — {{MIASTO}}</span>
+    <h1>Pracujesz do 17? <span class="hl">My działamy do 20 — i w soboty.</span></h1>
+    <p>Wieczorne i weekendowe terminy dla ludzi, którzy nie mają czasu na wizytę fryzjera w środku dnia roboczego. Sprawdź, co jest wolne dziś.</p>
+    <a href="#kontakt" class="btn btn-primary btn-glow"><span>Sprawdź wolne terminy</span></a>
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>DZIŚ 18:00 — WOLNE</span><span>DZIŚ 19:15 — WOLNE</span><span>SOBOTA 10:00 — WOLNE</span><span>ZADZWOŃ: {{TELEFON}}</span>
+    <span>DZIŚ 18:00 — WOLNE</span><span>DZIŚ 19:15 — WOLNE</span><span>SOBOTA 10:00 — WOLNE</span><span>ZADZWOŃ: {{TELEFON}}</span>
+  </div>
+</div>
+
+<section id="zapracowani">
+  <div class="wrap">
+    <span class="eyebrow">Dla zapracowanych</span>
+    <h2>Fryzjer, który pasuje do Twojego kalendarza</h2>
+    <div class="zaj-grid">
+      <div class="zaj-card"><div class="ico">🌅</div><h3>Szybkie zmiany przed pracą</h3><p>Poranne sloty od 8:00 dla klasycznych strzyżeń.</p></div>
+      <div class="zaj-card"><div class="ico">🌙</div><h3>Wieczory do 20:00</h3><p>Koloryzacja i stylizacja bez brania wolnego z pracy.</p></div>
+      <div class="zaj-card"><div class="ico">📅</div><h3>Soboty bez czekania</h3><p>Osobny grafik weekendowy, nie tłok jednego dnia.</p></div>
+      <div class="zaj-card"><div class="ico">📱</div><h3>Zapis o dowolnej porze</h3><p>Umów się online w nocy, potwierdzimy rano.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="story">
+  <div class="wrap">
+    <span class="eyebrow">Dlaczego to dla nas ważne</span>
+    <p class="story-pull fade-in">Klientka zadzwoniła o 20:15, dzień przed ważnym wydarzeniem — my byliśmy jedynym salonem w mieście z wolnym terminem tego wieczoru.</p>
+    <div class="fade-in">
+      <p>Większość salonów w mieście {{MIASTO}} zamyka się o 18:00, dokładnie wtedy, kiedy większość ludzi kończy pracę. Zbudowaliśmy grafik odwrotnie — nasze najbardziej obłożone godziny to 18:00-20:00 i całe soboty, nie środek dnia roboczego.</p>
+      <p>Nie jest to "usługa ekspresowa" w cenie premium — te same ceny, ten sam standard, po prostu w godzinach, które faktycznie pasują do życia większości naszych klientów.</p>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <span class="eyebrow">FAQ</span>
+    <h2>Najczęstsze pytania</h2>
+    <div class="faq-list" style="margin-top:2rem;max-width:760px;">
+      <div class="faq-item">
+        <button class="faq-q">Czy wieczorne terminy są droższe? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Nie — te same ceny co w standardowych godzinach, bez dopłat za porę wizyty.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do której najpóźniej mogę się umówić wieczorem? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Ostatni zapis na strzyżenie o 19:30, na koloryzację o 18:30 (dłuższy czas trwania zabiegu).</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Czy w soboty pracuje pełny zespół? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Tak, w soboty mamy taki sam skład stylistów jak w dni robocze.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Czy działacie też poza miastem {{MIASTO}}? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Salon działa stacjonarnie w mieście {{MIASTO}} — dojazd do klienta nie jest dostępny w tym wariancie usług.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="kontakt" id="kontakt">
+  <div class="wrap">
+    <span class="eyebrow">Kontakt</span>
+    <h2>Sprawdź wolne terminy</h2>
+    <p class="lead" style="margin:0 auto;">Zadzwoń lub napisz — powiemy Ci od razu, co mamy wolne dziś i w tym tygodniu.</p>
+    <a href="tel:{{TELEFON}}" class="btn btn-primary btn-glow" style="margin-top:1.6rem;"><span>📞 {{TELEFON}}</span></a>
+    <div class="kontakt-info">
+      <p>{{NAZWA_STRONY}} · {{ADRES}}, {{MIASTO}}</p>
+      <p>Email: <a href="mailto:{{EMAIL}}">{{EMAIL}}</a></p>
+      <p>Pon-Pt: {{GODZINY_PON_PT}} · Sob: {{GODZINY_SOB}}</p>
+    </div>
+    <div class="kontakt-map">
+      <iframe src="https://www.google.com/maps?q={{ADRES}}, {{MIASTO}}&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;width:100%;height:280px"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© {{NAZWA_STRONY}} — wszystkie prawa zastrzeżone.</p>
+</footer>
+
+<script>
+  var navToggle = document.getElementById('navToggle');
+  var navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', function(){ navLinks.classList.toggle('open'); });
+
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    item.querySelector('.faq-q').addEventListener('click', function(){
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
+      if(!wasOpen){ item.classList.add('open'); }
+    });
+  });
+
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){ entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+  }, {threshold:.2});
+  document.querySelectorAll('.zaj-card, .fade-in').forEach(function(el){ observer.observe(el); });
+</script>
+
+</body>
+</html>
