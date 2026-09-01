@@ -162,6 +162,39 @@ to punkt wyjścia, nie sufit, dla każdego wariantu 2+.
   czytelne natychmiast, nie chowane za fade-in z dużym opóźnieniem. Ruch ozdabia stronę, nie
   blokuje dostępu do najważniejszej treści/akcji.
 
+## Inspiracja z rynku (2026-09-02) — research 15 grafik reklamowych polskich agencji/marek
+
+Artur przesłał 15 grafik marketingowych (reklamy agencji web design typu neonic ads/AllReady/
+bluweb.pl/promo elite, oraz przykłady produktów typu Torteland/Spokój Studio/Lumivia/ECHO) do
+przejrzenia pod kątem konstrukcji i layoutu, nie tylko kolorystyki. Wnioski strukturalne —
+zanim projektujesz kolejny wariant, warto je znać:
+
+**Potwierdzone jako trafne — nie trzeba nic zmieniać:** asymetryczne hero 2-kolumnowe (tekst +
+dowód wizualny po drugiej stronie) dominuje w ~90% przykładów; podwójne CTA w hero (wypełniony +
+obrysowany/link) jest niemal uniwersalne; CTA w nav zawsze osobne od linków, nie sam link; dowody
+zaufania/statystyki ZAWSZE pod hero, nigdy w nim; cennik/proces jako duży numer/cena + krótka
+etykieta + jedna linijka opisu. To dokładnie nasze istniejące wzorce (`.cennik-card`, kroki
+"Jak pracujemy" 01-04) — traktuj to jako potwierdzenie kierunku, nie sygnał do zmiany.
+
+**Dwie nowe techniki warte świadomego dodania do arsenału (obok already-listed poświaty/fade-in/
+shimmer wyżej):**
+1. **Pływający pasek CTA pod hero** — osobna, stała belka z jednym mocnym CTA/hasłem
+   ("DARMOWA WYCENA W 24H" w przykładzie ECHO), NIE część sticky navu, NIE marquee/pulsująca
+   plakietka (te już mamy — patrz remonty-2/fryzjer-2). Pasuje szczególnie do archetypu 2
+   (urgency/dostępność) jako alternatywny mechanizm zamiast/obok marquee.
+2. **Warstwowa, przesunięta kompozycja zdjęć zamiast jednej płaskiej ramki** (widget/zdjęcie na
+   pierwszym planie + drugi element pod kątem/przesunięty za nim, różne głębokości zamiast
+   jednego prostokąta na wprost) — u nas pojawiło się to tylko raz, nieśmiało (fryzjer-4: drugi
+   blok-tło przesunięty 12-16px za zdjęciem). Warto to świadomie rozwinąć w kolejnym wariancie
+   premium/nowoczesnym: dwa zdjęcia lub zdjęcie+widget na różnych planach zamiast jednego w
+   pojedynczej ramce.
+
+**Świadomie NIE kopiować:** siatki z mockupami laptop+telefon w idealnie płaskiej perspektywie
+(charakterystyczne dla reklam agencji sprzedających strony — "przed/po" z X/checkmarki, mockup
+w mockupie) to język "sprzedaję Ci stronę", nie język strony samego rzemieślnika/sklepu/usługi.
+Dobre jako inspiracja struktury landing page'a AGENCJI (nie naszej domeny), złe jako dosłowny
+motyw wizualny wewnątrz szablonu dla klienta końcowego (hydraulika, fryzjera, cukierni).
+
 ## Kontrola powtórzenia z odpowiednikiem w innej branży (ZASADY.md sekcja 0)
 
 Jeśli budujesz/recenzujesz wariant, dla którego istnieje już odpowiednik tego samego archetypu
