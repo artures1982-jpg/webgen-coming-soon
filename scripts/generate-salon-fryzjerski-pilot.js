@@ -1,0 +1,93 @@
+#!/usr/bin/env node
+// scripts/generate-salon-fryzjerski-pilot.js — pilot: warianty wizualne dla Salonu fryzjerskiego
+// (damski i męski, unisex), siódma branża w systemie 5 archetypów. Odrębna od
+// Fryzjer/Barber (branża zamknięta 5/5, pozycjonowana wyłącznie jako męski barbershop) —
+// ten salon obsługuje obie płcie: strzyżenie, koloryzacja, stylizacja.
+//
+// Budowany PRZYROSTOWO, jeden wariant na raz, z checkpointem akceptacji Artura po każdym
+// (patrz docs/produkcja-szablonow/README.md i pamięć feedback_sequential_variant_workflow).
+
+const SAMPLE_TOKENS = {
+  '{{NAZWA_STRONY}}': 'HairLoft',
+  '{{TELEFON}}': '500 123 456',
+  '{{EMAIL}}': 'kontakt@hairloft.pl',
+  '{{MIASTO}}': 'Kraków',
+  '{{ADRES}}': 'ul. Przykładowa 12',
+  '{{SLUG}}': 'hairloft-krakow',
+  '{{GODZINY_PON_PT}}': '9:00 – 20:00',
+  '{{GODZINY_SOB}}': '9:00 – 15:00',
+};
+
+const VARIANTS = [
+  {
+    id: 'salon-fryzjerski-1-zaufany-fachowiec',
+    tier: 'free',
+    name: 'Zaufany fachowiec',
+    visual: `STYL: "Zaufany fachowiec" dla salonu fryzjerskiego UNISEX (damski i męski —
+strzyżenie, koloryzacja, stylizacja, dla obu płci w jednym miejscu, nie osobne "działy"). To
+siódma branża w systemie — odrębna od fryzjer-barber (już zamkniętej 5/5, pozycjonowanej
+wyłącznie jako męski barbershop: "strzyżenie i broda"). Duch tego salonu: nowoczesny, loftowy,
+elegancki ale przystępny — NIE tak surowy/przemysłowy jak barbershop, NIE tak stereotypowo
+różowy/kobiecy jak studio-paznokci — trafia w środek: unisex, ciepły, ale precyzyjny.
+
+Artur wprost: "najbardziej z tych projektów podobały mi się strony paznokci tak wizualnie" —
+weź to jako wskazówkę tonalną (ciepło, elegancja, dobra fotografia) ale NIE kopiuj palety ani
+mechanizmów studio-paznokci-1 1:1 (dusty-rose/ivory, Playfair Display, nav wyśrodkowany,
+medaliony statystyk) — to nadal osobna branża, ZASADY.md sekcja 0 obowiązuje normalnie.
+
+Przeczytaj WYŁĄCZNIE jako inspirację ducha (nigdy jako bazę do kopiowania): templates/pilot/
+studio-paznokci-1-zaufany-fachowiec.html i templates/pilot/fryzjer-barber-1-zaufany-fachowiec.html
+— Twoja wersja musi mieć inny mechanizm wizualny każdej sekcji niż OBA te pliki.
+
+PALETA (zablokowana, sprawdzona grepem że nie koliduje z żadnym wariantem w systemie): --bg
+ciepłe ivory (np. #f5efe4), --surface głębsza ciepła karta (np. #ecdfd0), --accent głęboki,
+elegancki teal/morska zieleń (np. #147d72 — genuinie świeża rodzina barw w systemie: różna od
+emerald #2dd4a7, sage #6b8f5e, forest #3f6b4a, olive #7d6b2e — bardziej nasycony, chłodniejszy
+"morski" teal, neutralny płciowo, pasuje i do damskiego, i do męskiego pozycjonowania),
+--accent-dark głębszy morski (np. #0d5951), --text ciepły ciemny brąz-czerń, --muted stonowany
+ciepły taupe.
+TYPOGRAFIA: nagłówki elegancki literacki serif (np. Frank Ruhl Libre — nieużyty jeszcze w
+systemie, inny niż Playfair Display studio-paznokci), tekst czytelny sans (np. Albert Sans —
+nieużyty jeszcze w systemie). Zweryfikuj grepem przed finalizacją.
+
+ZDJĘCIA (już wyszukane i wizualnie zweryfikowane, zero kolizji ID):
+- HERO: stylistka pracująca nad klientką w loftowym, ciepło oświetlonym salonie — elegancka,
+  edytorialna scena: https://images.pexels.com/photos/3992879/pexels-photo-3992879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- GALERIA "Metamorfozy", zdjęcie MĘSKIE (precyzyjne strzyżenie nożyczkami, close-up):
+  https://images.pexels.com/photos/32329615/pexels-photo-32329615.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- GALERIA "Metamorfozy", zdjęcie DAMSKIE (modelowanie długich włosów szczotką, glamour):
+  https://images.pexels.com/photos/14615064/pexels-photo-14615064.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+Ważne: branża jest wprost damska I męska — galeria/portfolio MUSI pokazywać oba, nie tylko
+jedną płeć (to nie jest kosmetyczny dodatek, to sedno pozycjonowania tego wariantu).
+
+LAYOUT — celowo inny mechanizm niż studio-paznokci-1 i fryzjer-barber-1:
+1. Nav: logo po lewej jako prosty wordmark (nie monogram-plakietka jak barber, nie
+   wyśrodkowany jak paznokcie), linki po prawej, CTA "Umów wizytę" jako pigułka OBRYSOWANA
+   (nie wypełniona) w kolorze --accent.
+2. Hero: układ "magazynowy" — DUŻE zdjęcie PO LEWEJ (nie pełnoekranowe jak barber, nie split z
+   pływającą plakietką jak paznokcie) zajmujące ~55% szerokości w miękko zaokrąglonym
+   prostokącie, tekst PO PRAWEJ (odwrotna kolejność niż typowy split). Mała pływająca etykieta
+   "Wybór stylistki" w rogu zdjęcia.
+3. Sekcja USŁUGI I CENNIK: podzielona na DWIE kolumny-kategorie równolegle — "Strzyżenie i
+   stylizacja damska" oraz "Strzyżenie i stylizacja męska" — każda kolumna to osobna, krótka
+   lista usług z cenami (autentyczne odzwierciedlenie pozycjonowania "damski i męski", inny
+   mechanizm niż jednolity cennik u poprzedników).
+4. Sekcja GALERIA "Metamorfozy": 2 duże zdjęcia obok siebie (męskie + damskie) w asymetrycznym
+   układzie (jedno nieco większe), każde z krótkim podpisem typu usługi — nie siatka 3 równych
+   kwadratów jak paznokcie, nie prostokąty z ostrymi rogami jak barber.
+5. Sekcja O NAS: pozioma karta — mały portret/zdjęcie zespołu + tekst + 2-3 inline
+   badge'e-statystyki (tekstowe, nie medaliony, nie osobny rząd liczb) wplecione w zdanie.
+6. Sekcja OPINIE: 2 karty z małym okrągłym avatarem-inicjałem (nie zdjęciem prawdziwej osoby,
+   nie brak avatara jak paznokcie/barber) + cytat + imię.
+7. Sekcja "Dlaczego HairLoft": siatka 2×2 (nie pionowa lista jak paznokcie, nie rząd 4 kart jak
+   barber) — np. Doświadczony zespół / Produkty premium / Konsultacja przed zabiegiem /
+   Elastyczne terminy online i telefonicznie.
+8. FAQ — accordion, standardowo.
+9. Kontakt: wyśrodkowany baner "Umów wizytę" (telefon + link rezerwacji) + pasek danych + mapa
+   dojazdu (patrz WYMÓG — MAPA DOJAZDU w CSS_VAR_REQUIREMENT innych branż). Bez pełnego
+   formularza — banner+telefon wystarczy na free tier.
+10. Stopka: 2-kolumnowa, ciepła, prosta.`,
+  },
+];
+
+module.exports = { VARIANTS, SAMPLE_TOKENS };
