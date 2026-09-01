@@ -109,6 +109,33 @@ stek efektów naraz wygląda tandetnie, nie premium):
   animowane liczniki (liczba "licząca się" do docelowej wartości przy wejściu w viewport),
   płynne przejścia stanu (`transition` na wszystkim co się zmienia, nie tylko `:hover{background}`).
 
+**Nie czekaj aż użytkownik poprosi o więcej ruchu (dodane 2026-09-01, pilot Remonty).** Dwa
+warianty pro z rzędu (remonty-2, remonty-3) wyszły z pierwszego przebiegu za spokojne i
+wymagały osobnej rundy poprawek po tym, jak Artur napisał wprost: "dodaj zdjęcia w kafelkach
+więcej ruchu etc" a chwilę później, na KOLEJNYM wariancie, znowu: "czemu wciąż brak
+błysków/refleksów i ruchu". To nie jest gust jednorazowy do jednego wariantu — to jest bar
+jakościowy dla WSZYSTKICH przyszłych wariantów 2+, więc egzekwuj go od pierwszego przebiegu,
+nie dopiero po zgłoszeniu. Zasada "jedna-dwie techniki, nie wszystkie naraz" wyżej nadal
+obowiązuje (nie rób groteskowego steku efektów), ale w praktyce oznaczała za mało — minimalny,
+obowiązkowy zestaw dla KAŻDEGO wariantu 2+ to teraz:
+1. **Jeden ciągły, ambientowy ruch w tle hero** (pulsująca poświata/glow, przesuwająca się
+   smuga światła, marquee, particles) — hero NIE MOŻE być całkowicie statyczne w wariancie pro,
+   nawet jeśli głównym elementem jest widget/kalkulator/formularz, nie zdjęcie.
+2. **Shimmer/glow na primary CTA** (przycisku telefon/rezerwacja/akcja) — to najtańszy,
+   najbardziej zauważalny sygnał "premium", stosuj go jako domyślny standard na głównym CTA w
+   hero i w sekcji kontakt, nie tylko gdy "pasuje tematycznie".
+3. **Jeśli wariant ma jakikolwiek interaktywny element** (kalkulator, chipy wyboru, formularz,
+   widget rezerwacji) — kliknięcie/zmiana MUSI dawać wizualną reakcję ruchem (flash/pulse/glow
+   przy aktualizacji wyniku, świecący pierścień na aktywnym wyborze), nie tylko cichą zmianę
+   tekstu. Statyczna zmiana treści bez żadnego ruchu odczuwana jest jako "martwe", nawet jeśli
+   technicznie działa.
+4. **Karty/siatki z treścią** (usługi, realizacje, FAQ-poprzedzające sekcje) dostają jednorazowy
+   fade-in przy scrollu, najlepiej stopniowany (`transition-delay` per karta) zamiast wszystkich
+   naraz — to tani, uniwersalny efekt bez ryzyka przesady.
+Dopiero POWYŻEJ tego minimum obowiązuje ostrożność "nie wszystkiego naraz" z akapitu wyżej —
+ale sam ten zestaw (glow w tle + shimmer CTA + reakcja na interakcję + stopniowany fade-in kart)
+to punkt wyjścia, nie sufit, dla każdego wariantu 2+.
+
 **Warunki brzegowe, których nie wolno pominąć:**
 - **`prefers-reduced-motion`**: każda nietrywialna animacja (nie zwykłe `:hover` transition) MUSI
   mieć wariant wyłączony pod `@media (prefers-reduced-motion: reduce)` — część użytkowników ma to
