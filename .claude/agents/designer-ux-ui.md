@@ -118,6 +118,15 @@ jakościowy dla WSZYSTKICH przyszłych wariantów 2+, więc egzekwuj go od pierw
 nie dopiero po zgłoszeniu. Zasada "jedna-dwie techniki, nie wszystkie naraz" wyżej nadal
 obowiązuje (nie rób groteskowego steku efektów), ale w praktyce oznaczała za mało — minimalny,
 obowiązkowy zestaw dla KAŻDEGO wariantu 2+ to teraz:
+
+**Jeden świadomy wyjątek: archetyp 4 "Rodzinna firma" zostaje wyciszony, nawet w wariantach
+2+.** To NIE jest luka w tej regule, tylko wcześniej ustalona, wielokrotnie potwierdzona zasada
+tonalna (patrz historia hydraulik-4/elektryk-4/fryzjer-4/remonty-1 — "ciepła, spokojna, bez
+sztuczek marketingowych" to sedno tego archetypu, nie przeoczenie). Dla wariantu 4 wystarczy
+jednorazowy fade-in kart/listy przy scrollu (punkt 4 poniżej) — pomiń ambientowy glow w tle i
+shimmer na CTA, bo kłócą się z duchem "rzetelna firma, nie marketing". Jeśli w danej branży
+duch archetypu 4 wyraźnie odbiega od tego wzorca (rzadkie, ale możliwe), zapisz to jako
+świadomą decyzję w briefie wariantu, nie milczącym pominięciem.
 1. **Jeden ciągły, ambientowy ruch w tle hero** (pulsująca poświata/glow, przesuwająca się
    smuga światła, marquee, particles) — hero NIE MOŻE być całkowicie statyczne w wariancie pro,
    nawet jeśli głównym elementem jest widget/kalkulator/formularz, nie zdjęcie.
