@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SharpCut — Fryzjer / Barber Kraków | tel. 500 123 456</title>
+<meta name="description" content="SharpCut — barbershop w mieście Kraków. Strzyżenie, broda, golenie brzytwą. Przejrzysty cennik, umów wizytę: 500 123 456">
+<meta name="keywords" content="Barber Kraków, fryzjer męski Kraków">
+<link rel="canonical" href="https://sharpcut-krakow.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SharpCut — Barber Kraków">
+<meta property="og:description" content="SharpCut — barbershop w mieście Kraków. Umów wizytę: 500 123 456">
+<meta property="og:url" content="https://sharpcut-krakow.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"HairSalon","name":"SharpCut","telephone":"500 123 456","email":"kontakt@sharpcut.pl","description":"SharpCut — barbershop w mieście Kraków","address":{"@type":"PostalAddress","addressLocality":"Kraków","addressCountry":"PL"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#7a2430;
+    --accent-dark:#4a161e;
+    --bg:#f1ede5;
+    --surface:#e6e0d4;
+    --text:#2b211c;
+    --muted:#6f6255;
+    --head:'Bitter', serif;
+    --body:'Public Sans', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3,h4{font-family:var(--head);line-height:1.18;font-weight:700;}
+  section{padding:5rem 1.5rem;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  .eyebrow{display:inline-block;font-family:var(--body);font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.7rem;}
+  h2{font-size:clamp(1.75rem,3.2vw,2.5rem);margin-bottom:1rem;color:var(--text);}
+  .lead{color:var(--muted);font-size:1.04rem;max-width:620px;}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 1.7rem;font-weight:700;font-family:var(--body);font-size:.98rem;border:2px solid transparent;cursor:pointer;transition:transform .15s ease, background .2s ease, color .2s ease;border-radius:0;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--accent);color:var(--bg);}
+  .btn-primary:hover{background:var(--accent-dark);}
+  .btn-outline{border-color:color-mix(in srgb, var(--bg) 55%, transparent);color:var(--bg);background:transparent;}
+  .btn-outline:hover{border-color:var(--bg);background:color-mix(in srgb, var(--bg) 12%, transparent);}
+  .btn-dark{border-color:var(--accent);color:var(--accent);background:transparent;}
+  .btn-dark:hover{background:var(--accent);color:var(--bg);}
+
+  /* NAV */
+  header.nav{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .nav .wrap{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1rem;padding:.9rem 1.5rem;}
+  .logo{display:flex;align-items:center;gap:.65rem;}
+  .logo-badge{width:40px;height:40px;background:var(--accent);color:var(--bg);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:800;font-size:1.15rem;flex-shrink:0;}
+  .logo-name{font-family:var(--head);font-weight:700;font-size:1.15rem;color:var(--text);white-space:nowrap;}
+  .nav-links-desktop{display:flex;gap:1.7rem;align-items:center;justify-self:center;}
+  .nav-links-desktop a{font-weight:600;font-size:.92rem;color:var(--text);}
+  .nav-links-desktop a:hover{color:var(--accent);}
+  .nav-links-mobile{display:none;}
+  .nav-actions{display:flex;align-items:center;gap:1.3rem;justify-self:end;}
+  .nav-phone-link{font-size:.88rem;font-weight:600;color:var(--muted);white-space:nowrap;display:flex;align-items:center;gap:.35rem;}
+  .nav-phone-link:hover{color:var(--accent);}
+  .nav-phone-link .icon{display:none;font-size:1.1rem;}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.3rem;}
+  .nav-toggle span{width:24px;height:2px;background:var(--text);}
+
+  /* HERO */
+  .hero{position:relative;min-height:88vh;display:flex;align-items:flex-end;color:var(--bg);overflow:hidden;}
+  .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+  .hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(0deg, color-mix(in srgb, var(--text) 92%, black) 5%, color-mix(in srgb, var(--text) 55%, transparent) 55%, color-mix(in srgb, var(--text) 20%, transparent) 100%);}
+  .hero-inner{position:relative;z-index:2;max-width:720px;margin:0 auto;padding:0 1.5rem 4.5rem;text-align:center;}
+  .hero-eyebrow{display:inline-block;font-weight:700;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb, var(--bg) 85%, transparent);margin-bottom:1rem;}
+  .hero h1{font-size:clamp(2.1rem,5vw,3.4rem);color:var(--bg);margin-bottom:1.1rem;}
+  .hero h1 em{color:color-mix(in srgb, var(--accent) 45%, var(--bg));font-style:normal;}
+  .hero p{font-size:1.08rem;color:color-mix(in srgb, var(--bg) 88%, transparent);max-width:540px;margin:0 auto 2rem;}
+  .hero-ctas{display:flex;gap:1.3rem;justify-content:center;align-items:center;flex-wrap:wrap;}
+  .hero-ctas .link{font-weight:700;font-size:.95rem;border-bottom:2px solid color-mix(in srgb, var(--bg) 50%, transparent);padding-bottom:2px;}
+  .hero-ctas .link:hover{border-color:var(--bg);}
+
+  /* CENNIK */
+  .cennik-cols{display:grid;grid-template-columns:1fr 1fr;gap:0 3.5rem;margin-top:2.6rem;}
+  .cennik-row{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:1.15rem 0;border-bottom:3px solid var(--accent);}
+  .cennik-row .name{font-family:var(--head);font-weight:700;font-size:1.04rem;}
+  .cennik-row .name small{display:block;font-family:var(--body);font-weight:400;font-size:.8rem;color:var(--muted);margin-top:.2rem;}
+  .cennik-row .price{font-family:var(--head);font-weight:800;font-size:1.1rem;color:var(--accent-dark);white-space:nowrap;flex-shrink:0;}
+  .cennik-note{margin-top:2rem;font-size:.88rem;color:var(--muted);}
+
+  /* GALERIA */
+  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;margin-top:2.6rem;}
+  .gallery-item{background:var(--surface);}
+  .gallery-item img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:0;}
+  .gallery-item .cap{padding:.9rem 1rem;font-size:.86rem;color:var(--muted);font-weight:600;border-top:1px solid color-mix(in srgb, var(--text) 10%, transparent);}
+
+  /* O NAS */
+  .about{background:var(--surface);}
+  .about .wrap{display:grid;grid-template-columns:.95fr 1.15fr;gap:3.5rem;align-items:center;}
+  .about-photo{width:100%;height:auto;aspect-ratio:4/3.4;object-fit:cover;border:1px solid color-mix(in srgb, var(--text) 15%, transparent);}
+  .about-copy p{margin-bottom:1.2rem;}
+  .about-copy strong{color:var(--accent-dark);}
+  .about-stats-row{display:flex;gap:0;margin-top:2rem;border-top:1px solid color-mix(in srgb, var(--text) 15%, transparent);}
+  .about-stat{flex:1;padding:1.2rem 1.2rem 0 0;border-right:1px solid color-mix(in srgb, var(--text) 15%, transparent);}
+  .about-stat:last-child{border-right:none;padding-right:0;}
+  .about-stat b{display:block;font-family:var(--head);font-size:1.7rem;color:var(--accent-dark);}
+  .about-stat span{font-size:.83rem;color:var(--muted);}
+
+  /* OPINIE */
+  .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.6rem;}
+  .review-card{border:1px solid color-mix(in srgb, var(--text) 18%, transparent);padding:1.7rem 1.5rem;}
+  .review-card p{font-size:.96rem;color:var(--text);margin-bottom:1.1rem;}
+  .review-foot{display:flex;justify-content:space-between;align-items:center;}
+  .review-foot .name{font-size:.85rem;color:var(--muted);font-weight:600;}
+  .review-foot .score{font-size:.76rem;font-weight:800;color:var(--bg);background:var(--accent);padding:.2rem .5rem;letter-spacing:.02em;}
+
+  /* DLACZEGO MY */
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6rem;margin-top:2.6rem;}
+  .why-item{text-align:left;padding:1.7rem 1.4rem;background:var(--surface);}
+  .why-item .icon{width:52px;height:52px;background:var(--accent);color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.1rem;}
+  .why-item h3{font-size:1.02rem;margin-bottom:.4rem;}
+  .why-item p{font-size:.87rem;color:var(--muted);}
+
+  /* FAQ */
+  .faq-list{max-width:800px;margin:2.6rem auto 0;display:flex;flex-direction:column;gap:.8rem;}
+  details{background:var(--bg);border:1px solid color-mix(in srgb, var(--text) 15%, transparent);padding:1.1rem 1.4rem;}
+  details summary{cursor:pointer;font-weight:700;font-family:var(--head);font-size:1rem;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{content:"+";font-size:1.4rem;color:var(--accent);flex-shrink:0;}
+  details[open] summary::after{content:"–";}
+  details p{color:var(--muted);margin-top:.8rem;font-size:.94rem;}
+
+  /* KONTAKT */
+  .contact{background:var(--text);color:var(--bg);}
+  .contact .eyebrow{color:color-mix(in srgb, var(--accent) 65%, var(--bg));}
+  .contact-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;margin-top:2.4rem;align-items:start;}
+  .contact-form{background:color-mix(in srgb, var(--bg) 6%, transparent);padding:2rem;}
+  .contact-form label{display:block;font-size:.85rem;font-weight:700;margin-bottom:.4rem;margin-top:1rem;color:color-mix(in srgb, var(--bg) 85%, transparent);}
+  .contact-form label:first-child{margin-top:0;}
+  .contact-form input, .contact-form textarea{width:100%;padding:.8rem 1rem;border:1px solid color-mix(in srgb, var(--bg) 25%, transparent);font-family:var(--body);font-size:.95rem;background:color-mix(in srgb, var(--bg) 8%, transparent);color:var(--bg);}
+  .contact-form input::placeholder, .contact-form textarea::placeholder{color:color-mix(in srgb, var(--bg) 55%, transparent);}
+  .contact-form textarea{resize:vertical;min-height:110px;}
+  .contact-form button{width:100%;justify-content:center;margin-top:1.4rem;}
+  .contact-side ul{display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem;}
+  .contact-side li{font-size:.96rem;color:color-mix(in srgb, var(--bg) 88%, transparent);display:flex;gap:.6rem;}
+  .contact-side li b{color:var(--bg);font-weight:700;min-width:110px;display:inline-block;}
+  .map-embed{width:100%;height:280px;border:1px solid color-mix(in srgb, var(--bg) 20%, transparent);}
+  .map-caption{margin-top:.7rem;font-size:.83rem;color:color-mix(in srgb, var(--bg) 65%, transparent);}
+
+  /* FOOTER */
+  footer{background:var(--surface);padding:3.2rem 1.5rem 2rem;border-top:1px solid color-mix(in srgb, var(--text) 15%, transparent);}
+  .footer-grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:2.5rem;padding-bottom:2.2rem;}
+  .footer-logo{font-family:var(--head);font-weight:800;font-size:1.2rem;margin-bottom:.7rem;display:flex;align-items:center;gap:.5rem;}
+  .footer-logo .logo-badge{width:30px;height:30px;font-size:.9rem;}
+  footer p{font-size:.9rem;color:var(--muted);}
+  footer h4{font-family:var(--head);font-size:.95rem;margin-bottom:1rem;}
+  .footer-links li{margin-bottom:.6rem;font-size:.9rem;}
+  .footer-links a:hover{color:var(--accent);}
+  .footer-hours li{margin-bottom:.5rem;font-size:.9rem;color:var(--muted);}
+  .footer-bottom{max-width:1180px;margin:0 auto;font-size:.8rem;color:var(--muted);text-align:center;border-top:1px solid color-mix(in srgb, var(--text) 15%, transparent);padding-top:1.4rem;}
+
+  @media (max-width:960px){
+    .cennik-cols{grid-template-columns:1fr;}
+    .gallery-grid{grid-template-columns:repeat(2,1fr);}
+    .about .wrap{grid-template-columns:1fr;}
+    .reviews-grid{grid-template-columns:1fr 1fr;}
+    .why-grid{grid-template-columns:1fr 1fr;}
+    .contact-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:700px){
+    .nav-links-desktop{display:none;}
+    .nav-links-mobile{display:flex;flex-direction:column;align-items:flex-start;gap:0;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);padding:0 1.5rem;max-height:0;overflow:hidden;transition:max-height .25s ease, padding .25s ease;}
+    .nav-links-mobile.open{max-height:420px;padding:1rem 1.5rem 1.4rem;}
+    .nav-links-mobile a{padding:.55rem 0;font-weight:600;font-size:.95rem;color:var(--text);width:100%;}
+    .nav-toggle{display:flex;}
+    .nav-phone-link{width:40px;height:40px;padding:0;justify-content:center;flex-shrink:0;}
+    .nav-phone-link .txt{display:none;}
+    .nav-phone-link .icon{display:inline-block;}
+    .gallery-grid{grid-template-columns:1fr;}
+    .why-grid{grid-template-columns:1fr;}
+    .reviews-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    section{padding:3.5rem 1.2rem;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo">
+      <span class="logo-badge" id="logoBadge">SharpCut</span>
+      <span class="logo-name">SharpCut</span>
+    </a>
+    <nav class="nav-links-desktop">
+      <a href="#o-nas">O nas</a>
+      <a href="#cennik">Cennik</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#opinie">Opinie</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="tel:500 123 456" class="nav-phone-link" aria-label="Zadzwoń: 500 123 456"><span class="txt">500 123 456</span><span class="icon">📞</span></a>
+      <a href="#kontakt" class="btn btn-primary">Umów wizytę</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu nawigacji" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-links-mobile" id="navLinksMobile">
+    <a href="#o-nas">O nas</a>
+    <a href="#cennik">Cennik</a>
+    <a href="#galeria">Galeria</a>
+    <a href="#opinie">Opinie</a>
+    <a href="#faq">FAQ</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.pexels.com/photos/16997937/pexels-photo-16997937.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Barber strzygący klienta w klasycznym barbershopie" width="940" height="650" fetchpriority="high">
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <span class="hero-eyebrow">📍 Barbershop — Kraków</span>
+    <h1>SharpCut — <em>strzyżenie i broda</em> na poziomie, do którego wracasz</h1>
+    <p>Klasyczne cięcie nożyczkami, precyzyjny fade, golenie brzytwą. Przejrzysty cennik, umówiony termin i fotel, w którym nie trzeba się spieszyć.</p>
+    <div class="hero-ctas">
+      <a href="#kontakt" class="btn btn-primary">Umów wizytę</a>
+      <a href="#cennik" class="link">Zobacz cennik</a>
+    </div>
+  </div>
+</section>
+
+<section id="cennik">
+  <div class="wrap">
+    <span class="eyebrow">Cennik</span>
+    <h2>Usługi — Kraków</h2>
+    <p class="lead">Cena z cennika to cena na koniec wizyty. Bez dopłat za „dłuższą brodę” czy „grubszy włos”.</p>
+    <div class="cennik-cols">
+      <div>
+        <div class="cennik-row"><span class="name">Strzyżenie klasyczne<small>ok. 30 min</small></span><span class="price">60 zł</span></div>
+        <div class="cennik-row"><span class="name">Strzyżenie maszynką (fade)<small>ok. 35 min</small></span><span class="price">70 zł</span></div>
+        <div class="cennik-row"><span class="name">Broda — modelowanie<small>ok. 25 min</small></span><span class="price">45 zł</span></div>
+        <div class="cennik-row"><span class="name">Golenie brzytwą<small>ok. 30 min, gorący ręcznik</small></span><span class="price">60 zł</span></div>
+      </div>
+      <div>
+        <div class="cennik-row"><span class="name">Strzyżenie + broda<small>ok. 55 min</small></span><span class="price">100 zł</span></div>
+        <div class="cennik-row"><span class="name">Strzyżenie dziecięce<small>do 12 lat, ok. 25 min</small></span><span class="price">45 zł</span></div>
+        <div class="cennik-row"><span class="name">Regulacja konturu<small>ok. 15 min, między wizytami</small></span><span class="price">25 zł</span></div>
+        <div class="cennik-row"><span class="name">Pakiet VIP<small>strzyżenie, broda, golenie, ok. 80 min</small></span><span class="price">150 zł</span></div>
+      </div>
+    </div>
+    <p class="cennik-note">Ceny obowiązują niezależnie od długości włosa czy gęstości brody — dokładnie tyle zapłacisz, ile widzisz powyżej. Jedyny wyjątek to usługi spoza cennika, np. nietypowa stylizacja — o tym barber powie od razu przy fotelu, zanim zacznie.</p>
+  </div>
+</section>
+
+<section id="galeria" style="background:var(--surface);">
+  <div class="wrap">
+    <span class="eyebrow">Portfolio</span>
+    <h2>Zobacz nasze cięcia</h2>
+    <p class="lead">Wybrane realizacje z fotela — różne style, jeden poziom precyzji.</p>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="https://images.pexels.com/photos/12074386/pexels-photo-12074386.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Precyzyjny fade — świeże strzyżenie widziane od tyłu głowy" width="940" height="650" loading="lazy">
+        <div class="cap">Ostry fade</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.pexels.com/photos/4781448/pexels-photo-4781448.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Klasyczny undercut z wyraźną linią przejścia" width="940" height="650" loading="lazy">
+        <div class="cap">Klasyczny undercut</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.pexels.com/photos/12302335/pexels-photo-12302335.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Golenie brody brzytwą w klasycznym barbershopie" width="940" height="650" loading="lazy">
+        <div class="cap">Golenie brzytwą</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="o-nas">
+  <div class="wrap">
+    <img class="about-photo" src="https://images.pexels.com/photos/4969838/pexels-photo-4969838.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Wnętrze barbershopu — fotele i wystrój zakładu" width="940" height="650" loading="lazy">
+    <div class="about-copy">
+      <span class="eyebrow">O zakładzie</span>
+      <h2>Barbershop w mieście Kraków, w którym liczy się detal</h2>
+      <p>SharpCut to zakład fryzjerski działający na terenie miasta Kraków, prowadzony przez zespół barberów, którzy strzygą i golą od lat — nie na skróty, tylko z uwagą na linię, proporcję i to, żeby fryzura trzymała formę tydzień po wizycie, nie tylko w drzwiach salonu.</p>
+      <p>Pracujemy na ostrzonych narzędziach i sprawdzonej kosmetyce do golenia — <strong>gorący ręcznik</strong> przy każdym goleniu brzytwą to u nas standard, nie dodatek za dopłatą.</p>
+      <div class="about-stats-row">
+        <div class="about-stat"><b>9 lat</b><span>w zawodzie</span></div>
+        <div class="about-stat"><b>5200+</b><span>strzyżeń i golenia</span></div>
+        <div class="about-stat"><b>4.9/5</b><span>średnia ocen klientów</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="opinie">
+  <div class="wrap">
+    <span class="eyebrow">Opinie</span>
+    <h2>Co mówią klienci — Kraków</h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <p>„Pierwszy raz golenie brzytwą i już wiem, że nie wracam do maszynki. Gorący ręcznik, spokój, żadnego pośpiechu.”</p>
+        <div class="review-foot"><span class="name">Michał, Kraków</span><span class="score">5.0</span></div>
+      </div>
+      <div class="review-card">
+        <p>„Fade dokładnie taki, jaki pokazałem na zdjęciu. Umówiłem się na konkretną godzinę i nie czekałem ani minuty dłużej.”</p>
+        <div class="review-foot"><span class="name">Kamil, Kraków</span><span class="score">5.0</span></div>
+      </div>
+      <div class="review-card">
+        <p>„Zabrałem tu syna na pierwsze strzyżenie — barber miał do niego cierpliwość, a efekt trzymał się do kolejnej wizyty.”</p>
+        <div class="review-foot"><span class="name">Tomasz, Kraków</span><span class="score">5.0</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="dlaczego-my" style="background:var(--surface);">
+  <div class="wrap">
+    <span class="eyebrow">Dlaczego my</span>
+    <h2>Dlaczego klienci wracają do SharpCut</h2>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="icon">✂️</div>
+        <h3>Wprawa widoczna w linii</h3>
+        <p>Fade, klasyczne cięcie i golenie brzytwą to u nas codzienność, nie okazjonalne wyzwanie — różnicę widać w kącie i czystości linii.</p>
+      </div>
+      <div class="why-item">
+        <div class="icon">🪒</div>
+        <h3>Ostrzone narzędzia, nie tępe maszynki</h3>
+        <p>Brzytwy i nożyczki ostrzymy regularnie, nie od święta — to słychać w cichej pracy i widać w efekcie.</p>
+      </div>
+      <div class="why-item">
+        <div class="icon">📅</div>
+        <h3>Umów się online lub telefonicznie</h3>
+        <p>Wybierz termin przez formularz albo zadzwoń pod 500 123 456 — obie drogi działają jednakowo szybko.</p>
+      </div>
+      <div class="why-item">
+        <div class="icon">💈</div>
+        <h3>Bez naciągania na kosmetyki</h3>
+        <p>Pomadę czy olejek do brody polecimy tylko wtedy, gdy naprawdę się przyda — nie po to, żeby coś sprzedać.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <span class="eyebrow">Pytania i odpowiedzi</span>
+    <h2 style="text-align:center;">Najczęściej pytacie</h2>
+    <div class="faq-list">
+      <details open>
+        <summary>Kiedy najlepiej się umówić, żeby nie czekać?</summary>
+        <p>Piątkowe popołudnia i soboty znikają z grafiku najszybciej na terenie miasta Kraków — jeśli zależy Ci na konkretnej godzinie, zarezerwuj z wyprzedzeniem pod 500 123 456 lub przez formularz kontaktowy. W pozostałe dni zwykle znajdziemy dla Ciebie miejsce jeszcze tego samego dnia.</p>
+      </details>
+      <details>
+        <summary>Ile trwa golenie brzytwą?</summary>
+        <p>Cała usługa z gorącym ręcznikiem i pielęgnacją po goleniu zajmuje ok. 30 minut. Warto zarezerwować ten czas w spokoju, bez pośpiechu.</p>
+      </details>
+      <details>
+        <summary>Czy strzyżecie dzieci?</summary>
+        <p>Tak, wykonujemy strzyżenie dziecięce do 12. roku życia — cennik i czas trwania znajdziesz w sekcji Cennik powyżej.</p>
+      </details>
+      <details>
+        <summary>Czy mogę przyjść bez umówionego terminu?</summary>
+        <p>Staramy się przyjmować także bez rezerwacji, jeśli akurat jest wolny fotel, ale nie gwarantujemy tego przy pełnym grafiku — najpewniej jest zadzwonić wcześniej.</p>
+      </details>
+      <details>
+        <summary>Jak przygotować się do pierwszej wizyty?</summary>
+        <p>Wystarczy przyjść z pomysłem na fryzurę lub zdjęciem referencyjnym — barber doradzi, co sprawdzi się przy Twoim typie włosa.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="kontakt">
+  <div class="wrap">
+    <span class="eyebrow">Kontakt</span>
+    <h2 style="color:var(--bg);">Umów wizytę</h2>
+    <p class="lead" style="color:color-mix(in srgb, var(--bg) 78%, transparent);">Zostaw wiadomość albo zadzwoń bezpośrednio — jeśli akurat trzymamy nożyczki w ręku, oddzwonimy, gdy tylko skończymy z klientem.</p>
+
+    <div class="contact-grid">
+      <form class="contact-form" id="contactForm">
+        <label for="name">Imię i nazwisko</label>
+        <input type="text" id="name" name="name" placeholder="Jan Kowalski" required>
+        <label for="phone">Telefon</label>
+        <input type="tel" id="phone" name="phone" placeholder="500 123 456" required>
+        <label for="service">Wybrana usługa</label>
+        <input type="text" id="service" name="service" placeholder="np. Strzyżenie + broda">
+        <label for="message">Wiadomość</label>
+        <textarea id="message" name="message" placeholder="Preferowany dzień i godzina..."></textarea>
+        <button type="submit" class="btn btn-primary">Wyślij zapytanie</button>
+      </form>
+      <div class="contact-side">
+        <ul>
+          <li><b>Adres:</b> ul. Przykładowa 12, Kraków</li>
+          <li><b>Telefon:</b> <a href="tel:500 123 456">500 123 456</a></li>
+          <li><b>E-mail:</b> <a href="mailto:kontakt@sharpcut.pl">kontakt@sharpcut.pl</a></li>
+          <li><b>Pon–Pt:</b> 9:00 – 20:00</li>
+          <li><b>Sobota:</b> 9:00 – 15:00</li>
+        </ul>
+        <iframe class="map-embed" src="https://www.google.com/maps?q=ul. Przykładowa 12, Kraków&output=embed" title="Mapa dojazdu do SharpCut w mieście Kraków" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;"></iframe>
+        <p class="map-caption">Mapa dojazdu — ul. Przykładowa 12, Kraków</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo"><span class="logo-badge" id="footerBadge">SharpCut</span>SharpCut</div>
+      <p>Barbershop w mieście Kraków i okolicy. Strzyżenie, broda i golenie brzytwą — z uwagą na detal przy każdej wizycie.</p>
+    </div>
+    <div>
+      <h4>Nawigacja</h4>
+      <ul class="footer-links">
+        <li><a href="#o-nas">O nas</a></li>
+        <li><a href="#cennik">Cennik</a></li>
+        <li><a href="#galeria">Galeria</a></li>
+        <li><a href="#opinie">Opinie</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Godziny otwarcia</h4>
+      <ul class="footer-hours">
+        <li>Pon–Pt: 9:00 – 20:00</li>
+        <li>Sobota: 9:00 – 15:00</li>
+        <li>Niedziela: nieczynne</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © <span id="year"></span> SharpCut — Fryzjer / Barber Kraków. Wszystkie prawa zastrzeżone.
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  document.querySelectorAll('.logo-badge').forEach(function(badge){
+    var full = (badge.textContent || '').trim();
+    badge.textContent = full.charAt(0).toUpperCase();
+  });
+
+  const navToggle = document.getElementById('navToggle');
+  const navLinksMobile = document.getElementById('navLinksMobile');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinksMobile.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  navLinksMobile.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinksMobile.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    form.innerHTML = '<p style="font-weight:700;color:var(--bg);">Dziękujemy! Wiadomość dotarła do nas — potwierdzimy termin telefonicznie lub mailowo. W pilnych sprawach zadzwoń od razu: <a href="tel:500 123 456" style="color:var(--bg);text-decoration:underline;">500 123 456</a>.</p>';
+  });
+</script>
+
+</body>
+</html>

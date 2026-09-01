@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{NAZWA_STRONY}} — Barber premium {{MIASTO}} | grooming dla firm i hoteli</title>
+<meta name="description" content="{{NAZWA_STRONY}} — obsługa fryzjerska i barberska premium dla firm, hoteli i wydarzeń w mieście {{MIASTO}}. Zapytaj o konsultację.">
+<meta name="keywords" content="Barber premium {{MIASTO}}, grooming dla firm, barber na event, drużyna pana młodego">
+<link rel="canonical" href="https://{{SLUG}}.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{NAZWA_STRONY}} — Barber premium {{MIASTO}}">
+<meta property="og:description" content="Obsługa fryzjerska i barberska dla klientów, którzy oczekują najwyższego standardu — w mieście {{MIASTO}}.">
+<meta property="og:url" content="https://{{SLUG}}.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"{{NAZWA_STRONY}}","telephone":"{{TELEFON}}","email":"{{EMAIL}}","description":"{{NAZWA_STRONY}} — obsługa fryzjerska i barberska premium w mieście {{MIASTO}}, dla klientów indywidualnych, firm i hoteli","address":{"@type":"PostalAddress","addressLocality":"{{MIASTO}}","addressCountry":"PL"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#a8813a;
+    --accent-dark:#22201d;
+    --bg:#e9e7e2;
+    --surface:#dcdad3;
+    --text:#1c1b19;
+    --muted:#726f68;
+    --head:'Libre Caslon Text', serif;
+    --body:'DM Sans', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3,h4{font-family:var(--head);line-height:1.22;font-weight:700;}
+  section{padding:5.5rem 1.5rem;}
+  .wrap{max-width:1160px;margin:0 auto;}
+  .eyebrow{display:inline-block;font-family:var(--body);font-weight:600;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:.9rem;}
+  h2{font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:1rem;color:var(--text);}
+  .lead{color:var(--muted);font-size:1.02rem;max-width:600px;}
+  .center{text-align:center;}
+  .center .lead{margin:0 auto;}
+
+  .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 1.8rem;border-radius:0;font-weight:600;font-family:var(--body);font-size:.86rem;letter-spacing:.06em;text-transform:uppercase;border:1.5px solid var(--accent-dark);cursor:pointer;transition:background .2s ease, color .2s ease;}
+  .btn-outline{background:transparent;color:var(--accent-dark);}
+  .btn-outline:hover{background:var(--accent-dark);color:var(--bg);}
+  .btn-solid{background:var(--accent-dark);color:var(--bg);}
+  .btn-solid:hover{background:var(--text);}
+
+  header.nav{background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);position:sticky;top:0;z-index:50;}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:1.4rem 1.5rem;gap:1.2rem;}
+  .logo{font-family:var(--head);font-weight:700;font-size:1.35rem;letter-spacing:.02em;color:var(--text);white-space:nowrap;}
+  .logo span{color:var(--accent);}
+  .nav-links{display:flex;gap:2rem;align-items:center;}
+  .nav-links a{font-weight:600;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text);white-space:nowrap;}
+  .nav-links a:hover{color:var(--accent);}
+  .nav-links-desktop{display:flex;}
+  .nav-links-mobile{display:none;}
+  .nav-actions{display:flex;align-items:center;gap:1rem;flex-shrink:0;}
+  .nav-actions .btn{padding:.65rem 1.2rem;font-size:.74rem;}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;flex-shrink:0;}
+  .nav-toggle span{width:22px;height:2px;background:var(--text);}
+
+  .hero .wrap{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;padding-top:1.5rem;padding-bottom:1.5rem;}
+  .hero-copy h1{font-size:clamp(2rem,3.6vw,2.9rem);margin-bottom:1.3rem;}
+  .hero-copy p{color:var(--muted);font-size:1.05rem;max-width:520px;margin-bottom:2rem;}
+  .hero-photo-frame{border:2px solid var(--accent);padding:.6rem;}
+  .hero-photo{width:100%;height:auto;aspect-ratio:4/3.3;object-fit:cover;display:block;}
+
+  .stats-strip{background:var(--surface);}
+  .stats-inner{display:flex;}
+  .stat{flex:1;text-align:center;padding:0 1.6rem;border-left:1px solid color-mix(in srgb, var(--text) 16%, transparent);}
+  .stat:first-child{border-left:none;}
+  .stat b{display:block;font-family:var(--head);font-weight:700;font-size:2.1rem;color:var(--accent-dark);margin-bottom:.3rem;}
+  .stat span{font-size:.85rem;color:var(--muted);}
+
+  .process-row{display:flex;gap:2.4rem;margin-top:3rem;}
+  .process-step{flex:1;}
+  .process-step .roman{font-family:var(--head);font-weight:700;font-size:2rem;color:var(--accent);display:block;margin-bottom:1rem;}
+  .process-step h3{font-size:1rem;margin-bottom:.5rem;}
+  .process-step p{font-size:.86rem;color:var(--muted);}
+
+  .case-row{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-top:3.2rem;opacity:0;transform:translateY(18px);transition:opacity .55s ease, transform .55s ease;}
+  .case-row.visible{opacity:1;transform:translateY(0);}
+  .case-row.rev .case-photo{order:2;}
+  .case-photo{width:100%;height:auto;aspect-ratio:5/4;object-fit:cover;display:block;}
+  .case-metric{display:inline-block;font-family:var(--head);font-weight:700;font-size:.85rem;color:var(--accent-dark);border:1px solid color-mix(in srgb, var(--accent) 45%, transparent);padding:.3rem .9rem;margin-bottom:1rem;}
+  .case-copy h3{font-size:1.2rem;margin-bottom:.6rem;}
+  .case-copy p{color:var(--muted);font-size:.94rem;}
+
+  .trust{background:var(--surface);}
+  .trust-row{display:flex;flex-wrap:wrap;gap:.9rem;justify-content:center;margin-top:2.6rem;}
+  .trust-badge{
+    display:flex;align-items:center;gap:.6rem;background:var(--bg);border:1px solid color-mix(in srgb, var(--accent-dark) 30%, transparent);
+    padding:.85rem 1.3rem;font-size:.86rem;font-weight:600;letter-spacing:.02em;color:var(--text);
+    opacity:0;transform:translateY(14px);transition:opacity .5s ease, transform .5s ease, border-color .25s ease;
+  }
+  .trust-badge.visible{opacity:1;transform:translateY(0);}
+  .trust-badge:hover{border-color:var(--accent);}
+  .trust-badge .mark{color:var(--accent);font-weight:700;}
+
+  .faq-list{max-width:800px;margin:2.8rem auto 0;display:flex;flex-direction:column;gap:.7rem;}
+  details{border:1px solid color-mix(in srgb, var(--text) 12%, transparent);padding:1.1rem 1.4rem;}
+  details summary{cursor:pointer;font-weight:600;font-family:var(--head);font-size:1.02rem;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{content:"+";font-size:1.4rem;color:var(--accent);flex-shrink:0;}
+  details[open] summary::after{content:"–";}
+  details p{color:var(--muted);margin-top:.8rem;font-size:.92rem;}
+
+  .contact{background:var(--surface);}
+  .contact-form-full{max-width:760px;margin:2.8rem auto 0;background:var(--bg);border:1px solid color-mix(in srgb, var(--text) 12%, transparent);padding:2.2rem;}
+  .contact-form-full .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;}
+  .contact-form-full label{display:block;font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;margin-top:1.1rem;}
+  .contact-form-full label:first-child{margin-top:0;}
+  .contact-form-full input, .contact-form-full select, .contact-form-full textarea{
+    width:100%;padding:.8rem 1rem;border-radius:0;border:1px solid color-mix(in srgb, var(--text) 24%, transparent);
+    font-family:var(--body);font-size:.94rem;background:var(--bg);color:var(--text);
+  }
+  .contact-form-full textarea{resize:vertical;min-height:100px;}
+  .contact-form-full button{width:100%;justify-content:center;margin-top:1.5rem;}
+  .contact-info-strip{max-width:960px;margin:2.4rem auto 0;display:flex;flex-wrap:wrap;justify-content:center;gap:2.2rem;}
+  .contact-info-strip li{font-size:.9rem;color:var(--text);text-align:center;}
+  .contact-info-strip li b{display:block;color:var(--muted);font-weight:700;text-transform:uppercase;font-size:.7rem;letter-spacing:.06em;margin-bottom:.3rem;}
+  .map-embed{max-width:960px;margin:2rem auto 0;width:100%;height:260px;overflow:hidden;border:1px solid color-mix(in srgb, var(--text) 14%, transparent);}
+
+  footer{background:var(--bg);border-top:1px solid color-mix(in srgb, var(--text) 12%, transparent);padding:2.4rem 1.5rem;text-align:center;}
+  .footer-logo{font-family:var(--head);font-weight:700;font-size:1.05rem;letter-spacing:.04em;margin-bottom:.5rem;}
+  .footer-line{font-size:.84rem;color:var(--muted);max-width:520px;margin:0 auto .9rem;}
+  .footer-bottom{font-size:.74rem;color:var(--muted);letter-spacing:.04em;}
+
+  @media (prefers-reduced-motion: reduce){
+    .case-row,.trust-badge{transition:none;opacity:1;transform:none;}
+  }
+
+  @media (max-width:960px){
+    .hero .wrap{grid-template-columns:1fr;}
+    .hero-photo-frame{order:-1;}
+    .process-row{flex-direction:column;gap:1.8rem;}
+    .stats-inner{flex-direction:column;gap:1.4rem;}
+    .stat{border-left:none;border-top:1px solid color-mix(in srgb, var(--text) 16%, transparent);padding:1.2rem 0 0;}
+    .stat:first-child{border-top:none;padding-top:0;}
+    .case-row{grid-template-columns:1fr;}
+    .case-row.rev .case-photo{order:0;}
+    .contact-form-full .grid2{grid-template-columns:1fr;}
+  }
+  @media (max-width:700px){
+    .nav-links-desktop{display:none;}
+    .nav-links-mobile{
+      position:absolute;top:100%;left:0;right:0;background:var(--bg);
+      flex-direction:column;align-items:flex-start;gap:1rem;padding:1.2rem 1.5rem;
+      border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);display:none;
+    }
+    .nav-links-mobile.open{display:flex;}
+    .nav-toggle{display:flex;}
+    section{padding:3.5rem 1.2rem;}
+    .contact-info-strip{gap:1.4rem;}
+  }
+  @media (max-width:480px){
+    .nav-actions .btn{display:none;}
+    .logo{font-size:1.15rem;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo">{{NAZWA_STRONY}}<span>.</span></a>
+    <nav class="nav-links nav-links-desktop">
+      <a href="#proces">Proces</a>
+      <a href="#realizacje">Realizacje</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#kontakt" class="btn btn-outline">Zapytaj o termin</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu nawigacji">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-links nav-links-mobile" id="navLinks">
+    <a href="#proces">Proces</a>
+    <a href="#realizacje">Realizacje</a>
+    <a href="#faq">FAQ</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow">Grooming premium — {{MIASTO}}</span>
+      <h1>{{NAZWA_STRONY}} — obsługa fryzjerska i barberska dla hoteli, firm i wydarzeń w mieście {{MIASTO}}</h1>
+      <p>Zespół barberów on-site na eventy firmowe, stałe umowy grooming dla hoteli i apartamentów oraz przygotowanie drużyny pana młodego przed ślubem — poziom obsługi, który zauważy dział HR i concierge, zanim jeszcze spytają o cenę.</p>
+      <a href="#kontakt" class="btn btn-solid">Zapytaj o termin</a>
+    </div>
+    <div class="hero-photo-frame">
+      <img class="hero-photo" src="https://images.pexels.com/photos/5812313/pexels-photo-5812313.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Barber pracujący precyzyjnie nad klientem w eleganckim, nowoczesnym wnętrzu" width="940" height="650">
+    </div>
+  </div>
+</section>
+
+<section class="stats-strip">
+  <div class="wrap stats-inner">
+    <div class="stat"><b>9 lat</b><span>doświadczenia w obsłudze klientów biznesowych i hotelowych</span></div>
+    <div class="stat"><b>60+</b><span>zrealizowanych zleceń dla firm i hoteli</span></div>
+    <div class="stat"><b>12</b><span>hoteli i apartamentów ze stałą umową na terenie miasta {{MIASTO}}</span></div>
+  </div>
+</section>
+
+<section id="proces">
+  <div class="wrap">
+    <span class="eyebrow">Organizacja zlecenia</span>
+    <h2>Od zapytania do rozliczenia</h2>
+    <p class="lead">Zakres, skład ekipy i termin rozliczenia ustalamy, zanim barberzy pojawią się na miejscu — bez niedomówień po fakcie.</p>
+    <div class="process-row">
+      <div class="process-step">
+        <span class="roman">I</span>
+        <h3>Zapytanie i briefing</h3>
+        <p>Poznajemy charakter wydarzenia, liczbę uczestników i oczekiwany standard obsługi.</p>
+      </div>
+      <div class="process-step">
+        <span class="roman">II</span>
+        <h3>Dobór zespołu i grafiku</h3>
+        <p>Ustalamy skład ekipy barberów oraz harmonogram pracy dopasowany do przebiegu wydarzenia.</p>
+      </div>
+      <div class="process-step">
+        <span class="roman">III</span>
+        <h3>Realizacja na miejscu</h3>
+        <p>Stanowisko grooming rozstawiamy w hotelu, biurze lub miejscu wydarzenia — bez wysyłania gości do salonu.</p>
+      </div>
+      <div class="process-step">
+        <span class="roman">IV</span>
+        <h3>Rozliczenie i raport</h3>
+        <p>Faktura na dane firmy oraz krótkie podsumowanie zrealizowanych usług.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="realizacje" style="background:var(--surface);">
+  <div class="wrap">
+    <span class="eyebrow">Zrealizowane zlecenia</span>
+    <h2>Jak to wygląda w praktyce</h2>
+    <p class="lead">Dwa zlecenia z ostatnich miesięcy, o skali i charakterze zbliżonym do większości zapytań, jakie do nas trafiają.</p>
+
+    <div class="case-row">
+      <img class="case-photo" src="https://images.pexels.com/photos/16553361/pexels-photo-16553361.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Klient korzystający ze stanowiska grooming podczas eventu firmowego" width="940" height="650" loading="lazy">
+      <div class="case-copy">
+        <span class="case-metric">40+ obsłużonych gości w 2 dni</span>
+        <h3>Event firmowy — stanowisko grooming w hotelu</h3>
+        <p>Stałe stanowisko barberskie podczas dwudniowej konferencji branżowej — porządkowanie zarostu i szybkie odświeżenie fryzury między sesjami, bez opuszczania budynku hotelu.</p>
+      </div>
+    </div>
+
+    <div class="case-row rev">
+      <img class="case-photo" src="https://images.pexels.com/photos/27691945/pexels-photo-27691945.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Grupa mężczyzn przygotowujących się do ślubu przed lustrem" width="940" height="650" loading="lazy">
+      <div class="case-copy">
+        <span class="case-metric">6-osobowa ekipa w jeden poranek</span>
+        <h3>Drużyna pana młodego — przygotowanie przed ślubem</h3>
+        <p>Wspólne przygotowanie pana młodego i świadków w dniu ceremonii — skoordynowane strzyżenia i stylizacja brody, zrealizowane na miejscu w hotelu.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trust">
+  <div class="wrap center">
+    <span class="eyebrow">Nasi klienci</span>
+    <h2>Firmy i instytucje, z którymi pracujemy</h2>
+    <div class="trust-row">
+      <span class="trust-badge"><span class="mark">—</span> Hotele i apartamenty</span>
+      <span class="trust-badge"><span class="mark">—</span> Agencje eventowe</span>
+      <span class="trust-badge"><span class="mark">—</span> Firmy przed sesją wizerunkową</span>
+      <span class="trust-badge"><span class="mark">—</span> Organizatorzy ślubów</span>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <span class="eyebrow">Zanim złożysz zapytanie</span>
+    <h2>Kwestie organizacyjne</h2>
+    <div class="faq-list">
+      <details open>
+        <summary>Czy dojeżdżacie z ekipą na miejsce wydarzenia?</summary>
+        <p>Tak, stanowisko grooming rozstawiamy w hotelu, biurze lub innej wskazanej lokalizacji na terenie miasta {{MIASTO}} i okolic.</p>
+      </details>
+      <details>
+        <summary>Ile osób może obsłużyć jedna ekipa w ciągu dnia?</summary>
+        <p>Zależnie od zakresu usługi zwykle od kilkunastu do kilkudziesięciu osób — dokładną liczbę ustalamy na etapie wyceny.</p>
+      </details>
+      <details>
+        <summary>Jak rozliczacie zlecenia z hotelami i agencjami eventowymi?</summary>
+        <p>Fakturą na dane firmy lub agencji, wystawianą po zakończeniu zlecenia — razem z nią przekazujemy krótkie podsumowanie zakresu i liczby obsłużonych osób.</p>
+      </details>
+      <details>
+        <summary>Kiedy najpóźniej zgłosić termin ślubu lub konferencji?</summary>
+        <p>Soboty w sezonie ślubnym i większe konferencje blokujemy z kilkumiesięcznym wyprzedzeniem — im wcześniej dostaniemy datę, tym pewniej zarezerwujemy dla niej cały zespół.</p>
+      </details>
+      <details>
+        <summary>Czy zespół obsługuje zlecenia poza miastem {{MIASTO}}?</summary>
+        <p>Przy większych zleceniach tak — dojazd, a przy dłuższych wydarzeniach także nocleg ekipy, wliczamy wtedy do wyceny, bez dopłat ujawnianych dopiero na miejscu.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt" class="contact">
+  <div class="wrap center">
+    <span class="eyebrow">Kontakt</span>
+    <h2>Zapytanie o obsługę wydarzenia</h2>
+    <p class="lead">Opisz charakter wydarzenia lub zakres umowy — odezwiemy się najpóźniej następnego dnia roboczego z konkretną propozycją terminu.</p>
+  </div>
+  <form class="contact-form-full" id="quoteForm">
+    <div class="grid2">
+      <div>
+        <label for="nazwa">Nazwa firmy / wydarzenia</label>
+        <input type="text" id="nazwa" name="nazwa" placeholder="np. Konferencja branżowa, ślub Anny i Marka" required>
+      </div>
+      <div>
+        <label for="osoby">Liczba osób</label>
+        <input type="text" id="osoby" name="osoby" placeholder="np. 20" required>
+      </div>
+    </div>
+    <label for="termin">Termin</label>
+    <input type="text" id="termin" name="termin" placeholder="Proponowana data lub zakres dat">
+    <label for="wiadomosc">Wiadomość</label>
+    <textarea id="wiadomosc" name="wiadomosc" placeholder="Krótki opis wydarzenia lub zakresu współpracy..." required></textarea>
+    <button type="submit" class="btn btn-solid">Wyślij zapytanie o termin</button>
+  </form>
+  <ul class="contact-info-strip">
+    <li><b>Telefon</b><a href="tel:{{TELEFON}}">{{TELEFON}}</a></li>
+    <li><b>E-mail</b><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></li>
+    <li><b>Adres</b>{{ADRES}}, {{MIASTO}}</li>
+    <li><b>Pon–Pt</b>{{GODZINY_PON_PT}}</li>
+    <li><b>Sobota</b>{{GODZINY_SOB}}</li>
+  </ul>
+  <iframe class="map-embed" src="https://www.google.com/maps?q={{ADRES}}, {{MIASTO}}&output=embed" title="Mapa dojazdu do {{NAZWA_STRONY}} w mieście {{MIASTO}}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;"></iframe>
+</section>
+
+<footer>
+  <div class="footer-logo">{{NAZWA_STRONY}}</div>
+  <p class="footer-line">Grooming na miejscu — konferencje, hotele, śluby i sesje wizerunkowe na terenie miasta {{MIASTO}}.</p>
+  <div class="footer-bottom">© <span id="year"></span> {{NAZWA_STRONY}}</div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const navToggle = document.getElementById('navToggle');
+  const navLinksMobile = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    navLinksMobile.classList.toggle('open');
+  });
+  navLinksMobile.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinksMobile.classList.remove('open'));
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.case-row, .trust-badge').forEach(el => io.observe(el));
+
+  const form = document.getElementById('quoteForm');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    form.innerHTML = '<p style="font-weight:600;color:var(--accent-dark);">Wiadomość dotarła. Odezwiemy się najpóźniej następnego dnia roboczego z propozycją terminu rozmowy. W sprawach pilnych: <a href="tel:{{TELEFON}}">{{TELEFON}}</a>.</p>';
+  });
+</script>
+
+</body>
+</html>
