@@ -42,6 +42,35 @@ warianty mogłyby zamienić się tekstami bez utraty sensu, coś jest nie tak.
 - Cała treść (poza sekcją "zaufali nam" i imieniem właściciela) ma być **gotowa do publikacji**,
   nie oznaczona jako przykładowa.
 
+## Storytelling — brak tego był realnym zgłoszeniem (Artur, 2026-09-01, pilot Fryzjer/Barber)
+
+Zgłoszenie wprost: "brakuje mi takiego storytellingu na tych stronach... taki suchy barber Kraków
+i zero opowieści o firmie." Diagnoza: treść była poprawna gramatycznie i zgodna z checklistą
+ZASADY.md, ale **funkcjonalnie pusta** — eyebrow/H1/lead czytały się jak metadane SEO ("Barber —
+Kraków", "Usługi — Kraków"), nie jak coś napisane przez człowieka, który prowadzi tę firmę.
+Poprawność wobec ZASADY.md (gramatyka, brak fikcyjnych referencji) to warunek konieczny, nie
+wystarczający — to nie zwalnia z napisania realnej opowieści.
+
+**Konkretnie wymagane w KAŻDYM wariancie** (nie tylko w archetypie "Rodzinna firma", choć tam
+najsilniej):
+- Sekcja "o nas"/historia musi zawierać **konkretną, dotykalną narrację**, nie tylko fakty w
+  punktach: nie "12 lat doświadczenia" jako goły fakt, tylko fakt osadzony w zdaniu, które brzmi
+  jak opowiedziane przez właściciela (np. nie "Świadczymy usługi od 2012 roku", tylko coś w
+  rodzaju "Zaczynałem w 2012 roku od jednego fotela wynajętego na godziny — dziś jest ich pięć, a
+  część klientów pamiętam z tamtego pierwszego roku").
+- Eyebrow/H1/lead w hero NIE mogą być czystą etykietą kategorii+lokalizacji ("Barber — Kraków",
+  "Fryzjer/Barber Kraków — Rezerwacja online"). Dopuszczalne jako *techniczny* eyebrow (mały,
+  drugorzędny, dla SEO/orientacji), ale H1 i lead muszą nieść realną treść/punkt widzenia, nie
+  duplikować tej etykiety innymi słowami.
+- Unikaj rejestru "broszury korporacyjnej uogólnionej pod każdą branżę" — zdania, które
+  brzmiałyby identycznie w dowolnej branży po zmianie jednego rzeczownika, są dokładnie tym
+  problemem, niezależnie od tego, czy to wariant 1 czy 5.
+- Wariant premium/korporacyjny NIE jest zwolniony z opowieści — formalny rejestr (patrz niżej) nie
+  znaczy bezosobowy. Nawet rejestr B2B może nieść konkretną historię/punkt widzenia, tylko
+  ubraną w spokojniejszy ton.
+- Jeśli po napisaniu tekstu potrafisz go sobie wyobrazić jako podpis pod stockowym zdjęciem w
+  banku reklam — to jest sygnał, że brakuje konkretu i trzeba przepisać.
+
 ## Różnicowanie tonu — to jest sedno zadania
 
 Dopasuj rejestr do charakterystyki wariantu, nie do bezpiecznego środka:

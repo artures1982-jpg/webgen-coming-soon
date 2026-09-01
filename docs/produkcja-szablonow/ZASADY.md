@@ -178,6 +178,13 @@ Wyjątek: wariant 6 celowo nie ma mapy.
   sens fotografii znika. Sprawdź to **wizualnie**, nie tylko w kodzie.
 - Ciemny/neonowy styl **nie zwalnia** z wymogu prawdziwej fotografii — sama gradientowa
   poświata i glassmorphism to za mało (zgłoszone: „to nie może tak wyglądać").
+- **Zawsze curl-zweryfikuj finalny URL zdjęcia przed wklejeniem do pliku**, nie tylko obejrzyj
+  stronę pexels.com/photo/... w przeglądarce — ID w adresie strony Pexela czasem NIE odpowiada
+  faktycznemu ID pliku w CDN (`images.pexels.com/photos/<ID>/pexels-photo-<ID>.jpeg` zwraca 404
+  mimo że strona z tym ID istnieje i wygląda poprawnie). Sprawdzenie: `curl -s -o /dev/null -w
+  '%{http_code}\n' '<pełny URL z parametrami>'` musi zwrócić 200. Znaleziony realnie na pilocie
+  Remonty (ID 3284980 renderował się poprawnie na stronie Pexela, ale jego CDN URL dawał 404 —
+  obraz nie ładował się w karcie, tylko pokazywał alt-text).
 
 ### Naprawione: powtarzalność zdjęć między wariantami
 
