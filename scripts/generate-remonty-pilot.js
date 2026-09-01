@@ -233,22 +233,33 @@ WYCISZONY RUCH (świadomy wyjątek od nowego progu ruchu dla wariantów 2+, patr
 jednorazowy fade-in przy scrollu na liście/kartach, zero ambientowego glow w tle, zero
 shimmer na CTA. WYMÓG prefers-reduced-motion: fade-in musi mieć natychmiastowy stan końcowy.
 
-PALETA (zablokowane, sprawdzone grepem że nie kolidują z żadnym wariantem w systemie): --bg
-ciepły, jasny "glina/piasek" (WYRAŹNIE cieplejszy i bardziej nasycony niż chłodne
-stalowo-szare remonty-1 #eef2f3 — np. #f2e6d8), --surface głębsza, cieplejsza karta (np.
-#e8d7c2), --accent ceglasta czerwień (np. #a14a3a — cegła, materiał budowlany, inna rodzina niż
-istniejące terakoty/pomarańcze w systemie — sprawdź konkretnie odległość od #c1613a i #a85c32),
---accent-dark głębszy ceglasty brąz (np. #7a3327), --text ciepły ciemny brąz, --muted stonowany
-ciepły szaro-brąz.
+PALETA — POPRAWKA 2026-09-01 (Artur: "kolorystyka taka sama jak w poprzednich a miało tak nie
+być"): pierwsza wersja (ceglasta czerwień #a14a3a na ciepłej glinie #f2e6d8) była technicznie
+inna liczbowo od reszty systemu, ale PERCEPCYJNIE wpadała w ten sam rejestr "ciepła kremowa +
+czerwono-ceglasty/terakotowy akcent" co fryzjer-barber-1 (bordo/kamienny beż) i
+hydraulik-4-rodzinna-firma (terakota/ivory) — sam numer hex nie wystarczy, jeśli nastrój na oko
+jest ten sam. Poprawiona paleta (zablokowana): --bg zneutralizowany, stonowany szaro-beż z
+lekkim zielonym odcieniem (NIE różowo-pomarańczowa glina — np. #e6e3d5), --surface głębszy
+stonowany szaro-beż (np. #d9d4c0), --accent oliwkowo-musztardowy brąz-zieleń (np. #7d6b2e —
+genuinie inna rodzina barw niż WSZYSTKIE dotychczasowe czerwienie/terakoty/pomarańcze w
+systemie, i inna niż istniejące zielenie sage/forest #6b8f5e/#3f6b4a — bardziej żółto-zielony,
+"oliwkowy", nie "leśny"), --accent-dark głębsza oliwka (np. #574a1f), --text ciemny
+oliwkowo-brązowy, --muted stonowany szaro-brąz.
 TYPOGRAFIA: nagłówki ciepły literacki serif (np. Spectral — nieużyty jeszcze w systemie), tekst
 czytelny sans (np. Be Vietnam Pro — nieużyty jeszcze w systemie). Zweryfikuj grepem.
 
-ZDJĘCIE (już wyszukane, zero kolizji ID): dwóch uśmiechniętych pracowników budowlanych w
-identycznych kombinezonach roboczych, ciepła, autentyczna scena — wspiera narrację "stała
-ekipa, nie przypadkowi ludzie":
-https://images.pexels.com/photos/3879758/pexels-photo-3879758.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
-Użyte w hero (duży kadr) i w kontakcie (mniejszy) — ten sam powtarzalny wzorzec co
-hydraulik-4/elektryk-4/fryzjer-4/studio-4.
+ZDJĘCIA — POPRAWKA 2026-09-01 (Artur: "zdjęcie powtarza się na całej stronie tylko jedno"):
+jedno zdjęcie użyte identycznie w hero+ekipa+kontakt czytało się jako lenistwo, nie spójność.
+Teraz DWA różne, tematycznie spójne zdjęcia:
+- HERO + KONTAKT (mały kadr) — dwóch uśmiechniętych pracowników w identycznych kombinezonach,
+  spokojna, portretowa scena: https://images.pexels.com/photos/3879758/pexels-photo-3879758.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- SEKCJA "POZNAJ NASZĄ EKIPĘ" — inne, dynamiczne zdjęcie: dwóch roześmianych pracowników na
+  budowie w kaskach i kamizelkach, energiczna scena "przy pracy" (kontrast wobec spokojnego
+  zdjęcia hero — ta sama ekipa, inny moment):
+  https://images.pexels.com/photos/38706757/pexels-photo-38706757.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+Powtórzenie hero→kontakt (to samo zdjęcie, mniejszy kadr) zostaje — to ustalony wzorzec
+hydraulik-4/elektryk-4/fryzjer-4/studio-4 i nie było tym, co Artur zgłosił; problemem było
+DOKŁADNIE TO SAMO zdjęcie w PEŁNOWYMIAROWEJ sekcji "ekipa" tuż pod hero.
 
 LAYOUT — inny mechanizm niż remonty-1/2/3 i sprawdź konkretne mechanizmy hydraulik-4/
 elektryk-4/fryzjer-4 (przeczytaj wszystkie trzy) zanim zaprojektujesz:
