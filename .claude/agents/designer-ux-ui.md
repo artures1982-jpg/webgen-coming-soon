@@ -141,9 +141,17 @@ duch archetypu 4 wyraźnie odbiega od tego wzorca (rzadkie, ale możliwe), zapis
 4. **Karty/siatki z treścią** (usługi, realizacje, FAQ-poprzedzające sekcje) dostają jednorazowy
    fade-in przy scrollu, najlepiej stopniowany (`transition-delay` per karta) zamiast wszystkich
    naraz — to tani, uniwersalny efekt bez ryzyka przesady.
+5. **Karta ze scenariuszem/usługą/realizacją dostaje prawdziwe zdjęcie, nie sam emoji/ikonę.**
+   To wystąpiło jako realny brak DWA razy z rzędu (remonty-2: karty "Naprawimy szybko" tylko z
+   emoji; salon-fryzjerski-2: karty "Dla zapracowanych" tylko z emoji) — za każdym razem
+   wymagało osobnej rundy poprawek po zgłoszeniu przez Artura. Emoji/ikona zostaje jako mały
+   badge NA zdjęciu (róg karty), nie zastępuje go. Jeśli karta opisuje konkretny, namacalny
+   scenariusz (typ usługi, pora dnia, rodzaj klienta) — daje się do niej dobrać realne zdjęcie
+   z Pexels; brak zdjęcia w takiej karcie to teraz błąd do złapania na etapie projektowania,
+   nie coś do poprawienia dopiero po pytaniu użytkownika.
 Dopiero POWYŻEJ tego minimum obowiązuje ostrożność "nie wszystkiego naraz" z akapitu wyżej —
-ale sam ten zestaw (glow w tle + shimmer CTA + reakcja na interakcję + stopniowany fade-in kart)
-to punkt wyjścia, nie sufit, dla każdego wariantu 2+.
+ale sam ten zestaw (glow w tle + shimmer CTA + reakcja na interakcję + stopniowany fade-in kart
++ prawdziwe zdjęcia w kartach) to punkt wyjścia, nie sufit, dla każdego wariantu 2+.
 
 **Warunki brzegowe, których nie wolno pominąć:**
 - **`prefers-reduced-motion`**: każda nietrywialna animacja (nie zwykłe `:hover` transition) MUSI
