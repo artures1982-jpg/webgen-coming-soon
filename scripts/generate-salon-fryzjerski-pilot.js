@@ -147,4 +147,66 @@ ciemne warianty żeby nie powielić marquee+hi-vis+ciemne tło 1:1):
 8. Stopka: jasna, prosta.`,
 });
 
+VARIANTS.push({
+  id: 'salon-fryzjerski-3-wybierz-stylistke',
+  tier: 'pro',
+  name: 'Nowoczesny cyfrowy',
+  visual: `STYL: adaptacja archetypu "Nowoczesny cyfrowy" — w innych branżach to widget rezerwacji
+dzień+godzina jako primary CTA (studio-paznokci-3, fryzjer-barber-3, remonty-3-kalkulator). Dla
+tego salonu — INNY MECHANIZM niż wszystkie trzy: widget DWUETAPOWY — najpierw wybierasz
+KONKRETNEGO stylistę (nie tylko termin), potem dopiero jego/jej wolne godziny. Duch: "u nas nie
+trafiasz do przypadkowej osoby — wybierasz kogoś, kto specjalizuje się dokładnie w tym, czego
+potrzebujesz (koloryzacja / strzyżenie męskie / stylizacja ślubna itd.)".
+
+WAŻNE OGRANICZENIE: stylistki/styliści w widgecie to WYMYŚLONE persony (imię + specjalizacja)
+do celów demo, nie prawdziwe zdjęcia z twarzami podpisane jako personel — użyj kolorowych
+awatarów-inicjałów (jak w opiniach wariantu 1), NIE prawdziwych zdjęć twarzy z Pexels
+podpisanych imieniem. To unika problemu "fabrykowania tożsamości" przy prawdziwych zdjęciach
+stockowych (ten sam powód co ograniczenie przy zdjęciu w remonty-4/fryzjer-barber-4).
+
+Trzeci wariant tej branży — różnicowanie względem salon-fryzjerski-1 (ciepłe ivory/teal, hero
+magazynowy) i salon-fryzjerski-2 (jasne złoto/kremowa biel, marquee). Ten wariant ciemny, w
+świeżej rodzinie barw.
+
+WYMAGANY RUCH (obowiązkowy próg wariantów 2+): jednorazowy fade-in kart, statyczna hover-only
+poświata na chipach stylistów/godzin (bez pętli — to zgodne z konwencją "cyfrowy, appkowy"
+archetypu, inne warianty tego archetypu w systemie też ograniczają się do fade-in+hover, nie
+ambientowego glow w tle — zachowaj tę spójność w obrębie samego archetypu 3).
+
+PALETA (zablokowane, sprawdzone grepem że nie kolidują z żadnym wariantem w systemie): --bg
+ŚREDNIO-ciemny (nie kolejny "prawie czarny") ciepły mauve-plum (np. #3a1f2e — świeża rodzina,
+różowo-fioletowa, cieplejsza niż indygo remonty-3 #221f42, jaśniejsza niż wszystkie "prawie
+czarne" warianty archetypu 3 w systemie), --surface jaśniejszy mauve (np. #4a2a3a), --accent
+żywy koralowy róż-pomarańcz (np. #ff7a5c — świeża rodzina, inna niż magenta #ff4d8f, inna niż
+brick #a14a3a, inna niż czyste czerwono-pomarańcze #e0361c/#ff5a1f), --accent-dark głębszy
+koralowy (np. #cc5a3f), --text ciepła kremowa biel, --muted stonowany dusty mauve-róż.
+TYPOGRAFIA: nagłówki elegancki display serif (np. DM Serif Display — nieużyty jeszcze w
+systemie), tekst czytelny geometryczny sans (np. Schibsted Grotesk — nieużyty jeszcze w
+systemie). Zweryfikuj grepem przed finalizacją.
+
+ZDJĘCIE (już wyszukane, zero kolizji ID): nowoczesne, eleganckie wnętrze salonu — marmurowa
+podłoga, przemysłowo-designerskie oświetlenie, bez widocznych logo/marek:
+https://images.pexels.com/photos/7195807/pexels-photo-7195807.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+Użyte jako mniejszy inset w hero (obok/za widgetem), nie jako dominujące tło.
+
+LAYOUT — inny mechanizm niż salon-fryzjerski-1/2 i inny niż studio-paznokci-3/fryzjer-barber-3/
+remonty-3 (sprawdź wszystkie trzy przed projektowaniem — żadna nie ma dwuetapowego
+stylista→termin, wszystkie mają płaski widget dzień+godzina):
+1. Nav: ciemna, CTA "Umów u wybranej osoby" pigułka.
+2. Hero: 2 kolumny — lewo tekst, prawo WIDGET: krok 1 — pozioma lista 4 chipów-awatarów
+   stylistów (kolorowy okrąg z inicjałem + imię + specjalizacja pod spodem), klik zaznacza
+   wybór; krok 2 — po zaznaczeniu pojawia się (lub jest zawsze widoczna, podświetlona po
+   wyborze) siatka chipów godzin DLA TEJ OSOBY. Zdjęcie salonu jako mały inset w rogu/za
+   widgetem.
+3. Sekcja storytelling: dlaczego wybór konkretnej osoby ma znaczenie (konkretny scenariusz —
+   np. klientka szukająca kogoś z doświadczeniem w balayage, nie przypadkowej osoby z grafiku),
+   fade-in.
+4. Sekcja "Poznaj zespół": 4 karty stylistów (te same awatary co w widgecie, większe, z krótkim
+   opisem specjalizacji i lat doświadczenia) — fade-in stopniowany.
+5. Sekcja zaufania: statystyka + jeden cytat w stylu dymka czatu.
+6. FAQ — accordion, ciemna stylistyka.
+7. Kontakt: skrót wyboru z widgetu (jeśli dokonany) + telefon + dane + mapa.
+8. Stopka: ciemna, minimalna.`,
+});
+
 module.exports = { VARIANTS, SAMPLE_TOKENS };
