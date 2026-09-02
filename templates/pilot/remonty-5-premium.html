@@ -135,6 +135,8 @@
     .nav-links-mobile.open{display:flex;}
     .nav-links-mobile a{padding:.8rem 0;font-weight:500;border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
     .proces-steps{grid-template-columns:1fr;}
+    .nav-actions > .btn{display:none;}
+    .nav-links-mobile .mobile-cta{color:var(--accent);}
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -168,6 +170,7 @@
     </div>
   </div>
   <nav class="nav-links-mobile" id="navLinks">
+    <a href="#kontakt" class="mobile-cta">Umów konsultację</a>
     <a href="#realizacje">Realizacje</a>
     <a href="#proces">Jak pracujemy</a>
     <a href="#zaufanie">Klienci</a>

@@ -122,6 +122,8 @@
     .nav-links-mobile{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);flex-direction:column;padding:.5rem 1.5rem 1.2rem;gap:.2rem;}
     .nav-links-mobile.open{display:flex;}
     .nav-links-mobile a{padding:.8rem 0;font-weight:600;border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+    .nav-actions > .btn{display:none;}
+    .nav-links-mobile .mobile-cta{color:var(--accent);}
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -154,6 +156,7 @@
     </div>
   </div>
   <nav class="nav-links-mobile" id="navLinks">
+    <a href="tel:{{TELEFON}}" class="mobile-cta">Zadzwoń: {{TELEFON}}</a>
     <a href="#ekipa">Nasza ekipa</a>
     <a href="#uslugi">Usługi</a>
     <a href="#faq">FAQ</a>
