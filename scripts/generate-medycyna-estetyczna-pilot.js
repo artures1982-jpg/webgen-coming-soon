@@ -232,4 +232,57 @@ wartość kliniczna, nie tylko miła atmosfera), prosta lista usług (nie karty/
 poprzednich wariantach), opinie, FAQ, kontakt z mapą.`,
 });
 
+VARIANTS.push({
+  id: 'medycyna-estetyczna-5-program-indywidualny',
+  tier: 'premium',
+  name: 'Program indywidualny',
+  visual: `STYL: adaptacja archetypu "Premium/korporacyjny" dla medycyny estetycznej — OSTATNI,
+piąty wariant tej branży. W innych branżach ten archetyp często idzie w B2B (firmy, hotele,
+eventy) — dla medycyny estetycznej to nienaturalne (skóra to indywidualna sprawa pacjenta, nie
+"grooming eventowy dla zespołu"). Zamiast tego: DŁUGOTERMINOWY, INDYWIDUALNY PROGRAM OPIEKI
+prowadzony przez jednego, starszego/wiodącego lekarza — ograniczona liczba pacjentów w programie,
+priorytetowe terminy, plan pielęgnacyjny rozpisany na miesiące/lata (nie pojedyncze zabiegi
+"z ulicy"), dyskrecja. To najbliższe koncepcyjnie salon-fryzjerski-5-premium.html ("prywatny
+gabinet stylisty", ograniczona liczba klientów dziennie, formularz zapytania zamiast telefonu) —
+przeczytaj go WYŁĄCZNIE jako inspirację mechaniki (stats-strip, formularz zapytania jako primary
+CTA, rejestr zaufania), NIGDY jako bazę do kopiowania wizualnego — Twoja wersja musi mieć inny
+mechanizm wizualny każdej sekcji.
+
+KRYTYCZNE OGRANICZENIE PRAWNO-ETYCZNE (patrz też brief wariantu 1/2/3/4 tej branży): żadnych
+zdjęć/opisów "przed i po" jako dowodu efektu, żadnych gwarancji rezultatu nawet w kontekście
+"programu premium". Ekskluzywność wyraża się przez UWAGĘ/CZAS/CIĄGŁOŚĆ (jeden lekarz, limitowana
+liczba pacjentów, plan rozpisany na dłuższy czas), NIE przez obietnicę lepszych/pewniejszych
+efektów niż w zwykłym gabinecie — to rozróżnienie jest ważne i musi być utrzymane w każdym
+zdaniu marketingowym.
+
+MOTION — konwencja premium w całym systemie: wyciszony, precyzyjny ruch. WYŁĄCZNIE jednorazowy
+fade-in+translateY na kartach/wierszach przy scrollu, zero pętli/keyframes/glow w tle/shimmeru.
+Zapisz to jawnie w komentarzu HTML przy :root.
+
+PALETA — sprawdź grepem że nie koliduje z ŻADNYM wariantem w systemie, w tym: warianty 1-4 tej
+branży (plum/kość słoniowa, róż-mauve/węgiel, indygo/lód, terakota/krem) ORAZ inne premium warianty
+w systemie (hydraulik-5 granat/biel, elektryk-5 terakota/szary, fryzjer-barber-5 czerń/mosiądz,
+studio-paznokci-5 achromatyczny écru, remonty-5 chłodny szaro-niebieski na ciemnym slate,
+salon-fryzjerski-5 szmaragd/champagne). Zaproponuj coś chłodnego i klinicznie-premium, czego jeszcze
+nie ma — np. głęboki onyks/prawie-czarny z chłodnym, stonowanym akcentem platynowo-srebrnym LUB
+szaro-zielonym (NIE złoto/mosiądz — to już zajęte 3x w systemie; NIE ten sam odcień szaro-
+niebieskiego co remonty-5). TYPOGRAFIA: zweryfikuj grepem że fonty nieużyte nigdzie w systemie
+(włącznie z Piazzolla/Wix Madefor Text, Alegreya/Commissioner, Geologica/Sen, Frank Ruhl
+Libre/Manrope z wariantów 1-4 tej branży).
+
+ZDJĘCIA: świadomie ogranicz do minimum lub zera — ten wariant może być tekstowo-edytorialny
+(patrz salon-fryzjerski-5 jako inspiracja mechaniki: hero bez zdjęcia, panoramiczny pas zdjęcia
+wnętrza osobno). Jeśli chcesz zdjęcie, wybierz z już zweryfikowanych w tej branży (11024139,
+34220297, 34159000, 33032998) żeby uniknąć ryzyka nowego 404 — sprawdź, że nie powtarza się z
+wariantem, w którym już jest użyte. Jeśli żadne nie pasuje i wolisz zero zdjęć — to w pełni
+uzasadniony wybór dla tego wariantu.
+
+LAYOUT — inny mechanizm niż warianty 1-4 tej branży: formularz zapytania (nie telefon) jako
+primary CTA w sekcji kontakt, sekcja "jak wygląda program" jako proces (konsultacja → plan →
+regularne wizyty → przegląd i korekta planu), rejestr zaufania (liczby: lata praktyki lekarza
+prowadzącego, limit pacjentów w programie, częstotliwość przeglądu planu — bez żadnych liczb
+sugerujących gwarantowany efekt), cennik jako pakiety programu (nie pojedyncze zabiegi jak w
+wariancie 1), FAQ, kontakt z formularzem + mapą.`,
+});
+
 module.exports = { VARIANTS, SAMPLE_TOKENS };

@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GlowMed — program indywidualny, Kraków | zgłoszenie do programu</title>
+<meta name="description" content="GlowMed — długoterminowy, indywidualny program opieki estetycznej prowadzony przez jednego lekarza w mieście Kraków. Ograniczona liczba miejsc, priorytetowe terminy, plan rozpisany na miesiące i lata. Zgłoszenie przez formularz.">
+<meta name="keywords" content="program indywidualny medycyna estetyczna Kraków, prywatna opieka estetyczna Kraków, lekarz prowadzący medycyna estetyczna Kraków">
+<link rel="canonical" href="https://glowmed-krakow.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GlowMed — program indywidualny, Kraków">
+<meta property="og:description" content="Długoterminowy program opieki prowadzony przez jednego lekarza, ograniczona liczba miejsc, w mieście Kraków. Zgłoszenie przez formularz.">
+<meta property="og:url" content="https://glowmed-krakow.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"MedicalBusiness","name":"GlowMed","telephone":"500 123 456","email":"kontakt@glowmed.pl","description":"GlowMed — długoterminowy, indywidualny program opieki estetycznej w mieście Kraków, prowadzony przez jednego lekarza, ograniczona liczba miejsc","address":{"@type":"PostalAddress","addressLocality":"Kraków","addressCountry":"PL"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600;700&family=Libre+Franklin:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* MOTION-BASELINE PREMIUM (piąty, ostatni wariant tej branży — konwencja archetypu 5 w całym
+     systemie, patrz .claude/agents/designer-ux-ui.md i salon-fryzjerski-5-premium.html jako
+     punkt odniesienia mechaniki, NIE jako baza wizualna): ruch jest wyciszony i precyzyjny —
+     WYŁĄCZNIE jednorazowy fade-in+translateY na węzłach osi czasu, kaflach rejestru programu
+     i wierszu pull-quote, odpalany raz przy wejściu w viewport. Zero pętli, zero keyframes,
+     zero ambientowego glow w tle, zero shimmeru na CTA, zero pulsujących kropek/marquee — to
+     świadoma decyzja tier premium/edytorialnego dla medycyny estetycznej (spójna z ograniczeniem
+     prawno-etycznym: brak "sztuczek" wizualnych ma odzwierciedlać rzeczowy, nie marketingowy ton
+     treści). Pełny wariant prefers-reduced-motion niżej wyłącza nawet ten pojedynczy fade-in. */
+  :root{
+    --accent:#a7c2ac;
+    --accent-dark:#6e8577;
+    --bg:#141814;
+    --surface:#1e2420;
+    --text:#eef1ec;
+    --muted:#909a92;
+    --head:'EB Garamond', serif;
+    --body:'Libre Franklin', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3{font-family:var(--head);font-weight:600;line-height:1.18;color:var(--text);}
+  section{padding:5.5rem 1.5rem;}
+  .wrap{max-width:1140px;margin:0 auto;}
+  .eyebrow{display:inline-block;font-family:var(--body);font-weight:700;font-size:.76rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:.9rem;}
+  h2{font-size:clamp(1.85rem,3.3vw,2.5rem);margin-bottom:1rem;}
+  .lead{color:var(--muted);font-size:1.04rem;max-width:620px;}
+  .center{text-align:center;}
+  .center .lead{margin:0 auto;}
+
+  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.95rem 1.9rem;font-weight:600;font-family:var(--body);font-size:.9rem;letter-spacing:.03em;border:1.5px solid var(--accent);cursor:pointer;transition:background .2s ease, color .2s ease, border-color .2s ease, transform .15s ease;border-radius:2px;}
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{background:var(--accent);color:var(--bg);}
+  .btn-primary:hover{background:var(--accent-dark);border-color:var(--accent-dark);}
+  .btn-outline{background:transparent;color:var(--accent);}
+  .btn-outline:hover{background:var(--accent);color:var(--bg);}
+
+  /* ---------- NAV — flex prosty, hamburger dopiero <1080px (próg zmierzony realnie: 4 linki +
+     dłuższy CTA "Zgłoś się do programu" potrzebują ok. 1027px, więc próg 960px zostawiał poziomy
+     scroll w paśmie 961-1027px — podniesiony po skanie scrollWidth vs clientWidth 320-1000px,
+     patrz ZASADY.md 6.6), inny mechanizm niż grid-centrowane logo salon-fryzjerski-5 i inny niż
+     utility-bar tego samego wariantu — tu żadnego paska nad nawigacją ---------- */
+  header.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--bg) 94%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:1.15rem 1.5rem;gap:1.4rem;}
+  .logo{font-family:var(--head);font-weight:600;font-size:1.45rem;color:var(--text);white-space:nowrap;flex-shrink:0;}
+  .logo span{color:var(--accent);}
+  .nav-links-desktop{display:flex;gap:1.9rem;}
+  .nav-links-desktop a{font-weight:500;font-size:.87rem;letter-spacing:.01em;color:var(--muted);white-space:nowrap;transition:color .2s ease;}
+  .nav-links-desktop a:hover{color:var(--text);}
+  .nav-actions{display:flex;align-items:center;gap:1rem;flex-shrink:0;}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.4rem;flex-shrink:0;}
+  .nav-toggle span{width:22px;height:2px;background:var(--text);}
+  .nav-links-mobile{display:none;flex-direction:column;padding:.4rem 1.5rem 1.4rem;gap:0;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .nav-links-mobile.open{display:flex;}
+  .nav-links-mobile a{padding:.85rem 0;font-weight:600;font-size:.96rem;border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);color:var(--text);}
+  .nav-links-mobile a:last-child{border-bottom:none;}
+  .mobile-cta{color:var(--accent)!important;}
+
+  @media (max-width:1080px){
+    .nav-links-desktop{display:none;}
+    .nav-toggle{display:flex;}
+  }
+  @media (max-width:700px){
+    .nav-actions > .btn-outline{display:none;}
+  }
+  @media (max-width:420px){
+    .logo{font-size:1.25rem;}
+  }
+
+  /* ---------- HERO — split: tekst + edytorialny panel liczbowy (bez zdjęcia — patrz decyzja
+     "zero zdjęć" w komentarzu przy formularzu kontaktowym) ---------- */
+  .hero{padding-top:4.2rem;}
+  .hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:3.6rem;align-items:center;}
+  .hero-copy h1{font-size:clamp(2.05rem,3.7vw,2.85rem);margin-bottom:1.25rem;}
+  .hero-copy p{color:var(--muted);font-size:1.05rem;max-width:520px;margin-bottom:1.9rem;}
+  .hero-cta-row{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.4rem;}
+  .hero-note{font-size:.85rem;color:var(--muted);}
+
+  .snapshot{border:1px solid color-mix(in srgb, var(--accent) 35%, transparent);border-radius:6px;padding:2rem 2.1rem;background:var(--surface);}
+  .snapshot-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem;}
+  .snapshot-row{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:1.05rem 0;border-top:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .snapshot-row:first-of-type{border-top:none;padding-top:0;}
+  .snapshot-num{font-family:var(--head);font-size:1.7rem;color:var(--accent);white-space:nowrap;}
+  .snapshot-text{font-size:.85rem;color:var(--muted);text-align:right;max-width:190px;}
+
+  /* ---------- PASEK CTA POD HERO — statyczna, jednolinijkowa belka, nie marquee/nie sticky
+     (nowa technika z researchu rynkowego, ZASADY dla wariantów premium: wyciszony ruch = brak
+     animacji nawet tutaj, tylko stały, mocny akcent typograficzny) ---------- */
+  .cta-strip{background:var(--accent);color:var(--bg);}
+  .cta-strip .wrap{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding:1.15rem 1.5rem;}
+  .cta-strip p{font-weight:600;font-size:.95rem;}
+  .cta-strip .btn{border-color:var(--bg);color:var(--bg);}
+  .cta-strip .btn:hover{background:var(--bg);color:var(--accent);border-color:var(--bg);}
+
+  /* ---------- PROCES — pionowa oś czasu, węzły połączone linią (inny mechanizm niż poziomy
+     4-krok proces-row salon-fryzjerski-5 i niż karty-kroki innych wariantów tej branży) ---------- */
+  .timeline{margin-top:2.9rem;max-width:760px;position:relative;}
+  .timeline::before{content:"";position:absolute;left:23px;top:6px;bottom:6px;width:1px;background:color-mix(in srgb, var(--accent) 40%, transparent);}
+  .timeline-step{position:relative;display:flex;gap:1.6rem;padding-bottom:2.6rem;opacity:0;transform:translateY(16px);transition:opacity .55s ease, transform .55s ease;}
+  .timeline-step.visible{opacity:1;transform:translateY(0);}
+  .timeline-step:last-child{padding-bottom:0;}
+  .timeline-num{flex-shrink:0;width:47px;height:47px;border-radius:50%;background:var(--bg);border:1.5px solid var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-size:1.05rem;color:var(--accent);position:relative;z-index:1;}
+  .timeline-body h3{font-size:1.08rem;margin-bottom:.4rem;}
+  .timeline-body p{font-size:.92rem;color:var(--muted);max-width:520px;}
+
+  /* ---------- PULL-QUOTE EDYTORIALNY — zamiast zdjęcia, duże zdanie jako wizualna kotwica
+     sekcji o ciągłości opieki ---------- */
+  .continuity{background:var(--surface);}
+  .continuity-inner{max-width:880px;margin:0 auto;}
+  .pull-quote{border-left:2px solid var(--accent);padding-left:1.8rem;margin:2.4rem 0;opacity:0;transform:translateY(16px);transition:opacity .55s ease, transform .55s ease;}
+  .pull-quote.visible{opacity:1;transform:translateY(0);}
+  .pull-quote p{font-family:var(--head);font-weight:500;font-size:clamp(1.35rem,2.6vw,1.85rem);line-height:1.35;color:var(--text);}
+  .continuity p.body-text{margin-bottom:1.1rem;font-size:1rem;}
+  .continuity p.body-text:last-child{margin-bottom:0;}
+
+  /* ---------- REJESTR PROGRAMU — kafle rozdzielone pionowymi liniami, nie boksy z tłem
+     (inny mechanizm niż zaufanie-row salon-fryzjerski-5 i inny niż trust-grid v1/v4) ---------- */
+  .register{margin-top:2.9rem;display:grid;grid-template-columns:repeat(4,1fr);}
+  .register-tile{padding:0 1.6rem;border-left:1px solid color-mix(in srgb, var(--text) 14%, transparent);opacity:0;transform:translateY(16px);transition:opacity .5s ease, transform .5s ease;min-width:0;}
+  .register-tile:first-child{border-left:none;padding-left:0;}
+  .register-tile.visible{opacity:1;transform:translateY(0);}
+  .register-num{font-family:var(--head);font-size:2.1rem;color:var(--accent);display:block;margin-bottom:.6rem;line-height:1.05;}
+  .register-label{font-size:.78rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text);margin-bottom:.5rem;}
+  .register-desc{font-size:.85rem;color:var(--muted);}
+  .register-disclaimer{max-width:760px;margin:2.6rem auto 0;text-align:center;font-size:.86rem;color:var(--muted);border:1px solid color-mix(in srgb, var(--text) 14%, transparent);border-radius:6px;padding:1.15rem 1.5rem;}
+
+  /* ---------- PROGRAM — PAKIETY jako kolumny rozdzielone liniami, nie karty (inny mechanizm
+     niż pakiety-grid boksowe salon-fryzjerski-5 i niż price-line wariant 2 tej branży) --- */
+  .tiers{margin-top:2.9rem;display:grid;grid-template-columns:repeat(3,1fr);border:1px solid color-mix(in srgb, var(--text) 14%, transparent);border-radius:6px;overflow:hidden;}
+  .tier{padding:2.2rem 1.9rem;border-left:1px solid color-mix(in srgb, var(--text) 14%, transparent);min-width:0;}
+  .tier:first-child{border-left:none;}
+  .tier.featured{background:color-mix(in srgb, var(--accent) 10%, var(--bg));}
+  .tier-name{font-size:.76rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;}
+  .tier-price{font-family:var(--head);font-size:1.75rem;color:var(--accent);margin-bottom:1.1rem;}
+  .tier-price small{font-family:var(--body);font-size:.78rem;color:var(--muted);font-weight:500;display:block;margin-top:.3rem;}
+  .tier ul{display:flex;flex-direction:column;gap:.6rem;}
+  .tier li{font-size:.88rem;color:var(--muted);padding-left:1.1rem;position:relative;}
+  .tier li::before{content:"—";position:absolute;left:0;color:var(--accent);}
+  .tiers-disclaimer{max-width:760px;margin:2rem auto 0;text-align:center;font-size:.86rem;color:var(--muted);}
+
+  /* ---------- FAQ — akordeon z lewym akcentem "dossier", inny marker niż + w innych wariantach
+     tej branży, inny niż ◆ salon-fryzjerski-5 ---------- */
+  .faq-list{max-width:820px;margin:2.8rem auto 0;display:flex;flex-direction:column;gap:.75rem;}
+  details.faq-card{border-left:2px solid color-mix(in srgb, var(--text) 16%, transparent);background:var(--surface);padding:1.2rem 1.5rem;border-radius:0 4px 4px 0;transition:border-color .2s ease;}
+  details.faq-card[open]{border-left-color:var(--accent);}
+  details.faq-card summary{cursor:pointer;font-weight:600;font-family:var(--head);font-size:1.08rem;display:flex;justify-content:space-between;gap:1rem;align-items:center;list-style:none;}
+  details.faq-card summary::-webkit-details-marker{display:none;}
+  details.faq-card summary::after{content:"›";color:var(--accent);font-size:1.3rem;flex-shrink:0;transition:transform .2s ease;}
+  details.faq-card[open] summary::after{transform:rotate(90deg);}
+  details.faq-card p{color:var(--muted);margin-top:.9rem;font-size:.92rem;}
+
+  /* ---------- KONTAKT — split: formularz zgłoszeniowy (dossier-tab) + info/mapa ------- */
+  .kontakt{background:var(--surface);}
+  .kontakt-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:2.4rem;margin-top:2.8rem;align-items:start;}
+  .kontakt-form-wrap{position:relative;}
+  .kontakt-tab{position:absolute;top:-1px;left:1.8rem;transform:translateY(-100%);background:var(--accent);color:var(--bg);font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.5rem 1rem;border-radius:4px 4px 0 0;}
+  .kontakt-form{background:var(--bg);border:1px solid color-mix(in srgb, var(--accent) 35%, transparent);border-radius:4px;padding:2.1rem;}
+  .kontakt-form .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+  .kontakt-form label{display:block;font-size:.73rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;margin-top:1.05rem;}
+  .kontakt-form label:first-child, .kontakt-form .grid2 label:first-child{margin-top:0;}
+  .kontakt-form input, .kontakt-form textarea{width:100%;padding:.8rem 1rem;border-radius:2px;border:1px solid color-mix(in srgb, var(--text) 26%, transparent);font-family:var(--body);font-size:.94rem;background:var(--surface);color:var(--text);}
+  .kontakt-form input::placeholder, .kontakt-form textarea::placeholder{color:color-mix(in srgb, var(--muted) 80%, transparent);}
+  .kontakt-form textarea{resize:vertical;min-height:100px;}
+  .kontakt-form button{width:100%;justify-content:center;margin-top:1.5rem;}
+
+  .kontakt-side{display:flex;flex-direction:column;gap:1.4rem;}
+  .kontakt-info{background:var(--bg);border:1px solid color-mix(in srgb, var(--text) 14%, transparent);border-radius:4px;padding:1.6rem 1.8rem;display:flex;flex-direction:column;gap:.85rem;}
+  .kontakt-info div b{display:block;color:var(--muted);font-weight:600;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.15rem;}
+  .kontakt-info div{font-size:.92rem;}
+  .kontakt-map{border-radius:4px;overflow:hidden;border:1px solid color-mix(in srgb, var(--text) 14%, transparent);min-height:220px;filter:grayscale(.3) invert(.9) contrast(.9);}
+  .kontakt-map iframe{width:100%;height:100%;min-height:220px;border:0;display:block;}
+
+  footer{padding:2.6rem 1.5rem 2rem;text-align:center;border-top:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .footer-logo{font-family:var(--head);font-weight:600;font-size:1.15rem;margin-bottom:.55rem;}
+  footer p{font-size:.86rem;color:var(--muted);max-width:480px;margin:0 auto 1.1rem;}
+  .footer-links{display:flex;gap:1.4rem;justify-content:center;flex-wrap:wrap;font-size:.85rem;margin-bottom:1.1rem;}
+  .footer-links a:hover{color:var(--accent);}
+  .footer-bottom{font-size:.76rem;color:var(--muted);}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .timeline-step, .register-tile, .pull-quote{transition:none;opacity:1;transform:none;}
+    .btn:hover{transform:none;}
+  }
+
+  @media (max-width:960px){
+    .hero-grid{grid-template-columns:1fr;}
+    .snapshot{max-width:460px;}
+    .register{grid-template-columns:1fr 1fr;row-gap:2rem;}
+    .register-tile:nth-child(3){border-left:none;padding-left:0;}
+    .tiers{grid-template-columns:1fr;}
+    .tier{border-left:none;border-top:1px solid color-mix(in srgb, var(--text) 14%, transparent);}
+    .tier:first-child{border-top:none;}
+    .kontakt-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:700px){
+    section{padding:3.6rem 1.2rem;}
+    .cta-strip .wrap{padding:1rem 1.2rem;text-align:center;justify-content:center;}
+    .kontakt-form .grid2{grid-template-columns:1fr;}
+    .snapshot-text{max-width:150px;}
+  }
+  @media (max-width:480px){
+    .hero-copy p{max-width:none;}
+    .register{grid-template-columns:1fr;}
+    .register-tile{border-left:none;padding-left:0;border-top:1px solid color-mix(in srgb, var(--text) 14%, transparent);padding-top:1.4rem;}
+    .register-tile:first-child{border-top:none;padding-top:0;}
+    .timeline::before{left:19px;}
+    .timeline-num{width:39px;height:39px;font-size:.92rem;}
+    .kontakt-tab{left:1.2rem;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo">GlowMed<span>.</span></a>
+    <nav class="nav-links-desktop">
+      <a href="#proces">Jak działa program</a>
+      <a href="#ciaglosc">Dlaczego jeden lekarz</a>
+      <a href="#program">Program i cennik</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#kontakt" class="btn btn-outline">Zgłoś się do programu</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu nawigacji" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-links-mobile" id="navLinksMobile">
+    <a href="#kontakt" class="mobile-cta">Zgłoś się do programu</a>
+    <a href="#proces">Jak działa program</a>
+    <a href="#ciaglosc">Dlaczego jeden lekarz</a>
+    <a href="#program">Program i cennik</a>
+    <a href="#faq">FAQ</a>
+    <a href="tel:500 123 456">500 123 456</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Program indywidualny — Kraków</span>
+      <h1>Program opieki rozpisany na miesiące i lata — od pierwszej konsultacji do ostatniej wizyty prowadzi go ten sam lekarz.</h1>
+      <p>GlowMed przyjmuje do programu ograniczoną liczbę pacjentów. Zamiast pojedynczych wizyt „kiedy akurat jest wolny termin” — jeden lekarz prowadzący, priorytetowy dostęp do kalendarza i regularny przegląd planu. To nie obietnica lepszego efektu niż w zwykłym gabinecie — to obietnica uwagi i ciągłości.</p>
+      <div class="hero-cta-row">
+        <a href="#kontakt" class="btn btn-primary">Wyślij zgłoszenie do programu</a>
+        <a href="#proces" class="btn btn-outline">Zobacz, jak wygląda program</a>
+      </div>
+      <p class="hero-note">Zgłoszenia rozpatrujemy indywidualnie — liczba miejsc w programie jest ograniczona.</p>
+    </div>
+    <div class="snapshot">
+      <div class="snapshot-label">Program w skrócie</div>
+      <div class="snapshot-row"><span class="snapshot-num">1 lekarz</span><span class="snapshot-text">prowadzący dla każdego pacjenta programu, bez rotacji</span></div>
+      <div class="snapshot-row"><span class="snapshot-num">Limit miejsc</span><span class="snapshot-text">program przyjmuje ograniczoną liczbę pacjentów jednocześnie</span></div>
+      <div class="snapshot-row"><span class="snapshot-num">Co kwartał</span><span class="snapshot-text">regularny przegląd i, jeśli trzeba, korekta planu</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-strip">
+  <div class="wrap">
+    <p>Zgłoszenie do programu nie zobowiązuje — decyzję podejmujemy wspólnie po konsultacji kwalifikacyjnej.</p>
+    <a href="#kontakt" class="btn">Wyślij zgłoszenie</a>
+  </div>
+</div>
+
+<section id="proces">
+  <div class="wrap">
+    <span class="eyebrow">Jak działa program</span>
+    <h2>Od konsultacji do regularnej opieki</h2>
+    <p class="lead">Program nie zaczyna się od zabiegu, tylko od rozmowy o tym, czy taka forma opieki w ogóle ma dla Ciebie sens.</p>
+    <div class="timeline" id="timeline">
+      <div class="timeline-step">
+        <div class="timeline-num">01</div>
+        <div class="timeline-body">
+          <h3>Konsultacja kwalifikacyjna</h3>
+          <p>Rozmowa o skórze, oczekiwaniach i historii wcześniejszych zabiegów — i o tym, czy program długoterminowej opieki jest dla Ciebie właściwym rozwiązaniem, czy wystarczy pojedyncza wizyta.</p>
+        </div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-num">02</div>
+        <div class="timeline-body">
+          <h3>Indywidualny plan</h3>
+          <p>Lekarz prowadzący układa harmonogram wizyt rozpisany na kolejne miesiące — nie pojedynczy zabieg, tylko sekwencję dopasowaną do tempa zmian Twojej skóry.</p>
+        </div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-num">03</div>
+        <div class="timeline-body">
+          <h3>Regularne wizyty</h3>
+          <p>Przyjmujemy Cię zawsze u tego samego lekarza, z priorytetowym dostępem do terminu — bez umawiania się od nowa za każdym razem.</p>
+        </div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-num">04</div>
+        <div class="timeline-body">
+          <h3>Przegląd i korekta planu</h3>
+          <p>Co jakiś czas wracamy do założeń planu i sprawdzamy, czy dalej mają sens — plan programu nie jest ustalany raz na zawsze.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ciaglosc" class="continuity">
+  <div class="wrap continuity-inner">
+    <span class="eyebrow">Dlaczego jeden lekarz, długoterminowo</span>
+    <h2>Dlaczego stały lekarz to nie sentyment, tylko organizacja opieki</h2>
+    <p class="body-text">Lekarz, który widuje Cię regularnie przez dłuższy czas, zna historię Twojej skóry, reakcje na wcześniejsze zabiegi i to, czego wcześniej próbowano bez efektu. Nie musisz za każdym razem tłumaczyć wszystkiego od nowa komuś, kto widzi Cię po raz pierwszy.</p>
+    <div class="pull-quote">
+      <p>Nie obiecujemy lepszego efektu niż w zwykłym gabinecie. Obiecujemy, że ktoś będzie pilnował Twojego planu przez lata, nie przez pojedynczy zabieg.</p>
+    </div>
+    <p class="body-text">Program ma sens dla osób, które planują opiekę estetyczną długoterminowo i cenią sobie stały kontakt z jednym lekarzem bardziej niż przypadkowy termin u kogokolwiek, kto akurat ma wolne okienko.</p>
+  </div>
+</section>
+
+<section id="rejestr">
+  <div class="wrap">
+    <span class="eyebrow">Rejestr programu</span>
+    <h2>Cztery liczby, nie obietnice</h2>
+    <div class="register" id="register">
+      <div class="register-tile">
+        <span class="register-num">18 lat</span>
+        <div class="register-label">Praktyki lekarza prowadzącego</div>
+        <p class="register-desc">Doświadczenie w medycynie estetycznej, nie tylko w pojedynczej technice zabiegowej.</p>
+      </div>
+      <div class="register-tile">
+        <span class="register-num">Maks. 40</span>
+        <div class="register-label">Pacjentów w programie jednocześnie</div>
+        <p class="register-desc">Limit, którego nie przekraczamy — nawet gdy zgłoszeń jest więcej.</p>
+      </div>
+      <div class="register-tile">
+        <span class="register-num">Co 3 mies.</span>
+        <div class="register-label">Przegląd i aktualizacja planu</div>
+        <p class="register-desc">Regularna okazja, żeby zmienić kurs, jeśli coś przestało mieć sens.</p>
+      </div>
+      <div class="register-tile">
+        <span class="register-num">48 godz.</span>
+        <div class="register-label">Priorytetowy dostęp do terminu</div>
+        <p class="register-desc">Tyle zwykle zajmuje znalezienie terminu pacjentom programu poza standardowym grafikiem.</p>
+      </div>
+    </div>
+    <p class="register-disclaimer">Powyższe liczby dotyczą organizacji opieki — dostępności terminu, częstotliwości kontaktu i doświadczenia lekarza. Żadna z nich nie jest obietnicą konkretnego efektu zabiegowego — ten zależy od indywidualnych cech skóry i zawsze omawiamy go wprost podczas konsultacji.</p>
+  </div>
+</section>
+
+<section id="program" style="background:var(--surface);">
+  <div class="wrap">
+    <span class="eyebrow">Program i cennik</span>
+    <h2>Konsultacja, program roczny lub wieloletni</h2>
+    <p class="lead">Poniżej orientacyjna struktura programu. Ostateczny zakres i koszt ustalamy zawsze po konsultacji kwalifikacyjnej — program dopasowujemy do osoby, nie odwrotnie.</p>
+    <div class="tiers">
+      <div class="tier">
+        <div class="tier-name">Konsultacja kwalifikacyjna</div>
+        <div class="tier-price">350 zł</div>
+        <ul>
+          <li>Ocena skóry i dotychczasowej historii zabiegów</li>
+          <li>Rozmowa o tym, czy program ma dla Ciebie sens</li>
+          <li>Wstępny zarys możliwego planu</li>
+        </ul>
+      </div>
+      <div class="tier featured">
+        <div class="tier-name">Program roczny</div>
+        <div class="tier-price">Wycena indywidualna<small>ustalana po konsultacji</small></div>
+        <ul>
+          <li>Jeden lekarz prowadzący przez cały rok</li>
+          <li>Priorytetowy dostęp do terminu</li>
+          <li>Przegląd planu co kwartał</li>
+          <li>Regularne wizyty rozłożone w harmonogramie</li>
+        </ul>
+      </div>
+      <div class="tier">
+        <div class="tier-name">Program wieloletni</div>
+        <div class="tier-price">Wycena indywidualna<small>ustalana po konsultacji</small></div>
+        <ul>
+          <li>Plan rozpisany na dłuższy horyzont niż rok</li>
+          <li>Coroczna aktualizacja założeń planu</li>
+          <li>Ten sam lekarz prowadzący przez cały okres</li>
+        </ul>
+      </div>
+    </div>
+    <p class="tiers-disclaimer">Program nie jest formą przedpłaconego pakietu zabiegów — to model organizacji opieki. Zakres i harmonogram konkretnych zabiegów ustalamy na bieżąco, zależnie od stanu skóry.</p>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">FAQ</span>
+    <h2 class="center" style="text-align:center;">Zanim wyślesz zgłoszenie</h2>
+    <div class="faq-list">
+      <details class="faq-card" open>
+        <summary>Czy program gwarantuje lepszy efekt niż pojedyncze zabiegi?</summary>
+        <p>Nie. Program nie gwarantuje efektu lepszego ani pewniejszego niż zabiegi wykonywane pojedynczo w zwykłym trybie. To, co realnie dostajesz, to stały kontakt z jednym lekarzem, priorytetowy dostęp do terminu i regularny przegląd planu — a nie inny, „lepszy” wynik medyczny.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Dlaczego zgłoszenie odbywa się przez formularz, a nie telefon?</summary>
+        <p>Zanim zaproponujemy termin konsultacji kwalifikacyjnej, chcemy poznać kontekst — dotychczasowe zabiegi, oczekiwania, dostępność. Formularz pozwala to spokojnie opisać, bez presji krótkiej rozmowy telefonicznej.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Ile miejsc jest dostępnych w programie?</summary>
+        <p>Liczba miejsc jest świadomie ograniczona, żeby lekarz prowadzący mógł poświęcić realny czas każdemu pacjentowi programu. Aktualną dostępność potwierdzamy indywidualnie po otrzymaniu zgłoszenia.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Czy mogę dołączyć, jeśli wcześniej byłam/byłem u innego lekarza?</summary>
+        <p>Tak — konsultacja kwalifikacyjna służy właśnie temu, żeby lekarz prowadzący poznał Twoją dotychczasową historię zabiegową, niezależnie od tego, gdzie była prowadzona.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Czy mogę zrezygnować z programu w trakcie?</summary>
+        <p>Tak, udział w programie nie jest wieloletnim zobowiązaniem bez możliwości wyjścia — rezygnację omawiamy indywidualnie, zależnie od etapu, na którym aktualnie jesteś.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt" class="kontakt">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Kontakt</span>
+    <h2 class="center" style="text-align:center;">Wyślij zgłoszenie do programu</h2>
+    <p class="lead center" style="text-align:center;">Napisz kilka zdań o sobie i swoich oczekiwaniach — odezwiemy się, żeby zaproponować termin konsultacji kwalifikacyjnej.</p>
+    <!-- Decyzja o zerze zdjęć w tym wariancie: cały wariant 5 jest świadomie tekstowo-edytorialny
+         (patrz komentarz motion-baseline u góry pliku) — fotografia gabinetu żyje już w
+         wariantach 1/2/4 tej branży, tu ekskluzywność buduje typografia i liczby, nie zdjęcia. -->
+    <div class="kontakt-grid">
+      <div class="kontakt-form-wrap">
+        <span class="kontakt-tab">Zgłoszenie do programu</span>
+        <form class="kontakt-form" id="quoteForm">
+          <div class="grid2">
+            <div>
+              <label for="imie">Imię i nazwisko</label>
+              <input type="text" id="imie" name="imie" placeholder="np. Anna Kowalska" required>
+            </div>
+            <div>
+              <label for="kontaktDane">Telefon lub e-mail</label>
+              <input type="text" id="kontaktDane" name="kontaktDane" placeholder="np. 500 123 456 lub anna@przyklad.pl" required>
+            </div>
+          </div>
+          <label for="wiadomosc">Kilka zdań o Tobie</label>
+          <textarea id="wiadomosc" name="wiadomosc" placeholder="Czego dotychczas próbowano, czego szukasz, dlaczego rozważasz program długoterminowy..." required></textarea>
+          <button type="submit" class="btn btn-primary">Wyślij zgłoszenie</button>
+        </form>
+      </div>
+      <div class="kontakt-side">
+        <div class="kontakt-info">
+          <div><b>Telefon</b><a href="tel:500 123 456">500 123 456</a></div>
+          <div><b>E-mail</b>kontakt@glowmed.pl</div>
+          <div><b>Adres</b>ul. Przykładowa 12, Kraków</div>
+          <div><b>Pon–Pt</b>9:00 – 19:00</div>
+          <div><b>Sobota</b>9:00 – 14:00</div>
+        </div>
+        <div class="kontakt-map">
+          <iframe src="https://www.google.com/maps?q=ul. Przykładowa 12, Kraków&output=embed" title="Mapa dojazdu do GlowMed w mieście Kraków" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">GlowMed</div>
+  <p>GlowMed — długoterminowy, indywidualny program opieki estetycznej w mieście Kraków, prowadzony przez jednego lekarza. Liczba miejsc w programie jest ograniczona.</p>
+  <div class="footer-links">
+    <a href="#program">Program i cennik</a>
+    <a href="#kontakt">Zgłoszenie</a>
+    <a href="tel:500 123 456">500 123 456</a>
+    <a href="mailto:kontakt@glowmed.pl">kontakt@glowmed.pl</a>
+  </div>
+  <div class="footer-bottom">© <span id="year"></span> GlowMed — Medycyna estetyczna Kraków.</div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const navToggle = document.getElementById('navToggle');
+  const navLinksMobile = document.getElementById('navLinksMobile');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinksMobile.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  navLinksMobile.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinksMobile.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Jednorazowy, stopniowany fade-in przy scrollu — jedyny dozwolony ruch w tym wariancie
+  // (patrz komentarz motion-baseline przy :root)
+  const fadeTargets = document.querySelectorAll('.timeline-step, .register-tile, .pull-quote');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const siblings = Array.from(el.parentElement.children);
+          const delay = siblings.indexOf(el) * 90;
+          setTimeout(() => el.classList.add('visible'), delay);
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.15 });
+    fadeTargets.forEach(el => io.observe(el));
+  } else {
+    fadeTargets.forEach(el => el.classList.add('visible'));
+  }
+
+  const form = document.getElementById('quoteForm');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    form.innerHTML = '<p style="font-weight:600;color:var(--accent);">Zgłoszenie dotarło. Odezwiemy się, żeby zaproponować termin konsultacji kwalifikacyjnej. W pilnych sprawach: <a href="tel:500 123 456" style="color:var(--text);text-decoration:underline;">500 123 456</a>.</p>';
+  });
+</script>
+
+</body>
+</html>
