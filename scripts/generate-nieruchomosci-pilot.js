@@ -90,4 +90,83 @@ nie ma, więc zaprojektuj jej mechanizm od zera (karty, nie kopiuj układu cenni
   },
 ];
 
+VARIANTS.push({
+  id: 'nieruchomosci-2-sprzedaz-w-twoim-terminie',
+  tier: 'pro',
+  name: 'Sprzedaż w Twoim terminie',
+  visual: `STYL: adaptacja archetypu "Szybka interwencja 24h" dla agencji sprzedaży mieszkań —
+UWAGA: dosłowne "pogotowie nieruchomości"/alarm/syreny nie mają sensu w tej branży (sprzedaż
+mieszkania to nie awaria wymagająca natychmiastowej interwencji; to samo ograniczenie zadziałało
+już w branży medycyna estetyczna, gdzie Artur wprost zabronił ram urgency/alarmu). Problem realnych
+klientów tego wariantu to presja czasu z INNEGO powodu: przeprowadzka (nowa praca, już kupione
+kolejne M i kredyt tyka), rozwód z terminem podziału majątku, spadek do szybkiego rozliczenia —
+klient NIE MA miesięcy na czekanie, aż ktoś przypadkiem trafi na ogłoszenie.
+
+MECHANIZM RÓŻNICUJĄCY (sedno wariantu, inny niż "szybka interwencja" w innych branżach): szybkość
+NIE bierze się z obietnicy "zrobimy to błyskawicznie", tylko z tego, że agencja ma już GOTOWĄ,
+AKTYWNĄ BAZĘ KUPUJĄCYCH szukających konkretnych typów mieszkań — oferta trafia od razu do kogoś,
+kto już czeka, zamiast czekać aż nowe ogłoszenie kogoś znajdzie samo. To uczciwy, konkretny
+mechanizm (nie pusta obietnica), spójny z uczciwością zbudowaną w wariancie 1 tej branży.
+
+ZAKAZ (patrz brief wariantu 1, ta sama zasada obowiązuje tu jeszcze mocniej z racji archetypu):
+zero "sprzedamy w 24h", zero "gwarantowana szybka sprzedaż za każdą cenę", zero języka
+alarmowego/pogotowia. Konkretne liczby (rozmiar bazy kupujących, średni czas do pierwszego
+kontaktu z zainteresowanym, liczba dopasowań w ostatnim miesiącu) SĄ dozwolone i pożądane jako
+treść docelowa (ZASADY.md sekcja 5) — ale nie wolno formułować ich jako gwarancji wyniku dla
+konkretnego mieszkania klienta.
+
+Drugi wariant tej branży — różnicowanie względem nieruchomosci-1 (jasna kość słoniowa + granat/
+mosiądz, statyczne sekcje, ton: spokojna uczciwość i proces). Ten wariant ma być bardziej
+energetyczny/pilny w tonie (ale nie alarmowy) i wizualnie ciemniejszy.
+
+WYMAGANY RUCH (obowiązkowy próg dla wariantu 2+, patrz .claude/agents/designer-ux-ui.md sekcja
+"Nie czekaj aż użytkownik poprosi o więcej ruchu"): scrollujący marquee pasek "ostatnio
+dopasowani kupujący" (np. krótkie wpisy typu "Kawalerka, Podgórze — dopasowana w 6 dni"), delikatny
+glow/pulse na liczniku wielkości bazy kupujących w hero (subtelny, nie neonowy alarm), shimmer na
+primary CTA, stopniowany fade-in kart. Pełny prefers-reduced-motion — wymień jawnie każdą
+nietrywialną animację w komentarzu HTML.
+
+PALETA — sprawdź grepem że nie koliduje z ŻADNYM wariantem w systemie (uruchom:
+grep -rhoE "#[0-9a-fA-F]{3,6}" templates/pilot/*.html), w tym z nieruchomosci-1 (granat #2f2a58 +
+mosiądz #a9814f na kości słoniowej #f8f2e2) i z całą rodziną "ciemne tło + jaskrawy akcent" już
+zajętą w systemie (czerwień/pomarańcz: elektryk-2, hydraulik-2; złoto/bursztyn: fryzjer-barber-2,
+salon-fryzjerski-2; limonka: remonty-2; róż/magenta: studio-paznokci-2; przygaszony róż-mauve:
+medycyna-estetyczna-2; niebieski/cyan: hydraulik-3/6, fryzjer-barber-3, medycyna-estetyczna-3).
+Zaproponuj coś jeszcze nieużytego jako główny wyrazisty akcent na ciemnym tle — np. wyrazista,
+nasycona ZIELEŃ trawiasto-szmaragdowa (NIE zgaszona szałwia jak elektryk-4/fryzjer-barber-4/
+medycyna-estetyczna-5, NIE niebiesko-zielony teal jak studio-paznokci-3 — czysta, żywa zieleń typu
+"zielone światło/dopasowanie", co tematycznie pasuje do mechanizmu "kupujący już czeka") na bardzo
+ciemnym, chłodnym grafitowym tle (inny odcień grafitu niż remonty-2 #16181a/#212426 i
+studio-paznokci-3 #0e1116/#171b21 — zweryfikuj różnicę). TYPOGRAFIA: zweryfikuj grepem że nieużyta
+nigdzie w systemie, w tym Vollkorn/Inter Tight z nieruchomosci-1.
+
+ZDJĘCIA (już wyszukane przez Pexels API i zweryfikowane, użyj TEGO DOKŁADNEGO URL, nie zgaduj
+innych):
+- Szczęśliwa para niosąca kartony do nowego mieszkania, uśmiechnięci, ciepłe światło — symbolizuje
+  świeży start po szybkiej sprzedaży/przeprowadzce:
+  https://images.pexels.com/photos/7489130/pexels-photo-7489130.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+Jeśli potrzebujesz więcej zdjęć — NIE zgaduj ID, zostaw "<!-- PHOTO NEEDED: opis -->" i wypisz w
+raporcie. Sekcja bazy kupujących/dopasowań może być czysto UI/liczbowa (licznik, marquee, karty
+"dopasowań") bez dodatkowych zdjęć — spójne z konwencją nieruchomosci-1 (sekcja "aktualne oferty"
+też jest bezzdjęciowa).
+
+TREŚĆ — sekcje: nav, hero (obietnica: oferta trafia od razu do czekających kupujących + licznik
+wielkości bazy jako żywy element, nie statyczna liczba), marquee pasek "ostatnio dopasowani
+kupujący" (przewijający się, kilka krótkich wpisów typu dzielnica + typ + "dopasowane w X dni" —
+treść docelowa, nie placeholder), sekcja "jak przyspieszamy sprzedaż" (multi-kanałowy marketing
+oferty, aktywna baza kupujących z zapisanymi kryteriami wyszukiwania, elastyczne pokazy wieczorami/
+w weekendy, przygotowanie oferty pod realne oczekiwania kupujących z bazy), porównanie tempa
+(np. "średni czas do pierwszego kontaktu z zainteresowanym kupującym" jako konkretna, uczciwa
+liczba — NIE gwarancja czasu sprzedaży całej transakcji), opinie klientów którzy sprzedawali pod
+presją czasu (generyczne imiona + miasto + krótki kontekst typu "przeprowadzka", NIGDY nazwy firm),
+FAQ (w tym pytanie wprost adresujące sceptycyzm: "czy to nie obniża ceny sprzedaży?" — odpowiedź
+uczciwa, że baza kupujących przyspiesza dotarcie do oferty, nie wymusza niższej ceny), kontakt z
+mapą.
+
+LAYOUT — bespoke mechanizm każdej sekcji, inny niż nieruchomosci-1 (tam: numerowane wiersze usług,
+ticket-cards ofert, pionowa oś procesu) — zaproponuj np. hero z licznikiem/widgetem bazy kupujących
+jako centralny wizualny element (nie karta z boku jak w wariancie 1), marquee jako osobny,
+wyrazisty pasek między sekcjami, kafle "jak przyspieszamy" w innym układzie niż numerowana lista.`,
+});
+
 module.exports = { VARIANTS, SAMPLE_TOKENS };
