@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{NAZWA_STRONY}} — Dobierz zabieg, {{MIASTO}} | tel. {{TELEFON}}</title>
+<meta name="description" content="{{NAZWA_STRONY}} — gabinet medycyny estetycznej w mieście {{MIASTO}}. Sprawdź w kilka sekund, który zabieg najczęściej pomaga przy Twojej potrzebie — a ostateczny plan ustal na konsultacji z lekarzem. Tel. {{TELEFON}}">
+<meta name="keywords" content="medycyna estetyczna {{MIASTO}}, dobór zabiegu {{MIASTO}}, botoks {{MIASTO}}, kwas hialuronowy {{MIASTO}}">
+<link rel="canonical" href="https://{{SLUG}}.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{NAZWA_STRONY}} — Dobierz zabieg, {{MIASTO}}">
+<meta property="og:description" content="Wybierz swoją główną potrzebę i zobacz, jaki zabieg zwykle się przy niej sprawdza — potem potwierdzasz plan na konsultacji z lekarzem. Gabinet w mieście {{MIASTO}}.">
+<meta property="og:url" content="https://{{SLUG}}.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"MedicalBusiness","name":"{{NAZWA_STRONY}}","telephone":"{{TELEFON}}","email":"{{EMAIL}}","description":"{{NAZWA_STRONY}} — gabinet medycyny estetycznej w mieście {{MIASTO}} z interaktywnym doborem wstępnej sugestii zabiegowej","address":{"@type":"PostalAddress","addressLocality":"{{MIASTO}}","addressCountry":"PL"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@500;600;700;800&family=Sen:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#8fc9e8;
+    --accent-dark:#3f7fa8;
+    --bg:#11121f;
+    --surface:#1b1d33;
+    --text:#eef1f8;
+    --muted:#8790a6;
+    --head:'Geologica', sans-serif;
+    --body:'Sen', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3,h4{font-family:var(--head);line-height:1.2;font-weight:700;color:var(--text);}
+  section{padding:5.5rem 1.5rem;position:relative;}
+  .wrap{max-width:1140px;margin:0 auto;}
+  .eyebrow{display:inline-block;font-family:var(--body);font-weight:700;font-size:.76rem;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:.9rem;}
+  h2{font-size:clamp(1.8rem,3.2vw,2.5rem);margin-bottom:1rem;}
+  .lead{color:var(--muted);font-size:1.03rem;max-width:640px;}
+  .center{text-align:center;margin-left:auto;margin-right:auto;}
+
+  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.95rem 1.9rem;border-radius:.65rem;font-weight:700;font-family:var(--body);font-size:.95rem;border:1.5px solid transparent;cursor:pointer;transition:transform .18s ease, background .2s ease, color .2s ease, box-shadow .2s ease;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{position:relative;overflow:hidden;background:var(--accent);color:var(--bg);}
+  .btn-primary:hover{background:var(--accent-dark);color:var(--text);}
+  .btn-primary::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg, transparent 25%, color-mix(in srgb, white 60%, transparent) 48%, transparent 72%);background-size:240% 100%;background-position:180% 0;pointer-events:none;}
+  .btn-primary.shimmer::after{animation:shimmerSweep 4.2s ease-in-out infinite;}
+  @keyframes shimmerSweep{
+    0%,58%{background-position:180% 0;}
+    100%{background-position:-60% 0;}
+  }
+  .btn-outline{border-color:color-mix(in srgb, var(--text) 25%, transparent);color:var(--text);background:transparent;}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* ---------- NAV ---------- */
+  header.nav{position:sticky;top:0;z-index:60;background:color-mix(in srgb, var(--bg) 90%, transparent);backdrop-filter:blur(10px);border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.5rem;gap:1.2rem;}
+  .logo{font-family:var(--head);font-weight:700;font-size:1.3rem;color:var(--text);white-space:nowrap;flex-shrink:0;}
+  .logo span{color:var(--accent);}
+  .nav-links-desktop{display:flex;align-items:center;gap:.3rem;background:var(--surface);border:1px solid color-mix(in srgb, var(--text) 10%, transparent);border-radius:999px;padding:.35rem;flex-shrink:1;min-width:0;}
+  .nav-links-desktop a{font-weight:600;font-size:.84rem;color:var(--muted);white-space:nowrap;padding:.55rem 1rem;border-radius:999px;transition:background .2s ease, color .2s ease;}
+  .nav-links-desktop a:hover{color:var(--text);background:color-mix(in srgb, var(--accent) 12%, transparent);}
+  .nav-links-desktop a.is-cta{color:var(--bg);background:var(--accent);}
+  .nav-links-desktop a.is-cta:hover{background:var(--accent-dark);color:var(--text);}
+  .nav-actions{display:flex;align-items:center;gap:.7rem;flex-shrink:0;}
+  .nav-phone{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--surface);border:1px solid color-mix(in srgb, var(--text) 10%, transparent);color:var(--text);flex-shrink:0;font-size:1rem;transition:background .2s ease, border-color .2s ease;}
+  .nav-phone:hover{border-color:var(--accent);background:color-mix(in srgb, var(--accent) 16%, var(--surface));}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.4rem;flex-shrink:0;}
+  .nav-toggle span{width:22px;height:2px;background:var(--text);}
+  .nav-links-mobile{display:none;flex-direction:column;padding:.4rem 1.5rem 1.4rem;gap:0;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);}
+  .nav-links-mobile.open{display:flex;}
+  .nav-links-mobile a{padding:.8rem 0;font-weight:600;font-size:.96rem;border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);color:var(--text);}
+  .nav-links-mobile a:last-child{border-bottom:none;}
+  .mobile-cta{color:var(--accent)!important;font-weight:700!important;}
+
+  @media (max-width:960px){
+    .nav-links-desktop{display:none;}
+    .nav-toggle{display:flex;}
+  }
+  @media (max-width:700px){
+    .nav-actions > .nav-phone-wrap-hide{display:none;}
+  }
+  @media (max-width:480px){
+    .nav .wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+    .nav .wrap::-webkit-scrollbar{display:none;}
+    .logo{font-size:1.14rem;}
+  }
+
+  /* ---------- HERO — jednokolumnowy, widget selektora jako centralny element ---------- */
+  .hero{overflow:hidden;padding-top:4.2rem;padding-bottom:0;}
+  .hero-glow-a{position:absolute;top:-24%;left:14%;width:640px;height:640px;background:radial-gradient(circle, color-mix(in srgb, var(--accent) 32%, transparent) 0%, transparent 68%);pointer-events:none;z-index:0;animation:driftA 12s ease-in-out infinite;}
+  .hero-glow-b{position:absolute;top:-10%;right:8%;width:520px;height:520px;background:radial-gradient(circle, color-mix(in srgb, var(--accent-dark) 40%, transparent) 0%, transparent 70%);pointer-events:none;z-index:0;animation:driftB 15s ease-in-out infinite;}
+  @keyframes driftA{
+    0%,100%{transform:translate(0,0) scale(1);opacity:.65;}
+    50%{transform:translate(40px,20px) scale(1.1);opacity:.9;}
+  }
+  @keyframes driftB{
+    0%,100%{transform:translate(0,0) scale(1);opacity:.55;}
+    50%{transform:translate(-30px,30px) scale(1.05);opacity:.8;}
+  }
+  .hero-copy{position:relative;z-index:1;max-width:760px;margin:0 auto;text-align:center;}
+  .hero-copy h1{font-size:clamp(2rem,4vw,2.9rem);margin-bottom:1.1rem;}
+  .hero-copy p{color:var(--muted);font-size:1.05rem;max-width:600px;margin:0 auto 1.6rem;}
+  .hero-note{display:inline-flex;align-items:center;gap:.6rem;font-size:.85rem;color:var(--muted);background:var(--surface);border:1px solid color-mix(in srgb, var(--text) 10%, transparent);border-radius:999px;padding:.55rem 1.1rem;}
+  .hero-note .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0;animation:dotPulse 2.4s ease-in-out infinite;}
+  @keyframes dotPulse{
+    0%,100%{box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent);}
+    50%{box-shadow:0 0 0 6px color-mix(in srgb, var(--accent) 0%, transparent);}
+  }
+
+  /* ---------- SELEKTOR WIDGET ---------- */
+  .selector-stage{position:relative;z-index:1;max-width:920px;margin:3rem auto 0;padding-bottom:5.5rem;}
+  .selector-back{position:absolute;top:1.6rem;left:1.6rem;right:-1.6rem;bottom:-1.6rem;background:color-mix(in srgb, var(--accent) 7%, var(--surface));border:1px solid color-mix(in srgb, var(--accent) 22%, transparent);border-radius:1.5rem;z-index:0;}
+  .selector-card{position:relative;z-index:1;background:var(--surface);border:1px solid color-mix(in srgb, var(--text) 10%, transparent);border-radius:1.4rem;padding:2.2rem 2.2rem 2.4rem;box-shadow:0 30px 60px color-mix(in srgb, black 45%, transparent);}
+  .selector-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.4rem;flex-wrap:wrap;}
+  .selector-head h3{font-size:1.15rem;}
+  .selector-head span{font-size:.78rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+  .problem-chips{display:flex;flex-wrap:wrap;gap:.7rem;}
+  .problem-chip{flex:1 1 200px;min-width:170px;display:flex;align-items:center;gap:.7rem;text-align:left;background:var(--bg);border:1.5px solid color-mix(in srgb, var(--text) 12%, transparent);border-radius:.9rem;padding:.9rem 1rem;font-family:var(--body);font-weight:600;font-size:.88rem;color:var(--text);cursor:pointer;transition:border-color .2s ease, background .2s ease, transform .15s ease, box-shadow .25s ease;}
+  .problem-chip .chip-icon{font-size:1.15rem;flex-shrink:0;}
+  .problem-chip:hover{border-color:color-mix(in srgb, var(--accent) 55%, transparent);transform:translateY(-1px);}
+  .problem-chip.active{border-color:var(--accent);background:color-mix(in srgb, var(--accent) 14%, var(--bg));box-shadow:0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent), 0 0 28px color-mix(in srgb, var(--accent) 30%, transparent);}
+  .problem-chip.pulse{animation:chipSelectPulse .5s ease;}
+  @keyframes chipSelectPulse{
+    0%{transform:scale(.96);}
+    55%{transform:scale(1.03);}
+    100%{transform:scale(1);}
+  }
+
+  .result-panel{margin-top:1.8rem;border-top:1px solid color-mix(in srgb, var(--text) 10%, transparent);padding-top:1.8rem;}
+  .result-kicker{font-size:.82rem;color:var(--muted);margin-bottom:1rem;}
+  .result-kicker strong{color:var(--accent);font-weight:700;}
+  .result-treatments{display:flex;flex-direction:column;gap:.9rem;}
+  .result-item{display:flex;justify-content:space-between;align-items:flex-start;gap:1.2rem;background:var(--bg);border:1px solid color-mix(in srgb, var(--accent) 24%, transparent);border-radius:1rem;padding:1.1rem 1.3rem;opacity:0;transform:translateY(10px) scale(.985);transition:opacity .4s ease, transform .4s ease, box-shadow .4s ease;}
+  .result-item.reveal{opacity:1;transform:translateY(0) scale(1);}
+  .result-item.glowed{box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent), 0 0 30px color-mix(in srgb, var(--accent) 25%, transparent);}
+  .result-item-name{font-family:var(--head);font-weight:700;font-size:1.02rem;margin-bottom:.3rem;}
+  .result-item-why{font-size:.86rem;color:var(--muted);max-width:460px;}
+  .result-item-price{font-family:var(--head);font-weight:700;color:var(--accent);white-space:nowrap;flex-shrink:0;font-size:.98rem;text-align:right;}
+  .result-item-price small{display:block;font-family:var(--body);font-weight:600;color:var(--muted);font-size:.72rem;margin-top:.2rem;}
+
+  .disclaimer-box{margin-top:1.8rem;display:flex;gap:.8rem;align-items:flex-start;background:color-mix(in srgb, var(--accent) 8%, var(--bg));border:1px dashed color-mix(in srgb, var(--accent) 35%, transparent);border-radius:.9rem;padding:1rem 1.2rem;}
+  .disclaimer-box .icon{font-size:1.1rem;flex-shrink:0;margin-top:.1rem;}
+  .disclaimer-box p{font-size:.82rem;color:var(--muted);}
+  .disclaimer-box strong{color:var(--text);}
+
+  .result-cta{margin-top:1.6rem;display:flex;gap:1rem;flex-wrap:wrap;align-items:center;}
+
+  /* ---------- TRUST BAND ---------- */
+  .trust-band{background:var(--surface);padding:1.5rem 1.5rem;border-top:1px solid color-mix(in srgb, var(--text) 8%, transparent);border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+  .trust-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1.2rem 1.6rem;}
+  .trust-item{display:flex;align-items:center;gap:.6rem;font-size:.85rem;font-weight:600;flex:1;min-width:220px;color:var(--text);}
+  .trust-item .icon{font-size:1.1rem;flex-shrink:0;color:var(--accent);}
+
+  /* ---------- JAK TO DZIAŁA ---------- */
+  .steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;margin-top:2.8rem;}
+  .step-card{min-width:0;background:var(--surface);border:1px solid color-mix(in srgb, var(--text) 10%, transparent);border-radius:1.2rem;padding:1.9rem 1.7rem;opacity:0;transform:translateY(18px);transition:opacity .55s ease, transform .55s ease;}
+  .step-card.visible{opacity:1;transform:translateY(0);}
+  .step-num{font-family:var(--head);font-weight:800;font-size:1.6rem;color:var(--accent);margin-bottom:.9rem;}
+  .step-card h3{font-size:1.05rem;margin-bottom:.5rem;}
+  .step-card p{font-size:.86rem;color:var(--muted);}
+  .step-arrow{display:none;}
+  @media (min-width:961px){
+    .steps-grid{position:relative;}
+  }
+
+  /* ---------- CENNIK — accordion per kategoria ---------- */
+  .cat-accordion{margin-top:2.6rem;display:flex;flex-direction:column;gap:1rem;}
+  details.cat-card{background:var(--surface);border:1px solid color-mix(in srgb, var(--text) 10%, transparent);border-radius:1.1rem;overflow:hidden;}
+  details.cat-card summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.3rem 1.6rem;}
+  details.cat-card summary::-webkit-details-marker{display:none;}
+  .cat-summary-left{display:flex;align-items:center;gap:.9rem;}
+  .cat-icon{width:42px;height:42px;border-radius:.7rem;background:color-mix(in srgb, var(--accent) 16%, var(--surface));display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+  .cat-summary-left h3{font-size:1.02rem;}
+  .cat-summary-left span{display:block;font-size:.78rem;color:var(--muted);margin-top:.15rem;}
+  .cat-chevron{font-size:1.2rem;color:var(--accent);flex-shrink:0;transition:transform .25s ease;}
+  details.cat-card[open] .cat-chevron{transform:rotate(45deg);}
+  .cat-body{padding:0 1.6rem 1.5rem;}
+  .treatment-row{display:flex;flex-direction:column;gap:.2rem;padding:.85rem 0;border-top:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+  .t-top{display:flex;justify-content:space-between;align-items:baseline;gap:.6rem;}
+  .t-name{font-weight:700;font-size:.94rem;}
+  .t-price{font-family:var(--head);font-weight:700;color:var(--accent);white-space:nowrap;flex-shrink:0;}
+  .t-desc{font-size:.82rem;color:var(--muted);}
+  .t-time{font-size:.76rem;color:var(--muted);}
+  .price-disclaimer{max-width:720px;margin:2rem auto 0;text-align:center;font-size:.86rem;color:var(--muted);background:var(--surface);border-radius:1rem;padding:1.1rem 1.4rem;border:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+
+  /* ---------- O KONSULTACJI (zdjęcie) ---------- */
+  .consult-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:3.5rem;align-items:center;}
+  .consult-media{position:relative;}
+  .consult-photo{width:100%;height:auto;aspect-ratio:4/3.6;object-fit:cover;border-radius:1.3rem;box-shadow:0 24px 48px color-mix(in srgb, black 45%, transparent);}
+  .consult-badge{position:absolute;bottom:1.1rem;left:1.1rem;background:var(--bg);border:1px solid color-mix(in srgb, var(--accent) 30%, transparent);border-radius:.9rem;padding:.8rem 1.05rem;display:flex;align-items:center;gap:.6rem;max-width:230px;box-shadow:0 14px 28px color-mix(in srgb, black 40%, transparent);}
+  .consult-badge .icon{font-size:1.2rem;flex-shrink:0;}
+  .consult-badge span{font-size:.76rem;font-weight:600;line-height:1.32;}
+  .consult-copy p{margin-bottom:1.1rem;color:var(--text);}
+  .consult-copy p:last-of-type{margin-bottom:1.6rem;}
+  .qual-list{display:flex;flex-direction:column;}
+  .qual-row{display:flex;align-items:flex-start;gap:.8rem;padding:.7rem 0;border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+  .qual-row:last-child{border-bottom:none;}
+  .qual-row .check{color:var(--accent);font-weight:800;flex-shrink:0;}
+  .qual-row .label{font-size:.9rem;color:var(--muted);}
+
+  /* ---------- OPINIE ---------- */
+  .review-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-top:2.7rem;}
+  .review-card{min-width:0;background:var(--surface);border-radius:1.1rem;padding:1.9rem;opacity:0;transform:translateY(16px);transition:opacity .5s ease, transform .5s ease;}
+  .review-card.visible{opacity:1;transform:translateY(0);}
+  .review-card:nth-child(even){transform:translateY(16px);}
+  .review-card:nth-child(2), .review-card:nth-child(4){margin-top:1.6rem;}
+  .review-card .quote-mark{font-family:var(--head);font-size:2.1rem;color:var(--accent);line-height:1;display:block;margin-bottom:.4rem;}
+  .review-card p{font-size:.9rem;margin-bottom:1rem;color:var(--text);}
+  .review-card cite{font-style:normal;font-size:.8rem;color:var(--muted);font-weight:600;}
+
+  /* ---------- FAQ — dwie kolumny ---------- */
+  .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem 1.4rem;margin-top:2.6rem;}
+  details.faq-card{min-width:0;background:var(--surface);border:1px solid color-mix(in srgb, var(--text) 10%, transparent);border-radius:1rem;padding:1.2rem 1.4rem;align-self:start;}
+  details.faq-card summary{cursor:pointer;font-weight:700;font-family:var(--head);font-size:.98rem;display:flex;justify-content:space-between;gap:1rem;align-items:center;list-style:none;}
+  details.faq-card summary::-webkit-details-marker{display:none;}
+  details.faq-card summary::after{content:"+";color:var(--accent);font-size:1.25rem;flex-shrink:0;}
+  details.faq-card[open] summary::after{content:"–";}
+  details.faq-card p{color:var(--muted);margin-top:.85rem;font-size:.88rem;}
+
+  /* ---------- KONTAKT ---------- */
+  .contact-split{display:grid;grid-template-columns:1fr 1.1fr;gap:2.2rem;margin-top:2.7rem;align-items:stretch;}
+  .contact-card{min-width:0;background:var(--surface);border-radius:1.2rem;padding:2.3rem;border:1px solid color-mix(in srgb, var(--accent) 25%, transparent);display:flex;flex-direction:column;justify-content:center;}
+  .contact-card h3{font-size:1.3rem;margin-bottom:.6rem;}
+  .contact-card > p{color:var(--muted);margin-bottom:1.5rem;font-size:.92rem;}
+  .contact-info{display:flex;flex-direction:column;gap:.7rem;font-size:.9rem;margin-top:1.6rem;}
+  .contact-info b{display:block;color:var(--muted);font-weight:600;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.15rem;}
+  .map-panel{border-radius:1.2rem;overflow:hidden;border:1px solid color-mix(in srgb, var(--text) 10%, transparent);min-height:340px;filter:grayscale(.25) contrast(1.05);}
+  .map-panel iframe{width:100%;height:100%;min-height:340px;border:0;display:block;}
+
+  footer{padding:3rem 1.5rem 2rem;text-align:center;background:var(--surface);}
+  .footer-logo{font-family:var(--head);font-weight:700;font-size:1.2rem;margin-bottom:.6rem;}
+  footer p{font-size:.88rem;color:var(--muted);max-width:460px;margin:0 auto 1.2rem;}
+  .footer-links{display:flex;gap:1.4rem;justify-content:center;flex-wrap:wrap;font-size:.86rem;margin-bottom:1.2rem;}
+  .footer-links a:hover{color:var(--accent);}
+  .footer-bottom{font-size:.78rem;color:var(--muted);}
+
+  @media (max-width:960px){
+    .selector-card{padding:1.8rem 1.6rem 2rem;}
+    .steps-grid{grid-template-columns:1fr;}
+    .consult-grid{grid-template-columns:1fr;}
+    .consult-media{max-width:460px;margin:0 auto;}
+    .review-grid{grid-template-columns:1fr;}
+    .review-card:nth-child(2), .review-card:nth-child(4){margin-top:0;}
+    .faq-grid{grid-template-columns:1fr;}
+    .contact-split{grid-template-columns:1fr;}
+    .map-panel{min-height:280px;}
+    .map-panel iframe{min-height:280px;}
+  }
+  @media (max-width:700px){
+    section{padding:3.6rem 1.2rem;}
+    .trust-band{padding:1.3rem 1.2rem;}
+    .selector-stage{padding-bottom:3.6rem;}
+    .selector-back{left:.9rem;right:-.9rem;bottom:-.9rem;}
+    .result-item{flex-direction:column;}
+    .result-item-price{text-align:left;}
+  }
+  @media (max-width:480px){
+    .hero-copy p{max-width:none;}
+    .problem-chip{flex:1 1 100%;}
+    .selector-card{padding:1.5rem 1.2rem 1.8rem;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .hero-glow-a,.hero-glow-b{animation:none;}
+    .hero-note .dot{animation:none;}
+    .btn-primary.shimmer::after{animation:none;}
+    .problem-chip.pulse{animation:none;}
+    .step-card,.review-card,.result-item{transition:none;opacity:1;transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo">{{NAZWA_STRONY}}<span>.</span></a>
+    <nav class="nav-links-desktop">
+      <a href="#selektor">Dobierz zabieg</a>
+      <a href="#cennik">Cennik</a>
+      <a href="#opinie">Opinie</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontakt" class="is-cta">Umów konsultację</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="tel:{{TELEFON}}" class="nav-phone nav-phone-wrap-hide" aria-label="Zadzwoń: {{TELEFON}}">📞</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu nawigacji" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-links-mobile" id="navLinksMobile">
+    <a href="#kontakt" class="mobile-cta">Umów konsultację</a>
+    <a href="#selektor">Dobierz zabieg</a>
+    <a href="#cennik">Cennik</a>
+    <a href="#opinie">Opinie</a>
+    <a href="#faq">FAQ</a>
+    <a href="tel:{{TELEFON}}">{{TELEFON}}</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-glow-a" aria-hidden="true"></div>
+  <div class="hero-glow-b" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow">Medycyna estetyczna — {{MIASTO}}</span>
+      <h1>Zanim zadzwonisz, sprawdź, co zwykle pomaga przy Twojej potrzebie</h1>
+      <p>Wybierz poniżej to, co najbardziej Cię trapi — zobaczysz, który zabieg najczęściej się przy tym sprawdza i dlaczego. To punkt startowy do rozmowy, nie recepta: ostateczny plan zawsze ustala lekarz podczas konsultacji.</p>
+      <div class="hero-note"><span class="dot" aria-hidden="true"></span><span>Sugestia orientacyjna, nie diagnoza medyczna</span></div>
+    </div>
+
+    <div class="selector-stage" id="selektor">
+      <div class="selector-back" aria-hidden="true"></div>
+      <div class="selector-card">
+        <div class="selector-head">
+          <h3>Z czym najczęściej się zmagasz?</h3>
+          <span>Wybierz jedną opcję</span>
+        </div>
+        <div class="problem-chips" id="problemChips">
+          <button class="problem-chip active" data-problem="zmarszczki"><span class="chip-icon" aria-hidden="true">〰️</span><span>Zmarszczki mimiczne</span></button>
+          <button class="problem-chip" data-problem="jedrnosc-twarz"><span class="chip-icon" aria-hidden="true">◡</span><span>Utrata jędrności twarzy</span></button>
+          <button class="problem-chip" data-problem="przebarwienia"><span class="chip-icon" aria-hidden="true">◑</span><span>Przebarwienia i naczynka</span></button>
+          <button class="problem-chip" data-problem="cialo"><span class="chip-icon" aria-hidden="true">△</span><span>Cellulit / jędrność ciała</span></button>
+        </div>
+
+        <div class="result-panel">
+          <p class="result-kicker">Zaznaczona potrzeba: <strong id="resultProblemLabel">zmarszczki mimiczne</strong> — poniżej zabiegi, które najczęściej się przy niej sprawdzają w naszym gabinecie.</p>
+          <div class="result-treatments" id="resultTreatments"><!-- JS wypełnia --></div>
+        </div>
+
+        <div class="disclaimer-box">
+          <span class="icon" aria-hidden="true">ℹ️</span>
+          <p><strong>To sugestia, nie diagnoza.</strong> Dobór preparatu, liczbę zabiegów i finalny plan ustala lekarz podczas konsultacji — po obejrzeniu skóry i wywiadzie zdrowotnym, nie na podstawie samej odpowiedzi w tym widgecie.</p>
+        </div>
+
+        <div class="result-cta">
+          <a href="#kontakt" class="btn btn-primary shimmer">Umów konsultację</a>
+          <a href="#cennik" class="btn btn-outline">Zobacz pełny cennik</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-band">
+  <div class="wrap trust-row">
+    <div class="trust-item"><span class="icon" aria-hidden="true">🩺</span><span>Każdy zabieg wykonuje lekarz medycyny</span></div>
+    <div class="trust-item"><span class="icon" aria-hidden="true">✅</span><span>Preparaty wyłącznie z certyfikatem CE</span></div>
+    <div class="trust-item"><span class="icon" aria-hidden="true">🎯</span><span>Selektor podpowiada, decyzję podejmuje lekarz</span></div>
+    <div class="trust-item"><span class="icon" aria-hidden="true">📁</span><span>Karta zabiegowa po każdej wizycie</span></div>
+  </div>
+</div>
+
+<section id="jak-to-dziala">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Jak to działa</span>
+    <h2 class="center" style="text-align:center;">Od kliknięcia w ekranie do planu na fotelu</h2>
+    <p class="lead center" style="text-align:center;">Selektor wyżej to skrót do rozmowy, nie jej zastępstwo — poniżej dokładnie widać, gdzie w tym procesie jest miejsce na decyzję lekarza.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <h3>Wybierz swoją potrzebę</h3>
+        <p>Klikasz opcję najbliższą temu, co Cię trapi — zmarszczki, jędrność, przebarwienia albo skóra ciała.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <h3>Zobacz orientacyjną sugestię</h3>
+        <p>Widget pokazuje 1-2 zabiegi, które najczęściej się przy tym sprawdzają, wraz z krótkim uzasadnieniem.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <h3>Umów konsultację, która to potwierdzi</h3>
+        <p>Lekarz sprawdza stan skóry i przeciwwskazania, i dopiero wtedy ustala ostateczny plan — sugestia jest punktem startu, nie ostatnim słowem.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cennik" style="background:var(--surface);">
+  <div class="wrap">
+    <span class="eyebrow">Zabiegi i cennik</span>
+    <h2>Pełna oferta, rozwijana kategoriami</h2>
+    <p class="lead">Poniżej wszystkie zabiegi, nie tylko te podpowiedziane przez selektor — rozwiń kategorię, żeby zobaczyć ceny i czas trwania.</p>
+    <div class="cat-accordion">
+      <details class="cat-card" open>
+        <summary>
+          <div class="cat-summary-left">
+            <div class="cat-icon" aria-hidden="true">✨</div>
+            <div><h3>Zabiegi na twarz</h3><span>Najczęściej wybierane w naszym gabinecie</span></div>
+          </div>
+          <span class="cat-chevron" aria-hidden="true">+</span>
+        </summary>
+        <div class="cat-body">
+          <div class="treatment-row">
+            <div class="t-top"><span class="t-name">Botoks</span><span class="t-price">od 700 zł</span></div>
+            <span class="t-desc">Redukcja zmarszczek mimicznych</span>
+            <span class="t-time">ok. 30 min</span>
+          </div>
+          <div class="treatment-row">
+            <div class="t-top"><span class="t-name">Kwas hialuronowy</span><span class="t-price">od 900 zł</span></div>
+            <span class="t-desc">Modelowanie ust i policzków</span>
+            <span class="t-time">ok. 45 min</span>
+          </div>
+          <div class="treatment-row">
+            <div class="t-top"><span class="t-name">Mezoterapia igłowa twarzy</span><span class="t-price">od 400 zł</span></div>
+            <span class="t-desc">Nawilżenie i odżywienie skóry</span>
+            <span class="t-time">ok. 40 min</span>
+          </div>
+          <div class="treatment-row">
+            <div class="t-top"><span class="t-name">Peeling chemiczny</span><span class="t-price">od 280 zł</span></div>
+            <span class="t-desc">Wyrównanie kolorytu i tekstury skóry</span>
+            <span class="t-time">ok. 30 min</span>
+          </div>
+        </div>
+      </details>
+      <details class="cat-card">
+        <summary>
+          <div class="cat-summary-left">
+            <div class="cat-icon" aria-hidden="true">🔬</div>
+            <div><h3>Laseroterapia i zabiegi zaawansowane</h3><span>Przebarwienia, naczynka, lifting</span></div>
+          </div>
+          <span class="cat-chevron" aria-hidden="true">+</span>
+        </summary>
+        <div class="cat-body">
+          <div class="treatment-row">
+            <div class="t-top"><span class="t-name">Laseroterapia naczynek i przebarwień</span><span class="t-price">od 350 zł</span></div>
+            <span class="t-desc">Redukcja widocznych naczynek i plam</span>
+            <span class="t-time">ok. 30 min</span>
+          </div>
+          <div class="treatment-row">
+            <div class="t-top"><span class="t-name">Nici liftingujące (PDO)</span><span class="t-price">od 1400 zł</span></div>
+            <span class="t-desc">Ujędrnienie owalu twarzy</span>
+            <span class="t-time">ok. 60 min</span>
+          </div>
+          <div class="treatment-row">
+            <div class="t-top"><span class="t-name">Laserowe odmładzanie skóry</span><span class="t-price">od 500 zł</span></div>
+            <span class="t-desc">Spłycenie drobnych zmarszczek, gładsza skóra</span>
+            <span class="t-time">ok. 40 min</span>
+          </div>
+        </div>
+      </details>
+      <details class="cat-card">
+        <summary>
+          <div class="cat-summary-left">
+            <div class="cat-icon" aria-hidden="true">🧴</div>
+            <div><h3>Zabiegi na ciało</h3><span>Jędrność, kondycja skóry, cellulit</span></div>
+          </div>
+          <span class="cat-chevron" aria-hidden="true">+</span>
+        </summary>
+        <div class="cat-body">
+          <div class="treatment-row">
+            <div class="t-top"><span class="t-name">Mezoterapia ciała</span><span class="t-price">od 450 zł</span></div>
+            <span class="t-desc">Nawilżenie i regeneracja skóry ciała</span>
+            <span class="t-time">ok. 45 min</span>
+          </div>
+          <div class="treatment-row">
+            <div class="t-top"><span class="t-name">Radiofrekwencja liftingująca</span><span class="t-price">od 380 zł</span></div>
+            <span class="t-desc">Ujędrnienie skóry ciała</span>
+            <span class="t-time">ok. 50 min</span>
+          </div>
+          <div class="treatment-row">
+            <div class="t-top"><span class="t-name">Zabieg na cellulit</span><span class="t-price">od 320 zł</span></div>
+            <span class="t-desc">Cena za pojedynczą sesję, zwykle w serii</span>
+            <span class="t-time">ok. 45 min</span>
+          </div>
+        </div>
+      </details>
+    </div>
+    <p class="price-disclaimer">Powyższe ceny to orientacyjne widełki, nie ostateczna wycena z selektora. Preparat, liczbę sesji i finalny koszt lekarz ustala podczas konsultacji — po ocenie skóry i wywiadzie, uwzględniając ewentualne przeciwwskazania.</p>
+  </div>
+</section>
+
+<section id="o-konsultacji">
+  <div class="wrap consult-grid">
+    <div class="consult-media">
+      <img class="consult-photo" src="https://images.pexels.com/photos/34159000/pexels-photo-34159000.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Nowoczesna konsultacja medycyny estetycznej z tabletem, elegancka klinika" width="940" height="650" loading="lazy">
+      <div class="consult-badge">
+        <span class="icon" aria-hidden="true">🩺</span>
+        <span>Selektor to wstęp do rozmowy — decyzję zawsze podejmuje lekarz</span>
+      </div>
+    </div>
+    <div class="consult-copy">
+      <span class="eyebrow">Dlaczego selektor to nie diagnoza</span>
+      <h2>Widget podpowiada kierunek, lekarz go potwierdza</h2>
+      <p>Selektor wyżej działa na uproszczonych regułach — bierze pod uwagę tylko to, co zaznaczysz jednym kliknięciem. Realna skóra ma więcej zmiennych: wiek, wcześniejsze zabiegi, leki, oczekiwania co do efektu. Dlatego każda sugestia z widgetu kończy się tym samym zdaniem: to punkt wyjścia do rozmowy, nie gotowy plan.</p>
+      <p>Na konsultacji w mieście {{MIASTO}} lekarz ocenia stan skóry, sprawdza przeciwwskazania i dopiero wtedy proponuje ostateczny zabieg — czasem dokładnie ten, który podpowiedział widget, a czasem inny, jeśli w rozmowie wyjdzie coś, czego formularz nie mógł uwzględnić.</p>
+      <div class="qual-list">
+        <div class="qual-row"><span class="check">✓</span><span class="label">Wykształcenie medyczne potwierdzone dyplomem lekarza</span></div>
+        <div class="qual-row"><span class="check">✓</span><span class="label">Systematyczne szkolenia z nowych preparatów i metod pracy</span></div>
+        <div class="qual-row"><span class="check">✓</span><span class="label">Wywiad zdrowotny przed każdym zabiegiem, niezależnie od tego, co pokazał selektor</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="opinie" style="background:var(--surface);">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Opinie</span>
+    <h2 class="center" style="text-align:center;">Co mówią pacjentki i pacjenci</h2>
+    <div class="review-grid">
+      <div class="review-card">
+        <span class="quote-mark" aria-hidden="true">„</span>
+        <p>Zaznaczyłam „zmarszczki mimiczne" bardziej z ciekawości niż na poważnie. Podpowiedź z botoksem pokrywała się z tym, co potem faktycznie zaproponowała lekarka — ale dopiero po dokładnym obejrzeniu skóry.</p>
+        <cite>— Aleksandra, {{MIASTO}}</cite>
+      </div>
+      <div class="review-card">
+        <span class="quote-mark" aria-hidden="true">„</span>
+        <p>Podobało mi się, że strona od razu mówi wprost — to nie jest diagnoza. Na konsultacji spokojnie przedyskutowaliśmy alternatywę, o której sam bym nie pomyślał.</p>
+        <cite>— Tomasz, {{MIASTO}}</cite>
+      </div>
+      <div class="review-card">
+        <span class="quote-mark" aria-hidden="true">„</span>
+        <p>Wybrałam „przebarwienia" i zobaczyłam dwie sensowne opcje z cenami — ułatwiło mi to zadanie konkretnych pytań na wizycie, zamiast zaczynać rozmowę od zera.</p>
+        <cite>— Karolina, {{MIASTO}}</cite>
+      </div>
+      <div class="review-card">
+        <span class="quote-mark" aria-hidden="true">„</span>
+        <p>Doceniam, że nikt nie próbował mi sprzedać zabiegu na podstawie kliknięcia w formularzu — konsultacja trwała tyle, ile trzeba, żeby faktycznie coś ustalić.</p>
+        <cite>— Wojtek, {{MIASTO}}</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Pytania i odpowiedzi</span>
+    <h2 class="center" style="text-align:center;">Najczęściej pytacie o selektor i zabiegi</h2>
+    <div class="faq-grid">
+      <details class="faq-card" open>
+        <summary>Czy selektor problemu to badanie lub diagnoza?</summary>
+        <p>Nie. To uproszczona podpowiedź na podstawie jednej zaznaczonej opcji — realna ocena wymaga obejrzenia skóry i wywiadu zdrowotnego, co robimy wyłącznie podczas konsultacji z lekarzem.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Czy muszę wybrać zabieg podpowiedziany przez widget?</summary>
+        <p>Nie, to tylko punkt wyjścia do rozmowy. Lekarz może zaproponować coś innego, jeśli po wywiadzie i ocenie skóry uzna to za sensowniejsze.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Czy zabiegi medycyny estetycznej bolą?</summary>
+        <p>Trochę zależy od zabiegu i indywidualnej wrażliwości — przy większości stosujemy znieczulenie miejscowe, a przy wypełniaczach igły są na tyle cienkie, że dyskomfort bywa minimalny. Jeśli akurat ten temat Cię niepokoi, powiedz o tym na konsultacji — dobierzemy podejście, które będzie dla Ciebie komfortowe.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Jak długo utrzymuje się efekt zabiegów?</summary>
+        <p>Różnie, w zależności od zabiegu i Twojego metabolizmu: efekt botoksu trwa zwykle 3–4 miesiące, kwasu hialuronowego — od kilku miesięcy nawet do roku czy dłużej. Nie podajemy jednej liczby dla wszystkich, bo taka liczba po prostu nie istnieje.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Czy trzeba się jakoś przygotować przed wizytą?</summary>
+        <p>Zwykle niewiele — kilka dni wcześniej warto odstawić alkohol i leki przeciwzakrzepowe, o ile nie są konieczne z innych powodów. Konkretne zalecenia dla wybranego zabiegu dostaniesz od nas już przy zapisie na termin, nie dopiero na miejscu.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Czy są przeciwwskazania do zabiegów?</summary>
+        <p>Tak, i to jest dokładnie ta część, której żaden selektor w internecie nie sprawdzi — między innymi ciąża, karmienie piersią, część chorób autoimmunologicznych czy aktywna infekcja skóry w miejscu zabiegu. Dlatego wywiad zdrowotny to obowiązkowy punkt pierwszej wizyty, bez wyjątków.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt" style="background:var(--surface);">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Kontakt</span>
+    <h2 class="center" style="text-align:center;">Umów konsultację</h2>
+    <p class="lead center" style="text-align:center;">Powiedz, co Cię trapi (możesz podać wynik selektora) — resztę ustalimy razem podczas rozmowy.</p>
+    <div class="contact-split">
+      <div class="contact-card">
+        <h3>Zadzwoń i umów termin</h3>
+        <p>Odbieramy telefony w godzinach otwarcia gabinetu — poza nimi zostaw wiadomość, oddzwonimy.</p>
+        <a href="tel:{{TELEFON}}" class="btn btn-primary shimmer">📞 {{TELEFON}}</a>
+        <div class="contact-info">
+          <div><b>E-mail</b>{{EMAIL}}</div>
+          <div><b>Adres</b>{{ADRES}}, {{MIASTO}}</div>
+          <div><b>Pon–Pt</b>{{GODZINY_PON_PT}}</div>
+          <div><b>Sobota</b>{{GODZINY_SOB}}</div>
+        </div>
+      </div>
+      <div class="map-panel">
+        <iframe src="https://www.google.com/maps?q={{ADRES}}, {{MIASTO}}&output=embed" title="Mapa dojazdu do {{NAZWA_STRONY}} w mieście {{MIASTO}}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">{{NAZWA_STRONY}}</div>
+  <p>{{NAZWA_STRONY}} — gabinet medycyny estetycznej w mieście {{MIASTO}}. Sprawdź, co może Ci pomóc, i potwierdź plan na konsultacji z lekarzem.</p>
+  <div class="footer-links">
+    <a href="#selektor">Dobierz zabieg</a>
+    <a href="#cennik">Cennik</a>
+    <a href="tel:{{TELEFON}}">{{TELEFON}}</a>
+    <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+  </div>
+  <div class="footer-bottom">© <span id="year"></span> {{NAZWA_STRONY}} — Medycyna estetyczna {{MIASTO}}.</div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---------- NAV HAMBURGER ----------
+  const navToggle = document.getElementById('navToggle');
+  const navLinksMobile = document.getElementById('navLinksMobile');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinksMobile.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  navLinksMobile.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinksMobile.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // ---------- SELEKTOR PROBLEMU ----------
+  const RESULTS = {
+    'zmarszczki': {
+      label: 'zmarszczki mimiczne',
+      treatments: [
+        { name: 'Botoks', why: 'Redukuje aktywność mięśni odpowiedzialnych za mimikę — najczęstszy pierwszy wybór przy zmarszczkach mimicznych.', price: 'od 700 zł', time: 'ok. 30 min' },
+        { name: 'Mezoterapia igłowa twarzy', why: 'Dodatkowe nawilżenie skóry, często łączone z botoksem dla pełniejszego efektu.', price: 'od 400 zł', time: 'ok. 40 min' }
+      ]
+    },
+    'jedrnosc-twarz': {
+      label: 'utrata jędrności twarzy',
+      treatments: [
+        { name: 'Nici liftingujące (PDO)', why: 'Mechanicznie unosi i modeluje owal twarzy — sprawdza się przy widocznej utracie jędrności.', price: 'od 1400 zł', time: 'ok. 60 min' },
+        { name: 'Kwas hialuronowy', why: 'Odbudowuje objętość w miejscach, gdzie skóra straciła napięcie, np. w policzkach.', price: 'od 900 zł', time: 'ok. 45 min' }
+      ]
+    },
+    'przebarwienia': {
+      label: 'przebarwienia i naczynka',
+      treatments: [
+        { name: 'Laseroterapia naczynek i przebarwień', why: 'Celuje bezpośrednio w widoczne przebarwienia i naczynka, zwykle w krótkiej serii zabiegów.', price: 'od 350 zł', time: 'ok. 30 min' },
+        { name: 'Peeling chemiczny', why: 'Wyrównuje koloryt skóry i wspomaga efekt laseroterapii między sesjami.', price: 'od 280 zł', time: 'ok. 30 min' }
+      ]
+    },
+    'cialo': {
+      label: 'cellulit i jędrność ciała',
+      treatments: [
+        { name: 'Radiofrekwencja liftingująca', why: 'Ujędrnia skórę ciała falami radiowymi — najczęściej wybierana przy utracie jędrności.', price: 'od 380 zł', time: 'ok. 50 min' },
+        { name: 'Zabieg na cellulit', why: 'Dedykowany zabieg poprawiający wygląd skóry przy cellulicie, zwykle wykonywany w serii.', price: 'od 320 zł', time: 'ok. 45 min' }
+      ]
+    }
+  };
+
+  const chipsWrap = document.getElementById('problemChips');
+  const resultLabel = document.getElementById('resultProblemLabel');
+  const resultTreatments = document.getElementById('resultTreatments');
+
+  function renderResult(key, animate){
+    const data = RESULTS[key];
+    resultLabel.textContent = data.label;
+    resultTreatments.innerHTML = data.treatments.map(function(t){
+      return '<div class="result-item"><div><div class="result-item-name">' + t.name + '</div><div class="result-item-why">' + t.why + '</div></div><div class="result-item-price">' + t.price + '<small>' + t.time + '</small></div></div>';
+    }).join('');
+    const items = resultTreatments.querySelectorAll('.result-item');
+    items.forEach(function(item, i){
+      if (animate) {
+        setTimeout(function(){
+          item.classList.add('reveal');
+          item.classList.add('glowed');
+          setTimeout(function(){ item.classList.remove('glowed'); }, 700);
+        }, i * 110);
+      } else {
+        item.classList.add('reveal');
+      }
+    });
+  }
+
+  chipsWrap.addEventListener('click', function(e){
+    const chip = e.target.closest('.problem-chip');
+    if (!chip) return;
+    chipsWrap.querySelectorAll('.problem-chip.active').forEach(function(c){ c.classList.remove('active'); });
+    chip.classList.add('active');
+    chip.classList.remove('pulse');
+    void chip.offsetWidth;
+    chip.classList.add('pulse');
+    renderResult(chip.dataset.problem, true);
+  });
+
+  renderResult('zmarszczki', false);
+
+  // ---------- STOPNIOWANY FADE-IN ----------
+  const fadeTargets = document.querySelectorAll('.step-card, .review-card');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const delay = Array.from(el.parentElement.children).indexOf(el) * 90;
+          setTimeout(function(){ el.classList.add('visible'); }, delay);
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.15 });
+    fadeTargets.forEach(function(el){ io.observe(el); });
+  } else {
+    fadeTargets.forEach(function(el){ el.classList.add('visible'); });
+  }
+</script>
+
+</body>
+</html>

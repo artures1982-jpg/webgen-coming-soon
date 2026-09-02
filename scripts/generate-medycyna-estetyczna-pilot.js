@@ -121,4 +121,57 @@ slotami — statyczny UI, nie musi być funkcjonalnym kalendarzem, to nie warian
 układ hero, inny mechanizm cennika/usług niż karty-kategorie z wariantu 1.`,
 });
 
+VARIANTS.push({
+  id: 'medycyna-estetyczna-3-dobierz-zabieg',
+  tier: 'plus',
+  name: 'Dobierz zabieg',
+  visual: `STYL: adaptacja archetypu "Nowoczesny cyfrowy" dla medycyny estetycznej — w innych
+branżach to zwykle widget rezerwacji (wybór usługi/daty/godziny). Tu inny mechanizm: interaktywny
+SELEKTOR PROBLEMU SKÓRY/POTRZEBY, nie kalendarz (wariant 2 już dotknął tematu "kiedy się umówić" —
+ten wariant odpowiada na "co mi w ogóle pasuje", zanim klient w ogóle zadzwoni). Klient klika na
+swoją główną troskę (np. "Zmarszczki mimiczne", "Utrata jędrności", "Przebarwienia",
+"Cellulit/jędrność ciała") i widget pokazuje 1-2 rekomendowane zabiegi z krótkim wyjaśnieniem
+DLACZEGO (nie z góry narzucona diagnoza — język typu "często polecany przy..." nie "wyleczy Twój
+problem").
+
+KRYTYCZNE OGRANICZENIE PRAWNO-ETYCZNE: to NIE może wyglądać jak automatyczna diagnoza medyczna
+zastępująca lekarza. Każdy wynik selektora musi kończyć się jasnym zastrzeżeniem, że to
+orientacyjna sugestia, a finalny dobór następuje podczas konsultacji z lekarzem. Wyraźnie inny
+rejestr niż "diagnoza AI" — to ma być punkt wyjścia do rozmowy, nie jej zastąpienie.
+
+Cała branża celuje w premium (patrz brief wariantu 1/2) — widget ma wyglądać elegancko i
+klinicznie, nie jak quiz z lifestylowego magazynu (bez emoji-gradientów, bez "Twój wynik: Jesteś
+typem Glow Girl!" tonu).
+
+Różnicowanie względem medycyna-estetyczna-1 (jasna kość słoniowa + plum, statyczne karty
+cennika) i medycyna-estetyczna-2 (ciemny róż-mauve na węglu, statyczny harmonogram dni) — trzeci,
+odrębny mechanizm interakcji i odrębna paleta.
+
+WYMAGANY RUCH (obowiązkowy próg dla wariantu 2+/plus): ambientowa, elegancka poświata w tle hero,
+delikatny shimmer na primary CTA, WYRAŹNA wizualna reakcja przy wyborze problemu w selektorze
+(podświetlenie, delikatny pulse na wyniku — to jest KLUCZOWY interaktywny element tego wariantu,
+musi czuć się żywy), stopniowany fade-in kart. Pełny prefers-reduced-motion.
+
+PALETA — sprawdź grepem że nie koliduje z żadnym wariantem w systemie, W TYM z wariantem 1 (plum
+#6b3457 na kości słoniowej) i wariantem 2 (róż-mauve #c17b91 na węglu #1c1517) tej samej branży —
+unikaj całej rodziny róż/plum/burgund dla tego wariantu. Zaproponuj coś chłodnego, klinicznego,
+cyfrowego — np. głęboki, matowy granat/indygo z akcentem lodowo-błękitnym, LUB chłodny, ciemny
+szałwiowo-szary. TYPOGRAFIA: zweryfikuj grepem że fonty nieużyte nigdzie w systemie (włącznie z
+Piazzolla/Wix Madefor Text i Alegreya/Commissioner z wariantów 1-2 tej branży).
+
+ZDJĘCIA (już wyszukane i zweryfikowane curl 200, użyj TEGO DOKŁADNEGO URL, nie zgaduj innych):
+- Nowoczesna konsultacja z tabletem, naturalne światło, elegancka klinika (bez zielonego ekranu
+  na urządzeniu — sprawdzone wizualnie):
+  https://images.pexels.com/photos/34159000/pexels-photo-34159000.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+Jeśli potrzebujesz więcej — NIE zgaduj ID, zostaw "<!-- PHOTO NEEDED: opis -->" i wypisz w
+raporcie. Selektor problemu może być czysto ikonowo-tekstowy (bez zdjęć przy każdej opcji) —
+to spójne z wariantem 1, gdzie lista zabiegów też jest tekstowa, nie zdjęciowa.
+
+LAYOUT — inny mechanizm niż medycyna-estetyczna-1/2: hero z krótkim wprowadzeniem + widget
+selektora problemu jako centralny element (nie sidebar), sekcja "jak to działa" (3 kroki: wybierz
+problem → zobacz sugestię → umów konsultację, żeby lekarz potwierdził plan), cennik/usługi w
+innym układzie niż karty-kategorie (v1) i lista dwukolumnowa (v2) — np. accordion per kategoria
+zabiegu, FAQ, kontakt z mapą.`,
+});
+
 module.exports = { VARIANTS, SAMPLE_TOKENS };
