@@ -72,4 +72,53 @@ LAYOUT — zaproponuj bespoke mechanizm każdej sekcji (nav, hero, usługi/cenni
   },
 ];
 
+VARIANTS.push({
+  id: 'medycyna-estetyczna-2-elastyczne-terminy',
+  tier: 'pro',
+  name: 'Elastyczne terminy',
+  visual: `STYL: adaptacja archetypu "Szybka interwencja 24h" dla medycyny estetycznej — Artur
+wprost zabronił ram pogotowia/urgency/syren dla tej branży (2026-09-02: "Nie trzymaj się sztywno
+ram typu szybka pomoc 24, bardziej celujemy w premium"). NIE "dziś wolny termin, dzwoń teraz",
+NIE marquee z alarmowym kolorem, NIE język zagrożenia. Zamiast tego: pilność zastąpiona
+WYGODĄ — problem realnych klientów tej branży to nie "coś się zepsuło", tylko "gabinety mają
+tygodnie oczekiwania, a ja mogę tylko wieczorem/w weekend". Duch: "konsultacja i zabieg wtedy,
+kiedy Ty masz na to czas — nie kiedy akurat jest wolne miejsce za 3 tygodnie".
+
+Drugi wariant tej branży — różnicowanie względem medycyna-estetyczna-1 (jasna kość słoniowa +
+plum, statyczny, medyczno-rzeczowy). Ten wariant może być nieco ciemniejszy/bardziej
+atmosferyczny (wieczorny klimat — spa, nie gabinet zabiegowy w świetle dnia), ale nadal
+elegancki, nigdy krzykliwy.
+
+WYMAGANY RUCH (obowiązkowy próg dla wariantu 2+, patrz .claude/agents/designer-ux-ui.md sekcja
+"Nie czekaj aż użytkownik poprosi o więcej ruchu"): ambientowa poświata w tle hero (subtelna,
+premium — nie neonowy pulse), delikatny shimmer na primary CTA, wizualna reakcja na interakcję
+(jeśli dodajesz cokolwiek klikalnego — np. przełącznik dni tygodnia), stopniowany fade-in kart.
+WYMÓG prefers-reduced-motion: wymień explicite każdą nietrywialną animację. Ruch ma być WYCISZONY
+i elegancki, zgodny z premium tonem — nie ten sam "highlighter/karteczka post-it" wzorzec co
+salon-fryzjerski-2 czy remonty-2.
+
+PALETA (zablokowana, sprawdzona grepem że nie koliduje z żadnym wariantem w systemie) — inna niż
+medycyna-estetyczna-1 (plum #6b3457 na kości słoniowej #faf7f4): zaproponuj ciemniejszy,
+atmosferyczny wariant — np. głęboki, przydymiony róż-mauve na prawie czarnym tle (wieczorny spa
+klimat), lub ciemny szałwiowo-zielony na węglowym tle. Sprawdź grepem że dokładna kombinacja nie
+powtarza żadnego istniejącego wariantu (uwaga: wiele ciemnych wariantów "2" w systemie już
+istnieje — hydraulik-2, elektryk-2, fryzjer-barber-2, remonty-2, salon-fryzjerski-2 — sprawdź ich
+dokładne hexy i unikaj tej samej "rodziny nastroju", nie tylko dokładnego hexu).
+TYPOGRAFIA: zweryfikuj grepem że fonty nieużyte nigdzie w systemie (włącznie z Piazzolla/Wix
+Madefor Text z wariantu 1 tej branży — inny wariant, inny font).
+
+ZDJĘCIA (już wyszukane i zweryfikowane curl 200, użyj TYCH DOKŁADNYCH URL, nie zgaduj innych):
+- Kameralny, minimalistyczny treatment room w ciepłym, wieczornym świetle (różowawe tony):
+  https://images.pexels.com/photos/34220297/pexels-photo-34220297.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Zbliżenie na dłonie w rękawiczkach przygotowujące zabieg (profesjonalne, nie odrażające):
+  https://images.pexels.com/photos/34220542/pexels-photo-34220542.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+Jeśli potrzebujesz więcej — NIE zgaduj ID, zostaw "<!-- PHOTO NEEDED: opis -->" i wypisz w
+raporcie.
+
+LAYOUT — inny mechanizm niż medycyna-estetyczna-1: zaproponuj np. sekcję pokazującą realne pasmo
+godzin dostępnych wieczorami/w weekendy (np. lista dni tygodnia z zaznaczonymi wieczornymi
+slotami — statyczny UI, nie musi być funkcjonalnym kalendarzem, to nie wariant "cyfrowy"), inny
+układ hero, inny mechanizm cennika/usług niż karty-kategorie z wariantu 1.`,
+});
+
 module.exports = { VARIANTS, SAMPLE_TOKENS };
