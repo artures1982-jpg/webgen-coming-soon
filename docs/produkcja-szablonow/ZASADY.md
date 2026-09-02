@@ -259,6 +259,34 @@ i w sekcji kontaktu.
 }
 ```
 
+**Rozszerzenie 2026-09-02 (realny błąd, znaleziony przez Artura na telefonie, dotknął 7
+wariantów naraz — remonty 1/3/4/5, salon-fryzjerski 1/2):** ta sama pułapka dotyczy KAŻDEGO
+tekstowego przycisku CTA w nav-actions, nie tylko przycisku telefonu. Wielowyrazowe CTA typu
+"Sprawdź wolne terminy", "Zadzwoń: {{TELEFON}}", "Umów konsultację" obok hamburgera na wąskim
+ekranie łamie się wewnątrz pigułki na 2-3 linie, robiąc przycisk absurdalnie wysokim i
+rozpychając cały pasek — dokładnie ten sam mechanizm co 6.2, tylko nikt wcześniej nie
+rozszerzył go poza `.nav-phone`. Napraw tak samo dla KAŻDEGO `.btn` w `.nav-actions`:
+
+```css
+@media (max-width:700px){
+  .nav-actions > .btn{ display:none; }
+}
+```
+
+I dołóż ten sam CTA jako pierwszy, wyróżniony link na górze rozwijanego menu mobilnego (nie
+gub akcji, tylko przenieś ją do miejsca z realnym miejscem na tekst):
+
+```html
+<nav class="nav-links-mobile" id="navLinks">
+  <a href="#kontakt" class="mobile-cta">Sprawdź wolne terminy</a>
+  <a href="#sekcja">Inny link</a>
+  ...
+</nav>
+```
+
+**Sprawdzenie przy odbiorze:** na viewporcie ≤390px sam napis CTA w pasku nav (jeśli go tam
+zostawiłeś) nigdy nie powinien zająć więcej niż jedną linię — jeśli zajmuje, brakuje tej reguły.
+
 ### 6.3 Nav bez hamburgera (wariant 6)
 
 Gdy nie ma rozwijanego menu, kotwice + telefon muszą się zmieścić w jednym pasku na **każdej**
@@ -345,6 +373,7 @@ Przejść **w przeglądarce**, na wersji wypełnionej, sekcja po sekcji:
 - [ ] Overlay przepuszcza zdjęcie — tekst czytelny, fotografia rozpoznawalna
 - [ ] Embed mapy ładuje kafelki i pokazuje właściwe miasto *(poza wariantem 6)*
 - [ ] Nav: kotwice + telefon mieszczą się bez łamania i nachodzenia
+- [ ] Nav na ≤390px: CTA-przycisk w pasku (jeśli jest) mieści się w jednej linii, nie łamie się na 2-3 (sekcja 6.2 rozszerzenie)
 - [ ] Wąski ekran (<480 px): nic się nie rozjeżdża, zdjęcia nie są nienaturalnie wysokie
 - [ ] Formularz przyjmuje dane i pokazuje potwierdzenie po wysłaniu
 - [ ] `grep -c '{{'` na wersji z tokenami > 0 — tokeny nie zostały przypadkiem podstawione
