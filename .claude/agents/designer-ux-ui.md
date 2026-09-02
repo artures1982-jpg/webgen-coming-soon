@@ -70,10 +70,19 @@ zmrużyć oczy, dwie różne struktury nadal wyglądają jak ta sama aplikacja p
 - **Próg hamburgera `max-width:700px` nie gwarantuje, że desktopowy nav mieści się tuż powyżej
   700px.** Zmierz realnie, nie zakładaj — jeśli logo + komplet linków + CTA nie mieszczą się w
   paśmie ~700-900px, strona ma poziomy scroll dokładnie tam, gdzie mało kto testuje (ZASADY.md
-  6.6, systemowy błąd znaleziony w 3 z 5 wariantów branży Remonty podczas retrofit QA). Podnieś
-  próg do realnie zmierzonej bezpiecznej wartości (typowo `960px` dla navu z 4-6 linkami + CTA),
-  nie kopiuj `700px` bezmyślnie z innych wariantów. Zawsze skanuj (lub sprawdź kilka punktów)
-  cały zakres 700-1000px pod kątem `scrollWidth` vs `clientWidth`, nie tylko 390px i desktop.
+  6.6, systemowy błąd znaleziony w 5 z 10 wariantów sprawdzonych dotąd w retrofit QA — Remonty
+  1/4/5, Fryzjer-Barber 1/2/3). Podnieś próg do realnie zmierzonej bezpiecznej wartości (typowo
+  `960px` dla navu z 4-6 linkami + CTA), nie kopiuj `700px` bezmyślnie z innych wariantów. Zawsze
+  skanuj (lub sprawdź kilka punktów) cały zakres 700-1000px pod kątem `scrollWidth` vs
+  `clientWidth`, nie tylko 390px i desktop.
+- **CSS Grid item bez jawnego `min-width` domyślnie ma `min-width:auto`** — czyli min-content
+  jego najgłębiej zagnieżdżonej zawartości. Jeśli w środku grid-item siedzi rząd wielu małych
+  chipów/przycisków o stałej minimalnej szerokości (np. chipy dat/godzin w widgecie rezerwacji),
+  grid-item nie skurczy się poniżej ich sumy — `overflow-x:auto` na WEWNĘTRZNYM elemencie
+  (np. `.date-strip`) tego nie naprawia, bo dotyczy innego elementu niż grid-item, który wymusza
+  szerokość na cały wiersz. Efekt: poziomy scroll całej strony na 320-480px, osobny od problemu
+  z nav (ZASADY.md 6.7, znaleziony w `fryzjer-barber-3-nowoczesny-cyfrowy.html`). Dodaj
+  `min-width:0` do każdego grid-item z gęstą/przewijaną zawartością wewnątrz.
 
 ## Różnicowanie — to jest sedno zadania
 

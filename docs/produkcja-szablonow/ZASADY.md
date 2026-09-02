@@ -414,6 +414,36 @@ zachowania rzeczy, które działały poprawnie na starym progu.
 ręcznie sprawdź kilka punktów) cały zakres 700–1000px pod kątem poziomego scrolla — to pasmo
 między "mobile" a "desktop" jest tym, które najczęściej się pomija.
 
+### 6.7 CSS Grid item domyślnie ma `min-width:auto` — głęboko zagnieżdżone chipy/przyciski
+rozpychają cały grid, mimo `overflow-x:auto` na złym elemencie
+
+Grid item bez jawnego `min-width` ma domyślnie `min-width:auto`, co w praktyce oznacza
+**min-content jego NAJGŁĘBIEJ zagnieżdżonej zawartości** — jeśli w środku siedzi rząd wielu
+małych elementów o stałej minimalnej szerokości (np. 6 `.date-chip` po 52px, 3 przyciski wyboru
+usługi po 88px), grid item nie może się skurczyć poniżej sumy tych szerokości, NAWET jeśli sam
+rząd chipów ma własny `overflow-x:auto`. `overflow-x:auto` na wewnętrznym elemencie (np.
+`.date-strip`) nie neutralizuje `min-width:auto` na jego RODZICU-grid-item (np. `.widget-stage`)
+— to dwa różne elementy, jeden dostaje scroll, drugi i tak wymusza szerokość na cały wiersz
+grida. Efekt: poziomy scroll całej strony na wąskich ekranach (320–480px), mimo że wygląda jakby
+scrollowanie chipów miało to rozwiązać. Znaleziony przez `designer-ux-ui` w
+`fryzjer-barber-3-nowoczesny-cyfrowy.html` (widget rezerwacji z chipami dat/godzin/usług w
+`.hero-grid`/`.contact-grid`), zweryfikowany realnym renderem: `scrollWidth` 431px na
+viewport 390px.
+
+**Naprawa** — dodaj `min-width:0` do każdego grid-item, który zawiera wewnątrz poziomo
+przewijaną lub gęstą listę elementów o stałej minimalnej szerokości:
+
+```css
+@media (max-width:960px){
+  .hero-copy, .widget-stage, .contact-form-card, .side-info{ min-width:0; }
+}
+```
+
+**Sprawdzenie przy odbiorze**: jeśli wariant ma widget/formularz z rzędem chipów, przycisków lub
+kart wewnątrz layoutu CSS Grid (nie flex), zweryfikuj poziomy scroll na 320–480px osobno od
+sprawdzenia nav (sekcja 6.6) — to inny mechanizm tego samego objawu i łatwo pomylić jeden z
+drugim, jeśli test polega tylko na jednym viewporcie.
+
 ---
 
 ## 7. Tryb szablonu
@@ -441,6 +471,7 @@ Przejść **w przeglądarce**, na wersji wypełnionej, sekcja po sekcji:
 - [ ] Nav na ≤390px: CTA-przycisk w pasku (jeśli jest) mieści się w jednej linii, nie łamie się na 2-3 (sekcja 6.2 rozszerzenie)
 - [ ] Nav z wyśrodkowanym logo na ≤390px: logo faktycznie w geometrycznym środku paska, nie przesunięte w lewo/prawo (sekcja 6.5)
 - [ ] Zakres 700–1000px (nie tylko 390px i desktop pełnej szerokości): brak poziomego scrolla, desktopowy nav faktycznie mieści się tuż nad progiem hamburgera (sekcja 6.6)
+- [ ] Widget/formularz z chipami/przyciskami w CSS Grid: brak poziomego scrolla na 320–480px niezależnie od navu — sprawdź `min-width:0` na grid-items z gęstą zawartością (sekcja 6.7)
 - [ ] Czcionka `--head` czytelna jako pełny `h1` (zdanie), nie tylko jako krótkie logo — sprawdzone na szerokości telefonu
 - [ ] Wąski ekran (<480 px): nic się nie rozjeżdża, zdjęcia nie są nienaturalnie wysokie
 - [ ] Formularz przyjmuje dane i pokazuje potwierdzenie po wysłaniu

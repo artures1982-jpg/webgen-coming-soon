@@ -167,16 +167,21 @@
     .why-grid{grid-template-columns:1fr 1fr;}
     .contact-grid{grid-template-columns:1fr;}
     .footer-grid{grid-template-columns:1fr 1fr;}
-  }
-  @media (max-width:700px){
+
+    /* Nav collapse — próg podniesiony z 700px na 960px: przy logo + 6 linkach + telefonie + CTA
+       desktopowy pasek nie mieścił się bez poziomego scrolla w paśmie ~705-785px (ZASADY.md 6.6). */
     .nav-links-desktop{display:none;}
+    .nav-actions > .btn{display:none;}
     .nav-links-mobile{display:flex;flex-direction:column;align-items:flex-start;gap:0;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);padding:0 1.5rem;max-height:0;overflow:hidden;transition:max-height .25s ease, padding .25s ease;}
-    .nav-links-mobile.open{max-height:420px;padding:1rem 1.5rem 1.4rem;}
+    .nav-links-mobile.open{max-height:480px;padding:1rem 1.5rem 1.4rem;}
     .nav-links-mobile a{padding:.55rem 0;font-weight:600;font-size:.95rem;color:var(--text);width:100%;}
+    .nav-links-mobile .mobile-cta{background:var(--accent);color:var(--bg);padding:.75rem 1rem;font-weight:700;text-align:center;margin-bottom:.4rem;}
     .nav-toggle{display:flex;}
     .nav-phone-link{width:40px;height:40px;padding:0;justify-content:center;flex-shrink:0;}
     .nav-phone-link .txt{display:none;}
     .nav-phone-link .icon{display:inline-block;}
+  }
+  @media (max-width:700px){
     .gallery-grid{grid-template-columns:1fr;}
     .why-grid{grid-template-columns:1fr;}
     .reviews-grid{grid-template-columns:1fr;}
@@ -210,6 +215,7 @@
     </div>
   </div>
   <nav class="nav-links-mobile" id="navLinksMobile">
+    <a href="#kontakt" class="mobile-cta">Umów wizytę</a>
     <a href="#o-nas">O nas</a>
     <a href="#cennik">Cennik</a>
     <a href="#galeria">Galeria</a>
@@ -284,11 +290,11 @@
     <div class="about-copy">
       <span class="eyebrow">O zakładzie</span>
       <h2>Barbershop w mieście Kraków, w którym liczy się detal</h2>
-      <p>SharpCut to zakład fryzjerski działający na terenie miasta Kraków, prowadzony przez zespół barberów, którzy strzygą i golą od lat — nie na skróty, tylko z uwagą na linię, proporcję i to, żeby fryzura trzymała formę tydzień po wizycie, nie tylko w drzwiach salonu.</p>
+      <p>Zaczynałem 9 lat temu przy jednym fotelu wynajętym na godziny, w niewielkim gabinecie na terenie miasta Kraków — dziś w lokalu stoi ich pięć, a część klientów z tamtego pierwszego roku wciąż siada na tym samym miejscu przy oknie. SharpCut to dziś zespół barberów, których sam przyuczyłem od podstaw — strzygą i golą dokładnie tak, jak ja bym to zrobił: nie na skróty, tylko z uwagą na linię, proporcję i to, żeby fryzura trzymała formę tydzień po wizycie, nie tylko w drzwiach salonu.</p>
       <p>Pracujemy na ostrzonych narzędziach i sprawdzonej kosmetyce do golenia — <strong>gorący ręcznik</strong> przy każdym goleniu brzytwą to u nas standard, nie dodatek za dopłatą.</p>
       <div class="about-stats-row">
         <div class="about-stat"><b>9 lat</b><span>w zawodzie</span></div>
-        <div class="about-stat"><b>5200+</b><span>strzyżeń i golenia</span></div>
+        <div class="about-stat"><b>5200+</b><span>wizyt przy fotelu</span></div>
         <div class="about-stat"><b>4.9/5</b><span>średnia ocen klientów</span></div>
       </div>
     </div>

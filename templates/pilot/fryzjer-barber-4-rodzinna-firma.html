@@ -37,6 +37,7 @@
     background:var(--bg);
     line-height:1.65;
     -webkit-font-smoothing:antialiased;
+    overflow-wrap:break-word;
   }
   img{max-width:100%;display:block;}
   a{color:inherit;text-decoration:none;}
@@ -176,8 +177,14 @@
     .timeline-item .dot{display:none;}
     .services-grid{grid-template-columns:1fr;}
     .contact-grid{grid-template-columns:1fr;}
+    /* Grid item bez min-width:0 wymusza min-content najgłębszego potomka (np. długi,
+       niełamliwy token w h1) i rozpycha wiersz grida poza viewport — ZASADY.md 6.7. */
+    .hero-copy, .hero-photo-wrap, .timeline-item, .service-card, .contact-info{min-width:0;}
   }
-  @media (max-width:700px){
+  /* Nav collapse — próg podniesiony z 700px na 960px: przy logo + 4 linkach + CTA telefonu
+     desktopowy "Zadzwoń: {{TELEFON}}" łamał się w pigułce na 2 linie w paśmie ~705-835px
+     (zmierzone realnie, ZASADY.md 6.6). */
+  @media (max-width:960px){
     .nav-links{display:none;}
     .nav .wrap{grid-template-columns:auto 1fr auto;}
     .nav-links-mobile{
@@ -192,6 +199,8 @@
     .nav-phone{width:44px;height:44px;padding:0;justify-content:center;border-radius:50%;}
     .nav-phone .txt{display:none;}
     .nav-phone .icon{display:inline;}
+  }
+  @media (max-width:700px){
     section{padding:3.5rem 1.2rem;}
     .service-card{padding-right:4.4rem;}
   }
@@ -231,7 +240,7 @@
     <div class="hero-copy">
       <span class="eyebrow">Fryzjer {{MIASTO}} — od dziadka do wnuka</span>
       <h1>{{NAZWA_STRONY}} — może już strzygłem Twojego ojca</h1>
-      <p class="lead">Nie jestem tu kolejnym numerem w kalendarzu. Ten sam fotel, ta sama rodzina — od trzech pokoleń przycinamy włosy mieszkańcom miasta {{MIASTO}} tak, jak sami chcielibyśmy być obsłużeni.</p>
+      <p class="lead">Pamiętam Twoją ostatnią fryzurę — czasem pamiętam też, jak w tym samym fotelu siadał Twój ojciec. Trzy pokolenia, jeden fotel, mieszkańcy miasta {{MIASTO}}, których naprawdę znamy z imienia.</p>
       <a href="tel:{{TELEFON}}" class="btn btn-primary">📞 Zadzwoń: {{TELEFON}}</a>
     </div>
     <div class="hero-photo-wrap">
@@ -256,7 +265,7 @@
       <div class="timeline-item">
         <span class="year">1994</span>
         <h3>Ojciec przejmuje fotel</h3>
-        <p>Ten sam adres, nowe techniki — ale zasada zostaje bez zmian: strzyżemy tak, jak sami chcielibyśmy być ostrzyżeni.</p>
+        <p>Ten sam adres, nowe narzędzia — ojciec wprowadził elektryczną maszynkę i pierwszy cennik spisany na kartce, żeby nikt nie musiał się targować.</p>
         <span class="dot"></span>
       </div>
       <div class="timeline-item">
@@ -321,8 +330,8 @@
     <h2>Najczęściej pytacie</h2>
     <div class="faq-list">
       <details open>
-        <summary>Czy to Ty osobiście strzyżesz każdego klienta?</summary>
-        <p>Tak — w tym fotelu siadam ja, tak jak przede mną siadał tu mój ojciec, a wcześniej dziadek. Nie ma zmiennika ani losowego przydziału do wolnego stanowiska.</p>
+        <summary>Zawsze siadam do Ciebie, czy czasem obsługuje mnie ktoś inny?</summary>
+        <p>Zawsze ja. W tym fotelu siadam ja, tak jak przede mną siadał tu mój ojciec, a wcześniej dziadek — żadnego losowania wolnego stanowiska ani zmiennika, którego nigdy wcześniej nie widziałeś.</p>
       </details>
       <details>
         <summary>Czy mogę umówić się na konkretny termin, nie tylko wpaść z ulicy?</summary>
@@ -355,7 +364,7 @@
       </div>
       <p class="lead" style="margin:0 auto;">Ten sam numer, ta sama ręka na słuchawce od trzech pokoleń — {{NAZWA_STRONY}}</p>
       <a href="tel:{{TELEFON}}" class="phone-big">{{TELEFON}}</a>
-      <blockquote class="contact-quote">„Przychodzę tu od dziecka, teraz przyprowadzam własnego syna — to mówi samo za siebie.”<cite>— klient, {{MIASTO}}</cite></blockquote>
+      <blockquote class="contact-quote">„Nie muszę nic tłumaczyć — wystarczy usiąść, a on już wie, co robić.”<cite>— klient, {{MIASTO}}</cite></blockquote>
     </div>
     <div class="contact-grid">
       <div class="contact-info">

@@ -94,7 +94,7 @@
 
   /* ===== HERO ===== */
   .hero{position:relative;min-height:92vh;display:flex;align-items:flex-end;overflow:hidden;}
-  .hero-bg{position:absolute;inset:0;z-index:0;background:url('https://images.pexels.com/photos/2061820/pexels-photo-2061820.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1200') center 30%/cover no-repeat;}
+  .hero-bg{position:absolute;inset:0;z-index:0;background:url('https://images.pexels.com/photos/2307047/pexels-photo-2307047.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1200') center 30%/cover no-repeat;}
   .hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(0deg, color-mix(in srgb, var(--bg) 92%, transparent) 5%, color-mix(in srgb, var(--bg) 55%, transparent) 55%, color-mix(in srgb, var(--bg) 78%, transparent) 100%);}
 
   /* smuga światła przesuwająca się raz na kilka sekund (wymóg reduced-motion na dole) */
@@ -152,6 +152,10 @@
     transition:opacity .55s ease, transform .55s ease, border-color .2s ease, box-shadow .3s ease;
   }
   .service-card.visible{opacity:1;transform:translateY(0);}
+  .service-card:nth-child(1){transition-delay:0s;}
+  .service-card:nth-child(2){transition-delay:.1s;}
+  .service-card:nth-child(3){transition-delay:.2s;}
+  .service-card:nth-child(4){transition-delay:.3s;}
   .service-card:hover{border-color:color-mix(in srgb, var(--accent) 55%, transparent);box-shadow:0 0 26px color-mix(in srgb, var(--accent) 20%, transparent);}
   .service-card .time{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.6rem;}
   .service-card h3{font-size:1.05rem;text-transform:none;margin-bottom:.7rem;font-weight:600;}
@@ -167,6 +171,10 @@
     transition:opacity .55s ease, transform .55s ease;
   }
   .why-item.visible{opacity:1;transform:translateY(0);}
+  .why-item:nth-child(1){transition-delay:0s;}
+  .why-item:nth-child(2){transition-delay:.1s;}
+  .why-item:nth-child(3){transition-delay:.2s;}
+  .why-item:nth-child(4){transition-delay:.3s;}
   .why-item .icon{width:52px;height:52px;border-radius:50%;background:color-mix(in srgb, var(--accent) 16%, transparent);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 1rem;}
   .why-item h3{font-size:.98rem;text-transform:none;margin-bottom:.5rem;font-weight:600;}
   .why-item p{font-size:.86rem;color:var(--muted);}
@@ -184,6 +192,8 @@
   .contact{background:var(--surface);}
   .contact-band{background:var(--bg);border:1px solid color-mix(in srgb, var(--accent) 25%, transparent);border-radius:1.1rem;padding:2.6rem 1.8rem;text-align:center;margin-bottom:2.6rem;}
   .contact-band p{color:var(--muted);margin-bottom:1.4rem;}
+  /* primary CTA w kontakcie dostaje ten sam statyczny glow co telefon w hero (spójny standard na obu głównych CTA) */
+  .contact-band .btn-primary{box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent), 0 18px 36px color-mix(in srgb, var(--accent) 30%, transparent);}
   .contact-info-row{display:flex;flex-wrap:wrap;justify-content:center;gap:1.8rem;margin-top:0;font-size:.9rem;color:var(--muted);}
   .contact-info-row b{display:block;color:var(--text);font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.25rem;font-family:var(--head);}
   .map-wrap{margin-top:2.6rem;}
@@ -210,11 +220,13 @@
     .service-card, .why-item{opacity:1!important;transform:none!important;transition:none!important;}
   }
 
+  /* Próg hamburgera podniesiony z 700px na 960px (ZASADY.md 6.6): zmierzone realnie —
+     desktopowy pasek nav (logo + 4 linki + plakietka dostępności + CTA) ma scrollWidth 733px,
+     więc przy 700-733px łamał się z poziomym scrollem, mimo że hamburger włączał się dopiero
+     od 700px w dół. Reguły nav-collapse żyją teraz w tym samym bloku co reszta 960px. */
   @media (max-width:960px){
     .services-grid{grid-template-columns:repeat(2,1fr);}
     .why-grid{grid-template-columns:repeat(2,1fr);}
-  }
-  @media (max-width:700px){
     .nav-links-desktop{display:none;}
     .nav-links-mobile{
       position:absolute;top:100%;left:0;right:0;background:var(--bg);
@@ -228,6 +240,8 @@
     .badge-cta span.txt{display:none;}
     .badge-cta{padding:.6rem;gap:0;}
     .nav-actions{gap:.6rem;}
+  }
+  @media (max-width:700px){
     section{padding:3.6rem 1.2rem;}
     .services-grid{grid-template-columns:1fr;}
     .why-grid{grid-template-columns:1fr;}
@@ -275,7 +289,7 @@
   <div class="hero-inner">
     <span class="eyebrow">Barbershop bez kolejki — {{MIASTO}}</span>
     <h1>Wpadasz, siadasz, wychodzisz <em>ogarnięty</em>. Bez zapisu.</h1>
-    <p>Zero rezerwacji, zero telefonu dzień wcześniej. Fade, broda albo golenie na ostrzu — siadasz, gdy akurat masz wolną chwilę między spotkaniami, i wychodzisz ogarnięty, zanim wystygnie kawa. Pasek poniżej pokazuje wolne miejsca na żywo.</p>
+    <p>Zero rezerwacji, zero telefonu dzień wcześniej. Fade, broda albo golenie na ostrzu — siadasz, gdy akurat masz wolną chwilę między spotkaniami, i jesteś z powrotem przy biurku, zanim wystygnie kawa. Pasek poniżej pokazuje wolne miejsca na żywo.</p>
     <div class="hero-ctas">
       <a href="tel:{{TELEFON}}" class="hero-phone">📞 {{TELEFON}}</a>
       <a href="#uslugi" class="hero-secondary">Zobacz usługi ekspresowe</a>
@@ -350,7 +364,7 @@
       </details>
       <details>
         <summary>Do której godziny mogę wpaść bez zapisu?</summary>
-        <p>Do zamknięcia — w mieście {{MIASTO}} przyjmujemy klientów walk-in aż do ostatniej godziny otwarcia, patrz godziny w sekcji kontakt.</p>
+        <p>Do zamknięcia — w mieście {{MIASTO}} przyjmujemy klientów walk-in aż do ostatniej godziny otwarcia. Dokładne godziny znajdziesz niżej, w sekcji kontakt.</p>
       </details>
       <details>
         <summary>Obsługujecie też dzieci bez zapisu?</summary>
