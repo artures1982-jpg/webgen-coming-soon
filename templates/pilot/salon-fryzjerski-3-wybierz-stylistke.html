@@ -45,6 +45,10 @@
   .btn:hover{transform:translateY(-2px);}
   .btn-primary{background:var(--accent);color:var(--bg);}
   .btn-primary:hover{background:var(--accent-dark);color:var(--text);}
+  .btn-glow{position:relative;overflow:hidden;}
+  .btn-glow::before{content:'';position:absolute;inset:-2px;background:linear-gradient(90deg, transparent, color-mix(in srgb, var(--bg) 65%, transparent), transparent);background-size:220% 100%;animation:sweep 2.6s linear infinite;}
+  .btn-glow span{position:relative;z-index:1;}
+  @keyframes sweep{0%{background-position:-120% 0;}100%{background-position:120% 0;}}
 
   /* NAV */
   header.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--bg) 92%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);}
@@ -59,7 +63,12 @@
   .nav-toggle span{width:24px;height:2px;background:var(--text);}
 
   /* HERO */
-  .hero-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:3.5rem;align-items:center;}
+  .hero{position:relative;overflow:hidden;}
+  .hero-bg{position:absolute;inset:0;z-index:0;}
+  .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:50% 25%;opacity:.32;animation:heroZoom 18s ease-in-out infinite alternate;}
+  .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, color-mix(in srgb, var(--bg) 35%, transparent) 0%, var(--bg) 88%);}
+  @keyframes heroZoom{0%{transform:scale(1);}100%{transform:scale(1.09);}}
+  .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1.1fr;gap:3.5rem;align-items:center;}
   .hero h1{font-size:clamp(2rem,3.8vw,2.9rem);margin-bottom:1.2rem;}
   .hero h1 em{color:var(--accent);font-style:normal;}
   .hero p{font-size:1.05rem;color:var(--muted);max-width:480px;margin-bottom:1rem;}
@@ -73,7 +82,8 @@
   .stylist-chip{background:transparent;border:1px solid color-mix(in srgb, var(--text) 15%, transparent);border-radius:1rem;padding:.8rem .4rem;text-align:center;cursor:pointer;transition:border-color .2s ease, box-shadow .2s ease, background .2s ease;}
   .stylist-chip:hover{border-color:var(--accent);box-shadow:0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent);}
   .stylist-chip.active{background:color-mix(in srgb, var(--accent) 16%, transparent);border-color:var(--accent);}
-  .stylist-avatar{width:2.6rem;height:2.6rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:400;font-size:1.05rem;margin:0 auto .5rem;color:var(--bg);}
+  .stylist-avatar{width:2.6rem;height:2.6rem;border-radius:50%;object-fit:cover;display:block;margin:0 auto .5rem;transition:box-shadow .2s ease;}
+  .stylist-chip.active .stylist-avatar{box-shadow:0 0 0 2px var(--bg), 0 0 0 4px var(--accent);}
   .stylist-chip .name{font-size:.82rem;font-weight:700;display:block;}
   .stylist-chip .spec{font-size:.68rem;color:var(--muted);display:block;margin-top:.15rem;}
   .hours-row{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem;margin-bottom:1.6rem;}
@@ -82,6 +92,8 @@
   .hour-chip.active{background:var(--accent);color:var(--bg);border-color:var(--accent);}
   .widget-result{background:color-mix(in srgb, var(--accent) 14%, transparent);border-radius:.9rem;padding:1rem 1.2rem;text-align:center;font-size:.92rem;}
   .widget-result strong{color:var(--accent);}
+  @keyframes resultPulse{0%{box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent);}70%{box-shadow:0 0 0 16px transparent;}100%{box-shadow:0 0 0 0 transparent;}}
+  .widget-result.pulse{animation:resultPulse .6s ease-out;}
 
   /* STORY */
   .story{background:var(--surface);}
@@ -99,7 +111,8 @@
   .team-grid .team-card:nth-child(2){transition-delay:.1s;}
   .team-grid .team-card:nth-child(3){transition-delay:.2s;}
   .team-grid .team-card:nth-child(4){transition-delay:.3s;}
-  .team-avatar{width:3.6rem;height:3.6rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:400;font-size:1.4rem;margin:0 auto 1rem;color:var(--bg);}
+  .team-photo{width:5.2rem;height:5.2rem;border-radius:50%;object-fit:cover;margin:0 auto 1rem;border:3px solid color-mix(in srgb, var(--accent) 35%, transparent);transition:transform .3s ease, box-shadow .3s ease;}
+  .team-card:hover .team-photo{transform:scale(1.06);box-shadow:0 0 26px color-mix(in srgb, var(--accent) 45%, transparent);}
   .team-card h3{font-family:var(--body);font-weight:700;font-size:1rem;margin-bottom:.3rem;}
   .team-card .spec{font-size:.82rem;color:var(--accent);font-weight:600;margin-bottom:.5rem;}
   .team-card p{font-size:.85rem;color:var(--muted);}
@@ -108,6 +121,8 @@
   .trust-row{display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap;margin-top:2.2rem;}
   .trust-stat{font-family:var(--head);font-weight:400;font-size:2rem;color:var(--accent);}
   .trust-stat span{display:block;font-family:var(--body);font-weight:600;font-size:.8rem;color:var(--muted);}
+  .chat-bubble-wrap{display:flex;align-items:flex-start;gap:1rem;}
+  .client-photo{width:56px;height:56px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid color-mix(in srgb, var(--accent) 40%, transparent);}
   .chat-bubble{background:var(--surface);border-radius:1.2rem 1.2rem 1.2rem .2rem;padding:1.2rem 1.4rem;max-width:420px;font-size:.95rem;}
   .chat-bubble .who{display:block;margin-top:.6rem;font-size:.82rem;color:var(--muted);}
 
@@ -152,6 +167,10 @@
 
   @media (prefers-reduced-motion: reduce){
     .fade-in, .team-card{opacity:1;transform:none;transition:none;}
+    .hero-bg img{animation:none;}
+    .btn-glow::before{animation:none;display:none;}
+    .widget-result.pulse{animation:none;}
+    .team-card:hover .team-photo{transform:none;}
   }
 </style>
 </head>
@@ -166,7 +185,7 @@
       <a href="#kontakt">Kontakt</a>
     </nav>
     <div class="nav-actions">
-      <a href="#rezerwacja" class="btn btn-primary">Umów u wybranej osoby</a>
+      <a href="#rezerwacja" class="btn btn-primary btn-glow"><span>Umów u wybranej osoby</span></a>
       <button class="nav-toggle" id="navToggle" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -181,6 +200,7 @@
 </header>
 
 <section class="hero" id="rezerwacja">
+  <div class="hero-bg"><img src="https://images.pexels.com/photos/3993324/pexels-photo-3993324.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Koloryzacja włosów w salonie {{NAZWA_STRONY}}" loading="eager"></div>
   <div class="wrap hero-grid">
     <div>
       <span class="eyebrow">{{NAZWA_STRONY}} — {{MIASTO}}</span>
@@ -192,10 +212,10 @@
       <div class="widget-card">
         <div class="widget-label">Krok 1 — wybierz osobę</div>
         <div class="stylist-row" id="stylistRow">
-          <button class="stylist-chip active" data-name="Kasia" data-spec="Koloryzacja"><span class="stylist-avatar" style="background:var(--accent)">K</span><span class="name">Kasia</span><span class="spec">Koloryzacja</span></button>
-          <button class="stylist-chip" data-name="Michał" data-spec="Strzyżenie męskie"><span class="stylist-avatar" style="background:var(--accent-dark)">M</span><span class="name">Michał</span><span class="spec">Strzyżenie męskie</span></button>
-          <button class="stylist-chip" data-name="Ania" data-spec="Stylizacje ślubne"><span class="stylist-avatar" style="background:color-mix(in srgb, var(--accent) 55%, white 45%)">A</span><span class="name">Ania</span><span class="spec">Stylizacje ślubne</span></button>
-          <button class="stylist-chip" data-name="Tomek" data-spec="Fade i broda"><span class="stylist-avatar" style="background:color-mix(in srgb, var(--accent) 70%, var(--muted) 30%)">T</span><span class="name">Tomek</span><span class="spec">Fade i broda</span></button>
+          <button class="stylist-chip active" data-name="Kasia" data-spec="Koloryzacja"><img class="stylist-avatar" src="https://images.pexels.com/photos/3993303/pexels-photo-3993303.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Kasia — koloryzacja" loading="lazy"><span class="name">Kasia</span><span class="spec">Koloryzacja</span></button>
+          <button class="stylist-chip" data-name="Michał" data-spec="Strzyżenie męskie"><img class="stylist-avatar" src="https://images.pexels.com/photos/5337979/pexels-photo-5337979.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Michał — strzyżenie męskie" loading="lazy"><span class="name">Michał</span><span class="spec">Strzyżenie męskie</span></button>
+          <button class="stylist-chip" data-name="Ania" data-spec="Stylizacje ślubne"><img class="stylist-avatar" src="https://images.pexels.com/photos/8834018/pexels-photo-8834018.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Ania — stylizacje ślubne" loading="lazy"><span class="name">Ania</span><span class="spec">Stylizacje ślubne</span></button>
+          <button class="stylist-chip" data-name="Tomek" data-spec="Fade i broda"><img class="stylist-avatar" src="https://images.pexels.com/photos/18483772/pexels-photo-18483772.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Tomek — fade i broda" loading="lazy"><span class="name">Tomek</span><span class="spec">Fade i broda</span></button>
         </div>
         <div class="widget-label">Krok 2 — wolne godziny u <span id="selectedName">Kasi</span></div>
         <div class="hours-row" id="hoursRow">
@@ -226,10 +246,10 @@
     <span class="eyebrow">Poznaj zespół</span>
     <h2>Kto Cię obsłuży</h2>
     <div class="team-grid">
-      <div class="team-card"><span class="team-avatar" style="background:var(--accent)">K</span><h3>Kasia</h3><div class="spec">Koloryzacja</div><p>7 lat doświadczenia, specjalizacja balayage i rozjaśnianie.</p></div>
-      <div class="team-card"><span class="team-avatar" style="background:var(--accent-dark)">M</span><h3>Michał</h3><div class="spec">Strzyżenie męskie</div><p>Klasyczne cięcia i nowoczesne fade'y, 5 lat w zawodzie.</p></div>
-      <div class="team-card"><span class="team-avatar" style="background:color-mix(in srgb, var(--accent) 55%, white 45%)">A</span><h3>Ania</h3><div class="spec">Stylizacje ślubne</div><p>Upięcia i stylizacje okolicznościowe, 9 lat doświadczenia.</p></div>
-      <div class="team-card"><span class="team-avatar" style="background:color-mix(in srgb, var(--accent) 70%, var(--muted) 30%)">T</span><h3>Tomek</h3><div class="spec">Fade i broda</div><p>Precyzyjne cięcia męskie i modelowanie brody, 6 lat w zawodzie.</p></div>
+      <div class="team-card"><img class="team-photo" src="https://images.pexels.com/photos/3993303/pexels-photo-3993303.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Kasia — fryzjerka, koloryzacja" loading="lazy"><h3>Kasia</h3><div class="spec">Koloryzacja</div><p>7 lat doświadczenia, specjalizacja balayage i rozjaśnianie.</p></div>
+      <div class="team-card"><img class="team-photo" src="https://images.pexels.com/photos/5337979/pexels-photo-5337979.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Michał — fryzjer, strzyżenie męskie" loading="lazy"><h3>Michał</h3><div class="spec">Strzyżenie męskie</div><p>Klasyczne cięcia i nowoczesne fade'y, 5 lat w zawodzie.</p></div>
+      <div class="team-card"><img class="team-photo" src="https://images.pexels.com/photos/8834018/pexels-photo-8834018.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Ania — fryzjerka, stylizacje ślubne" loading="lazy"><h3>Ania</h3><div class="spec">Stylizacje ślubne</div><p>Upięcia i stylizacje okolicznościowe, 9 lat doświadczenia.</p></div>
+      <div class="team-card"><img class="team-photo" src="https://images.pexels.com/photos/18483772/pexels-photo-18483772.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Tomek — barber, fade i broda" loading="lazy"><h3>Tomek</h3><div class="spec">Fade i broda</div><p>Precyzyjne cięcia męskie i modelowanie brody, 6 lat w zawodzie.</p></div>
     </div>
   </div>
 </section>
@@ -240,7 +260,10 @@
     <h2>Ludzie wracają do konkretnych osób</h2>
     <div class="trust-row">
       <div class="trust-stat">78%<span>klientów wraca do tej samej osoby</span></div>
-      <div class="chat-bubble">"Wybrałam Anię do stylizacji przed weselem i teraz zawsze umawiam się tylko u niej — dokładnie wie, czego chcę."<span class="who">Ola, {{MIASTO}}</span></div>
+      <div class="chat-bubble-wrap">
+        <img class="client-photo" src="https://images.pexels.com/photos/7755209/pexels-photo-7755209.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Klientka {{NAZWA_STRONY}} zadowolona ze stylizacji" loading="lazy">
+        <div class="chat-bubble">"Wybrałam Anię do stylizacji przed weselem i teraz zawsze umawiam się tylko u niej — dokładnie wie, czego chcę."<span class="who">Ola, {{MIASTO}}</span></div>
+      </div>
     </div>
   </div>
 </section>
@@ -275,7 +298,7 @@
     <span class="eyebrow">Kontakt</span>
     <h2>Masz pytanie przed rezerwacją?</h2>
     <div class="kontakt-recap">Twój wybór: <strong id="recapText">Kasia — Koloryzacja, 10:00</strong></div>
-    <a href="tel:{{TELEFON}}" class="btn btn-primary">📞 {{TELEFON}}</a>
+    <a href="tel:{{TELEFON}}" class="btn btn-primary btn-glow"><span>📞 {{TELEFON}}</span></a>
     <div class="kontakt-info">
       <p>{{NAZWA_STRONY}} · {{ADRES}}, {{MIASTO}}</p>
       <p>Email: <a href="mailto:{{EMAIL}}">{{EMAIL}}</a></p>
@@ -324,6 +347,9 @@
     selectedNameEl.textContent = stylistGenitive[selectedStylist] || selectedStylist;
     widgetResult.innerHTML = 'Wybrano: <strong>' + selectedStylist + '</strong>, ' + selectedHour;
     recapText.textContent = selectedStylist + ' — ' + selectedSpec + ', ' + selectedHour;
+    widgetResult.classList.remove('pulse');
+    void widgetResult.offsetWidth;
+    widgetResult.classList.add('pulse');
   }
 
   document.querySelectorAll('#stylistRow .stylist-chip').forEach(function(chip){
