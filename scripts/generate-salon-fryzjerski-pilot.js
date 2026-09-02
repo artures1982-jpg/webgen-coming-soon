@@ -295,4 +295,109 @@ LAYOUT — inny mechanizm niż salon-fryzjerski-1 (hero magazynowy, cennik 2-kol
 9. Stopka: 2-kolumnowa, ciepła, prosta.`,
 });
 
+VARIANTS.push({
+  id: 'salon-fryzjerski-5-premium',
+  tier: 'pro',
+  name: 'Premium',
+  visual: `STYL: adaptacja archetypu "Premium/korporacyjny" — koncept "Prywatny gabinet stylisty"
+(concierge, NIE B2B). fryzjer-barber-5-premium poszedł w usługi B2B dla firm/hoteli (grooming
+eventowy, umowy korporacyjne, "dział HR i concierge") — to NIE jest ten koncept tutaj. Ten
+wariant celuje w INDYWIDUALNEGO klienta VIP: ograniczona liczba klientów dziennie, prywatny
+gabinet (nie otwarta sala), osobisty plan pielęgnacyjny prowadzony między wizytami, dyskrecja,
+rezerwacja przez formularz zapytania (nie telefon jako primary CTA — ustalona konwencja
+archetypu premium w całym systemie), unisex (damskie i męskie na najwyższym poziomie). Duch:
+"poziom obsługi, jaki zauważy ktoś przyzwyczajony do umawiania się z asystentką, nie z
+automatem". Zachowuje TIER/DUCHA archetypu 5 (wyższa pozycja, wyższa cena, poważniejszy ton),
+nie dosłowną ramę B2B — zgodnie z ZASADY.md sekcja 0, akapit "Opis archetypu to duch/tier,
+nie dosłowna treść".
+
+fryzjer-barber-5-premium.html przeczytany WYŁĄCZNIE jako inspiracja mechaniki (fade-in przy
+scrollu, formularz zapytania jako primary CTA, brak shimmeru/glow), NIGDY jako baza do
+kopiowania. Inny mechanizm każdej sekcji: hero tu jest czysto tekstowy i wyśrodkowany (barber-5
+ma split 2-kolumnowy z ramką zdjęcia), nav ma logo wyśrodkowane z linkami symetrycznie po obu
+stronach + osobny statyczny pasek utility nad nawigacją (barber-5 ma prosty flex logo|linki|
+akcje bez paska utility), zdjęcie żyje w osobnym panoramicznym pasie pod hero z podpisem
+(barber-5 ma zdjęcie w ramce wewnątrz hero), "Rejestr zaufania" to wiersze numer+opis z fade-in
+(barber-5 ma stats-strip trzech liczb bez animacji + osobny trust-row z badge'ami), cennik to
+3 karty pakietów (barber-5 nie ma sekcji cennika w ogóle), FAQ używa tego samego mechanizmu
+natywnego <details> co barber-5, ale to dozwolony, branżowo-niezależny wzorzec techniczny
+(ZASADY.md sekcja 0), nie kopiowany layout wizualny.
+
+Piąty i ostatni wariant tej branży — różnicowanie względem salon-fryzjerski-1 (ciepłe ivory+teal,
+hero magazynowy ze zdjęciem po lewej), -2 (jasne złoto+kremowa biel, fullscreen hero+marquee),
+-3 (ciemny mauve+koral, widget dwuetapowy stylista→godzina), -4 (blush+dusty-blue, warstwowa
+kompozycja dwóch zdjęć w hero, dwugłosowa narracja pokoleniowa). Żaden z nich nie ma: czysto
+tekstowego wyśrodkowanego hero, panoramicznego pasa zdjęcia z podpisem, wyśrodkowanego logo w
+navie, formularza zapytania jako primary CTA, ani cennika w formie kart-pakietów zamiast listy
+usług z cenami.
+
+MOTION-BASELINE — WYCISZONY, zgodnie z ustaloną konwencją archetypu premium w całym systemie
+(patrz .claude/agents/designer-ux-ui.md sekcja "Wariant 1 spokojny, wariant 2+ może żyć" i
+fryzjer-barber-5-premium.html jako punkt odniesienia mechaniki, NIE wyglądu): WYŁĄCZNIE
+jednorazowy fade-in+translateY na wierszach "Rejestru zaufania" przy scrollu (Intersection
+Observer + klasa .visible, stopniowany transition-delay per wiersz). Zero pętli, zero
+keyframes, zero glow w tle hero, zero shimmeru na CTA, zero marquee. To świadoma konwencja tier
+"premium/edytorialny" w całym systemie (tak samo jak w fryzjer-barber-5-premium i
+hydraulik-5-premium-korporacyjny), zapisz to jednym zdaniem w komentarzu HTML przy :root, żeby
+było jasne że to decyzja, nie przeoczenie. Pełny prefers-reduced-motion wyłączający fade-in i
+hover-lift na przyciskach.
+
+PALETA (zablokowana, sprawdzona grepem, że nic w systemie jej nie używa): --accent głęboka
+szmaragdowa zieleń jubilerska (np. #0b5c3f — genuinie inna rodzina niż wszystkie zielenie już w
+systemie: #147d72 teal salon-1, #2dd4a7 jasny emerald studio-paznokci-3, #6b8f5e szałwiowa
+elektryk-4, #3f6b4a leśna fryzjer-barber-4, #7d6b2e/#8a9820 oliwkowe remonty — ten jest głębszy,
+bardziej nasycony, bliżej klejnotowego szmaragdu niż jakikolwiek z nich), --accent-dark
+antyczny mosiądz/złoto (np. #8a6a2e — służy jako oszczędny TRZECI akcent: obwódki kart, numery
+w Rejestrze zaufania, plakietka "Polecane" w cenniku — nie jako zwykły ciemniejszy odcień
+szmaragdu, tylko osobna, złota rodzina barw), --bg ciepły champagne/ivory (np. #f6ecd8 —
+sprawdzone że różni się od już użytych jasnych ciepłych teł w systemie: #f5efe4, #fffaf0,
+#f8ede9, #f2f4f6, #eef0e8, #f1eee6, #ece1d3, #faf6ec, #e9e7e2, #f1ede5, #faf3ee), --surface
+głębszy złoty champagne (np. #ecd9b4), --text ciepła prawie-czerń z lekkim brązowo-zielonym
+podtonem (np. #211d16), --muted ciepły taupe/greige (np. #8a7d68). Baza to szmaragd+champagne,
+złoto/mosiądz jako oszczędny trzeci akcent przez sam --accent-dark i jego color-mix() tinty —
+NIE czarny+mosiądz jak barber-5 (to inny pomysł "gentleman's club", nie kopiuj).
+TYPOGRAFIA: nagłówki wąski, elegancki serif edytorialny (np. Italiana — nieużyty jeszcze w
+systemie), tekst czytelny geometryczny sans (np. Red Hat Display — nieużyty jeszcze w systemie).
+Zweryfikuj grepem przed finalizacją, jeśli kolizja wybierz najbliższy dostępny odpowiednik z
+Google Fonts.
+
+ZDJĘCIA (już wyszukane i zweryfikowane curl-em 200, użyj TYCH DOKŁADNYCH URL, nie zgaduj innych):
+- Wnętrze/gabinet (eleganckie, prawdziwe zdjęcie salonu z okrągłymi lustrami i żyrandolem, bez
+  ludzi — do panoramicznego pasa pod hero):
+  https://images.pexels.com/photos/7750113/pexels-photo-7750113.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Portret stylistki w lustrze, edytorialny/elegancki klimat (do sekcji "Plan pielęgnacyjny"):
+  https://images.pexels.com/photos/33867529/pexels-photo-33867529.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+Tylko te dwa zdjęcia — hero jest celowo bez zdjęcia (czysto tekstowy, wyśrodkowany), więc nie
+brakuje dodatkowych fotografii do żadnej sekcji.
+
+LAYOUT — inny mechanizm niż wszyscy poprzednicy tej branży (patrz różnicowanie wyżej):
+1. Utility bar: statyczny, jednowierszowy pasek nad nawigacją w kolorze --accent, tekst
+   "Gabinet prywatny — maks. 6 klientów dziennie · {{MIASTO}}" — bez marquee, bez pulsowania.
+2. Nav: logo wyśrodkowane (grid: linki-lewo | logo-centrum | linki-prawo+akcje), CTA "Zapytaj o
+   termin" jako pigułka OBRYSOWANA w --accent, kieruje do #kontakt (formularz), nie do tel:.
+   Hamburger <700px, dropdown POZA .wrap (ZASADY.md 6.4), mobile-cta jako pierwszy link.
+3. Hero: czysto tekstowy, wyśrodkowany, statyczny — eyebrow + H1 storytellingowy (nie etykieta)
+   + lead + podwójne CTA (wypełniony "Wyślij zapytanie o termin" + obrysowany "Zobacz gabinet")
+   + notka "Odpowiadamy osobiście, zwykle tego samego dnia" + rząd 3 małych chipów tekstowych
+   (Damskie i męskie / Rezerwacja przez formularz / Pełna dyskrecja).
+4. Pas panoramiczny: pełnoszerokościowe zdjęcie gabinetu z podpisem na dole w gradientowym
+   overlay — "Prywatny gabinet, nie otwarta sala. Jedno stanowisko, zamknięte drzwi."
+5. Sekcja "Jak to działa": 4 kroki (numer w kwadratowej ramce mosiądzu, nie rzymskie cyfry, nie
+   karty ze zdjęciami) — Zapytanie / Dobór terminu / Wizyta w gabinecie / Plan na kolejne wizyty.
+6. Sekcja "Plan pielęgnacyjny": 2 kolumny, portret stylistki + tekst o indywidualnej karcie
+   pielęgnacyjnej prowadzonej między wizytami, z wyraźnym zdaniem o unisex (dotyczy tak samo
+   klientek, jak i klientów).
+7. Sekcja "Rejestr zaufania": wiersze numer+opis (13 lat / maks. 6 wizyt dziennie / 100%
+   dyskrecji / indywidualna karta), JEDYNE miejsce z fade-in+translateY przy scrollu.
+8. Sekcja "Cennik": 3 karty pakietów (Wizyta pojedyncza / Opieka kwartalna — wyróżniona
+   "Polecane" / Stała opieka roczna z wyceną indywidualną) — nie lista usług z cenami jak
+   salon-1/salon-4, tylko poziomy współpracy.
+9. FAQ: natywny <details>/<summary>, 5 pytań o formularz zamiast telefonu, unisex, czas
+   oczekiwania, brak wymogu wcześniejszego planu, obszar działania (gramatyka {{MIASTO}}).
+10. Kontakt: formularz zapytania (imię, telefon/email, wiadomość) jako primary CTA — statyczny,
+    bez realnej wysyłki backendu, z potwierdzeniem po submit — plus pasek danych kontaktowych i
+    realny embed mapy.
+11. Stopka: minimalna, wyśrodkowana, jedna linia opisu + copyright.`,
+});
+
 module.exports = { VARIANTS, SAMPLE_TOKENS };

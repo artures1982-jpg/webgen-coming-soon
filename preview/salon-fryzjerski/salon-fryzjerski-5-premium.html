@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{NAZWA_STRONY}} — prywatny gabinet stylisty {{MIASTO}} | rezerwacja na zapytanie</title>
+<meta name="description" content="{{NAZWA_STRONY}} — prywatny gabinet fryzjerski w mieście {{MIASTO}}. Ograniczona liczba klientów dziennie, indywidualny plan pielęgnacyjny, pełna dyskrecja. Damskie i męskie. Zapytaj o termin.">
+<meta name="keywords" content="prywatny gabinet fryzjerski {{MIASTO}}, fryzjer premium {{MIASTO}}, stylista na zapytanie {{MIASTO}}">
+<link rel="canonical" href="https://{{SLUG}}.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{NAZWA_STRONY}} — prywatny gabinet stylisty {{MIASTO}}">
+<meta property="og:description" content="{{NAZWA_STRONY}} — ograniczona liczba klientów dziennie, indywidualny plan pielęgnacyjny, pełna dyskrecja. Damskie i męskie, w mieście {{MIASTO}}.">
+<meta property="og:url" content="https://{{SLUG}}.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"HairSalon","name":"{{NAZWA_STRONY}}","telephone":"{{TELEFON}}","email":"{{EMAIL}}","description":"{{NAZWA_STRONY}} — prywatny gabinet fryzjerski damski i męski w mieście {{MIASTO}}, rezerwacja na zapytanie, ograniczona liczba klientów dziennie","address":{"@type":"PostalAddress","addressLocality":"{{MIASTO}}","addressCountry":"PL"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Red+Hat+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Motion-baseline premium (ustalona konwencja archetypu 5 w całym systemie, patrz
+     .claude/agents/designer-ux-ui.md i fryzjer-barber-5-premium.html jako punkt odniesienia
+     mechaniki): ruch jest wyciszony, precyzyjny — WYŁĄCZNIE jednorazowy fade-in+translateY
+     na wierszach "Rejestru zaufania" przy scrollu. Zero pętli, zero keyframes, zero glow w tle,
+     zero shimmeru na CTA. To świadoma decyzja tier premium/edytorialnego, nie przeoczenie.
+     Pełny wariant prefers-reduced-motion niżej. */
+  :root{
+    --accent:#0b5c3f;
+    --accent-dark:#8a6a2e;
+    --bg:#f6ecd8;
+    --surface:#ecd9b4;
+    --text:#211d16;
+    --muted:#8a7d68;
+    --head:'Italiana', serif;
+    --body:'Red Hat Display', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3{font-family:var(--head);font-weight:400;line-height:1.15;}
+  section{padding:5.5rem 1.5rem;}
+  .wrap{max-width:1140px;margin:0 auto;}
+  .eyebrow{display:inline-block;font-family:var(--body);font-weight:700;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:.9rem;}
+  h2{font-size:clamp(1.9rem,3.4vw,2.6rem);margin-bottom:1rem;color:var(--text);}
+  .lead{color:var(--muted);font-size:1.04rem;max-width:600px;}
+  .center{text-align:center;}
+  .center .lead{margin:0 auto;}
+
+  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.95rem 1.9rem;font-weight:600;font-family:var(--body);font-size:.9rem;letter-spacing:.04em;border:1.5px solid var(--accent);cursor:pointer;transition:background .2s ease, color .2s ease, transform .15s ease;border-radius:2px;}
+  .btn:hover{transform:translateY(-1px);}
+  .btn-outline{background:transparent;color:var(--accent);}
+  .btn-outline:hover{background:var(--accent);color:var(--bg);}
+  .btn-primary{background:var(--accent);color:var(--bg);border-color:var(--accent);}
+  .btn-primary:hover{background:var(--accent-dark);border-color:var(--accent-dark);}
+
+  /* UTILITY BAR — pasek nad nawigacją, statyczny tekst, bez marquee/pulsowania */
+  .utility-bar{background:var(--accent);color:var(--bg);text-align:center;padding:.55rem 1.5rem;font-size:.76rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;overflow-x:auto;}
+
+  /* NAV — logo wyśrodkowany, linki symetrycznie po obu stronach (inny mechanizm niż
+     salon-fryzjerski 1/2/3 [grid: logo|linki-centrum|akcje] i niż salon-4 [logo+linki razem
+     po lewej] i niż fryzjer-barber-5 [logo|linki|akcje w prostym flex]) */
+  header.nav{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .nav .wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1rem;padding:1.1rem 1.5rem;}
+  .nav-links-left{justify-self:start;display:flex;gap:1.8rem;}
+  .logo-name{justify-self:center;font-family:var(--head);font-size:1.5rem;color:var(--text);white-space:nowrap;}
+  .nav-right{justify-self:end;display:flex;align-items:center;gap:1.8rem;}
+  .nav-links-right{display:flex;gap:1.8rem;}
+  .nav-links-desktop a{font-weight:500;font-size:.86rem;letter-spacing:.02em;color:var(--text);white-space:nowrap;}
+  .nav-links-desktop a:hover{color:var(--accent);}
+  .nav-links-mobile{display:none;}
+  .nav-actions{display:flex;align-items:center;gap:1rem;}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.3rem;}
+  .nav-toggle span{width:22px;height:2px;background:var(--text);}
+
+  /* HERO — czysto tekstowy, wyśrodkowany, statyczny (brak zdjęcia w hero: zdjęcie żyje w
+     osobnym pasie panoramicznym poniżej — inny mechanizm niż wszyscy poprzednicy tej branży,
+     wszyscy mieli split hero ze zdjęciem) */
+  .hero{padding-top:5.5rem;padding-bottom:3rem;}
+  .hero .wrap{max-width:820px;text-align:center;}
+  .hero h1{font-size:clamp(2.2rem,4.4vw,3.3rem);margin-bottom:1.4rem;}
+  .hero h1 em{color:var(--accent);font-style:normal;}
+  .hero p{font-size:1.08rem;color:var(--muted);max-width:640px;margin:0 auto 2.2rem;}
+  .hero-ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.6rem;}
+  .hero-note{font-size:.86rem;color:var(--muted);margin-bottom:1.8rem;}
+  .hero-chips{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;}
+  .hero-chip{border:1px solid color-mix(in srgb, var(--accent-dark) 45%, transparent);color:var(--accent-dark);font-size:.78rem;font-weight:600;letter-spacing:.03em;padding:.45rem 1rem;border-radius:2px;}
+
+  /* PASMO ZDJĘCIA — panoramiczne, pełna szerokość, z podpisem na dole (inny mechanizm niż
+     karta ze zdjęciem/badge w salon-1, fullscreen-tło w salon-2, inset w salon-3, warstwowa
+     kompozycja w salon-4) */
+  .photo-band{position:relative;overflow:hidden;}
+  .photo-band img{width:100%;height:auto;aspect-ratio:940/430;object-fit:cover;object-position:50% 35%;}
+  .photo-caption{position:absolute;left:0;right:0;bottom:0;padding:2.2rem 1.5rem 1.6rem;background:linear-gradient(0deg, color-mix(in srgb, var(--text) 78%, transparent) 0%, transparent 100%);}
+  .photo-caption p{max-width:640px;margin:0 auto;text-align:center;color:var(--bg);font-size:1rem;font-weight:500;}
+
+  /* PROCES — 4 kroki, numery w kwadratowych ramkach mosiądzu (inny mechanizm niż rzymskie
+     cyfry barber-5, inny niż karty ze zdjęciami salon-2, inny niż pozioma oś czasu barber-4) */
+  .proces-row{display:grid;grid-template-columns:repeat(4,1fr);gap:2.2rem;margin-top:2.9rem;}
+  .proces-step .num{width:2.7rem;height:2.7rem;border:1.5px solid var(--accent-dark);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:var(--head);font-size:1.15rem;color:var(--accent-dark);margin-bottom:1.1rem;}
+  .proces-step h3{font-family:var(--body);font-weight:700;font-size:.98rem;margin-bottom:.5rem;}
+  .proces-step p{font-size:.88rem;color:var(--muted);}
+
+  /* PLAN PIELĘGNACYJNY — dwie kolumny, portret w lustrze + tekst */
+  .plan{background:var(--surface);}
+  .plan-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:3.2rem;align-items:center;}
+  .plan-photo{width:100%;height:auto;aspect-ratio:940/1150;object-fit:cover;border-radius:4px;}
+  .plan-copy p{font-size:1.02rem;margin-bottom:1rem;}
+  .plan-copy p:last-child{margin-bottom:0;}
+
+  /* REJESTR ZAUFANIA — wiersze z numerem + opisem, JEDYNE miejsce z fade-in przy scrollu */
+  .zaufanie-list{margin-top:2.8rem;border-top:1px solid color-mix(in srgb, var(--text) 14%, transparent);}
+  .zaufanie-row{display:grid;grid-template-columns:230px 1fr;gap:2rem;align-items:baseline;padding:1.7rem 0;border-bottom:1px solid color-mix(in srgb, var(--text) 14%, transparent);opacity:0;transform:translateY(16px);transition:opacity .55s ease, transform .55s ease;}
+  .zaufanie-row.visible{opacity:1;transform:translateY(0);}
+  .zaufanie-list .zaufanie-row:nth-child(1){transition-delay:0s;}
+  .zaufanie-list .zaufanie-row:nth-child(2){transition-delay:.1s;}
+  .zaufanie-list .zaufanie-row:nth-child(3){transition-delay:.2s;}
+  .zaufanie-list .zaufanie-row:nth-child(4){transition-delay:.3s;}
+  .zaufanie-num{font-family:var(--head);font-size:1.55rem;color:var(--accent-dark);white-space:nowrap;}
+  .zaufanie-row p{color:var(--muted);font-size:.96rem;}
+
+  /* PAKIETY — 3 karty cennika, edytorialne, bez pigułkowych zaokrągleń */
+  .pakiety-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.7rem;margin-top:2.9rem;}
+  .pakiet-card{background:var(--bg);border:1px solid color-mix(in srgb, var(--text) 14%, transparent);border-radius:3px;padding:2.1rem 1.8rem;position:relative;}
+  .pakiet-card.featured{border-color:var(--accent-dark);}
+  .pakiet-card.featured::before{content:'Polecane';position:absolute;top:-.75rem;left:1.7rem;background:var(--accent-dark);color:var(--bg);font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.3rem .8rem;border-radius:2px;}
+  .pakiet-name{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem;}
+  .pakiet-price{font-family:var(--head);font-size:2.1rem;color:var(--accent);margin-bottom:.9rem;}
+  .pakiet-price small{font-family:var(--body);font-size:.82rem;color:var(--muted);font-weight:500;}
+  .pakiet-card p.desc{color:var(--muted);font-size:.92rem;}
+
+  /* FAQ — <details> natywny (inny mechanizm niż JS-owy akordeon w salon-1/2/3/4) */
+  .faq-list{max-width:800px;margin:2.8rem auto 0;display:flex;flex-direction:column;gap:.7rem;}
+  details{border:1px solid color-mix(in srgb, var(--text) 14%, transparent);border-radius:3px;padding:1.1rem 1.4rem;}
+  details summary{cursor:pointer;font-weight:600;font-family:var(--body);font-size:1rem;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{content:'◆';font-size:.7rem;color:var(--accent-dark);flex-shrink:0;transition:transform .2s ease;}
+  details[open] summary::after{transform:rotate(45deg);}
+  details p{color:var(--muted);margin-top:.9rem;font-size:.92rem;}
+
+  /* KONTAKT — formularz zapytania jako primary CTA, nie telefon */
+  .kontakt{background:var(--surface);}
+  .kontakt-form{max-width:720px;margin:2.8rem auto 0;background:var(--bg);border:1px solid color-mix(in srgb, var(--text) 14%, transparent);border-radius:4px;padding:2.2rem;}
+  .kontakt-form .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;}
+  .kontakt-form label{display:block;font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;margin-top:1.1rem;}
+  .kontakt-form label:first-child, .kontakt-form .grid2 label:first-child{margin-top:0;}
+  .kontakt-form input, .kontakt-form textarea{width:100%;padding:.8rem 1rem;border-radius:2px;border:1px solid color-mix(in srgb, var(--text) 26%, transparent);font-family:var(--body);font-size:.94rem;background:var(--bg);color:var(--text);}
+  .kontakt-form textarea{resize:vertical;min-height:100px;}
+  .kontakt-form button{width:100%;justify-content:center;margin-top:1.6rem;}
+  .kontakt-info{max-width:960px;margin:2.6rem auto 0;display:flex;flex-wrap:wrap;justify-content:center;gap:2.2rem;}
+  .kontakt-info li{font-size:.9rem;color:var(--text);text-align:center;}
+  .kontakt-info li b{display:block;color:var(--muted);font-weight:700;text-transform:uppercase;font-size:.7rem;letter-spacing:.06em;margin-bottom:.3rem;}
+  .kontakt-map{max-width:960px;margin:2rem auto 0;overflow:hidden;border-radius:4px;border:1px solid color-mix(in srgb, var(--text) 14%, transparent);}
+  .kontakt-map iframe{width:100%;height:280px;border:0;display:block;}
+
+  footer{padding:2.4rem 1.5rem;text-align:center;border-top:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .footer-logo{font-family:var(--head);font-size:1.15rem;margin-bottom:.5rem;}
+  .footer-line{font-size:.84rem;color:var(--muted);max-width:520px;margin:0 auto .9rem;}
+  .footer-bottom{font-size:.74rem;color:var(--muted);letter-spacing:.03em;}
+
+  @media (prefers-reduced-motion: reduce){
+    .zaufanie-row{transition:none;opacity:1;transform:none;}
+    .btn:hover{transform:none;}
+  }
+
+  @media (max-width:960px){
+    .proces-row{grid-template-columns:1fr 1fr;}
+    .plan-grid{grid-template-columns:1fr;}
+    .plan-photo{max-width:420px;margin:0 auto;}
+    .pakiety-grid{grid-template-columns:1fr;}
+    .kontakt-form .grid2{grid-template-columns:1fr;}
+    .zaufanie-row{grid-template-columns:150px 1fr;}
+  }
+  @media (max-width:700px){
+    .nav-links-left, .nav-links-right{display:none;}
+    .nav-toggle{display:flex;}
+    .nav-links-mobile{
+      position:absolute;top:100%;left:0;right:0;background:var(--bg);
+      flex-direction:column;align-items:flex-start;gap:1rem;padding:1.2rem 1.5rem;
+      border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);display:none;
+    }
+    .nav-links-mobile.open{display:flex;}
+    .nav-links-mobile .mobile-cta{color:var(--accent);font-weight:700;}
+    .nav-actions > .btn{display:none;}
+    section{padding:3.6rem 1.2rem;}
+    .proces-row{grid-template-columns:1fr 1fr;gap:1.6rem;}
+    .zaufanie-row{grid-template-columns:1fr;gap:.4rem;}
+    .kontakt-info{gap:1.4rem;}
+  }
+  @media (max-width:480px){
+    .utility-bar{font-size:.68rem;}
+    .logo-name{font-size:1.25rem;}
+    .proces-row{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="utility-bar">Gabinet prywatny — maks. 6 klientów dziennie · {{MIASTO}}</div>
+
+<header class="nav">
+  <div class="wrap">
+    <nav class="nav-links-left nav-links-desktop">
+      <a href="#gabinet">Gabinet</a>
+      <a href="#proces">Jak to działa</a>
+    </nav>
+    <a href="#" class="logo-name">{{NAZWA_STRONY}}</a>
+    <div class="nav-right">
+      <nav class="nav-links-right nav-links-desktop">
+        <a href="#pakiety">Cennik</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="#kontakt" class="btn btn-outline">Zapytaj o termin</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu nawigacji">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <nav class="nav-links-mobile" id="navLinks">
+    <a href="#kontakt" class="mobile-cta">Zapytaj o termin</a>
+    <a href="#gabinet">Gabinet</a>
+    <a href="#proces">Jak to działa</a>
+    <a href="#pakiety">Cennik</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Prywatny gabinet stylisty — {{MIASTO}}</span>
+    <h1>Cały gabinet, przez cały czas, należy tylko do Ciebie. <em>Nie jesteś kolejnym punktem w grafiku.</em></h1>
+    <p>{{NAZWA_STRONY}} przyjmuje ograniczoną liczbę klientów dziennie — kobiety i mężczyzn na tym samym, najwyższym poziomie. Bez przypadkowej osoby przy fotelu obok i bez pośpiechu. Umawiamy się wyłącznie przez zapytanie, żeby każda wizyta była dokładnie zaplanowana, zanim jeszcze przekroczysz próg gabinetu.</p>
+    <div class="hero-ctas">
+      <a href="#kontakt" class="btn btn-primary">Wyślij zapytanie o termin</a>
+      <a href="#gabinet" class="btn btn-outline">Zobacz gabinet</a>
+    </div>
+    <p class="hero-note">Odpowiadamy osobiście, zwykle tego samego dnia.</p>
+    <div class="hero-chips">
+      <span class="hero-chip">Damskie i męskie</span>
+      <span class="hero-chip">Rezerwacja przez formularz</span>
+      <span class="hero-chip">Pełna dyskrecja</span>
+    </div>
+  </div>
+</section>
+
+<section class="photo-band" id="gabinet" style="padding:0;">
+  <img src="https://images.pexels.com/photos/7750113/pexels-photo-7750113.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Eleganckie wnętrze prywatnego gabinetu fryzjerskiego — okrągłe lustra i żyrandol, bez klientów" loading="lazy">
+  <div class="photo-caption">
+    <p>Prywatny gabinet, nie otwarta sala. Jedno stanowisko, zamknięte drzwi — pełna uwaga skierowana wyłącznie na Ciebie.</p>
+  </div>
+</section>
+
+<section id="proces">
+  <div class="wrap">
+    <span class="eyebrow">Jak to działa</span>
+    <h2>Od zapytania do fotela</h2>
+    <p class="lead">Zanim umówimy termin, poznajemy Twoje oczekiwania — dzięki temu każda wizyta jest dopięta na ostatni guzik, nie improwizowana na miejscu.</p>
+    <div class="proces-row">
+      <div class="proces-step">
+        <span class="num">01</span>
+        <h3>Zapytanie</h3>
+        <p>Piszesz przez formularz kilka zdań o tym, czego szukasz i jaki termin by Ci pasował.</p>
+      </div>
+      <div class="proces-step">
+        <span class="num">02</span>
+        <h3>Dobór terminu</h3>
+        <p>Proponujemy 2–3 konkretne godziny do wyboru, dopasowane do zakresu wizyty — nie pierwszy wolny termin z brzegu.</p>
+      </div>
+      <div class="proces-step">
+        <span class="num">03</span>
+        <h3>Wizyta w gabinecie</h3>
+        <p>Przyjmujemy jedną osobę na raz — bez podwójnych rezerwacji i czekania na fotel obok.</p>
+      </div>
+      <div class="proces-step">
+        <span class="num">04</span>
+        <h3>Plan na kolejne wizyty</h3>
+        <p>Zapisujemy, co zadziałało, żeby następna wizyta zaczynała się tam, gdzie skończyła się ta.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="plan" id="plan">
+  <div class="wrap plan-grid">
+    <img class="plan-photo" src="https://images.pexels.com/photos/33867529/pexels-photo-33867529.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Stylistka pracująca w prywatnym gabinecie, ujęcie w lustrze — atmosfera skupienia i spokoju" loading="lazy">
+    <div class="plan-copy">
+      <span class="eyebrow">Opieka między wizytami</span>
+      <h2>Twój indywidualny plan pielęgnacyjny</h2>
+      <p>Dla każdego klienta prowadzimy osobistą kartę — jakie zabiegi, jakie produkty, jakie tempo odrostu, co zadziałało, a czego lepiej unikać. Dzięki temu kolejna wizyta zaczyna się dokładnie tam, gdzie skończyła się poprzednia, nie od nowa.</p>
+      <p>Dotyczy to zarówno klientek, jak i klientów — plan pielęgnacyjny prowadzimy tak samo starannie niezależnie od tego, czy mowa o koloryzacji, czy o regularnym rytmie strzyżenia i pielęgnacji brody.</p>
+    </div>
+  </div>
+</section>
+
+<section id="zaufanie">
+  <div class="wrap">
+    <span class="eyebrow">Dlaczego warto zaufać</span>
+    <h2>Rejestr zaufania</h2>
+    <p class="lead">Kilka liczb, które mówią więcej niż zapewnienia.</p>
+    <div class="zaufanie-list">
+      <div class="zaufanie-row"><span class="zaufanie-num">13 lat</span><p>tej samej filozofii pracy w mieście {{MIASTO}}: mniej klientów dziennie, więcej uwagi dla każdego z nich</p></div>
+      <div class="zaufanie-row"><span class="zaufanie-num">Maks. 6 wizyt</span><p>dziennie — limitu nie przekraczamy nawet w sezonie ślubnym</p></div>
+      <div class="zaufanie-row"><span class="zaufanie-num">100% dyskrecji</span><p>żadne zdjęcie z wizyty nie trafia donikąd bez wyraźnej zgody klienta</p></div>
+      <div class="zaufanie-row"><span class="zaufanie-num">Indywidualna karta</span><p>prowadzona dla każdego klienta od pierwszej wizyty w gabinecie</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="pakiety" style="background:var(--surface);">
+  <div class="wrap">
+    <span class="eyebrow">Cennik</span>
+    <h2>Wizyta pojedyncza czy stała opieka</h2>
+    <p class="lead">Każda cena obejmuje konsultację przed zabiegiem — dokładną wycenę potwierdzamy po rozmowie o Twoich włosach.</p>
+    <div class="pakiety-grid">
+      <div class="pakiet-card">
+        <div class="pakiet-name">Wizyta pojedyncza</div>
+        <div class="pakiet-price">od 220 zł</div>
+        <p class="desc">Strzyżenie, koloryzacja lub stylizacja — jednorazowo, bez zobowiązań.</p>
+      </div>
+      <div class="pakiet-card featured">
+        <div class="pakiet-name">Opieka kwartalna</div>
+        <div class="pakiet-price">od 580 zł <small>/ kwartał</small></div>
+        <p class="desc">Trzy wizyty rozłożone w czasie oraz aktualizacja planu pielęgnacyjnego po każdej z nich.</p>
+      </div>
+      <div class="pakiet-card">
+        <div class="pakiet-name">Stała opieka roczna</div>
+        <div class="pakiet-price">wycena indywidualna</div>
+        <p class="desc">Priorytetowe terminy przez cały rok i pełna karta pielęgnacyjna prowadzona na bieżąco.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <span class="eyebrow">FAQ</span>
+    <h2>Zanim wyślesz zapytanie</h2>
+    <div class="faq-list">
+      <details open>
+        <summary>Dlaczego rezerwacja odbywa się przez formularz, a nie telefon?</summary>
+        <p>Zanim zaproponujemy termin, chcemy poznać zakres wizyty — dzięki temu od razu rezerwujemy właściwą ilość czasu, bez pomyłek grafikowych. Telefon zostaje do spraw pilnych.</p>
+      </details>
+      <details>
+        <summary>Czy gabinet obsługuje też mężczyzn?</summary>
+        <p>Tak — {{NAZWA_STRONY}} jest gabinetem unisex od samego początku. Strzyżenie męskie, stylizacja brody i koloryzacja traktowane są na tym samym poziomie co usługi damskie.</p>
+      </details>
+      <details>
+        <summary>Ile czasu trzeba czekać na termin?</summary>
+        <p>Zależnie od zakresu — zwykle od kilku dni do dwóch tygodni. Przy limicie kilku klientów dziennie wolimy dobry termin niż szybki, ale przypadkowy.</p>
+      </details>
+      <details>
+        <summary>Czy mogę przyjść bez wcześniej ustalonego planu pielęgnacyjnego?</summary>
+        <p>Oczywiście — pierwszą wizytę zaczynamy od rozmowy i założenia karty. Plan buduje się od pierwszego spotkania, nie jest warunkiem wstępnym.</p>
+      </details>
+      <details>
+        <summary>Czy gabinet działa poza miastem {{MIASTO}}?</summary>
+        <p>Gabinet przyjmuje stacjonarnie na terenie miasta {{MIASTO}} — dojazd do klienta nie jest częścią tej oferty.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt" class="kontakt">
+  <div class="wrap center">
+    <span class="eyebrow">Kontakt</span>
+    <h2>Zapytaj o termin</h2>
+    <p class="lead">Napisz kilka słów o tym, czego szukasz — resztę ustalimy razem, bez pytań przez telefon w biegu.</p>
+  </div>
+  <form class="kontakt-form" id="quoteForm">
+    <div class="grid2">
+      <div>
+        <label for="imie">Imię i nazwisko</label>
+        <input type="text" id="imie" name="imie" placeholder="np. Anna Kowalska" required>
+      </div>
+      <div>
+        <label for="kontaktDane">Telefon lub e-mail</label>
+        <input type="text" id="kontaktDane" name="kontaktDane" placeholder="np. 500 123 456 lub anna@przyklad.pl" required>
+      </div>
+    </div>
+    <label for="wiadomosc">Wiadomość</label>
+    <textarea id="wiadomosc" name="wiadomosc" placeholder="Kilka zdań o tym, czego szukasz, i jaki termin by pasował..." required></textarea>
+    <button type="submit" class="btn btn-primary">Wyślij zapytanie</button>
+  </form>
+  <ul class="kontakt-info">
+    <li><b>Telefon</b><a href="tel:{{TELEFON}}">{{TELEFON}}</a></li>
+    <li><b>E-mail</b><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></li>
+    <li><b>Adres</b>{{ADRES}}, {{MIASTO}}</li>
+    <li><b>Pon–Pt</b>{{GODZINY_PON_PT}}</li>
+    <li><b>Sobota</b>{{GODZINY_SOB}}</li>
+  </ul>
+  <div class="kontakt-map">
+    <iframe src="https://www.google.com/maps?q={{ADRES}}, {{MIASTO}}&output=embed" title="Mapa dojazdu do {{NAZWA_STRONY}} w mieście {{MIASTO}}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;"></iframe>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">{{NAZWA_STRONY}}</div>
+  <p class="footer-line">Prywatny gabinet fryzjerski, damski i męski, na terenie miasta {{MIASTO}}. Rezerwacja wyłącznie przez zapytanie.</p>
+  <div class="footer-bottom">© <span id="year"></span> {{NAZWA_STRONY}}</div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  var navToggle = document.getElementById('navToggle');
+  var navLinksMobile = document.getElementById('navLinks');
+  navToggle.addEventListener('click', function(){ navLinksMobile.classList.toggle('open'); });
+  navLinksMobile.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ navLinksMobile.classList.remove('open'); });
+  });
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.zaufanie-row').forEach(function(el){ io.observe(el); });
+
+  var form = document.getElementById('quoteForm');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    form.innerHTML = '<p style="font-weight:600;color:var(--accent-dark);">Wiadomość dotarła. Odezwiemy się osobiście, zwykle tego samego dnia. W pilnych sprawach: <a href="tel:{{TELEFON}}">{{TELEFON}}</a>.</p>';
+  });
+</script>
+
+</body>
+</html>
