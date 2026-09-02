@@ -92,8 +92,9 @@
     .logo{font-size:1.25rem;}
   }
 
-  /* ---------- HERO — split: tekst + edytorialny panel liczbowy (bez zdjęcia — patrz decyzja
-     "zero zdjęć" w komentarzu przy formularzu kontaktowym) ---------- */
+  /* ---------- HERO — split: tekst + edytorialny panel liczbowy (fotografia gabinetu żyje osobno,
+     w panoramicznym pasie pod hero, nie w samym hero — inny mechanizm niż karta ze zdjęciem w
+     wariancie 1 tej branży) ---------- */
   .hero{padding-top:4.2rem;}
   .hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:3.6rem;align-items:center;}
   .hero-copy h1{font-size:clamp(2.05rem,3.7vw,2.85rem);margin-bottom:1.25rem;}
@@ -107,6 +108,13 @@
   .snapshot-row:first-of-type{border-top:none;padding-top:0;}
   .snapshot-num{font-family:var(--head);font-size:1.7rem;color:var(--accent);white-space:nowrap;}
   .snapshot-text{font-size:.85rem;color:var(--muted);text-align:right;max-width:190px;}
+
+  /* ---------- PASMO ZDJĘCIA — panoramiczny pas pod hero, przyciemniony, spójny z onyksową
+     paletą (dodane po feedbacku: wariant premium nie może być całkowicie bez fotografii) ---------- */
+  .photo-band{position:relative;overflow:hidden;}
+  .photo-band img{width:100%;height:auto;aspect-ratio:940/430;object-fit:cover;filter:brightness(.82) saturate(.9);}
+  .photo-caption{position:absolute;left:0;right:0;bottom:0;padding:2.1rem 1.5rem 1.5rem;background:linear-gradient(0deg, color-mix(in srgb, var(--bg) 88%, transparent) 0%, transparent 100%);}
+  .photo-caption p{max-width:640px;margin:0 auto;text-align:center;color:var(--text);font-size:.95rem;font-weight:500;}
 
   /* ---------- PASEK CTA POD HERO — statyczna, jednolinijkowa belka, nie marquee/nie sticky
      (nowa technika z researchu rynkowego, ZASADY dla wariantów premium: wyciszony ruch = brak
@@ -132,6 +140,8 @@
      sekcji o ciągłości opieki ---------- */
   .continuity{background:var(--surface);}
   .continuity-inner{max-width:880px;margin:0 auto;}
+  .continuity-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:3.2rem;align-items:start;margin-top:2.4rem;}
+  .continuity-photo{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:4px;filter:brightness(.9) saturate(.92);}
   .pull-quote{border-left:2px solid var(--accent);padding-left:1.8rem;margin:2.4rem 0;opacity:0;transform:translateY(16px);transition:opacity .55s ease, transform .55s ease;}
   .pull-quote.visible{opacity:1;transform:translateY(0);}
   .pull-quote p{font-family:var(--head);font-weight:500;font-size:clamp(1.35rem,2.6vw,1.85rem);line-height:1.35;color:var(--text);}
@@ -211,6 +221,8 @@
   @media (max-width:960px){
     .hero-grid{grid-template-columns:1fr;}
     .snapshot{max-width:460px;}
+    .continuity-grid{grid-template-columns:1fr;}
+    .continuity-photo{aspect-ratio:16/9;max-width:460px;margin:0 auto;}
     .register{grid-template-columns:1fr 1fr;row-gap:2rem;}
     .register-tile:nth-child(3){border-left:none;padding-left:0;}
     .tiers{grid-template-columns:1fr;}
@@ -284,6 +296,13 @@
   </div>
 </section>
 
+<section class="photo-band">
+  <img src="https://images.pexels.com/photos/12251080/pexels-photo-12251080.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Gabinet zabiegowy GlowMed — kameralne, przyciemnione wnętrze" loading="lazy">
+  <div class="photo-caption">
+    <p>Jedno stanowisko, jeden lekarz na wizytę — bez poczekalni pełnej innych pacjentów programu.</p>
+  </div>
+</section>
+
 <div class="cta-strip">
   <div class="wrap">
     <p>Zgłoszenie do programu nie zobowiązuje — decyzję podejmujemy wspólnie po konsultacji kwalifikacyjnej.</p>
@@ -333,11 +352,16 @@
   <div class="wrap continuity-inner">
     <span class="eyebrow">Dlaczego jeden lekarz, długoterminowo</span>
     <h2>Dlaczego stały lekarz to nie sentyment, tylko organizacja opieki</h2>
-    <p class="body-text">Lekarz, który widuje Cię regularnie przez dłuższy czas, zna historię Twojej skóry, reakcje na wcześniejsze zabiegi i to, czego wcześniej próbowano bez efektu. Nie musisz za każdym razem tłumaczyć wszystkiego od nowa komuś, kto widzi Cię po raz pierwszy.</p>
-    <div class="pull-quote">
-      <p>Nie obiecujemy lepszego efektu niż w zwykłym gabinecie. Obiecujemy, że ktoś będzie pilnował Twojego planu przez lata, nie przez pojedynczy zabieg.</p>
+    <div class="continuity-grid">
+      <img class="continuity-photo" src="https://images.pexels.com/photos/36103795/pexels-photo-36103795.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="650" height="940" alt="Lekarz prowadzący program indywidualny GlowMed" loading="lazy">
+      <div>
+        <p class="body-text">Lekarz, który widuje Cię regularnie przez dłuższy czas, zna historię Twojej skóry, reakcje na wcześniejsze zabiegi i to, czego wcześniej próbowano bez efektu. Nie musisz za każdym razem tłumaczyć wszystkiego od nowa komuś, kto widzi Cię po raz pierwszy.</p>
+        <div class="pull-quote">
+          <p>Nie obiecujemy lepszego efektu niż w zwykłym gabinecie. Obiecujemy, że ktoś będzie pilnował Twojego planu przez lata, nie przez pojedynczy zabieg.</p>
+        </div>
+        <p class="body-text">Program ma sens dla osób, które planują opiekę estetyczną długoterminowo i cenią sobie stały kontakt z jednym lekarzem bardziej niż przypadkowy termin u kogokolwiek, kto akurat ma wolne okienko.</p>
+      </div>
     </div>
-    <p class="body-text">Program ma sens dla osób, które planują opiekę estetyczną długoterminowo i cenią sobie stały kontakt z jednym lekarzem bardziej niż przypadkowy termin u kogokolwiek, kto akurat ma wolne okienko.</p>
   </div>
 </section>
 
@@ -444,9 +468,6 @@
     <span class="eyebrow center" style="display:block;text-align:center;">Kontakt</span>
     <h2 class="center" style="text-align:center;">Wyślij zgłoszenie do programu</h2>
     <p class="lead center" style="text-align:center;">Napisz kilka zdań o sobie i swoich oczekiwaniach — odezwiemy się, żeby zaproponować termin konsultacji kwalifikacyjnej.</p>
-    <!-- Decyzja o zerze zdjęć w tym wariancie: cały wariant 5 jest świadomie tekstowo-edytorialny
-         (patrz komentarz motion-baseline u góry pliku) — fotografia gabinetu żyje już w
-         wariantach 1/2/4 tej branży, tu ekskluzywność buduje typografia i liczby, nie zdjęcia. -->
     <div class="kontakt-grid">
       <div class="kontakt-form-wrap">
         <span class="kontakt-tab">Zgłoszenie do programu</span>
