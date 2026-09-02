@@ -349,6 +349,38 @@ jak i rozwijany dropdown nav, zweryfikuj że dropdown NIE jest potomkiem element
 nie tylko sprawdź CSS na papierze (dokładnie to trzykrotnie przeszło przez QA niezauważone, bo
 sam CSS *wyglądał* poprawnie — problem był w interakcji z ancestor-em, nie w regule dropdownu).
 
+### 6.5 `display:none` na CSS Grid item PRZESUWA sąsiednie elementy (logo w navie z
+wyśrodkowanym logo wychodzi z centrum na mobile)
+
+Wzorzec navu z logo wyśrodkowanym w gridzie 3-kolumnowym (`grid-template-columns:1fr auto 1fr`
+lub równe stałe wartości np. `44px 1fr 44px`, logo w środkowej kolumnie `justify-self:center`)
+łamie się, gdy jedna z bocznych kolumn chowa swoją zawartość przez `display:none` na mobile (np.
+`.nav-links-left{display:none}` przy zwijaniu do hamburgera). `display:none` usuwa element
+CAŁKOWICIE z listy grid items — pozostałe elementy (logo, prawa kolumna z hamburgerem) są wtedy
+auto-placed od nowa, od pierwszej wolnej kolumny, więc logo ląduje w kolumnie 1 zamiast 2, a
+kolumna 3 zostaje pusta. Efekt: logo "ucieka" w lewo zamiast być wyśrodkowane, mimo że
+`grid-template-columns` i `justify-self:center` w CSS wyglądają poprawnie na papierze —
+znaleziony na żywo w `salon-fryzjerski-5-premium.html` (zgłoszony przez Artura ze zrzutem ekranu
+z telefonu, 2026-09-02).
+
+**Naprawa — przypnij pozostałe elementy do konkretnych kolumn jawnie, w tym samym media query,
+żeby nie zależały od auto-placement:**
+
+```css
+@media (max-width:700px){
+  .nav .wrap{grid-template-columns:44px 1fr 44px;}
+  .nav-links-left, .nav-links-right{display:none;}
+  .logo-name{grid-column:2;}   /* bez tego auto-placement wsadzi logo w kolumnę 1 */
+  .nav-right{grid-column:3;}
+}
+```
+
+**Sprawdzenie przy odbiorze**: jeśli nav ma logo wyśrodkowane gridem i JAKAKOLWIEK sąsiadująca
+kolumna znika przez `display:none` na mobile, zawsze zweryfikuj wizycznie (screenshot lub
+`getBoundingClientRect()`) że logo faktycznie jest w geometrycznym środku paska — nie ufaj
+samemu odczytaniu CSS, bo `grid-template-columns` w DevTools/computed style pokaże poprawne
+szerokości torów niezależnie od tego, w który tor faktycznie trafił dany element.
+
 ---
 
 ## 7. Tryb szablonu
@@ -374,6 +406,8 @@ Przejść **w przeglądarce**, na wersji wypełnionej, sekcja po sekcji:
 - [ ] Embed mapy ładuje kafelki i pokazuje właściwe miasto *(poza wariantem 6)*
 - [ ] Nav: kotwice + telefon mieszczą się bez łamania i nachodzenia
 - [ ] Nav na ≤390px: CTA-przycisk w pasku (jeśli jest) mieści się w jednej linii, nie łamie się na 2-3 (sekcja 6.2 rozszerzenie)
+- [ ] Nav z wyśrodkowanym logo na ≤390px: logo faktycznie w geometrycznym środku paska, nie przesunięte w lewo/prawo (sekcja 6.5)
+- [ ] Czcionka `--head` czytelna jako pełny `h1` (zdanie), nie tylko jako krótkie logo — sprawdzone na szerokości telefonu
 - [ ] Wąski ekran (<480 px): nic się nie rozjeżdża, zdjęcia nie są nienaturalnie wysokie
 - [ ] Formularz przyjmuje dane i pokazuje potwierdzenie po wysłaniu
 - [ ] `grep -c '{{'` na wersji z tokenami > 0 — tokeny nie zostały przypadkiem podstawione

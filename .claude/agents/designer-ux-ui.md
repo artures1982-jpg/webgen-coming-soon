@@ -51,6 +51,22 @@ zmrużyć oczy, dwie różne struktury nadal wyglądają jak ta sama aplikacja p
   ma być rodzeństwem `.wrap`, nie jego potomkiem. Zawsze **faktycznie kliknij** hamburger w
   przeglądarce na wąskim viewporcie przy weryfikacji — sam odczyt CSS to za mało, ten błąd trzy
   razy przeszedł taki odczyt niezauważony.
+- **Jeśli nav ma logo wyśrodkowane gridem** (`grid-template-columns:1fr auto 1fr` albo stałe
+  wartości, logo w środkowej kolumnie `justify-self:center`) **i którakolwiek boczna kolumna
+  chowa zawartość przez `display:none` na mobile**: `display:none` usuwa element całkowicie z
+  listy grid items, więc pozostałe elementy (logo, hamburger) auto-placed od nowa i logo ląduje
+  w kolumnie 1 zamiast 2 — ucieka w lewo mimo poprawnego CSS na papierze (ZASADY.md 6.5, realny
+  błąd na `salon-fryzjerski-5-premium.html`, zgłoszony przez Artura ze zrzutem z telefonu). Napraw
+  przypinając jawnie `grid-column` do logo i do prawej kolumny w tym samym media query, nie
+  polegaj na auto-placement. Weryfikuj wizualnie (screenshot na wąskim viewporcie), nie samym CSS.
+- **Czcionka `--head` musi zostać czytelna dla PEŁNYCH ZDAŃ, nie tylko dla krótkiego logo/słowa.**
+  `--head` jest używana jednocześnie na `h1`/`h2`/`h3` (często wielowyrazowe nagłówki, zdania) i na
+  `.logo-name` (jedno krótkie słowo) — dobór musi działać w obu rolach. Ultra-cienkie, wysokiego
+  kontrastu display face'y projektowane pod krótkie wordmarki (np. Italiana) stają się nieczytelne
+  jako pełnozdaniowy `h1`, zwłaszcza na małym ekranie telefonu — realny błąd na
+  `salon-fryzjerski-5-premium.html`, zgłoszony przez Artura wprost: "Czcionka h1 nieakceptowalna,
+  mało czytelna" (poprawione na Petrona). Przed finalizacją zrenderuj cały `h1` wariantu (nie tylko
+  nazwę logo) i oceń czytelność przy typowej szerokości mobilnej, nie tylko na desktopie.
 
 ## Różnicowanie — to jest sedno zadania
 

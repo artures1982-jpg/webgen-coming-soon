@@ -16,7 +16,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"HairSalon","name":"HairLoft","telephone":"500 123 456","email":"kontakt@hairloft.pl","description":"HairLoft — prywatny gabinet fryzjerski damski i męski w mieście Kraków, rezerwacja na zapytanie, ograniczona liczba klientów dziennie","address":{"@type":"PostalAddress","addressLocality":"Kraków","addressCountry":"PL"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Red+Hat+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Petrona:wght@400;500;600;700&family=Red+Hat+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* Motion-baseline premium (ustalona konwencja archetypu 5 w całym systemie, patrz
      .claude/agents/designer-ux-ui.md i fryzjer-barber-5-premium.html jako punkt odniesienia
@@ -31,7 +31,7 @@
     --surface:#ecd9b4;
     --text:#211d16;
     --muted:#8a7d68;
-    --head:'Italiana', serif;
+    --head:'Petrona', serif;
     --body:'Red Hat Display', sans-serif;
   }
 
@@ -175,7 +175,10 @@
     .zaufanie-row{grid-template-columns:150px 1fr;}
   }
   @media (max-width:700px){
+    .nav .wrap{grid-template-columns:44px 1fr 44px;}
     .nav-links-left, .nav-links-right{display:none;}
+    .logo-name{grid-column:2;}
+    .nav-right{grid-column:3;}
     .nav-toggle{display:flex;}
     .nav-links-mobile{
       position:absolute;top:100%;left:0;right:0;background:var(--bg);
