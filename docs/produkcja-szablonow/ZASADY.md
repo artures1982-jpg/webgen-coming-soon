@@ -381,6 +381,39 @@ kolumna znika przez `display:none` na mobile, zawsze zweryfikuj wizycznie (scree
 samemu odczytaniu CSS, bo `grid-template-columns` w DevTools/computed style pokaże poprawne
 szerokości torów niezależnie od tego, w który tor faktycznie trafił dany element.
 
+### 6.6 `max-width:700px` jako próg hamburgera nie gwarantuje, że desktopowy nav mieści się
+tuż PONAD tym progiem (systemowy błąd, znaleziony w 3 z 5 wariantów branży Remonty)
+
+Próg `@media (max-width:700px)` dla przełączenia na hamburger jest wygodną, powtarzaną w całym
+systemie wartością — ale nikt nigdy nie sprawdzał, czy sam desktopowy pasek nav (logo + komplet
+linków + CTA) faktycznie MIEŚCI SIĘ przy szerokości tuż powyżej 700px. Jeśli nie mieści się —
+np. dłuższa nazwa firmy, więcej linków, szerszy CTA — strona ma realny poziomy scroll w paśmie
+mniej więcej 700–900px (typowy tablet w pionie, mały laptop), mimo że zarówno wersja mobilna
+(<700px, hamburger) jak i pełna desktopowa (>900-960px) wyglądają poprawnie. To pasmo rzadko
+jest testowane ręcznie (nikt nie sprawdza "akurat 720px"), więc błąd przechodzi niezauważony.
+Znaleziony przez `designer-ux-ui` w retrofit QA 2026-09-02: `remonty-1`, `remonty-4` i
+`remonty-5` (3 z 5 wariantów tej samej branży) miały dokładnie ten sam objaw, zweryfikowany
+realnym renderem (Playwright, skan 1px po szerokości `scrollWidth` vs `clientWidth`).
+
+**Naprawa** — podnieś próg hamburgera do wartości z bezpiecznym marginesem ponad realnie
+zmierzoną szerokość minimalną navu (nie zgaduj — zmierz), typowo `960px` zamiast `700px` gdy nav
+ma logo + 4-6 linków + CTA:
+
+```css
+@media (max-width:960px){   /* nie 700px — zmierzone realnie, nie założone */
+  .nav-links-desktop{ display:none; }
+  .nav-toggle{ display:flex; }
+}
+```
+
+Jeśli plik ma też inne reguły w media query na `700px` niezwiązane z nav (np. układ siatki
+kart), NIE przenoś ich hurtowo do nowego progu — rozdziel na osobne bloki, żeby nie zmieniać
+zachowania rzeczy, które działały poprawnie na starym progu.
+
+**Sprawdzenie przy odbiorze**: nie testuj tylko 390px i 1280px. Zeskanuj (lub przynajmniej
+ręcznie sprawdź kilka punktów) cały zakres 700–1000px pod kątem poziomego scrolla — to pasmo
+między "mobile" a "desktop" jest tym, które najczęściej się pomija.
+
 ---
 
 ## 7. Tryb szablonu
@@ -407,6 +440,7 @@ Przejść **w przeglądarce**, na wersji wypełnionej, sekcja po sekcji:
 - [ ] Nav: kotwice + telefon mieszczą się bez łamania i nachodzenia
 - [ ] Nav na ≤390px: CTA-przycisk w pasku (jeśli jest) mieści się w jednej linii, nie łamie się na 2-3 (sekcja 6.2 rozszerzenie)
 - [ ] Nav z wyśrodkowanym logo na ≤390px: logo faktycznie w geometrycznym środku paska, nie przesunięte w lewo/prawo (sekcja 6.5)
+- [ ] Zakres 700–1000px (nie tylko 390px i desktop pełnej szerokości): brak poziomego scrolla, desktopowy nav faktycznie mieści się tuż nad progiem hamburgera (sekcja 6.6)
 - [ ] Czcionka `--head` czytelna jako pełny `h1` (zdanie), nie tylko jako krótkie logo — sprawdzone na szerokości telefonu
 - [ ] Wąski ekran (<480 px): nic się nie rozjeżdża, zdjęcia nie są nienaturalnie wysokie
 - [ ] Formularz przyjmuje dane i pokazuje potwierdzenie po wysłaniu

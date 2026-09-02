@@ -104,6 +104,12 @@
   .story p:last-child{margin-bottom:0;}
   .fade-in{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease;}
   .fade-in.visible{opacity:1;transform:translateY(0);}
+  .story .fade-in:nth-of-type(2){transition-delay:.12s;}
+  .steps .step:nth-child(1){transition-delay:0s;}
+  .steps .step:nth-child(2){transition-delay:.12s;}
+  .steps .step:nth-child(3){transition-delay:.24s;}
+  .trust-row .fade-in:nth-child(1){transition-delay:0s;}
+  .trust-row .fade-in:nth-child(2){transition-delay:.15s;}
 
   /* JAK TO DZIAŁA */
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;margin-top:2.8rem;counter-reset:step;}
@@ -202,7 +208,7 @@
     <div>
       <span class="eyebrow">{{NAZWA_STRONY}} — {{MIASTO}}</span>
       <h1>Poznaj <span class="hl">orientacyjny koszt</span> remontu, zanim zadzwonisz</h1>
-      <p>Wybierz pomieszczenie, metraż i standard wykończenia — widełki cenowe zobaczysz od razu, bez czekania na telefon od handlowca.</p>
+      <p>Wybierz pomieszczenie, metraż i standard wykończenia — widełki cenowe zobaczysz od razu, samodzielnie, bez umawiania rozmowy z handlowcem.</p>
       <a href="#kontakt" class="btn btn-outline">Umów bezpłatne oględziny →</a>
     </div>
     <div class="calc-wrap">
@@ -238,7 +244,7 @@
 <section class="story">
   <div class="wrap">
     <span class="eyebrow">Dlaczego kalkulator</span>
-    <p class="story-pull fade-in" id="storyFade">Trzy różne ekipy, trzy zupełnie różne wyceny za to samo — i żadna nie mówiła dlaczego.</p>
+    <p class="story-pull fade-in" id="storyFade">Klienci przychodzili do nas z trzema wycenami w kieszeni i pytaniem, której wierzyć — różnica sięgała kilkunastu tysięcy złotych za dokładnie ten sam zakres prac.</p>
     <div class="fade-in">
       <p>Zanim zbudowaliśmy ten kalkulator, słyszeliśmy to samo pytanie na każdych oględzinach: "dlaczego u konkurencji było 15 tysięcy taniej/drożej za praktycznie ten sam zakres?". Zwykle chodziło o różne założenia co do standardu materiałów, których klient nie widział na etapie pierwszej rozmowy telefonicznej.</p>
       <p>Dlatego pokazujemy nasze własne stawki za m² otwarcie, zanim jeszcze się spotkamy — żebyś wiedział, w jakich widełkach się poruszamy, i mógł nas porównać z każdą inną ofertą na tych samych zasadach.</p>
@@ -263,8 +269,8 @@
     <span class="eyebrow">Zaufanie</span>
     <h2>Zanim zapytasz — inni już policzyli</h2>
     <div class="trust-row">
-      <div class="trust-stat">140+<span>wyliczeń w tym miesiącu</span></div>
-      <div class="chat-bubble">"Kalkulator dał mi realny punkt odniesienia zanim jeszcze zadzwoniłam — żadna z wcześniejszych rozmów z innymi ekipami tego nie dawała."<span class="who">Katarzyna M., {{MIASTO}}</span></div>
+      <div class="trust-stat fade-in">140+<span>wyliczeń w tym miesiącu</span></div>
+      <div class="chat-bubble fade-in">"Kalkulator dał mi realny punkt odniesienia zanim jeszcze zadzwoniłam — żadna z wcześniejszych rozmów z innymi ekipami tego nie dawała."<span class="who">Katarzyna M., {{MIASTO}}</span></div>
     </div>
   </div>
 </section>

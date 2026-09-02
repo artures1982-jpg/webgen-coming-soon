@@ -67,6 +67,13 @@ zmrużyć oczy, dwie różne struktury nadal wyglądają jak ta sama aplikacja p
   `salon-fryzjerski-5-premium.html`, zgłoszony przez Artura wprost: "Czcionka h1 nieakceptowalna,
   mało czytelna" (poprawione na Petrona). Przed finalizacją zrenderuj cały `h1` wariantu (nie tylko
   nazwę logo) i oceń czytelność przy typowej szerokości mobilnej, nie tylko na desktopie.
+- **Próg hamburgera `max-width:700px` nie gwarantuje, że desktopowy nav mieści się tuż powyżej
+  700px.** Zmierz realnie, nie zakładaj — jeśli logo + komplet linków + CTA nie mieszczą się w
+  paśmie ~700-900px, strona ma poziomy scroll dokładnie tam, gdzie mało kto testuje (ZASADY.md
+  6.6, systemowy błąd znaleziony w 3 z 5 wariantów branży Remonty podczas retrofit QA). Podnieś
+  próg do realnie zmierzonej bezpiecznej wartości (typowo `960px` dla navu z 4-6 linkami + CTA),
+  nie kopiuj `700px` bezmyślnie z innych wariantów. Zawsze skanuj (lub sprawdź kilka punktów)
+  cały zakres 700-1000px pod kątem `scrollWidth` vs `clientWidth`, nie tylko 390px i desktop.
 
 ## Różnicowanie — to jest sedno zadania
 

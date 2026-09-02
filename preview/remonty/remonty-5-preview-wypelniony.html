@@ -128,15 +128,17 @@
     .stats-row{flex-wrap:wrap;gap:1.2rem;}
     .stat{flex:1 1 40%;border-left:none;}
   }
-  @media (max-width:700px){
+  @media (max-width:960px){
     .nav-links-desktop{display:none;}
     .nav-toggle{display:flex;}
     .nav-links-mobile{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);flex-direction:column;padding:.5rem 1.5rem 1.2rem;gap:.2rem;}
     .nav-links-mobile.open{display:flex;}
     .nav-links-mobile a{padding:.8rem 0;font-weight:500;border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
-    .proces-steps{grid-template-columns:1fr;}
     .nav-actions > .btn{display:none;}
     .nav-links-mobile .mobile-cta{color:var(--accent);}
+  }
+  @media (max-width:700px){
+    .proces-steps{grid-template-columns:1fr;}
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -205,19 +207,19 @@
   <div class="wrap">
     <span class="eyebrow">Realizacje</span>
     <h2>Wybrane projekty</h2>
-    <p class="lead">Wykończenia lokali usługowych i biur — od stanu surowego do gotowej przestrzeni.</p>
+    <p class="lead">Dwa z ponad 60 zrealizowanych projektów komercyjnych — z metrażem, zakresem i terminem, nie tylko zdjęciami po sprzątnięciu placu budowy.</p>
     <div class="cases-grid">
       <article class="case-card">
         <img class="case-photo" src="https://images.pexels.com/photos/37080685/pexels-photo-37080685.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Wykończony lokal usługowy">
         <span class="case-tag">Lokal usługowy</span>
         <h3>Wykończenie salonu w centrum handlowym</h3>
-        <p>180 m², pełna zabudowa meblowa, oświetlenie ekspozycyjne. Realizacja: 6 tygodni, zgodnie z harmonogramem najemcy.</p>
+        <p>180 m², pełna zabudowa meblowa, oświetlenie ekspozycyjne. Termin otwarcia był powiązany ze startem sezonu sprzedażowego centrum, więc harmonogram nie miał ani dnia zapasu — zamknęliśmy się w 6 tygodniach, zgodnie z planem najemcy.</p>
       </article>
       <article class="case-card">
         <img class="case-photo" src="https://images.pexels.com/photos/9300768/pexels-photo-9300768.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Wykończone biuro open space">
         <span class="case-tag">Biuro</span>
         <h3>Fit-out biura open space dla najemcy</h3>
-        <p>420 m², instalacje pod IT i klimatyzację, strefy wspólne. Realizacja: 9 tygodni, odbiór bez uwag.</p>
+        <p>420 m², instalacje pod IT i klimatyzację, strefy wspólne. Prace szły równolegle z formalnościami najmu, więc 9-tygodniowy harmonogram nie miał marginesu — zamknęliśmy się na czas, odbiór bez uwag.</p>
       </article>
     </div>
   </div>

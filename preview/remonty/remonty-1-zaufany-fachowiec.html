@@ -159,8 +159,10 @@
   @media (max-width:900px){
     .realizacje-grid, .cennik-grid, .proces-steps, .opinie-grid, .kontakt-grid, .footer-grid{grid-template-columns:1fr;}
   }
-  @media (max-width:700px){
+  @media (max-width:960px){
     .nav-links-desktop{display:none;}
+    .logo{grid-column:1;}
+    .nav-actions{grid-column:3;}
     .nav-toggle{display:flex;}
     .nav-links-mobile{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);flex-direction:column;padding:.5rem 1.5rem 1.2rem;gap:.2rem;}
     .nav-links-mobile.open{display:flex;}
@@ -378,7 +380,7 @@
 <section class="kontakt" id="kontakt">
   <div class="wrap">
     <span class="eyebrow">Kontakt</span>
-    <h2>Umów bezpłatne oględziny</h2>
+    <h2>Pierwsze oględziny robię osobiście</h2>
     <div class="kontakt-grid">
       <form id="kontaktForm">
         <div class="form-group">

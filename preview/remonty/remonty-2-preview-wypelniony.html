@@ -71,7 +71,8 @@
 
   /* HERO */
   .hero{position:relative;padding:6rem 1.5rem 4rem;overflow:hidden;}
-  .hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg, color-mix(in srgb, var(--accent) 6%, transparent) 0 22px, transparent 22px 44px);z-index:0;}
+  .hero::before{content:'';position:absolute;inset:-50px;background:repeating-linear-gradient(-45deg, color-mix(in srgb, var(--accent) 6%, transparent) 0 22px, transparent 22px 44px);z-index:0;animation:heroDrift 16s linear infinite;}
+  @keyframes heroDrift{0%{transform:translate(0,0);}100%{transform:translate(-62px,-62px);}}
   .hero-inner{position:relative;z-index:1;max-width:760px;margin:0 auto;text-align:center;}
   .hero h1{font-size:clamp(2.3rem,5.2vw,3.7rem);margin-bottom:1.3rem;}
   .hero h1 .hl{color:var(--accent);}
@@ -118,6 +119,9 @@
   .usp-row{display:flex;gap:1.3rem;flex-wrap:wrap;margin-top:2.6rem;}
   .usp-badge{flex:1 1 220px;background:var(--surface);padding:1.3rem 1.4rem;border-left:3px solid var(--accent);opacity:0;transform:translateY(14px);transition:opacity .5s ease, transform .5s ease;}
   .usp-badge.visible{opacity:1;transform:translateY(0);}
+  .usp-row .usp-badge:nth-child(1){transition-delay:0s;}
+  .usp-row .usp-badge:nth-child(2){transition-delay:.1s;}
+  .usp-row .usp-badge:nth-child(3){transition-delay:.2s;}
   .usp-badge h3{font-family:var(--body);font-weight:700;font-size:.98rem;text-transform:none;margin-bottom:.4rem;letter-spacing:0;}
   .usp-badge p{color:var(--muted);font-size:.88rem;}
 
@@ -148,15 +152,18 @@
     .nav-links-desktop{display:none;}
     .nav-toggle{display:flex;}
     .avail-badge .txt{display:none;}
+    .nav-actions > .btn{display:none;}
     .nav-links-mobile{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);flex-direction:column;padding:.5rem 1.5rem 1.2rem;gap:.2rem;}
     .nav-links-mobile.open{display:flex;}
     .nav-links-mobile a{padding:.8rem 0;font-weight:600;border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+    .nav-links-mobile a.mobile-cta{border-bottom:none;justify-content:center;text-align:center;background:var(--accent);color:var(--bg);border-radius:999px;padding:.85rem 1rem;margin:.6rem 0 .3rem;font-weight:800;}
   }
 
   @media (prefers-reduced-motion: reduce){
     .avail-dot{animation:none;opacity:1;transform:none;}
     .marquee-track{animation:none;}
     .btn-glow::before{animation:none;display:none;}
+    .hero::before{animation:none;}
     .story-text .fade-in{opacity:1;transform:none;transition:none;}
     .usp-badge{opacity:1;transform:none;transition:none;}
     .fix-card{opacity:1;transform:none;transition:none;}
@@ -190,6 +197,7 @@
     </div>
   </div>
   <nav class="nav-links-mobile" id="navLinks">
+    <a href="tel:500 123 456" class="mobile-cta">📞 500 123 456</a>
     <a href="#historia">O nas</a>
     <a href="#naprawimy">Zakres prac</a>
     <a href="#faq">FAQ</a>
@@ -245,7 +253,7 @@
       </div>
       <div class="fix-card">
         <div class="fix-photo-wrap"><img class="fix-photo" src="https://images.pexels.com/photos/8146330/pexels-photo-8146330.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Puste mieszkanie przygotowane do sprzedaży"><span class="fix-ico">🏷️</span></div>
-        <div class="fix-body"><h3>Poprawki przed sprzedażą mieszkania</h3><p>Drobne usterki, które pytają o nie kupujący na oględzinach.</p></div>
+        <div class="fix-body"><h3>Poprawki przed sprzedażą mieszkania</h3><p>Drobne usterki, o które pytają kupujący na oględzinach.</p></div>
       </div>
       <div class="fix-card">
         <div class="fix-photo-wrap"><img class="fix-photo" src="https://images.pexels.com/photos/8624464/pexels-photo-8624464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Zacieki na suficie po zalaniu"><span class="fix-ico">🧯</span></div>
@@ -286,7 +294,7 @@
       </div>
       <div class="faq-item">
         <button class="faq-q">Czy robicie też duże remonty pod klucz? <span class="plus">+</span></button>
-        <div class="faq-a"><p>Tak — to nasza podstawowa oferta, ale te projekty planujemy z wyprzedzeniem. Ten wariant dotyczy mniejszych i pilnych zleceń wpasowanych w bufor grafiku.</p></div>
+        <div class="faq-a"><p>Tak — to nasza podstawowa oferta, ale te projekty planujemy z wyprzedzeniem. Ta strona dotyczy mniejszych i pilnych zleceń, które mieszczą się w naszym buforze grafiku.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">Czy wystawiacie dokumentację dla ubezpieczyciela? <span class="plus">+</span></button>
@@ -304,7 +312,7 @@
   <div class="wrap">
     <span class="eyebrow">Kontakt</span>
     <h2>Zadzwoń, opisz sprawę</h2>
-    <p class="lead" style="text-transform:none;margin:0 auto;">Powiedz nam, co się stało — od razu ocenimy, czy pasujesz w nasz najbliższy wolny termin.</p>
+    <p class="lead" style="text-transform:none;margin:0 auto;">Powiedz nam, co się stało — od razu ocenimy, czy zmieścisz się w naszym najbliższym wolnym terminie.</p>
     <a href="tel:500 123 456" class="btn btn-primary btn-glow" style="margin-top:1.8rem;"><span>📞 500 123 456</span></a>
     <div class="kontakt-info">
       <p>RenoMax · ul. Przykładowa 12, Kraków</p>
