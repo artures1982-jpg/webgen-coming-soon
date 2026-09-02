@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{NAZWA_STRONY}} — Medycyna estetyczna, {{MIASTO}} | tel. {{TELEFON}}</title>
+<meta name="description" content="{{NAZWA_STRONY}} — gabinet medycyny estetycznej w mieście {{MIASTO}}. Botoks, kwas hialuronowy, mezoterapia, laseroterapia — zabiegi prowadzone przez lekarza medycyny. Umów konsultację: {{TELEFON}}">
+<meta name="keywords" content="medycyna estetyczna {{MIASTO}}, botoks {{MIASTO}}, kwas hialuronowy {{MIASTO}}">
+<link rel="canonical" href="https://{{SLUG}}.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{NAZWA_STRONY}} — Medycyna estetyczna, {{MIASTO}}">
+<meta property="og:description" content="Zabiegi estetyczne prowadzone przez lekarza medycyny w mieście {{MIASTO}}. Umów konsultację: {{TELEFON}}">
+<meta property="og:url" content="https://{{SLUG}}.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"MedicalBusiness","name":"{{NAZWA_STRONY}}","telephone":"{{TELEFON}}","email":"{{EMAIL}}","description":"{{NAZWA_STRONY}} — gabinet medycyny estetycznej w mieście {{MIASTO}}","address":{"@type":"PostalAddress","addressLocality":"{{MIASTO}}","addressCountry":"PL"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Piazzolla:wght@500;600;700;800&family=Wix+Madefor+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#6b3457;
+    --accent-dark:#401f34;
+    --bg:#faf7f4;
+    --surface:#f1e9ee;
+    --text:#241a20;
+    --muted:#7c6b73;
+    --head:'Piazzolla', serif;
+    --body:'Wix Madefor Text', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3,h4{font-family:var(--head);line-height:1.22;font-weight:700;color:var(--text);}
+  section{padding:5.5rem 1.5rem;}
+  .wrap{max-width:1120px;margin:0 auto;}
+  .eyebrow{display:inline-block;font-family:var(--body);font-weight:700;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:.8rem;}
+  h2{font-size:clamp(1.75rem,3.1vw,2.4rem);margin-bottom:1rem;}
+  .lead{color:var(--muted);font-size:1.03rem;max-width:620px;}
+  .center{text-align:center;margin-left:auto;margin-right:auto;}
+
+  .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.95rem 1.9rem;border-radius:.7rem;font-weight:700;font-family:var(--body);font-size:.95rem;border:1.5px solid transparent;cursor:pointer;transition:transform .15s ease, background .2s ease, color .2s ease;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--accent);color:var(--bg);}
+  .btn-primary:hover{background:var(--accent-dark);}
+  .btn-outline{border-color:color-mix(in srgb, var(--text) 25%, transparent);color:var(--text);background:transparent;}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent-dark);}
+
+  /* ---------- NAV ---------- */
+  header.nav{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.5rem;gap:1.5rem;}
+  .logo{font-family:var(--head);font-weight:700;font-size:1.4rem;color:var(--text);white-space:nowrap;flex-shrink:0;}
+  .logo span{color:var(--accent);}
+  .nav-links-desktop{display:flex;gap:1.9rem;flex:1;justify-content:center;}
+  .nav-links-desktop a{font-weight:600;font-size:.9rem;color:var(--text);white-space:nowrap;}
+  .nav-links-desktop a:hover{color:var(--accent-dark);}
+  .nav-actions{display:flex;align-items:center;gap:.9rem;flex-shrink:0;}
+  .nav-phone{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--surface);color:var(--text);flex-shrink:0;font-size:1.05rem;transition:background .2s ease;}
+  .nav-phone:hover{background:color-mix(in srgb, var(--accent) 20%, var(--surface));}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.4rem;flex-shrink:0;}
+  .nav-toggle span{width:22px;height:2px;background:var(--text);}
+  .nav-links-mobile{display:none;flex-direction:column;padding:.4rem 1.5rem 1.4rem;gap:0;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);}
+  .nav-links-mobile.open{display:flex;}
+  .nav-links-mobile a{padding:.8rem 0;font-weight:600;font-size:.96rem;border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+  .nav-links-mobile a:last-child{border-bottom:none;}
+  .mobile-cta{color:var(--accent-dark)!important;font-weight:700!important;}
+
+  @media (max-width:960px){
+    .nav-links-desktop{display:none;}
+    .nav-toggle{display:flex;}
+  }
+  @media (max-width:700px){
+    .nav-actions > .btn{display:none;}
+  }
+  @media (max-width:480px){
+    .nav .wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+    .nav .wrap::-webkit-scrollbar{display:none;}
+    .logo{font-size:1.2rem;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;}
+  .hero-copy h1{font-size:clamp(2rem,3.8vw,2.85rem);margin-bottom:1.2rem;}
+  .hero-copy p{color:var(--muted);font-size:1.05rem;max-width:480px;margin-bottom:1.9rem;}
+  .hero-cta-row{display:flex;gap:1rem;flex-wrap:wrap;}
+  .hero-media{position:relative;}
+  .hero-photo{width:100%;height:auto;aspect-ratio:4/3.4;object-fit:cover;border-radius:1.3rem;box-shadow:0 24px 48px color-mix(in srgb, var(--text) 18%, transparent);}
+  .credential-pin{position:absolute;top:1.2rem;right:1.2rem;background:var(--bg);border-radius:.9rem;padding:.85rem 1.1rem;box-shadow:0 10px 24px color-mix(in srgb, var(--text) 16%, transparent);display:flex;align-items:center;gap:.65rem;max-width:210px;}
+  .credential-pin .icon{font-size:1.3rem;flex-shrink:0;}
+  .credential-pin span{font-size:.78rem;font-weight:600;line-height:1.32;}
+
+  .credential-band{background:var(--surface);padding:1.6rem 1.5rem;}
+  .credential-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1.3rem 1.6rem;}
+  .credential-item{display:flex;align-items:center;gap:.6rem;font-size:.86rem;font-weight:600;flex:1;min-width:200px;}
+  .credential-item .icon{font-size:1.2rem;flex-shrink:0;}
+
+  /* ---------- CENNIK / ZABIEGI ---------- */
+  .treatment-groups{display:grid;grid-template-columns:repeat(3,1fr);gap:1.7rem;margin-top:2.8rem;}
+  .treatment-card{background:var(--bg);border:1px solid color-mix(in srgb, var(--text) 12%, transparent);border-radius:1.1rem;padding:1.9rem 1.6rem;}
+  .treatment-card .cat-icon{width:44px;height:44px;border-radius:50%;background:color-mix(in srgb, var(--accent) 14%, var(--bg));display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1.1rem;}
+  .treatment-card h3{font-size:1.12rem;margin-bottom:.3rem;}
+  .treatment-card .cat-note{font-size:.8rem;color:var(--muted);margin-bottom:1.1rem;}
+  .treatment-row{display:flex;flex-direction:column;gap:.2rem;padding:.85rem 0;border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+  .treatment-row:last-child{border-bottom:none;}
+  .t-top{display:flex;justify-content:space-between;align-items:baseline;gap:.6rem;}
+  .t-name{font-weight:700;font-size:.94rem;}
+  .t-price{font-family:var(--head);font-weight:700;color:var(--accent-dark);white-space:nowrap;flex-shrink:0;}
+  .t-desc{font-size:.82rem;color:var(--muted);}
+  .t-time{font-size:.76rem;color:var(--muted);}
+  .cennik-disclaimer{max-width:720px;margin:2.4rem auto 0;text-align:center;font-size:.86rem;color:var(--muted);background:var(--surface);border-radius:1rem;padding:1.1rem 1.4rem;}
+
+  /* ---------- O GABINECIE ---------- */
+  .about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:3.5rem;align-items:center;}
+  .about-photo{width:100%;height:auto;aspect-ratio:4/4.7;object-fit:cover;border-radius:1.3rem;box-shadow:0 20px 40px color-mix(in srgb, var(--text) 16%, transparent);}
+  .about-copy p{margin-bottom:1.15rem;color:var(--text);}
+  .qual-list{margin-top:1.6rem;display:flex;flex-direction:column;}
+  .qual-row{display:flex;align-items:flex-start;gap:.8rem;padding:.75rem 0;border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+  .qual-row:last-child{border-bottom:none;}
+  .qual-row .check{color:var(--accent-dark);font-weight:800;flex-shrink:0;}
+  .qual-row .label{font-size:.92rem;}
+
+  /* ---------- DLACZEGO MY ---------- */
+  .trust-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2.7rem;}
+  .trust-card{background:var(--bg);border-radius:1.1rem;padding:1.8rem;border:1px solid color-mix(in srgb, var(--text) 10%, transparent);}
+  .trust-card .icon{font-size:1.6rem;margin-bottom:.9rem;display:block;}
+  .trust-card h3{font-size:1.04rem;margin-bottom:.5rem;}
+  .trust-card p{font-size:.88rem;color:var(--muted);}
+
+  /* ---------- OPINIE ---------- */
+  .review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;margin-top:2.7rem;}
+  .review-card{background:var(--surface);border-radius:1.1rem;padding:1.9rem;}
+  .review-card .quote-mark{font-family:var(--head);font-size:2.3rem;color:var(--accent);line-height:1;display:block;margin-bottom:.5rem;}
+  .review-card p{font-size:.91rem;margin-bottom:1.1rem;}
+  .review-card cite{font-style:normal;font-size:.82rem;color:var(--muted);font-weight:600;}
+
+  /* ---------- FAQ ---------- */
+  .faq-list{max-width:800px;margin:2.7rem auto 0;display:flex;flex-direction:column;gap:.8rem;}
+  details.faq-card{background:var(--bg);border:1px solid color-mix(in srgb, var(--text) 10%, transparent);border-radius:1rem;padding:1.2rem 1.5rem;}
+  details.faq-card summary{cursor:pointer;font-weight:700;font-family:var(--head);font-size:1rem;display:flex;justify-content:space-between;gap:1rem;align-items:center;list-style:none;}
+  details.faq-card summary::-webkit-details-marker{display:none;}
+  details.faq-card summary::after{content:"+";color:var(--accent-dark);font-size:1.3rem;flex-shrink:0;}
+  details.faq-card[open] summary::after{content:"–";}
+  details.faq-card p{color:var(--muted);margin-top:.9rem;font-size:.92rem;}
+
+  /* ---------- KONTAKT ---------- */
+  .contact-split{display:grid;grid-template-columns:1fr 1.1fr;gap:2.2rem;margin-top:2.7rem;align-items:stretch;}
+  .contact-card{background:var(--bg);border-radius:1.2rem;padding:2.3rem;border:1px solid color-mix(in srgb, var(--accent) 25%, transparent);display:flex;flex-direction:column;justify-content:center;}
+  .contact-card h3{font-size:1.35rem;margin-bottom:.6rem;}
+  .contact-card > p{color:var(--muted);margin-bottom:1.5rem;font-size:.92rem;}
+  .contact-info{display:flex;flex-direction:column;gap:.7rem;font-size:.9rem;margin-top:1.6rem;}
+  .contact-info b{display:block;color:var(--muted);font-weight:600;font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.15rem;}
+  .map-panel{border-radius:1.2rem;overflow:hidden;border:1px solid color-mix(in srgb, var(--text) 10%, transparent);min-height:340px;}
+  .map-panel iframe{width:100%;height:100%;min-height:340px;border:0;display:block;}
+
+  footer{padding:3rem 1.5rem 2rem;text-align:center;background:var(--surface);}
+  .footer-logo{font-family:var(--head);font-weight:700;font-size:1.2rem;margin-bottom:.6rem;}
+  footer p{font-size:.88rem;color:var(--muted);max-width:460px;margin:0 auto 1.2rem;}
+  .footer-links{display:flex;gap:1.4rem;justify-content:center;flex-wrap:wrap;font-size:.86rem;margin-bottom:1.2rem;}
+  .footer-links a:hover{color:var(--accent-dark);}
+  .footer-bottom{font-size:.78rem;color:var(--muted);}
+
+  @media (max-width:960px){
+    .hero-grid{grid-template-columns:1fr;}
+    .about-grid{grid-template-columns:1fr;}
+    .about-photo{max-width:420px;margin:0 auto;}
+    .treatment-groups{grid-template-columns:1fr 1fr;}
+    .review-grid{grid-template-columns:1fr;}
+    .contact-split{grid-template-columns:1fr;}
+    .map-panel{min-height:280px;}
+    .map-panel iframe{min-height:280px;}
+  }
+  @media (max-width:700px){
+    section{padding:3.6rem 1.2rem;}
+    .credential-band{padding:1.4rem 1.2rem;}
+    .trust-grid{grid-template-columns:1fr;}
+    .treatment-groups{grid-template-columns:1fr;}
+  }
+  @media (max-width:480px){
+    .hero-copy p{max-width:none;}
+    .credential-pin{max-width:170px;padding:.7rem .9rem;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo">{{NAZWA_STRONY}}<span>.</span></a>
+    <nav class="nav-links-desktop">
+      <a href="#cennik">Zabiegi i cennik</a>
+      <a href="#o-gabinecie">O gabinecie</a>
+      <a href="#opinie">Opinie</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="tel:{{TELEFON}}" class="nav-phone" aria-label="Zadzwoń: {{TELEFON}}">📞</a>
+      <a href="#kontakt" class="btn btn-primary">Umów konsultację</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu nawigacji" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-links-mobile" id="navLinksMobile">
+    <a href="#kontakt" class="mobile-cta">Umów konsultację</a>
+    <a href="#cennik">Zabiegi i cennik</a>
+    <a href="#o-gabinecie">O gabinecie</a>
+    <a href="#opinie">Opinie</a>
+    <a href="#faq">FAQ</a>
+    <a href="tel:{{TELEFON}}">{{TELEFON}}</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Medycyna estetyczna — {{MIASTO}}</span>
+      <h1>Zabiegi estetyczne prowadzone z medyczną precyzją</h1>
+      <p>Botoks, kwas hialuronowy, mezoterapia i laseroterapia w gabinecie w mieście {{MIASTO}} — każdy zabieg poprzedza konsultacja, w której wspólnie ustalamy, co ma sens dla Twojej skóry, a czego lepiej nie robić.</p>
+      <div class="hero-cta-row">
+        <a href="#kontakt" class="btn btn-primary">Umów konsultację</a>
+        <a href="#cennik" class="btn btn-outline">Zobacz cennik zabiegów</a>
+      </div>
+    </div>
+    <div class="hero-media">
+      <img class="hero-photo" src="https://images.pexels.com/photos/11024139/pexels-photo-11024139.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Nowoczesny, elegancki gabinet medycyny estetycznej z aparaturą zabiegową" width="940" height="650" fetchpriority="high">
+      <div class="credential-pin">
+        <span class="icon" aria-hidden="true">🩺</span>
+        <span>Zabiegi wykonywane w warunkach gabinetu medycznego</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="credential-band">
+  <div class="wrap credential-row">
+    <div class="credential-item"><span class="icon" aria-hidden="true">🩺</span><span>Lekarz medycyny, nie kosmetolog</span></div>
+    <div class="credential-item"><span class="icon" aria-hidden="true">✅</span><span>Preparaty z certyfikatem CE</span></div>
+    <div class="credential-item"><span class="icon" aria-hidden="true">📝</span><span>Konsultacja przed każdym zabiegiem</span></div>
+    <div class="credential-item"><span class="icon" aria-hidden="true">📁</span><span>Pełna dokumentacja medyczna</span></div>
+  </div>
+</div>
+
+<section id="cennik">
+  <div class="wrap">
+    <span class="eyebrow">Zabiegi i cennik</span>
+    <h2>Cennik bez niedomówień</h2>
+    <p class="lead">Ceny orientacyjne dla najczęściej wykonywanych zabiegów. Ostateczny plan i koszt ustalamy zawsze podczas konsultacji — w zależności od stanu skóry, oczekiwań i ewentualnych przeciwwskazań.</p>
+    <div class="treatment-groups">
+      <div class="treatment-card">
+        <div class="cat-icon" aria-hidden="true">✨</div>
+        <h3>Zabiegi na twarz</h3>
+        <p class="cat-note">Najczęściej wybierane w naszym gabinecie</p>
+        <div class="treatment-row">
+          <div class="t-top"><span class="t-name">Botoks</span><span class="t-price">od 700 zł</span></div>
+          <span class="t-desc">Redukcja zmarszczek mimicznych</span>
+          <span class="t-time">ok. 30 min</span>
+        </div>
+        <div class="treatment-row">
+          <div class="t-top"><span class="t-name">Kwas hialuronowy</span><span class="t-price">od 900 zł</span></div>
+          <span class="t-desc">Modelowanie ust i policzków</span>
+          <span class="t-time">ok. 45 min</span>
+        </div>
+        <div class="treatment-row">
+          <div class="t-top"><span class="t-name">Mezoterapia igłowa twarzy</span><span class="t-price">od 400 zł</span></div>
+          <span class="t-desc">Nawilżenie i odżywienie skóry</span>
+          <span class="t-time">ok. 40 min</span>
+        </div>
+        <div class="treatment-row">
+          <div class="t-top"><span class="t-name">Peeling chemiczny</span><span class="t-price">od 280 zł</span></div>
+          <span class="t-desc">Wyrównanie kolorytu i tekstury skóry</span>
+          <span class="t-time">ok. 30 min</span>
+        </div>
+      </div>
+      <div class="treatment-card">
+        <div class="cat-icon" aria-hidden="true">🧴</div>
+        <h3>Zabiegi na ciało</h3>
+        <p class="cat-note">Jędrność, kondycja skóry, cellulit</p>
+        <div class="treatment-row">
+          <div class="t-top"><span class="t-name">Mezoterapia ciała</span><span class="t-price">od 450 zł</span></div>
+          <span class="t-desc">Nawilżenie i regeneracja skóry ciała</span>
+          <span class="t-time">ok. 45 min</span>
+        </div>
+        <div class="treatment-row">
+          <div class="t-top"><span class="t-name">Radiofrekwencja liftingująca</span><span class="t-price">od 380 zł</span></div>
+          <span class="t-desc">Ujędrnienie skóry ciała</span>
+          <span class="t-time">ok. 50 min</span>
+        </div>
+        <div class="treatment-row">
+          <div class="t-top"><span class="t-name">Zabieg na cellulit</span><span class="t-price">od 320 zł</span></div>
+          <span class="t-desc">Cena za pojedynczą sesję, zwykle w serii</span>
+          <span class="t-time">ok. 45 min</span>
+        </div>
+      </div>
+      <div class="treatment-card">
+        <div class="cat-icon" aria-hidden="true">🔬</div>
+        <h3>Laseroterapia i zabiegi zaawansowane</h3>
+        <p class="cat-note">Dla bardziej precyzyjnych korekt</p>
+        <div class="treatment-row">
+          <div class="t-top"><span class="t-name">Laseroterapia naczynek i przebarwień</span><span class="t-price">od 350 zł</span></div>
+          <span class="t-desc">Redukcja widocznych naczynek i plam</span>
+          <span class="t-time">ok. 30 min</span>
+        </div>
+        <div class="treatment-row">
+          <div class="t-top"><span class="t-name">Nici liftingujące (PDO)</span><span class="t-price">od 1400 zł</span></div>
+          <span class="t-desc">Ujędrnienie owalu twarzy</span>
+          <span class="t-time">ok. 60 min</span>
+        </div>
+        <div class="treatment-row">
+          <div class="t-top"><span class="t-name">Laserowe odmładzanie skóry</span><span class="t-price">od 500 zł</span></div>
+          <span class="t-desc">Spłycenie drobnych zmarszczek, gładsza skóra</span>
+          <span class="t-time">ok. 40 min</span>
+        </div>
+      </div>
+    </div>
+    <p class="cennik-disclaimer">Podane ceny mają charakter orientacyjny. Dokładny plan zabiegowy, dobór preparatu i finalny koszt ustalamy podczas konsultacji z lekarzem — z uwzględnieniem stanu skóry, oczekiwań i ewentualnych przeciwwskazań.</p>
+  </div>
+</section>
+
+<section id="o-gabinecie" style="background:var(--surface);">
+  <div class="wrap about-grid">
+    <img class="about-photo" src="https://images.pexels.com/photos/38618416/pexels-photo-38618416.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Lekarka w białym kitlu w gabinecie medycyny estetycznej" width="940" height="650" loading="lazy">
+    <div class="about-copy">
+      <span class="eyebrow">O gabinecie</span>
+      <h2>Estetyka, która zaczyna się od diagnozy, nie od zabiegu</h2>
+      <p>Zanim w {{NAZWA_STRONY}} ktokolwiek weźmie do ręki strzykawkę, jest rozmowa — o skórze, oczekiwaniach i o tym, czego dany zabieg realnie nie zmieni. To nie jest formalność. To moment, w którym lekarz ocenia, czy zabieg w ogóle ma sens dla Twojej twarzy, czy lepiej zacząć od czegoś mniej inwazyjnego.</p>
+      <p>Gabinet działa w mieście {{MIASTO}} i pracuje wyłącznie na preparatach z legalnego źródła, z pełną dokumentacją partii — to standard, który w tej branży wciąż nie jest oczywisty, choć powinien być pierwszym pytaniem zadawanym przed każdym zabiegiem.</p>
+      <div class="qual-list">
+        <div class="qual-row"><span class="check">✓</span><span class="label">Dyplom lekarza medycyny</span></div>
+        <div class="qual-row"><span class="check">✓</span><span class="label">Ukończone szkolenia z zakresu medycyny estetycznej</span></div>
+        <div class="qual-row"><span class="check">✓</span><span class="label">Regularne aktualizowanie wiedzy o nowych technikach i przeciwwskazaniach</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="dlaczego-my">
+  <div class="wrap">
+    <span class="eyebrow">Dlaczego my</span>
+    <h2>Dlaczego pacjentki i pacjenci nam ufają</h2>
+    <div class="trust-grid">
+      <div class="trust-card">
+        <span class="icon" aria-hidden="true">🩺</span>
+        <h3>Ocena medyczna przed zabiegiem</h3>
+        <p>Każdy zabieg poprzedza wywiad i sprawdzenie przeciwwskazań — nie zaczynamy od strzykawki, tylko od rozmowy.</p>
+      </div>
+      <div class="trust-card">
+        <span class="icon" aria-hidden="true">✅</span>
+        <h3>Preparaty z legalnego źródła</h3>
+        <p>Wyłącznie certyfikowane produkty CE, z pełną dokumentacją partii i możliwością weryfikacji pochodzenia.</p>
+      </div>
+      <div class="trust-card">
+        <span class="icon" aria-hidden="true">💬</span>
+        <h3>Realistyczne oczekiwania</h3>
+        <p>Mówimy wprost, czego dany zabieg nie zmieni — wolimy uczciwą rozmowę niż rozczarowanie po fakcie.</p>
+      </div>
+      <div class="trust-card">
+        <span class="icon" aria-hidden="true">📋</span>
+        <h3>Dokumentacja i opieka pozabiegowa</h3>
+        <p>Karta zabiegowa, zalecenia na piśmie i kontakt, jeśli po zabiegu coś Cię niepokoi.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="opinie" style="background:var(--surface);">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Opinie</span>
+    <h2 class="center" style="text-align:center;">Co mówią pacjentki i pacjenci</h2>
+    <div class="review-grid">
+      <div class="review-card">
+        <span class="quote-mark" aria-hidden="true">„</span>
+        <p>Bałam się, że wyjdę stąd z „nadrobioną” twarzą. Zamiast tego dostałam efekt, którego nikt nie rozpoznaje jako zabieg — po prostu wyglądam wypoczęta.</p>
+        <cite>— Magdalena, {{MIASTO}}</cite>
+      </div>
+      <div class="review-card">
+        <span class="quote-mark" aria-hidden="true">„</span>
+        <p>Lekarka od razu powiedziała, że przy moich zmarszczkach mimicznych sensowniej będzie zacząć od mezoterapii niż od botoksu. Doceniam, że nie sprzedano mi najdroższej opcji.</p>
+        <cite>— Piotr, {{MIASTO}}</cite>
+      </div>
+      <div class="review-card">
+        <span class="quote-mark" aria-hidden="true">„</span>
+        <p>Konsultacja trwała dłużej niż sam zabieg — dopytywali o leki, alergie, wcześniejsze zabiegi. Pierwszy raz czułam się tu jak u lekarza, nie w salonie.</p>
+        <cite>— Ewa, {{MIASTO}}</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Pytania i odpowiedzi</span>
+    <h2 class="center" style="text-align:center;">Najczęściej pytacie</h2>
+    <div class="faq-list">
+      <details class="faq-card" open>
+        <summary>Czy zabiegi medycyny estetycznej bolą?</summary>
+        <p>Odczucia są indywidualne — większość zabiegów wykonujemy ze znieczuleniem miejscowym (kremem lub żelem), a igły stosowane przy wypełniaczach są bardzo cienkie. Podczas konsultacji omawiamy, czego można się spodziewać przy konkretnym zabiegu.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Jak długo trwa rekonwalescencja?</summary>
+        <p>Zależy od zabiegu — po botoksie czy mezoterapii zwykle wracasz do codziennych zajęć od razu, po niektórych zabiegach na ciało zalecamy 24–48 godzin bez intensywnego wysiłku. Dokładne zalecenia dostajesz na piśmie po zabiegu.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Czy trzeba się jakoś przygotować przed wizytą?</summary>
+        <p>Przy większości zabiegów wystarczy unikać alkoholu i leków przeciwzakrzepowych (jeśli nie są konieczne) na kilka dni wcześniej — dokładne wskazówki przekazujemy podczas umawiania terminu, zależnie od wybranego zabiegu.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Jak długo utrzymuje się efekt?</summary>
+        <p>To zależy od zabiegu i indywidualnych cech organizmu — botoks zwykle 3–4 miesiące, wypełniacze kwasem hialuronowym od kilku miesięcy do ponad roku. Podczas konsultacji mówimy wprost, czego się spodziewać, zamiast obiecywać uniwersalny czas trwania.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Czy są przeciwwskazania do zabiegów?</summary>
+        <p>Tak — między innymi ciąża i karmienie piersią, niektóre choroby autoimmunologiczne, aktywne infekcje skóry w miejscu zabiegu. Pełny wywiad medyczny to standardowa część każdej pierwszej wizyty.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt" style="background:var(--surface);">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Kontakt</span>
+    <h2 class="center" style="text-align:center;">Umów konsultację</h2>
+    <p class="lead center" style="text-align:center;">Pierwsza wizyta zawsze zaczyna się od rozmowy — bez zobowiązań i bez presji na zabieg tego samego dnia.</p>
+    <div class="contact-split">
+      <div class="contact-card">
+        <h3>Zadzwoń i wybierz dogodny termin</h3>
+        <p>Odbieramy telefony w godzinach otwarcia gabinetu — poza nimi zostaw wiadomość, oddzwonimy.</p>
+        <a href="tel:{{TELEFON}}" class="btn btn-primary">📞 {{TELEFON}}</a>
+        <div class="contact-info">
+          <div><b>E-mail</b>{{EMAIL}}</div>
+          <div><b>Adres</b>{{ADRES}}, {{MIASTO}}</div>
+          <div><b>Pon–Pt</b>{{GODZINY_PON_PT}}</div>
+          <div><b>Sobota</b>{{GODZINY_SOB}}</div>
+        </div>
+      </div>
+      <div class="map-panel">
+        <iframe src="https://www.google.com/maps?q={{ADRES}}, {{MIASTO}}&output=embed" title="Mapa dojazdu do {{NAZWA_STRONY}} w mieście {{MIASTO}}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">{{NAZWA_STRONY}}</div>
+  <p>{{NAZWA_STRONY}} — gabinet medycyny estetycznej w mieście {{MIASTO}}. Zabiegi na twarz i ciało prowadzone przez lekarza medycyny.</p>
+  <div class="footer-links">
+    <a href="#cennik">Zabiegi i cennik</a>
+    <a href="#o-gabinecie">O gabinecie</a>
+    <a href="tel:{{TELEFON}}">{{TELEFON}}</a>
+    <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+  </div>
+  <div class="footer-bottom">© <span id="year"></span> {{NAZWA_STRONY}} — Medycyna estetyczna {{MIASTO}}.</div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const navToggle = document.getElementById('navToggle');
+  const navLinksMobile = document.getElementById('navLinksMobile');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinksMobile.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  navLinksMobile.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinksMobile.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
+
+</body>
+</html>
