@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{NAZWA_STRONY}} — biuro nieruchomości, {{MIASTO}} | tel. {{TELEFON}}</title>
+<meta name="description" content="{{NAZWA_STRONY}} — sprzedaż mieszkań i domów w mieście {{MIASTO}}. Bezpłatna wycena, doradztwo przy zakupie, pełne prowadzenie przez formalności. Tel. {{TELEFON}}">
+<meta name="keywords" content="biuro nieruchomości {{MIASTO}}, pośrednik nieruchomości {{MIASTO}}, sprzedaż mieszkania {{MIASTO}}, wycena nieruchomości {{MIASTO}}">
+<link rel="canonical" href="https://{{SLUG}}.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{NAZWA_STRONY}} — biuro nieruchomości, {{MIASTO}}">
+<meta property="og:description" content="Uczciwa wycena i pełne prowadzenie przez sprzedaż mieszkania lub domu. Bezpłatna wycena: {{TELEFON}}">
+<meta property="og:url" content="https://{{SLUG}}.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"RealEstateAgent","name":"{{NAZWA_STRONY}}","telephone":"{{TELEFON}}","email":"{{EMAIL}}","description":"{{NAZWA_STRONY}} — biuro nieruchomości w mieście {{MIASTO}}. Sprzedaż mieszkań i domów, bezpłatna wycena, doradztwo przy zakupie.","address":{"@type":"PostalAddress","streetAddress":"{{ADRES}}","addressLocality":"{{MIASTO}}","addressCountry":"PL"},"openingHours":"Mo-Fr {{GODZINY_PON_PT}}"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@500;600;700;800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#a9814f;
+    --accent-dark:#2f2a58;
+    --bg:#f8f2e2;
+    --surface:#fffbf3;
+    --text:#2b2436;
+    --muted:#7c7364;
+    --head:'Vollkorn', serif;
+    --body:'Inter Tight', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3,h4{font-family:var(--head);line-height:1.18;font-weight:700;color:var(--text);}
+  section{padding:5.5rem 1.5rem;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  .eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--body);font-weight:600;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:.9rem;}
+  .eyebrow::before{content:"";width:22px;height:2px;background:var(--accent);display:inline-block;}
+  h2{font-size:clamp(1.9rem,3.3vw,2.7rem);margin-bottom:1rem;}
+  .lead{color:var(--muted);font-size:1.05rem;max-width:640px;}
+  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.95rem 1.9rem;font-weight:600;font-family:var(--body);font-size:.96rem;border:1.5px solid transparent;cursor:pointer;transition:transform .15s ease, background .2s ease, color .2s ease, border-color .2s ease;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--accent);color:var(--surface);}
+  .btn-primary:hover{background:var(--accent-dark);}
+  .btn-outline-light{border-color:color-mix(in srgb, var(--bg) 55%, transparent);color:var(--bg);background:transparent;}
+  .btn-outline-light:hover{border-color:var(--bg);background:color-mix(in srgb, var(--bg) 12%, transparent);}
+  .btn-outline{border-color:var(--accent-dark);color:var(--accent-dark);background:transparent;}
+  .btn-outline:hover{background:var(--accent-dark);color:var(--bg);}
+
+  /* NAV */
+  header.nav{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);}
+  .nav .wrap{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1rem;padding:1.05rem 1.5rem;}
+  .logo{display:flex;align-items:baseline;gap:.5rem;}
+  .logo-mark{width:8px;height:8px;background:var(--accent);flex-shrink:0;margin-bottom:.15rem;}
+  .logo-name{font-family:var(--head);font-weight:700;font-size:1.3rem;color:var(--text);white-space:nowrap;letter-spacing:-.01em;}
+  .nav-links-desktop{display:flex;gap:1.7rem;align-items:center;justify-self:center;}
+  .nav-links-desktop a{font-weight:500;font-size:.92rem;color:var(--text);}
+  .nav-links-desktop a:hover{color:var(--accent);}
+  .nav-links-mobile{display:none;}
+  .nav-actions{display:flex;align-items:center;gap:1rem;justify-self:end;}
+  .nav-phone-link{font-size:.87rem;font-weight:600;color:var(--muted);white-space:nowrap;display:flex;align-items:center;gap:.35rem;}
+  .nav-phone-link:hover{color:var(--accent-dark);}
+  .nav-phone-link .icon{display:none;font-size:1.1rem;}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.3rem;}
+  .nav-toggle span{width:22px;height:2px;background:var(--text);}
+
+  /* HERO */
+  .hero{background:var(--surface);padding:4.2rem 1.5rem 3rem;overflow:hidden;}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:3.5rem;align-items:center;max-width:1180px;margin:0 auto;}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:1.2rem;}
+  .hero-eyebrow::before{content:"";width:22px;height:2px;background:var(--accent);display:inline-block;}
+  .hero h1{font-size:clamp(2.15rem,4vw,3.15rem);margin-bottom:1.3rem;}
+  .hero h1 em{color:var(--accent-dark);font-style:normal;border-bottom:3px solid var(--accent);}
+  .hero p.lead{font-size:1.08rem;margin-bottom:2rem;}
+  .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2.6rem;}
+  .hero-stats{display:flex;gap:0;border-top:1px solid color-mix(in srgb, var(--text) 14%, transparent);padding-top:1.6rem;}
+  .hero-stat{flex:1;padding-right:1.2rem;}
+  .hero-stat + .hero-stat{border-left:1px solid color-mix(in srgb, var(--text) 14%, transparent);padding-left:1.2rem;}
+  .hero-stat .num{font-family:var(--head);font-weight:800;font-size:1.7rem;color:var(--accent-dark);display:block;}
+  .hero-stat .lbl{font-size:.8rem;color:var(--muted);}
+
+  .hero-visual{position:relative;}
+  .hero-photo-frame{position:relative;}
+  .hero-photo{width:100%;height:auto;aspect-ratio:940/650;object-fit:cover;border:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .hero-float-card{position:relative;margin:-3.2rem 1.6rem 0 auto;width:min(280px, 78%);background:var(--accent-dark);color:var(--bg);padding:1.4rem 1.5rem;box-shadow:0 18px 34px -14px color-mix(in srgb, var(--text) 45%, transparent);}
+  .hero-float-card .tag{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:color-mix(in srgb, var(--bg) 65%, transparent);display:block;margin-bottom:.5rem;}
+  .hero-float-card strong{font-family:var(--head);font-size:1.15rem;line-height:1.35;display:block;}
+
+  /* USŁUGI — numerowane wiersze */
+  .uslugi{background:var(--bg);}
+  .uslugi-list{margin-top:2.6rem;border-top:1px solid color-mix(in srgb, var(--text) 14%, transparent);}
+  .usluga-row{display:grid;grid-template-columns:5rem 1fr;gap:1.6rem;padding:2.1rem 0;border-bottom:1px solid color-mix(in srgb, var(--text) 14%, transparent);align-items:start;}
+  .usluga-row .n{font-family:var(--head);font-weight:800;font-size:1.5rem;color:var(--accent);}
+  .usluga-row h3{font-size:1.2rem;margin-bottom:.5rem;}
+  .usluga-row p{color:var(--muted);font-size:.96rem;max-width:620px;}
+
+  /* AKTUALNE OFERTY — ticket cards */
+  .oferty{background:var(--accent-dark);color:var(--bg);}
+  .oferty .eyebrow{color:color-mix(in srgb, var(--bg) 70%, transparent);}
+  .oferty .eyebrow::before{background:color-mix(in srgb, var(--bg) 70%, transparent);}
+  .oferty h2{color:var(--bg);}
+  .oferty .lead{color:color-mix(in srgb, var(--bg) 78%, transparent);}
+  .oferty-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem;margin-top:2.8rem;}
+  .oferta-card{background:var(--surface);color:var(--text);display:flex;border-left:5px solid var(--accent);min-width:0;}
+  .oferta-card.zarezerwowane{border-left-color:color-mix(in srgb, var(--bg) 55%, var(--muted));}
+  .oferta-body{padding:1.5rem 1.6rem;flex:1;min-width:0;}
+  .oferta-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.8rem;margin-bottom:.6rem;}
+  .oferta-status{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.28rem .6rem;background:color-mix(in srgb, var(--accent) 16%, transparent);color:var(--accent-dark);white-space:nowrap;}
+  .oferta-card.zarezerwowane .oferta-status{background:color-mix(in srgb, var(--text) 10%, transparent);color:var(--muted);}
+  .oferta-body h3{font-size:1.08rem;margin-bottom:.15rem;}
+  .oferta-body .miejsce{font-size:.86rem;color:var(--muted);margin-bottom:1.1rem;}
+  .oferta-meta{display:flex;gap:1.3rem;font-size:.86rem;color:var(--muted);margin-bottom:1rem;flex-wrap:wrap;}
+  .oferta-meta strong{color:var(--text);font-weight:700;}
+  .oferta-price{font-family:var(--head);font-weight:800;font-size:1.5rem;color:var(--accent-dark);}
+  .oferty-note{margin-top:2.4rem;text-align:center;color:color-mix(in srgb, var(--bg) 80%, transparent);font-size:.95rem;}
+  .oferty-note a{font-weight:700;color:var(--bg);border-bottom:2px solid var(--accent);}
+
+  /* PROCES — pionowa oś */
+  .proces{background:var(--bg);}
+  .proces-list{margin-top:2.8rem;max-width:760px;position:relative;padding-left:3.2rem;}
+  .proces-list::before{content:"";position:absolute;left:1.05rem;top:.4rem;bottom:.4rem;width:1px;background:color-mix(in srgb, var(--text) 18%, transparent);}
+  .proces-item{position:relative;padding-bottom:2.4rem;}
+  .proces-item:last-child{padding-bottom:0;}
+  .proces-item::before{counter-increment:step;content:counter(step, decimal-leading-zero);position:absolute;left:-3.2rem;top:0;width:2.1rem;height:2.1rem;border-radius:50%;background:var(--surface);border:1.5px solid var(--accent);color:var(--accent-dark);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:700;font-size:.85rem;}
+  .proces-list{counter-reset:step;}
+  .proces-item h3{font-size:1.1rem;margin-bottom:.4rem;}
+  .proces-item p{color:var(--muted);font-size:.95rem;}
+
+  /* BANNER — zdjęcie kluczy */
+  .banner{position:relative;min-height:46vh;display:flex;align-items:center;color:var(--bg);overflow:hidden;}
+  .banner-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+  .banner-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(100deg, color-mix(in srgb, var(--accent-dark) 88%, black) 20%, color-mix(in srgb, var(--accent-dark) 62%, transparent) 62%, color-mix(in srgb, var(--accent-dark) 20%, transparent) 100%);}
+  .banner-inner{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:0 1.5rem;width:100%;}
+  .banner-content{max-width:560px;}
+  .banner h2{color:var(--bg);font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:.9rem;}
+  .banner p{color:color-mix(in srgb, var(--bg) 88%, transparent);font-size:1.02rem;}
+
+  /* STATY / ZAUFANIE */
+  .zaufanie{background:var(--surface);}
+  .zaufanie-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6rem;margin-top:2.6rem;}
+  .zst{text-align:center;padding:1.6rem 1rem;border:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .zst .num{font-family:var(--head);font-weight:800;font-size:2rem;color:var(--accent-dark);display:block;margin-bottom:.3rem;}
+  .zst .lbl{font-size:.84rem;color:var(--muted);}
+  .zaufanie-chips{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2.4rem;}
+  .zchip{font-size:.85rem;font-weight:600;color:var(--accent-dark);border:1px solid color-mix(in srgb, var(--accent) 45%, transparent);padding:.5rem 1rem;}
+
+  /* OPINIE */
+  .opinie{background:var(--bg);}
+  .opinie-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;margin-top:2.8rem;}
+  .opinia{background:var(--surface);padding:1.9rem;border-top:3px solid var(--accent);}
+  .opinia .quote-mark{font-family:var(--head);font-size:2.2rem;color:var(--accent);line-height:1;display:block;margin-bottom:.6rem;}
+  .opinia p{font-size:.98rem;margin-bottom:1.2rem;}
+  .opinia-who{font-weight:700;font-size:.88rem;color:var(--accent-dark);}
+  .opinia-who small{display:block;font-weight:400;color:var(--muted);margin-top:.15rem;}
+
+  /* FAQ */
+  .faq{background:var(--surface);}
+  .faq-item{border-bottom:1px solid color-mix(in srgb, var(--text) 14%, transparent);}
+  .faq-q{width:100%;text-align:left;background:none;border:none;padding:1.3rem 0;font-family:var(--head);font-weight:700;font-size:1.04rem;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+  .faq-q .plus{font-size:1.4rem;color:var(--accent);flex-shrink:0;transition:transform .2s ease;}
+  .faq-item.open .faq-q .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .faq-item.open .faq-a{max-height:300px;}
+  .faq-a p{padding-bottom:1.3rem;color:var(--muted);font-size:.95rem;max-width:640px;}
+
+  /* KONTAKT */
+  .kontakt{background:var(--bg);}
+  .kontakt-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2.8rem;}
+  .form-group{margin-bottom:1.1rem;}
+  .form-group label{display:block;font-size:.85rem;font-weight:600;margin-bottom:.4rem;}
+  .form-group input, .form-group textarea{width:100%;padding:.8rem 1rem;border:1px solid color-mix(in srgb, var(--text) 22%, transparent);background:var(--surface);font-family:var(--body);font-size:.95rem;color:var(--text);}
+  .form-group textarea{min-height:110px;resize:vertical;}
+  .form-status{margin-top:1rem;font-weight:700;font-size:.9rem;color:var(--accent-dark);display:none;}
+  .kontakt-info p{margin-bottom:.6rem;font-size:.98rem;}
+  .kontakt-info a{font-weight:700;color:var(--accent-dark);}
+  .kontakt-map{margin-top:1.4rem;overflow:hidden;border:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .kontakt-map iframe{width:100%;height:280px;border:0;display:block;}
+
+  footer{background:var(--accent-dark);color:var(--bg);padding:3.2rem 1.5rem 2rem;}
+  .footer-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:2.5rem;max-width:1180px;margin:0 auto;}
+  .footer-grid .logo-name{color:var(--bg);}
+  footer p{color:color-mix(in srgb, var(--bg) 72%, transparent);font-size:.92rem;margin-top:.8rem;max-width:380px;}
+  .footer-links{display:flex;flex-direction:column;gap:.6rem;}
+  .footer-links a{font-size:.92rem;color:color-mix(in srgb, var(--bg) 82%, transparent);}
+  .footer-links a:hover{color:var(--bg);}
+  .footer-bottom{max-width:1180px;margin:2.4rem auto 0;padding-top:1.6rem;border-top:1px solid color-mix(in srgb, var(--bg) 15%, transparent);font-size:.8rem;color:color-mix(in srgb, var(--bg) 55%, transparent);}
+
+  @media (max-width:960px){
+    .nav-links-desktop{display:none;}
+    .logo{grid-column:1;}
+    .nav-actions{grid-column:3;}
+    .nav-toggle{display:flex;}
+    .nav-links-mobile{display:none;position:absolute;top:100%;left:0;right:0;background:var(--surface);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);flex-direction:column;padding:.5rem 1.5rem 1.2rem;gap:.2rem;}
+    .nav-links-mobile.open{display:flex;}
+    .nav-links-mobile a{padding:.8rem 0;font-weight:600;border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+    .nav-phone-link .txt{display:none;}
+    .nav-phone-link .icon{display:inline;}
+    .nav-phone-link{width:40px;height:40px;justify-content:center;border-radius:50%;background:var(--bg);}
+    .nav-actions > .btn{display:none;}
+    .nav-links-mobile .mobile-cta{color:var(--accent-dark);font-weight:700;}
+  }
+
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-visual{order:-1;}
+    .hero-float-card{margin:-2.4rem 1rem 0 auto;}
+    .hero-stats{flex-wrap:wrap;gap:1rem;}
+    .hero-stat{flex:1 1 40%;padding-right:0;}
+    .hero-stat + .hero-stat{border-left:none;padding-left:0;}
+    .oferty-grid, .zaufanie-stats, .opinie-grid, .kontakt-grid, .footer-grid{grid-template-columns:1fr;}
+    .hero-copy, .hero-visual, .oferta-card, .kontakt-grid > *{min-width:0;}
+  }
+
+  @media (max-width:480px){
+    .hero{padding:2.8rem 1.2rem 2rem;}
+    section{padding:3.6rem 1.2rem;}
+    .usluga-row{grid-template-columns:3.2rem 1fr;gap:1rem;}
+    .proces-list{padding-left:2.6rem;}
+    .proces-item::before{left:-2.6rem;width:1.9rem;height:1.9rem;font-size:.75rem;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo">
+      <span class="logo-mark"></span>
+      <span class="logo-name">{{NAZWA_STRONY}}</span>
+    </a>
+    <nav class="nav-links-desktop">
+      <a href="#uslugi">Usługi</a>
+      <a href="#oferty">Oferty</a>
+      <a href="#proces">Proces sprzedaży</a>
+      <a href="#opinie">Opinie</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="tel:{{TELEFON}}" class="nav-phone-link"><span class="icon">📞</span><span class="txt">{{TELEFON}}</span></a>
+      <a href="#kontakt" class="btn btn-primary">Bezpłatna wycena</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-links-mobile" id="navLinks">
+    <a href="#kontakt" class="mobile-cta">Bezpłatna wycena</a>
+    <a href="#uslugi">Usługi</a>
+    <a href="#oferty">Oferty</a>
+    <a href="#proces">Proces sprzedaży</a>
+    <a href="#opinie">Opinie</a>
+    <a href="#faq">FAQ</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <span class="hero-eyebrow">{{NAZWA_STRONY}} — biuro nieruchomości, {{MIASTO}}</span>
+      <h1>Uczciwa wycena i pełne prowadzenie przez <em>całą sprzedaż</em></h1>
+      <p class="lead">Nie wystawiamy ogłoszenia i nie znikamy. Mówimy Ci realną cenę Twojego mieszkania czy domu — nie zawyżoną, żeby zdobyć zlecenie, i nie zaniżoną, żeby szybciej sprzedać — a potem prowadzimy Cię przez prezentacje, negocjacje i formalności aż po podpis u notariusza.</p>
+      <div class="hero-ctas">
+        <a href="#kontakt" class="btn btn-primary">Zamów bezpłatną wycenę</a>
+        <a href="#proces" class="btn btn-outline">Zobacz, jak pracujemy</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><span class="num">14 lat</span><span class="lbl">na rynku nieruchomości</span></div>
+        <div class="hero-stat"><span class="num">310+</span><span class="lbl">sfinalizowanych transakcji</span></div>
+        <div class="hero-stat"><span class="num">38 dni</span><span class="lbl">średni czas sprzedaży</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-photo-frame">
+        <img class="hero-photo" src="https://images.pexels.com/photos/7937330/pexels-photo-7937330.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Pośredniczka nieruchomości pokazuje jasne, nowoczesne mieszkanie młodej rodzinie z dzieckiem">
+      </div>
+      <div class="hero-float-card">
+        <span class="tag">Bezpłatnie, bez zobowiązań</span>
+        <strong>Wycena Twojej nieruchomości w 48 godzin</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="uslugi" id="uslugi">
+  <div class="wrap">
+    <span class="eyebrow">Zakres pracy</span>
+    <h2>Czym się zajmujemy</h2>
+    <p class="lead">Cztery obszary — od pierwszej wyceny po podpis aktu notarialnego, po obu stronach transakcji.</p>
+    <div class="uslugi-list">
+      <div class="usluga-row">
+        <span class="n">01</span>
+        <div>
+          <h3>Sprzedaż mieszkania lub domu</h3>
+          <p>Pełna obsługa transakcji od strony sprzedającego: przygotowanie oferty, prezentacje, negocjacje, koordynacja formalności aż po przekazanie kluczy.</p>
+        </div>
+      </div>
+      <div class="usluga-row">
+        <span class="n">02</span>
+        <div>
+          <h3>Bezpłatna wycena nieruchomości</h3>
+          <p>Analiza porównawcza cen podobnych mieszkań i domów w okolicy — realne widełki, nie zgadywanie. Bez zobowiązania do dalszej współpracy.</p>
+        </div>
+      </div>
+      <div class="usluga-row">
+        <span class="n">03</span>
+        <div>
+          <h3>Doradztwo przy zakupie</h3>
+          <p>Pomagamy ocenić nieruchomość, zanim złożysz ofertę — stan prawny, realna wartość rynkowa, pytania, o które warto zapytać sprzedającego.</p>
+        </div>
+      </div>
+      <div class="usluga-row">
+        <span class="n">04</span>
+        <div>
+          <h3>Pomoc w formalnościach</h3>
+          <p>Księga wieczysta, przygotowanie do aktu notarialnego, koordynacja z bankiem kupującego przy kredycie hipotecznym — pilnujemy tego razem z Tobą.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="oferty" id="oferty">
+  <div class="wrap">
+    <span class="eyebrow">Aktualne oferty</span>
+    <h2>Nieruchomości w sprzedaży — {{MIASTO}}</h2>
+    <p class="lead">Kilka aktualnych ofert z naszej bazy. Pełną listę i szczegóły przesyłamy telefonicznie lub mailowo.</p>
+    <div class="oferty-grid">
+      <article class="oferta-card">
+        <div class="oferta-body">
+          <div class="oferta-top">
+            <div>
+              <h3>Mieszkanie, Stare Miasto</h3>
+              <p class="miejsce">{{MIASTO}}</p>
+            </div>
+            <span class="oferta-status">Nowa oferta</span>
+          </div>
+          <div class="oferta-meta"><span><strong>52 m²</strong></span><span><strong>3 pokoje</strong></span><span>2. piętro</span></div>
+          <div class="oferta-price">645 000 zł</div>
+        </div>
+      </article>
+      <article class="oferta-card">
+        <div class="oferta-body">
+          <div class="oferta-top">
+            <div>
+              <h3>Dom jednorodzinny</h3>
+              <p class="miejsce">obrzeża miasta {{MIASTO}}</p>
+            </div>
+            <span class="oferta-status">Nowa oferta</span>
+          </div>
+          <div class="oferta-meta"><span><strong>138 m²</strong></span><span><strong>5 pokoi</strong></span><span>działka 6 arów</span></div>
+          <div class="oferta-price">890 000 zł</div>
+        </div>
+      </article>
+      <article class="oferta-card zarezerwowane">
+        <div class="oferta-body">
+          <div class="oferta-top">
+            <div>
+              <h3>Mieszkanie przy parku</h3>
+              <p class="miejsce">{{MIASTO}}</p>
+            </div>
+            <span class="oferta-status">Zarezerwowane</span>
+          </div>
+          <div class="oferta-meta"><span><strong>38 m²</strong></span><span><strong>2 pokoje</strong></span><span>parter, taras</span></div>
+          <div class="oferta-price">410 000 zł</div>
+        </div>
+      </article>
+      <article class="oferta-card">
+        <div class="oferta-body">
+          <div class="oferta-top">
+            <div>
+              <h3>Kawalerka, centrum</h3>
+              <p class="miejsce">{{MIASTO}}</p>
+            </div>
+            <span class="oferta-status">Nowa oferta</span>
+          </div>
+          <div class="oferta-meta"><span><strong>27 m²</strong></span><span><strong>1 pokój</strong></span><span>4. piętro, winda</span></div>
+          <div class="oferta-price">320 000 zł</div>
+        </div>
+      </article>
+    </div>
+    <p class="oferty-note">Nie widzisz nic dla siebie? <a href="#kontakt">Zadzwoń — dopasujemy ofertę do Twoich potrzeb</a>.</p>
+  </div>
+</section>
+
+<section class="proces" id="proces">
+  <div class="wrap">
+    <span class="eyebrow">Jak pracujemy</span>
+    <h2>Droga do sprzedaży, krok po kroku</h2>
+    <div class="proces-list">
+      <div class="proces-item">
+        <h3>Bezpłatna wycena</h3>
+        <p>Spotykamy się na miejscu, oceniamy stan i lokalizację, pokazujemy realne widełki cenowe na podstawie transakcji z okolicy.</p>
+      </div>
+      <div class="proces-item">
+        <h3>Przygotowanie ogłoszenia</h3>
+        <p>Profesjonalne zdjęcia, rzetelny opis, wycena skonfrontowana z podobnymi ofertami w mieście {{MIASTO}}.</p>
+      </div>
+      <div class="proces-item">
+        <h3>Prezentacje</h3>
+        <p>Umawiamy i prowadzimy oglądziny, filtrujemy realne zainteresowanie, zbieramy feedback od oglądających.</p>
+      </div>
+      <div class="proces-item">
+        <h3>Negocjacje</h3>
+        <p>Reprezentujemy Twój interes przy ustalaniu ostatecznej ceny i warunków umowy przedwstępnej.</p>
+      </div>
+      <div class="proces-item">
+        <h3>Finalizacja u notariusza</h3>
+        <p>Pilnujemy formalności — księga wieczysta, kredyt kupującego, akt notarialny — aż po przekazanie kluczy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="banner">
+  <img class="banner-img" src="https://images.pexels.com/photos/8293778/pexels-photo-8293778.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Zbliżenie na dłonie przekazujące klucze przy finalizacji sprzedaży nieruchomości">
+  <div class="banner-overlay"></div>
+  <div class="banner-inner">
+    <div class="banner-content">
+      <h2>Domykamy każdą transakcję do samego końca</h2>
+      <p>Nie znikamy po podpisaniu umowy przedwstępnej. Jesteśmy z Tobą aż do przekazania kluczy — i jeszcze chwilę po, gdyby pojawiło się jakiekolwiek pytanie.</p>
+    </div>
+  </div>
+</section>
+
+<section class="zaufanie" id="zaufanie">
+  <div class="wrap">
+    <span class="eyebrow">Dlaczego my</span>
+    <h2>Doświadczenie, które widać w liczbach</h2>
+    <p class="lead">Czternaście lat temu zaczynaliśmy od jednej wyceny tygodniowo i notatnika z cenami transakcji wyciętymi z lokalnych ogłoszeń. Ta sama zasada — mówić klientowi realną cenę, nawet gdy nie jest to liczba, którą chciałby usłyszeć — stoi dziś za każdą z ponad 310 transakcji, które doprowadziliśmy do końca.</p>
+    <div class="zaufanie-stats">
+      <div class="zst"><span class="num">14 lat</span><span class="lbl">na rynku nieruchomości</span></div>
+      <div class="zst"><span class="num">310+</span><span class="lbl">sfinalizowanych transakcji</span></div>
+      <div class="zst"><span class="num">38 dni</span><span class="lbl">średni czas sprzedaży</span></div>
+      <div class="zst"><span class="num">0 zł</span><span class="lbl">za wycenę nieruchomości</span></div>
+    </div>
+    <div class="zaufanie-chips">
+      <span class="zchip">Sprzedający mieszkania</span>
+      <span class="zchip">Sprzedający domy</span>
+      <span class="zchip">Kupujący pierwsze M</span>
+      <span class="zchip">Inwestorzy wynajmu</span>
+    </div>
+  </div>
+</section>
+
+<section class="opinie" id="opinie">
+  <div class="wrap">
+    <span class="eyebrow">Opinie</span>
+    <h2>Co mówią nasi klienci</h2>
+    <div class="opinie-grid">
+      <div class="opinia">
+        <span class="quote-mark">"</span>
+        <p>Dostałam uczciwą wycenę, bez naciągania w górę tylko po to, żeby zdobyć zlecenie. Mieszkanie sprzedało się dokładnie w widełkach, które usłyszałam na pierwszym spotkaniu.</p>
+        <div class="opinia-who">Ewa <small>{{MIASTO}} · Sprzedająca mieszkanie</small></div>
+      </div>
+      <div class="opinia">
+        <span class="quote-mark">"</span>
+        <p>Poprowadzili mnie przez cały proces krok po kroku, łącznie z uporządkowaniem księgi wieczystej, o czym sam bym nawet nie pomyślał.</p>
+        <div class="opinia-who">Marek <small>{{MIASTO}} · Sprzedający dom</small></div>
+      </div>
+      <div class="opinia">
+        <span class="quote-mark">"</span>
+        <p>Jako kupująca pierwsze mieszkanie bałam się formalności i kredytu — wzięli to na siebie i tłumaczyli każdy krok zwykłym językiem.</p>
+        <div class="opinia-who">Kasia <small>{{MIASTO}} · Kupująca pierwsze M</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <span class="eyebrow">FAQ</span>
+    <h2>Najczęstsze pytania</h2>
+    <div class="faq-list" style="margin-top:2rem;max-width:760px;">
+      <div class="faq-item">
+        <button class="faq-q">Czy wycena naprawdę jest bezpłatna i bez zobowiązań? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Tak — przyjazd, oględziny i przygotowanie wyceny nic nie kosztują, niezależnie od tego, czy zdecydujesz się na dalszą współpracę z nami.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Ile trwa sprzedaż mieszkania lub domu? <span class="plus">+</span></button>
+        <div class="faq-a"><p>To zależy od lokalizacji, stanu i ceny — nasz średni czas sprzedaży to 38 dni od publikacji oferty do podpisania umowy przedwstępnej. Realny termin podajemy już przy wycenie.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Kto pokrywa koszty zdjęć i przygotowania ogłoszenia? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Zdjęcia i przygotowanie ogłoszenia są po naszej stronie i wliczone w prowizję — nie płacisz za to osobno, niezależnie od tego, jak długo potrwa sprzedaż.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Co się dzieje, jeśli kupujący finansuje zakup kredytem? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Koordynujemy termin transakcji z bankiem kupującego i pilnujemy, żeby formalności kredytowe nie opóźniły podpisania aktu notarialnego.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Czy pomagacie też przy zakupie, nie tylko sprzedaży? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Tak — doradzamy przy ocenie nieruchomości i stanu prawnego, zanim złożysz ofertę, żebyś nie przepłacił i nie kupił mieszkania z ukrytym problemem.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="kontakt" id="kontakt">
+  <div class="wrap">
+    <span class="eyebrow">Kontakt</span>
+    <h2>Zamów bezpłatną wycenę</h2>
+    <div class="kontakt-grid">
+      <form id="kontaktForm">
+        <div class="form-group">
+          <label for="imie">Imię i nazwisko</label>
+          <input type="text" id="imie" name="imie" required>
+        </div>
+        <div class="form-group">
+          <label for="tel">Telefon</label>
+          <input type="tel" id="tel" name="tel" required>
+        </div>
+        <div class="form-group">
+          <label for="wiadomosc">Co planujesz sprzedać lub kupić?</label>
+          <textarea id="wiadomosc" name="wiadomosc" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Wyślij zapytanie</button>
+        <p class="form-status" id="formStatus">Dziękujemy! Odezwiemy się w ciągu 24 godzin.</p>
+      </form>
+      <div class="kontakt-info">
+        <p><strong>{{NAZWA_STRONY}}</strong></p>
+        <p>{{ADRES}}, {{MIASTO}}</p>
+        <p>Tel: <a href="tel:{{TELEFON}}">{{TELEFON}}</a></p>
+        <p>Email: <a href="mailto:{{EMAIL}}">{{EMAIL}}</a></p>
+        <p>Pon-Pt: {{GODZINY_PON_PT}} · Sob: {{GODZINY_SOB}}</p>
+        <div class="kontakt-map">
+          <iframe src="https://www.google.com/maps?q={{ADRES}}, {{MIASTO}}&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;width:100%;height:280px"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <span class="logo-name">{{NAZWA_STRONY}}</span>
+      <p>Biuro nieruchomości w mieście {{MIASTO}} — sprzedaż mieszkań i domów, bezpłatna wycena, doradztwo przy zakupie i pełne prowadzenie przez formalności.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#uslugi">Usługi</a>
+      <a href="#oferty">Oferty</a>
+      <a href="#proces">Jak pracujemy</a>
+      <a href="#kontakt">Kontakt</a>
+    </div>
+  </div>
+  <div class="footer-bottom wrap">© {{NAZWA_STRONY}} — wszystkie prawa zastrzeżone.</div>
+</footer>
+
+<script>
+  var navToggle = document.getElementById('navToggle');
+  var navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', function(){
+    navLinks.classList.toggle('open');
+  });
+
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    item.querySelector('.faq-q').addEventListener('click', function(){
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
+      if(!wasOpen){ item.classList.add('open'); }
+    });
+  });
+
+  document.getElementById('kontaktForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('formStatus').style.display = 'block';
+    this.reset();
+  });
+</script>
+
+</body>
+</html>
