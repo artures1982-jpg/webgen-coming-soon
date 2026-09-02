@@ -174,4 +174,62 @@ innym układzie niż karty-kategorie (v1) i lista dwukolumnowa (v2) — np. acco
 zabiegu, FAQ, kontakt z mapą.`,
 });
 
+VARIANTS.push({
+  id: 'medycyna-estetyczna-4-kameralny-gabinet',
+  tier: 'pro',
+  name: 'Kameralny gabinet',
+  visual: `STYL: adaptacja archetypu "Rodzinna firma" dla medycyny estetycznej. UWAGA — dosłowna
+"trzecie pokolenie w rodzinnym gabinecie" nie ma sensu w tej branży (medycyna estetyczna jako
+osobna specjalizacja to w Polsce zjawisko ostatnich ~15-20 lat, "dziadek robił botoks" byłoby
+niewiarygodne). Zamiast pokoleniowej sagi: ciepło i ciągłość opieki przez MAŁY, ZGRANY ZESPÓŁ
+(dwie lekarki-partnerki prowadzące gabinet razem) — "nie sieciówka z przypadkowym lekarzem za
+każdym razem, tylko dwie osoby, które znają Twoją skórę od lat". Duch: kameralność, brak rotacji
+personelu, osobista relacja lekarz-pacjent — to jest DOKŁADNIE ten sam mechanizm zaufania co w
+innych branżach systemu (fryzjer-barber-4 "za każdym razem ta sama ekipa, nie loteria kogo
+wyślą"), tylko przeniesiony na grunt medyczny: ciągłość opieki ma tu też realne znaczenie
+kliniczne (lekarz znający historię skóry pacjenta podejmuje lepsze decyzje), nie tylko
+sentymentalne.
+
+Cała branża celuje w premium — ten wariant ma być ciepły, ale NADAL elegancki, nie
+"przytulnie-rzemieślniczy" jak inne warianty 4 w systemie (Hydraulik/Elektryk/Remonty mają ciepłe,
+rustykalne tony — to gabinet medyczny, więc ciepło wyraża się przez ton głosu i realną
+osobistość, nie przez rustykalną/craftową estetykę wizualną).
+
+MOTION-BASELINE — świadomy wyjątek archetypu 4 w całym systemie: WYCISZONY ruch nawet jako
+wariant pro. Brak ambientowego glow w tle, brak shimmeru na CTA, brak marquee. Jedyny dozwolony
+ruch: jednorazowy, stopniowany fade-in przy scrollu. Zapisz to jawnie w komentarzu HTML przy
+:root, żeby było jasne że to decyzja, nie przeoczenie.
+
+PALETA — sprawdź grepem że nie koliduje z żadnym wariantem w systemie, w tym z wariantami 1/2/3
+tej branży (plum/kość słoniowa, róż-mauve/węgiel, indygo/lód) — zaproponuj coś ciepłego, ale
+eleganckiego, np. przygaszony szałwiowo-zielony na ciepłej śmietankowej bieli, LUB stonowany
+terakotowy róż (inny odcień niż już użyte). Unikaj typowych "rodzinna firma" ziemistych tonów już
+zajętych w systemie (rdzawy pomarańcz hydraulik-4, zieleń szałwiowa elektryk-4, zieleń leśna
+fryzjer-barber-4, oliwka remonty-4, brąz studio-paznokci-4, dusty-blue salon-fryzjerski-4) —
+znajdź coś, co nie powtarza tej samej "rodziny ziemistej", tylko czuje się bardziej klinicznie-
+ciepłe. TYPOGRAFIA: zweryfikuj grepem że nieużyta nigdzie w systemie (włącznie z Piazzolla/Wix
+Madefor Text, Alegreya/Commissioner, Geologica/Sen z wariantów 1-3 tej branży).
+
+ZDJĘCIA (już wyszukane i zweryfikowane curl 200, użyj TYCH DOKŁADNYCH URL, nie zgaduj innych):
+- Dwie lekarki-partnerki razem, ciepła, autentyczna chemia (nie sztywny portret korporacyjny):
+  https://images.pexels.com/photos/33032998/pexels-photo-33032998.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Osobista konsultacja jeden-na-jeden, ciepły klimat:
+  https://images.pexels.com/photos/7659861/pexels-photo-7659861.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+Jeśli potrzebujesz więcej — NIE zgaduj ID, zostaw "<!-- PHOTO NEEDED: opis -->" i wypisz w
+raporcie.
+
+TREŚĆ: nie zmyślaj fikcyjnych imion/nazwisk lekarek jako faktu marketingowego (to nie jest
+firma-świadectwo, gdzie zmyślone imię byłoby fałszywą referencją) — możesz opisowo odnieść się
+do "dwóch lekarek prowadzących gabinet" bez wymyślania konkretnych imion własnych, chyba że
+jako świadomie fikcyjny, oczywisty placeholder tego samego typu co {{NAZWA_STRONY}} (sprawdź jak
+inne warianty "Rodzinna firma" w systemie to rozwiązały — np. fryzjer-barber-4, salon-fryzjerski-4
+— i zastosuj spójną konwencję).
+
+LAYOUT — inny mechanizm niż medycyna-estetyczna-1/2/3: prosta, ciepła struktura bez gadżetów
+(zgodnie z konwencją archetypu 4 w całym systemie) — np. hero z dwoma portretami/jednym wspólnym
+zdjęciem zespołu, sekcja "dlaczego ten sam zespół ma znaczenie" (ciągłość opieki jako realna
+wartość kliniczna, nie tylko miła atmosfera), prosta lista usług (nie karty/accordion jak w
+poprzednich wariantach), opinie, FAQ, kontakt z mapą.`,
+});
+
 module.exports = { VARIANTS, SAMPLE_TOKENS };
