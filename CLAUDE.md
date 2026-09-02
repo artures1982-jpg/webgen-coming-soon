@@ -235,6 +235,25 @@ Proces wytwarzania szablonów (pipeline, twarde zasady, pułapki, checklista wer
 **Przed tworzeniem lub poprawianiem wariantu szablonu przeczytaj `ZASADY.md`** — każda reguła
 tam wynika z realnego błędu, który już raz kosztował poprawkę.
 
+**OBOWIĄZKOWY FLOW — dotyczy KAŻDEJ sesji, KAŻDEGO wariantu, bez wyjątku:**
+Warianty szablonów NIGDY nie są pisane bezpośrednio przez główną sesję i samodzielnie
+zatwierdzane. Ustalony proces (2026-09-02, po incydencie gdzie samodzielnie napisany i
+zatwierdzony wariant ominął realne błędy):
+1. Główna sesja pisze/aktualizuje brief w `scripts/generate-<branża>-pilot.js` i — jeśli trzeba
+   zdjęć — wyszukuje je przez Chrome i weryfikuje `curl` (200, brak duplikatu w branży).
+2. Subagent `designer-ux-ui` buduje plik HTML/CSS od zera na podstawie briefu (nie główna sesja).
+3. Subagent `copywriter-szablonow` recenzuje tekst gotowego pliku (osobne wywołanie, po designie).
+4. Główna sesja robi statyczne checki, mirror do `preview/`, wersję wypełnioną, weryfikację
+   wizualną, commit, push, deploy — i pokazuje link Arturowi.
+5. Jeden wariant na raz — czekaj na jego akceptację, zanim zaczniesz kolejny (chyba że Artur
+   wyraźnie powie inaczej).
+
+Nie pomijaj kroku 2 ani 3 "dla oszczędności" ani gdy wydaje się, że wariant jest prosty — właśnie
+tak ominięto zdjęcia, ruch i realne błędy w kilku wariantach, co wymagało później retrospektywnego
+retrofitu całych branż. Ten flow dotyczy też poprawek po feedbacku — nie edytuj samodzielnie
+gotowego wariantu bez przepuszczenia zmiany przez właściwego agenta, chyba że to trywialna,
+mechaniczna zmiana (np. podmiana jednego zweryfikowanego zdjęcia, literówka).
+
 ---
 
 ## Pending

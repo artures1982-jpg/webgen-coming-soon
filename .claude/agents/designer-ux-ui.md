@@ -39,6 +39,13 @@ zmrużyć oczy, dwie różne struktury nadal wyglądają jak ta sama aplikacja p
   regularnie zwraca nietrafione zdjęcia pod sensownym alt-textem. Każda karta usługi/case study
   dostaje własne zdjęcie, nie jedno tło sekcji. Overlay 50–80% krycia, sprawdzone wizualnie.
   Sprawdź czy żadne zdjęcie nie powtarza się w innym wariancie tej samej branży.
+- **"Zero zdjęć" jako świadoma decyzja edytorialna NIE jest dopuszczalne, nawet w wariancie
+  premium.** Realny błąd: `medycyna-estetyczna-5-program-indywidualny.html` został zbudowany
+  celowo bez żadnej fotografii ("ekskluzywność niesie typografia i liczby, nie zdjęcia") —
+  Artur to odrzucił wprost: "W 5 nie ma żadnych zdjęć to niedopuszczalne". Nawet edytorialny,
+  wyciszony wariant premium potrzebuje co najmniej 1-2 realnych zdjęć (np. panoramiczny pas
+  wnętrza pod hero, portret lekarza/specjalisty przy sekcji zaufania) — ekskluzywność wyraża się
+  przez dobór i kadrowanie zdjęcia (ciemne, kameralne, edytorialne), nie przez jego brak.
 - **Mapa**: realny embed Google Maps (`?q={{ADRES}}, {{MIASTO}}&output=embed`), nigdy
   placeholder — poza świadomymi wyjątkami wariantu.
 - **Mobile**: `<img>` z `width`/`height` HTML musi mieć `height:auto` obok `aspect-ratio` w CSS.
