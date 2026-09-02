@@ -209,4 +209,90 @@ stylista→termin, wszystkie mają płaski widget dzień+godzina):
 8. Stopka: ciemna, minimalna.`,
 });
 
+VARIANTS.push({
+  id: 'salon-fryzjerski-4-rodzinna-firma',
+  tier: 'pro',
+  name: 'Rodzinna firma',
+  visual: `STYL: adaptacja archetypu "Rodzinna firma" — koncept "Dwa pokolenia jednego salonu".
+NIE trzecie pokolenie / jeden właściciel-mężczyzna / czysto męski barbershop (to
+fryzjer-barber-4 — przeczytaj WYŁĄCZNIE jako inspirację ducha archetypu, nigdy jako bazę do
+kopiowania, ZASADY.md sekcja 0 — inny mechanizm KAŻDEJ sekcji: fryzjer-barber-4 ma pływający
+owalny portret z pierścieniem w hero, poziomą oś czasu z kropkami na dole, siatkę 2-kolumnową
+kart usług z ceną w rogu — Twoja wersja NIE MOŻE powielić żadnego z tych trzech mechanizmów).
+
+Tu: matka i córka (dwie kobiety z rodziny) prowadzą razem salon, który od lat obsługuje CAŁE
+rodziny — dzieci, rodziców, dziadków, damskie i męskie fryzury, pod jednym dachem. Duch: ciepła,
+spokojna, autentyczna relacja pokoleniowa (nie "trzecie pokolenie, ten sam fotel" po męskiej
+linii jak barber — tu żeńska linia, wymiana doświadczenia matka↔córka, obsługa całych rodzin
+klientów, nie tylko jednej płci).
+
+**ŚWIADOME ODSTĘPSTWO OD MOTION-BASELINE (zapisz to w komentarzu HTML przy :root w pliku, nie
+tylko tutaj):** zgodnie z .claude/agents/designer-ux-ui.md sekcja "Wariant 1 spokojny, wariant
+2+ może żyć" — archetyp 4 "Rodzinna firma" ZOSTAJE WYCISZONY nawet jako wariant pro. Brak
+ambientowego glow w tle hero, brak shimmer/sweep na CTA, brak marquee/pulsujących pasków — to
+kłóciłoby się z duchem "rzetelna rodzinna firma, nie marketing". JEDYNY dozwolony ruch: jednorazowy,
+stopniowany fade-in przy scrollu na blokach narracji/listach/kartach (IntersectionObserver +
+klasa .visible), z pełnym wariantem prefers-reduced-motion wyłączającym transformacje.
+
+PALETA (zablokowana, sprawdzona grepem że nie koliduje z żadnym wariantem w systemie — świeża
+kombinacja duotone, nieużywana dotąd w archetypie 4 gdziekolwiek w systemie: hydraulik-4 rdzawy
+pomarańcz, elektryk-4 zieleń szałwiowa, fryzjer-barber-4 zieleń leśna, remonty-4 oliwka,
+studio-paznokci-4 brąz — WSZYSTKIE ciepłe monochromatyczne akcenty na jasnym tle. Ten wariant
+łamie ten wzorzec chłodnym akcentem na ciepłym tle): --accent przygaszony dusty blue/slate (np.
+#5b7c99 — chłodny, stonowany, genuinie inna rodzina niż wszystkie teale/błękity już w systemie:
+#147d72 salon-1 zielono-morski, #0891b2/#22d3ee hydraulik cyjan, #3d8ef0 fryzjer-barber-3 jasny
+niebieski, #2454eb hydraulik-6 czysty niebieski — ten jest zdecydowanie bardziej wyszarzony,
+"mglisty"), --accent-dark głęboki granatowy slate (np. #33495e), --bg ciepły blush-cream (np.
+#f8ede9 — różowawa ciepła biel, inna niż ivory salon-1 #f5efe4 czy cream salon-2 #fffaf0 —
+wyraźnie różowszy odcień), --surface stonowana dusty-rose karta (np. #f0dcd3), --text ciepły
+ciemny plum-brąz (np. #362a28), --muted ciepły rose-taupe (np. #9c8479). Efekt: chłodny
+dusty-blue akcent na ciepłym blush tle — nietypowe zestawienie temperatur (duotone), sprawdzian
+mrużenia oczu: to NIE ma wyglądać jak kolejny "jeden stonowany akcent na kremie".
+TYPOGRAFIA: nagłówki ciepły, elegancki serif edytorialny (np. Newsreader — nieużyty jeszcze w
+systemie), tekst przyjazny, zaokrąglony humanistyczny sans (np. Lexend — nieużyty jeszcze w
+systemie, dobra czytelność, ciepły ton). Zweryfikuj grepem przed finalizacją.
+
+ZDJĘCIA (już wyszukane i zweryfikowane curl-em 200, użyj TYCH DOKŁADNYCH URL, nie zgaduj innych):
+- HERO/założycielki (matka+córka razem, patrzą w kamerę, salon w tle):
+  https://images.pexels.com/photos/8834051/pexels-photo-8834051.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Dziecko podczas strzyżenia (chłopiec, kolorowe, ciepły klimat rodzinnego salonu):
+  https://images.pexels.com/photos/7697399/pexels-photo-7697399.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+UWAGA: zdjęcie założycielek (8834051) pokazuje DWIE różne osoby — nie używaj twarzy z tego
+zdjęcia gdziekolwiek indziej jako "inną", anonimową osobę (np. w opiniach). Jeśli brakuje
+zdjęcia do sekcji, zostaw czytelny placeholder "<!-- PHOTO NEEDED: opis -->", nie zgaduj ID.
+
+LAYOUT — inny mechanizm niż salon-fryzjerski-1 (hero magazynowy, cennik 2-kolumnowy wg płci),
+-2 (fullscreen hero photo + marquee), -3 (widget dwuetapowy, ciemny) i inny niż fryzjer-barber-4
+(owalny portret+pierścień, oś czasu pozioma, karty 2-kolumnowe z ceną w rogu):
+1. Nav: logo jako prosty wordmark PO LEWEJ, linki nawigacji ZARAZ OBOK logo po lewej stronie
+   (nie wyśrodkowane jak salon-1/2/3), CTA "Umów wizytę" jako pigułka OBRYSOWANA po prawej +
+   telefon jako ikona/tekst (zwija się do ikony <700px, ZASADY.md 6.2) + hamburger.
+2. Hero: tekst PO LEWEJ (H1 storytellingowy o dwóch pokoleniach + całej rodzinie jako klientach),
+   PO PRAWEJ warstwowa, przesunięta kompozycja dwóch zdjęć — zdjęcie założycielek jako duża karta
+   na pierwszym planie, zdjęcie dziecka jako mniejsza karta na DRUGIM planie, przesunięta/
+   wystająca zza pierwszej (różne głębokości, nie jeden płaski prostokąt — patrz sekcja
+   "Inspiracja z rynku" w designer-ux-ui.md, technika #2). Brak ambientowego ruchu (patrz
+   odstępstwo wyżej).
+3. Sekcja "Dwa pokolenia, jedna filozofia": DWA bloki tekstu narracyjnego obok siebie (nie
+   pozioma oś czasu jak barber, nie pojedynczy pull-quote jak salon-2/3) — lewy blok głosem
+   starszego pokolenia, prawy blok głosem młodszego, oddzielone pionową linią w kolorze accent —
+   wzajemna wymiana doświadczenia (cierpliwość i tradycyjne techniki vs nowe trendy
+   kolorystyczne). Jednorazowy fade-in.
+4. Sekcja USŁUGI "Dla całej rodziny": PROSTA LISTA TEKSTOWA (nie karty ze zdjęciami — kontrast
+   wobec pozostałych wariantów tej branży, mniej "sprzedażowo", zgodnie z ustaloną konwencją
+   archetypu 4), podzielona na TRZY kategorie wg pokolenia/wieku (nie wg płci jak salon-1):
+   "Dla najmłodszych" / "Dla dorosłych — damskie i męskie" / "Dla seniorów" — obok kategorii
+   "Dla najmłodszych" osadź zdjęcie dziecka jako mały callout/inset z krótkim podpisem
+   (cierpliwość przy pierwszych strzyżeniach), reszta kategorii zostaje czystym tekstem.
+5. Sekcja "Dlaczego {{NAZWA_STRONY}}": prosta pionowa lista ikon+tekst (nie siatka kart 2×2 jak
+   salon-1, nie kolumna kart barber) — krótkie punkty o dwóch pokoleniach doświadczenia,
+   obsłudze całych rodzin naraz, znajomości klientów z imienia, elastycznych godzinach.
+6. Opinie: 2 karty z avatarem-inicjałem (nie prawdziwym zdjęciem), treść podkreślająca
+   wielopokoleniowość klientów (np. rodzic przyprowadzający i dziecko, i babcię).
+7. FAQ — accordion, standardowo.
+8. Kontakt: wyśrodkowany baner z telefonem + dane + mapa dojazdu (bez shimmer/glow — zwykły
+   spokojny CTA), zgodnie z odstępstwem od motion-baseline.
+9. Stopka: 2-kolumnowa, ciepła, prosta.`,
+});
+
 module.exports = { VARIANTS, SAMPLE_TOKENS };
