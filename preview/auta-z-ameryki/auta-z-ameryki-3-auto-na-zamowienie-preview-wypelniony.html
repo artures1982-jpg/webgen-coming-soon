@@ -223,7 +223,11 @@
   .tl-dot{position:absolute;left:-2.6rem;top:0;width:24px;height:24px;border-radius:50%;background:var(--accent);color:var(--bg);font-family:var(--head);font-weight:400;font-size:.82rem;display:flex;align-items:center;justify-content:center;}
   .tl-step h3{font-size:1.15rem;margin-bottom:.5rem;}
   .tl-step p{font-size:.93rem;color:var(--muted);max-width:620px;}
-  .tl-step.featured{background:var(--bg);border:1px solid color-mix(in srgb, var(--accent) 32%, transparent);border-radius:.7rem;padding:1.4rem 1.5rem 1.5rem;margin-left:0;}
+  /* UWAGA: skrócony `padding` nadpisuje `padding-bottom:2.6rem` z .tl-step, które odpowiada za
+     odstęp między krokami osi — dlatego wyróżniona karta musi odtworzyć ten sam rytm marginesem,
+     inaczej kolejny krok przykleja się do jej krawędzi (zgłoszone przez Artura ze zrzutu). */
+  .tl-step.featured{background:var(--bg);border:1px solid color-mix(in srgb, var(--accent) 32%, transparent);border-radius:.7rem;padding:1.4rem 1.5rem 1.5rem;margin-left:0;margin-bottom:2.6rem;}
+  .tl-step.featured:last-child{margin-bottom:0;}
   .tl-step.featured .tl-dot{left:-2.9rem;}
   .tl-photo-row{display:grid;grid-template-columns:150px 1fr;gap:1.3rem;align-items:center;}
   .tl-photo-row > *{min-width:0;}
