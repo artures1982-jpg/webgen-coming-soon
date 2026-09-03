@@ -142,6 +142,44 @@ każdym" (patrz pamięć `feedback_sequential_variant_workflow`).
 
 ---
 
+## Status pilota Nieruchomości (agencja sprzedaży mieszkań) — 5/5
+
+Dziewiąta branża w systemie, zbudowana w całości w trybie "jeden wariant na raz, akceptacja po
+każdym" wraz z niezależnym DESIGN QA PASS po copywriterze (patrz pamięć
+`feedback_design_qa_pass_after_copywriter` — wcześniej ten krok bywał pomijany).
+
+| # | ID | Nazwa | Tier | Charakterystyka |
+|---|----|-------|------|-----------------|
+| 1 | `nieruchomosci-1-zaufany-posrednik` | Zaufany pośrednik | free | Granat-indygo + antyczny mosiądz na kości słoniowej; uczciwa wycena, unikalna sekcja "aktualne oferty" |
+| 2 | `nieruchomosci-2-sprzedaz-w-twoim-terminie` | Sprzedaż w Twoim terminie | pro | Żywa zieleń na ciemnym grafitowym tle; "Szybka interwencja 24h" bez urgency — tempo z realnej bazy kupujących, nie z pustych obietnic |
+| 3 | `nieruchomosci-3-kalkulator-wyceny` | Kalkulator wyceny | plus | Indygo na niemal-bieli "digital paper" — świadome zerwanie z konwencją "ciemny + neon" wszystkich innych wariantów 3 w systemie; realnie działający kalkulator JS |
+| 4 | `nieruchomosci-4-kameralne-biuro` | Kameralne biuro | pro | Stonowany greige + przydymiony cynamonowy róż; ta sama para pośredniczek od wyceny po notariusza, świadomie wyciszony ruch |
+| 5 | `nieruchomosci-5-segment-premium` | Segment premium | premium | Wino/bordo na niemal czarnym + platynowy szary; dyskretna sprzedaż segmentu premium (off-market) zamiast B2B-deweloperskiego, formularz zapytania jako primary CTA |
+
+### Poprawki po feedbacku — warto znać przy kolejnych branżach
+
+- **Pułapka logo w navie/stopce na wąskim viewport z długą nazwą firmy klienta**: `.logo-name` z
+  samym `white-space:nowrap` (bez `min-width:0`/`flex-shrink` na rodzicu) wypycha nav poza
+  viewport przy realistycznie długich nazwach firm — SAMPLE_TOKENS (`Metrum`) jest za krótkie,
+  żeby to złapać. Znalezione i naprawione w wariancie 3, retrofitowane do 1/2. Wzorzec: kontener
+  `.logo` dostaje `min-width:0` (+ `flex-shrink:1` we flexie / `minmax(0,auto)` w gridzie),
+  `.logo-name` dostaje `display:inline-block;overflow:hidden;text-overflow:ellipsis;max-width:100%`
+  — sam `max-width` nie działa na zwykłym inline `<span>`, stąd `inline-block` jest konieczny,
+  szczególnie gdy logo-name występuje osobno w stopce poza flex/grid kontenerem navu.
+- **Kopiowanie tekstu między siostrzanymi wariantami tego samego archetypu w różnych branżach**:
+  wariant 4 wyszedł od designera z tekstem niemal 1:1 sklonowanym z
+  `medycyna-estetyczna-4-kameralny-gabinet.html` (te same zdania ze zmienionym rzeczownikiem) —
+  złapane i przepisane przez copywriter-szablonow. CSS/mechanizm sekcji był w tym przypadku
+  faktycznie odrębny (QA potwierdził), więc problem dotyczył wyłącznie warstwy tekstowej — warto
+  o tym pamiętać przy każdym wariancie, który ma "przeczytaj X jako inspirację ducha" w briefie.
+- **Redukcja kosztu sesji per wariant** (od wariantu 4): nie wywoływać `list_deployments` do zdobycia linku
+  — używać stabilnego `branchAlias` z Vercela i odpytywać go `curl`-em w tle; prosić subagentów o
+  raporty ~100-150 słów zamiast pełnego audytu; ograniczyć własne zrzuty ekranu do 2-3 kluczowych
+  (QA subagent i tak weryfikuje mobile/motion/mapę realnie przez Playwright). Szczegóły w pamięci
+  `feedback_reduce_token_usage_per_variant`.
+
+---
+
 ## Podział pracy między sesjami
 
 Pilot powstawał w dwóch równoległych sesjach Claude Code na tym samym repo:
