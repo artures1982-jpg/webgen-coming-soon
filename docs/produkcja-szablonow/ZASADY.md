@@ -227,6 +227,28 @@ Granica pozostaje przy **stwierdzeniach o osobach trzecich**: fikcyjne nazwy fir
 w sekcji „zaufali nam" (punkt pierwszy powyżej) i wymyślone imię właściciela dalej są zakazane —
 tego klient nie „poprawia przy edycji", tylko musiałby najpierw zauważyć, że jest nieprawdziwe.
 
+### 5.1 Kalki tekstowe między wariantami tej samej branży — zawsze te same trzy miejsca
+
+Warianty jednej branży powstają z tego samego briefu i tej samej wiedzy o kliencie, więc kolejny
+wariant regularnie „dziedziczy" całe zdania po poprzednim. Copywriter wyłapał to już przy
+`nieruchomosci-4` (fragmenty 1:1 z `medycyna-estetyczna-4`), `auta-z-ameryki-2` (3 fragmenty
+z wariantu 1) i `auta-z-ameryki-3` (4 fragmenty z wariantów 1-2). Za każdym razem powtarzały się
+**te same miejsca**:
+
+1. **Karta/akapit kontaktowy** („Odbieramy telefony…", „Telefon działa w godzinach pracy biura
+   w mieście {{MIASTO}}…") — najczęstsza kalka, bywa skopiowana słowo w słowo.
+2. **Pierwsze zdanie stopki** („…z siedzibą w mieście {{MIASTO}} i klientami z całej Polski…").
+3. **Otwarcie odpowiedzi FAQ** — zwłaszcza pytania powtarzającego się w branży (np. „co jeśli auto
+   okaże się gorsze niż na zdjęciach").
+
+Do tego dochodzi **duplikacja wewnątrz jednego pliku**: ten sam opis kroku procesu powtórzony
+w osi czasu i w FAQ.
+
+**Sprawdzenie przy odbiorze**: przy drugim i każdym kolejnym wariancie branży porównaj te trzy
+miejsca z wariantami już gotowymi, ZANIM zaczniesz czytać resztę — to najszybszy sposób złapania
+kalki. Trzy warianty tej samej branży mają brzmieć jak trzy różne firmy, nie jak jedna z
+podmienionym kolorem.
+
 ---
 
 ## 6. Pułapki CSS na mobile

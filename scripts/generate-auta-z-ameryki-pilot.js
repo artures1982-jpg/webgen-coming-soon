@@ -185,4 +185,88 @@ FAQ (w tym dokładność kalkulatora i wpływ kursu waluty), kontakt z mapą. Gr
 poprawna; firma działa ogólnopolsko, {{MIASTO}} to siedziba, nie zasięg.`,
 });
 
+VARIANTS.push({
+  id: 'auta-z-ameryki-3-auto-na-zamowienie',
+  tier: 'pro',
+  name: 'Auto na zamówienie',
+  visual: `STYL: wariant PREMIUM/CONCIERGE — trzeci i OSTATNI w tej branży. Artur wprost:
+"to ma być petarda". To ma być najbardziej efektowny wariant całej branży i jeden z
+najmocniejszych wizualnie w całym systemie — kinowa fotografia samochodowa, mocna typografia,
+dużo czerni i światła.
+
+UWAGA — ŚWIADOME ODSTĘPSTWO OD KONWENCJI SYSTEMU: w branżach 5-wariantowych archetyp "premium"
+ma wyciszony, precyzyjny ruch (tylko fade-in). TUTAJ TA KONWENCJA NIE OBOWIĄZUJE — ta branża ma
+tylko 3 warianty (1 free + 2 pro), a Artur zamówił efekt "petardy". Ten wariant ma mieć
+NAJMOCNIEJSZY ruch z całej branży: parallax albo powolny ken-burns na kinowym hero, wyraźne
+staged reveals, hover-zoom na galerii, licznik, shimmer na CTA, poświata. Pełny
+prefers-reduced-motion nadal obowiązkowy — wymień jawnie każdą nietrywialną animację w
+komentarzu HTML.
+
+MECHANIZM CENTRALNY: klient nie przegląda gotowych ofert — MÓWI, JAKIEGO AUTA CHCE, a firma
+poluje na nie na amerykańskich licytacjach. Zbuduj interaktywne "zlecenie poszukiwania": klient
+wybiera/wpisuje markę i model, rocznik (zakres), budżet (suwak), typ nadwozia — a widget składa
+z tego czytelne podsumowanie zlecenia na żywo ("Szukamy dla Ciebie: Dodge Challenger R/T,
+2019-2022, do 180 000 zł pod dom"). To ma być realnie działający JS, nie mockup. Podsumowanie
+niech ląduje w polu formularza kontaktowego, żeby wysłanie zlecenia było naturalnym następnym
+krokiem.
+
+USŁUGA CONCIERGE — realne, konkretne wyróżniki (nie puste "premium"): dedykowany opiekun
+zlecenia, RAPORT FOTO/WIDEO Z OGLĘDZIN auta w USA PRZED licytacją (to jest najmocniejszy,
+najbardziej namacalny argument w tej branży — klient widzi auto na żywo, zanim ktokolwiek
+zalicytuje), licytacja w imieniu klienta z ustalonym górnym limitem, transport w dedykowanym
+kontenerze zamiast roll-on/roll-off, pełny detailing i przegląd przed wydaniem, komplet
+dokumentów i rejestracja.
+
+KRYTYCZNE OGRANICZENIA UCZCIWOŚCIOWE (te same co w wariantach 1-2, tu tym ważniejsze, bo premium
+kusi do przesady): zero "gwarantujemy wygraną licytację", zero "gwarantowanej ceny", zero "auto
+bez wad". Ekskluzywność wyraża się przez UWAGĘ i DOKUMENTACJĘ (dedykowany opiekun, raport wideo
+przed licytacją, limit zleceń jednocześnie), NIE przez obietnicę lepszego wyniku licytacji.
+Fraza „pod dom", NIE „pod klucz" (spójnie z wariantami 1-2).
+
+PALETA — sprawdź grepem że nie koliduje z ŻADNYM wariantem w systemie, W SZCZEGÓLNOŚCI z
+wariantem 1 tej branży (jasna oliwka #595c2d na #eef1ef) i wariantem 2 (grafit #14161a/#1e2126
++ miedź #d97f4a). Kierunek: głęboka, kinowa czerń/karbon z jednym mocnym akcentem. Propozycja do
+zweryfikowania: nasycony, szlachetny karmazyn/racing red (musi czytać się jako "premium
+motorsport", NIE jako alarmowa czerwień elektryk-2 #ff5a1f / hydraulik-2 #e0361c) LUB chłodny
+chrom/stal na czerni. Sprawdź też, że nie powtarzasz wina/bordo z nieruchomosci-5 (#6e0f22 na
+#0c0708) — jeśli Twój karmazyn wychodzi zbyt blisko, wybierz inny kierunek i uzasadnij.
+TYPOGRAFIA: zweryfikuj grepem że nieużyta w systemie, w tym Big Shoulders Display/Overpass
+(wariant 1) i Rajdhani/Heebo (wariant 2). Tu pasuje mocny, szeroki krój display o dużym
+kontraście — typografia ma być częścią efektu "petardy".
+
+ZDJĘCIA (wyszukane przez Pexels API, zweryfikowane curl 200 — użyj TYCH DOKŁADNYCH URL; to
+świadomie WSPÓŁCZESNE amerykańskie ikony, nie klasyki, bo klient premium zamawia właśnie takie
+auta):
+- RAM 1500 Rebel na moście o wschodzie słońca, kinowy kadr w ruchu (materiał na hero):
+  https://images.pexels.com/photos/18491928/pexels-photo-18491928.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Dodge Challenger od przodu, podświetlone reflektory, złota godzina, palmy:
+  https://images.pexels.com/photos/36655832/pexels-photo-36655832.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Czarna Corvette na dachu parkingu z panoramą miasta, ktoś ją fotografuje — idealnie ilustruje
+  RAPORT FOTO/WIDEO Z OGLĘDZIN:
+  https://images.pexels.com/photos/8561774/pexels-photo-8561774.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+Do dyspozycji masz też wspólną pulę US_PHOTOS z góry tego pliku (flaga, autostrada I-5,
+Route 66, port) — użyj, jeśli wzmocnią kompozycję. NIE zgaduj nowych ID Pexels; brakujące kadry
+zgłoś jako "<!-- PHOTO NEEDED: opis -->".
+ZAKAZ zdjęć klasyków/zlotów/vintage'u (przekłamują ofertę — klient importuje współczesne auta)
+oraz aut z widoczną europejską tablicą rejestracyjną (przeczy "sprowadzone z USA" — odrzucono
+już z tego powodu dwa kadry Mustanga).
+
+REGUŁA 6.8 z ZASADY.md (KRYTYCZNA): przy kinowych, pełnoekranowych zdjęciach z tekstem na
+wierzchu ryzyko nieczytelności i zasłaniania jest największe w całej branży. Każdy tekst/karta na
+zdjęciu MUSI być zweryfikowana ZRZUTEM EKRANU na 360/390px — skan overflow tego nie wykrywa.
+W wariancie 2 tej branży nakładka na pasie zdjęciowym była już z tego powodu poprawiana.
+
+TREŚĆ — sekcje: nav, kinowe hero (pełnowymiarowe zdjęcie + mocna typografia + CTA), widget
+zlecenia poszukiwania, sekcja "jak działa concierge" (kroki z naciskiem na raport wideo przed
+licytacją), galeria/showcase sprowadzonych aut z hover-zoom, rejestr zaufania (liczby bez
+sugerowania gwarantowanego wyniku), opinie klientów (generyczne imiona + miasto + model auta,
+NIGDY nazwy firm — ZASADY.md sekcja 5), FAQ, kontakt z formularzem (podsumowanie zlecenia
+wstawione automatycznie) i mapą. Gramatyka {{MIASTO}}; firma działa ogólnopolsko, {{MIASTO}} to
+siedziba, nie zasięg.
+
+LAYOUT — bespoke, inny niż wariant 1 (trasa transportowa, statyczna rozpiska kosztów, jasny) i
+wariant 2 (kalkulator-terminal, ciemny grafit, słupki porównania). Tu bohaterem jest FOTOGRAFIA
+i zlecenie na konkretne auto, nie tabela liczb.`,
+});
+
 module.exports = { VARIANTS, SAMPLE_TOKENS, US_PHOTOS };
