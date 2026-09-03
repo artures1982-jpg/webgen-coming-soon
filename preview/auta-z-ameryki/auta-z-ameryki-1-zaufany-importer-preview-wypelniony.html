@@ -106,6 +106,11 @@
   .hero-photo-wrap{position:relative;border-radius:.5rem;overflow:hidden;box-shadow:0 22px 44px color-mix(in srgb, var(--text) 22%, transparent);}
   .hero-photo{width:100%;height:auto;aspect-ratio:940/650;object-fit:cover;display:block;}
   .hero-photo-tag{position:absolute;top:1rem;left:1rem;background:color-mix(in srgb, var(--text) 82%, transparent);color:var(--bg);font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.4rem .75rem;border-radius:.3rem;}
+  .hero-flag-badge{position:absolute;top:1rem;right:1rem;width:64px;height:64px;border-radius:.4rem;overflow:hidden;box-shadow:0 8px 18px color-mix(in srgb, var(--text) 30%, transparent);border:2px solid var(--surface);}
+  .hero-flag-badge img{width:100%;height:100%;object-fit:cover;object-position:30% 45%;display:block;}
+  @media (max-width:480px){
+    .hero-flag-badge{width:50px;height:50px;top:.7rem;right:.7rem;}
+  }
 
   .cost-ticket{position:absolute;right:0;bottom:0;width:min(320px, 78%);background:var(--surface);border-radius:.5rem;box-shadow:0 18px 38px color-mix(in srgb, var(--text) 26%, transparent);padding:1.3rem 1.4rem;border-top:4px solid var(--accent);}
   .cost-ticket .tag{font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;display:block;}
@@ -157,6 +162,22 @@
     .route::before{top:0;bottom:0;left:15px;right:auto;width:2px;height:auto;background:repeating-linear-gradient(to bottom, color-mix(in srgb, var(--accent) 55%, transparent) 0 10px, transparent 10px 18px);}
     .route-stop{display:flex;align-items:flex-start;gap:1.1rem;text-align:left;padding:0;min-width:0;}
     .route-dot{margin:0;flex-shrink:0;}
+  }
+
+  /* ---------- PAS AUTOSTRADY I-5 — pełnowymiarowy przerywnik między etapami trasy a rozpiską
+     kosztów, wzmacnia sygnał "prawdziwy amerykański rynek" (Artur, 02.09.2026: "za mało zdjęć
+     nawiązujących do... całego amerykańskiego rynku"). Overlay najciemniejszy przy dolnej
+     krawędzi, dokładnie tam gdzie leży podpis (ZASADY.md 6.8). ---------- */
+  .highway-band{position:relative;height:clamp(240px,34vw,400px);overflow:hidden;}
+  .highway-photo{width:100%;height:100%;object-fit:cover;object-position:center 42%;display:block;}
+  .highway-band::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, transparent 0%, transparent 40%, color-mix(in srgb, var(--text) 82%, transparent) 100%);}
+  .highway-band-copy{position:absolute;left:0;right:0;bottom:0;padding:1.4rem 1.6rem 1.6rem;max-width:640px;}
+  .highway-band-tag{display:inline-block;font-family:var(--head);font-weight:800;font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;color:var(--bg);background:color-mix(in srgb, var(--accent-dark) 75%, transparent);padding:.35rem .7rem;border-radius:.3rem;margin-bottom:.55rem;}
+  .highway-band-copy p{color:var(--bg);font-size:.92rem;line-height:1.5;text-shadow:0 2px 10px color-mix(in srgb, black 75%, transparent);}
+  @media (max-width:600px){
+    .highway-band{height:clamp(200px,50vw,280px);}
+    .highway-band-copy{padding:1.1rem 1.2rem 1.3rem;}
+    .highway-band-copy p{font-size:.85rem;}
   }
 
   /* ---------- CO SKŁADA SIĘ NA CENĘ — ciemny panel "manifestu" (odwrócona jasność względem
@@ -304,6 +325,9 @@
       <div class="hero-photo-wrap">
         <img class="hero-photo" src="https://images.pexels.com/photos/29566901/pexels-photo-29566901.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Rząd samochodów w porcie przeładunkowym, dźwigi i kontenery w tle — transport morski z USA">
         <span class="hero-photo-tag">Transport morski z USA</span>
+        <div class="hero-flag-badge">
+          <img src="https://images.pexels.com/photos/15084216/pexels-photo-15084216.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Powiewająca flaga USA na tle błękitnego nieba — symbol pochodzenia sprowadzanych samochodów z Ameryki" loading="lazy">
+        </div>
       </div>
       <div class="cost-ticket">
         <span class="tag">Przykładowy import</span>
@@ -365,6 +389,14 @@
     </div>
   </div>
 </section>
+
+<div class="highway-band">
+  <img class="highway-photo" src="https://images.pexels.com/photos/16392127/pexels-photo-16392127.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Zielone tablice I-5 SOUTH, Los Angeles i Palmdale nad kalifornijską autostradą, ciężarówki jadące pasem ALL TRUCKS" loading="lazy">
+  <div class="highway-band-copy">
+    <span class="highway-band-tag">Trasa do portu · I-5, Kalifornia</span>
+    <p>Zanim auto wypłynie do Europy, jedzie tą samą autostradą co codziennie tysiące ciężarówek kierujących się do portów Kalifornii.</p>
+  </div>
+</div>
 
 <section class="manifest" id="koszt">
   <div class="wrap">

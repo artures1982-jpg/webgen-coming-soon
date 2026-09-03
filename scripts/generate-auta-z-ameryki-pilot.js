@@ -9,6 +9,21 @@
 //
 // Budowany PRZYROSTOWO, jeden wariant na raz, z checkpointem akceptacji Artura po każdym.
 
+// ZDJĘCIA AMERYKAŃSKIE — wspólna pula dla całej branży (feedback Artura 2026-09-03: „za mało
+// zdjęć nawiązujących do aut z Ameryki, może jakieś flagi amerykańskie"). Wszystkie zweryfikowane
+// przez Pexels API, curl 200. UWAGA: świadomie ZERO zdjęć klasyków/zlotów/parad — klient importuje
+// współczesne auta (przykład w wariancie 1 to Mustang 2019), więc vintage przekłamywałby ofertę.
+// Bezpieczne motywy „amerykańskości" to flaga, drogi i infrastruktura — nie sugerują epoki.
+const US_PHOTOS = {
+  flaga: 'https://images.pexels.com/photos/15084216/pexels-photo-15084216.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+  autostrada_i5: 'https://images.pexels.com/photos/16392127/pexels-photo-16392127.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+  route66: 'https://images.pexels.com/photos/210112/pexels-photo-210112.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+  pickup_arkansas: 'https://images.pexels.com/photos/9704513/pexels-photo-9704513.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+  port_przeladunkowy: 'https://images.pexels.com/photos/29566901/pexels-photo-29566901.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+  plac_z_panorama: 'https://images.pexels.com/photos/29566908/pexels-photo-29566908.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+  mechanik_dokumentacja: 'https://images.pexels.com/photos/6870324/pexels-photo-6870324.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+};
+
 const SAMPLE_TOKENS = {
   '{{NAZWA_STRONY}}': 'Atlantic Motors',
   '{{TELEFON}}': '500 123 456',
@@ -170,4 +185,4 @@ FAQ (w tym dokładność kalkulatora i wpływ kursu waluty), kontakt z mapą. Gr
 poprawna; firma działa ogólnopolsko, {{MIASTO}} to siedziba, nie zasięg.`,
 });
 
-module.exports = { VARIANTS, SAMPLE_TOKENS };
+module.exports = { VARIANTS, SAMPLE_TOKENS, US_PHOTOS };
