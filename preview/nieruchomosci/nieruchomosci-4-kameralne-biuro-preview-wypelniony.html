@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metrum — kameralne biuro nieruchomości, Kraków | tel. 500 123 456</title>
+<meta name="description" content="Metrum — kameralne biuro nieruchomości w mieście Kraków. Od pierwszej wyceny do podpisu u notariusza prowadzi Cię ta sama osoba — nie ktoś, kto akurat ma wolny termin w kalendarzu. Tel. 500 123 456">
+<meta name="keywords" content="biuro nieruchomości Kraków, kameralne biuro nieruchomości Kraków, sprzedaż mieszkania Kraków, pośrednik nieruchomości Kraków">
+<link rel="canonical" href="https://metrum-krakow.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Metrum — kameralne biuro nieruchomości, Kraków">
+<meta property="og:description" content="Niewielki, stały zespół — od pierwszego spotkania do notariusza rozmawiasz z tą samą osobą. Tel. 500 123 456">
+<meta property="og:url" content="https://metrum-krakow.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"RealEstateAgent","name":"Metrum","telephone":"500 123 456","email":"kontakt@metrum.pl","description":"Metrum — kameralne biuro nieruchomości w mieście Kraków, niewielki stały zespół prowadzący klienta od pierwszego spotkania do notariusza.","address":{"@type":"PostalAddress","streetAddress":"ul. Przykładowa 12","addressLocality":"Kraków","addressCountry":"PL"},"openingHours":"Mo-Fr 9:00 – 18:00"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700;8..60,800&family=Asap:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* MOTION-BASELINE — świadomy wyjątek archetypu 4 (patrz .claude/agents/designer-ux-ui.md,
+     sekcja "Wariant 1 spokojny, wariant 2+ może żyć" + README.md "Świadome wyjątki"): ten
+     wariant NIE dostaje ambientowego glow w tle hero, shimmeru na CTA, marquee ani liczników.
+     Jedyny ruch to jednorazowy, stopniowany fade-in list/paneli przy scrollu (IntersectionObserver,
+     patrz JS na końcu pliku) — zgodnie z duchem "kameralne, rzetelne biuro, nie marketing".
+     Zawsze wyłączony pod prefers-reduced-motion:reduce niżej. */
+  :root{
+    --accent:#a97e6c;
+    --accent-dark:#7c5745;
+    --bg:#f2ede4;
+    --surface:#e6ddcf;
+    --text:#332d27;
+    --muted:#7a7062;
+    --head:'Source Serif 4', serif;
+    --body:'Asap', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.66;-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3,h4{font-family:var(--head);line-height:1.24;font-weight:700;color:var(--text);}
+  section{padding:5.4rem 1.5rem;}
+  .wrap{max-width:1080px;margin:0 auto;}
+  .eyebrow{display:inline-block;font-family:var(--body);font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:.85rem;}
+  h2{font-size:clamp(1.75rem,3.1vw,2.35rem);margin-bottom:1rem;}
+  .lead{color:var(--muted);font-size:1.03rem;max-width:620px;}
+  .center{text-align:center;margin-left:auto;margin-right:auto;}
+
+  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.9rem 1.85rem;border-radius:.5rem;font-weight:700;font-family:var(--body);font-size:.95rem;border:1.5px solid transparent;cursor:pointer;transition:background .2s ease, color .2s ease, border-color .2s ease;}
+  .btn-primary{background:var(--accent);color:var(--bg);}
+  .btn-primary:hover{background:var(--accent-dark);}
+  .btn-outline{border-color:color-mix(in srgb, var(--text) 24%, transparent);color:var(--text);background:transparent;}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent-dark);}
+
+  /* ---------- NAV — hamburger na progu 960px (zmierzone realnie, ZASADY.md 6.6). Dropdown
+     mobilny jest rodzeństwem .wrap, nie jego potomkiem (ZASADY.md 6.4). ---------- */
+  header.nav{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:1.05rem 1.5rem;gap:1.4rem;}
+  .logo{display:flex;align-items:baseline;gap:.5rem;min-width:0;flex-shrink:1;}
+  .logo-mark{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-bottom:.2rem;}
+  .logo-name{display:inline-block;font-family:var(--head);font-weight:700;font-size:1.28rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;vertical-align:bottom;}
+  .nav-links-desktop{display:flex;gap:1.8rem;flex:1;justify-content:center;}
+  .nav-links-desktop a{font-weight:600;font-size:.9rem;color:var(--text);white-space:nowrap;}
+  .nav-links-desktop a:hover{color:var(--accent-dark);}
+  .nav-links-mobile{display:none;}
+  .nav-actions{display:flex;align-items:center;gap:.8rem;flex-shrink:0;}
+  .nav-phone{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--surface);color:var(--text);flex-shrink:0;font-size:1rem;}
+  .nav-phone:hover{background:color-mix(in srgb, var(--accent) 22%, var(--surface));}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.35rem;flex-shrink:0;}
+  .nav-toggle span{width:22px;height:2px;background:var(--text);}
+
+  @media (max-width:960px){
+    .nav-links-desktop{display:none;}
+    .nav-toggle{display:flex;}
+    .nav-links-mobile{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);flex-direction:column;padding:.4rem 1.5rem 1.4rem;gap:0;}
+    .nav-links-mobile.open{display:flex;}
+    .nav-links-mobile a{padding:.8rem 0;font-weight:600;font-size:.96rem;border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+    .nav-links-mobile a:last-child{border-bottom:none;}
+    .mobile-cta{color:var(--accent-dark)!important;font-weight:700!important;}
+  }
+  @media (max-width:700px){
+    .nav-actions > .btn{display:none;}
+  }
+  @media (max-width:480px){
+    .nav .wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+    .nav .wrap::-webkit-scrollbar{display:none;}
+    .logo-name{font-size:1.14rem;}
+  }
+
+  /* ---------- HERO — split statyczny, podpis wtopiony w dolny pas zdjęcia (nie karta
+     nachodząca na krawędź, inaczej niż nieruchomosci-1/2 i medycyna-estetyczna-4) ---------- */
+  .hero{padding-top:4.2rem;padding-bottom:3.6rem;}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:3.4rem;align-items:center;}
+  .hero-copy h1{font-size:clamp(1.85rem,3.6vw,2.6rem);margin-bottom:1.15rem;}
+  .hero-copy p.lead{font-size:1.03rem;margin-bottom:1.6rem;}
+  .hero-cta-row{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem;}
+  .hero-note{display:flex;align-items:flex-start;gap:.65rem;font-size:.87rem;color:var(--text);background:var(--surface);border-radius:.6rem;padding:.85rem 1.05rem;max-width:460px;}
+  .hero-note .icon{flex-shrink:0;font-size:1.05rem;line-height:1.4;}
+
+  .hero-photo-wrap{position:relative;border-radius:1rem;overflow:hidden;box-shadow:0 20px 42px color-mix(in srgb, var(--text) 18%, transparent);}
+  .hero-photo{width:100%;height:auto;aspect-ratio:940/650;object-fit:cover;display:block;}
+  .hero-caption{position:absolute;left:0;right:0;bottom:0;padding:1.6rem 1.3rem 1.1rem;background:linear-gradient(to top, color-mix(in srgb, var(--text) 78%, transparent) 0%, transparent 100%);}
+  .hero-caption span{font-size:.86rem;font-weight:600;color:var(--bg);}
+
+  /* ---------- PASEK ZAUFANIA — jedna ciągła fraza, nie grid statystyk (inaczej niż
+     nieruchomosci-1/2/3) ---------- */
+  .trust-ribbon{background:var(--surface);padding:1.5rem 1.5rem;border-top:1px solid color-mix(in srgb, var(--text) 8%, transparent);border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+  .trust-ribbon p{max-width:900px;margin:0 auto;text-align:center;font-family:var(--head);font-size:1.05rem;color:var(--text);line-height:1.55;}
+  .trust-ribbon strong{color:var(--accent-dark);}
+
+  /* ---------- DLACZEGO TEN SAM ZESPÓŁ — panel porównawczy (mechanizm unikalny w branży) ---------- */
+  .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-top:2.6rem;}
+  .compare-panel{border-radius:.9rem;padding:1.9rem 2rem;opacity:0;transform:translateY(16px);}
+  .compare-panel.visible{opacity:1;transform:translateY(0);transition:opacity .55s ease, transform .55s ease;}
+  .compare-panel.neg{background:var(--bg);border:1.5px dashed color-mix(in srgb, var(--text) 22%, transparent);}
+  .compare-panel.pos{background:var(--surface);border:1.5px solid color-mix(in srgb, var(--accent) 38%, transparent);}
+  .compare-title{font-family:var(--head);font-weight:700;font-size:1.05rem;margin-bottom:1.1rem;}
+  .compare-panel.neg .compare-title{color:var(--muted);}
+  .compare-panel.pos .compare-title{color:var(--accent-dark);}
+  .compare-row{display:flex;align-items:flex-start;gap:.7rem;padding:.6rem 0;font-size:.92rem;border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+  .compare-row:last-child{border-bottom:none;}
+  .compare-panel.neg .mark{color:color-mix(in srgb, var(--muted) 80%, var(--text));font-weight:800;flex-shrink:0;}
+  .compare-panel.pos .mark{color:var(--accent-dark);font-weight:800;flex-shrink:0;}
+  .compare-panel.neg .compare-row span:last-child{color:var(--muted);}
+
+  /* ---------- USŁUGI — prosta lista tekstowa, bez kart/gridu (konwencja archetypu 4) ---------- */
+  .uslugi{background:var(--surface);}
+  .uslugi-list{margin-top:2.4rem;max-width:760px;margin-left:auto;margin-right:auto;}
+  .uslugi-row{display:flex;gap:1rem;padding:1.3rem 0;border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);opacity:0;transform:translateY(14px);}
+  .uslugi-row.visible{opacity:1;transform:translateY(0);transition:opacity .5s ease, transform .5s ease;}
+  .uslugi-row:last-child{border-bottom:none;}
+  .uslugi-row .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:.5rem;}
+  .uslugi-row h3{font-size:1.06rem;margin-bottom:.35rem;}
+  .uslugi-row p{color:var(--muted);font-size:.92rem;}
+
+  /* ---------- OPINIE — pasek cytatów z inicjałem, jedna kolumna (inaczej niż karty 1/2/3
+     i lewy border medycyna-estetyczna-4) ---------- */
+  .opinie-list{max-width:740px;margin:2.6rem auto 0;display:flex;flex-direction:column;}
+  .opinia-row{display:flex;gap:1.1rem;padding:1.5rem 0;border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);opacity:0;transform:translateY(14px);}
+  .opinia-row.visible{opacity:1;transform:translateY(0);transition:opacity .5s ease, transform .5s ease;}
+  .opinia-row:last-child{border-bottom:none;}
+  .opinia-avatar{width:2.6rem;height:2.6rem;border-radius:50%;background:var(--accent);color:var(--bg);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:700;font-size:.95rem;flex-shrink:0;}
+  .opinia-body p{font-size:.98rem;margin-bottom:.5rem;}
+  .opinia-who{font-weight:700;font-size:.85rem;color:var(--accent-dark);}
+  .opinia-who small{font-weight:400;color:var(--muted);}
+
+  /* ---------- FAQ ---------- */
+  .faq{background:var(--surface);}
+  .faq-list{max-width:800px;margin:2.6rem auto 0;display:flex;flex-direction:column;gap:.7rem;}
+  details.faq-card{background:var(--bg);border-radius:.8rem;padding:1.15rem 1.4rem;}
+  details.faq-card summary{cursor:pointer;font-weight:700;font-family:var(--head);font-size:.99rem;display:flex;justify-content:space-between;gap:1rem;align-items:center;list-style:none;}
+  details.faq-card summary::-webkit-details-marker{display:none;}
+  details.faq-card summary::after{content:"+";color:var(--accent-dark);font-size:1.25rem;flex-shrink:0;}
+  details.faq-card[open] summary::after{content:"–";}
+  details.faq-card p{color:var(--muted);margin-top:.85rem;font-size:.91rem;}
+
+  /* ---------- KONTAKT ---------- */
+  .contact-split{display:grid;grid-template-columns:.95fr 1.05fr;gap:2.2rem;margin-top:2.6rem;align-items:stretch;}
+  .contact-card{background:var(--surface);border-radius:1rem;padding:2.2rem;display:flex;flex-direction:column;justify-content:center;}
+  .contact-card h3{font-size:1.25rem;margin-bottom:.55rem;}
+  .contact-card > p{color:var(--muted);margin-bottom:1.4rem;font-size:.92rem;}
+  .contact-info{display:flex;flex-direction:column;gap:0;margin-top:1.5rem;}
+  .contact-info div{padding:.65rem 0;border-top:1px solid color-mix(in srgb, var(--text) 10%, transparent);font-size:.9rem;}
+  .contact-info b{display:block;color:var(--muted);font-weight:600;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.15rem;}
+  .map-panel{border-radius:1rem;overflow:hidden;border:1px solid color-mix(in srgb, var(--text) 10%, transparent);min-height:340px;}
+  .map-panel iframe{width:100%;height:100%;min-height:340px;border:0;display:block;}
+
+  footer{padding:3rem 1.5rem 2rem;text-align:center;background:var(--text);}
+  .footer-logo{font-family:var(--head);font-weight:700;font-size:1.2rem;color:var(--bg);margin-bottom:.6rem;}
+  footer p{font-size:.88rem;color:color-mix(in srgb, var(--bg) 70%, transparent);max-width:460px;margin:0 auto 1.2rem;}
+  .footer-links{display:flex;gap:1.4rem;justify-content:center;flex-wrap:wrap;font-size:.86rem;margin-bottom:1.2rem;}
+  .footer-links a{color:color-mix(in srgb, var(--bg) 82%, transparent);}
+  .footer-links a:hover{color:var(--accent);}
+  .footer-bottom{font-size:.78rem;color:color-mix(in srgb, var(--bg) 55%, transparent);}
+
+  @media (max-width:960px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-copy, .hero-photo-wrap{min-width:0;}
+    .compare-grid{grid-template-columns:1fr;}
+    .contact-split{grid-template-columns:1fr;}
+    .contact-split > *{min-width:0;}
+    .map-panel{min-height:280px;}
+    .map-panel iframe{min-height:280px;}
+  }
+  @media (max-width:700px){
+    section{padding:3.6rem 1.2rem;}
+    .trust-ribbon{padding:1.2rem 1.2rem;}
+    .trust-ribbon p{font-size:.96rem;}
+  }
+  @media (max-width:480px){
+    .hero-copy p.lead{max-width:none;}
+    .hero-note{max-width:none;}
+    .opinia-row{gap:.8rem;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .compare-panel,.uslugi-row,.opinia-row{transition:none;opacity:1;transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo">
+      <span class="logo-mark"></span>
+      <span class="logo-name">Metrum</span>
+    </a>
+    <nav class="nav-links-desktop">
+      <a href="#zespol">Nasz zespół</a>
+      <a href="#uslugi">Usługi</a>
+      <a href="#opinie">Opinie</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="tel:500 123 456" class="nav-phone" aria-label="Zadzwoń: 500 123 456">📞</a>
+      <a href="#kontakt" class="btn btn-primary">Umów spotkanie</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu nawigacji" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-links-mobile" id="navLinksMobile">
+    <a href="#kontakt" class="mobile-cta">Umów spotkanie</a>
+    <a href="#zespol">Nasz zespół</a>
+    <a href="#uslugi">Usługi</a>
+    <a href="#opinie">Opinie</a>
+    <a href="#faq">FAQ</a>
+    <a href="tel:500 123 456">500 123 456</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Kameralne biuro nieruchomości — Kraków</span>
+      <h1>Od pierwszego spotkania do notariusza — ta sama osoba</h1>
+      <p class="lead">Metrum prowadzi niewielki, stały zespół — dwie pośredniczki, które same rozmawiają z Tobą od pierwszej wyceny aż po podpis aktu notarialnego. Żadnego przekazywania sprawy „komuś wolnemu" w połowie procesu — osoba, którą poznajesz na pierwszym spotkaniu, zna każdy kolejny etap sprzedaży Twojej nieruchomości w mieście Kraków.</p>
+      <div class="hero-cta-row">
+        <a href="#kontakt" class="btn btn-primary">Umów spotkanie</a>
+        <a href="#zespol" class="btn btn-outline">Poznaj nasz zespół</a>
+      </div>
+      <div class="hero-note"><span class="icon" aria-hidden="true">🤝</span><span>Masz numer do konkretnej osoby, nie do centrali biura — dzwonisz i trafiasz zawsze na tę samą pośredniczkę.</span></div>
+    </div>
+    <div class="hero-photo-wrap">
+      <img class="hero-photo" src="https://images.pexels.com/photos/5915142/pexels-photo-5915142.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Dwie koleżanki z zespołu biura nieruchomości przy ciepłej rozmowie przy kawie w kameralnym wnętrzu" width="940" height="650" fetchpriority="high">
+      <div class="hero-caption"><span>Ten sam zespół — od pierwszej wyceny do kluczy w ręku</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-ribbon">
+  <p><strong>11 lat</strong> prowadzimy to biuro razem, wspólnie doprowadziliśmy do końca <strong>180+</strong> transakcji — i za każdym razem to ta sama osoba towarzyszy klientowi od wyceny po klucze.</p>
+</div>
+
+<section id="zespol">
+  <div class="wrap">
+    <span class="eyebrow">Nasz zespół</span>
+    <h2>Nie chodzi o sympatię — chodzi o to, kto pamięta szczegóły</h2>
+    <p class="lead">W sieciowym biurze agent zmienia się razem z grafikiem dyżurów — kolejna osoba dostaje Twoją teczkę i wgryza się w nią od zera, czasem w środku negocjacji. W Metrum pracują wyłącznie dwie pośredniczki prowadzące biuro razem: ta, która była z Tobą na pierwszych oględzinach, wie też, ile ofert odrzuciliście i dlaczego, gdy kilka miesięcy później siadacie do ostatecznych rozmów o cenie.</p>
+    <div class="compare-grid">
+      <div class="compare-panel neg">
+        <div class="compare-title">W biurze z rotacją agentów</div>
+        <div class="compare-row"><span class="mark">✕</span><span>Za każdym razem inna osoba prowadzi rozmowę</span></div>
+        <div class="compare-row"><span class="mark">✕</span><span>Tłumaczysz sytuację i oczekiwania od nowa</span></div>
+        <div class="compare-row"><span class="mark">✕</span><span>Nikt nie pamięta wcześniejszych ustaleń ani historii nieruchomości</span></div>
+      </div>
+      <div class="compare-panel pos">
+        <div class="compare-title">Metrum</div>
+        <div class="compare-row"><span class="mark">✓</span><span>Ta sama osoba od pierwszego spotkania po notariusza</span></div>
+        <div class="compare-row"><span class="mark">✓</span><span>Zna historię Twojej nieruchomości i wcześniejsze rozmowy</span></div>
+        <div class="compare-row"><span class="mark">✓</span><span>Szybsze decyzje, mniej nieporozumień przy negocjacjach</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="uslugi" id="uslugi">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Usługi</span>
+    <h2 class="center" style="text-align:center;">Czym się zajmujemy</h2>
+    <p class="lead center" style="text-align:center;">Zajmujemy się sprzedażą, zakupem i formalnościami wokół nich — nic ponad to, żeby każdą sprawę prowadzić osobiście, a nie zlecać dalej.</p>
+    <div class="uslugi-list">
+      <div class="uslugi-row">
+        <span class="dot" aria-hidden="true"></span>
+        <div>
+          <h3>Sprzedaż mieszkania lub domu</h3>
+          <p>Pełne prowadzenie transakcji od strony sprzedającego — od wyceny, przez prezentacje i negocjacje, aż po przekazanie kluczy, zawsze z tą samą osobą po Twojej stronie.</p>
+        </div>
+      </div>
+      <div class="uslugi-row">
+        <span class="dot" aria-hidden="true"></span>
+        <div>
+          <h3>Bezpłatna wycena nieruchomości</h3>
+          <p>Spotykamy się na miejscu i pokazujemy realne widełki cenowe na podstawie transakcji z okolicy — bez zobowiązania do dalszej współpracy.</p>
+        </div>
+      </div>
+      <div class="uslugi-row">
+        <span class="dot" aria-hidden="true"></span>
+        <div>
+          <h3>Doradztwo przy zakupie</h3>
+          <p>Pomagamy ocenić nieruchomość i jej stan prawny, zanim złożysz ofertę — z tą samą osobą na każdym etapie rozmów.</p>
+        </div>
+      </div>
+      <div class="uslugi-row">
+        <span class="dot" aria-hidden="true"></span>
+        <div>
+          <h3>Pomoc w formalnościach</h3>
+          <p>Księga wieczysta, przygotowanie do aktu notarialnego, koordynacja z bankiem kupującego przy kredycie — pilnujemy tego razem z Tobą, bez przekazywania sprawy dalej.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="opinie">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Opinie</span>
+    <h2 class="center" style="text-align:center;">Co mówią nasi klienci</h2>
+    <div class="opinie-list">
+      <div class="opinia-row">
+        <div class="opinia-avatar" aria-hidden="true">E</div>
+        <div class="opinia-body">
+          <p>Przez całą sprzedaż — od wyceny po podpis u notariusza — rozmawiałam z tą samą osobą. Nie musiałam nikomu tłumaczyć sytuacji po raz drugi.</p>
+          <div class="opinia-who">Ewa <small>· Kraków, sprzedająca mieszkanie</small></div>
+        </div>
+      </div>
+      <div class="opinia-row">
+        <div class="opinia-avatar" aria-hidden="true">M</div>
+        <div class="opinia-body">
+          <p>Doceniłem, że pośredniczka, którą poznałem na pierwszym spotkaniu, pamiętała każdy szczegół, kiedy pół roku później wróciliśmy do rozmowy o kupnie kolejnej nieruchomości.</p>
+          <div class="opinia-who">Marek <small>· Kraków, kupujący dom</small></div>
+        </div>
+      </div>
+      <div class="opinia-row">
+        <div class="opinia-avatar" aria-hidden="true">K</div>
+        <div class="opinia-body">
+          <p>Kameralne biuro okazało się dokładnie tym, czego szukałam — bez korporacyjnego przerzucania mnie między konsultantami.</p>
+          <div class="opinia-who">Kasia <small>· Kraków, sprzedająca dom</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="faq">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Pytania i odpowiedzi</span>
+    <h2 class="center" style="text-align:center;">Najczęściej pytacie</h2>
+    <div class="faq-list">
+      <details class="faq-card" open>
+        <summary>Czy zawsze będę miał/a kontakt z tą samą osobą?</summary>
+        <p>Tak — to zamierzona zasada tego biura. Pracujemy w składzie dwóch pośredniczek, żeby każdy klient miał stały kontakt z jedną, znaną sobie osobą przez całą sprzedaż lub zakup.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Co, jeśli moja stała pośredniczka jest akurat niedostępna?</summary>
+        <p>Druga pośredniczka pracuje w tym samym biurze i na bieżąco zna przebieg Twojej sprawy, więc w razie potrzeby przejmie kontakt bez pytań od zera — o takiej zmianie zawsze uprzedzamy telefonicznie, zanim do niej dojdzie.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Czy kameralne biuro poradzi sobie z całym procesem sprzedaży?</summary>
+        <p>Tak — celowo ograniczamy liczbę prowadzonych jednocześnie spraw, żeby każdej poświęcić realną uwagę, zamiast rozpraszać się na wiele transakcji naraz.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Jak długo działacie na rynku?</summary>
+        <p>Prowadzimy to biuro razem od 11 lat i w tym czasie doprowadziliśmy do końca ponad 180 transakcji sprzedaży i zakupu.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Czy pomagacie też przy zakupie, nie tylko sprzedaży?</summary>
+        <p>Tak — doradzamy przy ocenie nieruchomości i stanu prawnego przed złożeniem oferty, z tą samą osobą prowadzącą rozmowy od początku do końca.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Kontakt</span>
+    <h2 class="center" style="text-align:center;">Umów spotkanie</h2>
+    <p class="lead center" style="text-align:center;">Zadzwoń i porozmawiaj od razu z osobą, która poprowadzi Twoją sprawę od początku do końca.</p>
+    <div class="contact-split">
+      <div class="contact-card">
+        <h3>Zadzwoń i wybierz dogodny termin</h3>
+        <p>Odbieramy telefony w godzinach otwarcia biura — poza nimi zostaw wiadomość, oddzwonimy.</p>
+        <a href="tel:500 123 456" class="btn btn-primary">📞 500 123 456</a>
+        <div class="contact-info">
+          <div><b>E-mail</b>kontakt@metrum.pl</div>
+          <div><b>Adres</b>ul. Przykładowa 12, Kraków</div>
+          <div><b>Pon–Pt</b>9:00 – 18:00</div>
+          <div><b>Sobota</b>10:00 – 14:00</div>
+        </div>
+      </div>
+      <div class="map-panel">
+        <iframe src="https://www.google.com/maps?q=ul. Przykładowa 12, Kraków&output=embed" title="Mapa dojazdu do Metrum w mieście Kraków" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Metrum</div>
+  <p>Metrum to dwie pośredniczki prowadzące biuro nieruchomości w mieście Kraków od 11 lat — każdą transakcję od pierwszego spotkania do notariusza prowadzi jedna, ta sama osoba.</p>
+  <div class="footer-links">
+    <a href="#uslugi">Usługi</a>
+    <a href="#zespol">Nasz zespół</a>
+    <a href="tel:500 123 456">500 123 456</a>
+    <a href="mailto:kontakt@metrum.pl">kontakt@metrum.pl</a>
+  </div>
+  <div class="footer-bottom">© <span id="year"></span> Metrum — biuro nieruchomości Kraków.</div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  var navToggle = document.getElementById('navToggle');
+  var navLinksMobile = document.getElementById('navLinksMobile');
+  navToggle.addEventListener('click', function(){
+    var isOpen = navLinksMobile.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  navLinksMobile.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      navLinksMobile.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Jedyny ruch w tym wariancie: jednorazowy, stopniowany fade-in przy scrollu
+  // (motion-baseline archetypu 4 — patrz komentarz przy :root).
+  var fadeTargets = document.querySelectorAll('.compare-panel, .uslugi-row, .opinia-row');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          var el = entry.target;
+          var delay = (Array.prototype.indexOf.call(el.parentElement.children, el)) * 80;
+          setTimeout(function(){ el.classList.add('visible'); }, delay);
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.15 });
+    fadeTargets.forEach(function(el){ io.observe(el); });
+  } else {
+    fadeTargets.forEach(function(el){ el.classList.add('visible'); });
+  }
+</script>
+
+</body>
+</html>

@@ -235,4 +235,65 @@ ticket-cards ofert, pionowa oś procesu) i nieruchomosci-2 (widget licznika, mar
 tempa) — kalkulator jako centralny, unikalny mechanizm tego wariantu w całej branży.`,
 });
 
+VARIANTS.push({
+  id: 'nieruchomosci-4-kameralne-biuro',
+  tier: 'pro',
+  name: 'Kameralne biuro',
+  visual: `STYL: adaptacja archetypu "Rodzinna firma" dla agencji sprzedaży mieszkań. Mechanizm
+zaufania: MAŁY, STAŁY ZESPÓŁ — od pierwszego spotkania do notariusza klient ma do czynienia z TĄ
+SAMĄ osobą, nie z przypadkowym agentem z rotacji dużego biura. To ma realną wartość praktyczną w
+tej branży (nie tylko sentymentalną): sprzedaż mieszkania trwa tygodnie/miesiące, więc agent który
+zna historię danej nieruchomości i klienta od początku podejmuje lepsze decyzje niż ktoś wdrażany
+w połowie procesu. To ten sam mechanizm zaufania co "ta sama ekipa, nie loteria kogo wyślą" w
+innych branżach systemu (fryzjer-barber-4, medycyna-estetyczna-4), przeniesiony na grunt
+transakcji nieruchomości.
+
+NIE zmyślaj konkretnego imienia właściciela jako faktu marketingowego (ZASADY.md sekcja 5) — możesz
+opisowo odnieść się do "niewielkiego zespołu" / "dwóch pośredniczek prowadzących biuro razem" bez
+wymyślania konkretnych imion własnych jako rzekomo prawdziwych, chyba że jako świadomie fikcyjny,
+oczywisty placeholder tego samego typu co {{NAZWA_STRONY}} — sprawdź jak medycyna-estetyczna-4-
+kameralny-gabinet.html rozwiązała dokładnie ten sam problem w innej branży i zastosuj spójną
+konwencję.
+
+MOTION BASELINE — świadomy wyjątek archetypu 4 w CAŁYM systemie (patrz README.md "Świadome
+wyjątki"): WYCISZONY ruch nawet jako wariant pro. Brak ambientowego glow w tle, brak shimmeru na
+CTA, brak marquee/liczników. Jedyny dozwolony ruch: jednorazowy, stopniowany fade-in przy scrollu.
+Zapisz to jawnie w komentarzu HTML przy :root, żeby było jasne że to decyzja, nie przeoczenie —
+dokładnie jak w hydraulik-4, remonty-4, medycyna-estetyczna-4.
+
+RÓŻNICOWANIE FORMY — w systemie WSZYSTKIE dotychczasowe warianty "Rodzinna firma" poszły w
+nasycone, ziemiste palety (rdzawy pomarańcz hydraulik-4, zieleń szałwiowa elektryk-4, zieleń leśna
+fryzjer-barber-4, oliwka remonty-4, brąz studio-paznokci-4, dusty-blue salon-fryzjerski-4,
+terakotowy róż medycyna-estetyczna-4). Ten wariant ma pójść w INNĄ STRONĘ w obrębie ciepłego
+rejestru: stonowany, niemal neutralny, ciepły kamień/greige (bardzo przygaszony, prawie
+achromatyczny beż-szarość) z JEDNYM miękkim, przydymionym akcentem (np. przygaszony
+różowo-cynamonowy lub stonowana mgiełka — nie nasycona pomarańcz/zieleń/brąz jak reszta systemu).
+To ma czuć się bardziej "cichy salon/gabinet" niż "rzemieślnicza, ziemista firma".
+
+PALETA — sprawdź grepem że nie koliduje z ŻADNYM wariantem w systemie (uruchom:
+grep -rhoE "#[0-9a-fA-F]{3,6}" templates/pilot/*.html), w tym z pozostałymi wariantami "Rodzinna
+firma" wymienionymi wyżej ORAZ z nieruchomosci-1 (granat+mosiądz), nieruchomosci-2 (zieleń+grafit),
+nieruchomosci-3 (indygo+biel). TYPOGRAFIA: zweryfikuj grepem że nieużyta nigdzie w systemie, w tym
+Vollkorn/Inter Tight, Syne/Red Hat Text, Poppins/Golos Text z wariantów 1-3 tej branży.
+
+ZDJĘCIE (już wyszukane przez Pexels API i zweryfikowane, użyj TEGO DOKŁADNEGO URL, nie zgaduj
+innych):
+- Dwie koleżanki z zespołu, ciepła, autentyczna rozmowa przy kawie, przytulne wnętrze biura:
+  https://images.pexels.com/photos/5915142/pexels-photo-5915142.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+Jeśli potrzebujesz więcej zdjęć — NIE zgaduj ID, zostaw "<!-- PHOTO NEEDED: opis -->" i wypisz w
+raporcie, główna sesja dośle zweryfikowany URL przez Pexels API.
+
+TREŚĆ — sekcje: nav, hero (obietnica: ta sama osoba od pierwszego spotkania do notariusza), sekcja
+"dlaczego ten sam zespół ma znaczenie" (ciągłość jako realna wartość, nie tylko miła atmosfera —
+konkretnie: agent zna historię nieruchomości, nie trzeba tłumaczyć sytuacji od nowa nowej osobie),
+prosta lista usług (NIE karty/grid jak w innych wariantach tej branży — zgodnie z konwencją
+archetypu 4 w systemie: prosta, ciepła struktura bez gadżetów), opinie klientów (generyczne imiona +
+miasto, NIGDY nazwy firm — ZASADY.md sekcja 5), FAQ, kontakt z mapą. Gramatyka {{MIASTO}} (ZASADY.md
+sekcja 2) poprawna w każdym użyciu.
+
+LAYOUT — bespoke mechanizm każdej sekcji, inny niż nieruchomosci-1/2/3 (numerowane wiersze/
+ticket-cards/oś procesu; widget/marquee/zakładki; kalkulator) — prosty, ciepły, wyciszony, zgodny z
+konwencją archetypu 4 w całym systemie.`,
+});
+
 module.exports = { VARIANTS, SAMPLE_TOKENS };
