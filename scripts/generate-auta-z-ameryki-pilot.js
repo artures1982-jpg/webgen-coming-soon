@@ -90,4 +90,84 @@ procesu z nieruchomosci-1 ani rozkładu cennika z żadnego innego wariantu).`,
   },
 ];
 
+VARIANTS.push({
+  id: 'auta-z-ameryki-2-kalkulator-sprowadzenia',
+  tier: 'pro',
+  name: 'Kalkulator sprowadzenia',
+  visual: `STYL: adaptacja archetypu "Nowoczesny cyfrowy" dla firmy sprowadzającej auta z USA.
+Mechanizm centralny: REALNIE DZIAŁAJĄCY KALKULATOR KOSZTU SPROWADZENIA (JS, przelicza na żywo,
+bez przeładowania) — to jest dokładnie ta rzecz, której klient tej branży szuka w Google
+("kalkulator sprowadzenia auta z USA"), więc kalkulator ma być bohaterem strony, nie dodatkiem.
+
+WEJŚCIA kalkulatora (dobierz sensowne kontrolki — suwak/pola/segmented):
+- cena z licytacji w USD (suwak lub pole, zakres ok. 2 000 – 60 000 USD),
+- pojemność silnika (przełącznik: do 2000 cm³ / powyżej 2000 cm³) — to decyduje o stawce akcyzy,
+- opcjonalnie: stan (jezdne / do naprawy) wpływający na widełki kosztu naprawy, oraz port
+  docelowy albo odległość dostawy w PL, jeśli chcesz dodać transport krajowy jako pozycję.
+
+WYJŚCIE: rozpisany rachunek pozycja po pozycji (cena auta, opłaty aukcyjne, transport lądowy w
+USA, fracht morski, cło 10%, akcyza 3,1% albo 18,6%, VAT 23%, transport krajowy) + WYRAŹNA suma
+"koszt pod dom" w PLN. UWAGA — cała branża w tym wariancie 2 używa frazy „pod dom", NIE „pod
+klucz" (decyzja Artura, wariant 1 został już na to przerobiony) — trzymaj się „pod dom".
+
+MATEMATYKA MUSI SIĘ ZGADZAĆ (to branża, w której klient sprawdza wynik własnym kalkulatorem —
+w wariancie 1 wyłapano już realny błąd tego typu): cło liczone od wartości celnej (cena auta +
+transport), akcyza od wartości celnej powiększonej o cło, VAT od całości powiększonej o cło i
+akcyzę. Zastosuj kurs USD/PLN jako jawną, edytowalną albo widocznie podaną stałą (np. ok. 4,00
+PLN/USD) i JAWNIE zaznacz, że kurs jest przykładowy i zmienny. Sprawdź swoje liczby ręcznie na
+2-3 przykładach zanim oddasz plik.
+
+KRYTYCZNE ZASTRZEŻENIA UCZCIWOŚCIOWE (widoczne przy kalkulatorze, nie w drobnym druku):
+kalkulator daje SZACUNEK, nie ofertę — realna kwota zależy od kursu waluty w dniu odprawy,
+faktycznych opłat aukcyjnych, stanu auta i zakresu naprawy. Zero "gwarantowanej ceny końcowej".
+FAQ musi mieć pytanie wprost adresujące dokładność kalkulatora.
+
+RÓŻNICOWANIE: wariant 1 tej branży (auta-z-ameryki-1-zaufany-importer.html) jest JASNY
+(chłodne szaro-zielone tło #eef1ef + przemysłowa oliwka #595c2d, kondensowany Big Shoulders
+Display) i statyczny — z rozpisaną tabelą kosztów jako treścią. Ten wariant ma być wyraźnie inny:
+ciemniejszy, "terminalowy" rejestr (klimat panelu aukcyjnego / dashboardu), a rozpiska kosztów
+ma tu być WYNIKIEM interakcji, nie statyczną listą. NIE powielaj mechanizmu "trasy" transportowej
+z wariantu 1.
+
+PALETA — sprawdź grepem że nie koliduje z ŻADNYM wariantem w systemie (grep -rhoE
+"#[0-9a-fA-F]{3,6}" templates/pilot/*.html), w tym z wariantem 1 tej branży. Uwaga: rodzina
+"ciemne tło + jaskrawy akcent" jest w systemie mocno zajęta — limonka (remonty-2), zieleń
+(nieruchomosci-2), cyan/niebieski (hydraulik-3/6, fryzjer-barber-3, medycyna-estetyczna-3),
+magenta (studio-paznokci-2), złoto (fryzjer-barber-2, salon-fryzjerski-2), czerwień/pomarańcz
+(elektryk-2, hydraulik-2), fiolet (elektryk-3, remonty-3), wino/bordo (nieruchomosci-5).
+Propozycja kierunku do zweryfikowania: ciemny grafit/węgiel z akcentem MIEDZIANYM/rdzawym
+(miedź na ciemnym tle nie występuje — elektryk-5 #a85c32 i hydraulik-4 #c1613a to terakota na
+JASNYCH tłach) — ale jeśli grep pokaże kolizję nastroju, wybierz coś innego i uzasadnij.
+TYPOGRAFIA: zweryfikuj grepem że nieużyta w systemie, w tym Big Shoulders Display/Overpass z
+wariantu 1 tej branży. Dla kalkulatora rozważ krój z porządnymi cyframi tabelarycznymi
+(font-variant-numeric: tabular-nums) — liczby zmieniają się na żywo i nie mogą "skakać".
+
+WYMAGANY RUCH (obowiązkowy próg dla wariantu pro): płynna animacja liczb w wyniku przy każdej
+zmianie kontrolki (count-up/tween, nie przeskok), wyraźna wizualna reakcja na interakcję
+(podświetlenie zmienionej pozycji rachunku), shimmer na primary CTA, ambientowa poświata lub
+subtelny efekt tła w hero, stopniowany fade-in sekcji. Pełny prefers-reduced-motion — wymień
+jawnie każdą nietrywialną animację w komentarzu HTML.
+
+ZDJĘCIE (wyszukane przez Pexels API, zweryfikowane curl 200, użyj TEGO DOKŁADNEGO URL):
+- Długi rząd aut na placu z amerykańską panoramą miasta w tle (klimat placu aukcyjnego w USA):
+  https://images.pexels.com/photos/29566908/pexels-photo-29566908.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+UWAGA: wariant 1 tej branży używa zdjęcia z tej samej serii (port, ID 29566901) w układzie
+hero-split — NIE stawiaj tego zdjęcia w tej samej roli kompozycyjnej, żeby warianty nie wyglądały
+jak ta sama strona w innym kolorze. Ten wariant może być niemal bezzdjęciowy (kalkulator jako
+bohater) i użyć fotografii np. jako wąskiego pasa/tła sekcji. Jeśli chcesz więcej zdjęć — NIE
+zgaduj ID, zostaw "<!-- PHOTO NEEDED: opis -->" i wypisz w raporcie.
+
+ZASADA 6.8 z ZASADY.md (KRYTYCZNA, świeżo dodana po realnym błędzie w wariancie 1 tej branży):
+jeśli dodajesz jakąkolwiek kartę/badge nachodzącą na zdjęcie — musi mieć override na mobile
+(position:relative + ujemny margines albo position:static), inaczej zasłania fotografię na
+telefonie. Skan overflow tego NIE wykrywa. Zweryfikuj zrzutem ekranu na 360/390px.
+
+TREŚĆ — sekcje: nav, hero z kalkulatorem jako centralnym elementem, sekcja "jak liczymy" (co
+dokładnie składa się na każdą pozycję rachunku i skąd biorą się stawki), sekcja pokazująca
+różnicę między "ceną z licytacji" a realnym kosztem końcowym (psychologiczny sedno tej branży),
+opinie klientów (generyczne imiona + miasto + model auta, NIGDY nazwy firm — ZASADY.md sekcja 5),
+FAQ (w tym dokładność kalkulatora i wpływ kursu waluty), kontakt z mapą. Gramatyka {{MIASTO}}
+poprawna; firma działa ogólnopolsko, {{MIASTO}} to siedziba, nie zasięg.`,
+});
+
 module.exports = { VARIANTS, SAMPLE_TOKENS };
