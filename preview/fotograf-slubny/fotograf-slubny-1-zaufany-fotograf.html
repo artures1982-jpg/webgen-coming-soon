@@ -70,7 +70,7 @@
   .nav-links-desktop{display:flex;gap:1.7rem;flex:1;justify-content:center;}
   .nav-links-desktop a{font-weight:600;font-size:.87rem;color:var(--text);white-space:nowrap;}
   .nav-links-desktop a:hover{color:var(--accent);}
-  .nav-actions{display:flex;align-items:center;gap:.7rem;flex-shrink:0;}
+  .nav-actions{display:flex;align-items:center;gap:.7rem;flex-shrink:0;margin-left:auto;}
   .nav-phone{display:flex;align-items:center;gap:.5rem;padding:.6rem 1rem;border:1px solid color-mix(in srgb, var(--text) 22%, transparent);border-radius:2px;font-weight:600;font-size:.87rem;white-space:nowrap;}
   .nav-phone .icon{display:none;}
   .nav-links-mobile{display:none;}
@@ -145,10 +145,11 @@
   .frame img{width:100%;height:100%;object-fit:cover;}
   .frame:has(img)::before{content:'';position:absolute;left:0;right:0;bottom:0;height:46%;background:linear-gradient(to top, color-mix(in srgb, var(--text) 88%, transparent), transparent);pointer-events:none;}
   .frame-num{position:absolute;z-index:1;left:6px;bottom:6px;font-family:var(--body);font-size:.68rem;font-weight:600;letter-spacing:.05em;color:color-mix(in srgb, var(--bg) 70%, transparent);text-shadow:0 1px 3px color-mix(in srgb, var(--text) 70%, transparent);}
-  .frame.blank{display:flex;align-items:center;justify-content:center;}
-  .frame.blank .frame-num{position:static;color:color-mix(in srgb, var(--bg) 32%, transparent);font-size:1.05rem;}
   .frame.selected{outline:2px solid var(--accent);outline-offset:-2px;}
   .frame.selected .frame-num{background:var(--accent);color:var(--surface);padding:.1rem .4rem;border-radius:2px;left:6px;bottom:6px;}
+  .frame.counter{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:.2rem;padding:.5rem;background:color-mix(in srgb, var(--accent) 30%, var(--text));}
+  .frame.counter .count-num{font-family:var(--head);font-size:1.5rem;line-height:1;color:var(--surface);}
+  .frame.counter .count-label{font-size:.68rem;letter-spacing:.03em;color:color-mix(in srgb, var(--bg) 82%, transparent);}
 
   @media (max-width:700px){ .frame{width:118px;height:118px;} }
 
@@ -305,14 +306,14 @@
     </div>
     <div class="filmstrip">
       <div class="filmstrip-row">
-        <div class="frame"><img src="https://images.pexels.com/photos/29891248/pexels-photo-29891248.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="150" height="150" alt="Wzruszenie w trakcie ceremonii ślubnej, ujęcie reportażowe" loading="lazy"><span class="frame-num">014</span></div>
-        <div class="frame blank"><span class="frame-num">015</span></div>
-        <div class="frame blank"><span class="frame-num">016</span></div>
-        <div class="frame selected"><img src="https://images.pexels.com/photos/25824234/pexels-photo-25824234.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="150" height="150" alt="Intymne zbliżenie czarno-białe, kadr artystyczny" loading="lazy"><span class="frame-num">017</span></div>
-        <div class="frame blank"><span class="frame-num">018</span></div>
-        <div class="frame blank"><span class="frame-num">019</span></div>
-        <div class="frame blank"><span class="frame-num">020</span></div>
-        <div class="frame blank"><span class="frame-num">021</span></div>
+        <div class="frame"><img src="https://images.pexels.com/photos/33661438/pexels-photo-33661438.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="150" height="150" alt="Panna młoda podczas przygotowań, suknia w odbiciu lustra" loading="lazy"><span class="frame-num">014</span></div>
+        <div class="frame"><img src="https://images.pexels.com/photos/20654851/pexels-photo-20654851.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="150" height="150" alt="Bukiet ślubny pod welonem panny młodej" loading="lazy"><span class="frame-num">015</span></div>
+        <div class="frame"><img src="https://images.pexels.com/photos/27393582/pexels-photo-27393582.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="150" height="150" alt="Dłonie nowożeńców z obrączkami, zbliżenie czarno-białe" loading="lazy"><span class="frame-num">016</span></div>
+        <div class="frame"><img src="https://images.pexels.com/photos/29891248/pexels-photo-29891248.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="150" height="150" alt="Wzruszenie w trakcie ceremonii ślubnej, ujęcie reportażowe" loading="lazy"><span class="frame-num">017</span></div>
+        <div class="frame selected"><img src="https://images.pexels.com/photos/25824234/pexels-photo-25824234.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="150" height="150" alt="Intymne zbliżenie czarno-białe, kadr artystyczny" loading="lazy"><span class="frame-num">018</span></div>
+        <div class="frame"><img src="https://images.pexels.com/photos/30146471/pexels-photo-30146471.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="150" height="150" alt="Wieczorne przyjęcie, taniec pod girlandami świateł" loading="lazy"><span class="frame-num">019</span></div>
+        <div class="frame"><img src="https://images.pexels.com/photos/13434438/pexels-photo-13434438.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="150" height="150" alt="Nowożeńcy tańczący z gośćmi na weselu" loading="lazy"><span class="frame-num">020</span></div>
+        <div class="frame counter"><span class="count-num">+780</span><span class="count-label">kadrów z tego wesela</span></div>
       </div>
     </div>
   </div>
