@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{NAZWA_STRONY}} — historia jednego dnia, fotograf ślubny {{MIASTO}}</title>
+<meta name="description" content="{{NAZWA_STRONY}} — fotografia ślubna w mieście {{MIASTO}}. Zobaczcie historię jednego ślubu, godzina po godzinie, od porannych przygotowań po ostatni taniec.">
+<link rel="canonical" href="https://{{SLUG}}.webgen.pl">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "{{NAZWA_STRONY}}",
+  "image": "https://images.pexels.com/photos/3361200/pexels-photo-3361200.jpeg",
+  "telephone": "{{TELEFON}}",
+  "email": "{{EMAIL}}",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "{{ADRES}}",
+    "addressLocality": "{{MIASTO}}",
+    "addressCountry": "PL"
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /* ================= 8 zmiennych CSS-var — jedyne miejsce z literałami hex poza color-mix(white/black).
+     Rejestr celowo prawie achromatyczny: --accent to ciepła kość słoniowa (światło rzutnika/kalki
+     fotograficznej), nie nasycony kolor — jedynym "kolorem" na stronie mają być same zdjęcia. ================= */
+  :root{
+    --accent:#eee6d6;       /* ciepła kość słoniowa — światło, nie barwa: CTA, ramki, numery klatek */
+    --accent-dark:#b7a889;  /* przygaszona kość słoniowa — hover, tekst drugorzędny na jasnym tle */
+    --bg:#0d0c0a;            /* niemal czerń, ciepły neutralny węgiel — kinowa sala projekcyjna */
+    --surface:#19170f;       /* odrobinę jaśniejszy panel — karty, pasek faktów */
+    --text:#f4f1ea;          /* ciepła biel — tekst na ciemnym tle */
+    --muted:#8c8578;         /* ciepły szary — tekst drugorzędny */
+    --head:'Prata', serif;
+    --body:'Space Mono', monospace;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  h1,h2,h3{font-family:var(--head);font-weight:400;line-height:1.15;color:var(--text);}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 1.6rem;}
+  .eyebrow{font-family:var(--body);font-weight:700;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-dark);}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:1rem 1.9rem;border-radius:2px;font-family:var(--body);font-weight:700;font-size:.85rem;letter-spacing:.03em;border:1px solid transparent;cursor:pointer;transition:transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease, border-color .18s ease;}
+
+  /* Shimmer + glow na primary CTA — poświata ciągła (box-shadow statyczny, tani) + przesuwający się
+     pasek jasności w tle (background-position, GPU: tło, nie box-shadow w pętli). Wyłączone pod
+     prefers-reduced-motion niżej. */
+  .btn-primary{
+    color:var(--bg);
+    background-image:linear-gradient(100deg, var(--accent) 0%, var(--text) 45%, var(--accent) 60%, var(--accent) 100%);
+    background-size:240% 100%;
+    background-position:0% 0;
+    animation:shimmerSweep 5s ease-in-out infinite;
+    box-shadow:0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent), 0 18px 34px -16px color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 0 0 1px var(--accent), 0 22px 40px -14px color-mix(in srgb, var(--accent) 70%, transparent);}
+  @keyframes shimmerSweep{0%{background-position:0% 0;}50%{background-position:100% 0;}100%{background-position:0% 0;}}
+  .btn-ghost{background:transparent;color:var(--text);border-color:color-mix(in srgb, var(--text) 30%, transparent);}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+
+  section{padding:6rem 0;}
+  .section-head{max-width:640px;margin-bottom:3rem;}
+  .section-head h2{font-size:clamp(1.8rem,3.4vw,2.7rem);margin-top:.7rem;}
+  .section-head p{color:var(--muted);margin-top:1.1rem;font-size:.98rem;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition-duration:.001ms !important; animation-duration:.001ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important;}
+  }
+
+  /* ---------- REVEAL — stopniowany fade-in przy scrollu, uzbrajany przez JS (bez JS treść
+     zostaje w pełni widoczna od razu, nic nie jest chowane w czystym CSS). ---------- */
+  .reveal.reveal-armed{opacity:0;transform:translateY(26px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.reveal-armed.is-visible{opacity:1;transform:none;}
+
+  /* ---------- NAV — minimalna, przezroczysta nad hero, próg hamburgera 960px (zmierzone bezpiecznie,
+     ZASADY.md 6.6). Dropdown mobilny jest rodzeństwem .wrap wewnątrz header.nav (ZASADY.md 6.4). ---------- */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:50;background:color-mix(in srgb, var(--bg) 72%, transparent);backdrop-filter:blur(10px);border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);}
+  .nav .wrap{display:flex;align-items:center;gap:1.4rem;height:72px;}
+  .logo{display:flex;align-items:center;gap:.6rem;min-width:0;flex-shrink:1;}
+  .logo-mark{position:relative;width:11px;height:11px;flex-shrink:0;}
+  .logo-mark::before,.logo-mark::after{content:'';position:absolute;background:var(--accent);}
+  .logo-mark::before{left:50%;top:0;bottom:0;width:1.5px;transform:translateX(-50%);}
+  .logo-mark::after{top:50%;left:0;right:0;height:1.5px;transform:translateY(-50%);}
+  .logo-name{display:inline-block;font-family:var(--head);font-size:1.28rem;letter-spacing:.01em;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;vertical-align:bottom;}
+  .nav-links-desktop{display:flex;gap:1.6rem;flex:1;justify-content:center;}
+  .nav-links-desktop a{font-weight:700;font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);white-space:nowrap;transition:color .18s ease;}
+  .nav-links-desktop a:hover{color:var(--accent);}
+  .nav-actions{display:flex;align-items:center;gap:.9rem;flex-shrink:0;margin-left:auto;}
+  .nav-phone{display:flex;align-items:center;gap:.5rem;font-weight:700;font-size:.8rem;letter-spacing:.02em;color:var(--accent);white-space:nowrap;border:1px solid color-mix(in srgb, var(--accent) 45%, transparent);padding:.55rem .95rem;border-radius:2px;}
+  .nav-phone .icon{display:none;}
+  .nav-links-mobile{display:none;}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.35rem;flex-shrink:0;}
+  .nav-toggle span{width:22px;height:1.5px;background:var(--text);}
+
+  @media (max-width:960px){
+    .nav-links-desktop{display:none;}
+    .nav-toggle{display:flex;}
+    .nav-links-mobile{display:none;position:absolute;top:100%;left:0;right:0;background:var(--surface);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);flex-direction:column;padding:.4rem 1.5rem 1.4rem;gap:0;}
+    .nav-links-mobile.open{display:flex;}
+    .nav-links-mobile a{padding:.85rem 0;font-weight:700;font-size:.9rem;letter-spacing:.03em;text-transform:uppercase;border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);color:var(--text);}
+    .nav-links-mobile .mobile-cta{color:var(--accent);}
+  }
+  @media (max-width:700px){
+    .nav-actions > .btn, .nav-phone .txt{display:none;}
+    .nav-phone .icon{display:inline;}
+    .nav-phone{width:44px;height:44px;padding:0;justify-content:center;border-radius:50%;}
+  }
+  @media (max-width:480px){
+    .logo-name{font-size:1.08rem;}
+    .nav .wrap{gap:.7rem;}
+  }
+
+  /* ---------- HERO — kinowe, pełnoekranowe zdjęcie z powolnym ken-burnsem (transform, GPU) +
+     podwójny scrim (jednolita przyciemniająca warstwa + gradient mocniejszy u dołu) — działa
+     niezależnie od jasności zdjęcia, więc bezpieczne dla reguły 6.8 nawet na najjaśniejszym kadrze
+     w całym zestawie (para w polu, pod słońce). ---------- */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;background:var(--bg);}
+  .hero-bg{position:absolute;inset:0;overflow:hidden;}
+  .hero-photo{width:100%;height:100%;object-fit:cover;animation:heroZoom 22s ease-in-out infinite alternate;}
+  @keyframes heroZoom{0%{transform:scale(1);}100%{transform:scale(1.1);}}
+  .hero-wash{position:absolute;inset:0;background:color-mix(in srgb, var(--bg) 42%, transparent);}
+  .hero-scrim{position:absolute;inset:0;background:linear-gradient(180deg, color-mix(in srgb, var(--bg) 55%, transparent) 0%, transparent 32%, color-mix(in srgb, var(--bg) 60%, transparent) 68%, var(--bg) 100%);}
+  .hero-inner{position:relative;z-index:1;padding:9rem 0 4.6rem;max-width:760px;}
+  .hero-inner h1{font-size:clamp(2.1rem,4.6vw,3.4rem);margin-top:.9rem;}
+  .hero-inner p.lead{color:color-mix(in srgb, var(--text) 82%, transparent);margin-top:1.3rem;font-size:1.04rem;max-width:560px;}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2.3rem;}
+  .hero-scroll{display:flex;align-items:center;gap:.8rem;margin-top:3.2rem;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
+  .hero-scroll-line{width:1px;height:34px;background:linear-gradient(var(--accent), transparent);animation:scrollPulse 2.4s ease-in-out infinite;}
+  @keyframes scrollPulse{0%,100%{opacity:.3;}50%{opacity:1;}}
+
+  @media (max-width:700px){
+    .hero{min-height:92svh;}
+    .hero-inner{padding:8rem 0 3.4rem;}
+  }
+
+  /* ---------- PASEK FAKTÓW ---------- */
+  .fakty{background:var(--surface);padding:2.8rem 0;}
+  .fakty-row{display:flex;flex-wrap:wrap;}
+  .fakt{flex:1 1 220px;padding:0 1.6rem;text-align:left;border-left:1px solid color-mix(in srgb, var(--text) 12%, transparent);min-width:0;}
+  .fakt:first-child{border-left:none;}
+  .fakt b{display:block;font-family:var(--head);font-size:clamp(1.5rem,2.6vw,1.9rem);color:var(--accent);font-weight:400;}
+  .fakt span{display:block;margin-top:.5rem;font-size:.82rem;color:var(--muted);}
+  @media (max-width:760px){
+    .fakt{border-left:none;border-top:1px solid color-mix(in srgb, var(--text) 12%, transparent);padding:1.2rem 1rem;}
+    .fakt:first-child{border-top:none;}
+  }
+
+  /* ---------- HISTORIA JEDNEGO DNIA — rdzeń strony. Pionowa sekwencja pełnowymiarowych kadrów
+     z ciężarem "rozdziałów filmu", nie siatka galerii. Sticky "szyna" godzin po lewej (desktop) —
+     mechanizm, którego nie ma żaden inny wariant w systemie. Każda karta godziny leży na WŁASNEJ,
+     stałej ciemnej płytce (color-mix z --bg), więc kontrast jest gwarantowany niezależnie od
+     jasności zdjęcia pod spodem (reguła 6.8) — jasny hotelowy pokój rano i ciemna nawa kościoła
+     dostają dokładnie ten sam, sprawdzony scrim. ---------- */
+  .historia{background:var(--bg);}
+  .historia-layout{display:grid;grid-template-columns:92px 1fr;gap:2.6rem;align-items:start;}
+  .rail{position:sticky;top:120px;display:flex;flex-direction:column;gap:1.6rem;min-width:0;}
+  .rail-item{opacity:.32;transition:opacity .35s ease;}
+  .rail-item .rn{display:block;font-size:.68rem;color:var(--muted);}
+  .rail-item .rh{display:block;font-family:var(--body);font-weight:700;font-size:.86rem;color:var(--accent-dark);margin-top:.2rem;}
+  .rail-item.active{opacity:1;}
+  .rail-item.active .rh{color:var(--accent);}
+  @media (max-width:900px){ .rail{display:none;} .historia-layout{grid-template-columns:1fr;} }
+
+  .beats{display:flex;flex-direction:column;gap:1.6rem;min-width:0;}
+  .beat-photo{position:relative;border-radius:3px;overflow:hidden;min-width:0;background:var(--surface);}
+  .beat-photo img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/10;transition:transform .7s ease;}
+  .beat-photo:hover img{transform:scale(1.035);}
+  .beat-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, transparent 45%, color-mix(in srgb, var(--bg) 92%, transparent) 100%);pointer-events:none;}
+  .beat-tag{position:absolute;left:1.4rem;right:1.4rem;bottom:1.3rem;z-index:1;display:flex;align-items:flex-end;gap:1rem;}
+  .beat-plate{background:color-mix(in srgb, var(--bg) 84%, transparent);backdrop-filter:blur(5px);border:1px solid color-mix(in srgb, var(--accent) 25%, transparent);border-radius:2px;padding:.8rem 1.1rem;max-width:520px;}
+  .beat-num{font-family:var(--body);font-weight:700;font-size:.72rem;color:var(--accent-dark);letter-spacing:.08em;}
+  .beat-hour{font-family:var(--body);font-weight:700;font-size:1.15rem;color:var(--accent);margin-top:.15rem;}
+  .beat-caption{margin-top:.35rem;font-size:.92rem;color:var(--text);font-family:'Space Mono',monospace;line-height:1.4;}
+
+  .beat-duo{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;position:relative;border-radius:3px;overflow:hidden;}
+  .beat-duo .beat-photo{border-radius:0;aspect-ratio:auto;}
+  .beat-duo .beat-photo img{aspect-ratio:4/5;}
+  .beat-duo .beat-tag{grid-column:1/-1;position:absolute;left:1.4rem;right:1.4rem;bottom:1.3rem;}
+
+  @media (max-width:700px){
+    .beat-photo img{aspect-ratio:4/3.4;}
+    .beat-duo{grid-template-columns:1fr 1fr;}
+    .beat-duo .beat-photo img{aspect-ratio:5/6;}
+    .beat-plate{max-width:none;padding:.7rem .9rem;}
+    .beat-tag{left:.9rem;right:.9rem;bottom:.9rem;}
+  }
+
+  /* ---------- CO DOSTAJECIE — zdjęcie + lista faktów, bez numerowanych kroków (inny mechanizm
+     niż "jak pracuję" wariantu 1 i "krótki termin" wariantu 2). ---------- */
+  .dostajesz{background:var(--surface);}
+  .dostajesz-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:3.4rem;align-items:center;min-width:0;}
+  .dostajesz-photo{position:relative;border-radius:3px;overflow:hidden;min-width:0;}
+  .dostajesz-photo img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;}
+  .dostajesz-photo figcaption{position:absolute;left:0;right:0;bottom:0;padding:1rem 1.2rem;background:linear-gradient(180deg, transparent, color-mix(in srgb, var(--bg) 88%, transparent) 70%);font-size:.82rem;color:var(--text);}
+  .dostajesz-list{display:flex;flex-direction:column;gap:0;min-width:0;}
+  .d-row{display:flex;gap:1rem;padding:1.3rem 0;border-top:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .d-row:first-child{border-top:none;padding-top:0;}
+  .d-mark{flex-shrink:0;width:20px;height:20px;border:1px solid var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:.68rem;margin-top:.15rem;}
+  .d-row p{color:var(--muted);font-size:.95rem;}
+  .d-row strong{color:var(--text);}
+
+  @media (max-width:860px){ .dostajesz-grid{grid-template-columns:1fr;} }
+
+  /* ---------- GALERIA ZAMYKAJĄCA — marquee (pasek przesuwający się w pętli, transform:translateX)
+     z hover-zoom na kadrach — najmocniejszy "poruszający się pasek" w tym wariancie, zatrzymuje się
+     na hover i pod prefers-reduced-motion. ---------- */
+  .galeria{background:var(--bg);overflow:hidden;}
+  .marquee-viewport{overflow:hidden;-webkit-mask-image:linear-gradient(90deg, transparent, black 6%, black 94%, transparent);mask-image:linear-gradient(90deg, transparent, black 6%, black 94%, transparent);}
+  .marquee-track{display:flex;gap:.9rem;width:max-content;animation:marqueeScroll 38s linear infinite;}
+  .marquee-viewport:hover .marquee-track{animation-play-state:paused;}
+  @keyframes marqueeScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  .m-tile{flex:0 0 auto;width:200px;height:200px;border-radius:2px;overflow:hidden;position:relative;}
+  .m-tile img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
+  .m-tile:hover img{transform:scale(1.08);}
+  @media (max-width:700px){ .m-tile{width:140px;height:140px;} }
+  @media (prefers-reduced-motion: reduce){ .marquee-track{animation:none;} }
+
+  /* ---------- PAKIETY — edytorialnie, bez kart z tłem: duże liczby, cienkie separatory pionowe. ---------- */
+  .pakiety{background:var(--surface);}
+  .pakiety-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+  .pakiet{padding:0 2rem;border-left:1px solid color-mix(in srgb, var(--text) 14%, transparent);min-width:0;}
+  .pakiet:first-child{border-left:none;padding-left:0;}
+  .pakiet.featured .pakiet-name{color:var(--accent);}
+  .pakiet-name{font-family:var(--body);font-weight:700;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);}
+  .pakiet-price{font-family:var(--head);font-size:2.3rem;margin-top:.7rem;color:var(--text);}
+  .pakiet-price span{font-family:var(--body);font-size:.82rem;color:var(--muted);}
+  .pakiet-desc{margin-top:.8rem;color:var(--muted);font-size:.9rem;}
+  .pakiet-delivery{margin-top:1rem;font-size:.78rem;font-weight:700;color:var(--accent-dark);letter-spacing:.03em;}
+  .pakiet .btn{margin-top:1.6rem;width:100%;}
+
+  @media (max-width:860px){
+    .pakiety-grid{grid-template-columns:1fr;gap:2.2rem;}
+    .pakiet{border-left:none;border-top:1px solid color-mix(in srgb, var(--text) 14%, transparent);padding:2rem 0 0;}
+    .pakiet:first-child{border-top:none;padding-top:0;}
+  }
+
+  /* ---------- OPINIE ---------- */
+  .opinie{background:var(--bg);}
+  .opinie-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;}
+  .opinia{padding:1.9rem;border:1px solid color-mix(in srgb, var(--text) 12%, transparent);border-radius:3px;min-width:0;}
+  .opinia p{font-size:.94rem;color:var(--text);font-style:italic;}
+  .opinia footer{margin-top:1.2rem;font-size:.78rem;color:var(--accent-dark);font-weight:700;letter-spacing:.02em;}
+  @media (max-width:900px){ .opinie-grid{grid-template-columns:1fr;} }
+
+  /* ---------- FAQ ---------- */
+  .faq{background:var(--surface);max-width:820px;}
+  .faq-item{border-top:1px solid color-mix(in srgb, var(--text) 14%, transparent);}
+  .faq-item:last-child{border-bottom:1px solid color-mix(in srgb, var(--text) 14%, transparent);}
+  .faq-q{width:100%;text-align:left;background:none;border:none;padding:1.3rem 0;display:flex;justify-content:space-between;align-items:center;gap:1rem;cursor:pointer;font-family:var(--body);font-weight:700;font-size:.94rem;color:var(--text);}
+  .faq-q .plus{font-size:1.2rem;color:var(--accent);flex-shrink:0;transition:transform .2s ease;}
+  .faq-item.open .faq-q .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .faq-item.open .faq-a{max-height:280px;}
+  .faq-a p{padding:0 0 1.4rem;color:var(--muted);font-size:.92rem;max-width:640px;}
+
+  /* ---------- KONTAKT ---------- */
+  .kontakt{background:var(--bg);}
+  .kontakt-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.6rem;min-width:0;}
+  .kontakt-card{background:var(--surface);border-radius:3px;padding:2.3rem;min-width:0;}
+  .kontakt-card h3{font-family:var(--head);font-weight:400;font-size:1.4rem;}
+  .kontakt-card > p{margin-top:.9rem;color:var(--muted);font-size:.92rem;}
+  .kontakt-row{display:flex;flex-wrap:wrap;gap:.4rem .8rem;padding:.8rem 0;border-top:1px solid color-mix(in srgb, var(--text) 10%, transparent);font-size:.88rem;margin-top:1.4rem;}
+  .kontakt-row:first-of-type{border-top:1px solid color-mix(in srgb, var(--text) 10%, transparent);margin-top:1.6rem;}
+  .kontakt-row b{min-width:100px;color:var(--accent-dark);font-weight:700;text-transform:uppercase;font-size:.72rem;letter-spacing:.04em;}
+  .kontakt-row span,.kontakt-row a{min-width:0;flex:1 1 140px;overflow-wrap:anywhere;}
+  .map-panel{border-radius:3px;overflow:hidden;min-height:340px;min-width:0;filter:grayscale(.25) contrast(1.05);}
+  .map-panel iframe{width:100%;height:100%;min-height:340px;border:0;}
+  @media (max-width:900px){ .kontakt-grid{grid-template-columns:1fr;} }
+
+  /* ---------- FOOTER ---------- */
+  footer.site-footer{background:var(--surface);color:color-mix(in srgb, var(--text) 92%, transparent);padding:3.4rem 0 2.2rem;}
+  .footer-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2rem;padding-bottom:2rem;border-bottom:1px solid color-mix(in srgb, var(--text) 14%, transparent);}
+  .footer-logo{display:inline-block;font-family:var(--head);font-size:1.3rem;color:var(--text);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .footer-links{display:flex;gap:2.2rem;flex-wrap:wrap;}
+  .footer-links a{font-size:.78rem;letter-spacing:.03em;text-transform:uppercase;color:var(--muted);}
+  .footer-tagline{margin-top:1.4rem;font-size:.88rem;color:var(--muted);max-width:560px;}
+  .footer-bottom{margin-top:1.6rem;font-size:.76rem;color:color-mix(in srgb, var(--muted) 80%, transparent);}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#top" class="logo">
+      <span class="logo-mark"></span>
+      <span class="logo-name">{{NAZWA_STRONY}}</span>
+    </a>
+    <nav class="nav-links-desktop">
+      <a href="#historia">Historia dnia</a>
+      <a href="#dostajesz">Co dostajecie</a>
+      <a href="#pakiety">Pakiety</a>
+      <a href="#opinie">Opinie</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="tel:{{TELEFON}}" class="nav-phone"><span class="txt">{{TELEFON}}</span><span class="icon">📞</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu nawigacji" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-links-mobile" id="navLinksMobile">
+    <a href="#historia" class="mobile-cta">Zobacz historię dnia</a>
+    <a href="#dostajesz">Co dostajecie</a>
+    <a href="#pakiety">Pakiety</a>
+    <a href="#opinie">Opinie</a>
+    <a href="#faq">FAQ</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-bg">
+    <img class="hero-photo" src="https://images.pexels.com/photos/3361200/pexels-photo-3361200.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Para młoda w polu w złotej godzinie, zdjęcie pod słońce" loading="eager">
+    <div class="hero-wash"></div>
+    <div class="hero-scrim"></div>
+  </div>
+  <div class="wrap hero-inner">
+    <p class="eyebrow">Fotografia ślubna — {{MIASTO}}</p>
+    <h1>Jeden dzień, opowiedziany od pierwszej godziny do ostatniego tańca</h1>
+    <p class="lead">To, co zobaczycie niżej, to nie przypadkowe ładne kadry — to prawdziwy ślub, rozpisany godzina po godzinie. Tak wygląda dzień, w którym jestem przy Was od rana.</p>
+    <div class="hero-actions">
+      <a href="#historia" class="btn btn-primary">Zobaczcie historię dnia</a>
+      <a href="#pakiety" class="btn btn-ghost">Pakiety i cennik</a>
+    </div>
+    <div class="hero-scroll">
+      <span class="hero-scroll-line"></span>
+      <span>Przewińcie, żeby zacząć</span>
+    </div>
+  </div>
+</section>
+
+<section class="fakty">
+  <div class="wrap fakty-row">
+    <div class="fakt"><b>09:00–23:00+</b><span>realny czas pracy w dniu ślubu — od przygotowań po ostatni taniec</span></div>
+    <div class="fakt"><b>10 lat</b><span>w fotografii ślubnej, na terenie miasta {{MIASTO}} i w regionie</span></div>
+    <div class="fakt"><b>6 tygodni</b><span>maksymalny termin dostarczenia pełnej galerii online</span></div>
+    <div class="fakt"><b>800–1000</b><span>zdjęć w gotowej galerii, ułożonych dokładnie tak jak historia niżej</span></div>
+  </div>
+</section>
+
+<section class="historia" id="historia">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Historia jednego dnia</p>
+      <h2>Prawdziwy ślub, godzina po godzinie</h2>
+      <p>Zdjęcia poniżej pochodzą z jednego, konkretnego wesela — pokazane w kolejności, w jakiej naprawdę się wydarzyły. Tak wygląda dzień pracy, nie wybrane dziesięć kadrów z portfolio.</p>
+    </div>
+
+    <div class="historia-layout">
+      <div class="rail" id="rail">
+        <div class="rail-item" data-target="beat-01"><span class="rn">01</span><span class="rh">09:40</span></div>
+        <div class="rail-item" data-target="beat-02"><span class="rn">02</span><span class="rh">10:20</span></div>
+        <div class="rail-item" data-target="beat-03"><span class="rn">03</span><span class="rh">12:00</span></div>
+        <div class="rail-item" data-target="beat-04"><span class="rn">04</span><span class="rh">12:15</span></div>
+        <div class="rail-item" data-target="beat-05"><span class="rn">05</span><span class="rh">12:30</span></div>
+        <div class="rail-item" data-target="beat-06"><span class="rn">06</span><span class="rh">17:00</span></div>
+        <div class="rail-item" data-target="beat-07"><span class="rn">07</span><span class="rh">17:35</span></div>
+        <div class="rail-item" data-target="beat-08"><span class="rn">08</span><span class="rh">21:30</span></div>
+        <div class="rail-item" data-target="beat-09"><span class="rn">09</span><span class="rh">23:00</span></div>
+      </div>
+
+      <div class="beats">
+        <article class="beat reveal" id="beat-01">
+          <div class="beat-photo">
+            <img src="https://images.pexels.com/photos/33661438/pexels-photo-33661438.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Panna młoda podczas przygotowań, suknia w odbiciu lustra" loading="lazy">
+            <div class="beat-tag"><div class="beat-plate"><span class="beat-num">01 · PRZYGOTOWANIA</span><div class="beat-hour">09:40</div><p class="beat-caption">Ostatnie spojrzenie w lustro, zanim wszystko się zacznie.</p></div></div>
+          </div>
+        </article>
+
+        <article class="beat reveal" id="beat-02">
+          <div class="beat-photo">
+            <img src="https://images.pexels.com/photos/20654851/pexels-photo-20654851.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Bukiet ślubny pod welonem panny młodej" loading="lazy">
+            <div class="beat-tag"><div class="beat-plate"><span class="beat-num">02 · DETAL</span><div class="beat-hour">10:20</div><p class="beat-caption">Bukiet już czeka — pierwszy prawdziwy detal tego dnia.</p></div></div>
+          </div>
+        </article>
+
+        <article class="beat reveal" id="beat-03">
+          <div class="beat-photo">
+            <img src="https://images.pexels.com/photos/30311901/pexels-photo-30311901.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Para w nawie pustego kościoła, kadr z góry" loading="lazy">
+            <div class="beat-tag"><div class="beat-plate"><span class="beat-num">03 · CEREMONIA</span><div class="beat-hour">12:00</div><p class="beat-caption">Wejście do kościoła — moment, w którym cichnie nawet gwar gości.</p></div></div>
+          </div>
+        </article>
+
+        <article class="beat reveal" id="beat-04">
+          <div class="beat-photo">
+            <img src="https://images.pexels.com/photos/27393582/pexels-photo-27393582.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Dłonie nowożeńców z obrączkami, zbliżenie czarno-białe" loading="lazy">
+            <div class="beat-tag"><div class="beat-plate"><span class="beat-num">04 · PRZYSIĘGA</span><div class="beat-hour">12:15</div><p class="beat-caption">Przysięga i dwa pierścionki, które od teraz noszą historię.</p></div></div>
+          </div>
+        </article>
+
+        <article class="beat reveal" id="beat-05">
+          <div class="beat-photo">
+            <img src="https://images.pexels.com/photos/29891248/pexels-photo-29891248.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Wzruszenie w trakcie ceremonii ślubnej, ujęcie reportażowe" loading="lazy">
+            <div class="beat-tag"><div class="beat-plate"><span class="beat-num">05 · EMOCJA</span><div class="beat-hour">12:30</div><p class="beat-caption">Łzy, których nikt nie planował — i dlatego są najprawdziwsze.</p></div></div>
+          </div>
+        </article>
+
+        <article class="beat reveal" id="beat-06">
+          <div class="beat-photo">
+            <img src="https://images.pexels.com/photos/3361200/pexels-photo-3361200.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Para młoda w polu w złotej godzinie, zdjęcie pod słońce" loading="lazy">
+            <div class="beat-tag"><div class="beat-plate"><span class="beat-num">06 · ZŁOTA GODZINA</span><div class="beat-hour">17:00</div><p class="beat-caption">Tylko Wy dwoje i światło, które trwa raptem kilka minut.</p></div></div>
+          </div>
+        </article>
+
+        <article class="beat reveal" id="beat-07">
+          <div class="beat-photo">
+            <img src="https://images.pexels.com/photos/25824234/pexels-photo-25824234.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Intymne zbliżenie czarno-białe, kadr artystyczny" loading="lazy">
+            <div class="beat-tag"><div class="beat-plate"><span class="beat-num">07 · KADR INTYMNY</span><div class="beat-hour">17:35</div><p class="beat-caption">Chwila, w której zapominacie, że jestem obok z aparatem.</p></div></div>
+          </div>
+        </article>
+
+        <article class="beat reveal" id="beat-08">
+          <div class="beat-photo">
+            <img src="https://images.pexels.com/photos/6032062/pexels-photo-6032062.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Pierwszy taniec nowożeńców przy świecach, welon w ruchu" loading="lazy">
+            <div class="beat-tag"><div class="beat-plate"><span class="beat-num">08 · PIERWSZY TANIEC</span><div class="beat-hour">21:30</div><p class="beat-caption">Świece, cisza na sali i cała uwaga skupiona tylko na Was.</p></div></div>
+          </div>
+        </article>
+
+        <article class="beat beat-duo reveal" id="beat-09">
+          <div class="beat-photo">
+            <img src="https://images.pexels.com/photos/30146471/pexels-photo-30146471.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Wieczorne przyjęcie weselne, taniec pod girlandami świateł" loading="lazy">
+          </div>
+          <div class="beat-photo">
+            <img src="https://images.pexels.com/photos/13434438/pexels-photo-13434438.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Nowożeńcy tańczący z gośćmi na weselu" loading="lazy">
+          </div>
+          <div class="beat-tag"><div class="beat-plate"><span class="beat-num">09 · ZABAWA DO NOCY</span><div class="beat-hour">23:00</div><p class="beat-caption">Zabawa trwa dalej — a ja zostaję do ostatniego tańca.</p></div></div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dostajesz" id="dostajesz">
+  <div class="wrap dostajesz-grid">
+    <figure class="dostajesz-photo reveal">
+      <img src="https://images.pexels.com/photos/16313529/pexels-photo-16313529.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Fotografka przy komputerze podczas obróbki zdjęć ślubnych, aparat obok laptopa" loading="lazy">
+      <figcaption>Selekcja i obróbka — tu ok. 3500 klatek z dnia ślubu zamienia się w gotową galerię.</figcaption>
+    </figure>
+    <div>
+      <div class="section-head">
+        <p class="eyebrow">Co dostajecie</p>
+        <h2>Nie tylko zdjęcia — cały dzień w jednej, poukładanej galerii</h2>
+      </div>
+      <div class="dostajesz-list">
+        <div class="d-row reveal"><span class="d-mark">1</span><p><strong>Cały dzień pod obiektywem</strong> — od przygotowań po ostatni taniec, bez sztywnego harmonogramu co do minuty.</p></div>
+        <div class="d-row reveal"><span class="d-mark">2</span><p><strong>Pełna galeria online w ciągu 6 tygodni</strong>, bez znaków wodnych, do pobrania w oryginalnej rozdzielczości.</p></div>
+        <div class="d-row reveal"><span class="d-mark">3</span><p><strong>800–1000 zdjęć</strong> w finalnej galerii, wyselekcjonowanych z ok. 3500 klatek nakręconych w dniu ślubu.</p></div>
+        <div class="d-row reveal"><span class="d-mark">4</span><p><strong>Układ chronologiczny galerii</strong> — dokładnie taki, jak historia dnia, którą właśnie oglądaliście wyżej.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="galeria" id="galeria">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Cała historia w jednym rzucie oka</p>
+      <h2>Najedźcie na dowolny kadr</h2>
+    </div>
+  </div>
+  <div class="marquee-viewport">
+    <div class="marquee-track">
+      <div class="m-tile"><img src="https://images.pexels.com/photos/33661438/pexels-photo-33661438.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="200" height="200" alt="Przygotowania panny młodej" loading="lazy"></div>
+      <div class="m-tile"><img src="https://images.pexels.com/photos/20654851/pexels-photo-20654851.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="200" height="200" alt="Bukiet ślubny" loading="lazy"></div>
+      <div class="m-tile"><img src="https://images.pexels.com/photos/30311901/pexels-photo-30311901.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="200" height="200" alt="Nawa kościoła z góry" loading="lazy"></div>
+      <div class="m-tile"><img src="https://images.pexels.com/photos/27393582/pexels-photo-27393582.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="200" height="200" alt="Obrączki ślubne" loading="lazy"></div>
+      <div class="m-tile"><img src="https://images.pexels.com/photos/29891248/pexels-photo-29891248.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="200" height="200" alt="Wzruszenie podczas ceremonii" loading="lazy"></div>
+      <div class="m-tile"><img src="https://images.pexels.com/photos/25824234/pexels-photo-25824234.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="200" height="200" alt="Kadr intymny czarno-biały" loading="lazy"></div>
+      <div class="m-tile"><img src="https://images.pexels.com/photos/6032062/pexels-photo-6032062.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="200" height="200" alt="Pierwszy taniec przy świecach" loading="lazy"></div>
+      <div class="m-tile"><img src="https://images.pexels.com/photos/13434438/pexels-photo-13434438.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="200" height="200" alt="Nowożeńcy tańczący z gośćmi" loading="lazy"></div>
+      <!-- duplikat sekwencji dla płynnej pętli marquee (translateX -50%) -->
+      <div class="m-tile" aria-hidden="true"><img src="https://images.pexels.com/photos/33661438/pexels-photo-33661438.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="200" height="200" alt="" loading="lazy"></div>
+      <div class="m-tile" aria-hidden="true"><img src="https://images.pexels.com/photos/20654851/pexels-photo-20654851.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="200" height="200" alt="" loading="lazy"></div>
+      <div class="m-tile" aria-hidden="true"><img src="https://images.pexels.com/photos/30311901/pexels-photo-30311901.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="200" height="200" alt="" loading="lazy"></div>
+      <div class="m-tile" aria-hidden="true"><img src="https://images.pexels.com/photos/27393582/pexels-photo-27393582.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="200" height="200" alt="" loading="lazy"></div>
+      <div class="m-tile" aria-hidden="true"><img src="https://images.pexels.com/photos/29891248/pexels-photo-29891248.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="200" height="200" alt="" loading="lazy"></div>
+      <div class="m-tile" aria-hidden="true"><img src="https://images.pexels.com/photos/25824234/pexels-photo-25824234.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="200" height="200" alt="" loading="lazy"></div>
+      <div class="m-tile" aria-hidden="true"><img src="https://images.pexels.com/photos/6032062/pexels-photo-6032062.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="200" height="200" alt="" loading="lazy"></div>
+      <div class="m-tile" aria-hidden="true"><img src="https://images.pexels.com/photos/13434438/pexels-photo-13434438.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="200" height="200" alt="" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<section class="pakiety" id="pakiety">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Pakiety</p>
+      <h2>Cennik — zwięźle</h2>
+    </div>
+    <div class="pakiety-grid">
+      <div class="pakiet reveal">
+        <span class="pakiet-name">Kameralna ceremonia</span>
+        <div class="pakiet-price">3 600 zł</div>
+        <p class="pakiet-desc">Do 5 godzin — ślub cywilny, elopement, kameralne przyjęcie.</p>
+        <div class="pakiet-delivery">Galeria w 4 tygodnie</div>
+        <a href="#kontakt" class="btn btn-ghost">Zapytaj o termin</a>
+      </div>
+      <div class="pakiet featured reveal">
+        <span class="pakiet-name">Cały dzień</span>
+        <div class="pakiet-price">5 800 zł</div>
+        <p class="pakiet-desc">Historia dokładnie taka, jak wyżej — od przygotowań po ostatni taniec.</p>
+        <div class="pakiet-delivery">Galeria w 6 tygodni</div>
+        <a href="#kontakt" class="btn btn-primary">Zapytaj o termin</a>
+      </div>
+      <div class="pakiet reveal">
+        <span class="pakiet-name">Cały dzień + reportaż nazajutrz</span>
+        <div class="pakiet-price">7 400 zł</div>
+        <p class="pakiet-desc">Dodatkowe 2 godziny dzień po weselu, bez pośpiechu i gości.</p>
+        <div class="pakiet-delivery">Galeria w 6 tygodni</div>
+        <a href="#kontakt" class="btn btn-ghost">Zapytaj o termin</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="opinie" id="opinie">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Opinie par</p>
+      <h2>Co mówią pary, które obejrzały swój dzień w takiej formie</h2>
+    </div>
+    <div class="opinie-grid">
+      <div class="opinia reveal">
+        <p>„Obejrzeliśmy przykładową historię innego ślubu na stronie, zanim jeszcze zadzwoniliśmy — i dokładnie wiedzieliśmy, czego się spodziewać po całym dniu, nie tylko po sesji plenerowej."</p>
+        <footer>Ola i Bartek, ślub w mieście {{MIASTO}}, czerwiec 2025</footer>
+      </div>
+      <div class="opinia reveal">
+        <p>„Galeria przyszła ułożona dokładnie chronologicznie, tak jak na stronie — oglądanie jej było jak przeżywanie dnia jeszcze raz, od rana do nocy."</p>
+        <footer>Zuza i Filip, ślub w mieście {{MIASTO}}, wrzesień 2025</footer>
+      </div>
+      <div class="opinia reveal">
+        <p>„Baliśmy się, że fotograf zniknie po ceremonii — a został z nami do ostatniego tańca, dokładnie tak, jak było umówione."</p>
+        <footer>Weronika i Adam, ślub w mieście {{MIASTO}}, maj 2025</footer>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Pytania o historię dnia</p>
+      <h2>FAQ</h2>
+    </div>
+
+    <div class="faq-item open">
+      <button class="faq-q"><span>Fotografujecie naprawdę cały dzień, czy tylko ceremonię i sesję?</span><span class="plus">+</span></button>
+      <div class="faq-a"><p>Cały dzień, dokładnie tak jak w historii wyżej — od przygotowań rano po pierwszy taniec i zabawę wieczorem. To jest sedno tego pakietu, nie dodatek za dopłatą.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q"><span>Czy galeria będzie ułożona chronologicznie, jak zdjęcia na stronie?</span><span class="plus">+</span></button>
+      <div class="faq-a"><p>Tak — galeria online ma dokładnie taki układ jak historia dnia wyżej, od pierwszej do ostatniej godziny. Oglądanie jej to jak przeżycie ślubu jeszcze raz, w kolejności, w jakiej się wydarzył.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q"><span>Ile realnie godzin jesteście z nami w dniu ślubu?</span><span class="plus">+</span></button>
+      <div class="faq-a"><p>W pakiecie „Cały dzień" standardowo 10-12 godzin — od przygotowań, aż zabawa się rozkręci na dobre. Dokładne godziny ustalamy wspólnie przy planie dnia, zwykle na kilka tygodni przed ślubem.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q"><span>Jak długo czeka się na gotową galerię?</span><span class="plus">+</span></button>
+      <div class="faq-a"><p>6 tygodni, licząc od dnia ślubu do daty w umowie. Tyle zajmuje przejście od ok. 3500 surowych klatek do 800-1000 zdjęć w finalnej galerii — nie krócej, jeśli selekcja ma być rzetelna.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q"><span>Czy dojeżdżacie poza miastem {{MIASTO}}?</span><span class="plus">+</span></button>
+      <div class="faq-a"><p>Jeżdżę tam, gdzie wy bierzecie ślub — {{MIASTO}} to punkt startowy, nie granica pracy. Koszt dojazdu wskakuje do wyceny jednym zdaniem, jeszcze zanim podpiszecie umowę.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="kontakt" id="kontakt">
+  <div class="wrap kontakt-grid">
+    <div class="kontakt-card">
+      <h3>Opowiedzcie mi o swoim dniu</h3>
+      <p>Data, miejsce, orientacyjny plan godzin — jeśli już go macie. Jeśli nie, zaczniemy od rozmowy telefonicznej.</p>
+      <div class="kontakt-row"><b>Telefon</b><a href="tel:{{TELEFON}}">{{TELEFON}}</a></div>
+      <div class="kontakt-row"><b>E-mail</b><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></div>
+      <div class="kontakt-row"><b>Baza</b><span>{{ADRES}}, {{MIASTO}}</span></div>
+      <div class="kontakt-row"><b>Pon–pt</b><span>{{GODZINY_PON_PT}}</span></div>
+      <div class="kontakt-row"><b>Sobota</b><span>{{GODZINY_SOB}}</span></div>
+      <a href="tel:{{TELEFON}}" class="btn btn-primary" style="margin-top:1.8rem;width:100%;">Zadzwoń: {{TELEFON}}</a>
+    </div>
+    <div class="map-panel">
+      <iframe src="https://www.google.com/maps?q={{ADRES}}, {{MIASTO}}&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa dojazdu — {{NAZWA_STRONY}}"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <span class="footer-logo">{{NAZWA_STRONY}}</span>
+      <nav class="footer-links">
+        <a href="#historia">Historia dnia</a>
+        <a href="#dostajesz">Co dostajecie</a>
+        <a href="#pakiety">Pakiety</a>
+        <a href="#faq">FAQ</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+    </div>
+    <p class="footer-tagline">Każdy ślub, który fotografuję, mógłby wyglądać jak historia wyżej — od porannego lustra po ostatni taniec, bez znikania po ceremonii.</p>
+    <p class="footer-bottom">{{NAZWA_STRONY}}, {{ADRES}}, {{MIASTO}} · {{TELEFON}} · {{EMAIL}}</p>
+  </div>
+</footer>
+
+<script>
+  /* ---------- NAV ---------- */
+  var navToggle = document.getElementById('navToggle');
+  var navLinksMobile = document.getElementById('navLinksMobile');
+  navToggle.addEventListener('click', function(){
+    var isOpen = navLinksMobile.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  navLinksMobile.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      navLinksMobile.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  /* ---------- FAQ ---------- */
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    item.querySelector('.faq-q').addEventListener('click', function(){
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
+      if(!wasOpen){ item.classList.add('open'); }
+    });
+  });
+
+  /* ---------- REVEAL — stopniowany fade-in przy scrollu (IntersectionObserver). Treść jest
+     domyślnie widoczna w czystym HTML/CSS; JS dopiero "uzbraja" ją do animacji, więc brak JS nie
+     chowa niczego. Wyłączone całkowicie pod prefers-reduced-motion. ---------- */
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduceMotion && 'IntersectionObserver' in window){
+    var revealEls = document.querySelectorAll('.reveal');
+    revealEls.forEach(function(el, i){
+      el.classList.add('reveal-armed');
+      el.style.transitionDelay = (i % 5) * 80 + 'ms';
+    });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(function(el){ io.observe(el); });
+  }
+
+  /* ---------- SZYNA GODZIN — reakcja na scroll: podświetla aktualny "rozdział" historii dnia
+     w sticky szynie po lewej (desktop). To jedyny interaktywny mechanizm strony poza FAQ/nav,
+     więc dostaje wyraźną wizualną reakcję (opacity + kolor), nie cichą zmianę. ---------- */
+  var railItems = document.querySelectorAll('.rail-item');
+  if(railItems.length && 'IntersectionObserver' in window){
+    var beatObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        var rail = document.querySelector('.rail-item[data-target="' + entry.target.id + '"]');
+        if(!rail) return;
+        if(entry.isIntersecting){ rail.classList.add('active'); }
+        else { rail.classList.remove('active'); }
+      });
+    }, { threshold: 0.4, rootMargin: '-15% 0px -15% 0px' });
+    document.querySelectorAll('.beat').forEach(function(b){ beatObserver.observe(b); });
+  }
+</script>
+
+</body>
+</html>

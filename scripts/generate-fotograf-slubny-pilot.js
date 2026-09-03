@@ -36,6 +36,9 @@ const FOTO = {
   przyjecie_taniec: 'https://images.pexels.com/photos/30146471/pexels-photo-30146471.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',    // wieczorne przyjęcie pod girlandami
   bukiet: 'https://images.pexels.com/photos/20654851/pexels-photo-20654851.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',              // bukiet pod welonem
   nowozency_taniec: 'https://images.pexels.com/photos/13434438/pexels-photo-13434438.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',    // nowożeńcy tańczą z gośćmi
+  // Dodane 04.09.2026 pod wariant 3 („petarda") — domykają chronologię dnia:
+  kosciol_nawa: 'https://images.pexels.com/photos/30311901/pexels-photo-30311901.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',        // para w nawie pustego kościoła, kadr z góry
+  pierwszy_taniec: 'https://images.pexels.com/photos/6032062/pexels-photo-6032062.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',       // pierwszy taniec przy świecach, welon
 };
 
 const VARIANTS = [
@@ -184,6 +187,82 @@ skrócone (to nie jest wariant galeryjny), pakiety/cennik, opinie par (generyczn
 miesiąc, co jeśli moja data jest zajęta, czy dojeżdżasz poza miasto), kontakt z mapą. Gramatyka
 {{MIASTO}} — pamiętaj o luce w grepie opisanej w ZASADY.md sekcja 2 (czytaj całe zdania, nie ufaj
 samemu grepowi); fotograf dojeżdża, więc {{MIASTO}} to baza, nie granica.`,
+});
+
+VARIANTS.push({
+  id: 'fotograf-slubny-3-historia-jednego-dnia',
+  tier: 'pro',
+  name: 'Historia jednego dnia',
+  visual: `STYL: wariant „PETARDA" — trzeci i OSTATNI w tej branży, zgodnie z formułą 3 wariantów
+(patrz nagłówek pliku i docs/produkcja-szablonow/README.md). Artur: „przy fotografie ślubnym to
+może być najmocniejszy wizualnie szablon w całym systemie" — traktuj to jako kryterium sukcesu.
+
+UWAGA — ŚWIADOME ODSTĘPSTWO OD KONWENCJI (obowiązuje w każdej „petardzie"): systemowa zasada, że
+archetyp premium ma wyciszony ruch (tylko fade-in), TUTAJ NIE OBOWIĄZUJE. Ten wariant ma mieć
+najmocniejszy ruch w branży. Pełny prefers-reduced-motion nadal obowiązkowy — wymień jawnie
+każdą nietrywialną animację w komentarzu HTML.
+
+MECHANIZM CENTRALNY — „HISTORIA JEDNEGO DNIA": strona opowiada JEDEN ślub chronologicznie, godzina
+po godzinie, wyłącznie zdjęciami i minimalnym tekstem. To jest sedno tego wariantu i jego przewaga
+nad zwykłą galerią-siatką: para nie ogląda przypadkowych ładnych kadrów, tylko przechodzi przez
+cały dzień i widzi, że fotograf jest przy niej od poranka do nocy. Żaden inny wariant w systemie
+nie ma tego mechanizmu.
+
+Zdjęcia z puli FOTO układają się w ten łuk niemal same — użyj ich w tej chronologii:
+  poranek/przygotowania → przygotowania (33661438)
+  detal przed wyjściem  → bukiet (20654851)
+  ceremonia (wejście)   → kosciol_nawa (30311901) — kadr z góry, mocny wizualnie
+  przysięga/detal       → obraczki (27393582)
+  emocja w ceremonii    → emocja_ceremonia (29891248)
+  złota godzina/sesja   → zlota_godzina (3361200)
+  kadr intymny          → czarno_biale (25824234)
+  pierwszy taniec       → pierwszy_taniec (6032062)
+  zabawa do nocy        → przyjecie_taniec (30146471) i nowozency_taniec (13434438)
+Każdy beat opisz KRÓTKO (godzina + jedno zdanie), nigdy akapitem — to ma być opowieść obrazem,
+tekst tylko prowadzi. Zdjęcie obrobka_zdjec (16313529) to backstage, NIE należy do chronologii dnia
+— użyj go poza historią (np. przy sekcji o dostarczeniu galerii) albo wcale.
+
+PALETA — sprawdź grepem że nie koliduje z żadnym wariantem w systemie (grep -rhoE
+"#[0-9a-fA-F]{3,6}" templates/pilot/*.html), w tym z wariantami 1 (chłodny papier #f2f1ec +
+petrol #33534b) i 2 (pudrowa lawenda #efe6ec + bursztyn #d38b3f) tej branży. Dla galerii
+fotograficznej ciemne tło jest merytorycznie uzasadnione (zdjęcia „wychodzą" z ekranu), ale rejestr
+prawie-czerni jest w systemie zajęty — zrób TEST MRUŻENIA OCZU zwłaszcza wobec
+auta-z-ameryki-3-auto-na-zamowienie.html (carbon #0a0a0b + czerwień wyścigowa) i
+nieruchomosci-5-segment-premium.html (wino/bordo na prawie czerni) oraz fryzjer-barber-5
+(czerń + mosiądz) i studio-paznokci-5 (achromatyczny écru). Jeśli wybierasz ciemne tło, znajdź
+własny odcień i własne podejście do akcentu — rozważ też wariant odważniejszy: rejestr niemal
+BEZ akcentu chromatycznego, gdzie jedynym kolorem na stronie są ZDJĘCIA, a interfejs jest czysto
+achromatyczny. To byłoby merytorycznie najmocniejsze dla galerii i trudne do pomylenia z
+czymkolwiek innym — ale sprawdź, czy nie zbliża się do studio-paznokci-5.
+TYPOGRAFIA: krój ma być częścią efektu — duży kontrast, mocny display na nagłówki. Zweryfikuj
+grepem że nieużyty w systemie, w tym Marcellus/Cabin (wariant 1) i Crimson Pro/Raleway (wariant 2).
+
+WYMAGANY RUCH (najmocniejszy w branży): parallax albo powolny ken-burns na dużych kadrach,
+stopniowane reveals kolejnych beatów historii przy scrollu, hover-zoom w galerii zamykającej,
+shimmer na primary CTA. Ruch ma budować filmowość, nie rozpraszać — to opowieść, nie pokaz
+efektów.
+
+REGUŁA 6.8 z ZASADY.md — W TYM WARIANCIE NAJWAŻNIEJSZA W CAŁYM SYSTEMIE: strona jest zbudowana z
+dużych zdjęć, a na nich siedzą godziny i podpisy beatów. Każdy taki tekst MUSI mieć zagwarantowany
+kontrast (scrim/gradient), niezależnie od jasności kadru, i MUSI być zweryfikowany ZRZUTEM EKRANU
+na 360/390px. W wariancie 1 tej branży QA znalazł dokładnie taki błąd: numer klatki czytelny tylko
+przypadkiem, bo akurat ten kadr miał ciemny róg. Zdjęcia w historii są bardzo różne jasnością
+(jasny hotel rano, ciemny kościół, noc przy świecach) — jeden scrim musi działać dla wszystkich.
+
+TREŚĆ — sekcje: nav, kinowe hero, historia jednego dnia (rdzeń strony), krótka sekcja „co
+dostajesz" (zakres, termin galerii — konkret, bez rozwlekłości), galeria zamykająca, pakiety
+(zwięźle), opinie par (generyczne imiona + miasto + miesiąc ślubu, NIGDY nazwy firm — ZASADY.md
+sekcja 5), FAQ, kontakt z mapą. Tekstu ma być MNIEJ niż w wariantach 1-2 — tu mówią zdjęcia.
+
+ZAKAZ (ZASADY.md sekcja 5.1 — kalki wracały już czterokrotnie, zawsze w tych samych miejscach):
+karta/akapit kontaktowy, pierwsze zdanie stopki i otwarcie odpowiedzi FAQ NIE MOGĄ powtarzać
+sformułowań z wariantów 1 i 2 tej branży. Sprawdź te trzy miejsca, zanim uznasz plik za gotowy.
+
+KRYTYCZNE OGRANICZENIE UCZCIWOŚCIOWE: mimo efektownego rejestru — zero „gwarantujemy najpiękniejsze
+zdjęcia w życiu" i obietnic emocjonalnych bez pokrycia. Konkrety (godziny pracy w dniu ślubu,
+termin galerii, liczba kadrów) budują wiarygodność lepiej niż przymiotniki. Gramatyka {{MIASTO}}:
+czytaj całe zdania, standardowy grep ma lukę (ZASADY.md sekcja 2) — w tej branży błąd „poza miasto
+{{MIASTO}}" pojawił się już DWUKROTNIE.`,
 });
 
 module.exports = { VARIANTS, SAMPLE_TOKENS, FOTO };
