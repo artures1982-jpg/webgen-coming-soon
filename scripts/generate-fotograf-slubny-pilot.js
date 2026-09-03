@@ -29,6 +29,13 @@ const FOTO = {
   emocja_ceremonia: 'https://images.pexels.com/photos/29891248/pexels-photo-29891248.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',    // wzruszenie w trakcie ceremonii, reportaż
   obrobka_zdjec: 'https://images.pexels.com/photos/16313529/pexels-photo-16313529.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',       // fotografka przy obróbce, aparat + laptop
   czarno_biale: 'https://images.pexels.com/photos/25824234/pexels-photo-25824234.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',        // intymne zbliżenie cz-b, artystyczne
+  // Dodane 04.09.2026 przy poprawce stykówki w wariancie 1 — razem z powyższymi układają się
+  // w realne pokrycie JEDNEGO wesela (przygotowania → detale → ceremonia → przyjęcie):
+  przygotowania: 'https://images.pexels.com/photos/33661438/pexels-photo-33661438.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',       // panna młoda, suknia w odbiciu lustra
+  obraczki: 'https://images.pexels.com/photos/27393582/pexels-photo-27393582.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',            // dłonie z obrączkami, cz-b
+  przyjecie_taniec: 'https://images.pexels.com/photos/30146471/pexels-photo-30146471.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',    // wieczorne przyjęcie pod girlandami
+  bukiet: 'https://images.pexels.com/photos/20654851/pexels-photo-20654851.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',              // bukiet pod welonem
+  nowozency_taniec: 'https://images.pexels.com/photos/13434438/pexels-photo-13434438.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',    // nowożeńcy tańczą z gośćmi
 };
 
 const VARIANTS = [
@@ -106,5 +113,77 @@ element pierwszoplanowy. NIE kopiuj osi procesu z auta-z-ameryki-1 ani układu k
 branży.`,
   },
 ];
+
+VARIANTS.push({
+  id: 'fotograf-slubny-2-wolne-terminy',
+  tier: 'pro',
+  name: 'Wolne terminy',
+  visual: `STYL: adaptacja archetypu "Szybka interwencja 24h" dla fotografa ślubnego — archetyp
+WYLOSOWANY zgodnie z nową formułą 3 wariantów (patrz nagłówek pliku). W tej branży pilność jest
+REALNA, ale ma zupełnie inny charakter niż awaria hydrauliczna, więc NIE rób z tego pogotowia:
+zero syren, alarmowej czerwieni, migających pasków i języka zagrożenia. Ślub to wydarzenie
+radosne — pilność ma być rzeczowa i uspokajająca, nie stresująca.
+
+DWA REALNE SCENARIUSZE PILNOŚCI (oba muszą być obsłużone, bo to dwie różne pary na stronie):
+1. **Znikające soboty w sezonie.** Terminy ślubne rezerwuje się 12-18 miesięcy naprzód, a soboty
+   maj-wrzesień znikają najszybciej. Para planująca chce wiedzieć OD RAZU, czy jej data jest
+   jeszcze wolna — bez wysyłania maila i czekania trzech dni na odpowiedź.
+2. **Ratunek: fotograf odwołał na kilka tygodni przed ślubem.** To realny, częsty dramat
+   (podwójna rezerwacja, choroba, zniknięcie). Para jest w panice, ma wszystko zaplanowane i
+   nagle nie ma kto fotografować. Dla nich liczy się jedno: czy ktoś odpowie SZYBKO i czy ma
+   wolny ten konkretny termin. Ten wariant ma być stroną, na którą taka para trafia o 23:00 i
+   dostaje konkretną odpowiedź, a nie formularz "odezwiemy się w ciągu 5 dni roboczych".
+
+MECHANIZM CENTRALNY: czytelny, realnie działający w JS **podgląd dostępności sobót** — np. siatka
+miesięcy sezonu z oznaczonymi terminami wolnymi/zajętymi, gdzie klik w wolną datę wstawia ją do
+formularza zapytania. To ma być konkret, nie ozdobnik: para ma zobaczyć swoją datę i od razu
+wiedzieć, na czym stoi. Dodatkowo wyraźna, osobna ścieżka "mam ślub za kilka tygodni i zostałam
+bez fotografa" z deklarowanym, realnym czasem odpowiedzi (np. "odpowiadam tego samego dnia,
+także wieczorem" — jeśli tak deklarujesz, niech to będzie jedyna obietnica czasowa, nie mnóż ich).
+
+KRYTYCZNE OGRANICZENIA UCZCIWOŚCIOWE: kalendarz dostępności to treść docelowa, którą klient
+nadpisuje — ale NIE sugeruj fałszywego niedoboru ("została ostatnia sobota!", licznik odliczający,
+"3 osoby oglądają ten termin"). To manipulacja, a w tej branży zaufanie jest walutą. Pokaż realny
+obraz: część sobót zajęta, część wolna. Zero gwarancji typu "zawsze znajdziemy termin".
+
+RÓŻNICOWANIE względem wariantu 1 (fotograf-slubny-1-zaufany-fotograf.html): tamten jest jasny
+(chłodny papier #f2f1ec + petrol #33534b, Marcellus/Cabin), spokojny, galeryjny, bez ruchu, z
+mechanizmem "stykówki" pokazującej pełną galerię. Ten ma być wyraźnie inny w nastroju i
+mechanizmie — kalendarz zamiast stykówki. Zdjęcia NIE mogą trafić w te same role kompozycyjne.
+
+PALETA — sprawdź grepem że nie koliduje z żadnym wariantem w systemie (grep -rhoE
+"#[0-9a-fA-F]{3,6}" templates/pilot/*.html), w tym z wariantem 1 tej branży. UWAGA na dwie
+pułapki naraz: (a) rejestr ciepłego kremu z eleganckim akcentem jest zajęty przez cztery branże
+beauty, (b) ciemne tło z jaskrawym akcentem jest zajęte przez większość wariantów "2" w systemie
+(elektryk-2, hydraulik-2, remonty-2, studio-paznokci-2, salon-fryzjerski-2, medycyna-estetyczna-2,
+nieruchomosci-2, auta-z-ameryki-2). Znajdź własny rejestr i uzasadnij — kierunek do rozważenia:
+ciepły, wieczorny (zmierzchowy) ton, w którym „wolne/zajęte" da się czytelnie odróżnić kolorem
+bez sięgania po alarmową czerwień. TYPOGRAFIA: zweryfikuj grepem że nieużyta w systemie, w tym
+Marcellus/Cabin z wariantu 1 tej branży.
+
+WYMAGANY RUCH (wariant pro): reakcja na interakcję w kalendarzu (podświetlenie wybranej daty,
+płynne wstawienie jej do formularza), stopniowany fade-in sekcji, delikatny shimmer na primary
+CTA. ZERO alarmowego migania i pulsujących pasków — ruch ma być spokojny mimo tematu pilności.
+Pełny prefers-reduced-motion, wymień jawnie każdą nietrywialną animację w komentarzu HTML.
+
+ZDJĘCIA: użyj z puli FOTO na górze tego pliku (9 zweryfikowanych kadrów). Wariant 1 używa
+wszystkich dziewięciu, więc powtórzenie ID jest nieuniknione — ale MUSISZ użyć ich w INNYCH
+rolach kompozycyjnych i innym doborze niż wariant 1 (tam: hero split, stykówka-taśma, sticky-photo
+przy "jak pracuję"). NIE zgaduj nowych ID Pexels; jeśli brakuje Ci konkretnego kadru, zostaw
+"<!-- PHOTO NEEDED: opis -->" i wypisz w raporcie.
+
+REGUŁA 6.8 z ZASADY.md: każdy tekst/karta/numer leżący na zdjęciu musi mieć zagwarantowany
+kontrast i być zweryfikowany ZRZUTEM EKRANU na 360/390px — w wariancie 1 tej branży QA znalazł
+dokładnie taki błąd (numer klatki czytelny tylko przypadkiem, bo kadr miał ciemny róg).
+
+TREŚĆ — sekcje: nav, hero (obietnica: sprawdź swoją datę od razu), podgląd dostępności sobót,
+wyraźna ścieżka ratunkowa dla par bez fotografa, "jak wygląda współpraca w krótkim terminie"
+(co realnie da się zrobić, gdy zostały 4 tygodnie — uczciwie, bez obiecywania cudów), portfolio
+skrócone (to nie jest wariant galeryjny), pakiety/cennik, opinie par (generyczne imiona + miasto
++ miesiąc ślubu, NIGDY nazwy firm — ZASADY.md sekcja 5), FAQ (w tym: czy da się ogarnąć ślub za
+miesiąc, co jeśli moja data jest zajęta, czy dojeżdżasz poza miasto), kontakt z mapą. Gramatyka
+{{MIASTO}} — pamiętaj o luce w grepie opisanej w ZASADY.md sekcja 2 (czytaj całe zdania, nie ufaj
+samemu grepowi); fotograf dojeżdża, więc {{MIASTO}} to baza, nie granica.`,
+});
 
 module.exports = { VARIANTS, SAMPLE_TOKENS, FOTO };
