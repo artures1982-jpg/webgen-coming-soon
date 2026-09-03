@@ -144,6 +144,27 @@ dopowiedzenie — to poprawna polszczyzna.
 **Zawsze bezpieczne:** `{{MIASTO}}` samodzielnie, bez przyimka — w adresie
 (`{{ADRES}}, {{MIASTO}}`), w `<title>`, w tagu lokalizacji, w podpisie (`Marta, {{MIASTO}}`).
 
+### ⚠️ Standardowy grep NIE wystarcza — łapie tylko przyimek tuż przed tokenem
+
+Kontrola używana w tym projekcie:
+
+```bash
+grep -nE '(w|z|do|poza) \{\{MIASTO\}\}' plik.html   # pusto = OK
+```
+
+…sprawdza wyłącznie przypadek, w którym przyimek stoi **bezpośrednio** przed tokenem. Przepuszcza
+błąd, gdy między przyimkiem a tokenem stoi odmieniany rzeczownik w złym przypadku:
+
+| ❌ Przechodzi przez grep, a jest błędem | ✅ Poprawnie |
+|---------------------------------------|-------------|
+| `poza miasto {{MIASTO}}` | `poza miastem {{MIASTO}}` |
+| `w mieście {{MIASTO}}` ✔ (to akurat OK) | — |
+| `do miasto {{MIASTO}}` | `do miasta {{MIASTO}}` |
+
+Złapane realnie w `fotograf-slubny-1` (03.09.2026) — grep wychodził czysty, błąd znalazł dopiero
+copywriter czytając zdania. **Wniosek: grep jest warunkiem koniecznym, nie wystarczającym.**
+Przy odbiorze przeczytaj każde zdanie z `{{MIASTO}}` w całości, zamiast ufać samemu grepowi.
+
 ---
 
 ## 3. Mapa dojazdu
