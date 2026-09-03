@@ -11,8 +11,32 @@ Powstał na bazie pilota branży **Hydraulik** (6 wariantów, komplet ukończony
 odpowiednika w innej branży. Ta zasada była złamana dwukrotnie (elektryk-1, elektryk-4) zanim
 trafiła do dokumentu.
 
-**Decyzja produktowa (26.08.2026): archetyp 6 „Minimalistyczny one-pager" jest WYCOFANY z
-systemu na przyszłość.** Nowe branże (Elektryk, Studio paznokci i kolejne) dostają tylko 5
+## ⚠️ AKTUALNA FORMUŁA BRANŻY — 3 warianty (decyzja Artura, 03.09.2026)
+
+**Każda NOWA branża od teraz dostaje dokładnie TRZY warianty, nie pięć:**
+
+| # | Tier | Co to jest |
+|---|------|------------|
+| 1 | free | Archetyp zaufania („Zaufany fachowiec") zaadaptowany do branży |
+| 2 | pro | **Losowy archetyp** z puli 2–5 („Szybka interwencja 24h", „Nowoczesny cyfrowy", „Rodzinna firma", „Premium/korporacyjny") — zaadaptowany, nie przeszczepiony dosłownie |
+| 3 | pro | **„Petarda"** — wariant popisowy: kinowa fotografia, mocna typografia, najmocniejszy ruch w branży |
+
+**Ważne dla wariantu 3**: systemowa konwencja, że archetyp premium ma wyciszony ruch (tylko
+fade-in), **NIE obowiązuje w „petardzie"** — ten wariant ma być najbardziej animowany w swojej
+branży. Zapisz to jawnie w briefie jako świadome odstępstwo, żeby nikt później nie odczytał tego
+jako przypadkowego złamania zasady.
+
+Ta decyzja **zastępuje** wcześniejszą formułę 5 archetypów (26.08.2026, patrz niżej). **Nie
+retrofituj gotowych branż** — Hydraulik (6 wariantów) oraz Elektryk, Fryzjer-barber, Salon
+fryzjerski, Studio paznokci, Remonty, Medycyna estetyczna i Nieruchomości (po 5) zostają bez
+zmian. `auta-z-ameryki` była pierwszą branżą zbudowaną wg nowej formuły (3/3, wariant 3 jako
+petarda), jeszcze zanim reguła została sformułowana ogólnie.
+
+---
+
+**Poprzednia decyzja produktowa (26.08.2026), zastąpiona powyższą — zostawiona dla kontekstu
+istniejących branż:** archetyp 6 „Minimalistyczny one-pager" jest WYCOFANY z
+systemu na przyszłość. Branże z tamtego okresu (Elektryk, Studio paznokci i kolejne) dostawały 5
 archetypów: 1 (free, „Zaufany fachowiec") + 2–5 (pro). Nie buduj już wariantu 6 dla żadnej
 branży — Elektryk zostaje na 5/5 po ukończeniu wariantu 5, nie ma zaplanowanego wariantu 6.
 Dodatkowo: **wariant 2 i wyżej to szablony premium (pro) — wolno (należy) używać tam ruchu**
