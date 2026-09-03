@@ -117,7 +117,14 @@
   @media (max-width:960px){
     .hero-grid{grid-template-columns:1fr;}
     .hero-copy, .hero-visual{min-width:0;}
-    .hero-visual{padding-right:0;max-width:520px;margin:0 auto;}
+    .hero-visual{padding-right:0;padding-bottom:0;max-width:520px;margin:0 auto;}
+    /* Poniżej progu stackowania hero absolutna "kwitka kosztu" (78% szerokości zdjęcia)
+       zasłaniała fotografię prawie w całości na wąskich ekranach (zgłoszenie Artura,
+       zrzut iPhone ~390px). Ten sam mechanizm co .hero-float-card w
+       nieruchomosci-1-zaufany-posrednik.html: karta wraca do normalnego przepływu
+       (position:relative) i tylko "podchodzi" pod dolny róg zdjęcia ujemnym marginesem,
+       zamiast leżeć na nim. */
+    .cost-ticket{position:relative;right:auto;bottom:auto;width:min(320px, 88%);margin:-2.3rem 0 0 auto;}
   }
 
   /* ---------- PASEK ZAUFANIA — 4 liczby oddzielone pionowymi liniami, nie karty ani wstążka

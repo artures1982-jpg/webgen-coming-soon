@@ -444,9 +444,38 @@ kart wewnątrz layoutu CSS Grid (nie flex), zweryfikuj poziomy scroll na 320–4
 sprawdzenia nav (sekcja 6.6) — to inny mechanizm tego samego objawu i łatwo pomylić jeden z
 drugim, jeśli test polega tylko na jednym viewporcie.
 
----
+### 6.8 Karta `position:absolute` nachodząca na zdjęcie hero ZASŁANIA je na mobile — i ŻADEN
+automatyczny test tego nie wykryje (KRYTYCZNE, zgłoszone dwukrotnie przez Artura ze zrzutu z telefonu)
 
-## 7. Tryb szablonu
+Warstwowa kompozycja hero (zdjęcie + nachodząca na nie karta z ceną / statystyką / podpisem) jest
+świetna na desktopie i regularnie wraca w kolejnych wariantach. Na wąskim ekranie karta o
+szerokości rzędu 70–80% siada na fotografii i zasłania ją niemal w całości.
+
+```css
+/* ŹLE — brak jakiegokolwiek override'u w media queries */
+.cost-ticket{position:absolute; right:0; bottom:0; width:min(320px, 78%);}
+
+/* DOBRZE — karta zostaje w normalnym flow i tylko „podchodzi" pod róg zdjęcia */
+.hero-float-card{position:relative; margin:-3.2rem 1.6rem 0 auto; width:min(280px, 78%);}
+@media (max-width:700px){ .hero-float-card{margin:-2.4rem 1rem 0 auto;} }
+
+/* DOBRZE (wariant alternatywny) — absolutna na desktopie, w flow na mobile */
+@media (max-width:700px){
+  .cost-ticket{position:static; width:100%; margin-top:-1.5rem;}
+}
+```
+
+**Dlaczego to wraca**: standardowy zestaw kontroli (skan `scrollWidth` vs `clientWidth` w zakresie
+320–1280px, klik w hamburger, `min-width:0` na grid-items) **nie jest w stanie tego złapać** —
+element `position:absolute` nie generuje poziomego overflow, więc wszystkie pomiary wychodzą
+zielone, podczas gdy zdjęcie jest wizualnie zasłonięte. To jedyna pułapka w tej sekcji, której nie
+da się wykryć pomiarem.
+
+**Sprawdzenie przy odbiorze (obowiązkowe, wzrokowe)**: jeśli wariant ma jakikolwiek element
+nachodzący na zdjęcie (karta, kwitek, badge, podpis, plakietka z oceną), zrób ZRZUT EKRANU na
+360px i 390px i oceń go OKIEM — czy zdjęcie jest nadal czytelne, czy karta je przykryła. Pomiar
+overflow tego nie zastąpi. Mały badge w rogu (np. 190×60px) jest OK; karta zajmująca ponad ~40%
+powierzchni zdjęcia — nie.
 
 Tokeny wstawiane **dosłownie**, z podwójnymi klamrami, w każdym miejscu gdzie normalnie
 pojawiłyby się dane firmy — `<title>`, meta, JSON-LD, nagłówki, `href="tel:"`, `alt`, stopka,
