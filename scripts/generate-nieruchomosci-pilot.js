@@ -169,4 +169,70 @@ jako centralny wizualny element (nie karta z boku jak w wariancie 1), marquee ja
 wyrazisty pasek między sekcjami, kafle "jak przyspieszamy" w innym układzie niż numerowana lista.`,
 });
 
+VARIANTS.push({
+  id: 'nieruchomosci-3-kalkulator-wyceny',
+  tier: 'plus',
+  name: 'Kalkulator wyceny',
+  visual: `STYL: adaptacja archetypu "Nowoczesny cyfrowy" dla agencji sprzedaży mieszkań. Mechanizm
+centralny: REALNY, DZIAŁAJĄCY interaktywny kalkulator orientacyjnej wyceny mieszkania (nie
+statyczny mockup) — użytkownik wybiera metraż (suwak), liczbę pokoi, dzielnicę {{MIASTO}} (lista)
+i stan wykończenia (do remontu / dobry / po remoncie), a widget na żywo pokazuje widełki cenowe
+(np. "620 000 – 690 000 zł"), przeliczane w JS bez przeładowania strony. To naturalne rozwinięcie
+"bezpłatnej wycenty" z wariantu 1 tej branży — tam wycena robi człowiek po wizji lokalnej, tu
+klient dostaje natychmiastowy punkt startowy online.
+
+KRYTYCZNE OGRANICZENIE UCZCIWOŚCIOWE (ta sama zasada co w wariantach 1/2, tu szczególnie ważna bo
+kalkulator wygląda na precyzyjne narzędzie): kalkulator MUSI mieć widoczne, stałe zastrzeżenie że
+to orientacyjny szacunek na podstawie danych porównawczych z ostatnich transakcji w okolicy, NIE
+wiążąca wycena — ostateczną wartość ustala pośrednik po wizji lokalnej (stan instalacji, piętro,
+widok, hałas, itd. — czynniki, których kalkulator nie widzi). Zero języka typu "dokładna wycena
+Twojego mieszkania" czy "gwarantowana cena sprzedaży". FAQ musi zawierać pytanie wprost
+adresujące to ograniczenie ("czy to dokładna wycena mojego mieszkania?").
+
+RÓŻNICOWANIE FORMY (nie tylko koloru) — w systemie WSZYSTKIE dotychczasowe warianty "Nowoczesny
+cyfrowy" (hydraulik-3, fryzjer-barber-3, medycyna-estetyczna-3, remonty-3) poszły w ciemny motyw
+z neonowym akcentem. Ten wariant ma świadomie pójść w INNĄ STRONĘ: jasny, czysty rejestr
+"digital paper" — biel/prawie biel jako tło, głęboka, prawie czarna czerń jako tekst główny,
+JEDEN oszczędny akcent sygnałowy używany wyłącznie punktowo (wynik kalkulatora, primary CTA,
+aktywny stan suwaka) — nie jako wash całych sekcji. To ma wyglądać jak nowoczesna aplikacja
+fintech/proptech (czysto, dużo białej przestrzeni, ostra typografia), nie jak dashboard gracza.
+
+PALETA — sprawdź grepem że nie koliduje z ŻADNYM wariantem w systemie (uruchom:
+grep -rhoE "#[0-9a-fA-F]{3,6}" templates/pilot/*.html), w tym z nieruchomosci-1 (granat+mosiądz na
+kości słoniowej) i nieruchomosci-2 (zieleń na ciemnym grafitowym). Zaproponuj jeden wyrazisty
+akcent sygnałowy — np. głęboki indygo (inny odcień niż jasnoniebieski #173aa8/#2454eb z
+hydraulik-6, inny niż fioletowy #7c3aed/#a855f7 z remonty-3, inny niż fiolet #5233c4/#7c5cff z
+elektryk-3) — na tle bieli/prawie bieli (nie identycznej z żadnym istniejącym jasnym tłem co do
+hexu) z tekstem w głębokiej, prawie czarnej czerni (nie identycznej z żadnym istniejącym ciemnym
+tekstem co do hexu). TYPOGRAFIA: ostry, geometryczny sans na nagłówki (kontrast wobec serifów
+Vollkorn z wariantu 1) + neutralny sans na treść — zweryfikuj grepem że oba nieużyte nigdzie w
+systemie, w tym w nieruchomosci-1/2 (Vollkorn/Inter Tight, Syne/Red Hat Text).
+
+WYMAGANY RUCH (obowiązkowy próg dla wariantu 2+/plus, patrz .claude/agents/designer-ux-ui.md) —
+w jasnym, czystym rejestrze ruch ma być precyzyjny i subtelny, nie neonowy: płynna animacja liczb
+w wyniku kalkulatora przy każdej zmianie suwaka/wyboru (count-up/transition, nie "przeskok"),
+delikatny highlight/pulse na wyniku po przeliczeniu, shimmer na primary CTA, stopniowany fade-in
+sekcji przy scrollu. Pełny prefers-reduced-motion — wymień jawnie każdą nietrywialną animację w
+komentarzu HTML.
+
+ZDJĘCIA: ten wariant może być świadomie niemal bezzdjęciowy (spójne z konwencją "cyfrowego"
+UI-first mechanizmu w innych branżach — np. remonty-3 też stawia na kalkulator, nie fotografię).
+Jeśli chcesz jedno zdjęcie jako wizualny anchor (np. w bannerze/interstitial), NIE zgaduj URL-i
+Pexels — zostaw "<!-- PHOTO NEEDED: krótki opis -->" i wypisz to w raporcie, główna sesja
+dośle zweryfikowany URL przez Pexels API.
+
+TREŚĆ — sekcje: nav, hero z kalkulatorem jako centralny element strony (nie sidebar, nie osobna
+sekcja niżej — to JEST hero tego wariantu), sekcja "jak liczymy" (dane porównawcze z transakcji w
+okolicy z ostatnich miesięcy + korekta pod stan/piętro/rok budowy — konkretnie, nie "magiczny
+algorytm AI"), sekcja łącząca z ludzkim wsparciem ("kalkulator to punkt startu — pełną wycenę i
+strategię sprzedaży ustalamy razem" — świadome nawiązanie do wariantu 1, nie sprzeczność z nim),
+FAQ (w tym wymagane pytanie o dokładność kalkulatora), opinie klientów (generyczne imiona + miasto,
+NIGDY nazwy firm — ZASADY.md sekcja 5), kontakt z mapą. Gramatyka {{MIASTO}} (ZASADY.md sekcja 2)
+musi być poprawna w każdym użyciu, także w liście dzielnic kalkulatora jeśli tam się pojawia.
+
+LAYOUT — bespoke mechanizm każdej sekcji, inny niż nieruchomosci-1 (numerowane wiersze usług,
+ticket-cards ofert, pionowa oś procesu) i nieruchomosci-2 (widget licznika, marquee, zakładki
+tempa) — kalkulator jako centralny, unikalny mechanizm tego wariantu w całej branży.`,
+});
+
 module.exports = { VARIANTS, SAMPLE_TOKENS };
