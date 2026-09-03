@@ -296,4 +296,71 @@ ticket-cards/oś procesu; widget/marquee/zakładki; kalkulator) — prosty, ciep
 konwencją archetypu 4 w całym systemie.`,
 });
 
+VARIANTS.push({
+  id: 'nieruchomosci-5-segment-premium',
+  tier: 'premium',
+  name: 'Segment premium',
+  visual: `STYL: adaptacja archetypu "Premium/korporacyjny" dla agencji sprzedaży mieszkań —
+OSTATNI, piąty wariant tej branży. W innych branżach ten archetyp często idzie w B2B (firmy,
+deweloperzy, zarządcy) — dla nieruchomości to nienaturalne jako osobna usługa "sprzedaży mieszkań"
+(deweloperzy to inna linia biznesowa niż sprzedaż pojedynczych mieszkań klientów indywidualnych).
+Zamiast tego: DYSKRETNA SPRZEDAŻ NIERUCHOMOŚCI Z GÓRNEGO SEGMENTU — apartamenty, rezydencje,
+nieruchomości powyżej pewnego progu wartości, gdzie klient płaci za UWAGĘ i DYSKRECJĘ, nie za
+masowy zasięg ogłoszenia. Mechanizm: limitowana liczba prowadzonych ofert jednocześnie (jeden
+starszy/wiodący makler na transakcję), sieć zweryfikowanych, zamożnych kupujących budowana latami
+(część ofert nigdy nie trafia do publicznego ogłoszenia — sprzedaż "off-market"), pełny serwis
+(profesjonalna sesja zdjęciowa/home staging, koordynacja prawna). To najbliższe koncepcyjnie
+salon-fryzjerski-5-premium.html i medycyna-estetyczna-5-program-indywidualny.html (limitowana
+liczba klientów, formularz zapytania jako primary CTA, rejestr zaufania) — przeczytaj OBA
+WYŁĄCZNIE jako inspirację mechaniki, NIGDY jako bazę do kopiowania wizualnego — inny mechanizm
+wizualny każdej sekcji.
+
+KRYTYCZNE OGRANICZENIE UCZCIWOŚCIOWE (patrz brief wariantów 1-4 tej branży, tu równie ważne):
+żadnych gwarancji ceny/czasu sprzedaży nawet w kontekście "programu premium". Dyskrecja i limitowana
+uwaga to nie to samo co gwarancja wyniku — to rozróżnienie musi być utrzymane w każdym zdaniu.
+Zero konkretnych, możliwych do zidentyfikowania adresów/nazwisk klientów w "wybranych
+realizacjach" — opisuj typ nieruchomości i widełki wartości, nie konkretne, potencjalnie
+rozpoznawalne transakcje (dyskrecja to dokładnie ta wartość, którą ten wariant sprzedaje — złamanie
+jej we własnej stronie byłoby sprzeczne z przekazem).
+
+MOTION — konwencja premium w całym systemie: wyciszony, precyzyjny ruch. WYŁĄCZNIE jednorazowy
+fade-in+translateY na kartach/wierszach przy scrollu, zero pętli/keyframes/glow w tle/shimmeru/
+marquee. Zapisz to jawnie w komentarzu HTML przy :root.
+
+PALETA — sprawdź grepem że nie koliduje z ŻADNYM wariantem w systemie (uruchom:
+grep -rhoE "#[0-9a-fA-F]{3,6}" templates/pilot/*.html), W TYM z innymi wariantami premium/5 w
+systemie (hydraulik-5 granat/biel, elektryk-5 terakota/szary, fryzjer-barber-5 czerń/mosiądz,
+studio-paznokci-5 achromatyczny écru, remonty-5 chłodny szaro-niebieski na ciemnym slate,
+salon-fryzjerski-5 szmaragd/champagne, medycyna-estetyczna-5 onyks/platynowo-srebrny) ORAZ z
+wariantami 1-4 tej branży (granat+mosiądz, zieleń+grafit, indygo+biel, greige+cynamonowy róż).
+Zaproponuj coś jeszcze nieużytego — np. głęboki, prawie czarny wino/bordo (rodzina barw NIEUŻYTA w
+żadnym ciemnym/premium wariancie systemu — fryzjer-barber-1 i medycyna-estetyczna-1 mają
+oxblood/plum, ale oba na JASNYM tle jako warianty 1, nie ciemne premium) w połączeniu z chłodnym,
+stonowanym platynowo-szarym akcentem, na niemal czarnym tle. TYPOGRAFIA: zweryfikuj grepem że
+nieużyta nigdzie w systemie, w tym Vollkorn/Inter Tight, Syne/Red Hat Text, Poppins/Golos Text,
+Source Serif 4/Asap z wariantów 1-4 tej branży.
+
+ZDJĘCIE (już wyszukane przez Pexels API i zweryfikowane, użyj TEGO DOKŁADNEGO URL, nie zgaduj
+innych) — świadomie ogranicz do jednego, użyj go jako panoramiczny, edytorialny akcent (nie jako
+zwykłe zdjęcie w karcie):
+- Przestronne, minimalistyczne wnętrze premium, biel i drewno, eleganckie oświetlenie:
+  https://images.pexels.com/photos/7546314/pexels-photo-7546314.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+Jeśli chcesz zero zdjęć zamiast jednego — to w pełni uzasadniony wybór dla tego wariantu (patrz
+precedens salon-fryzjerski-5/medycyna-estetyczna-5: "hero bez zdjęcia" jest akceptowalne). Jeśli
+potrzebujesz więcej — NIE zgaduj ID, zostaw "<!-- PHOTO NEEDED: opis -->" i wypisz w raporcie.
+
+TREŚĆ — sekcje: nav, hero (formularz zapytania lub CTA prowadzące do zapytania jako primary, NIE
+telefon jako główne wezwanie — dyskrecja i selekcja, nie "zadzwoń teraz"), sekcja "dlaczego
+dyskrecja ma znaczenie" (off-market, ograniczona ekspozycja, bezpieczeństwo prywatności klienta),
+rejestr zaufania (liczby: lata praktyki maklera prowadzącego, limit jednocześnie prowadzonych
+ofert, wielkość sieci zweryfikowanych kupujących — bez liczb sugerujących gwarantowany wynik),
+"pełny serwis" (sesja zdjęciowa/prezentacja, koordynacja prawna, negocjacje), FAQ, kontakt z
+formularzem zapytania + mapą. Gramatyka {{MIASTO}} (ZASADY.md sekcja 2) poprawna w każdym użyciu.
+
+LAYOUT — bespoke mechanizm każdej sekcji, inny niż nieruchomosci-1/2/3/4 (numerowane wiersze/
+ticket-cards/oś procesu; widget/marquee/zakładki; kalkulator; prosta lista+porównanie zespołu) —
+edytorialny, spokojny, dużo białej/czarnej przestrzeni, precyzyjna typografia jako główny element
+wizualny zamiast gadżetów.`,
+});
+
 module.exports = { VARIANTS, SAMPLE_TOKENS };

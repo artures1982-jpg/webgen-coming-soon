@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metrum — dyskretna sprzedaż nieruchomości premium, Kraków</title>
+<meta name="description" content="Metrum — sprzedaż apartamentów i nieruchomości z górnego segmentu na terenie miasta Kraków. Ograniczona liczba prowadzonych ofert, sieć zweryfikowanych kupujących, sprzedaż off-market. Tel. 500 123 456">
+<meta name="keywords" content="nieruchomości premium Kraków, apartamenty Kraków, sprzedaż off-market Kraków, makler nieruchomości premium Kraków">
+<link rel="canonical" href="https://metrum-krakow.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Metrum — dyskretna sprzedaż nieruchomości premium, Kraków">
+<meta property="og:description" content="Ograniczona liczba prowadzonych ofert, sieć zweryfikowanych kupujących, część transakcji poza publicznym ogłoszeniem. Umów rozmowę: 500 123 456">
+<meta property="og:url" content="https://metrum-krakow.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"RealEstateAgent","name":"Metrum","telephone":"500 123 456","email":"kontakt@metrum.pl","description":"Metrum — dyskretna sprzedaż nieruchomości z górnego segmentu w mieście Kraków. Ograniczona liczba prowadzonych ofert, sieć zweryfikowanych kupujących, sprzedaż off-market.","address":{"@type":"PostalAddress","streetAddress":"ul. Przykładowa 12","addressLocality":"Kraków","addressCountry":"PL"},"openingHours":"Mo-Fr 9:00 – 18:00"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@500;600;700&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* MOTION: archetyp 5 "Premium/korporacyjny" — wyciszony, precyzyjny ruch, świadoma
+     konwencja premium w całym systemie (ZASADY.md / designer-ux-ui.md). Jedyny dozwolony
+     ruch: jednorazowy fade-in + translateY na kartach/wierszach przy wjeździe w viewport
+     (klasa .fade-in → .visible, IntersectionObserver w <script> na końcu pliku). Zero
+     pętli/keyframes, zero glow w tle, zero shimmeru na CTA, zero marquee. Pełne wsparcie
+     prefers-reduced-motion — patrz media query niżej. */
+  :root{
+    --accent:#6e0f22;
+    --accent-dark:#38070f;
+    --bg:#0c0708;
+    --surface:#180f11;
+    --text:#efe8e4;
+    --muted:#c2c4c8;
+    --head:'Cormorant', serif;
+    --body:'Assistant', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.7;-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3{font-family:var(--head);line-height:1.2;font-weight:700;color:var(--text);}
+  section{padding:6rem 1.5rem;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  .eyebrow{display:inline-flex;align-items:center;gap:.55rem;font-family:var(--body);font-weight:600;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;}
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--accent);display:inline-block;}
+  h2{font-size:clamp(1.9rem,3.2vw,2.6rem);margin-bottom:1.1rem;}
+  .lead{color:var(--muted);font-size:1.04rem;max-width:640px;}
+
+  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.95rem 1.9rem;font-weight:600;font-family:var(--body);font-size:.95rem;border:1px solid transparent;cursor:pointer;transition:transform .15s ease, background .2s ease, color .2s ease, border-color .2s ease;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--accent);color:var(--text);}
+  .btn-primary:hover{background:var(--accent-dark);}
+  .btn-outline{border-color:color-mix(in srgb, var(--muted) 45%, transparent);color:var(--text);background:transparent;}
+  .btn-outline:hover{border-color:var(--muted);background:color-mix(in srgb, var(--muted) 12%, transparent);}
+  .btn-nav{display:inline-flex;align-items:center;padding:.62rem 1.35rem;font-size:.82rem;font-weight:600;letter-spacing:.02em;border:1px solid color-mix(in srgb, var(--muted) 50%, transparent);color:var(--text);white-space:nowrap;transition:border-color .2s ease, background .2s ease;}
+  .btn-nav:hover{border-color:var(--accent);background:color-mix(in srgb, var(--accent) 16%, transparent);}
+
+  /* MOTION — jedyny dozwolony ruch w tym wariancie */
+  .fade-in{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s ease;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .fade-in{opacity:1;transform:none;transition:none;}
+  }
+
+  /* NAV */
+  header.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--bg) 92%, transparent);backdrop-filter:blur(6px);border-bottom:1px solid color-mix(in srgb, var(--muted) 16%, transparent);}
+  .nav .wrap{display:grid;grid-template-columns:minmax(0,auto) 1fr auto;align-items:center;gap:1rem;padding:1.15rem 1.5rem;}
+  .logo{display:flex;align-items:baseline;gap:.55rem;min-width:0;}
+  .logo-mark{width:7px;height:7px;border:1px solid var(--accent);flex-shrink:0;margin-bottom:.2rem;}
+  .logo-name{display:inline-block;font-family:var(--head);font-weight:700;font-size:1.35rem;color:var(--text);white-space:nowrap;letter-spacing:-.01em;overflow:hidden;text-overflow:ellipsis;max-width:100%;vertical-align:bottom;}
+  .nav-links-desktop{display:flex;gap:1.9rem;align-items:center;justify-self:center;}
+  .nav-links-desktop a{font-weight:500;font-size:.86rem;letter-spacing:.03em;color:var(--muted);}
+  .nav-links-desktop a:hover{color:var(--text);}
+  .nav-links-mobile{display:none;}
+  .nav-actions{display:flex;align-items:center;gap:1rem;justify-self:end;}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.3rem;}
+  .nav-toggle span{width:22px;height:1px;background:var(--text);}
+
+  /* HERO */
+  .hero{padding:5.5rem 1.5rem 4.5rem;background:var(--bg);}
+  .hero-wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.2fr .8fr;gap:3.6rem;align-items:start;}
+  .hero h1{font-size:clamp(2.15rem,4.2vw,3.4rem);margin-bottom:1.4rem;}
+  .hero h1 em{font-style:italic;font-weight:600;color:var(--muted);}
+  .hero p.lead{font-size:1.08rem;margin-bottom:2.2rem;}
+  .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;}
+
+  .hero-dossier{border:1px solid color-mix(in srgb, var(--muted) 30%, transparent);background:var(--surface);padding:2.4rem 2.2rem;}
+  .dossier-label{display:block;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.7rem;}
+  .dossier-num{display:block;font-family:var(--head);font-weight:700;font-size:4.2rem;line-height:1;color:var(--accent);}
+  .dossier-desc{display:block;margin-top:.9rem;color:var(--text);font-size:.95rem;max-width:320px;}
+  .dossier-facts{margin-top:1.8rem;border-top:1px solid color-mix(in srgb, var(--muted) 25%, transparent);}
+  .dossier-facts li{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.9rem 0;border-bottom:1px solid color-mix(in srgb, var(--muted) 15%, transparent);font-size:.86rem;}
+  .dossier-facts li span{color:var(--muted);}
+  .dossier-facts li strong{font-family:var(--head);color:var(--text);font-weight:700;font-size:1.02rem;white-space:nowrap;margin-left:1rem;}
+
+  /* DYSKRECJA — indeks rzymski */
+  .dyskrecja{background:var(--surface);}
+  .index-list{margin-top:2.8rem;border-top:1px solid color-mix(in srgb, var(--muted) 25%, transparent);}
+  .index-item{display:grid;grid-template-columns:4.5rem 1fr;gap:1.6rem;padding:2.2rem 0;border-bottom:1px solid color-mix(in srgb, var(--muted) 18%, transparent);align-items:start;}
+  .index-num{font-family:var(--head);font-weight:700;font-size:1.9rem;color:var(--accent);}
+  .index-item h3{font-size:1.18rem;margin-bottom:.55rem;}
+  .index-item p{color:var(--muted);font-size:.95rem;max-width:600px;}
+
+  /* EDYTORIAL — panoramiczne zdjęcie */
+  .edytorial{padding:0;background:var(--bg);}
+  .edytorial-figure{position:relative;margin:0;overflow:hidden;}
+  .edytorial-figure img{width:100%;height:auto;aspect-ratio:940/650;object-fit:cover;display:block;}
+  .edytorial-figure::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, transparent 50%, color-mix(in srgb, var(--bg) 62%, transparent) 100%);pointer-events:none;}
+  .edytorial-caption{position:absolute;left:1.5rem;bottom:1.5rem;right:1.5rem;max-width:400px;background:color-mix(in srgb, var(--bg) 80%, transparent);border:1px solid color-mix(in srgb, var(--muted) 35%, transparent);padding:1.15rem 1.35rem;}
+  .edytorial-caption .tag{display:block;font-family:var(--head);font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.09em;font-size:.7rem;margin-bottom:.5rem;}
+  .edytorial-caption p{font-size:.9rem;color:var(--text);}
+
+  /* SERWIS — trzy kolumny z pionowym podziałem */
+  .serwis{background:var(--bg);}
+  .serwis-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:2.9rem;}
+  .serwis-col{padding:0 2.1rem;}
+  .serwis-col:first-child{padding-left:0;}
+  .serwis-col + .serwis-col{border-left:1px solid color-mix(in srgb, var(--muted) 22%, transparent);}
+  .sc-num{font-family:var(--head);font-weight:700;font-size:1rem;color:var(--muted);letter-spacing:.1em;}
+  .serwis-col h3{margin:.8rem 0 .65rem;font-size:1.18rem;}
+  .serwis-col p{color:var(--muted);font-size:.94rem;}
+
+  /* REJESTR ZAUFANIA — ledger */
+  .rejestr{background:var(--surface);}
+  .ledger{margin-top:2.8rem;border-top:1px solid color-mix(in srgb, var(--muted) 30%, transparent);}
+  .ledger-row{display:flex;align-items:baseline;gap:.9rem;padding:1.5rem 0;border-bottom:1px solid color-mix(in srgb, var(--muted) 20%, transparent);}
+  .l-label{font-size:1rem;color:var(--text);white-space:nowrap;}
+  .l-dots{flex:1;border-bottom:1px dotted color-mix(in srgb, var(--muted) 45%, transparent);height:0;transform:translateY(-.35rem);}
+  .l-num{font-family:var(--head);font-weight:700;font-size:1.35rem;color:var(--muted);white-space:nowrap;}
+  .ledger-disclaimer{margin-top:1.8rem;color:var(--muted);font-size:.86rem;max-width:640px;}
+
+  /* FAQ */
+  .faq{background:var(--bg);}
+  .faq-item{border-bottom:1px solid color-mix(in srgb, var(--muted) 22%, transparent);}
+  .faq-q{width:100%;text-align:left;background:none;border:none;padding:1.35rem 0;font-family:var(--head);font-weight:700;font-size:1.06rem;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+  .faq-q .plus{font-size:1.4rem;color:var(--muted);flex-shrink:0;transition:transform .2s ease;}
+  .faq-item.open .faq-q .plus{transform:rotate(45deg);color:var(--accent);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .faq-item.open .faq-a{max-height:320px;}
+  .faq-a p{padding-bottom:1.35rem;color:var(--muted);font-size:.95rem;max-width:640px;}
+
+  /* KONTAKT */
+  .kontakt{background:var(--surface);}
+  .kontakt-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:3.2rem;margin-top:2.8rem;}
+  .form-group{margin-bottom:1.4rem;}
+  .form-group label{display:block;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:.55rem;}
+  .form-group input, .form-group textarea{width:100%;padding:.7rem 0;border:none;border-bottom:1px solid color-mix(in srgb, var(--muted) 45%, transparent);background:transparent;font-family:var(--body);font-size:1rem;color:var(--text);}
+  .form-group input:focus, .form-group textarea:focus{outline:none;border-bottom-color:var(--accent);}
+  .form-group textarea{min-height:100px;resize:vertical;}
+  .form-status{margin-top:1.1rem;font-weight:600;font-size:.9rem;color:var(--muted);display:none;}
+  .kontakt-info p{margin-bottom:.65rem;font-size:.98rem;}
+  .kontakt-info a{font-weight:600;color:var(--text);border-bottom:1px solid color-mix(in srgb, var(--muted) 40%, transparent);}
+  .kontakt-note{margin-top:1.2rem;font-size:.88rem;color:var(--muted);}
+  .kontakt-map{margin-top:1.5rem;overflow:hidden;border:1px solid color-mix(in srgb, var(--muted) 22%, transparent);}
+  .kontakt-map iframe{width:100%;height:280px;border:0;display:block;filter:grayscale(.2) contrast(1.05);}
+
+  footer{background:var(--bg);color:var(--text);padding:3.4rem 1.5rem 2rem;border-top:1px solid color-mix(in srgb, var(--muted) 18%, transparent);}
+  .footer-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:2.5rem;max-width:1180px;margin:0 auto;}
+  .footer-grid > *{min-width:0;}
+  footer p{color:var(--muted);font-size:.92rem;margin-top:.9rem;max-width:380px;}
+  .footer-links{display:flex;flex-direction:column;gap:.65rem;}
+  .footer-links a{font-size:.9rem;color:var(--muted);}
+  .footer-links a:hover{color:var(--text);}
+  .footer-bottom{max-width:1180px;margin:2.6rem auto 0;padding-top:1.7rem;border-top:1px solid color-mix(in srgb, var(--muted) 14%, transparent);font-size:.78rem;color:color-mix(in srgb, var(--muted) 70%, transparent);}
+
+  @media (max-width:960px){
+    .nav-links-desktop{display:none;}
+    .logo{grid-column:1;}
+    .nav-actions{grid-column:3;}
+    .nav-toggle{display:flex;}
+    .nav-links-mobile{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--muted) 18%, transparent);flex-direction:column;padding:.5rem 1.5rem 1.3rem;gap:.2rem;}
+    .nav-links-mobile.open{display:flex;}
+    .nav-links-mobile a{padding:.85rem 0;font-weight:500;color:var(--muted);border-bottom:1px solid color-mix(in srgb, var(--muted) 10%, transparent);}
+    .nav-links-mobile a:hover{color:var(--text);}
+    .nav-links-mobile .mobile-cta{color:var(--text);font-weight:700;}
+    .hero-copy, .hero-dossier{min-width:0;}
+  }
+
+  @media (max-width:860px){
+    .hero-wrap{grid-template-columns:1fr;}
+    .hero-dossier{max-width:460px;}
+    .kontakt-grid{grid-template-columns:1fr;}
+    .kontakt-grid > *{min-width:0;}
+    .footer-grid{grid-template-columns:1fr;}
+  }
+
+  @media (max-width:760px){
+    .serwis-cols{grid-template-columns:1fr;gap:2.2rem;}
+    .serwis-col{padding:0 !important;border-left:none !important;}
+  }
+
+  @media (max-width:700px){
+    .nav-actions > .btn-nav{display:none;}
+  }
+
+  @media (max-width:480px){
+    .hero{padding:3.2rem 1.2rem 2.4rem;}
+    section{padding:3.8rem 1.2rem;}
+    .index-item{grid-template-columns:3rem 1fr;gap:1rem;}
+    .index-num{font-size:1.5rem;}
+    .ledger-row{flex-direction:column;align-items:flex-start;gap:.3rem;}
+    .l-dots{display:none;}
+    .dossier-num{font-size:3.4rem;}
+    .edytorial-caption{max-width:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo">
+      <span class="logo-mark"></span>
+      <span class="logo-name">Metrum</span>
+    </a>
+    <nav class="nav-links-desktop">
+      <a href="#dyskrecja">Dyskrecja</a>
+      <a href="#serwis">Serwis</a>
+      <a href="#rejestr">Rejestr</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#kontakt" class="btn-nav">Umów rozmowę</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-links-mobile" id="navLinks">
+    <a href="#kontakt" class="mobile-cta">Umów rozmowę</a>
+    <a href="#dyskrecja">Dyskrecja</a>
+    <a href="#serwis">Serwis</a>
+    <a href="#rejestr">Rejestr</a>
+    <a href="#faq">FAQ</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-wrap">
+    <div class="hero-copy">
+      <span class="eyebrow">Metrum — segment premium, Kraków</span>
+      <h1>Sprzedaż nieruchomości, <em>o której nie musi wiedzieć cały rynek</em></h1>
+      <p class="lead">Prowadzimy ograniczoną liczbę ofert jednocześnie — apartamentów, rezydencji i nieruchomości z górnego segmentu na terenie miasta Kraków — żeby każdej poświęcić realną uwagę, nie tylko wpis w bazie ogłoszeń. Część transakcji nigdy nie trafia do publicznego ogłoszenia.</p>
+      <div class="hero-ctas">
+        <a href="#kontakt" class="btn btn-primary">Umów rozmowę o Twojej nieruchomości</a>
+        <a href="#dyskrecja" class="btn btn-outline">Na czym polega dyskrecja</a>
+      </div>
+    </div>
+    <aside class="hero-dossier fade-in">
+      <span class="dossier-label">Jednocześnie prowadzimy</span>
+      <span class="dossier-num">6</span>
+      <span class="dossier-desc">ofert — każda pod opieką jednego, starszego prowadzącego maklera, nie zespołu rotacyjnego. Ten limit obowiązuje od 2014 roku, gdy uznaliśmy, że więcej ofert naraz oznacza mniej uwagi dla każdej z nich.</span>
+      <ul class="dossier-facts">
+        <li><span>Praktyka prowadzącego maklera</span><strong>17 lat</strong></li>
+        <li><span>Sieć zweryfikowanych kupujących</span><strong>240+</strong></li>
+        <li><span>Transakcje poza publicznym ogłoszeniem</span><strong>ok. 30%</strong></li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<section class="dyskrecja" id="dyskrecja">
+  <div class="wrap">
+    <span class="eyebrow">Dlaczego dyskrecja ma znaczenie</span>
+    <h2>Uwaga i prywatność, nie zasięg</h2>
+    <p class="lead">Program premium to nie przyspieszona sprzedaż za każdą cenę — to ograniczona ekspozycja, zweryfikowana sieć kupujących i jeden prowadzący makler od pierwszej rozmowy po akt notarialny.</p>
+    <div class="index-list">
+      <div class="index-item fade-in">
+        <span class="index-num">I.</span>
+        <div>
+          <h3>Ograniczona ekspozycja</h3>
+          <p>Nie każda prowadzona przez nas nieruchomość trafia do publicznych portali. Część ofert prezentujemy wyłącznie zweryfikowanym kupującym z naszej sieci — bez zdjęć krążących po internecie.</p>
+        </div>
+      </div>
+      <div class="index-item fade-in">
+        <span class="index-num">II.</span>
+        <div>
+          <h3>Prywatność transakcji</h3>
+          <p>Adres, wnętrze i warunki finansowe udostępniamy dopiero po weryfikacji zainteresowania, nie masowo przy pierwszym kontakcie.</p>
+        </div>
+      </div>
+      <div class="index-item fade-in">
+        <span class="index-num">III.</span>
+        <div>
+          <h3>Jeden prowadzący makler</h3>
+          <p>Od pierwszego spotkania po akt notarialny Twoją sprawą zajmuje się ten sam, starszy makler — zna historię oferty i rozmów, nie trzeba tłumaczyć niczego od nowa kolejnej osobie.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="edytorial">
+  <figure class="edytorial-figure">
+    <img src="https://images.pexels.com/photos/7546314/pexels-photo-7546314.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Przestronne, minimalistyczne wnętrze mieszkania premium — biel, drewno i eleganckie oświetlenie">
+    <figcaption class="edytorial-caption">
+      <span class="tag">Prezentacja premium</span>
+      <p>Profesjonalna sesja zdjęciowa i przygotowanie wnętrza (home staging) dla każdej prowadzonej oferty.</p>
+    </figcaption>
+  </figure>
+</section>
+
+<section class="serwis" id="serwis">
+  <div class="wrap">
+    <span class="eyebrow">Pełny serwis</span>
+    <h2>Od pierwszej sesji zdjęciowej po podpis</h2>
+    <p class="lead">Trzy obszary, które prowadzimy równolegle — nie kolejno — od momentu przyjęcia oferty.</p>
+    <div class="serwis-cols">
+      <div class="serwis-col fade-in">
+        <span class="sc-num">01</span>
+        <h3>Sesja i prezentacja</h3>
+        <p>Profesjonalna sesja zdjęciowa i home staging dopasowany do charakteru wnętrza, a przy nieruchomościach, które tego wymagają — spacer wirtualny.</p>
+      </div>
+      <div class="serwis-col fade-in">
+        <span class="sc-num">02</span>
+        <h3>Koordynacja prawna</h3>
+        <p>Księga wieczysta, stan prawny i przygotowanie dokumentów do aktu notarialnego prowadzimy równolegle z prezentacjami — nie dopiero po znalezieniu kupującego.</p>
+      </div>
+      <div class="serwis-col fade-in">
+        <span class="sc-num">03</span>
+        <h3>Negocjacje i domknięcie</h3>
+        <p>Reprezentujemy Twój interes na każdym etapie negocjacji i pilnujemy formalności aż po podpis u notariusza.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="rejestr" id="rejestr">
+  <div class="wrap">
+    <span class="eyebrow">Rejestr zaufania</span>
+    <h2>Praktyka mówiąca liczbami, nie obietnicami</h2>
+    <div class="ledger">
+      <div class="ledger-row fade-in"><span class="l-label">Praktyka prowadzącego maklera</span><span class="l-dots"></span><span class="l-num">17 lat</span></div>
+      <div class="ledger-row fade-in"><span class="l-label">Limit jednocześnie prowadzonych ofert</span><span class="l-dots"></span><span class="l-num">6</span></div>
+      <div class="ledger-row fade-in"><span class="l-label">Sieć zweryfikowanych kupujących</span><span class="l-dots"></span><span class="l-num">240+</span></div>
+      <div class="ledger-row fade-in"><span class="l-label">Udział transakcji poza publicznym ogłoszeniem</span><span class="l-dots"></span><span class="l-num">ok. 30%</span></div>
+    </div>
+    <p class="ledger-disclaimer">Liczby opisują sposób pracy, nie gwarancję ceny ani czasu sprzedaży konkretnej nieruchomości — każda transakcja jest inna i tak ją traktujemy.</p>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <span class="eyebrow">FAQ</span>
+    <h2>Najczęstsze pytania</h2>
+    <div class="faq-list" style="margin-top:2rem;max-width:760px;">
+      <div class="faq-item">
+        <button class="faq-q">Czym różni się sprzedaż off-market od zwykłego ogłoszenia? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Ofertę off-market prezentujemy wyłącznie wybranym, zweryfikowanym kupującym z naszej sieci, bez publikacji na portalach ogłoszeniowych — to rozwiązanie dla właścicieli, dla których dyskrecja jest ważniejsza niż maksymalny zasięg.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Czy program premium gwarantuje wyższą cenę sprzedaży? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Nie — ograniczona ekspozycja i sieć zweryfikowanych kupujących zwiększają jakość zainteresowania, ale nie są gwarancją konkretnej ceny ani terminu. Realia rynku i wycenę omawiamy wprost, bez obietnic, których nie da się dotrzymać.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Ile ofert prowadzicie jednocześnie i po co ten limit? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Nie więcej niż 6 jednocześnie. To świadomy limit, obowiązujący od 2014 roku — każda oferta ma swojego prowadzącego maklera, który zna ją i klienta wystarczająco dobrze, żeby przy negocjacjach decydować szybko i trafnie.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Jak wygląda pierwsza rozmowa? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Krótkie spotkanie lub rozmowa telefoniczna, podczas której poznajemy nieruchomość i Twoje priorytety — dyskrecja, tempo, krąg potencjalnych kupujących — i wspólnie ustalamy, czy program premium ma sens w Twojej sytuacji.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Czy moje dane i adres pozostają poufne? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Tak — adres i szczegóły nieruchomości udostępniamy dopiero zainteresowanym po weryfikacji, a rozmowy prowadzimy w pełnej poufności na każdym etapie.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="kontakt" id="kontakt">
+  <div class="wrap">
+    <span class="eyebrow">Kontakt</span>
+    <h2>Umów rozmowę o Twojej nieruchomości</h2>
+    <p class="lead">Krótki formularz wystarczy, żeby zacząć — oddzwaniamy osobiście, nie przez call center.</p>
+    <div class="kontakt-grid">
+      <form id="kontaktForm">
+        <div class="form-group">
+          <label for="imie">Imię i nazwisko</label>
+          <input type="text" id="imie" name="imie" required>
+        </div>
+        <div class="form-group">
+          <label for="kontaktowe">Telefon lub e-mail</label>
+          <input type="text" id="kontaktowe" name="kontaktowe" required>
+        </div>
+        <div class="form-group">
+          <label for="nieruchomosc">Rodzaj nieruchomości i przybliżona wartość</label>
+          <input type="text" id="nieruchomosc" name="nieruchomosc">
+        </div>
+        <div class="form-group">
+          <label for="wiadomosc">Wiadomość</label>
+          <textarea id="wiadomosc" name="wiadomosc" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Wyślij zapytanie poufnie</button>
+        <p class="form-status" id="formStatus">Dziękujemy. Skontaktujemy się w ciągu 24 godzin, z zachowaniem pełnej poufności rozmowy.</p>
+      </form>
+      <div class="kontakt-info">
+        <p><strong>Metrum</strong></p>
+        <p>ul. Przykładowa 12, Kraków</p>
+        <p>Tel: <a href="tel:500 123 456">500 123 456</a></p>
+        <p>Email: <a href="mailto:kontakt@metrum.pl">kontakt@metrum.pl</a></p>
+        <p>Pon-Pt: 9:00 – 18:00 · Sob: 10:00 – 14:00</p>
+        <p class="kontakt-note">Spotkania poza tymi godzinami — po wcześniejszym umówieniu, dyskretnie i w dogodnym dla Ciebie miejscu.</p>
+        <div class="kontakt-map">
+          <iframe src="https://www.google.com/maps?q=ul. Przykładowa 12, Kraków&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;width:100%;height:280px"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <span class="logo-name">Metrum</span>
+      <p>Dyskretna sprzedaż nieruchomości z górnego segmentu na terenie miasta Kraków — ograniczona liczba prowadzonych ofert, sieć zweryfikowanych kupujących, pełny serwis od sesji zdjęciowej po akt notarialny.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#dyskrecja">Dyskrecja</a>
+      <a href="#serwis">Pełny serwis</a>
+      <a href="#rejestr">Rejestr zaufania</a>
+      <a href="#kontakt">Kontakt</a>
+    </div>
+  </div>
+  <div class="footer-bottom wrap">© Metrum — wszystkie prawa zastrzeżone.</div>
+</footer>
+
+<script>
+  var navToggle = document.getElementById('navToggle');
+  var navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', function(){
+    navLinks.classList.toggle('open');
+  });
+
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    item.querySelector('.faq-q').addEventListener('click', function(){
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
+      if(!wasOpen){ item.classList.add('open'); }
+    });
+  });
+
+  document.getElementById('kontaktForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('formStatus').style.display = 'block';
+    this.reset();
+  });
+
+  var fadeEls = document.querySelectorAll('.fade-in');
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    fadeEls.forEach(function(el){ el.classList.add('visible'); });
+  } else if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    fadeEls.forEach(function(el){ observer.observe(el); });
+  } else {
+    fadeEls.forEach(function(el){ el.classList.add('visible'); });
+  }
+</script>
+
+</body>
+</html>
