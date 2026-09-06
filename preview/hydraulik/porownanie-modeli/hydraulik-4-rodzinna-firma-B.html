@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{NAZWA_STRONY}} — Hydraulik {{MIASTO}} | tel. {{TELEFON}}</title>
+<meta name="description" content="{{NAZWA_STRONY}} — profesjonalne usługi Hydraulik w mieście {{MIASTO}}. Zadzwoń: {{TELEFON}}">
+<meta name="keywords" content="Hydraulik {{MIASTO}}">
+<link rel="canonical" href="https://{{SLUG}}.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{NAZWA_STRONY}} — Hydraulik {{MIASTO}}">
+<meta property="og:description" content="{{NAZWA_STRONY}} — profesjonalne usługi Hydraulik w mieście {{MIASTO}}. Zadzwoń: {{TELEFON}}">
+<meta property="og:url" content="https://{{SLUG}}.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"{{NAZWA_STRONY}}","telephone":"{{TELEFON}}","email":"{{EMAIL}}","description":"{{NAZWA_STRONY}} — Hydraulik w mieście {{MIASTO}}","address":{"@type":"PostalAddress","addressLocality":"{{MIASTO}}","addressCountry":"PL"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#b85c38;
+    --accent-dark:#8a4128;
+    --bg:#fbf4ea;
+    --surface:#fffdf9;
+    --text:#3a2f28;
+    --muted:#8b7b6e;
+    --head:'Fredoka', sans-serif;
+    --body:'Nunito', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--body);
+    color:var(--text);
+    background:var(--bg);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3{font-family:var(--head);line-height:1.25;font-weight:600;}
+  section{padding:4.5rem 1.5rem;}
+  .wrap{max-width:1020px;margin:0 auto;}
+  .eyebrow{
+    display:inline-block;font-family:var(--body);font-weight:800;font-size:.78rem;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.7rem;
+  }
+  h2{font-size:clamp(1.55rem,3vw,2.1rem);margin-bottom:.9rem;}
+  .lead{color:var(--muted);font-size:1.02rem;max-width:580px;}
+  .btn{
+    display:inline-flex;align-items:center;gap:.5rem;padding:.95rem 1.8rem;border-radius:2rem;
+    font-weight:700;font-family:var(--body);font-size:1rem;cursor:pointer;border:2px solid transparent;
+    transition:transform .15s ease, background .2s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--accent);color:var(--surface);}
+  .btn-primary:hover{background:var(--accent-dark);}
+
+  /* ---------- nav ---------- */
+  header.nav{padding:1.5rem 1.5rem 0;position:relative;}
+  .nav-inner{
+    max-width:1020px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;
+    gap:1rem;background:var(--surface);border-radius:2.5rem;padding:.75rem 1.3rem;
+    box-shadow:0 8px 22px color-mix(in srgb, var(--text) 9%, transparent);
+  }
+  .logo{font-family:var(--head);font-weight:600;font-size:1.15rem;white-space:nowrap;}
+  .logo span{color:var(--accent);}
+  .nav-links{display:flex;gap:1.4rem;align-items:center;}
+  .nav-links a{font-weight:700;font-size:.9rem;}
+  .nav-links a:hover{color:var(--accent);}
+  .nav-actions{display:flex;align-items:center;gap:.8rem;}
+  .nav-phone{
+    display:inline-flex;align-items:center;gap:.45rem;background:var(--accent);color:var(--surface);
+    font-weight:700;font-size:.9rem;padding:.6rem 1.2rem;border-radius:2rem;white-space:nowrap;
+  }
+  .nav-phone:hover{background:var(--accent-dark);}
+  .nav-phone .icon{display:none;}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.3rem;}
+  .nav-toggle span{width:22px;height:2px;background:var(--text);border-radius:2px;}
+
+  /* ---------- hero ---------- */
+  .hero{padding-top:3.5rem;}
+  .hero .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:3rem;align-items:center;}
+  .hero-photo{
+    width:100%;height:auto;aspect-ratio:4/4.7;object-fit:cover;object-position:50% 22%;
+    border-radius:58% 42% 47% 53% / 42% 46% 54% 58%;
+    box-shadow:0 22px 44px color-mix(in srgb, var(--text) 20%, transparent);
+  }
+  .hero h1{font-size:clamp(1.9rem,3.9vw,2.8rem);margin-bottom:1.1rem;}
+  .hero h1 em{color:var(--accent);font-style:normal;}
+  .hero-quote{
+    font-size:1.06rem;font-style:italic;color:var(--accent-dark);
+    border-left:3px solid var(--accent);padding-left:1.1rem;margin-bottom:1.9rem;
+  }
+
+  /* ---------- oś czasu ---------- */
+  .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:2.6rem;position:relative;}
+  .timeline::before{
+    content:"";position:absolute;top:15px;left:6%;right:6%;height:2px;
+    background:color-mix(in srgb, var(--accent) 28%, transparent);
+  }
+  .timeline-item{position:relative;}
+  .timeline-item .dot{
+    width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--surface);
+    display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:600;
+    font-size:.85rem;margin-bottom:1rem;position:relative;z-index:1;
+  }
+  .timeline-item h3{font-size:1rem;margin-bottom:.35rem;}
+  .timeline-item p{font-size:.88rem;color:var(--muted);}
+
+  /* ---------- usługi (lista tekstowa) ---------- */
+  .services{background:var(--surface);}
+  .services-list{margin-top:2.4rem;max-width:720px;}
+  .service-row{
+    display:flex;gap:1.1rem;padding:1.25rem 0;
+    border-bottom:1px solid color-mix(in srgb, var(--text) 11%, transparent);
+  }
+  .service-row:last-child{border-bottom:none;}
+  .service-row .bullet{
+    width:9px;height:9px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:.62rem;
+  }
+  .service-row h3{font-size:1.06rem;margin-bottom:.25rem;}
+  .service-row p{font-size:.93rem;color:var(--muted);}
+
+  /* ---------- duży cytat ---------- */
+  .quote-band{text-align:center;}
+  .quote-band .wrap{max-width:720px;}
+  .quote-mark{
+    font-family:var(--head);font-size:4.5rem;line-height:1;
+    color:color-mix(in srgb, var(--accent) 32%, transparent);margin-bottom:-.8rem;
+  }
+  .quote-band blockquote{font-family:var(--head);font-weight:500;font-size:1.32rem;margin-bottom:1rem;}
+  .quote-band cite{font-style:normal;color:var(--muted);font-size:.9rem;}
+
+  /* ---------- FAQ ---------- */
+  .faq-list{max-width:760px;margin:2.4rem auto 0;display:flex;flex-direction:column;gap:.7rem;}
+  details{background:var(--surface);border-radius:1rem;padding:1.1rem 1.4rem;}
+  details summary{
+    cursor:pointer;font-family:var(--head);font-weight:500;font-size:1rem;list-style:none;
+    display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  }
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{content:"+";font-size:1.4rem;color:var(--accent);flex-shrink:0;}
+  details[open] summary::after{content:"–";}
+  details p{color:var(--muted);margin-top:.7rem;font-size:.92rem;}
+
+  /* ---------- kontakt ---------- */
+  .contact{background:var(--surface);}
+  .contact-personal{display:flex;align-items:center;gap:1.1rem;margin-bottom:1.8rem;}
+  .contact-personal img{
+    width:76px;height:76px;border-radius:50%;object-fit:cover;object-position:50% 18%;
+    box-shadow:0 8px 18px color-mix(in srgb, var(--text) 18%, transparent);flex-shrink:0;
+  }
+  .contact-personal .intro{font-size:.98rem;color:var(--muted);margin-bottom:.1rem;}
+  .contact-personal .phone-big{font-family:var(--head);font-size:1.75rem;color:var(--accent-dark);}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start;}
+  .contact-info li{font-size:.93rem;display:flex;gap:.6rem;margin-bottom:.85rem;}
+  .contact-info li b{color:var(--muted);font-weight:700;min-width:96px;display:inline-block;}
+  .map-embed{
+    width:100%;height:300px;border-radius:1.2rem;overflow:hidden;
+    border:1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  }
+  .map-caption{margin-top:.6rem;font-size:.84rem;color:var(--muted);}
+
+  footer{padding:2.2rem 1.5rem;text-align:center;}
+  footer p{font-size:.87rem;color:var(--muted);}
+  footer a:hover{color:var(--accent);}
+
+  /* ---------- responsywność ---------- */
+  @media (max-width:900px){
+    .hero .wrap{grid-template-columns:1fr;gap:2rem;}
+    .hero-photo{max-width:280px;margin:0 auto;}
+    .timeline{grid-template-columns:repeat(2,1fr);gap:1.8rem;}
+    .timeline::before{display:none;}
+    .contact-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:700px){
+    /* zdjęcie w hero nie może zająć całego ekranu telefonu — patrz brief */
+    .hero{padding-top:2rem;}
+    .hero .wrap{gap:1.5rem;}
+    .hero-photo{max-width:200px;}
+    .nav-links{
+      position:absolute;top:calc(100% + .5rem);left:1.5rem;right:1.5rem;background:var(--surface);
+      flex-direction:column;align-items:flex-start;gap:.9rem;padding:1.1rem 1.4rem;border-radius:1.3rem;
+      box-shadow:0 10px 26px color-mix(in srgb, var(--text) 14%, transparent);display:none;
+    }
+    .nav-links.open{display:flex;}
+    .nav-toggle{display:flex;}
+    .nav-phone{width:44px;height:44px;padding:0;justify-content:center;border-radius:50%;}
+    .nav-phone .txt{display:none;}
+    .nav-phone .icon{display:inline;font-size:1.05rem;}
+    section{padding:3.2rem 1.2rem;}
+  }
+  @media (max-width:480px){
+    .timeline{grid-template-columns:1fr;gap:1.4rem;}
+    .hero-photo{max-width:180px;}
+    .contact-personal{gap:.9rem;}
+    .contact-personal img{width:64px;height:64px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">{{NAZWA_STRONY}}<span>.</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#historia">Nasza historia</a>
+      <a href="#uslugi">Usługi</a>
+      <a href="#faq">Pytania</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="tel:{{TELEFON}}" class="nav-phone" aria-label="Zadzwoń: {{TELEFON}}">
+        <span class="txt">📞 {{TELEFON}}</span>
+        <span class="icon">📞</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu nawigacji">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <img class="hero-photo" src="https://images.pexels.com/photos/8642041/pexels-photo-8642041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Właściciel {{NAZWA_STRONY}} — hydraulik w swoim warsztacie" width="940" height="650">
+    <div class="hero-copy">
+      <span class="eyebrow">Hydraulik {{MIASTO}} — od ręki, po sąsiedzku</span>
+      <h1>W {{NAZWA_STRONY}} rozmawiasz z <em>fachowcem</em>, nie z infolinią</h1>
+      <p class="hero-quote">„Robię to od tylu lat, że rurę słyszę zanim ją zobaczę. I mówię wprost, co trzeba naprawić, a co spokojnie może poczekać."</p>
+      <a href="tel:{{TELEFON}}" class="btn btn-primary">📞 Zadzwoń: {{TELEFON}}</a>
+    </div>
+  </div>
+</section>
+
+<section id="historia">
+  <div class="wrap">
+    <span class="eyebrow">Nasza historia</span>
+    <h2>Od jednej skrzynki z narzędziami</h2>
+    <p class="lead">{{NAZWA_STRONY}} nie wyrosło z biznesplanu, tylko z telefonów od sąsiadów, którym coś nagle przeciekło.</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="dot">1</div>
+        <h3>Pierwsze zlecenia</h3>
+        <p>Jedna osoba, jedna skrzynka narzędzi i zlecenia z polecenia.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="dot">2</div>
+        <h3>Poczta pantoflowa</h3>
+        <p>Klienci zaczęli podawać numer dalej — rodzinie i sąsiadom.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="dot">3</div>
+        <h3>Mała ekipa</h3>
+        <p>Dołączyli fachowcy pracujący na tych samych zasadach.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="dot">4</div>
+        <h3>Dziś</h3>
+        <p>Stali klienci na terenie miasta {{MIASTO}} i to samo podejście.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="uslugi">
+  <div class="wrap">
+    <span class="eyebrow">Czym się zajmuję</span>
+    <h2>Usługi hydrauliczne — {{MIASTO}}</h2>
+    <p class="lead">Bez pakietów i cenników z gwiazdką. Po prostu to, co robię na co dzień.</p>
+    <div class="services-list">
+      <div class="service-row">
+        <span class="bullet"></span>
+        <div>
+          <h3>Awarie i przecieki</h3>
+          <p>Cieknąca rura, kapiąca bateria, mokra ściana — przyjeżdżam i usuwam przyczynę, nie tylko objaw.</p>
+        </div>
+      </div>
+      <div class="service-row">
+        <span class="bullet"></span>
+        <div>
+          <h3>Instalacje wod-kan</h3>
+          <p>Nowa instalacja albo wymiana starej — w mieszkaniu, domu czy pojedynczej łazience.</p>
+        </div>
+      </div>
+      <div class="service-row">
+        <span class="bullet"></span>
+        <div>
+          <h3>Przeglądy i konserwacja</h3>
+          <p>Spokojne sprawdzenie instalacji raz na jakiś czas kosztuje mniej niż jedna awaria.</p>
+        </div>
+      </div>
+      <div class="service-row">
+        <span class="bullet"></span>
+        <div>
+          <h3>Montaż armatury</h3>
+          <p>Baterie, umywalki, kabiny, podłączenie pralki czy zmywarki — solidnie, bez pośpiechu.</p>
+        </div>
+      </div>
+      <div class="service-row">
+        <span class="bullet"></span>
+        <div>
+          <h3>Ogrzewanie i ciepła woda</h3>
+          <p>Podgrzewacze, podłączenia pieców, odpowietrzanie i regulacja grzejników.</p>
+        </div>
+      </div>
+      <div class="service-row">
+        <span class="bullet"></span>
+        <div>
+          <h3>Udrażnianie kanalizacji</h3>
+          <p>Zapchany odpływ albo pion — udrażniam i mówię, co zrobić, żeby nie wróciło.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="quote-band">
+  <div class="wrap">
+    <div class="quote-mark">"</div>
+    <blockquote>Przyjechał tego samego dnia, pokazał mi dokładnie gdzie był problem i nie próbował sprzedać niczego więcej. Rzadkość.</blockquote>
+    <cite>— Klientka, {{MIASTO}}</cite>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <span class="eyebrow">Pytania i odpowiedzi</span>
+    <h2>O co pytacie najczęściej</h2>
+    <div class="faq-list">
+      <details open>
+        <summary>Czy przyjeżdża Pan osobiście?</summary>
+        <p>Najczęściej tak. Przy większej liczbie zleceń pomaga mi mała, sprawdzona ekipa — ale zasady pracy i wycena są dokładnie te same.</p>
+      </details>
+      <details>
+        <summary>Jak szybko można się umówić?</summary>
+        <p>Zwykle w ciągu jednego–dwóch dni roboczych. Przy przeciekach i awariach staram się dojechać tego samego dnia.</p>
+      </details>
+      <details>
+        <summary>Ile kosztuje przyjazd i wycena?</summary>
+        <p>Wycena po opisaniu problemu przez telefon jest bezpłatna i niezobowiązująca. Cenę ustalamy przed rozpoczęciem pracy.</p>
+      </details>
+      <details>
+        <summary>Czy jest gwarancja na naprawę?</summary>
+        <p>Tak, na wykonane prace i zamontowane części. Szczegóły ustalamy przy wycenie, zależnie od zakresu.</p>
+      </details>
+      <details>
+        <summary>Dokąd Pan dojeżdża poza miastem {{MIASTO}}?</summary>
+        <p>Obsługuję też okoliczne miejscowości. Najprościej zadzwonić i zapytać o konkretny adres — od razu powiem, czy dojadę.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="kontakt">
+  <div class="wrap">
+    <span class="eyebrow">Kontakt</span>
+    <h2>Najlepiej po prostu zadzwoń</h2>
+    <div class="contact-personal">
+      <img src="https://images.pexels.com/photos/8642041/pexels-photo-8642041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Właściciel {{NAZWA_STRONY}}" width="76" height="76" loading="lazy">
+      <div>
+        <p class="intro">Zadzwoń bezpośrednio do mnie — {{NAZWA_STRONY}}</p>
+        <a href="tel:{{TELEFON}}" class="phone-big">{{TELEFON}}</a>
+      </div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <ul>
+          <li><b>E-mail</b> <a href="mailto:{{EMAIL}}">{{EMAIL}}</a></li>
+          <li><b>Adres</b> {{ADRES}}, {{MIASTO}}</li>
+          <li><b>Pon–Pt</b> {{GODZINY_PON_PT}}</li>
+          <li><b>Sobota</b> {{GODZINY_SOB}}</li>
+        </ul>
+      </div>
+      <div>
+        <iframe class="map-embed" src="https://www.google.com/maps?q={{ADRES}}, {{MIASTO}}&output=embed" title="Mapa dojazdu do {{NAZWA_STRONY}} w mieście {{MIASTO}}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;"></iframe>
+        <p class="map-caption">Mapa dojazdu — {{ADRES}}, {{MIASTO}}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© <span id="year"></span> {{NAZWA_STRONY}} — Hydraulik {{MIASTO}} · <a href="tel:{{TELEFON}}">{{TELEFON}}</a> · <a href="mailto:{{EMAIL}}">{{EMAIL}}</a></p>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+</script>
+
+</body>
+</html>

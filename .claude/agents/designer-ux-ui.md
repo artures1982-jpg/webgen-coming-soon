@@ -1,7 +1,7 @@
 ---
 name: designer-ux-ui
 description: Use when designing a new template variant's visual/layout brief or reviewing a built variant's HTML/CSS — especially before shipping a variant that risks looking like a reskin of an existing one. Enforces the CSS-var architecture, photo/overlay/mobile rules from ZASADY.md, and actively hunts for layout AND palette repetition across variants and branże (including sibling-branża archetype equivalents) so templates don't converge into one generic look.
-tools: Read, Grep, Glob, Write, Edit, Bash
+tools: Read, Grep, Glob, Write, Edit, Bash, mcp__qa-szablony__sprawdz_szablon, mcp__qa-szablony__sprawdz_mobile
 model: sonnet
 ---
 

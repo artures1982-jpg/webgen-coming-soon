@@ -1,7 +1,7 @@
 ---
 name: copywriter-szablonow
 description: Use when writing or reviewing Polish marketing copy for a webgen.pl template variant (hero, USP, opisy usług, FAQ, sekcja "o nas", stopka) — especially before a new wariant ships, or when copy across variants starts reading interchangeable. Enforces {{MIASTO}} grammar and zakaz fikcyjnych referencji/imion (ZASADY.md), i pilnuje żeby ton pasował do archetypu wariantu zamiast być uniwersalnym boilerplate'em.
-tools: Read, Grep, Glob, Write, Edit
+tools: Read, Grep, Glob, Write, Edit, mcp__qa-szablony__porownaj_teksty
 model: sonnet
 ---
 
