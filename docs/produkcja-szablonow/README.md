@@ -1,7 +1,9 @@
 # Produkcja szablonów — projekt
 
-Stan na: 6 września 2026 — **10 branż, 47 wariantów** w `templates/pilot/`, wszystkie komplety
-(statusy niżej liczone z plików, nie z pamięci sesji).
+Stan na: 6 września 2026 — **10 branż ukończonych, 47 wariantów** w `templates/pilot/`, wszystkie
+komplety. Dodatkowo **1 branża porzucona na etapie briefu** (`fizjoterapia` — zero plików, patrz
+sekcja niżej); nie licz jej do statusu ukończonych. Statusy niżej liczone z plików, nie z pamięci
+sesji.
 
 Projekt zbiera **proces wytwarzania szablonów stron** dla webgen.pl: jak powstaje pojedynczy
 wariant wizualny, jakie zasady musi spełnić, jak go zweryfikować i jak wygląda podział pracy.
@@ -218,6 +220,31 @@ rozdzielona od późniejszego, unisex `salon-fryzjerski`. To nie duplikat branż
 
 ---
 
+## Fizjoterapia — branża rozpoczęta i porzucona (0/5)
+
+**Piąta branża w numeracji, jedyna nieukończona.** Wyjaśnia lukę w ordinalach: Remonty są opisane
+niżej jako „szósta branża", mimo że ukończonych poprzedników jest czterech — piąte miejsce zajmuje
+właśnie fizjoterapia.
+
+Kolejność wg pierwszych commitów: hydraulik (24.08) → elektryk (25.08) → studio paznokci (26.08) →
+fryzjer/barber (01.09) → **fizjoterapia (01.09, porzucona na kroku 1)** → remonty (01.09).
+
+Co realnie istnieje:
+
+- **tylko brief** `scripts/generate-fizjoterapia-pilot.js` (utworzony 01.09.2026 ok. 20:36),
+  z **jednym zdefiniowanym wariantem** — `fizjoterapia-1-zaufany-fachowiec` (tier free);
+- **zero plików** w `templates/pilot/` i **zero** w `preview/` — katalog `preview/fizjoterapia/`
+  nie powstał;
+- plik briefu jest **nieśledzony przez gita** (nie ma go w indeksie, nigdy nie był commitowany),
+  więc historia gita sama z siebie tej branży nie pokaże — stąd zagadka brakującego ogniwa;
+- proces zatrzymał się na kroku 1 pipeline'u; kroki 2–9 nigdy się nie odbyły.
+
+Jeśli branża kiedyś wróci, wraca **wg aktualnej formuły 3 wariantów** (patrz góra pliku), nie wg
+5 archetypów zakładanych w istniejącym briefie — nagłówek tamtego pliku opisuje nieaktualny już
+system.
+
+---
+
 ## Status pilota Remonty (firma remontowo-budowlana) — 5/5
 
 Szósta branża w systemie, pierwsza zbudowana w trybie "jeden wariant na raz, akceptacja po
@@ -413,8 +440,13 @@ Skrypty `scripts/generate-<branża>-pilot.js` są źródłem briefu, ale **nie z
 aktualizowane po poprawkach na gotowym pliku**. Miejsca, w których plik HTML jest źródłem prawdy,
 a brief został z tyłu:
 
-- **`salon-fryzjerski-3-wybierz-stylistke`** — brief każe użyć awatarów-inicjałów zamiast zdjęć
-  personelu; plik używa realnych zdjęć (świadoma poprawka, commit `1181a6e`).
+- ~~**`salon-fryzjerski-3-wybierz-stylistke`**~~ — **ZAMKNIĘTE 06.09.2026.** Brief kazał użyć
+  awatarów-inicjałów zamiast zdjęć personelu, plik po poprawce na życzenie Artura miał realne
+  zdjęcia (commit `1181a6e`). Brief został zaktualizowany i zawiera dziś notatkę wyjaśniającą,
+  **dlaczego** pierwotne ograniczenie istniało (unikanie „fabrykowania tożsamości" — stockowa
+  twarz podpisana wymyślonym imieniem jako personel firmy) i dlaczego zostało zniesione.
+  **Ograniczenie nadal obowiązuje dla awatarów w sekcjach opinii** — tam zostaje litera zamiast
+  twarzy. Zmiana dotyczy wyłącznie widgetu wyboru stylistki.
 - **Nazewnictwo wersji wypełnionych** — obowiązująca konwencja to `<pełne-id>-preview-wypelniony.html`
   i trzymają się jej `nieruchomosci`, `auta-z-ameryki`, `fotograf-slubny`. Siedem wcześniejszych
   branż używa skróconej formy `<branża>-<numer>-preview-wypelniony.html` (np.
@@ -422,7 +454,12 @@ a brief został z tyłu:
   ale **nowe branże budujemy pełną nazwą**.
 - **`fizjoterapia`** — istnieje `scripts/generate-fizjoterapia-pilot.js`, ale **nie ma żadnego
   pliku** w `templates/pilot/` ani `preview/`. Branża zaczęta, nieukończona; nie licz jej do
-  statusu.
+  statusu. Pełne wyjaśnienie i miejsce w numeracji branż: sekcja „Fizjoterapia — branża
+  rozpoczęta i porzucona" wyżej.
+- ~~**Brakujące galerie `preview/<branża>/index.html`**~~ — **ZAMKNIĘTE 06.09.2026.** Trzy
+  najnowsze branże (`nieruchomosci`, `auta-z-ameryki`, `fotograf-slubny`) nie miały strony
+  galerii; zostały utworzone. Wszystkie 10 ukończonych branż ma dziś swój `index.html`
+  w `preview/`.
 
 Zanim uznasz różnicę brief ↔ plik za błąd w pliku, sprawdź tę listę i historię gita — poprawka
 mogła być zamierzona.

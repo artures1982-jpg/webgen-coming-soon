@@ -158,11 +158,21 @@ KONKRETNEGO stylistę (nie tylko termin), potem dopiero jego/jej wolne godziny. 
 trafiasz do przypadkowej osoby — wybierasz kogoś, kto specjalizuje się dokładnie w tym, czego
 potrzebujesz (koloryzacja / strzyżenie męskie / stylizacja ślubna itd.)".
 
-WAŻNE OGRANICZENIE: stylistki/styliści w widgecie to WYMYŚLONE persony (imię + specjalizacja)
-do celów demo, nie prawdziwe zdjęcia z twarzami podpisane jako personel — użyj kolorowych
-awatarów-inicjałów (jak w opiniach wariantu 1), NIE prawdziwych zdjęć twarzy z Pexels
-podpisanych imieniem. To unika problemu "fabrykowania tożsamości" przy prawdziwych zdjęciach
-stockowych (ten sam powód co ograniczenie przy zdjęciu w remonty-4/fryzjer-barber-4).
+ZDJĘCIA STYLISTÓW — UWAGA, TA INSTRUKCJA ZOSTAŁA ZMIENIONA (02.09.2026, decyzja Artura):
+w widgecie mają być PRAWDZIWE ZDJĘCIA z Pexels, imię + specjalizacja pod spodem. NIE kolorowe
+awatary-inicjały.
+
+Pierwotna wersja tego briefu kazała użyć awatarów-inicjałów, żeby uniknąć "fabrykowania
+tożsamości" (prawdziwa twarz ze zdjęcia stockowego podpisana wymyślonym imieniem jako personel
+salonu). Artur odrzucił to wprost — wariant wyszedł wtedy z kółkami z literami zamiast zdjęć i
+został zgłoszony jako nie do przyjęcia; poprawione commitem 1181a6e. Brief był do 06.09.2026
+niezgodny z plikiem, przez co każdy agent czytający go jako źródło prawdy cofałby tę poprawkę —
+stąd ta notatka.
+
+Obowiązująca zasada: zdjęcia realne. Imiona i specjalizacje traktuj jak {{NAZWA_STRONY}} —
+placeholder, który klient nadpisuje zdjęciami i danymi SWOJEGO zespołu przy edycji strony. Nie
+dopisuj przy nich nazwisk, stażu pracy ani certyfikatów, bo to już byłyby twierdzenia o
+konkretnych osobach, a nie oczywista treść wzorcowa (patrz ZASADY.md sekcja 5).
 
 Trzeci wariant tej branży — różnicowanie względem salon-fryzjerski-1 (ciepłe ivory/teal, hero
 magazynowy) i salon-fryzjerski-2 (jasne złoto/kremowa biel, marquee). Ten wariant ciemny, w
@@ -193,9 +203,9 @@ LAYOUT — inny mechanizm niż salon-fryzjerski-1/2 i inny niż studio-paznokci-
 remonty-3 (sprawdź wszystkie trzy przed projektowaniem — żadna nie ma dwuetapowego
 stylista→termin, wszystkie mają płaski widget dzień+godzina):
 1. Nav: ciemna, CTA "Umów u wybranej osoby" pigułka.
-2. Hero: 2 kolumny — lewo tekst, prawo WIDGET: krok 1 — pozioma lista 4 chipów-awatarów
-   stylistów (kolorowy okrąg z inicjałem + imię + specjalizacja pod spodem), klik zaznacza
-   wybór; krok 2 — po zaznaczeniu pojawia się (lub jest zawsze widoczna, podświetlona po
+2. Hero: 2 kolumny — lewo tekst, prawo WIDGET: krok 1 — pozioma lista 4 chipów stylistów
+   (okrągłe ZDJĘCIE z Pexels + imię + specjalizacja pod spodem — patrz notatka o zdjęciach
+   stylistów niżej), klik zaznacza wybór; krok 2 — po zaznaczeniu pojawia się (lub jest zawsze widoczna, podświetlona po
    wyborze) siatka chipów godzin DLA TEJ OSOBY. Zdjęcie salonu jako mały inset w rogu/za
    widgetem.
 3. Sekcja storytelling: dlaczego wybór konkretnej osoby ma znaczenie (konkretny scenariusz —
