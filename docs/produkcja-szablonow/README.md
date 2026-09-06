@@ -434,6 +434,34 @@ przypadków testowych, nie tylko jako status:
 
 ---
 
+## Status pilota Fotowoltaika — 1/3 (w budowie)
+
+**Pierwsza branża budowana z serwerem MCP `qa-szablony` i osobnym agentem `qa-szablonow`
+w pętli** — czyli pierwsza, w której kontrolę robi ktoś inny niż budowniczy. Archetyp wariantu 2
+wylosowany: „Nowoczesny cyfrowy".
+
+Oś branży: **realny problem reputacyjny** — akwizycja domokrążna, zawyżone prognozy zwrotu
+i sprzedawcy liczący oszczędności wg net-meteringu, który nie obowiązuje od 2022. Stąd twarde
+ograniczenie briefu: zero „gwarantowanego zwrotu w X lat", zero „rachunek spadnie do zera",
+zero „dotacja pewna". Widełki zależne od autokonsumpcji — tak, obietnice — nie.
+
+| # | ID | Nazwa | Tier | Charakterystyka |
+|---|----|-------|------|-----------------|
+| 1 | `fotowoltaika-1-uczciwe-wyliczenie` | Uczciwe wyliczenie | free | Kremowy papier (`#f3f1ea`) + stalowy błękit (`#3d6b91`), Titillium Web/PT Sans; wyliczenie z faktur klienta zamiast średniej krajowej, jawny rozkład kosztów instalacji z zaznaczeniem, co wycenia się dopiero po oględzinach dachu, sekcja o net-billingu i autokonsumpcji po ludzku |
+| 2 | — | Nowoczesny cyfrowy (wylosowany) | pro | do zbudowania |
+| 3 | — | „petarda" | pro | do zbudowania |
+
+### Co złapał niezależny QA (czego nie złapał budowniczy)
+
+- **Zaszyte miasta w opiniach** — „Katarzyna, Gliwice" i „Piotr, Bielsko-Biała" zamiast
+  `{{MIASTO}}`. Klient z Gdańska dostawałby referencje ze Śląska. Zamienione na token.
+- **Dwa niesparowane cudzysłowy** polskie w treści.
+
+Uwaga do rozstrzygnięcia przy wariancie 2: `fotowoltaika-1` to trzeci w bibliotece „stonowany
+błękit na jasnym neutralu". Warianty 2 i 3 muszą wyraźnie odejść od tej palety.
+
+---
+
 ## Znane rozjazdy brief ↔ plik
 
 Skrypty `scripts/generate-<branża>-pilot.js` są źródłem briefu, ale **nie zawsze były

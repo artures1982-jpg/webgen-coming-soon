@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{NAZWA_STRONY}} — fotowoltaika i pompy ciepła, {{MIASTO}} | tel. {{TELEFON}}</title>
+<meta name="description" content="{{NAZWA_STRONY}} — instalacje fotowoltaiczne i pompy ciepła. Wyliczenie oszczędności na Twoich fakturach, nie na średniej krajowej. Jawny rozkład kosztu, dotacje Mój Prąd i Czyste Powietrze. Tel. {{TELEFON}}">
+<meta name="keywords" content="fotowoltaika {{MIASTO}}, pompy ciepła {{MIASTO}}, panele fotowoltaiczne {{MIASTO}}, dotacje Mój Prąd {{MIASTO}}, magazyn energii">
+<link rel="canonical" href="https://{{SLUG}}.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{NAZWA_STRONY}} — fotowoltaika i pompy ciepła, {{MIASTO}}">
+<meta property="og:description" content="Wyliczenie oszczędności na Twoich fakturach, nie na średniej krajowej — bez zawyżonych obietnic zwrotu. Tel. {{TELEFON}}">
+<meta property="og:url" content="https://{{SLUG}}.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","name":"{{NAZWA_STRONY}}","telephone":"{{TELEFON}}","email":"{{EMAIL}}","description":"{{NAZWA_STRONY}} montuje instalacje fotowoltaiczne i pompy ciepła — wyliczenie oszczędności na podstawie faktur klienta, jawny rozkład kosztów, wsparcie przy dotacjach Mój Prąd i Czyste Powietrze.","address":{"@type":"PostalAddress","streetAddress":"{{ADRES}}","addressLocality":"{{MIASTO}}","addressCountry":"PL"},"areaServed":"PL","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"17:00"}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600;700;900&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /* MOTION-BASELINE — wariant 1 (free/"Zaufany fachowiec" → tu "Uczciwe wyliczenie") zostaje
+     spokojny. Jedyny ruch to jednorazowy, stopniowany fade-in kart przy scrollu
+     (IntersectionObserver, JS na końcu pliku), wyłączony pod prefers-reduced-motion. */
+  :root{
+    --accent:#3d6b91;
+    --accent-dark:#22415a;
+    --bg:#f3f1ea;
+    --surface:#ffffff;
+    --text:#1c2226;
+    --muted:#5f6b72;
+    --head:'Titillium Web', sans-serif;
+    --body:'PT Sans', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.62;-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3,h4{font-family:var(--head);line-height:1.12;font-weight:900;color:var(--text);}
+  section{padding:5.2rem 1.5rem;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  .eyebrow{display:inline-block;font-family:var(--head);font-weight:700;font-size:.76rem;letter-spacing:.13em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:.9rem;}
+  h2{font-size:clamp(1.9rem,3.3vw,2.5rem);margin-bottom:1rem;}
+  .lead{color:var(--muted);font-size:1.03rem;max-width:660px;}
+  .center{text-align:center;margin-left:auto;margin-right:auto;}
+
+  .btn{display:inline-flex;align-items:center;gap:.6rem;padding:.95rem 1.9rem;border-radius:.4rem;font-weight:700;font-family:var(--body);font-size:.96rem;border:1.5px solid transparent;cursor:pointer;transition:background .2s ease, color .2s ease, border-color .2s ease, transform .15s ease;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--accent);color:var(--bg);}
+  .btn-primary:hover{background:var(--accent-dark);}
+  .btn-outline{border-color:color-mix(in srgb, var(--text) 30%, transparent);color:var(--text);background:transparent;}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent-dark);}
+
+  /* ---------- NAV — hamburger na progu 960px (ZASADY.md 6.6). Dropdown mobilny jest
+     rodzeństwem .wrap, nie jego potomkiem (ZASADY.md 6.4). ---------- */
+  header.nav{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;gap:1.4rem;}
+  .logo{display:flex;align-items:center;gap:.55rem;min-width:0;flex-shrink:1;}
+  .logo-mark{width:11px;height:11px;flex-shrink:0;background:var(--accent);border-radius:2px;}
+  .logo-name{display:inline-block;font-family:var(--head);font-weight:900;font-size:1.32rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;vertical-align:bottom;}
+  .nav-links-desktop{display:flex;gap:1.6rem;flex:1;justify-content:center;}
+  .nav-links-desktop a{font-weight:700;font-size:.87rem;color:var(--text);white-space:nowrap;}
+  .nav-links-desktop a:hover{color:var(--accent-dark);}
+  .nav-links-mobile{display:none;}
+  .nav-actions{display:flex;align-items:center;gap:.75rem;flex-shrink:0;margin-left:auto;}
+  .nav-phone{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--text);flex-shrink:0;font-size:1.02rem;}
+  .nav-phone:hover{background:color-mix(in srgb, var(--accent) 20%, var(--bg));}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.35rem;flex-shrink:0;}
+  .nav-toggle span{width:22px;height:2px;background:var(--text);}
+
+  @media (max-width:960px){
+    .nav-links-desktop{display:none;}
+    .nav-toggle{display:flex;}
+    .nav-links-mobile{display:none;position:absolute;top:100%;left:0;right:0;background:var(--surface);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);flex-direction:column;padding:.4rem 1.5rem 1.4rem;gap:0;}
+    .nav-links-mobile.open{display:flex;}
+    .nav-links-mobile a{padding:.85rem 0;font-weight:700;font-size:.97rem;border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+    .nav-links-mobile a:last-child{border-bottom:none;}
+    .mobile-cta{color:var(--accent-dark)!important;font-weight:900!important;}
+  }
+  @media (max-width:700px){
+    .nav-actions > .btn{display:none;}
+  }
+  @media (max-width:480px){
+    .nav .wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+    .nav .wrap::-webkit-scrollbar{display:none;}
+    .logo-name{font-size:1.1rem;}
+  }
+
+  /* ---------- HERO — split tekst/zdjęcie. Zamiast karty NA zdjęciu (ryzyko 6.8 przy jasnym
+     niebie), obietnica-wyliczenie zostaje w kolumnie tekstowej (lekcja B-07: zdjąć tekst ze
+     zdjęcia), a jedyny element „podchodzący" pod zdjęcie to mały, bezpieczny przykład-widełka w
+     normalnym przepływie (position:relative + ujemny margines, wzorzec 6.8 „DOBRZE"). ---------- */
+  .hero{padding-top:3.2rem;padding-bottom:3.6rem;}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:3.4rem;align-items:center;}
+  .hero-copy, .hero-visual{min-width:0;}
+  .hero-copy h1{font-size:clamp(2rem,3.9vw,2.75rem);margin-bottom:1.15rem;}
+  .hero-copy h1 em{font-style:normal;color:var(--accent-dark);}
+  .hero-copy p.lead{font-size:1.03rem;margin-bottom:1.5rem;}
+  .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.4rem;}
+  .hero-note{display:flex;align-items:flex-start;gap:.65rem;font-size:.87rem;color:var(--text);background:var(--surface);border-radius:.4rem;padding:.85rem 1.05rem;max-width:520px;border-left:3px solid var(--accent);margin-bottom:1.7rem;}
+  .hero-facts{display:flex;gap:1.8rem;flex-wrap:wrap;}
+  .hero-facts div{min-width:120px;}
+  .hero-facts .num{display:block;font-family:var(--head);font-weight:900;font-size:1.5rem;color:var(--accent-dark);font-variant-numeric:tabular-nums;}
+  .hero-facts .lbl{display:block;font-size:.78rem;color:var(--muted);margin-top:.15rem;}
+
+  .hero-photo-wrap{position:relative;border-radius:.5rem;overflow:hidden;box-shadow:0 20px 40px color-mix(in srgb, var(--text) 20%, transparent);}
+  .hero-photo{width:100%;height:auto;aspect-ratio:940/650;object-fit:cover;display:block;}
+  .hero-photo-tag{position:absolute;top:1rem;left:1rem;background:color-mix(in srgb, var(--text) 80%, transparent);color:var(--bg);font-size:.73rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.4rem .7rem;border-radius:.3rem;}
+
+  .hero-example{position:relative;margin:-2.3rem 1.3rem 0 auto;width:min(320px,88%);background:var(--surface);border-radius:.5rem;box-shadow:0 16px 32px color-mix(in srgb, var(--text) 22%, transparent);padding:1.1rem 1.3rem;border-top:4px solid var(--accent);}
+  .hero-example .tag{font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:.5rem;}
+  .hero-example .row{display:flex;justify-content:space-between;font-size:.83rem;padding:.32rem 0;color:var(--muted);}
+  .hero-example .row span:last-child{color:var(--text);font-weight:700;font-variant-numeric:tabular-nums;}
+  .hero-example .note{font-size:.72rem;color:var(--muted);margin-top:.5rem;font-style:italic;}
+
+  @media (max-width:960px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-visual{max-width:520px;margin:0 auto;}
+  }
+  @media (max-width:700px){
+    .hero-example{margin:-1.9rem .9rem 0 auto;}
+  }
+
+  /* ---------- CO WPŁYWA NA ZWROT — grid kart z paskiem "wpływu" (impact-meter), mechanizm
+     unikalny w systemie: technika/inżynieria, nie proces ani rozkład kosztów. ---------- */
+  .zwrot{background:var(--surface);}
+  .factor-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem;margin-top:2.8rem;}
+  .factor-card{background:var(--bg);border-radius:.55rem;padding:1.6rem 1.5rem;display:flex;flex-direction:column;opacity:0;transform:translateY(14px);min-width:0;}
+  .factor-card.visible{opacity:1;transform:none;transition:opacity .5s ease, transform .5s ease;}
+  .factor-card .ico{font-size:1.4rem;margin-bottom:.7rem;}
+  .factor-card h3{font-size:1rem;margin-bottom:.5rem;}
+  .factor-card p{font-size:.85rem;color:var(--muted);line-height:1.5;margin-bottom:1.2rem;}
+  .impact-meter{margin-top:auto;}
+  .impact-meter .track{height:6px;border-radius:3px;background:color-mix(in srgb, var(--text) 10%, transparent);overflow:hidden;}
+  .impact-meter .fill{height:100%;border-radius:3px;background:linear-gradient(90deg, var(--accent), var(--accent-dark));}
+  .impact-meter .lbl{display:flex;justify-content:space-between;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-top:.5rem;}
+  @media (max-width:900px){ .factor-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){ .factor-grid{grid-template-columns:1fr;} }
+
+  /* ---------- ROZKŁAD KOSZTÓW — arkusz specyfikacji (liczby tabular-nums) + karta audytora obok,
+     zdjęcie z podpisem POD nim, nigdy tekst NA zdjęciu (lekcja B-07). Inny mechanizm niż ciemny
+     panel "manifestu" w auta-z-ameryki-1. ---------- */
+  .koszt-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:start;margin-top:2.8rem;}
+  .koszt-grid > *{min-width:0;}
+  .specsheet{background:var(--bg);border-radius:.55rem;padding:.3rem 1.7rem;}
+  .spec-row{display:flex;justify-content:space-between;gap:1.2rem;padding:1.05rem 0;border-bottom:1px dashed color-mix(in srgb, var(--text) 16%, transparent);}
+  .spec-row:last-child{border-bottom:none;}
+  .spec-row .label{font-weight:700;font-size:.92rem;}
+  .spec-row .val{font-variant-numeric:tabular-nums;color:var(--muted);font-size:.85rem;text-align:right;flex-shrink:0;}
+  .spec-row.extra .label{font-style:italic;font-weight:400;color:var(--muted);}
+  .spec-row.total .label, .spec-row.total .val{font-family:var(--head);font-weight:900;font-size:1.05rem;color:var(--accent-dark);}
+  .koszt-note{margin-top:1.4rem;font-size:.86rem;color:var(--muted);}
+  .audit-card{background:var(--bg);border-radius:.55rem;overflow:hidden;}
+  .audit-photo{width:100%;height:auto;aspect-ratio:940/650;object-fit:cover;display:block;}
+  .audit-caption{padding:1.2rem 1.3rem;font-size:.86rem;color:var(--muted);}
+  @media (max-width:900px){ .koszt-grid{grid-template-columns:1fr;} .audit-card{max-width:480px;} }
+
+  /* ---------- DOTACJE — dwie kolumny porównania "robimy / nie obiecujemy", odpowiada wprost na
+     lęk klienta o firmy które "załatwią dotację" i nie dowożą. ---------- */
+  .dotacje{background:var(--surface);}
+  .dotacje-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2.8rem;}
+  .dotacje-grid > *{min-width:0;}
+  .dotacje-col{background:var(--bg);border-radius:.55rem;padding:2rem 2.1rem;}
+  .dotacje-col h3{font-size:1.1rem;margin-bottom:1.3rem;}
+  .dotacje-col.robimy{border-top:4px solid var(--accent);}
+  .dotacje-col.nie{border-top:4px solid color-mix(in srgb, var(--text) 32%, transparent);}
+  .dotacje-list li{display:flex;gap:.85rem;align-items:flex-start;margin-bottom:1.05rem;font-size:.9rem;line-height:1.5;}
+  .dotacje-list li:last-child{margin-bottom:0;}
+  .dotacje-list .mk{flex-shrink:0;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:900;margin-top:.1rem;}
+  .robimy .mk{background:var(--accent);color:var(--bg);}
+  .nie .mk{background:color-mix(in srgb, var(--text) 14%, transparent);color:var(--text);}
+  @media (max-width:800px){ .dotacje-grid{grid-template-columns:1fr;} }
+
+  /* ---------- DLACZEGO MY — trzy karty poziome z konkretami, adresują lęk "firma zniknie przed
+     gwarancją". Inny mechanizm niż zdjęcie+lista w auta-z-ameryki-1. ---------- */
+  .gwarancja-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;margin-top:2.8rem;}
+  .gwarancja-card{background:var(--surface);border-radius:.55rem;padding:1.9rem 1.8rem;opacity:0;transform:translateY(14px);min-width:0;}
+  .gwarancja-card.visible{opacity:1;transform:none;transition:opacity .5s ease, transform .5s ease;}
+  .gwarancja-card .num{display:block;font-family:var(--head);font-weight:900;font-size:2rem;color:var(--accent-dark);margin-bottom:.6rem;font-variant-numeric:tabular-nums;}
+  .gwarancja-card h3{font-size:1rem;margin-bottom:.5rem;}
+  .gwarancja-card p{font-size:.87rem;color:var(--muted);line-height:1.55;}
+  @media (max-width:900px){ .gwarancja-grid{grid-template-columns:1fr;} }
+
+  /* ---------- OPINIE — pasek z lewej zamiast cudzysłowu, plakietka mocy instalacji u góry karty
+     (inny mechanizm niż wielki cudzysłów w auta-z-ameryki-1). ---------- */
+  .opinie-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.8rem;}
+  .opinia-card{background:var(--bg);border-radius:.4rem;padding:1.7rem 1.7rem 1.7rem 1.5rem;border-left:4px solid var(--accent);opacity:0;transform:translateY(14px);min-width:0;}
+  .opinia-card.visible{opacity:1;transform:none;transition:opacity .5s ease, transform .5s ease;}
+  .opinia-card .kwp{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-dark);background:color-mix(in srgb, var(--accent) 16%, var(--bg));padding:.3rem .6rem;border-radius:.25rem;margin-bottom:.9rem;}
+  .opinia-card p{font-size:.92rem;color:var(--text);margin-bottom:1.1rem;}
+  .opinia-card .who{font-size:.83rem;color:var(--muted);font-weight:700;}
+  @media (max-width:900px){ .opinie-grid{grid-template-columns:1fr;} }
+
+  /* ---------- FAQ — akordeon details/summary (komponent techniczny, dozwolony jako wspólny
+     mechanizm, ZASADY.md sekcja 0). ---------- */
+  .faq{background:var(--surface);}
+  .faq-list{max-width:760px;margin:2.6rem auto 0;}
+  .faq-card{border-bottom:1px solid color-mix(in srgb, var(--text) 14%, transparent);}
+  .faq-card summary{list-style:none;cursor:pointer;padding:1.3rem 0;font-family:var(--head);font-weight:700;font-size:1rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+  .faq-card summary::-webkit-details-marker{display:none;}
+  .faq-card summary::after{content:"+";font-size:1.5rem;color:var(--accent);flex-shrink:0;transition:transform .2s ease;}
+  .faq-card[open] summary::after{transform:rotate(45deg);}
+  .faq-card p{padding-bottom:1.3rem;color:var(--muted);font-size:.93rem;max-width:660px;}
+
+  /* ---------- KONTAKT ---------- */
+  .kontakt-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2.6rem;align-items:start;}
+  .kontakt-grid > *{min-width:0;}
+  .kontakt-col{display:flex;flex-direction:column;gap:1.6rem;min-width:0;}
+  .contact-card{background:var(--surface);border-radius:.5rem;padding:1.9rem 2rem;border-top:4px solid var(--accent);}
+  .contact-card h3{font-size:1.1rem;margin-bottom:.6rem;}
+  .contact-card p{color:var(--muted);font-size:.92rem;margin-bottom:1.2rem;}
+  .contact-info{margin-top:1.4rem;display:grid;gap:.6rem;font-size:.88rem;}
+  .contact-info div b{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:.15rem;}
+  .form-card{background:var(--surface);border-radius:.5rem;padding:1.9rem 2rem;}
+  .form-group{margin-bottom:1.1rem;}
+  .form-group label{display:block;font-size:.83rem;font-weight:700;margin-bottom:.4rem;}
+  .form-group input, .form-group textarea{width:100%;padding:.8rem 1rem;border:1px solid color-mix(in srgb, var(--text) 22%, transparent);background:var(--bg);font-family:var(--body);font-size:.94rem;color:var(--text);border-radius:.3rem;}
+  .form-group textarea{min-height:100px;resize:vertical;}
+  .form-status{margin-top:1rem;font-weight:700;font-size:.88rem;color:var(--accent-dark);display:none;}
+  .map-panel{border-radius:.5rem;overflow:hidden;min-height:420px;min-width:0;}
+  .map-panel iframe{border:0;width:100%;height:100%;min-height:420px;display:block;}
+  @media (max-width:900px){ .kontakt-grid{grid-template-columns:1fr;} }
+
+  footer{background:var(--text);color:color-mix(in srgb, var(--bg) 86%, transparent);padding:3.4rem 1.5rem 2rem;text-align:center;}
+  .footer-logo{display:inline-block;font-family:var(--head);font-weight:900;font-size:1.3rem;color:var(--bg);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:1rem;}
+  footer p{max-width:580px;margin:0 auto 1.6rem;font-size:.88rem;line-height:1.6;}
+  .footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1.4rem;margin-bottom:1.8rem;font-size:.88rem;}
+  .footer-links a:hover{color:var(--accent);}
+  .footer-bottom{font-size:.78rem;color:color-mix(in srgb, var(--bg) 55%, transparent);border-top:1px solid color-mix(in srgb, var(--bg) 16%, transparent);padding-top:1.6rem;}
+
+  @media (prefers-reduced-motion: reduce){
+    .factor-card, .gwarancja-card, .opinia-card{opacity:1!important;transform:none!important;transition:none!important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo">
+      <span class="logo-mark" aria-hidden="true"></span>
+      <span class="logo-name">{{NAZWA_STRONY}}</span>
+    </a>
+    <nav class="nav-links-desktop">
+      <a href="#zwrot">Co wpływa na zwrot</a>
+      <a href="#koszt">Koszt instalacji</a>
+      <a href="#dotacje">Dotacje</a>
+      <a href="#dlaczego">Dlaczego my</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="tel:{{TELEFON}}" class="nav-phone" aria-label="Zadzwoń: {{TELEFON}}"><span aria-hidden="true">📞</span></a>
+      <a href="#kontakt" class="btn btn-primary">Wyślij faktury</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu nawigacji" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-links-mobile" id="navLinksMobile">
+    <a href="#kontakt" class="mobile-cta">Wyślij faktury i policz oszczędności</a>
+    <a href="#zwrot">Co wpływa na zwrot</a>
+    <a href="#koszt">Koszt instalacji</a>
+    <a href="#dotacje">Dotacje</a>
+    <a href="#dlaczego">Dlaczego my</a>
+    <a href="#faq">FAQ</a>
+    <a href="tel:{{TELEFON}}">📞 {{TELEFON}}</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">{{NAZWA_STRONY}} — fotowoltaika i pompy ciepła</span>
+      <h1>Oszczędności liczymy na <em>Twoich fakturach</em>, nie na średniej krajowej</h1>
+      <p class="lead">Sprzedawcy fotowoltaiki lubią pokazywać zwrot w 5 lat. Realny wynik zależy od tego, ile prądu zużywasz w ciągu dnia, gdy instalacja produkuje — czyli od autokonsumpcji, a nie od tabelki ze średnią z internetu. Zanim złożymy ofertę, prosimy o Twoje faktury za prąd i liczymy na nich.</p>
+      <div class="hero-ctas">
+        <a href="#kontakt" class="btn btn-primary">Wyślij faktury i policz oszczędności</a>
+        <a href="#zwrot" class="btn btn-outline">Zobacz, co wpływa na zwrot</a>
+      </div>
+      <div class="hero-note">
+        <span class="icon" aria-hidden="true">📍</span>
+        <span>Siedziba w mieście {{MIASTO}} — z audytem i montażem dojeżdżamy na terenie całego regionu.</span>
+      </div>
+      <div class="hero-facts">
+        <div><span class="num">11 lat</span><span class="lbl">montujemy PV i pompy ciepła</span></div>
+        <div><span class="num">410+</span><span class="lbl">zrealizowanych instalacji</span></div>
+        <div><span class="num">2,4 MWp</span><span class="lbl">łącznej mocy zainstalowanej</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-photo-wrap">
+        <img class="hero-photo" src="https://images.pexels.com/photos/12243093/pexels-photo-12243093.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Panele fotowoltaiczne zamontowane na dachu domu jednorodzinnego w realnej zabudowie, czyste niebo w tle">
+        <span class="hero-photo-tag">Instalacja na dachu domu jednorodzinnego</span>
+      </div>
+      <div class="hero-example">
+        <span class="tag">Przykład wyliczenia</span>
+        <div class="row"><span>Instalacja</span><span>6,5 kWp</span></div>
+        <div class="row"><span>Autokonsumpcja</span><span>ok. 55%</span></div>
+        <div class="row"><span>Orientacyjny zwrot</span><span>8–11 lat</span></div>
+        <p class="note">Przykład poglądowy, nie obietnica — dokładny wynik liczymy z Twoich faktur.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="zwrot" id="zwrot">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Co realnie wpływa na zwrot</span>
+    <h2 class="center" style="text-align:center;">Zanim policzymy Twoją instalację, sprawdź co naprawdę zmienia wynik</h2>
+    <p class="lead center" style="text-align:center;">Od 2022 roku obowiązuje net-billing — sprzedajesz nadwyżkę prądu po cenie hurtowej, a kupujesz go z powrotem drożej. To zmienia sens fotowoltaiki: liczy się to, co zużyjesz na miejscu, a nie to, co oddasz do sieci.</p>
+    <div class="factor-grid">
+      <div class="factor-card">
+        <span class="ico" aria-hidden="true">🔌</span>
+        <h3>Autokonsumpcja</h3>
+        <p>Ile prądu zużywasz w ciągu dnia, gdy instalacja produkuje — pralka, klimatyzacja, pompa ciepła w dzień. Im więcej, tym lepszy realny zwrot.</p>
+        <div class="impact-meter"><div class="track"><div class="fill" style="width:90%"></div></div><div class="lbl"><span>Wpływ na zwrot</span><span>Wysoki</span></div></div>
+      </div>
+      <div class="factor-card">
+        <span class="ico" aria-hidden="true">🧾</span>
+        <h3>Taryfa i net-billing</h3>
+        <p>Nadwyżkę sprzedajesz po cenie hurtowej, a kupujesz drożej — magazyn energii lub przesunięcie zużycia na dzień realnie poprawiają ten bilans.</p>
+        <div class="impact-meter"><div class="track"><div class="fill" style="width:75%"></div></div><div class="lbl"><span>Wpływ na zwrot</span><span>Wysoki</span></div></div>
+      </div>
+      <div class="factor-card">
+        <span class="ico" aria-hidden="true">🏠</span>
+        <h3>Kierunek i kąt dachu</h3>
+        <p>Południe i kąt ok. 30–35° dają najwięcej energii, ale przy dobrej autokonsumpcji dachy wschód–zachód też się opłacają.</p>
+        <div class="impact-meter"><div class="track"><div class="fill" style="width:55%"></div></div><div class="lbl"><span>Wpływ na zwrot</span><span>Średni</span></div></div>
+      </div>
+      <div class="factor-card">
+        <span class="ico" aria-hidden="true">📊</span>
+        <h3>Realne zużycie roczne</h3>
+        <p>Instalację dobieramy do zużycia z Twoich faktur, nie „z górką” — przewymiarowana instalacja oddaje więcej nadwyżek za bezcen.</p>
+        <div class="impact-meter"><div class="track"><div class="fill" style="width:85%"></div></div><div class="lbl"><span>Wpływ na zwrot</span><span>Wysoki</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="koszt" id="koszt">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Rozkład kosztu — bez ukrytych pozycji</span>
+    <h2 class="center" style="text-align:center;">Z czego składa się cena instalacji</h2>
+    <p class="lead center" style="text-align:center;">Widełki rynkowe dla typowej instalacji na dachu skośnym, pokrytym blachodachówką. Dokładną wycenę dla Twojego dachu dostajesz pisemnie po oględzinach.</p>
+    <div class="koszt-grid">
+      <div class="specsheet">
+        <div class="spec-row"><span class="label">Panele fotowoltaiczne</span><span class="val">ok. 900–1 100 zł / kWp</span></div>
+        <div class="spec-row"><span class="label">Falownik (dobrany do mocy instalacji)</span><span class="val">ok. 2 500–4 500 zł</span></div>
+        <div class="spec-row"><span class="label">Konstrukcja montażowa</span><span class="val">ok. 250–400 zł / kWp</span></div>
+        <div class="spec-row"><span class="label">Okablowanie i zabezpieczenia</span><span class="val">ok. 1 500–2 500 zł</span></div>
+        <div class="spec-row"><span class="label">Robocizna i uruchomienie</span><span class="val">ok. 2 000–3 500 zł</span></div>
+        <div class="spec-row"><span class="label">Zgłoszenie do zakładu energetycznego</span><span class="val">w cenie usługi</span></div>
+        <div class="spec-row extra"><span class="label">Dopłata za trudny dach — dachówka karpiówka, strome połacie, azbest do usunięcia</span><span class="val">wycena po oględzinach</span></div>
+        <div class="spec-row extra"><span class="label">Zwiększenie mocy przyłącza lub wymiana starej instalacji elektrycznej w domu</span><span class="val">wycena po oględzinach</span></div>
+        <div class="spec-row total"><span class="label">Razem</span><span class="val">Twoja pisemna wycena</span></div>
+      </div>
+      <div class="audit-card">
+        <img class="audit-photo" src="https://images.pexels.com/photos/4254163/pexels-photo-4254163.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Inspektor w kasku sprawdzający dokumentację i stan paneli fotowoltaicznych podczas audytu dachu">
+        <p class="audit-caption">Audyt dachu przed wyceną — sprawdzamy stan pokrycia, kierunek połaci i stan instalacji elektrycznej, zanim padnie ostateczna cena.</p>
+      </div>
+    </div>
+    <p class="koszt-note">Podajemy orientacyjne widełki rynkowe jako punkt wyjścia — dokładną kwotę dla Twojego dachu i zużycia potwierdzamy pisemnie po bezpłatnych oględzinach, zanim zdecydujesz się na realizację.</p>
+  </div>
+</section>
+
+<section class="dotacje" id="dotacje">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Dotacje Mój Prąd i Czyste Powietrze</span>
+    <h2 class="center" style="text-align:center;">Co robimy za Ciebie, a czego nie obiecujemy</h2>
+    <p class="lead center" style="text-align:center;">„Załatwimy dotację” to zdanie, które słyszy każdy klient — a potem sam użera się z wnioskiem. My mówimy wprost, gdzie kończy się nasza rola.</p>
+    <div class="dotacje-grid">
+      <div class="dotacje-col robimy">
+        <h3>Robimy</h3>
+        <ul class="dotacje-list">
+          <li><span class="mk" aria-hidden="true">✓</span><span>Przygotowujemy komplet dokumentów technicznych do wniosku o dotację Mój Prąd.</span></li>
+          <li><span class="mk" aria-hidden="true">✓</span><span>Pomagamy skompletować załączniki do Czyste Powietrze przy instalacji z pompą ciepła.</span></li>
+          <li><span class="mk" aria-hidden="true">✓</span><span>Wystawiamy fakturę i protokół odbioru zgodne z wymogami obu programów.</span></li>
+          <li><span class="mk" aria-hidden="true">✓</span><span>Odpowiadamy na pytania operatora dotyczące naszej części dokumentacji.</span></li>
+        </ul>
+      </div>
+      <div class="dotacje-col nie">
+        <h3>Nie obiecujemy</h3>
+        <ul class="dotacje-list">
+          <li><span class="mk" aria-hidden="true">✕</span><span>Gwarancji przyznania dotacji — decyzję podejmuje operator programu, nie firma montażowa.</span></li>
+          <li><span class="mk" aria-hidden="true">✕</span><span>Konkretnego terminu wypłaty — zależy wyłącznie od kolejki wniosków w danym programie.</span></li>
+          <li><span class="mk" aria-hidden="true">✕</span><span>Złożenia wniosku zamiast Ciebie w każdym programie — część z nich wymaga podpisu i danych, które podaje wyłącznie właściciel domu.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dlaczego" id="dlaczego">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Dlaczego my</span>
+    <h2 class="center" style="text-align:center;">11 lat na rynku — i wciąż odbieramy telefony od klientów sprzed lat</h2>
+    <p class="lead center" style="text-align:center;">Gwarancja na panele to 25 lat od producenta, nie od nas — dlatego liczy się nie tylko papier, ale i to, czy firma, która instalowała, jeszcze istnieje.</p>
+    <div class="gwarancja-grid">
+      <div class="gwarancja-card">
+        <span class="num">2015</span>
+        <h3>Rok założenia firmy</h3>
+        <p>Pierwszą instalację, 3,2 kWp na dachu krytym dachówką ceramiczną, montowaliśmy w 2015 roku. Dziś, po ponad 410 realizacjach, procedura audytu jest ta sama.</p>
+      </div>
+      <div class="gwarancja-card">
+        <span class="num">100%</span>
+        <h3>Serwis własnymi ekipami</h3>
+        <p>Montaż i serwis pogwarancyjny robią nasi monterzy, nie zewnętrzny podwykonawca — przy awarii falownika wiesz, do kogo dzwonisz.</p>
+      </div>
+      <div class="gwarancja-card">
+        <span class="num">25 lat</span>
+        <h3>Gwarancja producenta na panele</h3>
+        <p>Niezależna od losu firmy montażowej — dokumenty gwarancyjne dostajesz na komplet urządzeń, z numerami seryjnymi, przed uruchomieniem.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="opinie">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Opinie</span>
+    <h2 class="center" style="text-align:center;">Co mówią klienci po pierwszym roku z instalacją</h2>
+    <div class="opinie-grid">
+      <div class="opinia-card">
+        <span class="kwp">Instalacja 6,5 kWp</span>
+        <p>Dostałem wyliczenie na podstawie moich rachunków, nie tabelki ze średnią. Zwrot wyszedł na 9 lat, nie na 5, jak liczył poprzedni sprzedawca — ale przynajmniej wiedziałem, na czym stoję.</p>
+        <div class="who">Marek, {{MIASTO}}</div>
+      </div>
+      <div class="opinia-card">
+        <span class="kwp">Instalacja 8,2 kWp + pompa ciepła</span>
+        <p>Uczciwie powiedzieli, że dotacji Czyste Powietrze nie mogą mi zagwarantować — pomogli tylko z dokumentami. Decyzja przyszła po trzech miesiącach, zgodnie z tym, co zapowiedzieli.</p>
+        <div class="who">Katarzyna, {{MIASTO}}</div>
+      </div>
+      <div class="opinia-card">
+        <span class="kwp">Instalacja 4,9 kWp</span>
+        <p>Mój dach ma dachówkę karpiówkę, więc dopłata za montaż wyszła realnie wyżej niż w reklamach innych firm — ale znałem tę kwotę zanim podpisałem umowę, nie po fakcie.</p>
+        <div class="who">Piotr, {{MIASTO}}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Pytania i odpowiedzi</span>
+    <h2 class="center" style="text-align:center;">Najczęściej pytacie</h2>
+    <div class="faq-list">
+      <details class="faq-card" open>
+        <summary>Ile realnie trwa zwrot z instalacji fotowoltaicznej?</summary>
+        <p>Zależy od autokonsumpcji, wielkości instalacji i cen energii — dla typowego domu jednorodzinnego z dobrą autokonsumpcją to zwykle 7–12 lat, nie 5 lat, jak bywa reklamowane. Dokładny wynik liczymy na Twoich fakturach, a nie na uśrednionej prognozie.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Co się dzieje przy awarii falownika po gwarancji producenta?</summary>
+        <p>Serwisujemy falowniki własnymi ekipami, również poza gwarancją producenta — wymiana lub naprawa jest wtedy płatna wg cennika części, ale zgłoszenie i diagnostyka idą przez nas, nie przez producenta za granicą.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Czy magazyn energii się opłaca?</summary>
+        <p>Zależy od Twojego profilu zużycia — jeśli dużo prądu zużywasz wieczorem, magazyn pozwala wykorzystać nadwyżkę z dnia zamiast sprzedawać ją po cenie hurtowej. Przy wysokiej autokonsumpcji w ciągu dnia zwrot z samego magazynu bywa dłuższy niż z paneli.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Czy dostanę dotację Mój Prąd na pewno?</summary>
+        <p>Nie możemy tego zagwarantować — decyzję podejmuje operator programu na podstawie aktualnego naboru i kompletności wniosku. Przygotowujemy naszą część dokumentacji tak, żeby formalnie nic nie stało na przeszkodzie, ale ostateczna decyzja nie zależy od nas.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Co jeśli mój dach jest trudny — stroma połać, dachówka karpiówka, azbest?</summary>
+        <p>Każdy z tych przypadków wymaga dopłaty do standardowego montażu — konstrukcji montażowej pod nietypowe pokrycie, dodatkowego zabezpieczenia przy stromych połaciach albo usunięcia azbestu przez uprawnioną firmę. Dokładną kwotę widzisz w wycenie po oględzinach, zanim podejmiesz decyzję.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Kontakt</span>
+    <h2 class="center" style="text-align:center;">Wyślij faktury, policzymy Twoje oszczędności</h2>
+    <p class="lead center" style="text-align:center;">Podaj miesięczne zużycie z ostatnich rachunków — odezwiemy się z realną wyceną i orientacyjnymi widełkami zwrotu.</p>
+    <div class="kontakt-grid">
+      <div class="kontakt-col">
+        <div class="contact-card">
+          <h3>Zadzwoń bezpośrednio</h3>
+          <p>Odbieramy telefony w godzinach pracy biura w mieście {{MIASTO}} — poza nimi zostaw wiadomość, oddzwonimy następnego dnia roboczego.</p>
+          <a href="tel:{{TELEFON}}" class="btn btn-primary">📞 {{TELEFON}}</a>
+          <div class="contact-info">
+            <div><b>E-mail</b>{{EMAIL}}</div>
+            <div><b>Adres</b>{{ADRES}}, {{MIASTO}}</div>
+            <div><b>Pon–Pt</b>{{GODZINY_PON_PT}}</div>
+            <div><b>Sobota</b>{{GODZINY_SOB}}</div>
+          </div>
+        </div>
+        <div class="form-card">
+          <form id="kontaktForm">
+            <div class="form-group">
+              <label for="imie">Imię i nazwisko</label>
+              <input type="text" id="imie" name="imie" required>
+            </div>
+            <div class="form-group">
+              <label for="kontaktEmail">Telefon lub e-mail</label>
+              <input type="text" id="kontaktEmail" name="kontakt" required>
+            </div>
+            <div class="form-group">
+              <label for="wiadomosc">Miesięczne zużycie prądu lub opis potrzeby</label>
+              <textarea id="wiadomosc" name="wiadomosc" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Wyślij zapytanie o wycenę</button>
+            <p class="form-status" id="formStatus">Dziękujemy! Odezwiemy się z wyliczeniem w ciągu 24 godzin roboczych.</p>
+          </form>
+        </div>
+      </div>
+      <div class="map-panel">
+        <iframe src="https://www.google.com/maps?q={{ADRES}}, {{MIASTO}}&output=embed" title="Mapa dojazdu do {{NAZWA_STRONY}} w mieście {{MIASTO}}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">{{NAZWA_STRONY}}</div>
+  <p>{{NAZWA_STRONY}} montuje instalacje fotowoltaiczne i pompy ciepła — z siedzibą w mieście {{MIASTO}} i dojazdem na teren całego regionu. Oszczędności liczymy na Twoich fakturach, nie na uśrednionej prognozie.</p>
+  <div class="footer-links">
+    <a href="#zwrot">Co wpływa na zwrot</a>
+    <a href="#koszt">Koszt instalacji</a>
+    <a href="#faq">FAQ</a>
+    <a href="tel:{{TELEFON}}">{{TELEFON}}</a>
+    <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+  </div>
+  <div class="footer-bottom">© <span id="year"></span> {{NAZWA_STRONY}} — fotowoltaika i pompy ciepła, {{MIASTO}}.</div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  var navToggle = document.getElementById('navToggle');
+  var navLinksMobile = document.getElementById('navLinksMobile');
+  navToggle.addEventListener('click', function(){
+    var isOpen = navLinksMobile.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  navLinksMobile.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      navLinksMobile.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.getElementById('kontaktForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('formStatus').style.display = 'block';
+    this.reset();
+  });
+
+  // Jedyny ruch w tym wariancie: jednorazowy, stopniowany fade-in przy scrollu
+  // (motion-baseline wariantu 1 — patrz komentarz przy :root). Wyłączony pod
+  // prefers-reduced-motion w CSS powyżej.
+  var fadeTargets = document.querySelectorAll('.factor-card, .gwarancja-card, .opinia-card');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          var el = entry.target;
+          var delay = (Array.prototype.indexOf.call(el.parentElement.children, el)) * 70;
+          setTimeout(function(){ el.classList.add('visible'); }, delay);
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.15 });
+    fadeTargets.forEach(function(el){ io.observe(el); });
+  } else {
+    fadeTargets.forEach(function(el){ el.classList.add('visible'); });
+  }
+</script>
+
+</body>
+</html>
