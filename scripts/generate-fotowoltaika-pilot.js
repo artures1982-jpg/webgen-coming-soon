@@ -26,6 +26,11 @@ const SAMPLE_TOKENS = {
 const FOTO = {
   dach_panele: 'https://images.pexels.com/photos/12243093/pexels-photo-12243093.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',   // panele na dachu domu, realna zabudowa
   inspektor: 'https://images.pexels.com/photos/4254163/pexels-photo-4254163.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',        // inspektor z dokumentacją przy panelach
+  // --- wariant 2 (pula rozłączna z wariantem 1, ZASADY.md sekcja 4) ---
+  osiedle_z_gory: 'https://images.pexels.com/photos/9875676/pexels-photo-9875676.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',   // top-down osiedle domów, panele na wielu dachach
+  falownik_wnetrze: 'https://images.pexels.com/photos/38171183/pexels-photo-38171183.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // wnętrze falownika, listwy i elektronika z bliska
+  technik_na_macierzy: 'https://images.pexels.com/photos/19895911/pexels-photo-19895911.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // z drona: technik idący po macierzy paneli
+  macierz_z_gory: 'https://images.pexels.com/photos/7211069/pexels-photo-7211069.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',   // top-down równa macierz paneli na dachu
 };
 
 const VARIANTS = [
@@ -105,6 +110,93 @@ zweryfikowany zrzutem na 360/390px. Zdjęcie dachu jest jasne (niebo), więc to 
 LAYOUT — bespoke mechanizm każdej sekcji. NIE kopiuj „trasy" z auta-z-ameryki-1 ani osi procesu
 z nieruchomosci-1. Rozkład kosztów i sekcja o czynnikach wpływających na zwrot to naturalne,
 unikalne dla tej branży elementy — zaprojektuj je od zera.`,
+  },
+  {
+    id: 'fotowoltaika-2-instalacja-na-zywo',
+    tier: 'pro',
+    name: 'Instalacja na żywo',
+    visual: `STYL: archetyp "Nowoczesny cyfrowy" (WYLOSOWANY, nie wybrany) dla firmy fotowoltaicznej.
+
+MECHANIZM RÓŻNICUJĄCY — sedno wariantu: PANEL MONITORINGU, KTÓRY KLIENT WIDZI ZANIM KUPI.
+Cała branża sprzedaje "aplikację do podglądu produkcji" jako punkt na liście korzyści.
+Tutaj ta aplikacja JEST stroną: na stronie stoi realny, działający panel z produkcją
+przykładowej instalacji, a klient może go dotknąć, przełączyć zakres i zobaczyć, jak wygląda
+codzienność po montażu. To jest odpowiednik "pokaż, nie obiecuj" z wariantu 1, ale zbudowany
+z danych, nie z tabeli kosztów.
+
+DWA REALNE ELEMENTY INTERAKTYWNE (oba muszą DZIAŁAĆ, nie być atrapą — ZASADY.md, i patrz
+REJESTR-BLEDOW.md B-04: element z atrybutem disabled przechodzi testy programistyczne, a dla
+człowieka jest martwy; używaj aria-disabled zamiast disabled):
+1. **Panel produkcji na żywo** — wykres/słupki produkcji przykładowej instalacji z przełącznikiem
+   zakresu (dziś / miesiąc / rok). Dane wpisane na sztywno w JS jako zestaw przykładowy, jawnie
+   opisane jako przykładowa instalacja o konkretnej mocy, NIGDY udawane jako dane real-time
+   klienta. Wykres rysuj natywnie (SVG albo divy z CSS) — ZERO bibliotek zewnętrznych, plik ma
+   pozostać samodzielnym HTML bez build-stepu.
+2. **Dobór mocy z rachunku** — suwak "ile płacisz miesięcznie za prąd" (np. 150–900 zł) →
+   wyliczenie orientacyjnej mocy instalacji w kWp i rocznej produkcji w kWh, aktualizowane
+   na żywo. OBOWIĄZKOWO z widoczną, nieusuwalną adnotacją, że to szacunek wstępny, bo realna
+   moc zależy od autokonsumpcji, dachu i taryfy — ta branża ma problem reputacyjny z zawyżonymi
+   wyliczeniami i wariant 2 nie może go pogłębiać.
+
+NIE KOPIUJ mechanizmu z templates/pilot/remonty-3-kalkulator-online.html — tam kalkulator liczy
+koszt remontu i jest osią całej strony. Tu suwak jest elementem DRUGIM, podporządkowanym panelowi
+produkcji, i ma inny język wizualny. Przeczytaj remonty-3 wyłącznie po to, żeby się od niego
+odróżnić, nie żeby się nim wzorować.
+
+DRUGI FILAR TREŚCI — SERWIS ZDALNY: "zanim zadzwonisz, my już wiemy". Monitoring alarmowy
+falownika: system wykrywa spadek produkcji albo awarię i firma dzwoni pierwsza. To jest realna,
+sprawdzalna przewaga operacyjna i naturalne przedłużenie cyfrowej osi wariantu. Pokaż to jako
+konkretny scenariusz (co się dzieje w godzinach od wykrycia do wizyty), nie jako hasło.
+
+PALETA — TWARDE OGRANICZENIE. fotowoltaika-1 to stonowany błękit na jasnym neutralu i JUŻ JEST
+TO TRZECI TAKI ZESTAW W BIBLIOTECE. Wariant 2 ma iść w przeciwną stronę: CIEMNY INTERFEJS
+(grafit/prawie-czerń jako tło, panel monitoringu czyta się wtedy jak realny dashboard) z JEDNYM
+mocno nasyconym akcentem. Zweryfikuj grepem (grep -rhoE "#[0-9a-fA-F]{3,6}" templates/pilot/*.html)
+i omijaj: indygo-fiolet (remonty-3), teal (salon-fryzjerski-1), emerald (studio-paznokci-3),
+eko-zieleń (nieruchomosci-2, elektryk-4), żółć/złoto (elektryk-1, fryzjer-barber-2), oraz
+oczywiście błękit wariantu 1 (#3d6b91). Kierunki warte rozważenia: elektryzujący limonkowy /
+chartreuse albo ostry cyjan-elektryk na grafitcie. Uzasadnij wybór w raporcie.
+UWAGA: ciemne tło + jasny tekst to inny reżim kontrastu — sprawdź kontrast tekstu drugorzędnego
+(--muted), bo to najczęstsze miejsce, gdzie ciemny motyw się sypie.
+TYPOGRAFIA: inna niż Titillium Web / PT Sans (wariant 1) i nieużyta nigdzie w systemie
+(zweryfikuj grepem). Dashboard znosi krój techniczny; cyfry w panelu produkcji powinny mieć
+tabelaryczne odstępy (font-variant-numeric: tabular-nums), żeby nie skakały przy animacji.
+
+ZDJĘCIA (zweryfikowane curl 200, obejrzane wzrokowo, pula ROZŁĄCZNA z wariantem 1 — użyj TYCH
+DOKŁADNYCH URL, są w stałej FOTO):
+- Osiedle z lotu ptaka, panele na wielu dachach (naturalny obraz "monitorujemy setki instalacji"):
+  https://images.pexels.com/photos/9875676/pexels-photo-9875676.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Wnętrze falownika z bliska, listwy i elektronika (diagnostyka, serwis zdalny):
+  https://images.pexels.com/photos/38171183/pexels-photo-38171183.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Z drona: technik idący po macierzy paneli (serwis w terenie, mocny kadr):
+  https://images.pexels.com/photos/19895911/pexels-photo-19895911.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Top-down równa macierz paneli na dachu (precyzja montażu, geometryczna faktura):
+  https://images.pexels.com/photos/7211069/pexels-photo-7211069.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+Magazynu energii NIE ilustrujemy zdjęciem — dostępne stocki miały widoczne logo obcej firmy.
+Ten temat pokaż elementem graficznym/danymi. Jeśli potrzebujesz więcej zdjęć, NIE zgaduj ID
+Pexels: zostaw "<!-- PHOTO NEEDED: opis -->" i wypisz w raporcie.
+
+TREŚĆ — sekcje: nav, hero (obietnica: zobacz panel, zanim podpiszesz), panel produkcji na żywo,
+dobór mocy z rachunku, serwis zdalny i monitoring alarmowy (scenariusz godzina po godzinie),
+co wchodzi w instalację (falownik, optymalizatory, magazyn energii — po ludzku, czym się różnią
+i kiedy realnie się opłacają), dotacje (Mój Prąd, Czyste Powietrze — co robimy za klienta,
+czego nie obiecujemy), opinie klientów (generyczne imiona + {{MIASTO}} + moc instalacji, NIGDY
+nazwy firm ani zaszytych miast — to był realny błąd wariantu 1, ZASADY.md sekcja 5), FAQ, kontakt
+z mapą. Gramatyka {{MIASTO}} wg ZASADY.md sekcja 2 — czytaj CAŁE zdania, grep tego nie łapie.
+
+RUCH — to wariant "cyfrowy", więc ruch jest częścią przekazu, ale ma być funkcjonalny, nie
+dekoracyjny: liczby w panelu doliczają się przy wejściu w widok, słupki wykresu wyrastają,
+wskaźnik "na żywo" pulsuje, przełącznik zakresu animuje przejście. Wszystko pod
+prefers-reduced-motion. Baseline ruchu z ZASADY.md obowiązuje jak zwykle.
+
+REGUŁA 6.8 z ZASADY.md ORAZ REJESTR-BLEDOW.md: karta/tekst na zdjęciu musi być zweryfikowana
+zrzutem na 360 i 390px. To już trzeci powtórzony błąd tego typu w projekcie — panel monitoringu
+nałożony na zdjęcie hero jest DOKŁADNIE tym wzorcem, który dwa razy zasłonił zdjęcie na telefonie.
+Na mobile panel ma iść POD zdjęcie, nie na nie.
+
+LAYOUT — bespoke. Panel monitoringu, oś serwisu zdalnego i sekcja porównania falownik /
+optymalizatory / magazyn to naturalnie unikalne dla tej branży elementy — zaprojektuj je od zera.
+Nie przenoś siatki sekcji z fotowoltaika-1.`,
   },
 ];
 

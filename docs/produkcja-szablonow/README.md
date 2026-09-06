@@ -434,7 +434,7 @@ przypadków testowych, nie tylko jako status:
 
 ---
 
-## Status pilota Fotowoltaika — 1/3 (w budowie)
+## Status pilota Fotowoltaika — 2/3 (w budowie)
 
 **Pierwsza branża budowana z serwerem MCP `qa-szablony` i osobnym agentem `qa-szablonow`
 w pętli** — czyli pierwsza, w której kontrolę robi ktoś inny niż budowniczy. Archetyp wariantu 2
@@ -448,7 +448,7 @@ zero „dotacja pewna". Widełki zależne od autokonsumpcji — tak, obietnice �
 | # | ID | Nazwa | Tier | Charakterystyka |
 |---|----|-------|------|-----------------|
 | 1 | `fotowoltaika-1-uczciwe-wyliczenie` | Uczciwe wyliczenie | free | Kremowy papier (`#f3f1ea`) + stalowy błękit (`#3d6b91`), Titillium Web/PT Sans; wyliczenie z faktur klienta zamiast średniej krajowej, jawny rozkład kosztów instalacji z zaznaczeniem, co wycenia się dopiero po oględzinach dachu, sekcja o net-billingu i autokonsumpcji po ludzku |
-| 2 | — | Nowoczesny cyfrowy (wylosowany) | pro | do zbudowania |
+| 2 | `fotowoltaika-2-instalacja-na-zywo` | Instalacja na żywo | pro | Grafit (`#12140f`) + limonka (`#9fef2e`), Chakra Petch/Mukta; panel monitoringu produkcji, który klient ogląda ZANIM kupi (przełącznik Dziś/Miesiąc/Rok + natywny SVG wykres) i suwak doboru mocy z rachunku; drugi filar to serwis zdalny „zanim zadzwonisz, my już wiemy" |
 | 3 | — | „petarda" | pro | do zbudowania |
 
 ### Co złapał niezależny QA (czego nie złapał budowniczy)
@@ -457,8 +457,20 @@ zero „dotacja pewna". Widełki zależne od autokonsumpcji — tak, obietnice �
   `{{MIASTO}}`. Klient z Gdańska dostawałby referencje ze Śląska. Zamienione na token.
 - **Dwa niesparowane cudzysłowy** polskie w treści.
 
-Uwaga do rozstrzygnięcia przy wariancie 2: `fotowoltaika-1` to trzeci w bibliotece „stonowany
-błękit na jasnym neutralu". Warianty 2 i 3 muszą wyraźnie odejść od tej palety.
+Uwaga o palecie: `fotowoltaika-1` to trzeci w bibliotece „stonowany błękit na jasnym neutralu".
+Wariant 2 świadomie odbił w ciemny interfejs z limonką; wariant 3 też musi odejść od błękitu.
+
+### Co złapał niezależny QA przy wariancie 2
+
+Trzy defekty renderu, których nie zgłosił ani designer, ani copywriter — wszystkie z rodziny
+„wygląda na zepsute, a pomiar zielony" (B-06):
+
+- **„19,2 kWh kWh"** na wszystkich zakresach panelu — jednostka doklejana w JS do wartości,
+  która już ją zawierała.
+- `display:block` na liczbie odrywało jednostkę do osobnej linii („18,5" / „kWh Produkcja dziś").
+- Na 390px wyniki suwaka łamały się na dwie linie („3,5 / kWp").
+
+Poza tym mirror w `preview/` był znów sprzed poprawek copywritera (B-12, drugi raz).
 
 ---
 
