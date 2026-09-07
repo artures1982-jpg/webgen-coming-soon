@@ -241,7 +241,10 @@ function previewFile(branza, num, tytul, titled) {
       .replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
     path += '-' + slugTitle;
   }
-  return path + '-preview-wypelniony.html';
+  // Bez rozszerzenia .html — cleanUrls Vercela i tak serwuje ten plik pod czystym
+  // adresem, ale wejście z .html płaci dodatkowe ~180ms na przekierowaniu 308
+  // (złapane w Lighthouse jako document-latency-insight przy audycie PageSpeed).
+  return path + '-preview-wypelniony';
 }
 
 var gallery = document.getElementById('gallery');
