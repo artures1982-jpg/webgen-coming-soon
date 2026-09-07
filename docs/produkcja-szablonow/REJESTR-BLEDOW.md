@@ -128,12 +128,39 @@ Format: **objaw → przyczyna → jak wykryć → status**.
 - **Jak wykryć:** `diff` obu kopii — kontrola `mirror_spojnosc` w `sprawdz_szablon`.
 - **Status:** wykryte przez QA w fotograf-slubny-2, zanim trafiło na produkcję.
 
+## B-13 · Szkielet hero-note i pierwszego zdania stopki odtwarzany w każdym wariancie branży
+
+- **Objaw:** w kolejnych wariantach tej samej branży hero-note i pierwsze zdanie stopki mają ten
+  sam szkielet: „Siedziba w mieście {{MIASTO}} — [usługa] na terenie całego regionu".
+- **Przyczyna:** to nie jest kopiowanie z rodzeństwa, tylko odruch budowniczego — ten sam schemat
+  powstaje od zera przy każdym wariancie, więc żadna kontrola „czy skopiowano" go nie widzi.
+- **Jak wykryć:** `porownaj_teksty` mierzy pokrycie n-gram w trzech stałych miejscach; próg alarmowy
+  praktycznie potwierdzony na ~20% (w fotowoltaika-2 i -3 wychodziło 22%, po przepisaniu 7%).
+- **Status:** wystąpił **3× w jednej branży** (fotowoltaika 1→2, 1→3). Traktować jako pozycję
+  domyślnie do sprawdzenia w KAŻDYM wariancie od drugiego wzwyż, nie jako incydent.
+
+## B-14 · Mechanizm interaktywny przeczy własnemu tekstowi
+
+- **Objaw:** strona obiecuje tekstem zależność, której liczby generowane przez jej własny mechanizm
+  nie pokazują (albo pokazują odwrotną).
+- **Przyczyna:** wzór i tekst powstają osobno; obie kontrole statyczne widzą poprawny HTML,
+  poprawne liczby i poprawne zdanie — nie widzą, że zdanie i liczba mówią co innego.
+- **Jak wykryć:** przejść realnie cały zakres kontrolki i przy KAŻDEJ pozycji porównać odczyt
+  z sąsiadującym zdaniem. Sprawdzać też warunki brzegowe fizyczne (czy wynik nie przekracza
+  wartości maksymalnej, czy nie rośnie tam, gdzie powinien maleć).
+- **Status:** fotowoltaika-3, **trzy rundy poprawek** tego samego typu: wschód-zachód przekraczał
+  moc zainstalowaną (7,8 kW przy 7,2 kWp), potem nigdy nie wygrywał rano wbrew tekstowi, potem miał
+  w południe zapaść poniżej wartości porannych. Za każdym razem `sprawdz_szablon` był zielony.
+  Uwaga dodatkowa: raport budowniczego o własnych liczbach też bywa błędny — QA sprostowało szczyt
+  z 46% na 61%. Nie przepisywać tekstu pod błędny wzór; naprawiać wzór.
+
 ---
 
 ## Jak korzystać
 
 **Przed budową wariantu:** przeczytaj B-01, B-02, B-03, B-06, B-07 (pułapki konstrukcyjne).
-**Przed przeglądem:** przeczytaj B-08, B-09, B-11, B-12 (to, co najczęściej przechodzi).
+**Przed przeglądem:** przeczytaj B-08, B-09, B-11, B-12, B-13 (to, co najczęściej przechodzi).
+**Gdy wariant ma mechanizm liczący:** przeczytaj B-14 — porównaj liczby ze zdaniami obok, pozycja po pozycji.
 **Gdy weryfikacja daje dziwny wynik:** sprawdź B-04 i B-05, zanim uznasz, że strona jest zepsuta.
 
 **Dopisuj nowe pozycje.** Każdy błąd wyłapany przez Artura, a nie przez nas, to kandydat do

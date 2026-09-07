@@ -434,7 +434,7 @@ przypadków testowych, nie tylko jako status:
 
 ---
 
-## Status pilota Fotowoltaika — 2/3 (w budowie)
+## Status pilota Fotowoltaika — 3/3
 
 **Pierwsza branża budowana z serwerem MCP `qa-szablony` i osobnym agentem `qa-szablonow`
 w pętli** — czyli pierwsza, w której kontrolę robi ktoś inny niż budowniczy. Archetyp wariantu 2
@@ -449,7 +449,7 @@ zero „dotacja pewna". Widełki zależne od autokonsumpcji — tak, obietnice �
 |---|----|-------|------|-----------------|
 | 1 | `fotowoltaika-1-uczciwe-wyliczenie` | Uczciwe wyliczenie | free | Kremowy papier (`#f3f1ea`) + stalowy błękit (`#3d6b91`), Titillium Web/PT Sans; wyliczenie z faktur klienta zamiast średniej krajowej, jawny rozkład kosztów instalacji z zaznaczeniem, co wycenia się dopiero po oględzinach dachu, sekcja o net-billingu i autokonsumpcji po ludzku |
 | 2 | `fotowoltaika-2-instalacja-na-zywo` | Instalacja na żywo | pro | Grafit (`#12140f`) + limonka (`#9fef2e`), Chakra Petch/Mukta; panel monitoringu produkcji, który klient ogląda ZANIM kupi (przełącznik Dziś/Miesiąc/Rok + natywny SVG wykres) i suwak doboru mocy z rachunku; drugi filar to serwis zdalny „zanim zadzwonisz, my już wiemy" |
-| 3 | — | „petarda" | pro | do zbudowania |
+| 3 | `fotowoltaika-3-kat-padania` | Kąt padania | pro | Noc-indygo (`#0b0e1f`) + pomarańcz zachodu (`#ff6a3d`), Fjalla One/Hind; **„petarda"** — rysunkowy moduł SVG ze słońcem wędrującym po łuku, sterowany suwakiem godziny i przełącznikiem orientacji połaci; obala mit „tylko południe", przy dachu północnym wprost odradza montaż |
 
 ### Co złapał niezależny QA (czego nie złapał budowniczy)
 
@@ -457,8 +457,35 @@ zero „dotacja pewna". Widełki zależne od autokonsumpcji — tak, obietnice �
   `{{MIASTO}}`. Klient z Gdańska dostawałby referencje ze Śląska. Zamienione na token.
 - **Dwa niesparowane cudzysłowy** polskie w treści.
 
-Uwaga o palecie: `fotowoltaika-1` to trzeci w bibliotece „stonowany błękit na jasnym neutralu".
-Wariant 2 świadomie odbił w ciemny interfejs z limonką; wariant 3 też musi odejść od błękitu.
+Palety trzech wariantów są rozłączne: błękit na kremowym papierze (1), grafit z limonką (2),
+noc-indygo z pomarańczem zachodu (3).
+
+**Otwarta obserwacja Artura (06.09.2026), do sprawdzenia przy następnej branży:** czy moduł
+godzinowy wariantu 3 nie sprawia wrażenia kalki archetypu z `fotograf-slubny-3`. Sprawdzone
+strukturalnie — u fotografa lepka szyna godzin niesie całą stronę (18 znaczników godzinowych,
+`.rail{position:sticky}`), tutaj godziny są tylko etykietą suwaka i trzema podziałkami, a sekcje
+są tematyczne, nie chronologiczne. Artur odłożył decyzję: „zobaczymy jak wyjdzie na następnej
+branży". Jeśli wrażenie wróci, zmieniać oś serwisu w wariancie 2 (00:00 / +15 min / +2 godz.),
+a NIE moduł słońca — tam pora dnia jest fizycznie nieusuwalna.
+
+### Co kosztowało najwięcej przy wariancie 3 — mechanizm kontra tekst
+
+Moduł słońca wymagał **trzech rund poprawek**, za każdym razem z tego samego powodu: liczby
+symulacji przeczyły temu, co strona obiecuje tekstem (patrz `REJESTR-BLEDOW.md` B-14).
+
+1. Wschód-zachód dawał szczyt 7,8 kW przy mocy zainstalowanej 7,2 kWp — wyżej niż połać
+   południowa, wprost przeciw zdaniu „szczyt niższy niż na południe".
+2. Po poprawce E-Z był niższy w KAŻDEJ godzinie, więc obiecana „dłuższa doba produkcji" nigdy nie
+   była widoczna — mechanizm zaprzeczał własnej osi uczciwościowej.
+3. Po drugiej poprawce E-Z miał w południe zapaść poniżej wartości porannych, co jest fizycznie
+   niemożliwe.
+
+`sprawdz_szablon` był zielony za każdym razem. Wyłapanie tego wymagało przejścia całego suwaka
+i porównania odczytu ze zdaniem obok — pozycja po pozycji.
+
+**Uwaga procesowa:** raport budowniczego o własnych liczbach też był błędny (podał szczyt E-Z jako
+46% szczytu południa, realnie 61%, bo szukał go w złej godzinie). QA sprostowało to niezależnym
+pomiarem — kolejny argument za tym, że kontroluje kto inny niż buduje.
 
 ### Co złapał niezależny QA przy wariancie 2
 
