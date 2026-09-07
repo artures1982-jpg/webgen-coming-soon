@@ -95,8 +95,13 @@ h1 span{background:var(--grad);background-size:220% 220%;-webkit-background-clip
 
 /* ── GRID ── */
 .gallery{max-width:1200px;margin:0 auto;padding:20px 24px 100px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
-.card{background:var(--s2);border:1px solid var(--border);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .22s,transform .18s,box-shadow .22s,background .22s;cursor:pointer}
+.card{position:relative;background:var(--s2);border:1px solid var(--border);border-radius:14px;display:flex;flex-direction:column;transition:border-color .22s,transform .18s,box-shadow .22s,background .22s;cursor:pointer}
+.tier-badge{position:absolute;top:-11px;right:-11px;z-index:2;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.01em;text-transform:uppercase;line-height:1;box-shadow:0 3px 10px rgba(0,0,0,.45)}
+.tier-badge.free{background:rgba(18,21,32,.95);border:1px solid rgba(255,255,255,.32);color:#F3F6FC}
+.tier-badge.pro{background:var(--green);color:var(--oncta)}
+.tier-badge.promax{background:linear-gradient(135deg,#7B4FFF,#2E7CFF);color:#fff}
 .card:hover{border-color:rgba(0,229,160,.4);background:rgba(0,229,160,.05);transform:translateY(-3px);box-shadow:0 0 30px rgba(0,229,160,.14)}
+.card-thumb-wrap{overflow:hidden;border-radius:13px 13px 0 0}
 .card-thumb{width:100%;aspect-ratio:8/5;object-fit:cover;object-position:top;display:block;border-bottom:1px solid var(--border);background:var(--s1);transition:transform .3s}
 .card:hover .card-thumb{transform:scale(1.03)}
 .card-body{padding:16px 18px 18px;display:flex;flex-direction:column;flex:1}
@@ -226,81 +231,81 @@ footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify
    Pozostałe branże mają same numery (np. elektryk-1-preview-wypelniony.html). */
 var BRANZE = [
   { slug:"hydraulik", nazwa:"Hydraulik", titled:false, warianty:[
-    ["1","Zaufany fachowiec","Cennik i gwarancja widoczne od razu — bez dzwonienia po wycenę."],
-    ["2","Szybka interwencja","Awaria o 3 w nocy? Numer alarmowy większy niż cokolwiek innego na stronie."],
-    ["3","Nowoczesny cyfrowy","Zamiast dzwonić — wypełniasz formularz wyceny i czekasz na odpowiedź, nie na kolejkę."],
-    ["4","Rodzinna firma","Poznajesz właściciela firmy, zanim jeszcze zadzwonisz."],
-    ["5","Premium korporacyjny","Studia przypadków z liczbami — dla klientów, którzy podpisują umowy, nie SMS-y."],
-    ["6","Minimalistyczny","Cała oferta na jednym ekranie — ładuje się, zanim zdążysz mrugnąć."]
+    ["1","Zaufany fachowiec","Cennik i gwarancja widoczne od razu — bez dzwonienia po wycenę.","free"],
+    ["2","Szybka interwencja","Awaria o 3 w nocy? Numer alarmowy większy niż cokolwiek innego na stronie.","pro"],
+    ["3","Nowoczesny cyfrowy","Zamiast dzwonić — wypełniasz formularz wyceny i czekasz na odpowiedź, nie na kolejkę.","pro"],
+    ["4","Rodzinna firma","Poznajesz właściciela firmy, zanim jeszcze zadzwonisz.","pro"],
+    ["5","Premium korporacyjny","Studia przypadków z liczbami — dla klientów, którzy podpisują umowy, nie SMS-y.","promax"],
+    ["6","Minimalistyczny","Cała oferta na jednym ekranie — ładuje się, zanim zdążysz mrugnąć.","pro"]
   ]},
   { slug:"elektryk", nazwa:"Elektryk", titled:false, warianty:[
-    ["1","Zaufany fachowiec","Zdjęcia z realnych zleceń zamiast pustych obietnic „fachowiec z doświadczeniem”."],
-    ["2","Szybka interwencja","Zwarcie, brak prądu, iskrzenie — wybierasz zagrożenie i trafiasz prosto do numeru alarmowego."],
-    ["3","Nowoczesny cyfrowy","Zero rozmów telefonicznych — wycenę zgłaszasz formularzem w mniej niż minutę."],
-    ["4","Rodzinna firma","Rzemiosło przejęte po rodzicu — historia firmy, zanim zobaczysz cennik."],
-    ["5","Premium korporacyjny","Proces krok po kroku i lista firm, które już podpisały umowę."]
+    ["1","Zaufany fachowiec","Zdjęcia z realnych zleceń zamiast pustych obietnic „fachowiec z doświadczeniem”.","free"],
+    ["2","Szybka interwencja","Zwarcie, brak prądu, iskrzenie — wybierasz zagrożenie i trafiasz prosto do numeru alarmowego.","pro"],
+    ["3","Nowoczesny cyfrowy","Zero rozmów telefonicznych — wycenę zgłaszasz formularzem w mniej niż minutę.","pro"],
+    ["4","Rodzinna firma","Rzemiosło przejęte po rodzicu — historia firmy, zanim zobaczysz cennik.","pro"],
+    ["5","Premium korporacyjny","Proces krok po kroku i lista firm, które już podpisały umowę.","promax"]
   ]},
   { slug:"remonty", nazwa:"Remonty", titled:false, warianty:[
-    ["1","Zaufany fachowiec","Cennik liczony za metr kwadratowy, nie „wycena indywidualna”."],
-    ["2","Szybki start","Pasek na żywo pokazuje, kiedy ekipa naprawdę może zacząć."],
-    ["3","Kalkulator online","Wpisujesz metraż i zakres — kalkulator liczy orientacyjny koszt remontu od razu."],
-    ["4","Rodzinna firma","Ta sama ekipa od lat — poznajesz twarze, zanim wejdą do Twojego domu."],
-    ["5","Premium","Formularz zapytania pod klienta biznesowego — dewelopera, zarządcę, inwestora."]
+    ["1","Zaufany fachowiec","Cennik liczony za metr kwadratowy, nie „wycena indywidualna”.","free"],
+    ["2","Szybki start","Pasek na żywo pokazuje, kiedy ekipa naprawdę może zacząć.","pro"],
+    ["3","Kalkulator online","Wpisujesz metraż i zakres — kalkulator liczy orientacyjny koszt remontu od razu.","pro"],
+    ["4","Rodzinna firma","Ta sama ekipa od lat — poznajesz twarze, zanim wejdą do Twojego domu.","pro"],
+    ["5","Premium","Formularz zapytania pod klienta biznesowego — dewelopera, zarządcę, inwestora.","promax"]
   ]},
   { slug:"fryzjer-barber", nazwa:"Fryzjer / Barber", titled:false, warianty:[
-    ["1","Zaufany fachowiec","Cennik i portfolio prawdziwych fryzur — widzisz efekt, zanim usiądziesz na fotelu."],
-    ["2","Bez kolejki","Widzisz na żywo, ile miejsc zostało dziś bez zapisu."],
-    ["3","Nowoczesny cyfrowy","Rezerwacja w 60 sekund — od otwarcia strony do potwierdzonego terminu."],
-    ["4","Rodzinna firma","Trzy pokolenia tej samej rodziny przy tym samym fotelu."],
-    ["5","Premium","Barber na firmowy event albo stały kontrakt z hotelem — to też ich klient."]
+    ["1","Zaufany fachowiec","Cennik i portfolio prawdziwych fryzur — widzisz efekt, zanim usiądziesz na fotelu.","free"],
+    ["2","Bez kolejki","Widzisz na żywo, ile miejsc zostało dziś bez zapisu.","pro"],
+    ["3","Nowoczesny cyfrowy","Rezerwacja w 60 sekund — od otwarcia strony do potwierdzonego terminu.","pro"],
+    ["4","Rodzinna firma","Trzy pokolenia tej samej rodziny przy tym samym fotelu.","pro"],
+    ["5","Premium","Barber na firmowy event albo stały kontrakt z hotelem — to też ich klient.","promax"]
   ]},
   { slug:"salon-fryzjerski", nazwa:"Salon fryzjerski", titled:false, warianty:[
-    ["1","Zaufany fachowiec","Cennik damski i męski w jednej, czytelnej siatce usług."],
-    ["2","Dziś wolny termin","Terminy wieczorne i weekendowe — dla tych, co pracują do 17."],
-    ["3","Wybierz stylistkę","Najpierw wybierasz konkretną stylistkę, dopiero potem jej wolny termin."],
-    ["4","Rodzinna firma","Salon prowadzony przez matkę i córkę — dwa pokolenia pod jednym dachem."],
-    ["5","Premium","Prywatny gabinet, nie salon z ulicy — umawiasz się przez zapytanie, nie w locie."]
+    ["1","Zaufany fachowiec","Cennik damski i męski w jednej, czytelnej siatce usług.","free"],
+    ["2","Dziś wolny termin","Terminy wieczorne i weekendowe — dla tych, co pracują do 17.","pro"],
+    ["3","Wybierz stylistkę","Najpierw wybierasz konkretną stylistkę, dopiero potem jej wolny termin.","pro"],
+    ["4","Rodzinna firma","Salon prowadzony przez matkę i córkę — dwa pokolenia pod jednym dachem.","pro"],
+    ["5","Premium","Prywatny gabinet, nie salon z ulicy — umawiasz się przez zapytanie, nie w locie.","promax"]
   ]},
   { slug:"studio-paznokci", nazwa:"Studio paznokci", titled:false, warianty:[
-    ["1","Zaufany fachowiec","Cennik na pierwszym ekranie i galeria prawdziwych wzorów, nie stockowe dłonie."],
-    ["2","Express","Wolne okienko za 20 minut? Sprawdzasz od razu, nie czekasz na odpowiedź w wiadomości."],
-    ["3","Nowoczesny cyfrowy","Rezerwujesz termin jednym kliknięciem, bez przechodzenia na inną stronę."],
-    ["4","Rodzinna firma","Znasz jej prace z Instagrama — tu poznajesz też cennik i wolne terminy."],
-    ["5","Premium","Portfolio jak z magazynu, nie z folderu zdjęć w telefonie."]
+    ["1","Zaufany fachowiec","Cennik na pierwszym ekranie i galeria prawdziwych wzorów, nie stockowe dłonie.","free"],
+    ["2","Express","Wolne okienko za 20 minut? Sprawdzasz od razu, nie czekasz na odpowiedź w wiadomości.","pro"],
+    ["3","Nowoczesny cyfrowy","Rezerwujesz termin jednym kliknięciem, bez przechodzenia na inną stronę.","pro"],
+    ["4","Rodzinna firma","Znasz jej prace z Instagrama — tu poznajesz też cennik i wolne terminy.","pro"],
+    ["5","Premium","Portfolio jak z magazynu, nie z folderu zdjęć w telefonie.","promax"]
   ]},
   { slug:"medycyna-estetyczna", nazwa:"Medycyna estetyczna", titled:false, warianty:[
-    ["1","Zaufany lekarz","Cennik bez gwiazdek i „zależy od zabiegu” — kwoty podane wprost."],
-    ["2","Elastyczne terminy","Umawiasz się, kiedy Tobie pasuje — nie kiedy akurat jest okienko."],
-    ["3","Dobierz zabieg","Zaznaczasz, co Cię trapi — strona podpowiada, o czym porozmawiać na konsultacji."],
-    ["4","Kameralny gabinet","Dwie stałe lekarki, nie przypadkowa osoba z grafiku sieciówki."],
-    ["5","Program indywidualny","Program opieki rozłożony na miesiące, nie pojedynczy zabieg pod promocję."]
+    ["1","Zaufany lekarz","Cennik bez gwiazdek i „zależy od zabiegu” — kwoty podane wprost.","free"],
+    ["2","Elastyczne terminy","Umawiasz się, kiedy Tobie pasuje — nie kiedy akurat jest okienko.","pro"],
+    ["3","Dobierz zabieg","Zaznaczasz, co Cię trapi — strona podpowiada, o czym porozmawiać na konsultacji.","pro"],
+    ["4","Kameralny gabinet","Dwie stałe lekarki, nie przypadkowa osoba z grafiku sieciówki.","pro"],
+    ["5","Program indywidualny","Program opieki rozłożony na miesiące, nie pojedynczy zabieg pod promocję.","promax"]
   ]},
   { slug:"stomatolog", nazwa:"Stomatolog", titled:true, warianty:[
-    ["1","Uczciwy plan leczenia","Plan leczenia na piśmie — co konieczne, co zalecane, co opcjonalne, z cenami."],
-    ["2","Lekarz prowadzący","Jeden lekarz koordynuje cały wieloetapowy plan — nie gubisz się między specjalistami."],
-    ["3","Pokój bez strachu","Klikasz i widzisz krok po kroku, jak wygląda wizyta — łącznie z sygnałem stop."]
+    ["1","Uczciwy plan leczenia","Plan leczenia na piśmie — co konieczne, co zalecane, co opcjonalne, z cenami.","free"],
+    ["2","Lekarz prowadzący","Jeden lekarz koordynuje cały wieloetapowy plan — nie gubisz się między specjalistami.","pro"],
+    ["3","Pokój bez strachu","Klikasz i widzisz krok po kroku, jak wygląda wizyta — łącznie z sygnałem stop.","promax"]
   ]},
   { slug:"nieruchomosci", nazwa:"Nieruchomości", titled:true, warianty:[
-    ["1","Zaufany pośrednik","Aktualne oferty widoczne od razu na stronie, nie tylko „zadzwoń po listę”."],
-    ["2","Sprzedaż w Twoim terminie","Tempo sprzedaży policzone z realnej bazy kupujących, nie z marketingowego sloganu."],
-    ["3","Kalkulator wyceny","Wpisujesz parametry mieszkania — kalkulator od razu szacuje jego wartość rynkową."],
-    ["4","Kameralne biuro","Ta sama osoba prowadzi Cię od pierwszej wyceny aż po podpis u notariusza."],
-    ["5","Segment premium","Oferty, których nie znajdziesz w żadnym portalu — sprzedaż w pełnej dyskrecji."]
+    ["1","Zaufany pośrednik","Aktualne oferty widoczne od razu na stronie, nie tylko „zadzwoń po listę”.","free"],
+    ["2","Sprzedaż w Twoim terminie","Tempo sprzedaży policzone z realnej bazy kupujących, nie z marketingowego sloganu.","pro"],
+    ["3","Kalkulator wyceny","Wpisujesz parametry mieszkania — kalkulator od razu szacuje jego wartość rynkową.","pro"],
+    ["4","Kameralne biuro","Ta sama osoba prowadzi Cię od pierwszej wyceny aż po podpis u notariusza.","pro"],
+    ["5","Segment premium","Oferty, których nie znajdziesz w żadnym portalu — sprzedaż w pełnej dyskrecji.","promax"]
   ]},
   { slug:"auta-z-ameryki", nazwa:"Auta z Ameryki", titled:true, warianty:[
-    ["1","Zaufany importer","Pełny rachunek kosztów, zanim jeszcze wystartuje licytacja."],
-    ["2","Kalkulator sprowadzenia","Wpisujesz cenę z licytacji — kalkulator liczy, ile zapłacisz w Polsce z cłem i akcyzą."],
-    ["3","Auto na zamówienie","Zamawiasz konkretny model — oni znajdą go na aukcji i przywiozą pod dom."]
+    ["1","Zaufany importer","Pełny rachunek kosztów, zanim jeszcze wystartuje licytacja.","free"],
+    ["2","Kalkulator sprowadzenia","Wpisujesz cenę z licytacji — kalkulator liczy, ile zapłacisz w Polsce z cłem i akcyzą.","pro"],
+    ["3","Auto na zamówienie","Zamawiasz konkretny model — oni znajdą go na aukcji i przywiozą pod dom.","promax"]
   ]},
   { slug:"fotograf-slubny", nazwa:"Fotograf ślubny", titled:true, warianty:[
-    ["1","Zaufany fotograf","Cała stykówka z jednego wesela — dowód, nie wyselekcjonowane 10 najlepszych kadrów."],
-    ["2","Wolne terminy","Klikasz datę ślubu w kalendarzu i od razu widzisz, czy fotograf ma jeszcze wolny termin."],
-    ["3","Historia jednego dnia","Jeden ślub, opowiedziany godzina po godzinie — od przygotowań po pierwszy taniec."]
+    ["1","Zaufany fotograf","Cała stykówka z jednego wesela — dowód, nie wyselekcjonowane 10 najlepszych kadrów.","free"],
+    ["2","Wolne terminy","Klikasz datę ślubu w kalendarzu i od razu widzisz, czy fotograf ma jeszcze wolny termin.","pro"],
+    ["3","Historia jednego dnia","Jeden ślub, opowiedziany godzina po godzinie — od przygotowań po pierwszy taniec.","promax"]
   ]},
   { slug:"fotowoltaika", nazwa:"Fotowoltaika", titled:false, warianty:[
-    ["1","Uczciwe wyliczenie","Wyliczenie z Twoich własnych faktur za prąd, nie ze średniej krajowej."],
-    ["2","Instalacja na żywo","Podgląd produkcji instalacji na żywo — zanim jeszcze podpiszesz umowę."],
-    ["3","Kąt padania","Przesuwasz suwak godziny i widzisz, ile prądu da twój dach o każdej porze dnia."]
+    ["1","Uczciwe wyliczenie","Wyliczenie z Twoich własnych faktur za prąd, nie ze średniej krajowej.","free"],
+    ["2","Instalacja na żywo","Podgląd produkcji instalacji na żywo — zanim jeszcze podpiszesz umowę.","pro"],
+    ["3","Kąt padania","Przesuwasz suwak godziny i widzisz, ile prądu da twój dach o każdej porze dnia.","promax"]
   ]}
 ];
 
@@ -444,16 +449,19 @@ while (remaining) {
   });
 }
 
+var TIER_LABEL = { free: 'Free', pro: 'Pro', promax: 'Max' };
+
 interleaved.forEach(function (entry) {
   var b = entry.b, w = entry.w;
-  var num = w[0], tytul = w[1], tagline = w[2];
+  var num = w[0], tytul = w[1], tagline = w[2], tier = w[3];
   var file = previewFile(b.slug, num, tytul, b.titled);
   var thumb = '/galeria/thumbs/' + b.slug + '-' + num + '.webp';
   var card = document.createElement('div');
   card.className = 'card';
   card.dataset.branza = b.slug;
   card.innerHTML =
-    '<img class="card-thumb" src="' + thumb + '" alt="" loading="lazy">' +
+    '<span class="tier-badge ' + tier + '">' + TIER_LABEL[tier] + '</span>' +
+    '<div class="card-thumb-wrap"><img class="card-thumb" src="' + thumb + '" alt="" loading="lazy"></div>' +
     '<div class="card-body">' +
     '<div class="card-top"><span class="card-num">' + num + '</span>' +
     '<span class="card-branza">' + b.nazwa + '</span></div>' +
