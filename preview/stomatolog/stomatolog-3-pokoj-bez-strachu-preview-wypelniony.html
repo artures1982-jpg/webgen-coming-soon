@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dentica — Stomatolog bez lęku, Wrocław | tel. 500 123 456</title>
+<meta name="description" content="Boisz się dentysty? Dentica zaprojektował gabinet wokół sygnału stop, tempa pacjenta i sedacji dla silnego lęku. Gabinet na terenie miasta Wrocław. Zadzwoń: 500 123 456">
+<meta name="keywords" content="dentysta dla osób z lękiem Wrocław, stomatolog bez stresu Wrocław, sedacja dentystyczna Wrocław, dentofobia Wrocław">
+<link rel="canonical" href="https://dentica-wroclaw.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Dentica — Pokój bez strachu, Wrocław">
+<meta property="og:description" content="Sygnał stop, który realnie działa. Tempo, które ustalasz Ty. Dentica — gabinet na terenie miasta Wrocław.">
+<meta property="og:url" content="https://dentica-wroclaw.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Dentist","name":"Dentica","telephone":"500 123 456","email":"kontakt@dentica.pl","description":"Dentica — gabinet stomatologiczny na terenie miasta Wrocław zaprojektowany z myślą o pacjentach z lękiem przed leczeniem: sygnał stop, kontrola tempa zabiegu, sedacja dla silnego lęku.","address":{"@type":"PostalAddress","streetAddress":"ul. Przykładowa 12","addressLocality":"Wrocław","addressCountry":"PL"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"19:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Saturday"],"opens":"09:00","closes":"13:00"}],"url":"https://dentica-wroclaw.webgen.pl"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Besley:wght@400;500;600;700;800&family=Readex+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* MOTION — "petarda" branży: konwencja wyciszonego premium NIE obowiązuje (VARIANTS[2],
+     scripts/generate-stomatolog-pilot.js). Ambientowy puls w tle hero, shimmer na CTA,
+     świecący/pulsujący pierścień na hotspotach + flash panelu przy zmianie, stopniowany
+     fade-in kart przy scrollu (wolniejszy, "oddechowy"). W module Pokój bez strachu ruch
+     redukuje się pod prefers-reduced-motion do stanu statycznego — hotspoty zostają w pełni
+     klikalne, nic z funkcjonalności nie znika. */
+  :root{
+    --accent:#e0a458;
+    --accent-dark:#b97d34;
+    --bg:#10131c;
+    --surface:#171c29;
+    --text:#ece7dd;
+    --muted:#8f97a8;
+    --head:'Besley', serif;
+    --body:'Readex Pro', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--body);
+    color:var(--text);
+    background:var(--bg);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3,h4{font-family:var(--head);line-height:1.2;font-weight:600;color:var(--text);overflow-wrap:break-word;}
+  section{padding:5.5rem 1.5rem;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:.55rem;
+    font-family:var(--body);font-weight:700;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:.9rem;
+  }
+  .eyebrow::before{content:"";width:1.6rem;height:1px;background:var(--accent);display:inline-block;}
+  h2{font-size:clamp(1.85rem,3.4vw,2.6rem);margin-bottom:1rem;font-weight:600;}
+  .lead{color:var(--muted);font-size:1.06rem;max-width:640px;}
+  .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:.5rem;
+    padding:.9rem 1.75rem;border-radius:2rem;font-weight:700;font-family:var(--body);font-size:.98rem;
+    border:1.5px solid transparent;cursor:pointer;position:relative;
+    transition:transform .15s ease, background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--accent);color:var(--bg);overflow:hidden;isolation:isolate;}
+  .btn-primary:hover{background:color-mix(in srgb, var(--accent) 88%, white);}
+  .btn-primary::after{
+    content:"";position:absolute;top:0;left:-60%;width:36%;height:100%;
+    background:linear-gradient(115deg, transparent, color-mix(in srgb, white 65%, transparent), transparent);
+    transform:skewX(-18deg);animation:shimmerSweep 3.4s ease-in-out infinite;z-index:1;pointer-events:none;
+  }
+  @keyframes shimmerSweep{0%{left:-60%;}55%{left:130%;}100%{left:130%;}}
+  .btn-outline{border-color:color-mix(in srgb, var(--text) 30%, transparent);color:var(--text);background:transparent;}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* ---------- REVEAL (fade-in przy scrollu, wolniejszy, "oddechowy") ---------- */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.16,.8,.3,1), transform .9s cubic-bezier(.16,.8,.3,1);}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;animation:none !important;}
+    html{scroll-behavior:auto !important;}
+    .reveal{opacity:1 !important;transform:none !important;}
+    .btn-primary::after{display:none !important;}
+  }
+
+  /* ---------- NAV ---------- */
+  .nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--bg) 88%, transparent);backdrop-filter:blur(9px);border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;padding:.9rem 1.5rem;}
+  .logo{display:flex;align-items:center;gap:.7rem;font-family:var(--head);font-weight:700;font-size:1.2rem;color:var(--text);min-width:0;flex-shrink:1;}
+  .logo-mark{width:1.9rem;height:1.9rem;border-radius:50%;background:var(--accent);flex-shrink:0;box-shadow:0 0 0 4px color-mix(in srgb, var(--accent) 16%, transparent), 0 0 14px 2px color-mix(in srgb, var(--accent) 50%, transparent);}
+  .logo-name{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;vertical-align:bottom;}
+  .nav-links{display:flex;align-items:center;gap:1.7rem;}
+  .nav-links a{font-weight:500;font-size:.94rem;color:var(--muted);white-space:nowrap;}
+  .nav-links a:hover{color:var(--accent);}
+  .nav-links-mobile{display:none;}
+  .nav-actions{display:flex;align-items:center;gap:.9rem;flex-shrink:0;}
+  .nav-phone{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;color:var(--text);border:1.5px solid color-mix(in srgb, var(--text) 20%, transparent);border-radius:2rem;padding:.55rem 1rem;white-space:nowrap;}
+  .nav-phone:hover{border-color:var(--accent);color:var(--accent);}
+  .nav-phone .icon{display:none;}
+  .nav-toggle{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;border-radius:.5rem;border:1.5px solid color-mix(in srgb, var(--text) 20%, transparent);background:transparent;cursor:pointer;flex-shrink:0;}
+  .nav-toggle span{width:20px;height:2px;background:var(--text);border-radius:2px;transition:transform .2s ease, opacity .2s ease;}
+  .nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0;}
+  .nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  @media (max-width:1040px){
+    .nav-links-desktop{display:none;}
+    .nav-toggle{display:flex;}
+    .nav-links-mobile{
+      display:none;flex-direction:column;align-items:stretch;gap:0;
+      background:var(--surface);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);
+      padding:.5rem 1.5rem 1.2rem;
+    }
+    .nav-links-mobile.open{display:flex;}
+    .nav-links-mobile a{padding:.75rem .2rem;border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);font-size:1rem;color:var(--text);}
+    .nav-links-mobile a.mobile-cta{background:var(--accent);color:var(--bg);border-radius:.5rem;text-align:center;font-weight:700;padding:.85rem 1rem;margin:.6rem 0 .8rem;border-bottom:none;}
+  }
+  @media (max-width:700px){
+    .nav-actions .btn{display:none;}
+    .nav-phone{width:44px;height:44px;padding:0;justify-content:center;border-radius:50%;}
+    .nav-phone .txt{display:none;}
+    .nav-phone .icon{display:inline;font-size:1.05rem;}
+  }
+  @media (max-width:480px){
+    .logo{font-size:1.02rem;gap:.55rem;}
+    .nav .wrap{gap:.6rem;padding:.75rem 1rem;}
+  }
+
+  /* ---------- HERO (pełnoekranowa scena, nie split-grid jak w wariantach 1-2) ---------- */
+  .hero{position:relative;min-height:92vh;display:flex;align-items:flex-end;overflow:hidden;}
+  .hero::before{
+    content:"";position:absolute;width:min(640px,60vw);aspect-ratio:1;border-radius:50%;
+    background:radial-gradient(circle, color-mix(in srgb, var(--accent) 55%, transparent) 0%, transparent 70%);
+    top:-12%;right:-8%;filter:blur(60px);animation:emberPulse 9s ease-in-out infinite;pointer-events:none;z-index:1;
+  }
+  @keyframes emberPulse{0%,100%{opacity:.32;transform:scale(1);}50%{opacity:.58;transform:scale(1.09);}}
+  .hero-media{position:absolute;inset:0;}
+  .hero-media img{width:100%;height:100%;object-fit:cover;object-position:center 28%;}
+  .hero-scrim{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(100deg, color-mix(in srgb, var(--bg) 94%, transparent) 0%, color-mix(in srgb, var(--bg) 62%, transparent) 46%, color-mix(in srgb, var(--bg) 24%, transparent) 100%),
+      linear-gradient(0deg, color-mix(in srgb, var(--bg) 92%, transparent) 0%, color-mix(in srgb, var(--bg) 18%, transparent) 46%, transparent 75%);
+  }
+  .hero .wrap{position:relative;z-index:2;width:100%;padding:5.5rem 1.5rem 3.4rem;}
+  .hero-panel{
+    max-width:660px;background:color-mix(in srgb, var(--bg) 58%, transparent);backdrop-filter:blur(10px);
+    border:1px solid color-mix(in srgb, var(--text) 14%, transparent);border-radius:1.1rem;
+    padding:2.4rem 2.2rem;
+  }
+  .hero h1{font-size:clamp(2.1rem,4.6vw,3.3rem);margin-bottom:1.1rem;font-weight:600;}
+  .hero h1 em{font-style:normal;color:var(--accent);}
+  .hero .lead{font-size:1.1rem;margin-bottom:1.9rem;color:color-mix(in srgb, var(--text) 82%, var(--muted));max-width:100%;}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:2.2rem;}
+  .hero-stats{display:flex;flex-wrap:wrap;gap:1.6rem 2.2rem;padding-top:1.6rem;border-top:1px solid color-mix(in srgb, var(--text) 16%, transparent);}
+  .hero-stat{display:flex;flex-direction:column;gap:.15rem;}
+  .hero-stat b{font-family:var(--head);font-size:1.5rem;font-weight:600;color:var(--accent);}
+  .hero-stat span{font-size:.84rem;color:var(--muted);}
+  @media (max-width:700px){
+    .hero{min-height:86vh;}
+    .hero .wrap{padding:4.6rem 1.1rem 2.4rem;}
+    .hero-panel{padding:1.8rem 1.4rem;border-radius:.9rem;}
+  }
+
+  /* ---------- POKÓJ BEZ STRACHU (mechanizm) ---------- */
+  .pokoj{background:var(--surface);}
+  .pokoj-intro{max-width:720px;}
+  .pokoj-hint{margin-top:1.6rem;font-size:.86rem;color:var(--muted);font-style:italic;}
+  .pokoj-stage{margin-top:2.6rem;max-width:800px;margin-left:auto;margin-right:auto;}
+  .room-scene{position:relative;overflow:visible;}
+  .room-svg{display:block;width:100%;height:auto;border-radius:1.2rem;}
+
+  .hotspot{
+    position:absolute;transform:translate(-50%,-50%);width:3rem;height:3rem;border-radius:50%;
+    border:2px solid color-mix(in srgb, var(--accent) 70%, transparent);
+    background:color-mix(in srgb, var(--bg) 55%, transparent);backdrop-filter:blur(3px);
+    color:var(--accent);font-family:var(--head);font-weight:700;font-size:1.15rem;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent);
+    animation:hotspotPulse 2.6s ease-in-out infinite;
+  }
+  .hotspot:hover,.hotspot:focus-visible{background:color-mix(in srgb, var(--accent) 22%, transparent);outline:none;}
+  .hotspot.active{background:var(--accent);color:var(--bg);border-color:var(--accent);animation:none;box-shadow:0 0 26px 2px color-mix(in srgb, var(--accent) 60%, transparent);}
+  @keyframes hotspotPulse{
+    0%,100%{box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent);}
+    50%{box-shadow:0 0 0 10px transparent;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hotspot{animation:none;}
+  }
+
+  .pokoj-legend{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;margin-top:2.2rem;}
+  .legend-chip{
+    display:inline-flex;align-items:center;gap:.55rem;padding:.7rem 1.1rem;border-radius:2rem;
+    border:1.5px solid color-mix(in srgb, var(--text) 18%, transparent);background:var(--bg);
+    color:var(--text);font-size:.9rem;font-weight:600;cursor:pointer;font-family:var(--body);
+    transition:border-color .2s ease, color .2s ease, background .2s ease;
+  }
+  .legend-chip .num{display:inline-flex;align-items:center;justify-content:center;width:1.5rem;height:1.5rem;border-radius:50%;background:color-mix(in srgb, var(--accent) 18%, transparent);color:var(--accent);font-family:var(--head);font-size:.78rem;flex-shrink:0;}
+  .legend-chip:hover{border-color:var(--accent);}
+  .legend-chip.active{border-color:var(--accent);background:color-mix(in srgb, var(--accent) 14%, transparent);color:var(--accent);}
+
+  .pokoj-panel-group{margin-top:2.2rem;max-width:760px;margin-left:auto;margin-right:auto;}
+  .pokoj-panel{
+    background:var(--bg);border:1px solid color-mix(in srgb, var(--accent) 30%, transparent);border-radius:1rem;
+    padding:1.9rem 2rem;
+  }
+  .pokoj-panel .panel-badge{display:block;font-size:.76rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem;}
+  .pokoj-panel h3{font-size:1.3rem;margin-bottom:.7rem;font-weight:600;}
+  .pokoj-panel p{color:var(--muted);font-size:.98rem;}
+  .pokoj-panel.flash{animation:panelFlash .7s ease;}
+  @keyframes panelFlash{
+    0%{box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent);}
+    100%{box-shadow:0 0 0 22px transparent;}
+  }
+  @media (prefers-reduced-motion: reduce){ .pokoj-panel.flash{animation:none;} }
+  @media (max-width:600px){
+    .pokoj-panel{padding:1.5rem 1.3rem;}
+    .hotspot{width:2.8rem;height:2.8rem;font-size:1.02rem;}
+  }
+
+  /* ---------- SYGNAŁ STOP (pasmo wzmacniające) ---------- */
+  .stopband-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center;}
+  .stopband-copy h2{font-size:clamp(1.9rem,3.6vw,2.7rem);}
+  .stopband-points{margin-top:1.4rem;display:flex;flex-direction:column;gap:.85rem;}
+  .stopband-points li{display:flex;gap:.8rem;font-size:.97rem;color:var(--muted);align-items:flex-start;}
+  .stopband-points li::before{content:"";flex-shrink:0;width:.5rem;height:.5rem;border-radius:50%;background:var(--accent);margin-top:.5rem;}
+  .stopband-figure{min-width:0;}
+  .stopband-photo{width:100%;height:auto;aspect-ratio:4/3.1;object-fit:cover;border-radius:1rem;}
+  .stopband-caption{margin-top:.9rem;font-size:.86rem;color:var(--muted);}
+  @media (max-width:900px){
+    .stopband-wrap{grid-template-columns:1fr;gap:2rem;}
+    .stopband-figure{order:-1;}
+  }
+
+  /* ---------- SEDACJA ---------- */
+  .sedacja-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-top:2.6rem;}
+  .sedacja-card{background:var(--bg);border-radius:1rem;padding:1.9rem 1.9rem 1.6rem;border:1px solid color-mix(in srgb, var(--text) 12%, transparent);min-width:0;}
+  .sedacja-card.tak{border-color:color-mix(in srgb, var(--accent) 40%, transparent);}
+  .sedacja-card h3{font-size:1.12rem;margin-bottom:1.1rem;font-weight:600;}
+  .sedacja-card ul{display:flex;flex-direction:column;gap:.75rem;}
+  .sedacja-card li{display:flex;gap:.7rem;font-size:.93rem;color:var(--muted);align-items:flex-start;}
+  .sedacja-card li::before{content:"";flex-shrink:0;width:.45rem;height:.45rem;border-radius:50%;background:var(--accent);margin-top:.5rem;}
+  .sedacja-note{margin-top:1.8rem;font-size:.9rem;color:var(--muted);font-style:italic;max-width:700px;}
+  @media (max-width:760px){.sedacja-grid{grid-template-columns:1fr;}}
+
+  /* ---------- DAWNO NIE BYŁEŚ ---------- */
+  .dawno{background:var(--surface);}
+  .dawno-wrap{display:grid;grid-template-columns:1fr .85fr;gap:3rem;align-items:start;}
+  .dawno-copy p{color:var(--muted);font-size:1rem;margin-bottom:1.1rem;max-width:600px;}
+  .dawno-quote{position:relative;padding:1rem 0 0 2.4rem;min-width:0;}
+  .dawno-quote::before{content:"“";position:absolute;left:-.4rem;top:-1.6rem;font-family:var(--head);font-size:6.5rem;color:color-mix(in srgb, var(--accent) 45%, transparent);line-height:1;}
+  .dawno-quote p{font-family:var(--head);font-size:clamp(1.4rem,2.6vw,1.9rem);font-weight:600;color:var(--text);line-height:1.35;}
+  @media (max-width:860px){
+    .dawno-wrap{grid-template-columns:1fr;gap:2rem;}
+    .dawno-quote{padding-left:1.6rem;}
+  }
+
+  /* ---------- OPINIE ---------- */
+  .opinie-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.6rem;}
+  .opinia-card{background:var(--bg);border-radius:1rem;padding:1.7rem 1.6rem 1.5rem;border:1px solid color-mix(in srgb, var(--text) 10%, transparent);min-width:0;}
+  .opinia-tag{display:inline-block;font-size:.78rem;font-weight:700;color:var(--accent);background:color-mix(in srgb, var(--accent) 14%, transparent);border-radius:2rem;padding:.35rem .8rem;margin-bottom:1rem;}
+  .opinia-card p.tresc{font-size:.96rem;color:var(--text);margin-bottom:1.1rem;}
+  .opinia-autor{font-size:.86rem;color:var(--muted);border-top:1px solid color-mix(in srgb, var(--text) 10%, transparent);padding-top:.8rem;}
+  .opinia-autor b{color:var(--text);}
+  @media (max-width:900px){.opinie-grid{grid-template-columns:1fr;}}
+
+  /* ---------- FAQ ---------- */
+  .faq-list{margin-top:2.4rem;max-width:820px;}
+  details.faq-item{border-bottom:1px solid color-mix(in srgb, var(--text) 14%, transparent);padding:1.2rem 0;}
+  details.faq-item summary{cursor:pointer;list-style:none;font-family:var(--head);font-weight:600;font-size:1.05rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+  details.faq-item summary::-webkit-details-marker{display:none;}
+  details.faq-item summary::after{content:"+";font-family:var(--body);font-weight:700;font-size:1.4rem;color:var(--accent);flex-shrink:0;transition:transform .2s ease;}
+  details.faq-item[open] summary::after{transform:rotate(45deg);}
+  details.faq-item p{color:var(--muted);margin-top:.85rem;font-size:.96rem;max-width:700px;}
+
+  /* ---------- KONTAKT ---------- */
+  .kontakt{background:var(--surface);}
+  .kontakt-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.6rem;margin-top:2.6rem;align-items:start;}
+  .kontakt-info{min-width:0;}
+  .kontakt-row{display:flex;gap:.9rem;margin-bottom:1.3rem;}
+  .kontakt-row .ic{flex-shrink:0;width:2.3rem;height:2.3rem;border-radius:.6rem;background:color-mix(in srgb, var(--accent) 16%, transparent);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1rem;}
+  .kontakt-row b{display:block;font-size:.98rem;}
+  .kontakt-row span{color:var(--muted);font-size:.92rem;}
+  .kontakt-map{width:100%;height:280px;border:0;border-radius:.9rem;margin-top:1.4rem;filter:grayscale(.15) contrast(1.05) brightness(.92);}
+
+  .kontakt-form{background:var(--bg);border-radius:1rem;padding:1.9rem;border:1px solid color-mix(in srgb, var(--text) 12%, transparent);min-width:0;}
+  .kontakt-form label{display:block;font-size:.86rem;font-weight:600;margin-bottom:.35rem;color:var(--muted);}
+  .kontakt-form input,.kontakt-form textarea{
+    width:100%;padding:.75rem .9rem;border-radius:.6rem;border:1.5px solid color-mix(in srgb, var(--text) 18%, transparent);
+    background:var(--surface);color:var(--text);font-family:var(--body);font-size:.95rem;margin-bottom:1.1rem;
+  }
+  .kontakt-form input:focus,.kontakt-form textarea:focus{outline:none;border-color:var(--accent);}
+  .kontakt-form textarea{resize:vertical;min-height:100px;}
+  .form-confirm{display:none;background:color-mix(in srgb, var(--accent) 16%, transparent);border-radius:.6rem;padding:1rem 1.1rem;font-size:.92rem;margin-top:1rem;color:var(--text);font-weight:600;}
+  .form-confirm.show{display:block;}
+  @media (max-width:860px){.kontakt-grid{grid-template-columns:1fr;}}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--bg);border-top:1px solid color-mix(in srgb, var(--text) 12%, transparent);padding:3rem 1.5rem 1.6rem;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2.4rem;margin-bottom:2.2rem;}
+  .foot-logo{font-family:var(--head);font-weight:700;font-size:1.2rem;color:var(--text);margin-bottom:.8rem;display:block;}
+  footer p{font-size:.9rem;color:var(--muted);}
+  footer h4{color:var(--text);font-family:var(--body);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.9rem;font-weight:700;}
+  footer ul li{margin-bottom:.55rem;}
+  footer ul li a{font-size:.9rem;color:var(--muted);}
+  footer ul li a:hover{color:var(--accent);}
+  .foot-bottom{border-top:1px solid color-mix(in srgb, var(--text) 12%, transparent);padding-top:1.4rem;font-size:.8rem;color:var(--muted);display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem;}
+  @media (max-width:760px){.foot-grid{grid-template-columns:1fr;gap:1.8rem;}}
+</style>
+</head>
+<body id="top">
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#top" class="logo"><span class="logo-mark"></span><span class="logo-name">Dentica</span></a>
+    <nav class="nav-links nav-links-desktop">
+      <a href="#pokoj">Pokój bez strachu</a>
+      <a href="#sedacja">Sedacja</a>
+      <a href="#opinie">Opinie</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="nav-phone" href="tel:500 123 456"><span class="icon">📞</span><span class="txt">500 123 456</span></a>
+      <a class="btn btn-primary" href="#kontakt">Umów rozmowę</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-links nav-links-mobile" id="navLinks">
+    <a href="#kontakt" class="mobile-cta">Umów rozmowę</a>
+    <a href="#pokoj">Pokój bez strachu</a>
+    <a href="#sedacja">Sedacja</a>
+    <a href="#opinie">Opinie</a>
+    <a href="#faq">FAQ</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+</header>
+
+<!-- ================= HERO (pełnoekranowa scena) ================= -->
+<section class="hero">
+  <div class="hero-media">
+    <img src="https://images.pexels.com/photos/3946829/pexels-photo-3946829.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Spokojna pacjentka z zamkniętymi oczami w ciepłym, bocznym świetle — nastrój odprężenia, nie dokumentacja zabiegu" loading="eager">
+    <div class="hero-scrim"></div>
+  </div>
+  <div class="wrap">
+    <div class="hero-panel">
+      <span class="eyebrow">Stomatologia dla osób z lękiem — Wrocław</span>
+      <h1>Boisz się dentysty? <em>Zaprojektowaliśmy ten gabinet inaczej.</em></h1>
+      <p class="lead">Nie obiecujemy zabiegu bez żadnego odczucia — to nieuczciwe. Obiecujemy sprawdzalny protokół: sygnał stop, który realnie działa, tempo, które ustalasz Ty, i zapowiedź każdego kroku, zanim się wydarzy.</p>
+      <div class="hero-ctas">
+        <a href="#kontakt" class="btn btn-primary">Umów rozmowę, nie zabieg</a>
+        <a href="#pokoj" class="btn btn-outline">Zobacz Pokój bez strachu</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><b>12 lat</b><span>pracy z pacjentami z silnym lękiem przed leczeniem</span></div>
+        <div class="hero-stat"><b>100%</b><span>wizyt zaczyna się od rozmowy, nie od fotela</span></div>
+        <div class="hero-stat"><b>0</b><span>pytań o powód, kiedy podnosisz dłoń</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= POKÓJ BEZ STRACHU ================= -->
+<section class="pokoj" id="pokoj">
+  <div class="wrap">
+    <div class="pokoj-intro">
+      <span class="eyebrow">Mechanizm, nie hasło</span>
+      <h2>Pokój bez strachu — dotknij, żeby zobaczyć, co się realnie zmienia</h2>
+      <p class="lead">To nie jest tylko ładniejszy gabinet. Każdy element sceny poniżej to konkretna zasada, którą stosujemy na każdej wizycie — dotknij dłoni, sufitu, tacy albo fotela.</p>
+      <p class="pokoj-hint">Dotknij ikony na scenie albo wybierz punkt z listy poniżej — panel z wyjaśnieniem otworzy się pod spodem.</p>
+    </div>
+
+    <div class="pokoj-stage">
+      <div class="room-scene">
+        <svg class="room-svg" viewBox="0 0 900 540" role="img" aria-hidden="true" focusable="false">
+          <defs>
+            <radialGradient id="lampGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" style="stop-color:var(--accent)" stop-opacity="0.85"/>
+              <stop offset="100%" style="stop-color:var(--accent)" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="roomAmbient" cx="46%" cy="16%" r="80%">
+              <stop offset="0%" style="stop-color:var(--accent)" stop-opacity="0.16"/>
+              <stop offset="100%" style="stop-color:var(--bg)" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <rect x="0" y="0" width="900" height="540" rx="20" style="fill:var(--surface)"/>
+          <rect x="0" y="0" width="900" height="540" rx="20" fill="url(#roomAmbient)"/>
+          <line x1="70" y1="478" x2="830" y2="478" style="stroke:var(--text)" stroke-opacity="0.14" stroke-width="2" stroke-dasharray="2 12" stroke-linecap="round"/>
+
+          <!-- Sufit: lampa + ekran do skupienia uwagi -->
+          <circle cx="470" cy="96" r="150" fill="url(#lampGlow)" opacity="0.45"/>
+          <circle cx="470" cy="96" r="70" fill="none" style="stroke:var(--text)" stroke-opacity="0.16" stroke-width="1.5"/>
+          <circle cx="470" cy="96" r="94" fill="none" style="stroke:var(--text)" stroke-opacity="0.1" stroke-width="1.5"/>
+          <circle cx="470" cy="96" r="30" style="fill:var(--accent)"/>
+          <rect x="558" y="66" width="92" height="60" rx="12" transform="rotate(8 604 96)" style="fill:var(--surface);stroke:var(--accent)" stroke-width="2"/>
+          <path d="M592 88 L592 106 L610 97 Z" transform="rotate(8 604 96)" style="fill:var(--accent)"/>
+
+          <!-- Fotel -->
+          <ellipse cx="450" cy="462" rx="140" ry="14" style="fill:var(--text)" opacity="0.08"/>
+          <rect x="430" y="404" width="40" height="56" rx="10" style="fill:var(--accent-dark)" opacity="0.5"/>
+          <rect x="330" y="150" width="230" height="230" rx="72" style="fill:var(--surface);stroke:var(--accent)" stroke-opacity="0.35" stroke-width="2"/>
+          <rect x="230" y="330" width="440" height="120" rx="55" style="fill:var(--surface);stroke:var(--accent)" stroke-opacity="0.35" stroke-width="2"/>
+          <rect x="255" y="332" width="96" height="34" rx="16" style="fill:var(--surface);stroke:var(--accent)" stroke-opacity="0.35" stroke-width="2"/>
+
+          <!-- Dłoń pacjenta (gest stop) -->
+          <g style="fill:var(--accent)">
+            <path d="M240 254 q9 -14 19 -1" fill="none" style="stroke:var(--text)" stroke-opacity="0.35" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M262 248 q9 -15 19 0" fill="none" style="stroke:var(--text)" stroke-opacity="0.35" stroke-width="2.5" stroke-linecap="round"/>
+            <ellipse cx="256" cy="310" rx="25" ry="29"/>
+            <rect x="247" y="267" width="10" height="35" rx="5" transform="rotate(-13 252 284)"/>
+            <rect x="260" y="260" width="10" height="39" rx="5" transform="rotate(-3 265 279)"/>
+            <rect x="272" y="262" width="10" height="37" rx="5" transform="rotate(9 277 280)"/>
+            <rect x="283" y="271" width="9" height="30" rx="4.5" transform="rotate(21 287 286)"/>
+            <rect x="229" y="303" width="9" height="26" rx="4.5" transform="rotate(-46 233 316)"/>
+          </g>
+
+          <!-- Taca narzędzi, przykryta, poza polem widzenia -->
+          <rect x="700" y="248" width="12" height="128" rx="4" style="fill:var(--surface);stroke:var(--accent)" stroke-opacity="0.3" stroke-width="2"/>
+          <ellipse cx="706" cy="380" rx="46" ry="10" style="fill:var(--text)" opacity="0.08"/>
+          <rect x="646" y="222" width="132" height="20" rx="8" style="fill:var(--surface);stroke:var(--accent)" stroke-opacity="0.35" stroke-width="2"/>
+          <path d="M646 224 q66 -20 132 0 l0 4 q-66 -16 -132 0 Z" style="fill:var(--accent)" opacity="0.22"/>
+        </svg>
+
+        <button type="button" class="hotspot" style="left:28.4%;top:57.4%" data-panel="dlon" aria-expanded="true" aria-controls="panel-dlon">
+          <span aria-hidden="true">1</span><span class="visually-hidden">Dłoń pacjenta — sygnał stop</span>
+        </button>
+        <button type="button" class="hotspot" style="left:52.2%;top:17.8%" data-panel="sufit" aria-expanded="false" aria-controls="panel-sufit">
+          <span aria-hidden="true">2</span><span class="visually-hidden">Sufit — coś do skupienia uwagi</span>
+        </button>
+        <button type="button" class="hotspot" style="left:78.4%;top:56%" data-panel="taca" aria-expanded="false" aria-controls="panel-taca">
+          <span aria-hidden="true">3</span><span class="visually-hidden">Taca narzędzi — tempo pacjenta</span>
+        </button>
+        <button type="button" class="hotspot" style="left:52.2%;top:72.2%" data-panel="fotel" aria-expanded="false" aria-controls="panel-fotel">
+          <span aria-hidden="true">4</span><span class="visually-hidden">Fotel — znieczulenie z uwagą na komfort</span>
+        </button>
+      </div>
+
+      <div class="pokoj-legend">
+        <button type="button" class="legend-chip active" data-panel="dlon" aria-expanded="true" aria-controls="panel-dlon"><span class="num">1</span>Dłoń — sygnał stop</button>
+        <button type="button" class="legend-chip" data-panel="sufit" aria-expanded="false" aria-controls="panel-sufit"><span class="num">2</span>Sufit — skupienie uwagi</button>
+        <button type="button" class="legend-chip" data-panel="taca" aria-expanded="false" aria-controls="panel-taca"><span class="num">3</span>Taca — Twoje tempo</button>
+        <button type="button" class="legend-chip" data-panel="fotel" aria-expanded="false" aria-controls="panel-fotel"><span class="num">4</span>Fotel — znieczulenie z uwagą</button>
+      </div>
+
+      <div class="pokoj-panel-group" id="pokojPanels">
+        <div class="pokoj-panel" id="panel-dlon" data-panel="dlon">
+          <span class="panel-badge">01 · Dłoń pacjenta</span>
+          <h3>Sygnał stop</h3>
+          <p>Podniesiona dłoń oznacza natychmiastową przerwę — zawsze, bez pytania o powód. To nie gest dobrej woli, tylko protokół, którego zespół faktycznie się trzyma: zabieg wstrzymujemy w ciągu kilku sekund, niezależnie od etapu.</p>
+        </div>
+        <div class="pokoj-panel" id="panel-sufit" data-panel="sufit" hidden>
+          <span class="panel-badge">02 · Sufit</span>
+          <h3>Coś do skupienia uwagi zamiast białego sufitu</h3>
+          <p>Zamiast pustego sufitu i lampy zabiegowej prosto nad twarzą, masz na czym zawiesić wzrok — ekran z neutralnym obrazem albo własna muzyka w słuchawkach. Wybierasz przed zabiegiem, nie w jego trakcie.</p>
+        </div>
+        <div class="pokoj-panel" id="panel-taca" data-panel="taca" hidden>
+          <span class="panel-badge">03 · Taca narzędzi</span>
+          <h3>Tempo Twoje, nie zabiegowe</h3>
+          <p>Narzędzia zostają poza polem widzenia do momentu, w którym są naprawdę potrzebne. Przy dłuższych wizytach możesz poprosić o przerwę w dowolnym momencie — i nie usłyszysz „skoro już tu jesteśmy, zróbmy jeszcze X" bez wcześniejszego pytania.</p>
+        </div>
+        <div class="pokoj-panel" id="panel-fotel" data-panel="fotel" hidden>
+          <span class="panel-badge">04 · Fotel</span>
+          <h3>Znieczulenie z uwagą na komfort</h3>
+          <p>Podanie znieczulenia w wolniejszym tempie, z zapowiedzią każdego kroku, zanim się wydarzy — nie obiecujemy braku odczucia, obiecujemy, że nic nie zaskoczy Cię bez ostrzeżenia.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SYGNAŁ STOP (pasmo wzmacniające) ================= -->
+<section class="stopband" id="stop">
+  <div class="wrap stopband-wrap">
+    <div class="stopband-copy reveal">
+      <span class="eyebrow">W praktyce, nie na papierze</span>
+      <h2>Podniesiona dłoń = przerwa. Zawsze. Bez pytania o powód.</h2>
+      <p class="lead">To jedna zasada, ale trzyma się jej cały zespół, nie tylko lekarz przy fotelu — od recepcji po asystę.</p>
+      <ul class="stopband-points">
+        <li>Zespół zna ten gest — nie musisz nic mówić, wystarczy podnieść dłoń.</li>
+        <li>Przerywamy w ciągu kilku sekund, niezależnie od etapu zabiegu.</li>
+        <li>Wracamy dopiero, kiedy Ty dasz znać, że możemy kontynuować.</li>
+      </ul>
+    </div>
+    <div class="stopband-figure reveal">
+      <img class="stopband-photo" src="https://images.pexels.com/photos/3881429/pexels-photo-3881429.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Ujęcie z góry: dłoń w rękawiczce przy krawędzi fotela w ciepłym świetle lampy zabiegowej — nastrój spokoju, nie dokumentacja zabiegu" loading="lazy">
+      <p class="stopband-caption">Ten sam protokół obowiązuje przy każdym zabiegu — od higienizacji po leczenie kanałowe.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SEDACJA ================= -->
+<section id="sedacja">
+  <div class="wrap">
+    <span class="eyebrow">Dla silnego lęku</span>
+    <h2>Sedacja — kiedy ma sens, a kiedy nie jest potrzebna</h2>
+    <p class="lead">Większości pacjentów wystarcza znieczulenie miejscowe i protokół z Pokoju bez strachu powyżej. Sedacja to opcja dla wąskiej grupy przypadków — nie coś, co proponujemy każdemu z automatu.</p>
+    <div class="sedacja-grid">
+      <div class="sedacja-card tak reveal">
+        <h3>Sedacja może mieć sens, jeśli:</h3>
+        <ul>
+          <li>Silny, udokumentowany lęk realnie uniemożliwiał Ci dotychczas leczenie.</li>
+          <li>Zabieg jest długi lub złożony — np. kilka godzin w jednej wizycie.</li>
+          <li>Wcześniejsze doświadczenia z fotelem były bardzo trudne, nie tylko niemiłe.</li>
+        </ul>
+      </div>
+      <div class="sedacja-card reveal">
+        <h3>Zwykle wystarczy standardowy protokół, jeśli:</h3>
+        <ul>
+          <li>Zależy Ci na kontroli i słyszeniu, co się dzieje na bieżąco.</li>
+          <li>Znieczulenie miejscowe i sygnał stop dotychczas Ci wystarczały.</li>
+          <li>To pierwsza wizyta po przerwie — zaczynamy od rozmowy i przeglądu, nie od zabiegu.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="sedacja-note">To zawsze temat rozmowy podczas konsultacji, nie pozycja z cennika do samodzielnego zamówienia — ostateczną kwalifikację ustala lekarz razem z Tobą, biorąc pod uwagę Twój stan zdrowia.</p>
+  </div>
+</section>
+
+<!-- ================= DAWNO NIE BYŁEŚ ================= -->
+<section class="dawno" id="dawno">
+  <div class="wrap dawno-wrap">
+    <div class="dawno-copy reveal">
+      <span class="eyebrow">Bez oceniania</span>
+      <h2>Jeśli ostatnia wizyta była… dawno temu</h2>
+      <p>Część naszych pacjentów nie była u dentysty od kilku, czasem kilkunastu lat — nie z lenistwa, tylko ze strachu, i często się tego wstydzą. U nas to nie temat do komentowania na recepcji ani przy fotelu.</p>
+      <p>Pierwsza wizyta po długiej przerwie to rozmowa i przegląd — nie automatyczna lista zabiegów do natychmiastowego wykonania. Ty decydujesz, w jakim tempie ruszamy dalej, także jeśli okaże się, że jest sporo do nadrobienia.</p>
+    </div>
+    <div class="dawno-quote reveal">
+      <p>Nikt tu nie zapyta, dlaczego nie było Cię 10 lat.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OPINIE ================= -->
+<section class="opinie" id="opinie">
+  <div class="wrap">
+    <span class="eyebrow">Głosy pacjentów</span>
+    <h2>Co mówią pacjenci z miasta Wrocław</h2>
+    <div class="opinie-grid">
+      <div class="opinia-card reveal">
+        <span class="opinia-tag">8 lat przerwy → dziś regularne wizyty</span>
+        <p class="tresc">Powiedziałam na recepcji, że boję się igły bardziej niż bólu zęba. Nikt nie zrobił z tego problemu — po prostu zapytali, jak mają mi to zapowiadać.</p>
+        <div class="opinia-autor"><b>Ewa</b>, Wrocław</div>
+      </div>
+      <div class="opinia-card reveal">
+        <span class="opinia-tag">pierwsza wizyta od 6 lat</span>
+        <p class="tresc">Umówiłem się tylko na rozmowę, bez zobowiązania do zabiegu tego samego dnia. Ostatecznie zostałem na przeglądzie, ale to była moja decyzja, nie presja.</p>
+        <div class="opinia-autor"><b>Tomasz</b>, Wrocław</div>
+      </div>
+      <div class="opinia-card reveal">
+        <span class="opinia-tag">sedacja przy leczeniu kanałowym</span>
+        <p class="tresc">Bałam się od dziecka. Przy leczeniu kanałowym zdecydowałam się na sedację — lekarz najpierw dokładnie wytłumaczył, jak to wygląda, zanim cokolwiek podał.</p>
+        <div class="opinia-autor"><b>Aleksandra</b>, Wrocław</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section id="faq">
+  <div class="wrap">
+    <span class="eyebrow">Pytania, które słyszymy najczęściej</span>
+    <h2>Najczęstsze pytania</h2>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>Czy sedacja jest bezpieczna?</summary>
+        <p>Sedacja farmakologiczna, prawidłowo dobrana i nadzorowana, jest procedurą stosowaną rutynowo — ale to nie znaczy, że pasuje każdemu i zawsze. Kwalifikację i dawkowanie ustala lekarz podczas konsultacji, biorąc pod uwagę Twój stan zdrowia i poziom lęku.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Co, jeśli mimo wszystko zdenerwuję się w trakcie zabiegu?</summary>
+        <p>Wtedy działa sygnał stop — podnosisz dłoń i przerywamy, bez pytania o powód. Możesz też wcześniej powiedzieć, że wolisz częstsze przerwy albo dłuższą rozmowę przed każdym krokiem — dostosowujemy tempo, nie tylko na papierze.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Czy dzieci też mogą skorzystać z tego podejścia?</summary>
+        <p>Tak, sygnał stop i zapowiadanie kolejnych kroków sprawdzają się też u dzieci — dostosowujemy tylko sposób tłumaczenia do wieku. O sedacji u dzieci rozmawiamy osobno, bo kwalifikacja jest bardziej ostrożna niż u dorosłych.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Czy to nie krępujące dla lekarza, jeśli często korzystam z sygnału stop?</summary>
+        <p>Nie — to część normalnej pracy z pacjentem, nie wyjątek robiony na specjalną prośbę. Im częściej z niego korzystasz na początku, tym łatwiej nam dopasować tempo do kolejnych wizyt.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Ile trwa pierwsza wizyta, jeśli głównie rozmawiamy?</summary>
+        <p>Zwykle 30–40 minut — część na rozmowę o Twoich obawach i oczekiwaniach, część na krótki przegląd, jeśli się na niego zdecydujesz tego samego dnia. Nic nie dzieje się bez zapowiedzi.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= KONTAKT ================= -->
+<section class="kontakt" id="kontakt">
+  <div class="wrap">
+    <span class="eyebrow">Pierwszy krok</span>
+    <h2>Umów rozmowę — Wrocław</h2>
+    <p class="lead">Jeśli sama myśl o zadzwonieniu do gabinetu odkłada wizytę na kolejny miesiąc, nie musisz od razu sięgać po telefon — zostaw kontakt w formularzu, a o terminie porozmawiamy w Twoim tempie.</p>
+    <div class="kontakt-grid">
+      <div class="kontakt-info">
+        <div class="kontakt-row">
+          <div class="ic">📍</div>
+          <div><b>ul. Przykładowa 12, Wrocław</b><span>Gabinet stomatologiczny Dentica</span></div>
+        </div>
+        <div class="kontakt-row">
+          <div class="ic">📞</div>
+          <div><b>500 123 456</b><span>Możesz też zadzwonić od razu — odbieramy spokojnie, bez pośpiechu.</span></div>
+        </div>
+        <div class="kontakt-row">
+          <div class="ic">✉️</div>
+          <div><b>kontakt@dentica.pl</b><span>Odpowiadamy w dni robocze.</span></div>
+        </div>
+        <div class="kontakt-row">
+          <div class="ic">🕒</div>
+          <div><b>Pon–Pt: 8:00 – 19:00</b><span>Sobota: 9:00 – 13:00</span></div>
+        </div>
+        <iframe class="kontakt-map" src="https://www.google.com/maps?q=ul. Przykładowa 12, Wrocław&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa dojazdu do gabinetu Dentica"></iframe>
+      </div>
+
+      <form class="kontakt-form" id="kontaktForm">
+        <label for="f-imie">Imię i nazwisko</label>
+        <input id="f-imie" name="imie" type="text" required placeholder="Jan Kowalski">
+        <label for="f-tel">Telefon</label>
+        <input id="f-tel" name="telefon" type="tel" required placeholder="500 000 000">
+        <label for="f-wiad">Wiadomość (opcjonalnie)</label>
+        <textarea id="f-wiad" name="wiadomosc" placeholder="Jeśli chcesz, napisz krótko, czego się obawiasz — nie musisz, wystarczy sam kontakt."></textarea>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Wyślij zgłoszenie</button>
+        <div class="form-confirm" id="formConfirm">Dziękujemy! Zgłoszenie zostało wysłane — oddzwonimy, żeby spokojnie ustalić termin rozmowy.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <span class="foot-logo">Dentica</span>
+        <p>Zaprojektowaliśmy ten gabinet w mieście Wrocław tak, żeby dało się w nim wreszcie usiąść na fotelu bez napięcia w karku.</p>
+      </div>
+      <div>
+        <h4>Nawigacja</h4>
+        <ul>
+          <li><a href="#pokoj">Pokój bez strachu</a></li>
+          <li><a href="#sedacja">Sedacja</a></li>
+          <li><a href="#opinie">Opinie</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <ul>
+          <li><a href="tel:500 123 456">500 123 456</a></li>
+          <li><a href="mailto:kontakt@dentica.pl">kontakt@dentica.pl</a></li>
+          <li><a href="#kontakt">ul. Przykładowa 12, Wrocław</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="foot-year">2026</span> Dentica — Wrocław</span>
+      <span>Strona wygenerowana w webgen.pl</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var toggle = document.getElementById('navToggle');
+    var links = document.getElementById('navLinks');
+    if(toggle && links){
+      toggle.addEventListener('click', function(){
+        var open = links.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      links.querySelectorAll('a').forEach(function(a){
+        a.addEventListener('click', function(){
+          links.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    var form = document.getElementById('kontaktForm');
+    var confirm = document.getElementById('formConfirm');
+    if(form && confirm){
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        confirm.classList.add('show');
+        form.reset();
+      });
+    }
+
+    var y = document.getElementById('foot-year');
+    if(y){ y.textContent = new Date().getFullYear(); }
+
+    /* ---- Pokój bez strachu: hotspoty + legenda sterują wspólnym panelem w normalnym flow ---- */
+    var triggers = document.querySelectorAll('[data-panel]');
+    var panels = document.querySelectorAll('.pokoj-panel');
+    function activatePanel(id){
+      panels.forEach(function(p){
+        var match = p.getAttribute('data-panel') === id;
+        p.hidden = !match;
+        if(match){
+          p.classList.remove('flash');
+          void p.offsetWidth;
+          p.classList.add('flash');
+        }
+      });
+      triggers.forEach(function(t){
+        var match = t.getAttribute('data-panel') === id;
+        t.classList.toggle('active', match);
+        t.setAttribute('aria-expanded', match ? 'true' : 'false');
+      });
+    }
+    triggers.forEach(function(t){
+      t.addEventListener('click', function(){ activatePanel(this.getAttribute('data-panel')); });
+    });
+
+    var revealEls = document.querySelectorAll('.reveal');
+    if('IntersectionObserver' in window && revealEls.length){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry, i){
+          if(entry.isIntersecting){
+            entry.target.style.transitionDelay = (Math.min(i % 4, 4) * 0.09) + 's';
+            entry.target.classList.add('visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, {threshold:.15, rootMargin:'0px 0px -40px 0px'});
+      revealEls.forEach(function(el){ io.observe(el); });
+    } else {
+      revealEls.forEach(function(el){ el.classList.add('visible'); });
+    }
+  })();
+</script>
+
+</body>
+</html>

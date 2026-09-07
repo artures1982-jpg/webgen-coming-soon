@@ -6,7 +6,7 @@
 // FORMUŁA 3 WARIANTÓW (decyzja Artura 03.09.2026, patrz docs/produkcja-szablonow/README.md):
 //   1 = free  — archetyp zaufania („Zaufany fachowiec")
 //   2 = pro   — archetyp WYLOSOWANY z puli 2-5: wypadł „Premium/korporacyjny"
-//   3 = pro   — „petarda" (do ustalenia po akceptacji wariantu 2)
+//   3 = pro   — „petarda": Pokój bez strachu (oś dentofobii, celowo zarezerwowana z wariantu 1)
 //
 // Wariant 1 zaakceptowany przez Artura 07.09.2026. Tego dnia Artur też jawnie zwolnił z
 // checkpointu akceptacji między wariantami 2 i 3 tej branży ("lecimy 2 i 3 bez zatwierdzeń") —
@@ -32,6 +32,9 @@ const FOTO = {
   // --- wariant 2 (pula rozłączna z wariantem 1, ZASADY.md sekcja 4) ---
   zespol_przy_fotelu: 'https://images.pexels.com/photos/4269949/pexels-photo-4269949.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // dwoje specjalistów w nowoczesnym gabinecie przy fotelu pacjentki — koordynacja zespołu, nie jeden lekarz solo
   skaner_3d: 'https://images.pexels.com/photos/6812468/pexels-photo-6812468.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',          // pacjent w panoramicznym/3D skanerze stomatologicznym — zaawansowana diagnostyka
+  // --- wariant 3 „petarda" (pula rozłączna z wariantami 1 i 2) ---
+  spokoj_profil: 'https://images.pexels.com/photos/3946829/pexels-photo-3946829.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // profil pacjentki z zamkniętymi oczami, spokojna, ciepłe boczne światło — kinowy kadr spokoju, nie leczenia
+  spokoj_gora: 'https://images.pexels.com/photos/3881429/pexels-photo-3881429.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',   // ten sam nastrój z innego kąta — z góry, rozświetlenie lampy zabiegowej, dłoń w rękawiczce na brzegu kadru
 };
 
 const VARIANTS = [
@@ -233,6 +236,122 @@ klaster premium w innych branżach (patrz PALETA wyżej po listę — przeczytaj
 nich WYŁĄCZNIE jako inspirację ducha "premium = uwaga/czas/ciągłość", nigdy jako bazę wizualną).
 Oś wieloetapowego programu i sekcja koordynacji specjalistów to naturalnie unikalne dla tego
 wariantu elementy — zaprojektuj je od zera.`,
+  },
+  {
+    id: 'stomatolog-3-pokoj-bez-strachu',
+    tier: 'pro',
+    name: 'Pokój bez strachu',
+    visual: `STYL: "PETARDA" branży stomatolog. Wariant ma być najodważniejszy wizualnie w całej
+bibliotece i wolno mu złamać konwencję wyciszonego premium — dokładnie tak, jak zrobiły to
+auta-z-ameryki-3, fotograf-slubny-3 i fotowoltaika-3. To jest definicja tego wariantu, nie
+przeoczenie.
+
+OŚ TEGO WARIANTU: DENTOFOBIA — strach przed dentystą. Świadomie zarezerwowana w briefie wariantu 1
+("REALNE LĘKI KLIENTA" punkt 5) jako materiał na przyszły wariant — to jest ten wariant. Realny,
+udokumentowany problem: znaczna część dorosłych Polaków odwleka wizyty u dentysty z czystego lęku,
+nie z braku pieniędzy czy czasu, i często wstydzi się o tym powiedzieć na recepcji. Ten wariant
+mówi o tym wprost, bez eufemizmów typu "delikatna opieka" — nazywa strach po imieniu i pokazuje
+KONKRETNE, sprawdzalne rozwiązania, nie tylko uspokajający ton głosu.
+
+MECHANIZM NIE DO ZAPOMNIENIA (sedno wariantu): POKÓJ BEZ STRACHU — interaktywna, rysunkowa
+(SVG/CSS, ŻADNYCH bibliotek zewnętrznych, ŻADNYCH zdjęć w tym module) ilustracja gabinetu z
+kilkoma "gorącymi punktami" (hotspoty na fotelu, suficie, tacy z narzędziami, dłoni pacjenta).
+Dotknięcie/najechanie na hotspot odsłania panel z KONKRETNYM, realnym elementem projektu przeciw
+lękowi — nie ogólnikiem:
+- **Dłoń pacjenta → SYGNAŁ STOP.** Podniesiona dłoń = natychmiastowa przerwa, zawsze, bez pytania
+  o powód. To realny, wdrożony protokół, nie gest dobrej woli — opisz go jako coś, co zespół
+  faktycznie stosuje.
+- **Sufit → coś do skupienia uwagi** zamiast białego sufitu i lampy zabiegowej wprost nad twarzą
+  (ekran, muzyka/słuchawki, cokolwiek odwraca uwagę od zabiegu).
+- **Taca narzędzi → tempo Twoje, nie zabiegowe.** Narzędzia poza polem widzenia do momentu użycia,
+  możliwość przerw w trakcie dłuższych wizyt, zero "zaraz zrobimy jeszcze X, skoro już tu jesteś"
+  bez pytania.
+- **Fotel → znieczulenie z uwagą na komfort** (wolne tempo podania, zapowiedź każdego kroku zanim
+  się wydarzy) — opisz PROCES, nie obiecuj braku odczucia (patrz ograniczenie niżej).
+Na mobile hotspoty muszą być tap-owalne z realnym, wystarczająco dużym touch targetem (nie hover),
+i panel z wyjaśnieniem ma się otwierać w normalnym flow (patrz REGUŁA 6.8 niżej) — NIE jako
+przypięty tooltip, który może wypaść poza ekran.
+
+DRUGI FILAR TREŚCI: SEDACJA DLA SILNEGO LĘKU — krótko i uczciwie, kto się kwalifikuje (silny,
+udokumentowany lęk lub długi zabieg), kto niekoniecznie potrzebuje (większość pacjentów wystarczy
+znieczulenie miejscowe + protokół powyżej), i że to rozmowa podczas konsultacji, nie zabieg "do
+zamówienia z cennika". Trzeci filar: sekcja "jeśli dawno nie byłeś/aś u dentysty" — destygmatyzacja
+wstydu za odwlekanie, wprost że to nie jest oceniane, bez moralizowania.
+
+ZAKAZ POWTÓRZENIA — CZYTAJ UWAŻNIE, TO NAJWIĘKSZE RYZYKO TEGO WARIANTU:
+1. NIE buduj kolejnego dokumentu-tabeli jak '.plan-doc' z wariantu 1 (klasyfikacja zabiegów wg
+   konieczności) — to inny temat i inny artefakt.
+2. NIE buduj pionowej osi etapów ze sticky panelem jak w wariancie 2 ('.program-wrap',
+   '.program-stages') — Pokój bez strachu to przestrzenna, rysunkowa scena z hotspotami, nie
+   chronologiczna oś czasu.
+3. NIE buduj diagramu hub-and-spoke jak "koordynacja specjalistów" w wariancie 2 — inny mechanizm
+   wizualny, inny temat.
+Ten sam ruch co fotowoltaika-3 (moduł słońca zamiast kolejnego dashboardu/osi czasu po dwóch
+poprzednich wariantach tej branży) — trzeci wariant z rzędu z podobnym mechanizmem dyskwalifikuje
+wariant.
+
+KRYTYCZNE OGRANICZENIE UCZCIWOŚCIOWE (surowsze niż w wariantach 1-2, bo temat jest wrażliwy):
+zero "całkowicie bezbolesne", zero "zero stresu gwarantowane", zero "nie poczujesz nic". Znieczulenie
+i sedacja realnie działają, ale obietnica zerowego odczucia jest medycznie nieuczciwa i dokładnie
+tym, czego boi się ktoś, kto już raz usłyszał "nic pan/pani nie poczuje" i poczuł. Język ma być:
+"zaprojektowane, żeby zmniejszyć i kontrolować dyskomfort" + KONKRETNY, sprawdzalny protokół
+(sygnał stop, tempo, zapowiedź kroków) jako dowód — nie obietnica wyniku. To samo dotyczy sedacji:
+opisz proces i kwalifikację, nie efekt "obudzisz się i będzie po wszystkim bezboleśnie".
+
+PALETA — sprawdź grepem że nie koliduje z ŻADNYM wariantem w systemie (grep -rhoE
+"#[0-9a-fA-F]{3,6}" templates/pilot/*.html), w tym z własnymi wariantami 1 (fiolet-ink na kremie)
+i 2 (espresso #1e140d / pewter #a9b6bf) tej branży — inna rodzina barwy niż oba. Petarda ma prawo
+do nastroju kinowego, ciemnego pokoju o zmierzchu, nie klinicznej jasności — to wspiera samą oś
+(uspokojenie, nie sterylność). Kierunek do rozważenia: głęboki, niemal czarny zmierzch (chłodniejszy
+i ciemniejszy niż espresso wariantu 2 — np. z nutą granatu lub węgla, nie brązu) z JEDNYM ciepłym,
+świecącym akcentem przypominającym światło świecy/lampy nocnej (bursztyn/miodowy, nie żółć/złoto —
+te są zajęte 6× w systemie, patrz brief wariantu 1). Ten kontrast (zimny zmierzch / ciepłe światło)
+jeszcze nie występuje w bibliotece i wspiera metaforę "światło w ciemności, nie klinika". Zweryfikuj
+grepem i uzasadnij wybór niezależnie od tego, którą drogę wybierzesz.
+TYPOGRAFIA: zweryfikuj grepem że nieużyta nigdzie w systemie, w tym IBM Plex Serif/Livvic (wariant
+2) i Literata/Lato (wariant 1). Petarda znosi wyrazisty, duży krój nagłówkowy — użyj tego.
+
+RUCH — najmocniejszy w branży, ale sterowany intencją użytkownika w module hotspotów (tap/klik, nie
+autoplay-karuzela). Poza modułem: miękkie, oddechowe fade-in przy scrollu (dłuższy, wolniejszy niż
+w wariantach 1-2 — pasuje do tonu "zwolnij"), delikatny glow/pulsowanie na CTA i na hotspotach
+zachęcające do dotknięcia. Wszystko pod prefers-reduced-motion — w module Pokoju bez strachu ruch
+redukuj do statycznego stanu z hotspotami wciąż w pełni klikalnymi, nie chowaj funkcjonalności.
+
+ZDJĘCIA (curl 200, obejrzane, pula ROZŁĄCZNA z wariantami 1 i 2 — użyj TYCH DOKŁADNYCH URL ze
+stałej FOTO). Oba kadry są kinowe i spokojne (zamknięte oczy, ciepłe/miękkie światło) — traktuj je
+jako nośnik nastroju "bezpiecznie, można się rozluźnić", nie jako dokumentację zabiegu:
+- Profil pacjentki z zamkniętymi oczami, ciepłe boczne światło — pasuje do hero:
+  https://images.pexels.com/photos/3946829/pexels-photo-3946829.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Ten sam nastrój z góry, rozświetlenie lampy zabiegowej, dłoń w rękawiczce na brzegu kadru —
+  pasuje do sekcji o sygnale stop / komforcie w trakcie zabiegu:
+  https://images.pexels.com/photos/3881429/pexels-photo-3881429.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+Moduł Pokoju bez strachu jest rysunkiem SVG/CSS, nie zdjęciem — nie szukaj do niego fotografii.
+Jeśli potrzebujesz więcej zdjęć — NIE zgaduj ID Pexels, zostaw "<!-- PHOTO NEEDED: opis -->" i
+wypisz w raporcie.
+
+TREŚĆ — sekcje: nav, hero (nazwij strach wprost: "Boisz się dentysty? Zaprojektowaliśmy ten
+gabinet inaczej." — bez eufemizmów), POKÓJ BEZ STRACHU (mechanizm różnicujący opisany wyżej),
+sygnał stop jako osobna, krótka sekcja wzmacniająca (co się dzieje w praktyce, nie tylko ikona),
+sedacja dla silnego lęku (kwalifikacja, uczciwie), "jeśli dawno nie byłeś/aś" (destygmatyzacja
+wstydu), opinie pacjentów (generyczne imiona + {{MIASTO}} + coś w stylu "pierwsza wizyta od lat" —
+inny szkielet zdania niż w wariantach 1 i 2, NIGDY nazwy firm), FAQ (m.in. czy sedacja jest
+bezpieczna, co jeśli mimo wszystko się zdenerwuję w trakcie, czy dzieci też mogą skorzystać z tego
+podejścia), kontakt z mapą. Gramatyka {{MIASTO}} (ZASADY.md sekcja 2) — czytaj całe zdania, grep
+tego nie łapie.
+
+ZAKAZ KALKI MIĘDZYWARIANTOWEJ (ZASADY.md 5.1, REJESTR-BLEDOW.md B-08/B-13 — teraz obowiązuje wobec
+DWÓCH sibling wariantów): przed napisaniem hero-note, pierwszego zdania stopki i akapitu
+kontaktowego przeczytaj oba istniejące pliki tej branży i napisz świadomie inny szkielet zdania w
+każdym z trzech miejsc niż w OBU poprzednich wariantach — nie tylko niż w jednym z nich.
+
+REGUŁA 6.8 z ZASADY.md: to trzeci wariant z rzędu w tej branży, gdzie może to wystąpić — każdy
+tekst/karta/panel hotspotu nachodzący na zdjęcie musi mieć zagwarantowany kontrast i być
+zweryfikowany zrzutem na 360/390px. Zdjęcia tego wariantu mają jasne partie (światło lampy), sprawdź
+to szczególnie przy overlayu na zdjęciu hero.
+
+LAYOUT — bespoke od zera. Petarda ma prawo do nietypowej siatki, dużych pustych przestrzeni i
+pełnoekranowych scen. Moduł Pokoju bez strachu jest centralnym, unikalnym elementem tego wariantu —
+zaprojektuj go tak, żeby był tym, co ludzie zapamiętają.`,
   },
 ];
 
