@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Webgen — Gotowa strona firmowa w minutę</title>
-<meta name="description" content="Webgen to biblioteka gotowych szablonów stron dla polskich firm usługowych. Wybierz szablon dopasowany do branży i aktywuj za darmo — albo odblokuj personalizację AI planem Pro.">
+<meta name="description" content="Webgen to biblioteka gotowych szablonów stron dla polskich firm usługowych. Wybierz szablon dopasowany do branży i aktywuj za darmo na start — a potem przejdź na Pro lub Pro Max po pełną personalizację AI.">
 <link rel="canonical" href="https://webgen.pl/">
 
 <!-- Open Graph -->
@@ -12,14 +12,14 @@
 <meta property="og:url" content="https://webgen.pl/">
 <meta property="og:site_name" content="Webgen">
 <meta property="og:title" content="Webgen — Gotowa strona firmowa w minutę">
-<meta property="og:description" content="Biblioteka gotowych szablonów stron dla polskich firm usługowych. Wybierz szablon dopasowany do branży i aktywuj za darmo — albo odblokuj personalizację AI planem Pro.">
+<meta property="og:description" content="Biblioteka gotowych szablonów stron dla polskich firm usługowych. Aktywuj za darmo na start, a gdy dojrzejesz do rozwoju — przejdź na Pro lub Pro Max.">
 <meta property="og:image" content="https://webgen.pl/og-image.png">
 <meta property="og:locale" content="pl_PL">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Webgen — Gotowa strona firmowa w minutę">
-<meta name="twitter:description" content="Wybierz gotowy szablon dla swojej branży i aktywuj za darmo — albo odblokuj personalizację AI planem Pro.">
+<meta name="twitter:description" content="Wybierz gotowy szablon dla swojej branży i aktywuj za darmo na start — albo odblokuj pełną personalizację AI planem Pro lub Pro Max.">
 <meta name="twitter:image" content="https://webgen.pl/og-image.png">
 
 <!-- Schema.org: Organization + WebSite -->
@@ -50,22 +50,25 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='gb' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2300E5A0'/%3E%3Cstop offset='100%25' stop-color='%230066FF'/%3E%3C/linearGradient%3E%3ClinearGradient id='bp' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230066FF'/%3E%3Cstop offset='100%25' stop-color='%237B4FFF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='%23131720'/%3E%3Cpath d='M18 28 L28 68 L38 48 L48 68 L58 28' stroke='url(%23gb)' stroke-width='7' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M68 35 C68 35 60 31 57 40 C54 49 56 63 62 65 C68 67 75 62 75 56 L65 56' stroke='url(%23bp)' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; cursor: none !important; }
 
 :root {
-  --bg:      #EAF0FB;
-  --surface: #E1EAF9;
-  --border:  rgba(24,35,53,0.08);
-  --green:   #4C6FFF;
-  --blue:    #2F5FD1;
-  --purple:  #6B5FC9;
-  --good:    #1B8F6B;
-  --text:    #182335;
-  --muted:   #5E6B85;
+  --bg:      #090C13;
+  --surface: rgba(255,255,255,0.035);
+  --surface-h: rgba(255,255,255,0.065);
+  --border:  rgba(255,255,255,0.09);
+  --border2: rgba(255,255,255,0.18);
+  --green:   #00E5A0;
+  --blue:    #4C82FF;
+  --purple:  #8B6FFF;
+  --text:    #F2F5FA;
+  --muted:   #8D97AC;
+  --good:    #29D18F;
   --display: 'Bricolage Grotesque', sans-serif;
   --mono:    'JetBrains Mono', monospace;
+  --grad:    linear-gradient(120deg, var(--green), var(--blue) 55%, var(--purple));
 }
 
 html { scroll-behavior: smooth; }
@@ -92,7 +95,7 @@ body {
 #cur-ring {
   position: fixed; top: 0; left: 0;
   width: 30px; height: 30px;
-  border: 1px solid rgba(76,111,255,0.3);
+  border: 1px solid rgba(76,130,255,0.4);
   border-radius: 50%;
   pointer-events: none; z-index: 9998;
   transform: translate(-50%,-50%);
@@ -101,66 +104,75 @@ body {
 }
 body.ca #cur, body.ca #cur-ring { opacity: 1; }
 
-/* ── BG ── */
+/* ── BG GLOW ── */
 body::before {
   content: '';
   position: fixed; inset: 0;
   background:
-    radial-gradient(ellipse 70% 50% at 50% -5%, rgba(76,111,255,0.08) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 40% at 85% 85%, rgba(107,95,201,0.06) 0%, transparent 60%),
-    radial-gradient(ellipse 35% 40% at 5% 70%, rgba(47,95,209,0.05) 0%, transparent 60%);
+    radial-gradient(ellipse 60% 46% at 22% -6%, rgba(0,229,160,0.16) 0%, transparent 68%),
+    radial-gradient(ellipse 50% 44% at 88% 8%, rgba(76,130,255,0.14) 0%, transparent 65%),
+    radial-gradient(ellipse 42% 40% at 90% 82%, rgba(139,111,255,0.12) 0%, transparent 62%),
+    radial-gradient(ellipse 38% 36% at 4% 78%, rgba(76,130,255,0.08) 0%, transparent 60%);
   pointer-events: none; z-index: 0;
-  animation: bgdrift 20s ease-in-out infinite;
+  animation: bgdrift 22s ease-in-out infinite;
 }
 @keyframes bgdrift {
-  0%,100% { opacity: 1; }
-  50% { opacity: 0.7; }
+  0%,100% { opacity: 1; transform: translateY(0); }
+  50%     { opacity: 0.75; transform: translateY(10px); }
 }
 body::after {
   content: '';
   position: fixed; inset: 0;
   background-image:
-    linear-gradient(rgba(76,111,255,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(76,111,255,0.02) 1px, transparent 1px);
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
   background-size: 64px 64px;
   pointer-events: none; z-index: 0;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 0%, transparent 75%);
 }
 
 /* ── LAYOUT ── */
-.wrap { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 0 32px; }
+.wrap { position: relative; z-index: 1; max-width: 1040px; margin: 0 auto; padding: 0 32px; }
 
 /* ── NAV ── */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  padding: 22px 0;
+  padding: 20px 0;
   transition: background .3s, border-color .3s;
   border-bottom: 1px solid transparent;
 }
 nav.scrolled {
-  background: rgba(255,255,255,0.85);
+  background: rgba(9,12,19,0.78);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-color: var(--border);
 }
-nav .wrap { display: flex; align-items: center; justify-content: space-between; }
+nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 
-.logo { display: flex; align-items: center; gap: 11px; text-decoration: none; }
-.logo-svg { width: 36px; height: 36px; flex-shrink: 0; }
-.logo-wordmark { font-size: 18px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
+.logo { display: flex; align-items: center; gap: 11px; text-decoration: none; flex-shrink: 0; }
+.logo-svg { width: 34px; height: 34px; flex-shrink: 0; }
+.logo-wordmark { font-size: 17px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
 .logo-wordmark .w { color: var(--text); }
 .logo-wordmark .g {
-  background: linear-gradient(90deg, #00E5A0, #0066FF, #7B4FFF);
+  background: var(--grad);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-.logo-wordmark .tld { font-size: 12px; font-family: var(--mono); color: rgba(24,35,53,0.2); font-weight: 400; margin-left: 1px; -webkit-text-fill-color: rgba(24,35,53,0.2); }
+.logo-wordmark .tld { font-size: 11px; font-family: var(--mono); color: rgba(242,245,250,0.28); font-weight: 400; margin-left: 1px; -webkit-text-fill-color: rgba(242,245,250,0.28); }
+
+.nav-links { display: flex; align-items: center; gap: 4px; }
+.nav-links a {
+  font-size: 13px; font-weight: 500; color: var(--muted); text-decoration: none;
+  padding: 7px 13px; border-radius: 7px; transition: all .18s;
+}
+.nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.06); }
 
 .badge {
   font-family: var(--mono); font-size: 10px;
   color: var(--green);
-  border: 1px solid rgba(76,111,255,0.2);
+  border: 1px solid rgba(0,229,160,0.28);
   padding: 5px 14px; border-radius: 100px;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.06em; white-space: nowrap; flex-shrink: 0;
 }
 
 /* ── HERO ── */
@@ -168,14 +180,14 @@ nav .wrap { display: flex; align-items: center; justify-content: space-between; 
   min-height: 100vh;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   text-align: center;
-  padding: 110px 0 60px;
+  padding: 120px 0 60px;
 }
 
 .hero-tag {
   display: inline-flex; align-items: center; gap: 10px;
   font-family: var(--mono); font-size: 11px;
   color: var(--green); letter-spacing: 0.12em; text-transform: uppercase;
-  margin-bottom: 36px;
+  margin-bottom: 32px;
   opacity: 0; animation: fadeUp .5s .1s forwards;
 }
 .hero-tag::before, .hero-tag::after {
@@ -184,24 +196,30 @@ nav .wrap { display: flex; align-items: center; justify-content: space-between; 
 }
 
 .hero-title {
-  font-size: clamp(48px, 7.5vw, 92px);
+  font-size: clamp(48px, 8.2vw, 108px);
   font-weight: 800;
-  line-height: 0.95;
-  letter-spacing: -0.04em;
+  line-height: 0.92;
+  letter-spacing: -0.045em;
   color: var(--text);
-  margin-bottom: 28px;
+  margin-bottom: 26px;
   opacity: 0; animation: fadeUp .5s .25s forwards;
 }
 .hero-title .accent {
-  background: linear-gradient(135deg, var(--green) 0%, var(--blue) 50%, var(--purple) 100%);
+  background: var(--grad);
+  background-size: 220% 220%;
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: shimmer 7s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0%,100% { background-position: 0% 50%; }
+  50%     { background-position: 100% 50%; }
 }
 
 .hero-desc {
   font-family: var(--mono); font-size: 14px; line-height: 1.8;
-  color: var(--muted); max-width: 460px;
-  margin: 0 auto 44px;
+  color: var(--muted); max-width: 480px;
+  margin: 0 auto 40px;
   opacity: 0; animation: fadeUp .5s .4s forwards;
 }
 .hero-desc strong { color: var(--text); font-weight: 500; }
@@ -214,86 +232,101 @@ nav .wrap { display: flex; align-items: center; justify-content: space-between; 
 .form-row { display: flex; }
 .form-input {
   flex: 1;
-  background: rgba(24,35,53,0.04);
-  border: 1px solid rgba(24,35,53,0.09);
+  background: rgba(255,255,255,0.035);
+  border: 1px solid var(--border);
   border-right: none;
   border-radius: 10px 0 0 10px;
-  padding: 14px 18px;
+  padding: 15px 18px;
   font-family: var(--mono); font-size: 13px;
   color: var(--text); outline: none;
   transition: border-color .2s, background .2s;
 }
-.form-input::placeholder { color: rgba(94,107,133,0.5); }
+.form-input::placeholder { color: rgba(141,151,172,0.6); }
 .form-input:focus {
-  border-color: rgba(76,111,255,0.35);
-  background: rgba(76,111,255,0.05);
+  border-color: rgba(0,229,160,0.4);
+  background: rgba(0,229,160,0.05);
 }
 .form-btn {
-  background: var(--green); border: none;
+  background: var(--grad); border: none;
   border-radius: 0 10px 10px 0;
-  padding: 14px 24px;
+  padding: 15px 26px;
   font-family: var(--display); font-size: 14px; font-weight: 700;
-  color: #fff; white-space: nowrap;
-  transition: background .2s, transform .1s;
+  color: #05100d; white-space: nowrap;
+  transition: box-shadow .2s, transform .1s, filter .2s;
   letter-spacing: -0.01em;
 }
-.form-btn:hover { background: #3555E0; }
+.form-btn:hover { filter: brightness(1.08); box-shadow: 0 0 28px rgba(0,229,160,0.28); }
 .form-btn:active { transform: scale(0.98); }
 .form-note {
   font-family: var(--mono); font-size: 11px;
-  color: var(--muted); margin-top: 12px; text-align: center;
+  color: var(--muted); margin-top: 14px; text-align: center;
 }
+.form-note a { color: var(--muted); transition: color .2s; }
+.form-note a:hover { color: var(--green); }
 .form-success {
   display: none; font-family: var(--mono); font-size: 14px;
   color: var(--good); padding: 14px 0; text-align: center;
 }
 
-/* ── STATS ── */
-.stats {
-  display: flex; margin-top: 52px;
-  border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
-  width: 100%; max-width: 420px;
-  opacity: 0; animation: fadeUp .5s .7s forwards;
-}
-.stat {
-  flex: 1; padding: 20px 0;
-  border-right: 1px solid var(--border);
-  background: rgba(24,35,53,0.015); text-align: center;
-}
-.stat:last-child { border-right: none; }
-.stat-val {
-  font-size: 26px; font-weight: 800; letter-spacing: -0.04em;
-  background: linear-gradient(135deg, var(--green), var(--blue));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-  line-height: 1; margin-bottom: 5px;
-}
-.stat-label {
-  font-family: var(--mono); font-size: 10px;
-  color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em;
-}
-
-/* ── FEATURES ── */
-.features { padding: 100px 0; }
+/* ── PRICING TEASER ── */
+.pricing { padding: 90px 0 30px; }
 .sec-label {
   font-family: var(--mono); font-size: 11px;
   color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase;
-  margin-bottom: 40px;
+  margin-bottom: 36px;
   display: flex; align-items: center; gap: 12px;
 }
-.sec-label::after { content: ''; height: 1px; background: var(--border); width: 60px; }
+.sec-label::after { content: ''; height: 1px; background: var(--border); flex: 1; max-width: 60px; }
+
+.price-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.price-card {
+  position: relative;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+  padding: 30px 26px; display: flex; flex-direction: column;
+  transition: border-color .25s, transform .2s, background .25s;
+}
+.price-card:hover { border-color: var(--border2); transform: translateY(-3px); background: var(--surface-h); }
+.price-card.max {
+  border-color: rgba(139,111,255,0.4);
+  background: linear-gradient(180deg, rgba(139,111,255,0.07), rgba(139,111,255,0.02));
+  box-shadow: 0 0 44px rgba(139,111,255,0.1);
+}
+.price-card.max:hover { border-color: rgba(139,111,255,0.65); box-shadow: 0 0 54px rgba(139,111,255,0.18); }
+.price-tag {
+  position: absolute; top: -11px; right: 22px;
+  font-family: var(--mono); font-size: 9px; font-weight: 700;
+  color: #05100d; background: var(--grad);
+  padding: 4px 11px; border-radius: 100px; letter-spacing: 0.06em; white-space: nowrap;
+}
+.price-name { font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+.price-card.max .price-name { color: var(--purple); }
+.price-value { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; margin-bottom: 6px; }
+.price-value sub { font-size: 13px; font-weight: 500; color: var(--muted); }
+.price-note { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 20px; min-height: 14px; }
+.price-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 22px; }
+.price-list { display: flex; flex-direction: column; gap: 9px; margin-bottom: 26px; flex: 1; }
+.price-list div { font-family: var(--mono); font-size: 12px; color: var(--text); padding-left: 16px; position: relative; line-height: 1.5; }
+.price-list div::before { content: '–'; position: absolute; left: 0; color: var(--muted); }
+.price-cta { margin-top: auto; text-align: center; padding: 12px; border-radius: 10px; text-decoration: none; font-size: 13px; font-weight: 700; transition: all .2s; }
+.price-cta.solid { background: var(--grad); color: #05100d; }
+.price-cta.solid:hover { filter: brightness(1.08); }
+.price-cta.ghost { border: 1px solid var(--border2); color: var(--text); }
+.price-cta.ghost:hover { border-color: var(--green); color: var(--green); }
+
+/* ── FEATURES ── */
+.features { padding: 90px 0; }
 
 .feat-grid {
   display: grid; grid-template-columns: repeat(3,1fr);
   gap: 1px; background: var(--border);
   border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
 }
-.feat { background: var(--surface); padding: 32px 28px; transition: background .2s; }
-.feat:hover { background: rgba(24,35,53,0.02); }
+.feat { background: var(--surface); padding: 32px 28px; transition: background .2s; text-decoration: none; color: inherit; display: block; }
+.feat:hover { background: var(--surface-h); }
 .feat-num {
   font-family: var(--mono); font-size: 22px; font-weight: 700; letter-spacing: -0.02em;
   margin-bottom: 18px;
-  background: linear-gradient(135deg, var(--green), var(--blue));
+  background: var(--grad);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
   opacity: 0.55;
@@ -307,17 +340,17 @@ nav .wrap { display: flex; align-items: center; justify-content: space-between; 
 .code-bar {
   display: flex; align-items: center; gap: 7px;
   padding: 13px 20px; border-bottom: 1px solid var(--border);
-  background: rgba(0,0,0,0.2);
+  background: rgba(0,0,0,0.25);
 }
 .dot { width: 11px; height: 11px; border-radius: 50%; }
 .dr { background: #ff5f57; } .dy { background: #febc2e; } .dg { background: #28c840; }
 .code-file { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-left: 8px; }
 .code-body { padding: 28px 32px; font-family: var(--mono); font-size: 13px; line-height: 2; overflow-x: auto; }
-.cc  { color: rgba(24,35,53,0.4); }
+.cc  { color: rgba(242,245,250,0.32); }
 .ck  { color: var(--blue); }
-.cs  { color: var(--good); }
-.cfn { color: #A98A1B; }
-.cv  { color: var(--purple); }
+.cs  { color: var(--green); }
+.cfn { color: #F0C24B; }
+.cv  { color: #B29CFF; }
 .tcur { display: inline-block; width: 2px; height: 1em; background: var(--green); vertical-align: text-bottom; animation: blink 1s step-end infinite; }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
@@ -336,11 +369,15 @@ footer .wrap { display: flex; align-items: center; justify-content: space-betwee
 }
 
 /* ── MOBILE ── */
+@media (max-width: 860px) {
+  .price-grid { grid-template-columns: 1fr; }
+}
 @media (max-width: 720px) {
   .wrap { padding: 0 20px; }
-  .hero-title { font-size: 44px; }
+  .hero-title { font-size: 42px; }
+  .nav-links { display: none; }
   .feat-grid { grid-template-columns: 1fr; }
-  .stats, .form-wrap { max-width: 100%; }
+  .form-wrap { max-width: 100%; }
   footer .wrap { flex-direction: column; gap: 14px; align-items: flex-start; }
   .foot-r { flex-wrap: wrap; gap: 16px; }
   .code-body { padding: 20px; font-size: 12px; }
@@ -378,6 +415,10 @@ footer .wrap { display: flex; align-items: center; justify-content: space-betwee
         <span class="w">web</span><span class="g">gen</span><span class="tld">.pl</span>
       </span>
     </a>
+    <div class="nav-links">
+      <a href="/galeria/">Galeria</a>
+      <a href="/cennik/">Cennik</a>
+    </div>
     <span class="badge">// coming soon</span>
   </div>
 </nav>
@@ -393,8 +434,8 @@ footer .wrap { display: flex; align-items: center; justify-content: space-betwee
 
     <p class="hero-desc">
       Webgen to biblioteka gotowych szablonów dla <strong>polskich firm usługowych</strong>.
-      Wybierz szablon i aktywuj za darmo na 6 miesięcy —
-      a gdy będziesz gotowy na więcej, przejdź na Pro lub Pro Max z pełną personalizacją AI.
+      Wybierz szablon i aktywuj za darmo na start —
+      a gdy będziesz gotowy na więcej, przejdź na Pro albo Pro Max z pełną personalizacją AI.
     </p>
 
     <div class="form-wrap">
@@ -402,14 +443,57 @@ footer .wrap { display: flex; align-items: center; justify-content: space-betwee
         <input type="email" id="emailInput" class="form-input" placeholder="twoj@email.pl" autocomplete="email">
         <button class="form-btn" onclick="handleSubmit()">Daj mi znać →</button>
       </div>
-      <p class="form-note">Zero spamu. Tylko informacja o starcie.</p>
+      <p class="form-note">Zero spamu. Albo <a href="/galeria/">zobacz galerię szablonów już teraz →</a></p>
       <p class="form-success" id="formSuccess">✓ Zapisano. Damy znać przy starcie.</p>
     </div>
+  </div>
+</section>
 
-    <div class="stats">
-      <div class="stat"><div class="stat-val">6 mies.</div><div class="stat-label">start za darmo</div></div>
-      <div class="stat"><div class="stat-val">16</div><div class="stat-label">branż w galerii</div></div>
-      <div class="stat"><div class="stat-val">od 149 zł</div><div class="stat-label">plany Start / Pro / Pro Max</div></div>
+<section class="pricing">
+  <div class="wrap">
+    <p class="sec-label">// cennik</p>
+    <div class="price-grid">
+
+      <div class="price-card">
+        <div class="price-name">Start</div>
+        <div class="price-value">0 zł</div>
+        <div class="price-note">przez pierwsze 6 miesięcy, potem 149 zł/mies.</div>
+        <p class="price-desc">Uruchom stronę od razu. Płacisz dopiero gdy zacznie realnie pracować dla Twojej firmy.</p>
+        <div class="price-list">
+          <div>Pełna Galeria Startowa szablonów</div>
+          <div>Hosting na subdomenie *.webgen.pl</div>
+          <div>Aktywacja w kilka minut, bez karty</div>
+        </div>
+        <a href="/generator/" class="price-cta solid">Zacznij za darmo →</a>
+      </div>
+
+      <div class="price-card">
+        <div class="price-name">Pro</div>
+        <div class="price-value">299 <sub>zł/mies.</sub></div>
+        <div class="price-note">rezygnacja w każdej chwili</div>
+        <p class="price-desc">Personalizacja AI dopasowuje treść, zdjęcia i kolory szablonu do Twojej firmy.</p>
+        <div class="price-list">
+          <div>Wszystko ze Start</div>
+          <div>Szablony Pro i personalizacja AI</div>
+          <div>Lokalne SEO i formularz kontaktowy</div>
+        </div>
+        <a href="/cennik/" class="price-cta ghost">Zobacz szczegóły →</a>
+      </div>
+
+      <div class="price-card max">
+        <div class="price-tag">Najwięcej możliwości</div>
+        <div class="price-name">Pro Max</div>
+        <div class="price-value">499 <sub>zł/mies.</sub></div>
+        <div class="price-note">rezygnacja w każdej chwili</div>
+        <p class="price-desc">Maksymalna personalizacja i priorytet dla firm, które traktują stronę poważnie.</p>
+        <div class="price-list">
+          <div>Wszystko z Pro</div>
+          <div>Rozszerzona personalizacja AI</div>
+          <div>Priorytetowa obsługa zmian</div>
+        </div>
+        <a href="/cennik/" class="price-cta ghost">Zobacz szczegóły →</a>
+      </div>
+
     </div>
   </div>
 </section>
@@ -418,11 +502,11 @@ footer .wrap { display: flex; align-items: center; justify-content: space-betwee
   <div class="wrap">
     <p class="sec-label">// co dostajesz</p>
     <div class="feat-grid">
-      <a class="feat" href="/galeria/" style="display:block;text-decoration:none;color:inherit"><div class="feat-num">01</div><h3>Galeria Startowa →</h3><p>Przeglądaj gotowe szablony dopasowane do Twojej branży i stylu. Wybierz i aktywuj w kilka minut.</p></a>
+      <a class="feat" href="/galeria/"><div class="feat-num">01</div><h3>Galeria Startowa</h3><p>Przeglądaj gotowe szablony dopasowane do Twojej branży i stylu. Wybierz i aktywuj w kilka minut.</p></a>
       <div class="feat"><div class="feat-num">02</div><h3>Lokalne SEO</h3><p>Schema.org LocalBusiness, sitemap, meta tagi pod polskie frazy. Twoi klienci znajdą Cię w Google Maps.</p></div>
       <div class="feat"><div class="feat-num">03</div><h3>PageSpeed 90+</h3><p>Automatyczna optymalizacja obrazów, lazy loading i Core Web Vitals. Szybciej niż strony z WordPressa.</p></div>
-      <div class="feat"><div class="feat-num">04</div><h3>Start, Pro i Pro Max</h3><p>Kilkadziesiąt szablonów dla firm remontowych, hydraulicznych, elektrycznych i innych branż usługowych.</p></div>
-      <div class="feat"><div class="feat-num">05</div><h3>Personalizacja AI</h3><p>Plany Pro i Pro Max dopasowują treść, zdjęcia i kolory wybranego szablonu do Twojej firmy — jednym kliknięciem. Później zmieniasz co chcesz mailowo, wdrażamy w 24h.</p></div>
+      <div class="feat"><div class="feat-num">04</div><h3>12 branż, 53 warianty</h3><p>Szablony dla firm remontowych, hydraulicznych, elektrycznych, medycznych i innych branż usługowych.</p></div>
+      <div class="feat"><div class="feat-num">05</div><h3>Personalizacja AI</h3><p>Plany Pro i Pro Max dopasowują treść, zdjęcia i kolory wybranego szablonu do Twojej firmy — jednym kliknięciem.</p></div>
       <div class="feat"><div class="feat-num">06</div><h3>Hosting w cenie</h3><p>Publikacja jednym kliknięciem na subdomenie webgen.pl. SSL automatyczny, CDN globalny, uptime 99.9%.</p></div>
     </div>
   </div>
@@ -440,11 +524,11 @@ footer .wrap { display: flex; align-items: center; justify-content: space-betwee
         <div><span class="cc">// Przykład: aktywacja szablonu dla firmy remontowej</span></div>
         <div>&nbsp;</div>
         <div><span class="ck">const</span> strona = <span class="ck">await</span> webgen.<span class="cfn">activate</span>({</div>
-        <div>&nbsp;&nbsp;<span class="cv">szablon</span>: <span class="cs">"remonty-classic-free"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="cv">szablon</span>: <span class="cs">"remonty-1-zaufany-fachowiec"</span>,</div>
         <div>&nbsp;&nbsp;<span class="cv">miasto</span>: <span class="cs">"Warszawa, Mokotów"</span>,</div>
         <div>&nbsp;&nbsp;<span class="cv">firma</span>:&nbsp; <span class="cs">"Just Perfect Remonty"</span>,</div>
         <div>&nbsp;&nbsp;<span class="cv">telefon</span>: <span class="cs">"+48 600 000 000"</span>,</div>
-        <div>&nbsp;&nbsp;<span class="cv">plan</span>: <span class="cs">"free"</span></div>
+        <div>&nbsp;&nbsp;<span class="cv">plan</span>: <span class="cs">"start"</span></div>
         <div>});</div>
         <div>&nbsp;</div>
         <div><span class="cc">// → Szablon aktywowany w 8s</span></div>
@@ -462,8 +546,8 @@ footer .wrap { display: flex; align-items: center; justify-content: space-betwee
   <div class="wrap">
     <span class="foot-l">© 2026 Webgen.pl — Biblioteka szablonów stron</span>
     <div class="foot-r">
-      <a href="#">Polityka prywatności</a>
-      <a href="#">Kontakt</a>
+      <a href="/polityka-prywatnosci/">Polityka prywatności</a>
+      <a href="/regulamin/">Regulamin</a>
       <a href="mailto:hello@webgen.pl">hello@webgen.pl</a>
     </div>
   </div>
@@ -497,12 +581,12 @@ footer .wrap { display: flex; align-items: center; justify-content: space-betwee
     el.addEventListener('mouseenter', function() {
       cur.style.width = '14px'; cur.style.height = '14px';
       ring.style.width = '46px'; ring.style.height = '46px';
-      ring.style.borderColor = 'rgba(76,111,255,0.55)';
+      ring.style.borderColor = 'rgba(76,130,255,0.6)';
     });
     el.addEventListener('mouseleave', function() {
       cur.style.width = '7px'; cur.style.height = '7px';
       ring.style.width = '30px'; ring.style.height = '30px';
-      ring.style.borderColor = 'rgba(76,111,255,0.3)';
+      ring.style.borderColor = 'rgba(76,130,255,0.4)';
     });
   });
 
@@ -514,7 +598,7 @@ footer .wrap { display: flex; align-items: center; justify-content: space-betwee
     var inp = document.getElementById('emailInput');
     var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!re.test(inp.value.trim())) {
-      inp.style.borderColor = 'rgba(209,77,95,0.5)';
+      inp.style.borderColor = 'rgba(217,90,110,0.6)';
       inp.focus();
       setTimeout(function() { inp.style.borderColor = ''; }, 1500);
       return;
