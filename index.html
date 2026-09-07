@@ -290,8 +290,14 @@ nav .wrap { display: flex; align-items: center; justify-content: space-between; 
 }
 .feat { background: var(--surface); padding: 32px 28px; transition: background .2s; }
 .feat:hover { background: rgba(24,35,53,0.02); }
-.feat-num { font-family: var(--mono); font-size: 11px; color: rgba(24,35,53,0.1); margin-bottom: 20px; }
-.feat-icon { font-size: 22px; margin-bottom: 14px; display: block; }
+.feat-num {
+  font-family: var(--mono); font-size: 22px; font-weight: 700; letter-spacing: -0.02em;
+  margin-bottom: 18px;
+  background: linear-gradient(135deg, var(--green), var(--blue));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0.55;
+}
 .feat h3 { font-size: 16px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; color: var(--text); }
 .feat p { font-family: var(--mono); font-size: 12px; color: var(--muted); line-height: 1.7; }
 
@@ -387,8 +393,8 @@ footer .wrap { display: flex; align-items: center; justify-content: space-betwee
 
     <p class="hero-desc">
       Webgen to biblioteka gotowych szablonów dla <strong>polskich firm usługowych</strong>.
-      Wybierz szablon dopasowany do branży i aktywuj za darmo —
-      albo odblokuj personalizację AI planem Pro.
+      Wybierz szablon i aktywuj za darmo na 6 miesięcy —
+      a gdy będziesz gotowy na więcej, przejdź na Pro lub Pro Max z pełną personalizacją AI.
     </p>
 
     <div class="form-wrap">
@@ -401,9 +407,9 @@ footer .wrap { display: flex; align-items: center; justify-content: space-betwee
     </div>
 
     <div class="stats">
-      <div class="stat"><div class="stat-val">Free</div><div class="stat-label">start bez karty</div></div>
+      <div class="stat"><div class="stat-val">6 mies.</div><div class="stat-label">start za darmo</div></div>
       <div class="stat"><div class="stat-val">16</div><div class="stat-label">branż w galerii</div></div>
-      <div class="stat"><div class="stat-val">399 zł</div><div class="stat-label">plan Pro / mies.</div></div>
+      <div class="stat"><div class="stat-val">od 149 zł</div><div class="stat-label">plany Start / Pro / Pro Max</div></div>
     </div>
   </div>
 </section>
@@ -412,12 +418,12 @@ footer .wrap { display: flex; align-items: center; justify-content: space-betwee
   <div class="wrap">
     <p class="sec-label">// co dostajesz</p>
     <div class="feat-grid">
-      <div class="feat"><div class="feat-num">01</div><span class="feat-icon">🖼️</span><h3>Galeria Startowa</h3><p>Przeglądaj gotowe szablony dopasowane do Twojej branży i stylu. Wybierz i aktywuj w kilka minut.</p></div>
-      <div class="feat"><div class="feat-num">02</div><span class="feat-icon">📍</span><h3>Lokalne SEO</h3><p>Schema.org LocalBusiness, sitemap, meta tagi pod polskie frazy. Twoi klienci znajdą Cię w Google Maps.</p></div>
-      <div class="feat"><div class="feat-num">03</div><span class="feat-icon">🚀</span><h3>PageSpeed 90+</h3><p>Automatyczna optymalizacja obrazów, lazy loading i Core Web Vitals. Szybciej niż strony z WordPressa.</p></div>
-      <div class="feat"><div class="feat-num">04</div><span class="feat-icon">🎨</span><h3>Free i Pro szablony</h3><p>Kilkadziesiąt szablonów dla firm remontowych, hydraulicznych, elektrycznych i innych branż usługowych.</p></div>
-      <div class="feat"><div class="feat-num">05</div><span class="feat-icon">✨</span><h3>Personalizacja AI</h3><p>Plan Pro dopasowuje treść, zdjęcia i kolory wybranego szablonu do Twojej firmy — jednym kliknięciem. Później zmieniasz co chcesz mailowo, wdrażamy w 24h.</p></div>
-      <div class="feat"><div class="feat-num">06</div><span class="feat-icon">🌐</span><h3>Hosting w cenie</h3><p>Publikacja jednym kliknięciem na subdomenie webgen.pl. SSL automatyczny, CDN globalny, uptime 99.9%.</p></div>
+      <a class="feat" href="/galeria/" style="display:block;text-decoration:none;color:inherit"><div class="feat-num">01</div><h3>Galeria Startowa →</h3><p>Przeglądaj gotowe szablony dopasowane do Twojej branży i stylu. Wybierz i aktywuj w kilka minut.</p></a>
+      <div class="feat"><div class="feat-num">02</div><h3>Lokalne SEO</h3><p>Schema.org LocalBusiness, sitemap, meta tagi pod polskie frazy. Twoi klienci znajdą Cię w Google Maps.</p></div>
+      <div class="feat"><div class="feat-num">03</div><h3>PageSpeed 90+</h3><p>Automatyczna optymalizacja obrazów, lazy loading i Core Web Vitals. Szybciej niż strony z WordPressa.</p></div>
+      <div class="feat"><div class="feat-num">04</div><h3>Start, Pro i Pro Max</h3><p>Kilkadziesiąt szablonów dla firm remontowych, hydraulicznych, elektrycznych i innych branż usługowych.</p></div>
+      <div class="feat"><div class="feat-num">05</div><h3>Personalizacja AI</h3><p>Plany Pro i Pro Max dopasowują treść, zdjęcia i kolory wybranego szablonu do Twojej firmy — jednym kliknięciem. Później zmieniasz co chcesz mailowo, wdrażamy w 24h.</p></div>
+      <div class="feat"><div class="feat-num">06</div><h3>Hosting w cenie</h3><p>Publikacja jednym kliknięciem na subdomenie webgen.pl. SSL automatyczny, CDN globalny, uptime 99.9%.</p></div>
     </div>
   </div>
 </section>
