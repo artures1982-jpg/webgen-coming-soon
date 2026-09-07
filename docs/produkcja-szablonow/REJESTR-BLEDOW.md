@@ -154,6 +154,23 @@ Format: **objaw → przyczyna → jak wykryć → status**.
   Uwaga dodatkowa: raport budowniczego o własnych liczbach też bywa błędny — QA sprostowało szczyt
   z 46% na 61%. Nie przepisywać tekstu pod błędny wzór; naprawiać wzór.
 
+## B-15 · `overflow:hidden` na rodzicu maskuje overflow tekstu w dziecku — skan `scrollWidth` strony wychodzi zielony mimo realnego obcięcia
+
+- **Objaw:** nagłówek h1 w hero jest wizualnie ucięty/zachodzi poza panel na wąskim ekranie
+  (360-414px), ale standardowy skan `scrollWidth` vs `clientWidth` całej strony nie widzi problemu.
+- **Przyczyna:** `.hero` (lub inny kontener) ma `overflow:hidden` — dziecko, które faktycznie jest
+  za szerokie (`h1.scrollWidth` > szerokość panelu), zostaje po prostu obcięte przez rodzica zamiast
+  wypchnąć `scrollWidth` strony w górę. To ten sam mechanizm ślepego punktu co B-01/ZASADY 6.8
+  (element, który nie generuje overflow na poziomie strony, jest niewidoczny dla pomiaru), tylko
+  dla tekstu bez `overflow-wrap`/`word-break`, nie dla karty `position:absolute` na zdjęciu.
+- **Jak wykryć:** pomiar per-element (`element.scrollWidth` vs szerokość jego rodzica/panelu), nie
+  tylko pomiar całej strony — albo zrzut ekranu i ocena wzrokiem na 360-414px.
+- **Poprawny wzorzec:** `overflow-wrap:break-word` (lub `word-break`) na regule nagłówków
+  (`h1,h2,h3,h4`), żeby długie słowo/fraza łamały się zamiast wypychać/obcinać się w kontenerze
+  z `overflow:hidden`.
+- **Status:** znalezione przez `qa-szablonow` w `stomatolog-3-pokoj-bez-strachu` (07.09.2026),
+  naprawione od razu w tej samej sesji QA.
+
 ---
 
 ## Jak korzystać

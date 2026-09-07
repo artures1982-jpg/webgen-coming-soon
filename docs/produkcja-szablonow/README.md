@@ -1,9 +1,16 @@
 # Produkcja szablonów — projekt
 
-Stan na: 6 września 2026 — **10 branż ukończonych, 47 wariantów** w `templates/pilot/`, wszystkie
+Stan na: 7 września 2026 — **11 branż ukończonych, 50 wariantów** w `templates/pilot/`, wszystkie
 komplety. Dodatkowo **1 branża porzucona na etapie briefu** (`fizjoterapia` — zero plików, patrz
 sekcja niżej); nie licz jej do statusu ukończonych. Statusy niżej liczone z plików, nie z pamięci
 sesji.
+
+**Najnowsza: `stomatolog`** (07.09.2026, 3/3) — oś dentofobii w wariancie 3 („petarda") była
+świadomie zarezerwowana już w briefie wariantu 1, zamiast wymyślana ad hoc przy trzecim wariancie.
+Ten wariant miał surowsze ograniczenie uczciwościowe niż zwykle (temat wrażliwy: lęk/ból) — zero
+obietnic braku bólu/stresu, wyłącznie język sprawdzalnego protokołu (sygnał stop, tempo, zapowiedź
+kroków). Artur zwolnił z checkpointu akceptacji między wariantami 2 i 3 tej branży po zaakceptowaniu
+wariantu 1 — precedens do potwierdzenia z Arturem przy kolejnej branży, nie domyślna nowa zasada.
 
 Projekt zbiera **proces wytwarzania szablonów stron** dla webgen.pl: jak powstaje pojedynczy
 wariant wizualny, jakie zasady musi spełnić, jak go zweryfikować i jak wygląda podział pracy.
