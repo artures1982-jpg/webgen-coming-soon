@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Webgen — cennik. Przeglądaj i aktywuj darmowy szablon, albo wybierz plan Pro od 399 zł/mies. z pełną personalizacją AI. Bez umów długoterminowych.">
+<meta name="description" content="Webgen — cennik. Start za darmo przez pierwsze 6 miesięcy, Pro od 299 zł/mies. z pełną personalizacją AI, Pro Max od 499 zł/mies. Bez umów długoterminowych.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="canonical" href="https://www.webgen.pl/cennik/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.webgen.pl/cennik/">
 <meta property="og:site_name" content="Webgen">
-<meta property="og:title" content="Cennik Webgen — Free lub Pro od 399 zł/mies.">
-<meta property="og:description" content="Plan Pro 399 zł/mies. — szablony Pro, personalizacja AI, SEO, formularz kontaktowy i aktualizacje treści na życzenie. Free zawsze bez opłat.">
+<meta property="og:title" content="Cennik Webgen — Start za darmo, Pro od 299 zł/mies.">
+<meta property="og:description" content="Start: darmowa Galeria Startowa przez 6 miesięcy. Pro (299 zł/mies.) i Pro Max (499 zł/mies.) dodają personalizację AI, lokalne SEO, formularz kontaktowy i priorytetową obsługę zmian.">
 <meta property="og:image" content="https://www.webgen.pl/og-image.png">
 <meta property="og:locale" content="pl_PL">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Cennik Webgen — Free lub Pro od 399 zł/mies.">
-<meta name="twitter:description" content="Przeglądaj gotowe szablony za darmo, albo odblokuj personalizację AI z planem Pro.">
+<meta name="twitter:title" content="Cennik Webgen — Start za darmo, Pro od 299 zł/mies.">
+<meta name="twitter:description" content="Przeglądaj gotowe szablony za darmo przez 6 miesięcy, albo odblokuj personalizację AI z planem Pro lub Pro Max.">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -26,159 +26,177 @@
   "description": "Plany cenowe Webgen — profesjonalne strony dla firm usługowych",
   "isPartOf": {"@id": "https://www.webgen.pl/#website"},
   "offers": [
-    {"@type":"Offer","name":"Free","price":"0","priceCurrency":"PLN","description":"Szablony darmowe, subdomena webgen.pl"},
-    {"@type":"Offer","name":"Pro","price":"399","priceCurrency":"PLN","priceSpecification":{"@type":"UnitPriceSpecification","price":"399","priceCurrency":"PLN","unitCode":"MON"}}
+    {"@type":"Offer","name":"Start","price":"0","priceCurrency":"PLN","description":"Darmowo przez pierwsze 6 miesięcy, potem 149 zł/mies. Pełna Galeria Startowa, wybór i aktywacja szablonu, hosting na subdomenie webgen.pl"},
+    {"@type":"Offer","name":"Pro","price":"299","priceCurrency":"PLN","priceSpecification":{"@type":"UnitPriceSpecification","price":"299","priceCurrency":"PLN","unitCode":"MON"}},
+    {"@type":"Offer","name":"Pro Max","price":"499","priceCurrency":"PLN","priceSpecification":{"@type":"UnitPriceSpecification","price":"499","priceCurrency":"PLN","unitCode":"MON"}}
   ]
 }
 </script>
-<title>Cennik — Webgen | Free lub Pro od 399 zł/mies.</title>
+<title>Cennik — Webgen | Start za darmo, Pro od 299 zł/mies.</title>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#EAF0FB;--s1:#FFFFFF;--s2:#E1EAF9;
-  --green:#4C6FFF;--blue:#2F5FD1;--purple:#6B5FC9;
-  --good:#1B8F6B;
-  --text:#182335;--muted:#5E6B85;
-  --border:rgba(24,35,53,.08);--border2:rgba(24,35,53,.16);
-  --head:"Bricolage Grotesque",sans-serif;
-  --mono:"JetBrains Mono",monospace;
-  --grad:linear-gradient(135deg,#4C6FFF,#8FA6FF);
+  --bg:#080A12;
+  --s1:#10141F;
+  --s2:#161B29;
+  --s3:#1D2334;
+  --green:#00E5A0;
+  --blue:#2E7CFF;
+  --purple:#7B4FFF;
+  --good:#29D18F;
+  --danger:#FF6B6B;
+  --text:#F3F6FC;
+  --muted:#8E97AC;
+  --border:rgba(255,255,255,.10);
+  --border2:rgba(255,255,255,.20);
+  --head:'Bricolage Grotesque',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --grad:linear-gradient(120deg,var(--green),var(--blue) 55%,var(--purple));
+  --grad-diag:linear-gradient(135deg,var(--green),var(--blue) 50%,var(--purple));
   --brand-grad:linear-gradient(135deg,#00E5A0,#0066FF,#7B4FFF);
+  --oncta:#05100d;
 }
 html{scroll-behavior:smooth}
-body{font-family:var(--head);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;min-height:100vh}
+body{font-family:var(--head);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
+
+/* ── REVEAL (fade-in on scroll) ── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@keyframes ctaShine{0%{left:-60%}35%{left:130%}100%{left:130%}}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,229,160,.5)}50%{opacity:.6;box-shadow:0 0 0 5px rgba(0,229,160,0)}}
+@keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 
 /* TEST BANNER */
-.test-banner{background:rgba(201,134,26,.12);border-bottom:1px solid rgba(201,134,26,.35);padding:10px 24px;text-align:center;font-family:var(--mono);font-size:12px;color:#B8811E;display:flex;align-items:center;justify-content:center;gap:8px}
-.test-banner strong{color:#C9861A}
-
-/* NAV */
-nav{height:64px;padding:0 48px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(255,255,255,.85);backdrop-filter:blur(16px);z-index:100}
-.logo{display:flex;align-items:center;gap:8px;text-decoration:none}
-.logo-mark{width:30px;height:30px;border-radius:7px;background:var(--brand-grad);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;font-weight:700;color:#fff}
-.logo-name{font-size:17px;font-weight:700;color:var(--text)}
-.logo-name span{background:var(--brand-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.nav-back{font-size:13px;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
-.nav-back:hover{color:var(--text)}
+.test-banner{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(22,18,6,.95);border-bottom:2px solid rgba(251,191,36,.5);padding:9px 20px;text-align:center;font-family:var(--mono);font-size:12px;color:#FCD34D}
+.test-banner strong{color:#FBBF24}
+.test-banner-spacer{height:40px}
 
 /* HERO */
-.hero{padding:64px 24px 48px;text-align:center}
-.hero-eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:8px}
+.hero{position:relative;padding:132px 24px 80px;text-align:center;overflow:hidden}
+.hero-mesh{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.mesh-blob{position:absolute;border-radius:50%;filter:blur(120px);opacity:.22}
+.mb1{width:480px;height:480px;background:var(--green);top:-180px;left:-140px;animation:drift1 12s ease-in-out infinite alternate}
+.mb2{width:420px;height:420px;background:var(--purple);top:-120px;right:-160px;animation:drift2 14s ease-in-out infinite alternate}
+.mb3{width:360px;height:360px;background:var(--blue);bottom:-180px;left:38%;animation:drift3 10s ease-in-out infinite alternate}
+@keyframes drift1{to{transform:translate(60px,50px)}}
+@keyframes drift2{to{transform:translate(-50px,-60px)}}
+@keyframes drift3{to{transform:translate(-40px,40px) scale(1.15)}}
+.hero-inner{position:relative;z-index:1;max-width:720px;margin:0 auto}
+.hero-eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:8px}
 .hero-eyebrow::before{content:"//";color:var(--muted)}
-h1{font-size:clamp(36px,5vw,64px);font-weight:800;line-height:1.0;letter-spacing:-.03em;margin-bottom:16px}
-h1 span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-sub{font-size:17px;color:var(--muted);max-width:520px;margin:0 auto 36px;line-height:1.65}
+h1{font-size:clamp(36px,5.4vw,64px);font-weight:800;line-height:1.02;letter-spacing:-.035em;color:var(--text);margin-bottom:18px}
+h1 .grad-text{background:var(--grad);background-size:220% 220%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 7s ease-in-out infinite}
+.hero-sub{font-size:16px;color:var(--muted);max-width:540px;margin:0 auto;line-height:1.7}
 
-/* TOGGLE */
-.toggle-wrap{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:48px}
-.toggle-label{font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;transition:color .2s}
-.toggle-label.active{color:var(--text)}
-.toggle{position:relative;width:52px;height:28px;cursor:pointer}
-.toggle input{opacity:0;width:0;height:0}
-.toggle-slider{position:absolute;inset:0;background:var(--s2);border:1px solid var(--border2);border-radius:14px;transition:.3s}
-.toggle-slider::before{content:"";position:absolute;height:20px;width:20px;left:3px;bottom:3px;background:var(--green);border-radius:50%;transition:.3s}
-input:checked+.toggle-slider::before{transform:translateX(24px)}
-.badge-save{background:rgba(76,111,255,.1);border:1px solid rgba(76,111,255,.2);color:var(--green);font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:.06em}
-
-/* TABS */
-.tabs{display:flex;gap:4px;background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:4px;max-width:320px;margin:0 auto 48px}
-.tab-btn{flex:1;padding:9px;border-radius:7px;border:none;background:transparent;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--head);transition:all .2s}
-.tab-btn.active{background:var(--s1);color:var(--text);box-shadow:0 1px 4px rgba(24,35,53,.3)}
-
-/* PLANS */
-.plans-section{display:none;max-width:1100px;margin:0 auto;padding:0 24px 80px}
-.plans-section.active{display:block}
-.plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.plan{background:var(--s2);border:1.5px solid var(--border);border-radius:16px;padding:36px 28px;position:relative;transition:border-color .3s;display:flex;flex-direction:column}
-.plan.featured{border-color:var(--green);background:rgba(76,111,255,.05)}
-.plan.featured::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);border-radius:16px 16px 0 0}
-.plan-tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-family:var(--mono);font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;white-space:nowrap;letter-spacing:.08em}
-.plan-name{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
-.plan-price{font-size:clamp(36px,4vw,48px);font-weight:800;color:var(--text);letter-spacing:-.03em;line-height:1}
-.plan-price sub{font-size:15px;font-weight:400;color:var(--muted)}
-.plan-price .old{font-size:18px;color:var(--muted);text-decoration:line-through;margin-left:8px}
-.plan-desc{font-size:13px;color:var(--muted);margin:10px 0 24px;line-height:1.6;min-height:40px}
-.plan-divider{height:1px;background:var(--border);margin-bottom:20px}
-.plan-features{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;flex:1}
-.pf{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--text)}
-.pf-check{width:17px;height:17px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;margin-top:1px}
-.pf-check.yes{background:rgba(76,111,255,.15);color:var(--green)}
-.pf-check.no{background:rgba(24,35,53,.04);color:var(--muted)}
+/* PRICING / PLANS */
+.pricing-section{padding:0 24px 90px;position:relative}
+.pricing-inner{max-width:1100px;margin:0 auto}
+.plans-grid{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto auto auto auto;gap:20px;align-items:start}
+.plan{background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:36px 30px;position:relative;transition:border-color .25s,transform .25s,box-shadow .25s;display:grid;grid-template-rows:subgrid;grid-row:span 4;align-content:start}
+.plan.featured{border-color:rgba(0,229,160,.4);background:rgba(0,229,160,.06);box-shadow:0 0 0 1px rgba(0,229,160,.1),0 30px 60px -28px rgba(0,229,160,.3);transform:scale(1.03);z-index:2}
+.plan-tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--grad);color:var(--oncta);font-family:var(--mono);font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;letter-spacing:.06em;white-space:nowrap}
+.plan-name{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.plan-price{font-size:clamp(34px,4vw,48px);font-weight:800;color:var(--text);letter-spacing:-.03em;line-height:1}
+.plan-price sub{font-size:15px;font-weight:400;color:var(--muted);letter-spacing:0}
+.plan-desc{font-size:13px;color:var(--muted);margin-top:10px;line-height:1.6;min-height:40px}
+.plan-header{margin-bottom:24px}
+.plan-divider{height:1px;background:var(--border);margin-bottom:24px}
+.plan-features{display:flex;flex-direction:column;gap:11px;margin-bottom:28px}
+.pf{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--text)}
+.pf-check{flex-shrink:0;width:18px;height:18px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;margin-top:1px}
+.pf-check.yes{background:rgba(0,229,160,.16);color:var(--green)}
+.pf-check.no{background:rgba(255,255,255,.05);color:var(--muted)}
 .pf.dim{color:var(--muted)}
 .plan-btn{display:block;text-align:center;padding:13px;border-radius:10px;text-decoration:none;font-weight:700;font-size:14px;transition:all .2s;margin-top:auto}
-.plan-btn.primary{background:var(--green);color:#fff}
-.plan-btn.primary:hover{background:#3555E0;transform:translateY(-1px)}
+.plan-btn.primary{position:relative;overflow:hidden;background:var(--grad);color:var(--oncta)}
+.plan-btn.primary::after{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:ctaShine 3.4s ease-in-out infinite}
+.plan-btn.primary:hover{filter:brightness(1.08)}
 .plan-btn.outline{border:1px solid var(--border2);color:var(--text)}
 .plan-btn.outline:hover{border-color:var(--green);color:var(--green)}
-.plan-btn.ghost{border:1px solid var(--border);color:var(--muted);font-size:13px}
-.plan-btn.ghost:hover{border-color:var(--border2);color:var(--text)}
+.plan.max{background:var(--brand-grad);border:none;color:var(--oncta);position:relative;overflow:hidden}
+.plan.max::after{content:'';position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-18deg);animation:ctaShine 5s ease-in-out infinite 1s}
+.plan.max .plan-name,.plan.max .plan-desc{color:rgba(6,7,12,.65)}
+.plan.max .plan-price,.plan.max .plan-price sub{color:#06070c}
+.plan.max .pf{color:#06070c}
+.plan.max .pf-check.yes{background:rgba(6,7,12,.14);color:#06070c}
+.plan.max .plan-divider{background:rgba(6,7,12,.15)}
+.plan.max .plan-btn.primary{background:rgba(6,7,12,.92);color:#F3F6FC}
+.plan.max .plan-btn.primary::after{display:none}
+.plan.max .plan-btn.primary:hover{background:#06070c;filter:none}
+.plans-grid .plan:nth-child(1){transition-delay:.02s}
+.plans-grid .plan:nth-child(2){transition-delay:.1s}
+.plans-grid .plan:nth-child(3){transition-delay:.18s}
 
 /* ADDONS */
-.addons-section{max-width:900px;margin:0 auto;padding:0 24px 80px}
-.addons-title{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;font-family:var(--mono);display:flex;align-items:center;gap:8px}
-.addons-title::before{content:"//";color:rgba(24,35,53,.15)}
-.addons-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.addon{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:border-color .2s}
-.addon:hover{border-color:var(--border2)}
-.addon-btn{font-size:11px;font-family:var(--mono);font-weight:700;color:var(--green);border:1px solid rgba(76,111,255,.3);padding:4px 10px;border-radius:6px;text-decoration:none;white-space:nowrap;transition:all .2s}
-.addon-btn:hover{background:rgba(76,111,255,.1);border-color:var(--green)}
-.addon-left{display:flex;align-items:center;gap:14px}
-.addon-icon{font-size:22px;width:40px;height:40px;background:rgba(24,35,53,.04);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.addons-section{padding:0 24px 90px;position:relative}
+.addons-inner{max-width:900px;margin:0 auto}
+.addons-title{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;font-family:var(--mono);display:flex;align-items:center;gap:8px}
+.addons-title::before{content:"//";color:var(--border2)}
+.addons-sub{font-size:14px;color:var(--muted);margin-bottom:32px;max-width:580px;line-height:1.6}
+.addons-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.addon{background:var(--s2);border:1px solid var(--border);border-radius:14px;padding:22px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:border-color .25s,background .25s,transform .25s,box-shadow .25s}
+.addon:hover{border-color:rgba(0,229,160,.32);background:rgba(0,229,160,.05);transform:translateY(-2px);box-shadow:0 0 26px rgba(0,229,160,.1)}
+.addon-left{display:flex;align-items:center;gap:14px;min-width:0}
+.addon-icon{font-family:var(--mono);font-weight:700;font-size:13px;color:var(--green);width:40px;height:40px;border-radius:10px;background:rgba(0,229,160,.09);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .addon-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}
-.addon-desc{font-size:12px;color:var(--muted)}
-.addon-price{font-family:var(--mono);font-size:16px;font-weight:700;color:var(--green);white-space:nowrap;flex-shrink:0}
-.addon-buy{font-size:12px;font-weight:700;color:var(--green);cursor:pointer;text-decoration:none;white-space:nowrap}
-.addon-buy:hover{text-decoration:underline}
+.addon-desc{font-size:12px;color:var(--muted);line-height:1.5}
+.addon-price{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--green);white-space:nowrap;flex-shrink:0}
+.addon-buy{font-size:12px;font-weight:700;color:var(--green);cursor:pointer;text-decoration:none;white-space:nowrap;transition:color .2s}
+.addon-buy:hover{color:#fff;text-decoration:underline}
+.addons-grid .addon:nth-child(1){transition-delay:.02s}
+.addons-grid .addon:nth-child(2){transition-delay:.07s}
+.addons-grid .addon:nth-child(3){transition-delay:.12s}
+.addons-grid .addon:nth-child(4){transition-delay:.17s}
+.addons-grid .addon:nth-child(5){transition-delay:.22s}
+.addons-grid .addon:nth-child(6){transition-delay:.27s}
+.addons-grid .addon:nth-child(7){transition-delay:.32s}
 
 /* FAQ */
-.faq-section{max-width:720px;margin:0 auto;padding:0 24px 80px}
-.faq-title{font-size:28px;font-weight:800;letter-spacing:-.02em;margin-bottom:28px;text-align:center}
-.faq-item{background:var(--s2);border:1px solid var(--border);border-radius:10px;margin-bottom:8px;overflow:hidden}
-.faq-q{padding:18px 22px;font-size:15px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
+.faq-section{padding:0 24px 90px}
+.faq-inner{max-width:720px;margin:0 auto}
+.faq-title{font-size:28px;font-weight:800;letter-spacing:-.02em;margin-bottom:28px;text-align:center;color:var(--text)}
+.faq-item{background:var(--s2);border:1px solid var(--border);border-radius:10px;margin-bottom:8px;overflow:hidden;transition:border-color .2s}
+.faq-item:hover{border-color:var(--border2)}
+.faq-q{padding:18px 22px;font-size:15px;font-weight:600;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
 .faq-arrow{font-family:var(--mono);color:var(--muted);transition:transform .25s;font-size:16px}
 .faq-item.open .faq-arrow{transform:rotate(45deg);color:var(--green)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
-.faq-item.open .faq-a{max-height:200px}
+.faq-item.open .faq-a{max-height:220px}
 .faq-a p{padding:0 22px 18px;font-size:14px;color:var(--muted);line-height:1.7}
 
 /* FOOTER */
-footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-.f-copy{font-size:12px;color:rgba(24,35,53,.2);font-family:var(--mono)}
+footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.f-copy{font-size:12px;color:rgba(255,255,255,.28);font-family:var(--mono)}
 .f-links{display:flex;gap:20px}
-.f-links a{font-size:12px;color:var(--muted);text-decoration:none}
+.f-links a{font-size:12px;color:var(--muted);text-decoration:none;transition:color .2s}
 .f-links a:hover{color:var(--text)}
 
-@media(max-width:860px){
-  nav{padding:0 20px}
+@media(max-width:960px){
   .plans-grid{grid-template-columns:1fr}
+  .plan{grid-row:auto;display:block}
+  .plan.featured{transform:none;order:-1}
   .addons-grid{grid-template-columns:1fr}
+}
+@media(max-width:720px){
+  .hero{padding:112px 20px 60px}
   footer{padding:24px 20px;flex-direction:column;text-align:center}
 }
+@media(max-width:480px){
+  .addon{flex-direction:column;align-items:flex-start}
+  .addon-price,.addon-buy{align-self:flex-end}
+}
 
-
-/* ── NAV WEBGEN ──────────────────────────────── */
+/* ── NAV WEBGEN (dark) ──────────────────────────────── */
 .wg-nav{
-  position:fixed;top:0;left:0;right:0;z-index:500;
+  position:fixed;top:40px;left:0;right:0;z-index:500;
   height:64px;
   display:flex;align-items:center;justify-content:space-between;
-  background:rgba(255,255,255,.85);backdrop-filter:blur(24px);
-  border-bottom:1px solid rgba(24,35,53,.08);
-  font-family:'Bricolage Grotesque','Poppins',sans-serif;
-}
-.wg-nav > * {
-  /* Umożliwia centrowanie linków */
-}
-/* Wewnętrzny wrapper dla centrowania */
-.wg-nav-inner{
-  width:100%;
-  max-width:1280px;
-  margin:0 auto;
+  background:rgba(8,10,18,.85);backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  font-family:'Bricolage Grotesque',sans-serif;
   padding:0 48px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  height:100%;
 }
 .wg-nav-logo{
   display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0;
@@ -189,56 +207,57 @@ footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify
   display:flex;align-items:center;justify-content:center;
   font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#fff;
 }
-.wg-nav-logo-name{font-size:17px;font-weight:700;color:#182335;letter-spacing:-.02em}
+.wg-nav-logo-name{font-size:17px;font-weight:700;color:#F3F6FC;letter-spacing:-.02em}
 .wg-nav-logo-name span{background:linear-gradient(135deg,#00E5A0,#0066FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .wg-nav-links{
   display:flex;align-items:center;gap:4px;list-style:none;
   margin:0;padding:0;
 }
 .wg-nav-links a{
-  font-size:14px;font-weight:500;color:#5E6B85;text-decoration:none;
+  font-size:14px;font-weight:500;color:#8E97AC;text-decoration:none;
   padding:6px 12px;border-radius:7px;transition:all .18s;white-space:nowrap;
 }
-.wg-nav-links a:hover{color:#182335;background:rgba(24,35,53,.07)}
-.wg-nav-links a.active{color:#182335;background:rgba(24,35,53,.09)}
+.wg-nav-links a:hover{color:#F3F6FC;background:rgba(255,255,255,.07)}
+.wg-nav-links a.active{color:#F3F6FC;background:rgba(255,255,255,.09)}
 .wg-nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
 .wg-nav-login{
-  font-size:13px;font-weight:600;color:#5E6B85;text-decoration:none;
+  font-size:13px;font-weight:600;color:#8E97AC;text-decoration:none;
   padding:7px 14px;border-radius:8px;transition:all .18s;white-space:nowrap;
 }
-.wg-nav-login:hover{color:#182335;background:rgba(24,35,53,.07)}
+.wg-nav-login:hover{color:#F3F6FC;background:rgba(255,255,255,.07)}
 .wg-nav-cta{
-  background:#4C6FFF;color:#fff;
+  position:relative;overflow:hidden;
+  background:linear-gradient(120deg,#00E5A0,#2E7CFF 55%,#7B4FFF);color:#05100d;
   padding:8px 18px;border-radius:8px;
   font-size:14px;font-weight:700;text-decoration:none;
-  transition:background .18s;white-space:nowrap;
+  transition:filter .18s;white-space:nowrap;
 }
-.wg-nav-cta:hover{background:#3555E0}
+.wg-nav-cta:hover{filter:brightness(1.08)}
 .wg-nav-hamburger{
   display:none;background:none;border:none;
-  color:#5E6B85;font-size:22px;cursor:pointer;
+  color:#8E97AC;font-size:22px;cursor:pointer;
   padding:4px;line-height:1;
 }
 /* Mobile drawer */
 .wg-nav-drawer{
-  display:none;position:fixed;top:64px;left:0;right:0;
-  background:rgba(255,255,255,.92);backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(24,35,53,.09);
+  display:none;position:fixed;top:104px;left:0;right:0;
+  background:rgba(8,10,18,.94);backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,.09);
   padding:12px 20px 20px;z-index:499;
   flex-direction:column;gap:4px;
 }
 .wg-nav-drawer.open{display:flex}
 .wg-nav-drawer a{
-  font-size:15px;font-weight:500;color:#5E6B85;text-decoration:none;
+  font-size:15px;font-weight:500;color:#8E97AC;text-decoration:none;
   padding:11px 14px;border-radius:8px;transition:all .18s;
 }
-.wg-nav-drawer a:hover{color:#182335;background:rgba(24,35,53,.07)}
-.wg-nav-drawer a.active{color:#182335;background:rgba(24,35,53,.09)}
+.wg-nav-drawer a:hover{color:#F3F6FC;background:rgba(255,255,255,.07)}
+.wg-nav-drawer a.active{color:#F3F6FC;background:rgba(255,255,255,.09)}
 .wg-nav-drawer-cta{
-  margin-top:8px;background:#4C6FFF;color:#fff!important;
+  margin-top:8px;background:linear-gradient(120deg,#00E5A0,#2E7CFF 55%,#7B4FFF);color:#05100d!important;
   text-align:center;font-weight:700!important;border-radius:9px;
 }
-.wg-nav-drawer-cta:hover{background:#3555E0!important}
+.wg-nav-drawer-cta:hover{filter:brightness(1.08)}
 @media(max-width:900px){
   .wg-nav-links{display:none}
   .wg-nav-login{display:none}
@@ -246,10 +265,6 @@ footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify
   .wg-nav-hamburger{display:block}
 }
 @media(max-width:480px){.wg-nav{padding:0 20px}}
-/* Padding na body żeby nav nie zachodził na treść */
-
-/* ─────────────────────────────────────────────── */
-
 
 /* ── NAV AUTH STATE ────────────────────────── */
 .wg-nav-user{
@@ -259,11 +274,11 @@ footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify
   padding:5px 10px 5px 5px;
   border-radius:9px;
   cursor:pointer;
-  border:1px solid rgba(24,35,53,.12);
+  border:1px solid rgba(255,255,255,.14);
   transition:all .18s;
   text-decoration:none;
 }
-.wg-nav-user:hover{background:rgba(24,35,53,.07);border-color:rgba(24,35,53,.18)}
+.wg-nav-user:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.22)}
 .wg-nav-avatar{
   width:26px;height:26px;border-radius:50%;
   background:linear-gradient(135deg,#00E5A0,#0066FF);
@@ -280,28 +295,33 @@ body.wg-logged-in .wg-nav-login{ display:none!important }
 body.wg-logged-in .wg-nav-cta{ display:none!important }
 body.wg-logged-in .wg-nav-drawer-cta{ display:none!important }
 body.wg-logged-in .wg-nav-user{ display:flex!important }
-/* Drawer też */
 body.wg-logged-in .wg-nav-drawer .wg-nav-login{ display:none!important }
 body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 @media(max-width:900px){
   .wg-nav-user{ display:none }
   body.wg-logged-in .wg-nav-user{ display:flex!important }
 }
-/* ─────────────────────────────────────────── */
 
-.wg-nav-msg{position:relative;display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;cursor:pointer;color:var(--muted,#5E6B85);transition:all .18s;text-decoration:none;font-size:17px;border:1px solid transparent;flex-shrink:0}
-.wg-nav-msg:hover{background:rgba(24,35,53,.09);border-color:rgba(24,35,53,.16);color:var(--text,#182335)}
+.wg-nav-msg{position:relative;display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;cursor:pointer;color:var(--muted,#8E97AC);transition:all .18s;text-decoration:none;font-size:17px;border:1px solid transparent;flex-shrink:0}
+.wg-nav-msg:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.18);color:var(--text,#F3F6FC)}
 .wg-nav-msg-badge{position:absolute;top:3px;right:3px;background:#D14D5F;color:#fff;font-size:9px;font-weight:700;min-width:15px;height:15px;border-radius:8px;display:none;align-items:center;justify-content:center;padding:0 3px;line-height:1;border:1.5px solid #fff}
 .wg-nav-msg-badge.show{display:flex}
 
+/* ── MOTION SAFETY ── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
 </style>
 </head>
 <body>
 <script src="/shared/clerk.js"></script>
 
 <div class="test-banner">
-  ⚠️ <strong>TRYB TESTOWY</strong> — Stripe Test Mode · Użyj karty <strong>4242 4242 4242 4242</strong> · Data: dowolna przyszła · CVC: dowolne 3 cyfry
+  <strong>TRYB TESTOWY</strong> — Stripe Test Mode · Użyj karty <strong>4242 4242 4242 4242</strong> · Data: dowolna przyszła · CVC: dowolne 3 cyfry
 </div>
+<div class="test-banner-spacer"></div>
 
 <nav class="wg-nav" id="wg-nav">
   <a href="/" class="wg-nav-logo">
@@ -330,162 +350,188 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
   <a href="/cennik/" class="active">Cennik</a>
   <a href="/generator/">Generator</a>
   <a href="/start/#faq">FAQ</a>
-  <a href="/login/" class="wg-nav-login" style="color:#5E6B85">Logowanie</a>
+  <a href="/login/" class="wg-nav-login" style="color:#8E97AC">Logowanie</a>
   <a href="/generator/" class="wg-nav-drawer-cta">Zacznij za darmo →</a>
 </div>
 
 <section class="hero">
-  <div class="hero-eyebrow">Cennik</div>
-  <h1>Prosty cennik,<br><span>bez ukrytych kosztów</span></h1>
-  <p class="hero-sub">Wybierz plan dopasowany do Twoich potrzeb. Rezygnacja w każdej chwili, bez umów.</p>
-
-  
+  <div class="hero-mesh">
+    <div class="mesh-blob mb1"></div>
+    <div class="mesh-blob mb2"></div>
+    <div class="mesh-blob mb3"></div>
+  </div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Cennik</p>
+    <h1>Prosty cennik,<br><span class="grad-text">bez ukrytych kosztów.</span></h1>
+    <p class="hero-sub">Przeglądaj i aktywuj szablon za darmo przez pierwsze 6 miesięcy, albo odblokuj personalizację AI z planem Pro lub Pro Max. Rezygnacja w każdej chwili, bez umów.</p>
+  </div>
 </section>
 
-<!-- FREE + PRO -->
-<div class="plans-section active" id="managed">
-  <div class="plans-grid">
+<!-- PLANY: Start / Pro / Pro Max -->
+<section class="pricing-section" id="managed">
+  <div class="pricing-inner">
+    <div class="plans-grid">
 
-    <div class="plan">
-      <div class="plan-name">Free</div>
-      <div class="plan-price">0 <sub>zł/mies.</sub></div>
-      <p class="plan-desc">Przeglądaj i aktywuj gotowy szablon — bez karty, bez zobowiązań.</p>
-      <div class="plan-divider"></div>
-      <div class="plan-features">
-        <div class="pf"><span class="pf-check yes">✓</span>Pełna Galeria Startowa szablonów</div>
-        <div class="pf"><span class="pf-check yes">✓</span>Wybór i aktywacja szablonu darmowego</div>
-        <div class="pf"><span class="pf-check yes">✓</span>Hosting na subdomenie *.webgen.pl</div>
-        <div class="pf dim"><span class="pf-check no">–</span>Szablony Pro</div>
-        <div class="pf dim"><span class="pf-check no">–</span>Personalizacja AI</div>
-        <div class="pf dim"><span class="pf-check no">–</span>SEO i formularz kontaktowy</div>
+      <div class="plan reveal">
+        <div class="plan-header">
+          <div class="plan-name">Start</div>
+          <div class="plan-price">0 <sub>zł/mies.</sub></div>
+          <p class="plan-desc">Darmowo przez pierwsze 6 miesięcy, potem 149 zł/mies. Przeglądaj i aktywuj szablon — bez karty, bez zobowiązań.</p>
+        </div>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="pf"><span class="pf-check yes">✓</span>Pełna Galeria Startowa szablonów</div>
+          <div class="pf"><span class="pf-check yes">✓</span>Wybór i aktywacja szablonu darmowego</div>
+          <div class="pf"><span class="pf-check yes">✓</span>Hosting na subdomenie *.webgen.pl</div>
+          <div class="pf dim"><span class="pf-check no">–</span>Szablony Pro</div>
+          <div class="pf dim"><span class="pf-check no">–</span>Personalizacja AI</div>
+          <div class="pf dim"><span class="pf-check no">–</span>SEO i formularz kontaktowy</div>
+        </div>
+        <a href="/generator/" class="plan-btn outline">Zacznij za darmo →</a>
       </div>
-      <a href="/generator/" class="plan-btn primary">Zacznij za darmo →</a>
-    </div>
 
-    <div class="plan featured">
-      <div class="plan-tag">DLA ROSNĄCEJ FIRMY</div>
-      <div class="plan-name">Pro</div>
-      <div class="plan-price">399 <sub>zł/mies.</sub></div>
-      <p class="plan-desc">Szablony Pro + AI dopasowuje treść, zdjęcia i kolory pod Twoją firmę.</p>
-      <div class="plan-divider"></div>
-      <div class="plan-features">
-        <div class="pf"><span class="pf-check yes">✓</span>Wszystko z Free</div>
-        <div class="pf"><span class="pf-check yes">✓</span>Dostęp do szablonów Pro</div>
-        <div class="pf"><span class="pf-check yes">✓</span>Pełna personalizacja AI (treść, zdjęcia, kolory)</div>
-        <div class="pf"><span class="pf-check yes">✓</span>Lokalne SEO wbudowane</div>
-        <div class="pf"><span class="pf-check yes">✓</span>Formularz kontaktowy / rezerwacje</div>
-        <div class="pf"><span class="pf-check yes">✓</span>Aktualizacje treści na życzenie (mailowo)</div>
+      <div class="plan featured reveal">
+        <div class="plan-tag">Najczęściej wybierany</div>
+        <div class="plan-header">
+          <div class="plan-name">Pro</div>
+          <div class="plan-price">299 <sub>zł/mies.</sub></div>
+          <p class="plan-desc">Szablony Pro + AI dopasowuje treść, zdjęcia i kolory pod Twoją firmę.</p>
+        </div>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="pf"><span class="pf-check yes">✓</span>Wszystko ze Start</div>
+          <div class="pf"><span class="pf-check yes">✓</span>Dostęp do szablonów Pro</div>
+          <div class="pf"><span class="pf-check yes">✓</span>Pełna personalizacja AI (treść, zdjęcia, kolory)</div>
+          <div class="pf"><span class="pf-check yes">✓</span>Lokalne SEO wbudowane</div>
+          <div class="pf"><span class="pf-check yes">✓</span>Formularz kontaktowy / rezerwacje</div>
+          <div class="pf"><span class="pf-check yes">✓</span>Aktualizacje treści na życzenie (mailowo)</div>
+        </div>
+        <a href="/generator/" class="plan-btn primary">Zacznij za darmo →</a>
       </div>
-      <a href="/generator/" class="plan-btn outline">Zacznij za darmo →</a>
-    </div>
 
+      <div class="plan max reveal">
+        <div class="plan-header">
+          <div class="plan-name">Pro Max</div>
+          <div class="plan-price">499 <sub>zł/mies.</sub></div>
+          <p class="plan-desc">Najszerszy pakiet — maksymalna personalizacja dla firm, które traktują stronę poważnie.</p>
+        </div>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="pf"><span class="pf-check yes">✓</span>Wszystko z Pro</div>
+          <div class="pf"><span class="pf-check yes">✓</span>Rozszerzona personalizacja AI</div>
+          <div class="pf"><span class="pf-check yes">✓</span>Priorytetowa obsługa zmian</div>
+        </div>
+        <a href="/generator/" class="plan-btn primary">Zacznij za darmo →</a>
+      </div>
+
+    </div>
   </div>
-</div>
-
-
-
+</section>
 
 <!-- ADD-ONY — 7 dodatków à la carte nad planem Pro (Faza 5) -->
-<div class="addons-section">
-  <div class="addons-title">Dodatki do planu Pro</div>
-  <div class="addons-grid">
-    <div class="addon">
-      <div class="addon-left">
-        <div class="addon-icon">🌍</div>
-        <div>
-          <div class="addon-name">Własna domena</div>
-          <div class="addon-desc">Podpięcie Twojej domeny + konfiguracja DNS i SSL</div>
+<section class="addons-section">
+  <div class="addons-inner">
+    <div class="addons-title">Dodatki do planu Pro</div>
+    <p class="addons-sub">Dokupywane pojedynczo, działają w ramach aktywnego planu Pro.</p>
+    <div class="addons-grid">
+      <div class="addon reveal">
+        <div class="addon-left">
+          <div class="addon-icon">01</div>
+          <div>
+            <div class="addon-name">Własna domena</div>
+            <div class="addon-desc">Podpięcie Twojej domeny + konfiguracja DNS i SSL</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+          <div class="addon-price">199 zł</div>
+          <span class="addon-buy" onclick="buyAddon('wlasna_domena','Własna domena',199,'once')">Kup →</span>
         </div>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
-        <div class="addon-price">199 zł</div>
-        <span class="addon-buy" onclick="buyAddon('wlasna_domena','Własna domena',199,'once')">Kup →</span>
-      </div>
-    </div>
-    <div class="addon">
-      <div class="addon-left">
-        <div class="addon-icon">📱</div>
-        <div>
-          <div class="addon-name">Integracja Social Media</div>
-          <div class="addon-desc">Live feed z Instagram/Facebook wpięty w Twoją stronę</div>
+      <div class="addon reveal">
+        <div class="addon-left">
+          <div class="addon-icon">02</div>
+          <div>
+            <div class="addon-name">Integracja Social Media</div>
+            <div class="addon-desc">Live feed z Instagram/Facebook wpięty w Twoją stronę</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+          <div class="addon-price">79 zł/mies</div>
+          <span class="addon-buy" onclick="buyAddon('social_media','Integracja Social Media',79,'month')">Kup →</span>
         </div>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
-        <div class="addon-price">79 zł/mies</div>
-        <span class="addon-buy" onclick="buyAddon('social_media','Integracja Social Media',79,'month')">Kup →</span>
-      </div>
-    </div>
-    <div class="addon">
-      <div class="addon-left">
-        <div class="addon-icon">📊</div>
-        <div>
-          <div class="addon-name">Statystyki odwiedzin</div>
-          <div class="addon-desc">Panel z ruchem na stronie, źródłami i konwersjami</div>
+      <div class="addon reveal">
+        <div class="addon-left">
+          <div class="addon-icon">03</div>
+          <div>
+            <div class="addon-name">Statystyki odwiedzin</div>
+            <div class="addon-desc">Panel z ruchem na stronie, źródłami i konwersjami</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+          <div class="addon-price">49 zł/mies</div>
+          <span class="addon-buy" onclick="buyAddon('statystyki','Statystyki odwiedzin',49,'month')">Kup →</span>
         </div>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
-        <div class="addon-price">49 zł/mies</div>
-        <span class="addon-buy" onclick="buyAddon('statystyki','Statystyki odwiedzin',49,'month')">Kup →</span>
-      </div>
-    </div>
-    <div class="addon">
-      <div class="addon-left">
-        <div class="addon-icon">📄</div>
-        <div>
-          <div class="addon-name">Dodatkowe podstrony</div>
-          <div class="addon-desc">3 osobne podstrony ofertowe (np. per usługa lub lokalizacja)</div>
+      <div class="addon reveal">
+        <div class="addon-left">
+          <div class="addon-icon">04</div>
+          <div>
+            <div class="addon-name">Dodatkowe podstrony</div>
+            <div class="addon-desc">3 osobne podstrony ofertowe (np. per usługa lub lokalizacja)</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+          <div class="addon-price">149 zł</div>
+          <span class="addon-buy" onclick="buyAddon('dodatkowe_podstrony','Dodatkowe podstrony',149,'once')">Kup →</span>
         </div>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
-        <div class="addon-price">149 zł</div>
-        <span class="addon-buy" onclick="buyAddon('dodatkowe_podstrony','Dodatkowe podstrony',149,'once')">Kup →</span>
-      </div>
-    </div>
-    <div class="addon">
-      <div class="addon-left">
-        <div class="addon-icon">📸</div>
-        <div>
-          <div class="addon-name">Sesja zdjęciowa AI</div>
-          <div class="addon-desc">Zdjęcia AI dopasowane do branży i klimatu firmy</div>
+      <div class="addon reveal">
+        <div class="addon-left">
+          <div class="addon-icon">05</div>
+          <div>
+            <div class="addon-name">Sesja zdjęciowa AI</div>
+            <div class="addon-desc">Zdjęcia AI dopasowane do branży i klimatu firmy</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+          <div class="addon-price">99 zł</div>
+          <span class="addon-buy" onclick="buyAddon('sesja_ai','Sesja zdjęciowa AI',99,'once')">Kup →</span>
         </div>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
-        <div class="addon-price">99 zł</div>
-        <span class="addon-buy" onclick="buyAddon('sesja_ai','Sesja zdjęciowa AI',99,'once')">Kup →</span>
-      </div>
-    </div>
-    <div class="addon">
-      <div class="addon-left">
-        <div class="addon-icon">📍</div>
-        <div>
-          <div class="addon-name">Google Business Profile</div>
-          <div class="addon-desc">Założymy i zoptymalizujemy profil w Mapach Google</div>
+      <div class="addon reveal">
+        <div class="addon-left">
+          <div class="addon-icon">06</div>
+          <div>
+            <div class="addon-name">Google Business Profile</div>
+            <div class="addon-desc">Założymy i zoptymalizujemy profil w Mapach Google</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+          <div class="addon-price">149 zł/mies</div>
+          <span class="addon-buy" onclick="buyAddon('google_business','Google Business Profile',149,'month')">Kup →</span>
         </div>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
-        <div class="addon-price">149 zł/mies</div>
-        <span class="addon-buy" onclick="buyAddon('google_business','Google Business Profile',149,'month')">Kup →</span>
-      </div>
-    </div>
-    <div class="addon">
-      <div class="addon-left">
-        <div class="addon-icon">🚀</div>
-        <div>
-          <div class="addon-name">Priorytetowe wsparcie</div>
-          <div class="addon-desc">Odpowiedź w 4h, dedykowany czat, szybsze aktualizacje</div>
+      <div class="addon reveal">
+        <div class="addon-left">
+          <div class="addon-icon">07</div>
+          <div>
+            <div class="addon-name">Priorytetowe wsparcie</div>
+            <div class="addon-desc">Odpowiedź w 4h, dedykowany czat, szybsze aktualizacje</div>
+          </div>
         </div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
-        <div class="addon-price">99 zł/mies</div>
-        <span class="addon-buy" onclick="buyAddon('priorytetowe_wsparcie','Priorytetowe wsparcie',99,'month')">Kup →</span>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+          <div class="addon-price">99 zł/mies</div>
+          <span class="addon-buy" onclick="buyAddon('priorytetowe_wsparcie','Priorytetowe wsparcie',99,'month')">Kup →</span>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- ADDON CHECKOUT MODAL -->
-<div class="modal-overlay" id="addon-checkout-modal" style="display:none;position:fixed;inset:0;background:rgba(255,255,255,.85);backdrop-filter:blur(6px);z-index:9999;align-items:center;justify-content:center">
-  <div style="background:var(--s2);border:1px solid var(--border2);border-radius:14px;padding:28px;max-width:380px;width:90%;position:relative;font-family:var(--head)">
+<div class="modal-overlay" id="addon-checkout-modal" style="display:none;position:fixed;inset:0;background:rgba(5,7,12,.85);backdrop-filter:blur(6px);z-index:9999;align-items:center;justify-content:center">
+  <div style="background:var(--s2);border:1px solid var(--border2);border-radius:14px;padding:28px;max-width:380px;width:90%;position:relative;font-family:var(--head);box-shadow:0 30px 80px -20px rgba(0,229,160,.15)">
     <button onclick="closeAddonCheckout()" style="position:absolute;top:14px;right:14px;background:transparent;border:none;color:var(--muted);font-size:18px;cursor:pointer">✕</button>
     <h3 style="margin:0 0 8px;color:var(--text);font-size:18px">Dokup dodatek</h3>
     <p style="margin:0 0 16px;color:var(--muted);font-size:13px;line-height:1.5">Dodatki działają w ramach planu Pro. Jeśli nie masz jeszcze aktywnego Pro, ten checkout doda go razem z dodatkiem.</p>
@@ -494,32 +540,34 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
       <span id="ac-price" style="color:var(--green);font-family:var(--mono);font-weight:700;font-size:14px"></span>
     </div>
     <input type="email" id="ac-email" placeholder="twoj@email.pl" style="width:100%;box-sizing:border-box;background:var(--bg);border:1px solid var(--border2);border-radius:8px;padding:12px 14px;color:var(--text);font-size:14px;margin-bottom:12px;font-family:var(--head)">
-    <button onclick="goToAddonCheckout()" style="width:100%;background:var(--green);color:#fff;border:none;padding:14px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--head)">Przejdź do płatności →</button>
+    <button onclick="goToAddonCheckout()" style="width:100%;background:var(--green);color:var(--oncta);border:none;padding:14px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--head)">Przejdź do płatności →</button>
   </div>
 </div>
 
 <!-- FAQ -->
 <div class="faq-section">
-  <h2 class="faq-title">Często zadawane pytania</h2>
-  <div class="faq-item">
-    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Czy jest umowa długoterminowa?<span class="faq-arrow">+</span></div>
-    <div class="faq-a"><p>Nie. Płacisz miesięcznie i możesz zrezygnować w każdej chwili. Przy rezygnacji możesz pobrać kod HTML swojej strony — zostaje Twój.</p></div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Jak długo trwa uruchomienie strony?<span class="faq-arrow">+</span></div>
-    <div class="faq-a"><p>Wybierasz szablon z Galerii Startowej i aktywujesz go od razu — strona jest gotowa w kilka minut, nie godzin.</p></div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Czy muszę mieć własną domenę?<span class="faq-arrow">+</span></div>
-    <div class="faq-a"><p>Nie. Strona domyślnie działa na subdomenie *.webgen.pl — własną domenę możesz dokupić jako dodatek w planie Pro.</p></div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Jak zmienić treść strony po aktywacji?<span class="faq-arrow">+</span></div>
-    <div class="faq-a"><p>W planie Pro wystarczy wysłać email — np. "zmień numer telefonu na...".</p></div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Czy Webgen działa poza Warszawą?<span class="faq-arrow">+</span></div>
-    <div class="faq-a"><p>Tak. Webgen działa w całej Polsce — Kraków, Wrocław, Gdańsk, Poznań i setki mniejszych miejscowości. AI generuje treści pod każde miasto i dzielnicę.</p></div>
+  <div class="faq-inner">
+    <h2 class="faq-title">Często zadawane pytania</h2>
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Czy jest umowa długoterminowa?<span class="faq-arrow">+</span></div>
+      <div class="faq-a"><p>Nie. Płacisz miesięcznie i możesz zrezygnować w każdej chwili. Przy rezygnacji możesz pobrać kod HTML swojej strony — zostaje Twój.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Jak długo trwa uruchomienie strony?<span class="faq-arrow">+</span></div>
+      <div class="faq-a"><p>Wybierasz szablon z Galerii Startowej i aktywujesz go od razu — strona jest gotowa w kilka minut, nie godzin.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Czy muszę mieć własną domenę?<span class="faq-arrow">+</span></div>
+      <div class="faq-a"><p>Nie. Strona domyślnie działa na subdomenie *.webgen.pl — własną domenę możesz dokupić jako dodatek w planie Pro.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Jak zmienić treść strony po aktywacji?<span class="faq-arrow">+</span></div>
+      <div class="faq-a"><p>W planie Pro wystarczy wysłać email — np. "zmień numer telefonu na...".</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Czy Webgen działa w całej Polsce, czy tylko w dużych miastach?<span class="faq-arrow">+</span></div>
+      <div class="faq-a"><p>Tak, działamy w całej Polsce, nie tylko w największych miastach. Szablony w Galerii Startowej sprawdzają się zarówno w Warszawie i Krakowie, jak i w mniejszych miejscowościach, a lokalne SEO strona dopasowuje automatycznie do nazwy Twojego miasta.</p></div>
+    </div>
   </div>
 </div>
 
@@ -660,6 +708,26 @@ async function goToAddonCheckout() {
         'overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + email + '</span>';
       drawer.insertBefore(du, drawer.firstChild);
     }
+  }
+})();
+</script>
+
+<!-- Fade-in reveal na scroll (nowy blok, nie modyfikuje istniejących trzech powyżej) -->
+<script>
+(function(){
+  var revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('visible'); });
   }
 })();
 </script>
