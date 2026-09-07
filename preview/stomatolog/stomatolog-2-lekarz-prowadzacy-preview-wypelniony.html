@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dentica — Program kompleksowego leczenia, Wrocław | tel. 500 123 456</title>
+<meta name="description" content="Dentica — program wieloetapowego leczenia dla złożonych przypadków, prowadzony przez jednego lekarza. Gabinet na terenie miasta Wrocław. Zadzwoń: 500 123 456">
+<meta name="keywords" content="implantologia Wrocław, odbudowa uzębienia Wrocław, stomatolog prowadzący Wrocław">
+<link rel="canonical" href="https://dentica-wroclaw.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Dentica — Program kompleksowego leczenia, Wrocław">
+<meta property="og:description" content="Jeden lekarz prowadzący zna Twój plan od pierwszej konsultacji do ostatniego etapu. Dentica — Wrocław.">
+<meta property="og:url" content="https://dentica-wroclaw.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Dentist","name":"Dentica","telephone":"500 123 456","email":"kontakt@dentica.pl","description":"Dentica — program wieloetapowego leczenia stomatologicznego (pełna odbudowa, implantologia, ortodoncja z protetyką) prowadzony przez jednego lekarza koordynującego. Gabinet na terenie miasta Wrocław.","address":{"@type":"PostalAddress","streetAddress":"ul. Przykładowa 12","addressLocality":"Wrocław","addressCountry":"PL"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"19:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Saturday"],"opens":"09:00","closes":"13:00"}],"url":"https://dentica-wroclaw.webgen.pl"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600;700&family=Livvic:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  /* MOTION — konwencja premium tego wariantu: wyciszony, precyzyjny ruch WYŁĄCZNIE.
+     Jednorazowy fade-in + translateY na kartach/wierszach przy scrollu (klasa .reveal / .visible,
+     patrz JS na dole). Zero pętli, zero keyframes, zero glow w tle, zero shimmeru — zgodnie
+     z briefem archetypu "Premium/korporacyjny" dla tej branży (scripts/generate-stomatolog-pilot.js,
+     VARIANTS[1]). Krytyczna treść (H1, CTA, telefon w hero) NIE jest objęta fade-inem. */
+  :root{
+    --accent:#a9b6bf;
+    --accent-dark:#6d7d88;
+    --bg:#1e140d;
+    --surface:#2a1c13;
+    --text:#f1e7db;
+    --muted:#a89a89;
+    --head:'IBM Plex Serif', serif;
+    --body:'Livvic', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--body);
+    color:var(--text);
+    background:var(--bg);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3,h4{font-family:var(--head);line-height:1.2;font-weight:600;color:var(--text);}
+  section{padding:5.5rem 1.5rem;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:.55rem;
+    font-family:var(--body);font-weight:700;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:.9rem;
+  }
+  .eyebrow::before{content:"";width:1.6rem;height:1px;background:var(--accent);display:inline-block;}
+  h2{font-size:clamp(1.7rem,3.1vw,2.35rem);margin-bottom:1rem;font-weight:500;}
+  .lead{color:var(--muted);font-size:1.04rem;max-width:640px;}
+  .center{text-align:center;margin-left:auto;margin-right:auto;}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:.5rem;
+    padding:.9rem 1.7rem;border-radius:.3rem;font-weight:600;font-family:var(--body);font-size:.98rem;
+    border:1.5px solid transparent;cursor:pointer;
+    transition:transform .15s ease, background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--accent);color:var(--bg);}
+  .btn-primary:hover{background:color-mix(in srgb, var(--accent) 88%, white);}
+  .btn-outline{border-color:color-mix(in srgb, var(--text) 30%, transparent);color:var(--text);background:transparent;}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* ---------- REVEAL (fade-in przy scrollu, jednorazowy) ---------- */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;animation:none !important;}
+    html{scroll-behavior:auto !important;}
+    .reveal{opacity:1 !important;transform:none !important;}
+  }
+
+  /* ---------- NAV ---------- */
+  .nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--bg) 90%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;padding:.9rem 1.5rem;}
+  .logo{display:flex;align-items:center;gap:.9rem;font-family:var(--head);font-weight:600;font-size:1.2rem;color:var(--text);min-width:0;flex-shrink:1;}
+  .logo-mark{position:relative;width:2.1rem;height:2.1rem;flex-shrink:0;}
+  .logo-mark::before,.logo-mark::after{content:"";position:absolute;width:1.3rem;height:1.3rem;border:1.5px solid var(--accent);border-radius:50%;top:50%;transform:translateY(-50%);}
+  .logo-mark::before{left:0;}
+  .logo-mark::after{left:.62rem;}
+  .logo-name{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;vertical-align:bottom;}
+  .nav-links{display:flex;align-items:center;gap:1.6rem;}
+  .nav-links a{font-weight:500;font-size:.94rem;color:var(--muted);white-space:nowrap;}
+  .nav-links a:hover{color:var(--text);}
+  .nav-links-mobile{display:none;}
+  .nav-actions{display:flex;align-items:center;gap:.9rem;flex-shrink:0;}
+  .nav-phone{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;color:var(--text);border:1.5px solid color-mix(in srgb, var(--text) 22%, transparent);border-radius:.3rem;padding:.55rem 1rem;white-space:nowrap;}
+  .nav-phone:hover{border-color:var(--accent);color:var(--accent);}
+  .nav-phone .icon{display:none;}
+  .nav-toggle{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;border-radius:.3rem;border:1.5px solid color-mix(in srgb, var(--text) 22%, transparent);background:transparent;cursor:pointer;flex-shrink:0;}
+  .nav-toggle span{width:20px;height:2px;background:var(--text);border-radius:2px;transition:transform .2s ease, opacity .2s ease;}
+  .nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0;}
+  .nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  @media (max-width:1040px){
+    .nav-links-desktop{display:none;}
+    .nav-toggle{display:flex;}
+    .nav-links-mobile{
+      display:none;flex-direction:column;align-items:stretch;gap:0;
+      background:var(--surface);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);
+      padding:.5rem 1.5rem 1.2rem;
+    }
+    .nav-links-mobile.open{display:flex;}
+    .nav-links-mobile a{padding:.75rem .2rem;border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);font-size:1rem;color:var(--text);}
+    .nav-links-mobile a.mobile-cta{background:var(--accent);color:var(--bg);border-radius:.3rem;text-align:center;font-weight:700;padding:.85rem 1rem;margin:.6rem 0 .8rem;border-bottom:none;}
+  }
+  @media (max-width:700px){
+    .nav-actions .btn{display:none;}
+    .nav-phone{width:44px;height:44px;padding:0;justify-content:center;border-radius:50%;}
+    .nav-phone .txt{display:none;}
+    .nav-phone .icon{display:inline;font-size:1.05rem;}
+  }
+  @media (max-width:480px){
+    .logo{font-size:1.02rem;gap:.6rem;}
+    .nav .wrap{gap:.6rem;padding:.75rem 1rem;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{padding:4.4rem 1.5rem 4.6rem;}
+  .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:3.4rem;align-items:center;}
+  .hero-copy{min-width:0;}
+  .hero h1{font-size:clamp(2rem,4vw,2.95rem);margin-bottom:1.2rem;font-weight:500;}
+  .hero h1 em{font-style:normal;color:var(--accent);}
+  .hero .lead{font-size:1.1rem;margin-bottom:1.9rem;}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:2.4rem;}
+  .hero-stats{display:flex;flex-wrap:wrap;gap:1.7rem 2.3rem;}
+  .hero-stat{display:flex;flex-direction:column;gap:.15rem;}
+  .hero-stat b{font-family:var(--head);font-size:1.4rem;font-weight:600;color:var(--accent);}
+  .hero-stat span{font-size:.84rem;color:var(--muted);}
+
+  .hero-figure{position:relative;min-width:0;}
+  .hero-photo{width:100%;height:auto;aspect-ratio:4/3.1;object-fit:cover;border-radius:.6rem;}
+  .hero-plate{
+    margin-top:1rem;padding:.9rem 1.1rem;border:1px solid color-mix(in srgb, var(--text) 14%, transparent);
+    border-radius:.5rem;background:var(--surface);display:flex;gap:.9rem;align-items:center;
+  }
+  .hero-plate .dot{flex-shrink:0;width:.55rem;height:.55rem;border-radius:50%;background:var(--accent);}
+  .hero-plate span{font-size:.88rem;color:var(--muted);}
+  .hero-plate strong{color:var(--text);font-weight:600;}
+  @media (min-width:901px){
+    .hero-figure::before{
+      content:"";position:absolute;top:1.2rem;right:-1.2rem;bottom:2.2rem;left:1.2rem;
+      border:1.5px solid color-mix(in srgb, var(--accent) 45%, transparent);border-radius:.7rem;z-index:-1;
+    }
+  }
+  @media (max-width:900px){
+    .hero .wrap{grid-template-columns:1fr;gap:2.4rem;}
+  }
+
+  /* ---------- DLA KOGO ---------- */
+  .dlakogo{background:var(--surface);}
+  .dlakogo-list{margin-top:2.8rem;border-top:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .dlakogo-row{display:grid;grid-template-columns:5rem 1fr;gap:1.8rem;padding:2rem 0;border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);align-items:start;}
+  .dlakogo-num{font-family:var(--head);font-size:2.1rem;font-weight:600;color:var(--accent);line-height:1;}
+  .dlakogo-row h3{font-size:1.18rem;margin-bottom:.5rem;font-weight:600;}
+  .dlakogo-row p{color:var(--muted);font-size:.96rem;max-width:640px;}
+  .dlakogo-note{margin-top:1.8rem;font-size:.92rem;color:var(--muted);font-style:italic;max-width:680px;}
+  @media (max-width:600px){
+    .dlakogo-row{grid-template-columns:1fr;gap:.5rem;padding:1.5rem 0;}
+    .dlakogo-num{font-size:1.6rem;}
+  }
+
+  /* ---------- PROGRAM (oś wieloetapowa) ---------- */
+  .program-wrap{display:grid;grid-template-columns:15rem 1fr;gap:3rem;margin-top:3rem;align-items:start;}
+  .program-continuity{position:sticky;top:6.2rem;min-width:0;padding:1.6rem 1.4rem;border:1px solid color-mix(in srgb, var(--accent) 32%, transparent);border-radius:.7rem;background:var(--surface);}
+  .program-continuity .tag{display:block;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.7rem;}
+  .program-continuity h3{font-size:1.1rem;margin-bottom:.6rem;font-weight:600;}
+  .program-continuity p{font-size:.87rem;color:var(--muted);}
+
+  .program-stages{position:relative;min-width:0;padding-left:3rem;}
+  .program-stages::before{content:"";position:absolute;left:.9rem;top:.3rem;bottom:.3rem;width:2px;background:color-mix(in srgb, var(--accent) 35%, transparent);}
+  .stage{position:relative;padding-bottom:2.8rem;}
+  .stage:last-child{padding-bottom:0;}
+  .stage-node{position:absolute;left:-2.55rem;top:.1rem;width:1.8rem;height:1.8rem;border-radius:50%;background:var(--bg);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-size:.78rem;font-weight:600;color:var(--accent);}
+  .stage-month{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:.4rem;font-weight:700;}
+  .stage h3{font-size:1.2rem;margin-bottom:.55rem;font-weight:600;}
+  .stage p{color:var(--muted);font-size:.95rem;max-width:640px;}
+
+  @media (max-width:900px){
+    .program-wrap{grid-template-columns:1fr;gap:1.8rem;}
+    .program-continuity{position:static;}
+  }
+
+  /* ---------- DIAGNOSTYKA 3D ---------- */
+  .diag{background:var(--surface);}
+  .diag-wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:3rem;align-items:center;margin-top:1rem;}
+  .diag-figure{min-width:0;}
+  .diag-photo{width:100%;height:auto;aspect-ratio:5/4;object-fit:cover;border-radius:.6rem;}
+  .diag-copy{min-width:0;}
+  .diag-copy p{color:var(--muted);font-size:1rem;margin-bottom:1rem;max-width:560px;}
+  .diag-copy p:last-child{margin-bottom:0;font-size:.88rem;font-style:italic;}
+  @media (max-width:860px){
+    .diag-wrap{grid-template-columns:1fr;gap:2rem;}
+  }
+
+  /* ---------- KOORDYNACJA (hub) ---------- */
+  .hub{max-width:820px;margin:3.2rem auto 0;text-align:center;}
+  .hub-center{display:inline-block;padding:.9rem 1.9rem;border:1.5px solid var(--accent);border-radius:2rem;font-family:var(--head);font-weight:600;font-size:1.02rem;color:var(--text);background:color-mix(in srgb, var(--accent) 12%, transparent);}
+  .hub-bar{width:2px;height:2rem;background:color-mix(in srgb, var(--accent) 45%, transparent);margin:0 auto;}
+  .hub-row{position:relative;}
+  .hub-row::before{content:"";position:absolute;top:0;left:16%;right:16%;height:2px;background:color-mix(in srgb, var(--accent) 35%, transparent);}
+  .hub-spokes{display:flex;gap:2rem;flex-wrap:wrap;justify-content:center;padding-top:2rem;}
+  .hub-spoke{position:relative;width:230px;}
+  .hub-spoke::before{content:"";position:absolute;top:-2rem;left:50%;width:2px;height:2rem;background:color-mix(in srgb, var(--accent) 35%, transparent);}
+  .hub-card{border:1px solid color-mix(in srgb, var(--text) 14%, transparent);border-radius:.6rem;padding:1.4rem 1.2rem;background:var(--bg);}
+  .hub-card h4{font-family:var(--head);font-size:1.02rem;font-weight:600;margin-bottom:.5rem;}
+  .hub-card p{font-size:.86rem;color:var(--muted);}
+  @media (max-width:700px){
+    .hub-row::before{display:none;}
+    .hub-spoke::before{display:none;}
+    .hub-bar{height:1.4rem;}
+    .hub-spokes{padding-top:1.2rem;gap:1rem;flex-direction:column;align-items:center;}
+    .hub-spoke{width:100%;max-width:340px;}
+  }
+
+  /* ---------- REJESTR ZAUFANIA ---------- */
+  .zaufanie{background:var(--surface);}
+  .stat-band{display:grid;grid-template-columns:repeat(3,1fr);margin-top:2.8rem;border-top:1px solid color-mix(in srgb, var(--text) 12%, transparent);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .stat-cell{padding:2.4rem 1.6rem;text-align:center;border-left:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .stat-cell:first-child{border-left:none;}
+  .stat-cell b{display:block;font-family:var(--head);font-size:2.5rem;font-weight:600;color:var(--accent);margin-bottom:.5rem;}
+  .stat-cell span{font-size:.9rem;color:var(--muted);}
+  .zaufanie-note{margin-top:1.6rem;font-size:.88rem;color:var(--muted);font-style:italic;max-width:680px;}
+  @media (max-width:700px){
+    .stat-band{grid-template-columns:1fr;}
+    .stat-cell{border-left:none;border-top:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+    .stat-cell:first-child{border-top:none;}
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq-list{margin-top:2.6rem;max-width:800px;}
+  details.faq-item{border-bottom:1px solid color-mix(in srgb, var(--text) 14%, transparent);padding:1.3rem 0;}
+  details.faq-item summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:1rem;}
+  details.faq-item summary::-webkit-details-marker{display:none;}
+  details.faq-item .faq-num{font-family:var(--head);font-size:.92rem;font-weight:600;color:var(--accent);flex-shrink:0;width:2rem;}
+  details.faq-item .faq-q{flex:1;font-family:var(--head);font-weight:600;font-size:1.03rem;}
+  details.faq-item .faq-plus{font-family:var(--body);font-weight:700;font-size:1.3rem;color:var(--accent);flex-shrink:0;transition:transform .2s ease;}
+  details.faq-item[open] .faq-plus{transform:rotate(45deg);}
+  details.faq-item p{color:var(--muted);margin-top:.85rem;font-size:.95rem;padding-left:3rem;}
+  @media (max-width:560px){
+    details.faq-item .faq-num{width:1.6rem;}
+    details.faq-item p{padding-left:2.6rem;}
+  }
+
+  /* ---------- KONTAKT ---------- */
+  .kontakt{background:var(--surface);}
+  .kontakt-grid{display:grid;grid-template-columns:1.25fr .9fr;gap:2.8rem;margin-top:2.8rem;align-items:start;}
+  .kontakt-form{min-width:0;background:var(--bg);border-radius:.7rem;padding:2rem;border:1px solid color-mix(in srgb, var(--text) 14%, transparent);}
+  .kontakt-form label{display:block;font-size:.85rem;font-weight:600;margin-bottom:.35rem;color:var(--muted);}
+  .kontakt-form input,.kontakt-form select,.kontakt-form textarea{
+    width:100%;padding:.75rem .9rem;border-radius:.4rem;border:1.5px solid color-mix(in srgb, var(--text) 20%, transparent);
+    background:var(--surface);color:var(--text);font-family:var(--body);font-size:.95rem;margin-bottom:1.1rem;
+  }
+  .kontakt-form input:focus,.kontakt-form select:focus,.kontakt-form textarea:focus{outline:none;border-color:var(--accent);}
+  .kontakt-form textarea{resize:vertical;min-height:90px;}
+  .form-confirm{display:none;background:color-mix(in srgb, var(--accent) 16%, transparent);border-radius:.5rem;padding:1rem 1.1rem;font-size:.92rem;margin-top:1rem;color:var(--text);font-weight:600;}
+  .form-confirm.show{display:block;}
+
+  .kontakt-info{min-width:0;}
+  .kontakt-row{display:flex;gap:.9rem;margin-bottom:1.3rem;}
+  .kontakt-row .ic{flex-shrink:0;width:2.2rem;height:2.2rem;border-radius:.4rem;border:1.5px solid color-mix(in srgb, var(--accent) 40%, transparent);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:.95rem;}
+  .kontakt-row b{display:block;font-size:.97rem;font-weight:600;}
+  .kontakt-row span{color:var(--muted);font-size:.9rem;}
+  .kontakt-map{width:100%;height:260px;border:0;border-radius:.6rem;margin-top:1.2rem;filter:grayscale(.2) contrast(1.05);}
+  @media (max-width:900px){
+    .kontakt-grid{grid-template-columns:1fr;}
+    .kontakt-form{order:1;}
+    .kontakt-info{order:2;}
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--bg);border-top:1px solid color-mix(in srgb, var(--text) 12%, transparent);padding:3rem 1.5rem 1.6rem;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2.4rem;margin-bottom:2.2rem;}
+  .foot-logo{font-family:var(--head);font-weight:600;font-size:1.2rem;color:var(--text);margin-bottom:.8rem;display:block;}
+  footer p{font-size:.9rem;color:var(--muted);}
+  footer h4{color:var(--text);font-family:var(--body);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.9rem;font-weight:700;}
+  footer ul li{margin-bottom:.55rem;}
+  footer ul li a{font-size:.9rem;color:var(--muted);}
+  footer ul li a:hover{color:var(--text);}
+  .foot-bottom{border-top:1px solid color-mix(in srgb, var(--text) 12%, transparent);padding-top:1.4rem;font-size:.8rem;color:var(--muted);display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem;}
+  @media (max-width:760px){.foot-grid{grid-template-columns:1fr;gap:1.8rem;}}
+</style>
+</head>
+<body id="top">
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#top" class="logo"><span class="logo-mark"></span><span class="logo-name">Dentica</span></a>
+    <nav class="nav-links nav-links-desktop">
+      <a href="#dlakogo">Dla kogo</a>
+      <a href="#program">Program</a>
+      <a href="#diagnostyka">Diagnostyka 3D</a>
+      <a href="#koordynacja">Koordynacja</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="nav-phone" href="tel:500 123 456"><span class="icon">📞</span><span class="txt">500 123 456</span></a>
+      <a class="btn btn-primary" href="#kontakt">Umów konsultację</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-links nav-links-mobile" id="navLinks">
+    <a href="#kontakt" class="mobile-cta">Umów konsultację</a>
+    <a href="#dlakogo">Dla kogo</a>
+    <a href="#program">Program</a>
+    <a href="#diagnostyka">Diagnostyka 3D</a>
+    <a href="#koordynacja">Koordynacja</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow">Program kompleksowego leczenia — Wrocław</span>
+      <h1>Jeden lekarz <em>prowadzący</em> zna Twój plan od pierwszej konsultacji do ostatniego etapu.</h1>
+      <p class="lead">W złożonych przypadkach — pełna odbudowa uzębienia, wieloetapowa implantologia, ortodoncja dorosłych połączona z protetyką — zwykle to pacjent koordynuje chaos między specjalistami. Tu tę rolę przejmuje jeden lekarz prowadzący, obecny na każdym etapie.</p>
+      <div class="hero-ctas">
+        <a href="#kontakt" class="btn btn-primary">Umów konsultację programu</a>
+        <a href="#program" class="btn btn-outline">Zobacz jak wygląda program</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><b>18 lat</b><span>praktyki lekarza prowadzącego</span></div>
+        <div class="hero-stat"><b>1 lekarz</b><span>na każdym etapie programu</span></div>
+        <div class="hero-stat"><b>6 miejsc</b><span>limit nowych programów na kwartał</span></div>
+      </div>
+    </div>
+    <div class="hero-figure">
+      <img class="hero-photo" src="https://images.pexels.com/photos/4269949/pexels-photo-4269949.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Dwoje specjalistów przy fotelu pacjentki w nowoczesnym gabinecie w mieście Wrocław — koordynacja zespołu pod nadzorem lekarza prowadzącego" loading="eager">
+      <div class="hero-plate"><span class="dot"></span><span><strong>Nie przypadkowy grafik.</strong> Ta sama osoba prowadzi Twój plan od początku do końca.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DLA KOGO ================= -->
+<section class="dlakogo" id="dlakogo">
+  <div class="wrap">
+    <span class="eyebrow">Zanim zaczniesz</span>
+    <h2>Dla kogo jest ten program</h2>
+    <p class="lead">Nie dla rutynowego przeglądu ani pojedynczego zabiegu — dla przypadków, których nie da się rozwiązać w jednej wizycie ani w jednej specjalizacji.</p>
+    <div class="dlakogo-list">
+      <div class="dlakogo-row reveal">
+        <span class="dlakogo-num">01</span>
+        <div>
+          <h3>Pełna odbudowa uzębienia</h3>
+          <p>Kilka lub kilkanaście zębów wymagających spójnego planu — chirurgia, protetyka, czasem ortodoncja — rozłożonego na wiele wizyt, nie jedną decyzję na fotelu.</p>
+        </div>
+      </div>
+      <div class="dlakogo-row reveal">
+        <span class="dlakogo-num">02</span>
+        <div>
+          <h3>Wieloetapowa implantologia</h3>
+          <p>Od wszczepu, przez okres gojenia, po ostateczną odbudowę protetyczną — proces rozciągnięty w czasie, w którym ciągłość nadzoru ma znaczenie na każdym etapie.</p>
+        </div>
+      </div>
+      <div class="dlakogo-row reveal">
+        <span class="dlakogo-num">03</span>
+        <div>
+          <h3>Ortodoncja dorosłych połączona z protetyką</h3>
+          <p>Leczenie aparatem prowadzone równolegle z planowaniem docelowej odbudowy — jako jeden spójny plan, nie dwa osobne leczenia u dwóch niezależnych gabinetów.</p>
+        </div>
+      </div>
+    </div>
+    <p class="dlakogo-note">Jeśli potrzebujesz tylko przeglądu, pojedynczego wypełnienia albo drobnego zabiegu — to nie jest ten program. Umów zwykłą wizytę telefonicznie pod numerem 500 123 456.</p>
+  </div>
+</section>
+
+<!-- ================= PROGRAM (oś wieloetapowa) ================= -->
+<section id="program">
+  <div class="wrap">
+    <span class="eyebrow">Mechanizm programu</span>
+    <h2>Oś wieloetapowego programu</h2>
+    <p class="lead">Czas trwania całego programu zależy od zakresu — pełna odbudowa czy wieloetapowa implantologia to zwykle proces rozłożony na kilka do kilkunastu miesięcy, nie kilka wizyt pod rząd.</p>
+
+    <div class="program-wrap">
+      <div class="program-continuity reveal">
+        <span class="tag">Ciągłość</span>
+        <h3>Ta sama osoba, każdy etap</h3>
+        <p>Niezależnie od tego, który specjalista wykonuje dany etap, to lekarz prowadzący zna cały plan od pierwszej konsultacji i odpowiada za spójność całości.</p>
+      </div>
+
+      <div class="program-stages">
+        <div class="stage reveal">
+          <span class="stage-node">01</span>
+          <div class="stage-month">Miesiąc 1</div>
+          <h3>Konsultacja i diagnostyka 3D</h3>
+          <p>Pierwsze spotkanie z lekarzem prowadzącym, skan 3D obrazujący cały zakres pracy, rozmowa o celu leczenia i możliwych ścieżkach dojścia do niego.</p>
+        </div>
+        <div class="stage reveal">
+          <span class="stage-node">02</span>
+          <div class="stage-month">Miesiąc 1–2</div>
+          <h3>Plan całościowy na piśmie</h3>
+          <p>Harmonogram wszystkich etapów z przybliżonymi terminami — przedstawiony i omówiony, zanim ruszy pierwszy zabieg.</p>
+        </div>
+        <div class="stage reveal">
+          <span class="stage-node">03</span>
+          <div class="stage-month">Zależnie od zakresu</div>
+          <h3>Realizacja etapów pod koordynacją</h3>
+          <p>Kolejne etapy prowadzą wyznaczeni specjaliści — chirurg, protetyk, ortodonta — w zależności od przypadku. Lekarz prowadzący zna każdy z nich i pilnuje spójności całego planu.</p>
+        </div>
+        <div class="stage reveal">
+          <span class="stage-node">04</span>
+          <div class="stage-month">Regularne przeglądy</div>
+          <h3>Kontrola postępu między etapami</h3>
+          <p>Ustalone spotkania kontrolne, na których lekarz prowadzący ocenia postęp i w razie potrzeby koryguje harmonogram — zawsze ta sama osoba, nie kolejny grafik.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DIAGNOSTYKA 3D ================= -->
+<section class="diag" id="diagnostyka">
+  <div class="wrap">
+    <span class="eyebrow">Zanim powstanie plan</span>
+    <h2>Skan 3D zamiast serii niewygodnych wycisków</h2>
+    <div class="diag-wrap">
+      <div class="diag-figure reveal">
+        <img class="diag-photo" src="https://images.pexels.com/photos/6812468/pexels-photo-6812468.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Pacjentka podczas skanowania 3D w gabinecie — diagnostyka poprzedzająca ustalenie planu programu" loading="lazy">
+      </div>
+      <div class="diag-copy reveal">
+        <p>Wieloetapowy program zaczynamy od skanu 3D — obrazu, który pokazuje cały zakres pracy, zanim jeszcze cokolwiek się zacznie. To dokładniejszy punkt wyjścia do planu i mniej niewygodnych momentów w fotelu na starcie leczenia.</p>
+        <p>Zakres dodatkowej diagnostyki — np. tomografii przy planowaniu implantów — lekarz prowadzący ustala indywidualnie, zależnie od złożoności przypadku.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= KOORDYNACJA ================= -->
+<section id="koordynacja">
+  <div class="wrap">
+    <span class="eyebrow">Jeden dach, jeden plan</span>
+    <h2>Koordynacja specjalistów pod okiem lekarza prowadzącego</h2>
+    <p class="lead">W złożonym leczeniu to zwykle pacjent koordynuje chaos — umawia się osobno z chirurgiem i protetykiem, tłumaczy historię leczenia od nowa na każdej wizycie. Tu tę rolę przejmuje lekarz prowadzący.</p>
+
+    <div class="hub">
+      <div class="hub-center reveal">Lekarz prowadzący — Dentica</div>
+      <div class="hub-bar"></div>
+      <div class="hub-row">
+        <div class="hub-spokes">
+          <div class="hub-spoke reveal">
+            <div class="hub-card">
+              <h4>Chirurgia stomatologiczna</h4>
+              <p>Włączana do planu, gdy program obejmuje implanty lub inne zabiegi chirurgiczne.</p>
+            </div>
+          </div>
+          <div class="hub-spoke reveal">
+            <div class="hub-card">
+              <h4>Protetyka i implantologia</h4>
+              <p>Odbudowa ostateczna planowana wspólnie z lekarzem prowadzącym od pierwszego etapu.</p>
+            </div>
+          </div>
+          <div class="hub-spoke reveal">
+            <div class="hub-card">
+              <h4>Ortodoncja dorosłych</h4>
+              <p>Włączana, gdy plan wymaga korekty ustawienia zębów przed docelową odbudową.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REJESTR ZAUFANIA ================= -->
+<section class="zaufanie" id="zaufanie">
+  <div class="wrap">
+    <span class="eyebrow">W liczbach</span>
+    <h2>Dlaczego pacjenci ufają temu programowi</h2>
+    <div class="stat-band">
+      <div class="stat-cell reveal"><b>18 lat</b><span>praktyki klinicznej lekarza prowadzącego</span></div>
+      <div class="stat-cell reveal"><b>40+</b><span>rozpoczętych programów wieloetapowych w tym gabinecie</span></div>
+      <div class="stat-cell reveal"><b>6 miejsc</b><span>limit nowych programów przyjmowanych w ciągu kwartału</span></div>
+    </div>
+    <p class="zaufanie-note">Liczby dotyczą doświadczenia i dostępności — nie są gwarancją konkretnego efektu leczenia, który zawsze zależy od indywidualnej diagnozy.</p>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section id="faq">
+  <div class="wrap">
+    <span class="eyebrow">Pytania o program</span>
+    <h2>Najczęstsze pytania</h2>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary><span class="faq-num">01</span><span class="faq-q">Czy na każdym etapie mam kontakt z tym samym lekarzem prowadzącym?</span><span class="faq-plus">+</span></summary>
+        <p>Tak — to sedno tego programu. Nawet jeśli dany etap wykonuje inny specjalista (chirurg, protetyk, ortodonta), to lekarz prowadzący zna cały plan i pozostaje Twoim głównym punktem kontaktu od pierwszej konsultacji do ostatniego przeglądu.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-num">02</span><span class="faq-q">Ile trwa taki wieloetapowy program?</span><span class="faq-plus">+</span></summary>
+        <p>Zależy od zakresu — pełna odbudowa czy implantologia z okresem gojenia to zwykle od kilku do kilkunastu miesięcy. Dokładny harmonogram poznajesz na etapie planu całościowego, po diagnostyce.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-num">03</span><span class="faq-q">Mam już rozpoczęte leczenie w innym miejscu — czy mogę je przenieść do tego programu?</span><span class="faq-plus">+</span></summary>
+        <p>Zwykle tak, ale lekarz prowadzący musi najpierw ocenić dotychczasowy stan leczenia i dostępną dokumentację — dopiero wtedy da się rzetelnie ustalić, jak wygląda dalsza ścieżka i czy coś trzeba powtórzyć.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-num">04</span><span class="faq-q">Na czym polega skan 3D i czy zastępuje tradycyjny wycisk?</span><span class="faq-plus">+</span></summary>
+        <p>Skan 3D to cyfrowy obraz jamy ustnej, wykonywany bez masy wyciskowej — w większości przypadków zastępuje tradycyjny wycisk i jest punktem wyjścia do planu całościowego. W pojedynczych sytuacjach lekarz prowadzący może zlecić dodatkową diagnostykę.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-num">05</span><span class="faq-q">Czy do programu można zapisać się od razu, czy jest lista oczekujących?</span><span class="faq-plus">+</span></summary>
+        <p>Liczba nowych programów przyjmowanych w ciągu kwartału jest ograniczona, żeby lekarz prowadzący faktycznie miał czas na każdy przypadek — w razie braku wolnego miejsca zaproponujemy najbliższy realny termin konsultacji.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= KONTAKT ================= -->
+<section class="kontakt" id="kontakt">
+  <div class="wrap">
+    <span class="eyebrow">Konsultacja programu</span>
+    <h2>Umów konsultację programu — Wrocław</h2>
+    <p class="lead">Zacznij od formularza — lekarz prowadzący ma wtedy komplet informacji, zanim jeszcze zadzwoni.</p>
+    <div class="kontakt-grid">
+      <form class="kontakt-form reveal" id="kontaktForm">
+        <label for="f-imie">Imię i nazwisko</label>
+        <input id="f-imie" name="imie" type="text" required placeholder="Jan Kowalski">
+        <label for="f-tel">Telefon</label>
+        <input id="f-tel" name="telefon" type="tel" required placeholder="500 000 000">
+        <label for="f-rodzaj">Rodzaj programu</label>
+        <select id="f-rodzaj" name="rodzaj">
+          <option>Pełna odbudowa uzębienia</option>
+          <option>Wieloetapowa implantologia</option>
+          <option>Ortodoncja dorosłych + protetyka</option>
+          <option>Nie jestem pewien/pewna</option>
+        </select>
+        <label for="f-wiad">Wiadomość (opcjonalnie)</label>
+        <textarea id="f-wiad" name="wiadomosc" placeholder="Krótko opisz swoją sytuację — im więcej wiemy przed rozmową, tym lepiej przygotujemy się do konsultacji."></textarea>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Wyślij zgłoszenie do lekarza prowadzącego</button>
+        <div class="form-confirm" id="formConfirm">Dziękujemy za zgłoszenie — lekarz prowadzący skontaktuje się, aby ustalić termin konsultacji programu.</div>
+      </form>
+
+      <div class="kontakt-info">
+        <div class="kontakt-row">
+          <div class="ic">📍</div>
+          <div><b>ul. Przykładowa 12, Wrocław</b><span>Gabinet Dentica</span></div>
+        </div>
+        <div class="kontakt-row">
+          <div class="ic">📞</div>
+          <div><b>500 123 456</b><span>Dla pilnych spraw — poza tym wolimy zacząć od formularza obok.</span></div>
+        </div>
+        <div class="kontakt-row">
+          <div class="ic">✉️</div>
+          <div><b>kontakt@dentica.pl</b><span>Odpowiadamy w dni robocze</span></div>
+        </div>
+        <div class="kontakt-row">
+          <div class="ic">🕒</div>
+          <div><b>Pon–Pt: 8:00 – 19:00</b><span>Sobota: 9:00 – 13:00</span></div>
+        </div>
+        <iframe class="kontakt-map" src="https://www.google.com/maps?q=ul. Przykładowa 12, Wrocław&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa dojazdu do gabinetu Dentica"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <span class="foot-logo">Dentica</span>
+        <p>Program dla złożonych, wieloetapowych przypadków — jeden lekarz prowadzący, gabinet na terenie miasta Wrocław.</p>
+      </div>
+      <div>
+        <h4>Program</h4>
+        <ul>
+          <li><a href="#dlakogo">Dla kogo</a></li>
+          <li><a href="#program">Etapy programu</a></li>
+          <li><a href="#koordynacja">Koordynacja</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <ul>
+          <li><a href="tel:500 123 456">500 123 456</a></li>
+          <li><a href="mailto:kontakt@dentica.pl">kontakt@dentica.pl</a></li>
+          <li><a href="#kontakt">ul. Przykładowa 12, Wrocław</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="foot-year">2026</span> Dentica — Wrocław</span>
+      <span>Strona wygenerowana w webgen.pl</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var toggle = document.getElementById('navToggle');
+    var links = document.getElementById('navLinks');
+    if(toggle && links){
+      toggle.addEventListener('click', function(){
+        var open = links.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      links.querySelectorAll('a').forEach(function(a){
+        a.addEventListener('click', function(){
+          links.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    var form = document.getElementById('kontaktForm');
+    var confirm = document.getElementById('formConfirm');
+    if(form && confirm){
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        confirm.classList.add('show');
+        form.reset();
+      });
+    }
+
+    var y = document.getElementById('foot-year');
+    if(y){ y.textContent = new Date().getFullYear(); }
+
+    var revealEls = document.querySelectorAll('.reveal');
+    if('IntersectionObserver' in window && revealEls.length){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry, i){
+          if(entry.isIntersecting){
+            entry.target.style.transitionDelay = (Math.min(i % 4, 4) * 0.07) + 's';
+            entry.target.classList.add('visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, {threshold:.15, rootMargin:'0px 0px -40px 0px'});
+      revealEls.forEach(function(el){ io.observe(el); });
+    } else {
+      revealEls.forEach(function(el){ el.classList.add('visible'); });
+    }
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{NAZWA_STRONY}} — kalkulator wyceny mieszkania, {{MIASTO}} | tel. {{TELEFON}}</title>
+<meta name="description" content="{{NAZWA_STRONY}} — sprawdź orientacyjną wartość mieszkania w mieście {{MIASTO}} w 30 sekund. Realny kalkulator wyceny online, bez zobowiązań. Tel. {{TELEFON}}">
+<meta name="keywords" content="kalkulator wyceny mieszkania {{MIASTO}}, wycena mieszkania online {{MIASTO}}, ile jest warte moje mieszkanie {{MIASTO}}, biuro nieruchomości {{MIASTO}}">
+<link rel="canonical" href="https://{{SLUG}}.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{NAZWA_STRONY}} — kalkulator wyceny mieszkania, {{MIASTO}}">
+<meta property="og:description" content="Sprawdź orientacyjną wartość mieszkania w 30 sekund — bez zobowiązań, bez podawania danych kontaktowych. Tel. {{TELEFON}}">
+<meta property="og:url" content="https://{{SLUG}}.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"RealEstateAgent","name":"{{NAZWA_STRONY}}","telephone":"{{TELEFON}}","email":"{{EMAIL}}","description":"{{NAZWA_STRONY}} — biuro nieruchomości w mieście {{MIASTO}} z kalkulatorem orientacyjnej wyceny mieszkań online.","address":{"@type":"PostalAddress","streetAddress":"{{ADRES}}","addressLocality":"{{MIASTO}}","addressCountry":"PL"},"openingHours":"Mo-Fr {{GODZINY_PON_PT}}"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#3b2fd6;
+    --accent-dark:#221a8f;
+    --bg:#fbfaf8;
+    --surface:#f2f1ee;
+    --text:#14131a;
+    --muted:#726f7c;
+    --head:'Poppins', sans-serif;
+    --body:'Golos Text', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.62;-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3,h4{font-family:var(--head);line-height:1.2;font-weight:700;color:var(--text);}
+  section{padding:5.4rem 1.5rem;}
+  .wrap{max-width:1120px;margin:0 auto;}
+  .eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--body);font-weight:700;font-size:.76rem;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:.9rem;}
+  .eyebrow::before{content:"";width:16px;height:2px;background:var(--accent);display:inline-block;}
+  h2{font-size:clamp(1.85rem,3.2vw,2.55rem);margin-bottom:1rem;letter-spacing:-.01em;}
+  .lead{color:var(--muted);font-size:1.04rem;max-width:620px;}
+  .center{text-align:center;margin-left:auto;margin-right:auto;}
+
+  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.95rem 1.8rem;font-weight:700;font-family:var(--body);font-size:.95rem;border:1.5px solid transparent;border-radius:.6rem;cursor:pointer;transition:transform .15s ease, background .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--accent);color:var(--bg);}
+  .btn-primary:hover{background:var(--accent-dark);}
+  .btn-outline{border-color:color-mix(in srgb, var(--text) 22%, transparent);color:var(--text);background:transparent;}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* SHIMMER — rzadki, krótki błysk na CTA, nie ciągła pętla */
+  .btn-glow{position:relative;overflow:hidden;}
+  .btn-glow::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg, transparent 30%, color-mix(in srgb, white 65%, transparent) 46%, transparent 62%);background-size:260% 100%;background-position:160% 0;pointer-events:none;}
+  .btn-glow.shimmer::after{animation:sweep 5.5s ease-in-out infinite;}
+  @keyframes sweep{0%{background-position:160% 0;}10%{background-position:-60% 0;}100%{background-position:-60% 0;}}
+
+  /* NAV */
+  header.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--bg) 90%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid color-mix(in srgb, var(--text) 9%, transparent);}
+  .nav .wrap{display:flex;align-items:center;gap:1.4rem;padding:1rem 1.5rem;}
+  .logo{display:flex;align-items:baseline;min-width:0;flex-shrink:1;}
+  .logo-name{font-family:var(--head);font-weight:800;font-size:1.22rem;color:var(--text);white-space:nowrap;letter-spacing:-.01em;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
+  .logo-name::after{content:'.';color:var(--accent);}
+  .nav-links-desktop{display:flex;gap:1.6rem;align-items:center;margin-left:.4rem;}
+  .nav-links-desktop a{font-weight:600;font-size:.9rem;color:color-mix(in srgb, var(--text) 78%, transparent);position:relative;padding-bottom:.2rem;}
+  .nav-links-desktop a:hover{color:var(--text);}
+  .nav-links-desktop a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:var(--accent);transition:right .2s ease;}
+  .nav-links-desktop a:hover::after{right:0;}
+  .nav-links-mobile{display:none;}
+  .nav-actions{display:flex;align-items:center;gap:.8rem;margin-left:auto;flex-shrink:0;}
+  .nav-phone{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--surface);border:1px solid color-mix(in srgb, var(--text) 12%, transparent);font-size:1.05rem;flex-shrink:0;transition:border-color .2s ease;}
+  .nav-phone:hover{border-color:var(--accent);}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.3rem;}
+  .nav-toggle span{width:22px;height:2px;background:var(--text);}
+
+  /* HERO */
+  .hero{position:relative;padding:4.6rem 1.5rem 4.4rem;overflow:hidden;background-image:radial-gradient(circle, color-mix(in srgb, var(--text) 7%, transparent) 1px, transparent 1px);background-size:24px 24px;background-position:-4px -4px;}
+  .hero-glow{position:absolute;top:-16%;left:50%;transform:translateX(-50%);width:min(920px,140vw);height:520px;background:radial-gradient(ellipse, color-mix(in srgb, var(--accent) 16%, transparent) 0%, transparent 70%);pointer-events:none;z-index:0;animation:heroGlow 8s ease-in-out infinite;}
+  @keyframes heroGlow{0%,100%{opacity:.7;transform:translateX(-50%) scale(1);}50%{opacity:1;transform:translateX(-50%) scale(1.08);}}
+  .hero-inner{position:relative;z-index:1;max-width:900px;margin:0 auto;text-align:center;}
+  .hero h1{font-size:clamp(2rem,3.8vw,2.85rem);margin:0 auto 1.1rem;max-width:760px;}
+  .hero h1 .hl{color:var(--accent);}
+  .hero p.lead{margin:0 auto 2.6rem;font-size:1.05rem;}
+
+  /* QUOTE PANEL — kalkulator jako centralny element hero */
+  .quote-panel{position:relative;text-align:left;background:var(--surface);border:1px solid color-mix(in srgb, var(--text) 9%, transparent);border-radius:1.3rem;padding:2.2rem 2.2rem 2.4rem;box-shadow:0 30px 60px -30px color-mix(in srgb, black 22%, transparent);}
+  .quote-display{text-align:center;padding-bottom:1.7rem;margin-bottom:1.9rem;border-bottom:1px dashed color-mix(in srgb, var(--text) 16%, transparent);}
+  .quote-label{display:block;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;}
+  .quote-amount{font-family:var(--head);font-weight:800;font-variant-numeric:tabular-nums;font-size:clamp(1.7rem,4.4vw,2.5rem);color:var(--text);letter-spacing:-.01em;transition:color .2s ease;}
+  .quote-amount .quote-sep{color:var(--muted);margin:0 .4rem;font-weight:600;}
+  .quote-amount .quote-currency{font-size:.62em;color:var(--muted);font-weight:600;margin-left:.35rem;}
+  .quote-panel.flash .quote-amount{color:var(--accent);}
+  .quote-disclaimer{max-width:480px;margin:1rem auto 0;font-size:.85rem;color:var(--muted);}
+  .quote-disclaimer strong{color:var(--text);}
+
+  .quote-controls{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem 2rem;}
+  .field{min-width:0;}
+  .field label, .field > span.flabel{display:block;font-size:.82rem;font-weight:700;color:var(--text);margin-bottom:.6rem;}
+  .field.full{grid-column:1 / -1;}
+  .range-row{display:flex;align-items:center;gap:1rem;}
+  .range-row input[type=range]{flex:1;accent-color:var(--accent);}
+  .range-value{font-family:var(--head);font-weight:800;font-size:1.02rem;min-width:56px;text-align:right;}
+
+  .segmented{display:flex;flex-wrap:wrap;gap:.5rem;}
+  .seg-btn{padding:.6rem .95rem;border-radius:.55rem;border:1.5px solid color-mix(in srgb, var(--text) 15%, transparent);background:var(--bg);color:var(--text);font-family:var(--body);font-weight:600;font-size:.85rem;cursor:pointer;transition:background .2s ease, border-color .2s ease, box-shadow .2s ease, color .2s ease, transform .15s ease;}
+  .seg-btn:hover{border-color:var(--accent);}
+  .seg-btn.active{background:var(--accent);border-color:var(--accent);color:var(--bg);box-shadow:0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);}
+
+  .select-wrap{position:relative;}
+  .select-wrap::after{content:'⌄';position:absolute;right:1rem;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;font-size:1rem;}
+  .select-field{width:100%;appearance:none;-webkit-appearance:none;padding:.72rem 2.2rem .72rem 1rem;border-radius:.55rem;border:1.5px solid color-mix(in srgb, var(--text) 15%, transparent);background:var(--bg);color:var(--text);font-family:var(--body);font-weight:600;font-size:.88rem;cursor:pointer;}
+  .select-field:focus{outline:none;border-color:var(--accent);}
+
+  .quote-cta{width:100%;justify-content:center;margin-top:2.1rem;}
+
+  /* TRUST STRIP */
+  .trust{background:var(--surface);border-top:1px solid color-mix(in srgb, var(--text) 8%, transparent);border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+  .trust .wrap{padding:0;}
+  .trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem;}
+  .trust-item{text-align:center;}
+  .trust-item .num{font-family:var(--head);font-weight:800;font-size:1.6rem;color:var(--accent);display:block;}
+  .trust-item .lbl{font-size:.82rem;color:var(--muted);margin-top:.15rem;}
+
+  /* JAK LICZYMY — pasek równania */
+  .formula-strip{display:flex;align-items:stretch;gap:1rem;margin-top:2.8rem;flex-wrap:wrap;}
+  .formula-card{flex:1 1 220px;min-width:0;background:var(--surface);border:1px solid color-mix(in srgb, var(--text) 9%, transparent);border-radius:1rem;padding:1.6rem 1.5rem;opacity:0;transform:translateY(16px);}
+  .formula-card.visible{opacity:1;transform:translateY(0);transition:opacity .55s ease, transform .55s ease;}
+  .formula-icon{width:2.4rem;height:2.4rem;border-radius:.6rem;background:color-mix(in srgb, var(--accent) 14%, transparent);display:flex;align-items:center;justify-content:center;font-size:1.15rem;margin-bottom:1rem;}
+  .formula-card h3{font-size:1.02rem;margin-bottom:.5rem;}
+  .formula-card p{font-size:.9rem;color:var(--muted);}
+  .formula-op{align-self:center;font-family:var(--head);font-weight:800;font-size:1.5rem;color:var(--muted);flex:0 0 auto;padding:0 .2rem;}
+  .formula-result{flex:0 0 auto;align-self:center;text-align:center;padding:1rem 1.3rem;}
+  .formula-result a{display:block;font-family:var(--head);font-weight:700;font-size:.88rem;color:var(--accent);border:1.5px dashed color-mix(in srgb, var(--accent) 45%, transparent);border-radius:.8rem;padding:1.1rem 1rem;}
+  .formula-note{margin-top:2rem;font-size:.88rem;color:var(--muted);max-width:720px;}
+  .formula-note strong{color:var(--text);}
+
+  /* WSPARCIE */
+  .support{background:var(--surface);}
+  .support-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center;}
+  .support-copy p{margin-bottom:1.1rem;font-size:1rem;}
+  .support-copy p:last-of-type{margin-bottom:1.6rem;}
+  .support-photo{width:100%;height:auto;aspect-ratio:940/650;object-fit:cover;border-radius:1rem;}
+
+  /* OPINIE */
+  .opinie-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.8rem;}
+  .opinia{background:var(--surface);padding:1.8rem;border-radius:1rem;border-top:3px solid var(--accent);opacity:0;transform:translateY(16px);}
+  .opinia.visible{opacity:1;transform:translateY(0);transition:opacity .55s ease, transform .55s ease;}
+  .opinia .quote-mark{font-family:var(--head);font-size:2rem;color:var(--accent);line-height:1;display:block;margin-bottom:.6rem;}
+  .opinia p{font-size:.95rem;margin-bottom:1.1rem;}
+  .opinia-who{font-weight:700;font-size:.87rem;color:var(--text);}
+  .opinia-who small{display:block;font-weight:400;color:var(--muted);margin-top:.15rem;}
+
+  /* FAQ */
+  .faq-item{border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .faq-q{width:100%;text-align:left;background:none;border:none;padding:1.25rem 0;font-family:var(--head);font-weight:700;font-size:1rem;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+  .faq-q .plus{font-size:1.35rem;color:var(--accent);flex-shrink:0;transition:transform .2s ease;}
+  .faq-item.open .faq-q .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .faq-item.open .faq-a{max-height:320px;}
+  .faq-a p{padding-bottom:1.25rem;color:var(--muted);font-size:.93rem;max-width:640px;}
+
+  /* KONTAKT */
+  .kontakt{background:var(--bg);}
+  .kontakt-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2.6rem;}
+  .kontakt-recap{background:var(--surface);border-radius:.8rem;padding:1rem 1.2rem;margin-bottom:1.4rem;font-size:.9rem;color:var(--muted);border:1px dashed color-mix(in srgb, var(--accent) 35%, transparent);}
+  .kontakt-recap strong{color:var(--text);}
+  .form-group{margin-bottom:1.05rem;}
+  .form-group label{display:block;font-size:.84rem;font-weight:600;margin-bottom:.4rem;}
+  .form-group input, .form-group textarea{width:100%;padding:.78rem 1rem;border-radius:.5rem;border:1.5px solid color-mix(in srgb, var(--text) 18%, transparent);background:var(--surface);font-family:var(--body);font-size:.94rem;color:var(--text);}
+  .form-group input:focus, .form-group textarea:focus{outline:none;border-color:var(--accent);}
+  .form-group textarea{min-height:105px;resize:vertical;}
+  .form-status{margin-top:1rem;font-weight:700;font-size:.9rem;color:var(--accent);display:none;}
+  .kontakt-info p{margin-bottom:.6rem;font-size:.97rem;}
+  .kontakt-info a{font-weight:700;color:var(--accent);}
+  .kontakt-map{margin-top:1.3rem;overflow:hidden;border-radius:.8rem;border:1px solid color-mix(in srgb, var(--text) 12%, transparent);}
+  .kontakt-map iframe{width:100%;height:270px;border:0;display:block;}
+
+  footer{background:var(--text);color:var(--bg);padding:2.6rem 1.5rem 1.8rem;text-align:center;}
+  footer p{color:color-mix(in srgb, var(--bg) 68%, transparent);font-size:.85rem;}
+
+  @media (max-width:960px){
+    .nav-links-desktop{display:none;}
+    .nav-toggle{display:flex;}
+    .nav-links-mobile{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);flex-direction:column;padding:.5rem 1.5rem 1.2rem;gap:.2rem;}
+    .nav-links-mobile.open{display:flex;}
+    .nav-links-mobile a{padding:.8rem 0;font-weight:600;border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+    .nav-links-mobile .mobile-cta{color:var(--accent);font-weight:700;}
+    .nav-actions > .btn{display:none;}
+    .trust-grid{grid-template-columns:repeat(2,1fr);}
+  }
+
+  @media (max-width:860px){
+    .quote-controls{grid-template-columns:1fr;}
+    .support-grid{grid-template-columns:1fr;}
+    .support-photo{order:-1;}
+    .opinie-grid, .kontakt-grid{grid-template-columns:1fr;}
+    .formula-strip{flex-direction:column;}
+    .formula-op{display:none;}
+    .field, .kontakt-grid > *, .formula-card{min-width:0;}
+  }
+
+  @media (max-width:700px){
+    .nav-phone{width:36px;height:36px;font-size:.95rem;}
+  }
+
+  @media (max-width:480px){
+    section{padding:3.4rem 1.2rem;}
+    .hero{padding:3rem 1.2rem 3rem;}
+    .quote-panel{padding:1.6rem 1.3rem 1.8rem;}
+    .quote-controls{gap:1.2rem;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-glow{animation:none;opacity:.7;transform:translateX(-50%) scale(1);}
+    .btn-glow.shimmer::after{animation:none;display:none;}
+    .formula-card, .opinia{opacity:1;transform:none;transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo"><span class="logo-name">{{NAZWA_STRONY}}</span></a>
+    <nav class="nav-links-desktop">
+      <a href="#kalkulator">Kalkulator</a>
+      <a href="#jak-liczymy">Jak liczymy</a>
+      <a href="#opinie">Opinie</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="tel:{{TELEFON}}" class="nav-phone" aria-label="Zadzwoń {{TELEFON}}">📞</a>
+      <a href="#kontakt" class="btn btn-primary btn-glow shimmer"><span>Umów wycenę</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-links-mobile" id="navLinks">
+    <a href="#kontakt" class="mobile-cta">Umów wycenę</a>
+    <a href="#kalkulator">Kalkulator</a>
+    <a href="#jak-liczymy">Jak liczymy</a>
+    <a href="#opinie">Opinie</a>
+    <a href="#faq">FAQ</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+</header>
+
+<section class="hero" id="kalkulator">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <span class="eyebrow center">{{NAZWA_STRONY}} — {{MIASTO}}</span>
+    <h1>Ile może być warte Twoje mieszkanie? <span class="hl">Sprawdź w 30 sekund.</span></h1>
+    <p class="lead center">Wybierz metraż, liczbę pokoi, dzielnicę i stan wykończenia — orientacyjne widełki cenowe zobaczysz od razu, bez dzwonienia i bez podawania danych kontaktowych.</p>
+
+    <div class="quote-panel" id="quotePanel">
+      <div class="quote-display">
+        <span class="quote-label">Orientacyjna wartość</span>
+        <div class="quote-amount">
+          <span id="quoteLow">0</span><span class="quote-sep">–</span><span id="quoteHigh">0</span><span class="quote-currency">zł</span>
+        </div>
+        <p class="quote-disclaimer"><strong>To orientacyjny szacunek</strong>, nie wiążąca wycena — na podstawie danych porównawczych z ostatnich transakcji w okolicy. Ostateczną wartość ustala pośrednik po wizji lokalnej.</p>
+      </div>
+
+      <div class="quote-controls">
+        <div class="field full">
+          <label for="m2Range">Metraż</label>
+          <div class="range-row">
+            <input type="range" id="m2Range" min="22" max="140" value="52" step="1" aria-describedby="m2Value">
+            <span class="range-value" id="m2Value">52 m²</span>
+          </div>
+        </div>
+        <div class="field">
+          <span class="flabel">Liczba pokoi</span>
+          <div class="segmented" id="roomsRow">
+            <button class="seg-btn" type="button" data-rooms="1">1</button>
+            <button class="seg-btn active" type="button" data-rooms="2">2</button>
+            <button class="seg-btn" type="button" data-rooms="3">3</button>
+            <button class="seg-btn" type="button" data-rooms="4">4+</button>
+          </div>
+        </div>
+        <div class="field">
+          <label for="dzielnica">Dzielnica</label>
+          <div class="select-wrap">
+            <select id="dzielnica" class="select-field">
+              <option value="centrum">Centrum</option>
+              <option value="srodmiescie" selected>Śródmieście</option>
+              <option value="osiedla">Nowe osiedla</option>
+              <option value="obrzeza">Obrzeża miasta {{MIASTO}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="field full">
+          <span class="flabel">Stan wykończenia</span>
+          <div class="segmented" id="stanRow">
+            <button class="seg-btn" type="button" data-stan="do-remontu">Do remontu</button>
+            <button class="seg-btn active" type="button" data-stan="dobry">Dobry stan</button>
+            <button class="seg-btn" type="button" data-stan="po-remoncie">Po remoncie</button>
+          </div>
+        </div>
+      </div>
+
+      <a href="#kontakt" class="btn btn-primary btn-glow shimmer quote-cta"><span>Umów dokładną wycenę z pośrednikiem →</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="trust">
+  <div class="wrap">
+    <div class="trust-grid">
+      <div class="trust-item"><span class="num" id="baseCounter" data-target="1240">0</span><span class="lbl">transakcji w bazie porównawczej</span></div>
+      <div class="trust-item"><span class="num">Co miesiąc</span><span class="lbl">aktualizacja danych rynkowych</span></div>
+      <div class="trust-item"><span class="num">30 sek.</span><span class="lbl">do orientacyjnego wyniku</span></div>
+      <div class="trust-item"><span class="num">0 zł</span><span class="lbl">za skorzystanie z kalkulatora</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="jak-liczymy">
+  <div class="wrap">
+    <span class="eyebrow">Jak liczymy</span>
+    <h2>Trzy czynniki, jedna liczba</h2>
+    <p class="lead">Wynik nie bierze się z magicznego algorytmu AI — to prosty, jawny rachunek na podstawie trzech czynników, które realnie wpływają na cenę mieszkania w mieście {{MIASTO}}.</p>
+    <div class="formula-strip">
+      <div class="formula-card">
+        <div class="formula-icon">📊</div>
+        <h3>Ceny transakcyjne z okolicy</h3>
+        <p>Średnia cena za m² z faktycznie zawartych transakcji w wybranej dzielnicy z ostatnich miesięcy — nie z cen ofertowych w ogłoszeniach, te bywają zawyżone.</p>
+      </div>
+      <span class="formula-op">×</span>
+      <div class="formula-card">
+        <div class="formula-icon">🛠️</div>
+        <h3>Korekta stanu wykończenia</h3>
+        <p>Mieszkanie do remontu obniża orientacyjną wartość, mieszkanie po remoncie ją podwyższa — względem stanu określonego jako dobry.</p>
+      </div>
+      <span class="formula-op">×</span>
+      <div class="formula-card">
+        <div class="formula-icon">📐</div>
+        <h3>Korekta układu i metrażu</h3>
+        <p>Liczba pokoi względem metrażu wpływa na funkcjonalność układu, a przez to i na orientacyjną cenę za m².</p>
+      </div>
+      <span class="formula-op">=</span>
+      <div class="formula-result">
+        <a href="#kalkulator">Twoje<br>widełki ↑</a>
+      </div>
+    </div>
+    <p class="formula-note"><strong>Kalkulator nie widzi:</strong> piętra, widoku z okien, hałasu, stanu instalacji ani sąsiedztwa — te czynniki pośrednik ocenia podczas bezpłatnej wizji lokalnej i dopiero wtedy podaje dokładną wycenę pisemną.</p>
+  </div>
+</section>
+
+<section class="support" id="wsparcie">
+  <div class="wrap support-grid">
+    <div class="support-copy">
+      <span class="eyebrow">Kalkulator to punkt startu</span>
+      <h2>Liczby to początek rozmowy o cenie, nie jej koniec</h2>
+      <p>Kalkulator daje Ci punkt odniesienia w 30 sekund, bez umawiania rozmowy z pośrednikiem. Ale ostateczną strategię sprzedaży i dokładną wycenę ustalamy razem, podczas bezpłatnej wizji lokalnej.</p>
+      <p>Pośrednik widzi to, czego żaden kalkulator nie widzi: piętro, stan instalacji, widok z okien, sąsiedztwo i dziesiątki drobnych cech, które realnie wpływają na cenę — i dopiero wtedy podaje kwotę, pod którą może stanąć w ogłoszeniu.</p>
+      <a href="#kontakt" class="btn btn-outline">Umów bezpłatną wycenę z wizją lokalną →</a>
+    </div>
+    <img class="support-photo" src="https://images.pexels.com/photos/8292897/pexels-photo-8292897.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Pośrednik i klienci przy stole omawiają wynik wyceny i dalsze kroki sprzedaży" loading="lazy">
+  </div>
+</section>
+
+<section id="opinie">
+  <div class="wrap">
+    <span class="eyebrow">Opinie</span>
+    <h2>Sprawdzili kalkulatorem, zanim zadzwonili</h2>
+    <div class="opinie-grid">
+      <div class="opinia">
+        <span class="quote-mark">"</span>
+        <p>Zanim zadzwoniłam, sprawdziłam orientacyjną wartość kalkulatorem — miałam punkt odniesienia i wiedziałam, że pierwsza rozmowa nie zaczyna się od zera.</p>
+        <div class="opinia-who">Grażyna <small>{{MIASTO}} · Sprzedająca mieszkanie</small></div>
+      </div>
+      <div class="opinia">
+        <span class="quote-mark">"</span>
+        <p>Wynik z kalkulatora był bliski ostatecznej wycenie po wizji lokalnej — różnica wynikała głównie z widoku z okna, o czym uczciwie mnie uprzedzono.</p>
+        <div class="opinia-who">Rafał <small>{{MIASTO}} · Sprzedający mieszkanie</small></div>
+      </div>
+      <div class="opinia">
+        <span class="quote-mark">"</span>
+        <p>Doceniam, że kalkulator od razu mówi wprost, że to nie jest ostateczna cena. Żadnych naciąganych obietnic, tylko konkretne widełki.</p>
+        <div class="opinia-who">Iwona <small>{{MIASTO}} · Kupująca mieszkanie</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <span class="eyebrow">FAQ</span>
+    <h2>Najczęstsze pytania</h2>
+    <div class="faq-list" style="margin-top:2rem;max-width:760px;">
+      <div class="faq-item">
+        <button class="faq-q">Czy to dokładna wycena mojego mieszkania? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Nie — kalkulator pokazuje orientacyjne widełki na podstawie średnich cen transakcyjnych w okolicy. Dokładną wycenę, uwzględniającą piętro, widok, stan instalacji i inne cechy Twojego mieszkania, podajemy pisemnie po bezpłatnej wizji lokalnej.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Skąd biorą się dane porównawcze? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Z faktycznie zawartych transakcji w wybranej dzielnicy z ostatnich miesięcy — nie z cen ofertowych w ogłoszeniach, które bywają zawyżone względem realnej ceny sprzedaży.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Czy podanie danych do kalkulatora do czegoś zobowiązuje? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Nie. Kalkulator działa całkowicie anonimowo i bez zobowiązań — sprawdzisz wynik bez podawania jakichkolwiek danych kontaktowych.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Co jeśli nie widzę swojej dzielnicy na liście? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Wybierz najbliższą kategorię, np. „Nowe osiedla" lub „Obrzeża miasta {{MIASTO}}" — po kontakcie dopasujemy wycenę dokładnie do Twojej lokalizacji.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Jak długo ważny jest wynik kalkulatora? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Dane aktualizujemy co miesiąc, więc wynik sprzed dłuższego czasu może się różnić od aktualnego — przed sprzedażą warto zweryfikować świeżym wyliczeniem.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="kontakt" id="kontakt">
+  <div class="wrap">
+    <span class="eyebrow">Kontakt</span>
+    <h2>Porozmawiajmy o Twojej wycenie</h2>
+    <div class="kontakt-grid">
+      <div>
+        <div class="kontakt-recap" id="kontaktRecap">Twoje wyliczenie: <strong id="recapText">2 pokoje, Śródmieście, dobry stan, 52 m² — 0 – 0 zł</strong></div>
+        <form id="kontaktForm">
+          <div class="form-group">
+            <label for="imie">Imię i nazwisko</label>
+            <input type="text" id="imie" name="imie" required>
+          </div>
+          <div class="form-group">
+            <label for="tel">Telefon</label>
+            <input type="tel" id="tel" name="tel" required>
+          </div>
+          <div class="form-group">
+            <label for="wiadomosc">Wiadomość</label>
+            <textarea id="wiadomosc" name="wiadomosc" placeholder="Opcjonalnie — dopisz cokolwiek, co pomoże nam przygotować dokładną wycenę"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-glow shimmer">Wyślij zapytanie</button>
+          <p class="form-status" id="formStatus">Dziękujemy! Odezwiemy się w ciągu 24 godzin.</p>
+        </form>
+      </div>
+      <div class="kontakt-info">
+        <p><strong>{{NAZWA_STRONY}}</strong></p>
+        <p>{{ADRES}}, {{MIASTO}}</p>
+        <p>Tel: <a href="tel:{{TELEFON}}">{{TELEFON}}</a></p>
+        <p>Email: <a href="mailto:{{EMAIL}}">{{EMAIL}}</a></p>
+        <p>Pon-Pt: {{GODZINY_PON_PT}} · Sob: {{GODZINY_SOB}}</p>
+        <div class="kontakt-map">
+          <iframe src="https://www.google.com/maps?q={{ADRES}}, {{MIASTO}}&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;width:100%;height:270px"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© {{NAZWA_STRONY}} — wszystkie prawa zastrzeżone.</p>
+</footer>
+
+<script>
+  var navToggle = document.getElementById('navToggle');
+  var navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', function(){ navLinks.classList.toggle('open'); });
+
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    item.querySelector('.faq-q').addEventListener('click', function(){
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
+      if(!wasOpen){ item.classList.add('open'); }
+    });
+  });
+
+  document.getElementById('kontaktForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('formStatus').style.display = 'block';
+    this.reset();
+  });
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Stopniowany fade-in kart przy scrollu */
+  var fadeEls = document.querySelectorAll('.formula-card, .opinia');
+  if('IntersectionObserver' in window && !reduceMotion){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry, i){
+        if(entry.isIntersecting){
+          setTimeout(function(){ entry.target.classList.add('visible'); }, i * 90);
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:.15});
+    fadeEls.forEach(function(el){ io.observe(el); });
+  } else {
+    fadeEls.forEach(function(el){ el.classList.add('visible'); });
+  }
+
+  /* Liczący się licznik transakcji w bazie porównawczej */
+  var counterEl = document.getElementById('baseCounter');
+  var counterTarget = parseInt(counterEl.getAttribute('data-target'), 10);
+  function runCounter(){
+    if(reduceMotion){ counterEl.textContent = counterTarget.toLocaleString('pl-PL') + '+'; return; }
+    var start = null;
+    var duration = 1200;
+    function step(ts){
+      if(!start) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      counterEl.textContent = Math.round(eased * counterTarget).toLocaleString('pl-PL') + (progress >= 1 ? '+' : '');
+      if(progress < 1){ requestAnimationFrame(step); }
+    }
+    requestAnimationFrame(step);
+  }
+  if('IntersectionObserver' in window){
+    var counterIo = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ runCounter(); counterIo.disconnect(); }
+      });
+    }, {threshold:.4});
+    counterIo.observe(counterEl);
+  } else {
+    runCounter();
+  }
+
+  /* KALKULATOR WYCENY */
+  var RATE = { centrum:13200, srodmiescie:11400, osiedla:9800, obrzeza:8200 };
+  var DZIELNICA_LABEL = { centrum:'Centrum', srodmiescie:'Śródmieście', osiedla:'Nowe osiedla', obrzeza:'obrzeża miasta {{MIASTO}}' };
+  var CONDITION_MULT = { 'do-remontu':0.83, 'dobry':1.00, 'po-remoncie':1.13 };
+  var CONDITION_LABEL = { 'do-remontu':'do remontu', 'dobry':'dobry stan', 'po-remoncie':'po remoncie' };
+  var ROOMS_MULT = { 1:0.97, 2:1.00, 3:1.03, 4:1.06 };
+  var ROOMS_LABEL = { 1:'1 pokój', 2:'2 pokoje', 3:'3 pokoje', 4:'4+ pokoje' };
+
+  var state = { rooms:2, stan:'dobry', dzielnica:'srodmiescie' };
+  var m2Range = document.getElementById('m2Range');
+  var m2Value = document.getElementById('m2Value');
+  var quoteLow = document.getElementById('quoteLow');
+  var quoteHigh = document.getElementById('quoteHigh');
+  var quotePanel = document.getElementById('quotePanel');
+  var recapText = document.getElementById('recapText');
+  var current = { low:0, high:0 };
+
+  function formatPLN(n){ return Math.round(n / 1000) * 1000; }
+
+  function computeRange(){
+    var m2 = parseInt(m2Range.value, 10);
+    var base = m2 * RATE[state.dzielnica] * CONDITION_MULT[state.stan] * ROOMS_MULT[state.rooms];
+    return { low: formatPLN(base * 0.93), high: formatPLN(base * 1.09), m2: m2 };
+  }
+
+  function animateNumbers(target){
+    if(reduceMotion){
+      quoteLow.textContent = target.low.toLocaleString('pl-PL');
+      quoteHigh.textContent = target.high.toLocaleString('pl-PL');
+      current = target;
+      return;
+    }
+    var startLow = current.low, startHigh = current.high;
+    var t0 = null, duration = 420;
+    function step(ts){
+      if(!t0) t0 = ts;
+      var p = Math.min((ts - t0) / duration, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      quoteLow.textContent = Math.round(startLow + (target.low - startLow) * eased).toLocaleString('pl-PL');
+      quoteHigh.textContent = Math.round(startHigh + (target.high - startHigh) * eased).toLocaleString('pl-PL');
+      if(p < 1){ requestAnimationFrame(step); } else { current = target; }
+    }
+    requestAnimationFrame(step);
+  }
+
+  function recalc(){
+    var r = computeRange();
+    m2Value.textContent = r.m2 + ' m²';
+    animateNumbers(r);
+    recapText.textContent = ROOMS_LABEL[state.rooms] + ', ' + DZIELNICA_LABEL[state.dzielnica] + ', ' + CONDITION_LABEL[state.stan] + ', ' + r.m2 + ' m² — ' + r.low.toLocaleString('pl-PL') + ' – ' + r.high.toLocaleString('pl-PL') + ' zł';
+
+    quotePanel.classList.remove('flash');
+    void quotePanel.offsetWidth;
+    quotePanel.classList.add('flash');
+    if(!reduceMotion){
+      setTimeout(function(){ quotePanel.classList.remove('flash'); }, 700);
+    }
+  }
+
+  document.querySelectorAll('#roomsRow .seg-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('#roomsRow .seg-btn').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      state.rooms = parseInt(btn.dataset.rooms, 10);
+      recalc();
+    });
+  });
+
+  document.querySelectorAll('#stanRow .seg-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('#stanRow .seg-btn').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      state.stan = btn.dataset.stan;
+      recalc();
+    });
+  });
+
+  document.getElementById('dzielnica').addEventListener('change', function(){
+    state.dzielnica = this.value;
+    recalc();
+  });
+
+  m2Range.addEventListener('input', recalc);
+  recalc();
+</script>
+
+</body>
+</html>

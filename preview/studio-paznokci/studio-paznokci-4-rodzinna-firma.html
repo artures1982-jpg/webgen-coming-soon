@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{NAZWA_STRONY}} — Studio paznokci {{MIASTO}} | tel. {{TELEFON}}</title>
+<meta name="description" content="{{NAZWA_STRONY}} — studio paznokci w mieście {{MIASTO}} prowadzone osobiście, bez korporacyjnego dystansu. Zawsze ta sama para rąk, ten sam telefon. Tel. {{TELEFON}}">
+<meta name="keywords" content="Studio paznokci {{MIASTO}}, manicure {{MIASTO}}, rodzinne studio paznokci">
+<link rel="canonical" href="https://{{SLUG}}.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{NAZWA_STRONY}} — Studio paznokci {{MIASTO}}">
+<meta property="og:description" content="Zawsze ta sama para rąk, ten sam telefon — studio paznokci prowadzone osobiście w mieście {{MIASTO}}.">
+<meta property="og:url" content="https://{{SLUG}}.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"{{NAZWA_STRONY}}","telephone":"{{TELEFON}}","email":"{{EMAIL}}","description":"{{NAZWA_STRONY}} — Studio paznokci w mieście {{MIASTO}}, prowadzone osobiście","address":{"@type":"PostalAddress","addressLocality":"{{MIASTO}}","addressCountry":"PL"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#b8763f;
+    --accent-dark:#8a5527;
+    --bg:#ece1d3;
+    --surface:#f7efe3;
+    --text:#3a2e22;
+    --muted:#8f8071;
+    --head:'Lora', serif;
+    --body:'Figtree', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3,h4{font-family:var(--head);line-height:1.25;font-weight:600;}
+  section{padding:5rem 1.5rem;}
+  .wrap{max-width:1080px;margin:0 auto;}
+  .eyebrow{display:inline-block;font-family:var(--body);font-weight:700;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:.7rem;}
+  h2{font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:1rem;color:var(--text);}
+  .lead{color:var(--muted);font-size:1.02rem;max-width:600px;}
+  .center{text-align:center;}
+  .center .lead{margin:0 auto;}
+
+  .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.95rem 1.8rem;border-radius:2rem;font-weight:700;font-family:var(--body);font-size:1rem;border:2px solid transparent;cursor:pointer;transition:transform .15s ease, background .2s ease;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--accent);color:var(--surface);}
+  .btn-primary:hover{background:var(--accent-dark);}
+
+  /* --- Nav: two-row, non-sticky (scrolls away), no CTA pill in header --- */
+  header.nav{background:var(--surface);}
+  .nav-top{background:var(--accent-dark);color:var(--surface);}
+  .nav-top-wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.5rem 1.5rem;font-size:.76rem;letter-spacing:.02em;}
+  .nav-top-wrap a{color:var(--surface);opacity:.88;}
+  .nav-top-wrap a:hover{opacity:1;text-decoration:underline;}
+  .nav-main{position:relative;border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);}
+  .nav-main .wrap{display:flex;align-items:center;justify-content:space-between;padding:1.05rem 1.5rem;gap:1rem;}
+  .logo-lockup{display:flex;flex-direction:column;line-height:1.15;min-width:0;}
+  .logo-name{font-family:var(--head);font-weight:700;font-size:1.18rem;color:var(--text);}
+  .logo-tag{font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:.15rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .nav-links{gap:1.6rem;align-items:center;}
+  .nav-links a{font-weight:600;font-size:.9rem;color:var(--text);}
+  .nav-links a:hover{color:var(--accent-dark);}
+  .nav-links-desktop{display:flex;}
+  .nav-links-mobile{display:none;}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;flex-shrink:0;}
+  .nav-toggle span{width:22px;height:2px;background:var(--text);}
+  .nav-mobile-phone{color:var(--accent-dark);font-weight:700;}
+
+  /* --- Floating call button (replaces nav CTA pill), fades in once hero scrolls out of view --- */
+  .fab-call{
+    position:fixed;right:1.2rem;bottom:1.2rem;z-index:60;
+    width:56px;height:56px;border-radius:50%;
+    background:var(--accent);color:var(--surface);
+    display:flex;align-items:center;justify-content:center;font-size:1.4rem;
+    box-shadow:0 10px 24px color-mix(in srgb, var(--text) 26%, transparent);
+    opacity:0;transform:translateY(16px) scale(.9);pointer-events:none;
+    transition:opacity .35s ease, transform .35s ease, background .2s ease;
+  }
+  .fab-call.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+  .fab-call:hover{background:var(--accent-dark);}
+
+  /* --- Hero: full-bleed split, text left / edge-to-edge photo right, no card/frame/blob --- */
+  .hero{padding:0;background:var(--bg);}
+  .hero-flex{display:flex;align-items:stretch;min-height:600px;}
+  .hero-copy-col{flex:1 1 52%;display:flex;align-items:center;padding:4.5rem clamp(1.5rem,6vw,4.5rem);}
+  .hero-copy-col .inner{max-width:540px;margin-left:auto;}
+  .hero-copy-col .eyebrow{margin-bottom:.8rem;}
+  .hero-copy-col h1{font-size:clamp(2rem,4vw,2.6rem);margin-bottom:1.1rem;}
+  .hero-copy-col p{color:var(--muted);font-size:1.02rem;margin-bottom:1.3rem;}
+  .signoff{font-family:var(--head);font-style:italic;color:var(--accent-dark);font-size:1.1rem;margin-bottom:1.8rem;}
+  .hero-photo-col{flex:1 1 48%;position:relative;min-height:420px;background:var(--surface);}
+  .hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 25%;}
+
+  /* --- Historia: vertical timeline with year labels --- */
+  .milestones{max-width:640px;margin:2.8rem auto 0;position:relative;padding-left:2.6rem;text-align:left;}
+  .milestones::before{content:"";position:absolute;top:6px;bottom:6px;left:11px;width:2px;background:color-mix(in srgb, var(--accent) 35%, transparent);}
+  .milestone{position:relative;padding-bottom:2.4rem;opacity:0;transform:translateY(14px);transition:opacity .5s ease, transform .5s ease;}
+  .milestone:last-child{padding-bottom:0;}
+  .milestone.visible{opacity:1;transform:translateY(0);}
+  .milestone .marker{position:absolute;left:-2.6rem;top:.15rem;width:24px;height:24px;border-radius:50%;background:var(--accent);border:3px solid var(--bg);box-shadow:0 0 0 2px color-mix(in srgb, var(--accent) 40%, transparent);}
+  .milestone-year{display:block;font-family:var(--body);font-weight:800;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:.3rem;}
+  .milestone h3{font-size:1.06rem;margin-bottom:.4rem;}
+  .milestone p{font-size:.94rem;color:var(--muted);}
+
+  .cennik-group{max-width:680px;margin:0 auto;}
+  .cennik-group + .cennik-group{margin-top:2.4rem;}
+  .cennik-group h3{font-family:var(--head);font-size:1.1rem;color:var(--accent-dark);margin-bottom:.4rem;}
+  .cennik-row{
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    padding:1rem 0;border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);
+    opacity:0;transform:translateY(12px);transition:opacity .5s ease, transform .5s ease;
+  }
+  .cennik-row.visible{opacity:1;transform:translateY(0);}
+  .cennik-row:last-child{border-bottom:none;}
+  .cennik-name{font-weight:600;font-size:1rem;}
+  .cennik-time{font-size:.84rem;color:var(--muted);margin-top:.15rem;}
+  .cennik-price{flex-shrink:0;font-family:var(--head);font-weight:700;font-size:.94rem;color:var(--accent-dark);background:color-mix(in srgb, var(--accent) 14%, transparent);border-radius:2rem;padding:.45rem 1rem;white-space:nowrap;}
+
+  .faq-list{max-width:780px;margin:2.6rem auto 0;display:flex;flex-direction:column;gap:.7rem;}
+  details{background:var(--surface);border-radius:1rem;padding:1.1rem 1.4rem;}
+  details summary{cursor:pointer;font-weight:700;font-family:var(--head);font-size:.98rem;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{content:"+";font-size:1.4rem;color:var(--accent);flex-shrink:0;}
+  details[open] summary::after{content:"–";}
+  details p{color:var(--muted);margin-top:.8rem;font-size:.92rem;}
+
+  /* --- Kontakt: pull-quote + business-card panel (no photo), map below --- */
+  .pull-quote{max-width:620px;margin:0 auto 2.6rem;text-align:center;font-family:var(--head);font-style:italic;font-size:1.2rem;color:var(--text);padding:0 1.5rem;}
+  .pull-quote cite{display:block;margin-top:.7rem;font-style:normal;font-size:.85rem;color:var(--muted);}
+  .contact-panel{
+    max-width:760px;margin:0 auto 2.4rem;
+    display:grid;grid-template-columns:1fr 1fr;gap:2rem;
+    background:var(--surface);border-radius:1.4rem;padding:2rem;
+    border:1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  }
+  .contact-call .lead{margin-bottom:.4rem;}
+  .phone-big{font-family:var(--head);font-size:1.6rem;font-weight:700;color:var(--accent-dark);}
+  .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem 1.4rem;}
+  .info-grid dt{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:.15rem;}
+  .info-grid dd{font-size:.92rem;color:var(--text);}
+  .map-embed{width:100%;max-width:760px;margin:0 auto;height:280px;border-radius:1.2rem;overflow:hidden;border:1px solid color-mix(in srgb, var(--text) 10%, transparent);display:block;}
+
+  footer{padding:2.2rem 1.5rem;text-align:center;}
+  footer p{font-size:.86rem;color:var(--muted);}
+  footer a:hover{color:var(--accent-dark);}
+
+  @media (prefers-reduced-motion: reduce){
+    .milestone,.cennik-row{transition:none;opacity:1;transform:none;}
+    .btn:hover{transform:none;}
+    .fab-call{transition:none;}
+  }
+
+  @media (max-width:900px){
+    .hero-flex{flex-direction:column;min-height:0;}
+    .hero-copy-col{padding:3rem 1.5rem 2.5rem;}
+    .hero-copy-col .inner{margin:0;max-width:100%;}
+    .hero-photo-col{min-height:300px;order:-1;}
+  }
+  @media (max-width:700px){
+    .nav-links-desktop{display:none;}
+    .nav-links-mobile{
+      position:absolute;top:100%;left:0;right:0;background:var(--surface);
+      flex-direction:column;align-items:flex-start;gap:1rem;padding:1.2rem 1.5rem;
+      border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);display:none;z-index:40;
+    }
+    .nav-links-mobile.open{display:flex;}
+    .nav-toggle{display:flex;}
+    .nav-top{display:none;}
+    section{padding:3.5rem 1.2rem;}
+    .contact-panel{grid-template-columns:1fr;}
+  }
+  @media (max-width:480px){
+    .logo-tag{display:none;}
+    .cennik-row{align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-top">
+    <div class="wrap nav-top-wrap">
+      <span>Pon–Pt {{GODZINY_PON_PT}} · Sobota {{GODZINY_SOB}}</span>
+      <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+    </div>
+  </div>
+  <div class="nav-main">
+    <div class="wrap">
+      <a href="#" class="logo-lockup">
+        <span class="logo-name">{{NAZWA_STRONY}}</span>
+        <span class="logo-tag">studio paznokci · {{MIASTO}}</span>
+      </a>
+      <nav class="nav-links nav-links-desktop">
+        <a href="#historia">Moja historia</a>
+        <a href="#uslugi">Cennik</a>
+        <a href="#faq">FAQ</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu nawigacji">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav class="nav-links nav-links-mobile" id="navLinks">
+      <a href="#historia">Moja historia</a>
+      <a href="#uslugi">Cennik</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontakt">Kontakt</a>
+      <a href="tel:{{TELEFON}}" class="nav-mobile-phone">📞 Zadzwoń: {{TELEFON}}</a>
+    </nav>
+  </div>
+</header>
+
+<a href="tel:{{TELEFON}}" class="fab-call" id="fabCall" aria-label="Zadzwoń: {{TELEFON}}">📞</a>
+
+<section class="hero">
+  <div class="hero-flex">
+    <div class="hero-copy-col">
+      <div class="inner">
+        <span class="eyebrow">Bez recepcji, bez grafiku na cały etat — {{MIASTO}}</span>
+        <h1>{{NAZWA_STRONY}}: zawsze ta sama para rąk, ten sam telefon</h1>
+        <p>Nie zatrudniam dodatkowych stylistek i nie umawiam klientek „na kogo wypadnie” — każdą wizytę, od pierwszego telefonu po polerowanie na koniec, prowadzę osobiście.</p>
+        <p class="signoff">— {{NAZWA_STRONY}}</p>
+        <a href="tel:{{TELEFON}}" class="btn btn-primary">📞 Zadzwoń: {{TELEFON}}</a>
+      </div>
+    </div>
+    <div class="hero-photo-col">
+      <img class="hero-photo" src="https://images.pexels.com/photos/18090215/pexels-photo-18090215.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=760" width="760" height="900" alt="Właścicielka {{NAZWA_STRONY}} w swoim studiu paznokci">
+    </div>
+  </div>
+</section>
+
+<section id="historia" style="background:var(--surface);">
+  <div class="wrap center">
+    <span class="eyebrow">Moja historia</span>
+    <h2>Zanim poznasz mnie osobiście</h2>
+    <p class="lead">{{NAZWA_STRONY}} nie ma recepcji ani grafiku obsadzanego na zmiany — jest tylko ten sam telefon, ten sam fotel i ja, odkąd otworzyłam drzwi w mieście {{MIASTO}}.</p>
+    <div class="milestones">
+      <div class="milestone">
+        <span class="marker"></span>
+        <span class="milestone-year">2016</span>
+        <h3>Pierwsze wizyty</h3>
+        <p>Zaczynałam sama, w jednym gabinecie, z jednym fotelem i notesem pełnym numerów telefonów zamiast systemu rezerwacji.</p>
+      </div>
+      <div class="milestone">
+        <span class="marker"></span>
+        <span class="milestone-year">2020</span>
+        <h3>Polecenia, nie reklamy</h3>
+        <p>Nie miałam budżetu na reklamę, więc rosłam tak, jak rosną dobre stylistki — z ust do ust, z jednego zdjęcia w lokalnej grupie na Facebooku, z jednej dobrze zrobionej hybrydy naraz.</p>
+      </div>
+      <div class="milestone">
+        <span class="marker"></span>
+        <span class="milestone-year">Dziś</span>
+        <h3>Dziś</h3>
+        <p>Mam więcej stałych klientek niż wolnych terminów w tygodniu, ale zasada się nie zmieniła — nadal to ja odbieram telefon i nadal to ja siedzę po drugiej stronie stolika.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="uslugi">
+  <div class="wrap">
+    <span class="eyebrow">Zabiegi i ceny</span>
+    <h2>Cennik</h2>
+    <p class="lead">Ten sam cennik podaję przez telefon, co przy stoliku — nie lubię niespodzianek przy płatności, Ty pewnie też nie.</p>
+    <div class="cennik-group">
+      <h3>Rączki</h3>
+      <div class="cennik-row">
+        <div><div class="cennik-name">Manicure klasyczny</div><div class="cennik-time">45 minut</div></div>
+        <span class="cennik-price">80 zł</span>
+      </div>
+      <div class="cennik-row">
+        <div><div class="cennik-name">Manicure hybrydowy</div><div class="cennik-time">60 minut</div></div>
+        <span class="cennik-price">120 zł</span>
+      </div>
+      <div class="cennik-row">
+        <div><div class="cennik-name">Przedłużanie żelem</div><div class="cennik-time">90 minut</div></div>
+        <span class="cennik-price">180 zł</span>
+      </div>
+    </div>
+    <div class="cennik-group">
+      <h3>Stópki</h3>
+      <div class="cennik-row">
+        <div><div class="cennik-name">Pedicure klasyczny</div><div class="cennik-time">50 minut</div></div>
+        <span class="cennik-price">90 zł</span>
+      </div>
+      <div class="cennik-row">
+        <div><div class="cennik-name">Pedicure hybrydowy</div><div class="cennik-time">65 minut</div></div>
+        <span class="cennik-price">140 zł</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="background:var(--surface);">
+  <div class="wrap">
+    <span class="eyebrow">Pytania i odpowiedzi</span>
+    <h2>Najczęściej pytacie</h2>
+    <div class="faq-list">
+      <details open>
+        <summary>Czy to Ty osobiście wykonujesz każdy zabieg?</summary>
+        <p>Tak, zawsze ja — nie zatrudniam dodatkowych osób, więc nie trafisz na przypadkową zmienniczkę.</p>
+      </details>
+      <details>
+        <summary>Czy przyjmujesz też poza miastem {{MIASTO}}?</summary>
+        <p>Przyjmuję wyłącznie na miejscu, w studiu w mieście {{MIASTO}} — nie dojeżdżam do klientek.</p>
+      </details>
+      <details>
+        <summary>Czy mogę przyjść razem z koleżanką lub córką na wspólny termin?</summary>
+        <p>Jasne, przy odrobinie wcześniejszego uzgodnienia telefonicznego znajdę dla Was sąsiadujące terminy.</p>
+      </details>
+      <details>
+        <summary>Czy wystawiasz paragon lub fakturę?</summary>
+        <p>Tak, do każdej wizyty wystawiam paragon, a na życzenie także fakturę — wystarczy powiedzieć przy płatności.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="kontakt">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Kontakt</span>
+    <h2 class="center">Porozmawiajmy</h2>
+    <blockquote class="pull-quote">„Umawiam się tu regularnie od dwóch lat i zawsze wiem, na kogo trafię — to w innych miejscach szybko się traci.”<cite>— klientka, {{MIASTO}}</cite></blockquote>
+    <div class="contact-panel">
+      <div class="contact-call">
+        <p class="lead">Zadzwoń bezpośrednio do mnie — {{NAZWA_STRONY}}</p>
+        <a href="tel:{{TELEFON}}" class="phone-big">{{TELEFON}}</a>
+      </div>
+      <dl class="info-grid">
+        <div><dt>E-mail</dt><dd>{{EMAIL}}</dd></div>
+        <div><dt>Adres</dt><dd>{{ADRES}}, {{MIASTO}}</dd></div>
+        <div><dt>Pon–Pt</dt><dd>{{GODZINY_PON_PT}}</dd></div>
+        <div><dt>Sobota</dt><dd>{{GODZINY_SOB}}</dd></div>
+      </dl>
+    </div>
+    <iframe class="map-embed" src="https://www.google.com/maps?q={{ADRES}}, {{MIASTO}}&output=embed" title="Mapa dojazdu do {{NAZWA_STRONY}} w mieście {{MIASTO}}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;"></iframe>
+  </div>
+</section>
+
+<footer>
+  <p>© <span id="year"></span> {{NAZWA_STRONY}} — Studio paznokci {{MIASTO}}. <a href="tel:{{TELEFON}}">{{TELEFON}}</a> · <a href="mailto:{{EMAIL}}">{{EMAIL}}</a></p>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const navToggle = document.getElementById('navToggle');
+  const navLinksMobile = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    navLinksMobile.classList.toggle('open');
+  });
+  navLinksMobile.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinksMobile.classList.remove('open'));
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.milestone, .cennik-row').forEach(el => io.observe(el));
+
+  // Floating call button appears once the hero has scrolled out of view.
+  const hero = document.querySelector('.hero');
+  const fab = document.getElementById('fabCall');
+  if (hero && fab) {
+    const heroIo = new IntersectionObserver((entries) => {
+      entries.forEach(e => fab.classList.toggle('show', !e.isIntersecting));
+    }, { threshold: 0 });
+    heroIo.observe(hero);
+  }
+</script>
+
+</body>
+</html>

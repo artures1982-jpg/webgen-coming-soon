@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HydroFix — Hydraulik Kraków | tel. 500 123 456</title>
+<meta name="description" content="HydroFix — profesjonalne usługi Hydraulik w mieście Kraków. Zadzwoń: 500 123 456">
+<meta name="keywords" content="Hydraulik Kraków">
+<link rel="canonical" href="https://hydrofix-krakow.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="HydroFix — Hydraulik Kraków">
+<meta property="og:description" content="HydroFix — profesjonalne usługi Hydraulik w mieście Kraków. Zadzwoń: 500 123 456">
+<meta property="og:url" content="https://hydrofix-krakow.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"HydroFix","telephone":"500 123 456","email":"kontakt@hydrofix.pl","description":"HydroFix — Hydraulik w mieście Kraków","address":{"@type":"PostalAddress","addressLocality":"Kraków","addressCountry":"PL"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --accent:#c4643c;
+  --accent-dark:#8d4324;
+  --bg:#faf4ea;
+  --surface:#fffdf8;
+  --text:#332a22;
+  --muted:#7d6d5f;
+  --head:'Fredoka', system-ui, sans-serif;
+  --body:'Nunito', system-ui, sans-serif;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+body{
+  font-family:var(--body);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:var(--head);line-height:1.2;font-weight:600}
+a{color:var(--accent-dark);text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 22px}
+section{padding:76px 0}
+
+/* ---------- NAV ---------- */
+.nav-outer{position:sticky;top:0;z-index:50;padding:14px 18px}
+.nav{
+  max-width:1080px;margin:0 auto;
+  background:var(--surface);
+  border:1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  border-radius:999px;
+  box-shadow:0 6px 22px color-mix(in srgb, var(--text) 9%, transparent);
+  display:flex;align-items:center;gap:18px;
+  padding:10px 14px 10px 22px;
+}
+.brand{font-family:var(--head);font-weight:600;font-size:1.12rem;color:var(--text);white-space:nowrap}
+.nav-links{display:flex;gap:22px;margin-left:auto}
+.nav-links a{color:var(--muted);font-weight:600;font-size:.95rem}
+.nav-links a:hover{color:var(--accent-dark)}
+.nav-call{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  background:var(--accent);color:var(--surface);
+  border-radius:999px;padding:11px 20px;font-weight:700;white-space:nowrap;
+  font-family:var(--head);
+}
+.nav-call:hover{background:var(--accent-dark);color:var(--surface)}
+.nav-call .ico{font-size:1.05rem}
+
+/* ---------- HERO ---------- */
+.hero{padding:56px 0 70px}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}
+.eyebrow{
+  display:inline-block;font-family:var(--head);font-weight:500;letter-spacing:.06em;
+  text-transform:uppercase;font-size:.78rem;color:var(--accent-dark);
+  background:color-mix(in srgb, var(--accent) 14%, transparent);
+  padding:6px 14px;border-radius:999px;margin-bottom:18px;
+}
+h1{font-size:clamp(2rem,5vw,3.15rem);letter-spacing:-.01em}
+h1 .accent{color:var(--accent-dark)}
+.motto{
+  font-family:var(--head);font-size:1.12rem;color:var(--text);
+  border-left:3px solid var(--accent);padding-left:16px;margin:24px 0 10px;font-style:italic;
+}
+.motto-sign{color:var(--muted);font-size:.92rem;padding-left:19px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--head);font-weight:600;font-size:1.02rem;
+  padding:15px 28px;border-radius:999px;transition:.2s;
+}
+.btn-main{background:var(--accent);color:var(--surface);box-shadow:0 8px 20px color-mix(in srgb, var(--accent) 32%, transparent)}
+.btn-main:hover{background:var(--accent-dark);color:var(--surface)}
+.btn-ghost{background:var(--surface);color:var(--text);border:1.5px solid color-mix(in srgb, var(--text) 18%, transparent)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent-dark)}
+
+.hero-photo-box{position:relative;display:flex;justify-content:center}
+.hero-photo{
+  width:100%;max-width:420px;height:auto;
+  aspect-ratio:1/1;object-fit:cover;object-position:50% 30%;
+  border-radius:62% 38% 55% 45% / 48% 52% 48% 52%;
+  box-shadow:0 18px 40px color-mix(in srgb, var(--text) 18%, transparent);
+}
+.photo-badge{
+  position:absolute;bottom:6px;left:0;
+  background:var(--surface);border-radius:18px;padding:11px 18px;
+  box-shadow:0 8px 22px color-mix(in srgb, var(--text) 14%, transparent);
+  font-family:var(--head);font-weight:600;font-size:.92rem;line-height:1.35;
+}
+.photo-badge span{display:block;color:var(--muted);font-weight:400;font-size:.82rem}
+
+/* ---------- O NAS / USP ---------- */
+.section-head{max-width:640px;margin-bottom:38px}
+h2{font-size:clamp(1.6rem,3.4vw,2.25rem)}
+.section-head p{color:var(--muted);margin-top:12px}
+.usp{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.usp li{
+  list-style:none;background:var(--surface);border-radius:18px;padding:20px 22px;
+  border:1px solid color-mix(in srgb, var(--text) 8%, transparent);
+}
+.usp b{display:block;font-family:var(--head);font-size:1.02rem;margin-bottom:4px}
+.usp small{color:var(--muted);font-size:.9rem;line-height:1.55;display:block}
+.stats{display:flex;flex-wrap:wrap;gap:38px;margin-top:38px;padding-top:32px;border-top:1px dashed color-mix(in srgb, var(--text) 20%, transparent)}
+.stat b{display:block;font-family:var(--head);font-size:2.1rem;color:var(--accent-dark);line-height:1.1}
+.stat span{color:var(--muted);font-size:.92rem}
+
+/* ---------- HISTORIA / OŚ CZASU ---------- */
+.story{background:var(--surface)}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;position:relative;margin-top:42px}
+.timeline::before{
+  content:"";position:absolute;top:9px;left:4%;right:4%;height:2px;
+  background:color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.tl-item{position:relative;padding-top:34px}
+.tl-item::before{
+  content:"";position:absolute;top:2px;left:0;width:16px;height:16px;border-radius:50%;
+  background:var(--accent);border:3px solid var(--surface);
+}
+.tl-year{font-family:var(--head);font-weight:600;color:var(--accent-dark);font-size:1.15rem}
+.tl-item p{color:var(--muted);font-size:.95rem;margin-top:6px}
+
+/* ---------- USŁUGI (lista) ---------- */
+.services{display:grid;gap:2px;background:color-mix(in srgb, var(--text) 10%, transparent);border-radius:20px;overflow:hidden}
+.srv{
+  background:var(--bg);padding:22px 26px;display:grid;grid-template-columns:44px 1fr;
+  gap:18px;align-items:start;transition:.2s;
+}
+.srv:hover{background:var(--surface)}
+.srv .emoji{font-size:1.55rem;line-height:1.4}
+.srv h3{font-size:1.1rem;margin-bottom:3px}
+.srv p{color:var(--muted);font-size:.96rem}
+
+/* ---------- CYTAT ---------- */
+.quote{background:var(--accent);color:var(--surface);text-align:center}
+.quote .mark{font-family:var(--head);font-size:5rem;line-height:.6;display:block;margin-bottom:16px;opacity:.55}
+.quote blockquote{
+  font-family:var(--head);font-size:clamp(1.3rem,3vw,1.9rem);line-height:1.45;
+  max-width:820px;margin:0 auto;font-weight:500;
+}
+.quote cite{display:block;margin-top:24px;font-style:normal;font-size:.98rem;opacity:.9}
+
+/* ---------- OBSZAR ---------- */
+.area-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:start}
+.area-list{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;list-style:none}
+.area-list li{
+  background:var(--surface);border:1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  border-radius:999px;padding:8px 16px;font-size:.92rem;color:var(--muted);
+}
+.area-note{
+  background:var(--surface);border-radius:20px;padding:26px;
+  border:1px solid color-mix(in srgb, var(--text) 8%, transparent);
+}
+.area-note h3{font-size:1.1rem;margin-bottom:8px}
+.area-note p{color:var(--muted);font-size:.95rem}
+
+/* ---------- FAQ ---------- */
+.faq{background:var(--surface)}
+details{
+  border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  padding:18px 0;
+}
+summary{
+  font-family:var(--head);font-weight:600;font-size:1.05rem;cursor:pointer;
+  list-style:none;display:flex;justify-content:space-between;gap:16px;
+}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--accent);font-size:1.4rem;line-height:1}
+details[open] summary::after{content:"–"}
+details p{color:var(--muted);margin-top:12px;font-size:.97rem}
+
+/* ---------- KONTAKT ---------- */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+.call-card{
+  display:flex;align-items:center;gap:18px;background:var(--surface);
+  border-radius:22px;padding:20px 24px;margin:26px 0;
+  border:1px solid color-mix(in srgb, var(--text) 9%, transparent);
+  box-shadow:0 10px 26px color-mix(in srgb, var(--text) 8%, transparent);
+}
+.portrait{
+  width:76px;height:76px;flex:0 0 76px;border-radius:50%;
+  object-fit:cover;object-position:52% 22%;
+  border:3px solid var(--accent);
+}
+.call-card .label{color:var(--muted);font-size:.86rem;display:block}
+.call-card .num{font-family:var(--head);font-size:1.42rem;font-weight:600;color:var(--accent-dark)}
+.info-list{list-style:none;display:grid;gap:14px;margin-top:8px}
+.info-list li{display:grid;grid-template-columns:26px 1fr;gap:12px;font-size:.98rem}
+.info-list span:first-child{font-size:1.05rem}
+.info-list b{font-family:var(--head);font-weight:600}
+.map{border-radius:20px;overflow:hidden;box-shadow:0 10px 26px color-mix(in srgb, var(--text) 12%, transparent)}
+
+/* ---------- STOPKA ---------- */
+footer{background:var(--surface);padding:46px 0 34px;border-top:1px solid color-mix(in srgb, var(--text) 9%, transparent)}
+.foot-grid{display:flex;flex-wrap:wrap;gap:26px;justify-content:space-between;align-items:flex-start}
+.foot-brand{font-family:var(--head);font-weight:600;font-size:1.1rem}
+.foot-grid p,.foot-grid a{color:var(--muted);font-size:.94rem}
+.foot-links{display:flex;flex-direction:column;gap:8px}
+.foot-links a:hover{color:var(--accent-dark)}
+.copy{margin-top:30px;padding-top:18px;border-top:1px solid color-mix(in srgb, var(--text) 9%, transparent);color:var(--muted);font-size:.88rem}
+
+:focus-visible{outline:3px solid var(--accent-dark);outline-offset:3px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+/* ---------- RESPONSYWNOŚĆ ---------- */
+@media (max-width:980px){
+  .hero-grid,.area-grid,.contact-grid{grid-template-columns:1fr;gap:34px}
+  .hero-photo-box{order:-1}
+  .timeline{grid-template-columns:1fr 1fr;gap:28px}
+  .timeline::before{display:none}
+  .nav-links{display:none}
+}
+@media (max-width:700px){
+  section{padding:52px 0}
+  .hero{padding:18px 0 46px}
+  .hero-photo{max-width:200px;aspect-ratio:1/1;height:auto}
+  .photo-badge{position:static;margin-top:16px;text-align:center;box-shadow:none;background:transparent;padding:0}
+  .nav{padding:8px 8px 8px 18px;gap:10px}
+  .nav-call{width:44px;height:44px;padding:0;border-radius:50%;margin-left:auto}
+  .nav-call .txt{display:none}
+  .timeline{grid-template-columns:1fr;gap:22px}
+  .srv{grid-template-columns:36px 1fr;padding:18px 18px;gap:14px}
+  .stats{gap:24px}
+  .call-card{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<div class="nav-outer">
+  <nav class="nav wrap-nav">
+    <a href="#hero" class="brand">HydroFix</a>
+    <div class="nav-links">
+      <a href="#historia">Moja historia</a>
+      <a href="#uslugi">Usługi</a>
+      <a href="#obszar">Obszar</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontakt">Kontakt</a>
+    </div>
+    <a class="nav-call" href="tel:500 123 456" aria-label="Zadzwoń: 500 123 456">
+      <span class="ico" aria-hidden="true">📞</span><span class="txt">Zadzwoń: 500 123 456</span>
+    </a>
+  </nav>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Hydraulik — Kraków</span>
+      <h1>HydroFix — <span class="accent">hydraulik</span>, który odbiera telefon. Kraków i okolica.</h1>
+      <p class="motto">„Naprawiam tak, żeby nie trzeba było do mnie wracać za miesiąc. Robota ma trzymać lata, nie do końca gwarancji.”</p>
+      <p class="motto-sign">— właściciel firmy HydroFix</p>
+      <div class="hero-cta">
+        <a class="btn btn-main" href="tel:500 123 456"><span aria-hidden="true">📞</span> Zadzwoń: 500 123 456</a>
+        <a class="btn btn-ghost" href="#uslugi">Zobacz, w czym pomogę</a>
+      </div>
+    </div>
+    <div class="hero-photo-box">
+      <img class="hero-photo" width="940" height="650"
+           src="https://images.pexels.com/photos/8642041/pexels-photo-8642041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+           alt="Uśmiechnięty hydraulik w kombinezonie roboczym — właściciel firmy HydroFix">
+      <div class="photo-badge">Ponad 20 lat przy instalacjach<span>Sam przyjeżdżam, sam robię</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- O NAS -->
+<section id="onas">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Dlaczego ludzie dzwonią do mnie drugi raz</h2>
+      <p>Mała, rodzinna firma. Bez call center, bez podwykonawców z ogłoszenia — przyjeżdżam osobiście, wyceniam na miejscu i mówię wprost, co da się naprawić, a co trzeba wymienić.</p>
+    </div>
+    <ul class="usp">
+      <li><b>🛡️ 24 miesiące gwarancji</b><small>Na każdą wykonaną instalację i montaż — na piśmie, nie na słowo.</small></li>
+      <li><b>🚗 Dojazd gratis</b><small>Bezpłatny dojazd na terenie miasta Kraków i w najbliższej okolicy.</small></li>
+      <li><b>📋 Bezpłatna wycena</b><small>Cenę podaję przed rozpoczęciem pracy. Bez dopisywania po fakcie.</small></li>
+      <li><b>⚡ Awaria tego samego dnia</b><small>Przy przeciekach i zalaniach staram się dojechać w ciągu kilku godzin.</small></li>
+      <li><b>📜 Uprawnienia i ubezpieczenie</b><small>Certyfikowany instalator wod-kan i gazowy, polisa OC na wykonywane prace.</small></li>
+    </ul>
+    <div class="stats">
+      <div class="stat"><b>2400+</b><span>zadowoleni klienci</span></div>
+      <div class="stat"><b>20 lat</b><span>w zawodzie</span></div>
+      <div class="stat"><b>98%</b><span>napraw kończy się jednym przyjazdem</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- HISTORIA -->
+<section class="story" id="historia">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Moja historia — od pierwszej skrzynki narzędzi do własnej firmy</h2>
+      <p>Nie zaczynałem od biura i logo. Zaczynałem od jednej walizki kluczy i sąsiadów, którzy polecali mnie dalej.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-year">2005</div><p>Pierwsza praca na budowie jako pomocnik instalatora. Nauka od majstra starej szkoły — najpierw zrozum instalację, potem chwytaj klucz.</p></div>
+      <div class="tl-item"><div class="tl-year">2011</div><p>Uprawnienia gazowe i pierwsze samodzielne zlecenia. Kotły, piece, wymiany pionów w blokach z lat 70.</p></div>
+      <div class="tl-item"><div class="tl-year">2016</div><p>Rejestracja własnej działalności — HydroFix. Do auta wchodzi kamera inspekcyjna i sprzęt do wykrywania nieszczelności.</p></div>
+      <div class="tl-item"><div class="tl-year">Dziś</div><p>Stali klienci: mieszkania, domy, wspólnoty i kilka lokali gastronomicznych. Nadal odbieram telefon osobiście.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- USŁUGI -->
+<section id="uslugi">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Usługi hydrauliczne — Kraków</h2>
+      <p>Krótko i konkretnie: to są rzeczy, które robię najczęściej.</p>
+    </div>
+    <div class="services">
+      <div class="srv"><span class="emoji" aria-hidden="true">💧</span><div><h3>Awarie i przecieki</h3><p>Pękniętą rurę, cieknący pion czy zalane mieszkanie traktuję priorytetowo — lokalizuję źródło i zabezpieczam instalację jeszcze tego samego dnia.</p></div></div>
+      <div class="srv"><span class="emoji" aria-hidden="true">🚿</span><div><h3>Montaż i wymiana armatury</h3><p>Baterie, umywalki, wanny, kabiny, WC podtynkowe i zmywarki — z podłączeniem, sprawdzeniem szczelności i posprzątaniem po sobie.</p></div></div>
+      <div class="srv"><span class="emoji" aria-hidden="true">🌀</span><div><h3>Udrażnianie kanalizacji</h3><p>Mechaniczne czyszczenie odpływów i pionów, w razie potrzeby inspekcja kamerą, żeby wiedzieć, co naprawdę blokuje rurę.</p></div></div>
+      <div class="srv"><span class="emoji" aria-hidden="true">🔧</span><div><h3>Instalacje wod-kan w remoncie</h3><p>Rozprowadzenie nowych instalacji w mieszkaniu lub domu, przeróbki punktów wodnych, próby ciśnieniowe przed zakryciem ścian.</p></div></div>
+      <div class="srv"><span class="emoji" aria-hidden="true">🔥</span><div><h3>Ogrzewanie, kotły i piece</h3><p>Montaż, wymiana i serwis kotłów, podłączanie grzejników, odpowietrzanie i uzupełnianie instalacji przed sezonem.</p></div></div>
+      <div class="srv"><span class="emoji" aria-hidden="true">🔎</span><div><h3>Wykrywanie nieszczelności</h3><p>Szukanie wycieków bez kucia całej ściany — sprzęt do lokalizacji punktowej i naprawa dokładnie w miejscu usterki.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CYTAT -->
+<section class="quote">
+  <div class="wrap">
+    <span class="mark" aria-hidden="true">”</span>
+    <blockquote>Zalało nam łazienkę w niedzielę wieczorem. Odebrał telefon, przyjechał w godzinę i został, dopóki nie było sucho. Rok później nadal wszystko trzyma — i nadal dzwonimy tylko do niego.</blockquote>
+    <cite>Marta i Paweł, klienci indywidualni — Kraków</cite>
+  </div>
+</section>
+
+<!-- OBSZAR -->
+<section id="obszar">
+  <div class="wrap">
+    <div class="area-grid">
+      <div>
+        <h2>Obszar działania — Kraków i okolica</h2>
+        <p style="color:var(--muted);margin-top:12px">Pracuję głównie w mieście Kraków i w gminach sąsiednich. Dojazd na terenie miasta Kraków jest bezpłatny, poza miastem Kraków doliczam tylko realny koszt paliwa — mówię o nim przez telefon, zanim wsiądę do auta.</p>
+        <ul class="area-list">
+          <li>Mieszkania w blokach i kamienicach</li>
+          <li>Domy jednorodzinne</li>
+          <li>Wspólnoty i spółdzielnie</li>
+          <li>Lokale usługowe i gastronomia</li>
+          <li>Remonty i nowe instalacje</li>
+        </ul>
+      </div>
+      <div class="area-note">
+        <h3>Nie wiesz, czy dojadę?</h3>
+        <p>Zadzwoń i podaj adres — powiem od razu, czy jestem w stanie przyjechać i kiedy. Jeśli akurat nie zdążę, uczciwie to powiem, zamiast przekładać termin trzy razy.</p>
+        <p style="margin-top:14px"><a href="tel:500 123 456"><b>📞 500 123 456</b></a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Najczęstsze pytania o usługi hydrauliczne</h2>
+    </div>
+    <details open>
+      <summary>Ile kosztuje przyjazd i wycena?</summary>
+      <p>Dojazd na terenie miasta Kraków i wycena są bezpłatne. Cenę naprawy podaję na miejscu, przed rozpoczęciem pracy — jeśli się na nią nie zgodzisz, nic nie płacisz.</p>
+    </details>
+    <details>
+      <summary>Jak szybko dojedziesz przy awarii?</summary>
+      <p>Przy zalaniu, pękniętej rurze lub braku wody staram się być na miejscu w ciągu kilku godzin od zgłoszenia. Najszybciej działa telefon — 500 123 456 — bo maile sprawdzam między zleceniami.</p>
+    </details>
+    <details>
+      <summary>Czy pracujesz w soboty?</summary>
+      <p>Tak. W dni robocze pracuję 7:00 - 20:00, w soboty 8:00 - 14:00. Awarie odbieram również poza tymi godzinami — wtedy obowiązuje stawka za pilny przyjazd, o której informuję przez telefon.</p>
+    </details>
+    <details>
+      <summary>Czy dajesz gwarancję na wykonaną pracę?</summary>
+      <p>Na montaże i wykonane instalacje daję 24 miesiące gwarancji na piśmie. Jeśli w tym czasie coś zacznie przeciekać z mojej winy, wracam i poprawiam bez dodatkowych kosztów.</p>
+    </details>
+    <details>
+      <summary>Czy trzeba kuć ściany, żeby znaleźć wyciek?</summary>
+      <p>W większości przypadków nie. Używam sprzętu do lokalizacji nieszczelności i kamery inspekcyjnej, dzięki czemu odkrywam tylko ten fragment ściany lub posadzki, w którym faktycznie jest usterka.</p>
+    </details>
+    <details>
+      <summary>Czy wystawiasz fakturę?</summary>
+      <p>Tak, na życzenie wystawiam fakturę zarówno dla osób prywatnych, jak i dla firm oraz wspólnot. Płatność gotówką, przelewem lub BLIK-iem.</p>
+    </details>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section id="kontakt">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <h2>Zadzwoń bezpośrednio do mnie — HydroFix</h2>
+        <p style="color:var(--muted);margin-top:12px">Bez formularzy i infolinii. Telefon odbieram osobiście — jeśli akurat jestem pod zlewem, oddzwaniam przy pierwszej wolnej chwili.</p>
+
+        <div class="call-card">
+          <img class="portrait" width="940" height="650" loading="lazy"
+               src="https://images.pexels.com/photos/8642041/pexels-photo-8642041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+               alt="Portret właściciela firmy HydroFix — hydraulik Kraków">
+          <div>
+            <span class="label">Zadzwoń bezpośrednio</span>
+            <a class="num" href="tel:500 123 456">500 123 456</a>
+          </div>
+        </div>
+
+        <ul class="info-list">
+          <li><span aria-hidden="true">📍</span><div><b>Adres</b><br>ul. Przykładowa 12, Kraków</div></li>
+          <li><span aria-hidden="true">✉️</span><div><b>E-mail</b><br><a href="mailto:kontakt@hydrofix.pl">kontakt@hydrofix.pl</a></div></li>
+          <li><span aria-hidden="true">🕘</span><div><b>Godziny pracy</b><br>Pon–Pt: 7:00 - 20:00<br>Sobota: 8:00 - 14:00</div></li>
+          <li><span aria-hidden="true">🚨</span><div><b>Awarie</b><br>Zgłoszenia pilne przyjmuję także poza godzinami pracy</div></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="map">
+          <iframe src="https://www.google.com/maps?q=ul. Przykładowa 12, Kraków&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;width:100%;height:320px" title="Mapa dojazdu — ul. Przykładowa 12, Kraków"></iframe>
+        </div>
+        <a class="btn btn-main" href="tel:500 123 456" style="margin-top:20px"><span aria-hidden="true">📞</span> Zadzwoń: 500 123 456</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">HydroFix</div>
+        <p>Hydraulik — Kraków<br>ul. Przykładowa 12, Kraków</p>
+      </div>
+      <div class="foot-links">
+        <a href="#historia">Moja historia</a>
+        <a href="#uslugi">Usługi</a>
+        <a href="#obszar">Obszar działania</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="foot-links">
+        <a href="tel:500 123 456">📞 500 123 456</a>
+        <a href="mailto:kontakt@hydrofix.pl">✉️ kontakt@hydrofix.pl</a>
+        <p>Pon–Pt: 7:00 - 20:00<br>Sobota: 8:00 - 14:00</p>
+      </div>
+    </div>
+    <div class="copy">© <span id="rok">2026</span> HydroFix — wszelkie prawa zastrzeżone.</div>
+  </div>
+</footer>
+
+<script>document.getElementById('rok').textContent=new Date().getFullYear();</script>
+</body>
+</html>

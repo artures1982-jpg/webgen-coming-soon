@@ -9,3 +9,9 @@ CONTEXT.md
 .vercel
 .env*.local
 .env*
+.claude/settings.local.json
+mcp/qa-szablony/screenshots/*.png
+
+# MCP qa-szablony — generowane artefakty, nie wersjonujemy
+mcp/qa-szablony/reports/
+mcp/qa-szablony/screenshots/

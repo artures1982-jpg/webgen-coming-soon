@@ -224,6 +224,51 @@ panel-6: Generuj — 3 warianty równolegle (klasyczny/nowoczesny/elegancki)
 
 ---
 
+## Produkcja szablonów
+
+Proces wytwarzania szablonów (pipeline, twarde zasady, pułapki, checklista weryfikacji)
+żyje w `docs/produkcja-szablonow/`:
+
+- `README.md` — pipeline brief → prompt → generacja → 3 pliki, status pilota, podział pracy
+- `ZASADY.md` — architektura CSS-var, gramatyka `{{MIASTO}}`, mapa, zdjęcia, pułapki mobile
+
+**Przed tworzeniem lub poprawianiem wariantu szablonu przeczytaj `ZASADY.md`** — każda reguła
+tam wynika z realnego błędu, który już raz kosztował poprawkę.
+
+**Przeczytaj też `docs/produkcja-szablonow/REJESTR-BLEDOW.md`** — ZASADY mówią, jak ma być;
+rejestr mówi, po czym poznasz, że jest źle, i dlaczego kontrola tego nie złapała. Zawiera m.in.
+pułapki weryfikacyjne (automatyczny scroll przy `scroll-behavior:smooth` pokazuje pustą stronę;
+`disabled` blokuje `click`, więc testy programistyczne przepuszczają martwy przycisk).
+
+**Kontrole deterministyczne są w serwerze MCP `qa-szablony`** (`mcp/qa-szablony/`, zarejestrowany
+lokalnie): `sprawdz_szablon`, `sprawdz_mobile`, `porownaj_teksty`. Nie pisz własnych grepów tam,
+gdzie narzędzie już to robi. Narzędzia zwracają dane i zrzuty, a nie werdykty w sprawach ocennych
+— reguła 6.8 i nastrój palety wymagają oceny okiem i są jawnie oznaczane jako
+`wymaga_oceny_wzrokowej`.
+
+**OBOWIĄZKOWY FLOW — dotyczy KAŻDEJ sesji, KAŻDEGO wariantu, bez wyjątku:**
+Warianty szablonów NIGDY nie są pisane bezpośrednio przez główną sesję i samodzielnie
+zatwierdzane. Ustalony proces (2026-09-02, po incydencie gdzie samodzielnie napisany i
+zatwierdzony wariant ominął realne błędy):
+1. Główna sesja pisze/aktualizuje brief w `scripts/generate-<branża>-pilot.js` i — jeśli trzeba
+   zdjęć — wyszukuje je przez Chrome i weryfikuje `curl` (200, brak duplikatu w branży).
+2. Subagent `designer-ux-ui` buduje plik HTML/CSS od zera na podstawie briefu (nie główna sesja).
+3. Subagent `copywriter-szablonow` recenzuje tekst gotowego pliku (osobne wywołanie, po designie).
+3a. Subagent `qa-szablonow` robi niezależny przegląd gotowego pliku — OSOBNY agent, nie
+   `designer-ux-ui` w roli kontrolera. Buduje kto inny, sprawdza kto inny.
+4. Główna sesja robi statyczne checki, mirror do `preview/`, wersję wypełnioną, weryfikację
+   wizualną, commit, push, deploy — i pokazuje link Arturowi.
+5. Jeden wariant na raz — czekaj na jego akceptację, zanim zaczniesz kolejny (chyba że Artur
+   wyraźnie powie inaczej).
+
+Nie pomijaj kroku 2 ani 3 "dla oszczędności" ani gdy wydaje się, że wariant jest prosty — właśnie
+tak ominięto zdjęcia, ruch i realne błędy w kilku wariantach, co wymagało później retrospektywnego
+retrofitu całych branż. Ten flow dotyczy też poprawek po feedbacku — nie edytuj samodzielnie
+gotowego wariantu bez przepuszczenia zmiany przez właściwego agenta, chyba że to trywialna,
+mechaniczna zmiana (np. podmiana jednego zweryfikowanego zdjęcia, literówka).
+
+---
+
 ## Pending
 
 - [ ] Test pełnego flow generowania end-to-end

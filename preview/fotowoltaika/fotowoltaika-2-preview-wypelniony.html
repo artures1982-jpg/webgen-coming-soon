@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solvea — panel monitoringu fotowoltaiki na żywo, Kraków | tel. 500 123 456</title>
+<meta name="description" content="Solvea — zobacz panel produkcji instalacji fotowoltaicznej, zanim podpiszesz umowę. Dobór mocy z rachunku, serwis zdalny i monitoring alarmowy falownika. Tel. 500 123 456">
+<meta name="keywords" content="fotowoltaika Kraków, monitoring fotowoltaiki Kraków, panel produkcji PV, serwis falownika Kraków, magazyn energii">
+<link rel="canonical" href="https://solvea-krakow.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Solvea — panel monitoringu fotowoltaiki na żywo, Kraków">
+<meta property="og:description" content="Panel produkcji przykładowej instalacji stoi otwarty na tej stronie — zanim jeszcze umówisz audyt dachu. Tel. 500 123 456">
+<meta property="og:url" content="https://solvea-krakow.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","name":"Solvea","telephone":"500 123 456","email":"kontakt@solvea.pl","description":"Solvea montuje i serwisuje instalacje fotowoltaiczne — panel monitoringu produkcji dostępny od razu po montażu, zdalna diagnostyka alarmów falownika, dobór mocy instalacji dopasowany do realnego zużycia.","address":{"@type":"PostalAddress","streetAddress":"ul. Przykładowa 12","addressLocality":"Kraków","addressCountry":"PL"},"areaServed":"PL","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"17:00"}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Mukta:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* PALETA — grafit/antracyt (nie kolejny stonowany błękit na jasnym tle jak wariant 1) z jednym
+   nasyconym akcentem elektrycznej limonki (hue ~85°, bliżej zieleni niż żółci) — odrębny od
+   eko-zieleni (czysta zieleń, inne branże), od oliwkowo-żółtej "musztardowej" limonki użytej gdzie
+   indziej w systemie (hue ~63°, wyraźnie bardziej żółta) i od nasyconego cyjanu tego samego
+   archetypu "Nowoczesny cyfrowy" w branży Hydraulik — świadomie inny kierunek koloru, żeby nie
+   wyszło jak przemalowany odpowiednik z innej branży. Dokładne hexy poniżej w :root, porównanie
+   zweryfikowane grepem po całym templates/pilot/*.html przed napisaniem tego pliku.
+   Skojarzenie: zielona dioda odczytu na panelu serwisowym / oscyloskopie — pasuje tematycznie do
+   "aplikacja do monitoringu JEST stroną". TYPOGRAFIA: Chakra Petch (techniczny, kanciasty display,
+   nieużyty nigdzie w systemie) + Mukta (czytelny, neutralny sans, nieużyty nigdzie w systemie) —
+   zweryfikowane grepem po całym templates/pilot/*.html.
+   MOTION-BASELINE wariantu 2+ (obowiązkowy, patrz designer-ux-ui.md): ambientowy ruch w tle hero
+   (pulsujący blask + wolno przesuwająca się siatka), shimmer na primary CTA, reakcja wizualna na
+   obu elementach interaktywnych (flash/glow przy zmianie), stopniowany fade-in kart przy scrollu,
+   realne zdjęcia w kartach scenariusza serwisowego. Wszystko wyłączone pod prefers-reduced-motion. */
+:root{
+  --accent:#9fef2e;
+  --accent-dark:#6f9c1f;
+  --bg:#12140f;
+  --surface:#1b1f17;
+  --text:#eef1ea;
+  --muted:#93a08c;
+  --head:'Chakra Petch', sans-serif;
+  --body:'Mukta', sans-serif;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;scroll-padding-top:5.5rem;}
+body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.62;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+ul{list-style:none;}
+h1,h2,h3,h4{font-family:var(--head);line-height:1.15;font-weight:700;color:var(--text);}
+section{padding:5.2rem 1.5rem;position:relative;}
+.wrap{max-width:1180px;margin:0 auto;}
+.eyebrow{display:inline-block;font-family:var(--head);font-weight:600;font-size:.76rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:.9rem;}
+h2{font-size:clamp(1.9rem,3.3vw,2.5rem);margin-bottom:1rem;}
+.lead{color:var(--muted);font-size:1.03rem;max-width:660px;}
+.center{text-align:center;margin-left:auto;margin-right:auto;}
+.tabular{font-variant-numeric:tabular-nums;}
+
+.btn{display:inline-flex;align-items:center;gap:.6rem;padding:.95rem 1.9rem;border-radius:.4rem;font-weight:700;font-family:var(--body);font-size:.96rem;border:1.5px solid transparent;cursor:pointer;transition:background .2s ease, color .2s ease, border-color .2s ease, transform .15s ease, box-shadow .2s ease;position:relative;overflow:hidden;}
+.btn:hover{transform:translateY(-2px);}
+.btn-primary{background:var(--accent);color:var(--bg);box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent);animation:btnGlow 2.6s ease-in-out infinite;}
+.btn-primary:hover{background:var(--accent-dark);}
+.btn-primary::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(115deg, transparent, color-mix(in srgb, white 55%, transparent), transparent);transform:skewX(-18deg);animation:btnShine 3.4s ease-in-out infinite;}
+.btn-outline{border-color:color-mix(in srgb, var(--text) 26%, transparent);color:var(--text);background:transparent;}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+@keyframes btnGlow{
+  0%,100%{box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent);}
+  50%{box-shadow:0 0 26px 4px color-mix(in srgb, var(--accent) 45%, transparent);}
+}
+@keyframes btnShine{
+  0%{left:-60%;}
+  35%{left:130%;}
+  100%{left:130%;}
+}
+
+/* ---------- NAV — hamburger na progu 960px (ZASADY.md 6.6, zmierzone bezpieczne dla logo +
+   5 linków + CTA + telefon). Dropdown mobilny jest rodzeństwem .wrap, nie jego potomkiem
+   (ZASADY.md 6.4). Inny mechanizm wizualny niż wariant 1: logo z pulsującą kropką "system aktywny"
+   zamiast kwadratowego znaczka, linki wyrównane do prawej zamiast wyśrodkowane. ---------- */
+header.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--bg) 92%, black);backdrop-filter:blur(6px);border-bottom:1px solid color-mix(in srgb, var(--accent) 18%, transparent);}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;gap:1.4rem;}
+.logo{display:flex;align-items:center;gap:.6rem;min-width:0;flex-shrink:1;}
+.logo-dot{width:9px;height:9px;flex-shrink:0;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent);animation:dotPulse 2.2s ease-in-out infinite;}
+@keyframes dotPulse{
+  0%,100%{box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent);}
+  50%{box-shadow:0 0 0 6px color-mix(in srgb, var(--accent) 0%, transparent);}
+}
+.logo-name{display:inline-block;font-family:var(--head);font-weight:700;font-size:1.28rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;vertical-align:bottom;}
+.nav-links-desktop{display:flex;gap:1.5rem;flex:1;justify-content:flex-end;margin-right:1.5rem;}
+.nav-links-desktop a{font-weight:600;font-size:.87rem;color:var(--muted);white-space:nowrap;transition:color .15s ease;}
+.nav-links-desktop a:hover{color:var(--accent);}
+.nav-links-mobile{display:none;}
+.nav-actions{display:flex;align-items:center;gap:.75rem;flex-shrink:0;}
+.nav-phone{display:flex;align-items:center;gap:.5rem;padding:.6rem 1rem;border-radius:.4rem;border:1.5px solid color-mix(in srgb, var(--text) 22%, transparent);font-weight:700;font-size:.87rem;white-space:nowrap;}
+.nav-phone .icon{display:none;}
+.nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.35rem;flex-shrink:0;}
+.nav-toggle span{width:22px;height:2px;background:var(--text);}
+@media (max-width:960px){
+  .nav-links-desktop{display:none;}
+  .nav-toggle{display:flex;}
+  .nav-links-mobile{display:none;position:absolute;top:100%;left:0;right:0;background:var(--surface);border-bottom:1px solid color-mix(in srgb, var(--accent) 18%, transparent);flex-direction:column;padding:.4rem 1.5rem 1.4rem;gap:0;}
+  .nav-links-mobile.open{display:flex;}
+  .nav-links-mobile a{padding:.85rem 0;font-weight:600;font-size:.97rem;border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);color:var(--text);}
+  .nav-links-mobile a:last-child{border-bottom:none;}
+  .nav-links-mobile .mobile-cta{color:var(--accent);font-weight:700;}
+}
+@media (max-width:700px){
+  .nav-phone{width:44px;height:44px;padding:0;justify-content:center;border-radius:50%;}
+  .nav-phone .txt{display:none;}
+  .nav-phone .icon{display:inline;}
+  .nav-actions > .btn{display:none;}
+}
+
+/* ---------- HERO — text-forward (mechanizm "wow" żyje w sekcji panelu niżej, nie w hero), z
+   ambientowym ruchem tła (siatka + poświata) i zdjęciem jako mniejszym, w-flow elementem z boku —
+   inaczej niż wariant 1 (duże zdjęcie + kwitek na krawędzi). Zdjęcie NIE ma karty position:absolute
+   nachodzącej na fotografię (ZASADY.md 6.8) — badge trzyma się w normalnym flow z ujemnym marginesem. */
+.hero{background:
+    radial-gradient(680px 420px at 82% -10%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%),
+    var(--bg);
+  overflow:hidden;padding-top:4.4rem;}
+.hero-grid-lines{position:absolute;inset:0;background-image:linear-gradient(color-mix(in srgb, var(--accent) 7%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--accent) 7%, transparent) 1px, transparent 1px);background-size:46px 46px;mask-image:linear-gradient(180deg, black, transparent 75%);animation:gridDrift 14s linear infinite;pointer-events:none;}
+@keyframes gridDrift{ from{background-position:0 0, 0 0;} to{background-position:46px 46px, -46px 46px;} }
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center;position:relative;}
+.hero-copy .eyebrow{color:var(--accent);}
+.hero h1{font-size:clamp(2.1rem,4.4vw,3.15rem);margin-bottom:1.1rem;}
+.hero h1 em{color:var(--accent);font-style:normal;}
+.hero .lead{font-size:1.06rem;margin-bottom:1.8rem;}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:.9rem;margin-bottom:1.8rem;}
+.hero-note{display:flex;align-items:flex-start;gap:.6rem;font-size:.9rem;color:var(--muted);max-width:520px;}
+.hero-visual{position:relative;}
+.hero-photo-wrap{border-radius:.9rem;overflow:hidden;border:1px solid color-mix(in srgb, var(--accent) 22%, transparent);}
+.hero-photo{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;}
+.hero-badge{position:relative;margin:-2.4rem 1.4rem 0 auto;width:min(280px, 82%);background:var(--surface);border:1px solid color-mix(in srgb, var(--accent) 30%, transparent);border-radius:.7rem;padding:1rem 1.2rem;box-shadow:0 14px 30px -12px color-mix(in srgb, black 60%, transparent);}
+.hero-badge .num{display:block;font-family:var(--head);font-weight:700;font-size:1.5rem;color:var(--accent);}
+.hero-badge .lbl{display:block;font-size:.8rem;color:var(--muted);margin-top:.1rem;}
+@media (max-width:960px){
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-visual{order:2;}
+}
+@media (max-width:700px){
+  .hero-badge{margin:-1.9rem 1rem 0 auto;width:min(240px,78%);padding:.8rem 1rem;}
+}
+
+/* ---------- TRUST STRIP — pod hero, nigdy w nim (patrz research rynkowy 02.09.2026). Liczniki
+   doliczają się przy wejściu w viewport. ---------- */
+.trust{padding:2.6rem 1.5rem;border-top:1px solid color-mix(in srgb, var(--accent) 14%, transparent);border-bottom:1px solid color-mix(in srgb, var(--accent) 14%, transparent);}
+.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;text-align:center;}
+.trust-grid .num{display:block;font-family:var(--head);font-weight:700;font-size:clamp(1.6rem,3vw,2.1rem);color:var(--accent);}
+.trust-grid .lbl{display:block;font-size:.85rem;color:var(--muted);margin-top:.25rem;}
+@media (max-width:700px){ .trust-grid{grid-template-columns:1fr;gap:1.4rem;} }
+
+/* ---------- FADE-IN przy scrollu (motion-baseline pkt 4) ---------- */
+.fade-card{opacity:0;transform:translateY(18px);transition:opacity .55s ease, transform .55s ease;}
+.fade-card.visible{opacity:1;transform:none;}
+
+/* ---------- PANEL PRODUKCJI NA ŻYWO — sedno wariantu. Wykres SVG rysowany natywnie. ---------- */
+.panel{background:var(--surface);}
+.panel-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.2rem;margin-bottom:1.6rem;}
+.live-tag{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--head);font-weight:600;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:dotPulse 1.8s ease-in-out infinite;}
+.range-toggle{display:inline-flex;background:var(--bg);border:1px solid color-mix(in srgb, var(--accent) 22%, transparent);border-radius:.6rem;padding:.25rem;gap:.2rem;}
+.range-toggle button{font-family:var(--body);font-weight:600;font-size:.86rem;padding:.55rem 1.1rem;border-radius:.4rem;border:none;background:transparent;color:var(--muted);cursor:pointer;transition:background .18s ease, color .18s ease;}
+.range-toggle button[aria-pressed="true"]{background:var(--accent);color:var(--bg);}
+.dash-card{background:var(--bg);border:1px solid color-mix(in srgb, var(--accent) 16%, transparent);border-radius:1rem;padding:1.8rem;}
+.dash-top{display:flex;flex-wrap:wrap;gap:2rem;margin-bottom:1.6rem;}
+.dash-stat .num{font-family:var(--head);font-weight:700;font-size:2.1rem;color:var(--text);transition:color .3s ease, text-shadow .3s ease;}
+.dash-stat .num.flash{color:var(--accent);text-shadow:0 0 18px color-mix(in srgb, var(--accent) 70%, transparent);}
+.dash-stat .unit{font-size:1.1rem;color:var(--muted);font-weight:500;}
+.dash-stat .lbl{display:block;font-size:.85rem;color:var(--muted);margin-top:.15rem;}
+.chart-wrap{width:100%;overflow:hidden;}
+.chart-wrap svg{width:100%;height:220px;display:block;}
+.chart-bar{transition:height .5s cubic-bezier(.4,0,.2,1), y .5s cubic-bezier(.4,0,.2,1);}
+.chart-label{font-family:var(--body);font-size:10px;fill:var(--muted);}
+.panel-note{margin-top:1.4rem;font-size:.85rem;color:var(--muted);border-top:1px dashed color-mix(in srgb, var(--muted) 40%, transparent);padding-top:1rem;}
+@media (max-width:700px){ .dash-card{padding:1.3rem;} .dash-top{gap:1.4rem;} .dash-stat .num{font-size:1.7rem;} }
+
+/* ---------- DOBÓR MOCY Z RACHUNKU ---------- */
+.dobor{background:var(--bg);}
+.dobor-card{background:var(--surface);border:1px solid color-mix(in srgb, var(--accent) 16%, transparent);border-radius:1rem;padding:2rem;display:grid;grid-template-columns:1.1fr .9fr;gap:2.4rem;align-items:center;min-width:0;}
+.dobor-slider{min-width:0;}
+.dobor-slider label{display:block;font-weight:600;margin-bottom:1.1rem;}
+.dobor-slider input[type=range]{width:100%;accent-color:var(--accent);height:6px;}
+.dobor-scale{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);margin-top:.5rem;}
+.dobor-value{text-align:center;font-family:var(--head);font-weight:700;font-size:1.4rem;color:var(--accent);margin-top:1rem;}
+.dobor-result{background:var(--bg);border:1px solid color-mix(in srgb, var(--accent) 20%, transparent);border-radius:.8rem;padding:1.5rem;min-width:0;transition:box-shadow .3s ease;}
+.dobor-result.flash{box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent);}
+.dobor-result .row{display:flex;justify-content:space-between;align-items:baseline;padding:.5rem 0;border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);}
+.dobor-result .row:last-of-type{border-bottom:none;}
+.dobor-result .row .v{font-family:var(--head);font-weight:700;font-size:1.25rem;color:var(--text);white-space:nowrap;}
+.dobor-disclaimer{margin-top:1rem;font-size:.8rem;color:var(--muted);display:flex;gap:.5rem;}
+@media (max-width:800px){ .dobor-card{grid-template-columns:1fr;} }
+
+/* ---------- SERWIS ZDALNY — oś scenariusza godzina po godzinie, dwa realne zdjęcia ---------- */
+.serwis{background:var(--surface);}
+.serwis-track{display:grid;gap:1.6rem;position:relative;}
+.serwis-step{display:grid;grid-template-columns:120px 1fr;gap:1.4rem;background:var(--bg);border:1px solid color-mix(in srgb, var(--accent) 14%, transparent);border-radius:.9rem;padding:1.4rem;min-width:0;}
+.serwis-step .t{font-family:var(--head);font-weight:700;color:var(--accent);font-size:1rem;}
+.serwis-step h3{font-size:1.08rem;margin-bottom:.4rem;}
+.serwis-step p{color:var(--muted);font-size:.94rem;}
+.serwis-photo{margin-top:.9rem;border-radius:.6rem;overflow:hidden;}
+.serwis-photo img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;}
+.serwis-photo figcaption{font-size:.78rem;color:var(--muted);padding:.5rem .1rem 0;}
+@media (max-width:640px){ .serwis-step{grid-template-columns:1fr;} .serwis-step .t{font-size:.9rem;} }
+
+/* ---------- CO WCHODZI W INSTALACJĘ — porównanie komponentów ---------- */
+.komponenty-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;}
+.komponent-card{background:var(--surface);border:1px solid color-mix(in srgb, var(--accent) 14%, transparent);border-radius:.9rem;padding:1.6rem;min-width:0;}
+.komponent-card .ico{font-size:1.6rem;display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:.6rem;background:color-mix(in srgb, var(--accent) 14%, transparent);margin-bottom:1rem;}
+.komponent-card h3{font-size:1.08rem;margin-bottom:.5rem;}
+.komponent-card p{color:var(--muted);font-size:.92rem;}
+.komponent-card .fit{margin-top:.9rem;font-size:.82rem;font-weight:600;color:var(--accent);}
+@media (max-width:800px){ .komponenty-grid{grid-template-columns:1fr;} }
+
+/* ---------- BANNER PEŁNOSZEROKOŚCIOWY — precyzja montażu (macierz z góry) ---------- */
+.banner{padding:0;}
+.banner-wrap{position:relative;}
+.banner img{width:100%;height:auto;aspect-ratio:21/9;object-fit:cover;}
+.banner-overlay{position:absolute;inset:0;background:linear-gradient(180deg, color-mix(in srgb, var(--bg) 20%, transparent), color-mix(in srgb, var(--bg) 78%, transparent) 88%);display:flex;align-items:flex-end;}
+.banner-text{padding:2rem 1.5rem;max-width:1180px;margin:0 auto;width:100%;}
+.banner-text h2{margin-bottom:.3rem;}
+.banner-text p{color:var(--muted);max-width:520px;}
+@media (max-width:700px){ .banner img{aspect-ratio:4/5;} }
+
+/* ---------- DOTACJE — macierz robimy/nie zamiast dwóch osobnych list (wariant 1) ---------- */
+.dotacje-matrix{border:1px solid color-mix(in srgb, var(--accent) 16%, transparent);border-radius:1rem;overflow:hidden;}
+.dotacje-row{display:grid;grid-template-columns:1.4fr 1fr 1fr;border-top:1px solid color-mix(in srgb, var(--accent) 12%, transparent);}
+.dotacje-row:first-child{border-top:none;background:var(--surface);}
+.dotacje-row > div{padding:1.1rem 1.3rem;font-size:.92rem;min-width:0;}
+.dotacje-row:first-child > div{font-family:var(--head);font-weight:600;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
+.dotacje-row .topic{font-weight:600;}
+.dotacje-row .yes{color:var(--accent);}
+.dotacje-row .no{color:var(--muted);}
+@media (max-width:700px){
+  .dotacje-row{grid-template-columns:1fr;}
+  .dotacje-row:first-child{display:none;}
+  .dotacje-row > div{padding:.5rem 1.2rem;}
+  .dotacje-row .topic{padding-top:1.1rem;font-family:var(--head);}
+  .dotacje-row .yes::before{content:"✓ ";}
+  .dotacje-row .no::before{content:"✕ ";}
+}
+
+/* ---------- OPINIE ---------- */
+.opinie-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;}
+.opinia-card{background:var(--surface);border:1px solid color-mix(in srgb, var(--accent) 14%, transparent);border-radius:.9rem;padding:1.6rem;min-width:0;}
+.opinia-card .kwp{display:inline-block;font-size:.76rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:.7rem;}
+.opinia-card p{font-size:.95rem;margin-bottom:1rem;}
+.opinia-card .who{font-size:.85rem;color:var(--muted);font-weight:600;}
+@media (max-width:860px){ .opinie-grid{grid-template-columns:1fr;} }
+
+/* ---------- FAQ ---------- */
+.faq-list{display:grid;gap:.9rem;max-width:820px;margin:0 auto;}
+.faq-card{background:var(--surface);border:1px solid color-mix(in srgb, var(--accent) 14%, transparent);border-radius:.7rem;padding:1.1rem 1.4rem;}
+.faq-card summary{cursor:pointer;font-weight:600;font-family:var(--head);list-style:none;display:flex;justify-content:space-between;gap:1rem;}
+.faq-card summary::-webkit-details-marker{display:none;}
+.faq-card summary::after{content:"+";color:var(--accent);font-size:1.3rem;}
+.faq-card[open] summary::after{content:"–";}
+.faq-card p{margin-top:.8rem;color:var(--muted);font-size:.95rem;}
+
+/* ---------- KONTAKT ---------- */
+.kontakt-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;}
+.contact-card, .form-card{background:var(--surface);border:1px solid color-mix(in srgb, var(--accent) 16%, transparent);border-radius:1rem;padding:1.8rem;margin-bottom:1.4rem;min-width:0;}
+.contact-card h3, .form-card h3{margin-bottom:.7rem;font-size:1.1rem;}
+.contact-card p{color:var(--muted);font-size:.92rem;margin-bottom:1.2rem;}
+.contact-info{margin-top:1.2rem;display:grid;gap:.5rem;font-size:.9rem;}
+.contact-info b{display:inline-block;width:80px;color:var(--muted);font-weight:600;}
+.form-group{margin-bottom:1rem;}
+.form-group label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:.4rem;}
+.form-group input, .form-group textarea{width:100%;padding:.75rem .9rem;border-radius:.5rem;border:1.5px solid color-mix(in srgb, var(--text) 20%, transparent);background:var(--bg);color:var(--text);font-family:var(--body);font-size:.95rem;}
+.form-group textarea{min-height:100px;resize:vertical;}
+.form-status{display:none;margin-top:1rem;font-size:.88rem;color:var(--accent);font-weight:600;}
+.map-panel{border-radius:1rem;overflow:hidden;border:1px solid color-mix(in srgb, var(--accent) 16%, transparent);min-height:320px;}
+.map-panel iframe{border:0;width:100%;height:100%;min-height:320px;}
+@media (max-width:860px){ .kontakt-grid{grid-template-columns:1fr;} }
+
+footer{padding:3rem 1.5rem 2rem;text-align:center;border-top:1px solid color-mix(in srgb, var(--accent) 14%, transparent);}
+.footer-logo{font-family:var(--head);font-weight:700;font-size:1.2rem;margin-bottom:.8rem;}
+footer p{color:var(--muted);max-width:620px;margin:0 auto 1.4rem;font-size:.92rem;}
+.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1.2rem;margin-bottom:1.4rem;font-size:.88rem;}
+.footer-links a:hover{color:var(--accent);}
+.footer-bottom{font-size:.8rem;color:var(--muted);}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  .hero-grid-lines, .logo-dot, .live-dot, .btn-primary, .btn-primary::after{animation:none;}
+  .fade-card{opacity:1;transform:none;transition:none;}
+  .chart-bar, .dash-stat .num, .dobor-result{transition:none;}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo">
+      <span class="logo-dot" aria-hidden="true"></span>
+      <span class="logo-name">Solvea</span>
+    </a>
+    <nav class="nav-links-desktop">
+      <a href="#panel">Panel na żywo</a>
+      <a href="#dobor-mocy">Dobór mocy</a>
+      <a href="#serwis">Serwis zdalny</a>
+      <a href="#dotacje">Dotacje</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="tel:500 123 456" class="nav-phone" aria-label="Zadzwoń: 500 123 456"><span class="txt">📞 500 123 456</span><span class="icon" aria-hidden="true">📞</span></a>
+      <a href="#kontakt" class="btn btn-primary">Umów audyt dachu</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu nawigacji" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-links-mobile" id="navLinksMobile">
+    <a href="#kontakt" class="mobile-cta">Umów audyt dachu</a>
+    <a href="#panel">Panel na żywo</a>
+    <a href="#dobor-mocy">Dobór mocy</a>
+    <a href="#serwis">Serwis zdalny</a>
+    <a href="#dotacje">Dotacje</a>
+    <a href="#faq">FAQ</a>
+    <a href="tel:500 123 456">📞 500 123 456</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-grid-lines" aria-hidden="true"></div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Solvea — monitoring instalacji PV</span>
+      <h1>Zobacz <em>panel produkcji</em>, zanim podpiszesz umowę</h1>
+      <p class="lead">Większość firm obiecuje aplikację do monitoringu jako dodatek po montażu. U nas ten sam panel stoi otwarty na tej stronie — z prawdziwym wykresem przykładowej instalacji, zakresem dziś / miesiąc / rok i danymi, które po montażu widzisz dla własnego dachu.</p>
+      <div class="hero-ctas">
+        <a href="#panel" class="btn btn-primary">Zobacz panel na żywo</a>
+        <a href="#kontakt" class="btn btn-outline">Umów bezpłatny audyt dachu</a>
+      </div>
+      <div class="hero-note">
+        <span aria-hidden="true">📍</span>
+        <span>Panel serwisowy śledzimy z biura w mieście Kraków — ale gdy alarm przychodzi z dachu 40 km dalej, widzimy go dokładnie tak samo szybko.</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-photo-wrap">
+        <img class="hero-photo" src="https://images.pexels.com/photos/9875676/pexels-photo-9875676.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Widok z lotu ptaka na osiedle domów jednorodzinnych z panelami fotowoltaicznymi na wielu dachach">
+      </div>
+      <div class="hero-badge">
+        <span class="num tabular" data-counter="1240" data-suffix="+">0</span>
+        <span class="lbl">instalacji pod stałym nadzorem monitoringu</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trust">
+  <div class="wrap trust-grid">
+    <div class="fade-card">
+      <span class="num tabular" data-counter="9">0</span>
+      <span class="lbl">lat serwisu zdalnego i monitoringu falowników</span>
+    </div>
+    <div class="fade-card">
+      <span class="num tabular" data-counter="94" data-suffix="%">0</span>
+      <span class="lbl">alarmów wykrytych, zanim klient sam zauważył spadek produkcji</span>
+    </div>
+    <div class="fade-card">
+      <span class="num tabular" data-counter="48" data-suffix="h">0</span>
+      <span class="lbl">maksymalny czas do wizyty serwisanta, jeśli usterki nie da się usunąć zdalnie</span>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="panel">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Panel produkcji na żywo</span>
+    <h2 class="center" style="text-align:center;">Tak wygląda Twój panel po montażu</h2>
+    <p class="lead center" style="text-align:center;margin-bottom:2.2rem;">To dane przykładowej instalacji 6,8 kWp — Kraków, nie podgląd cudzego licznika. Po montażu dostajesz dokładnie taki sam widok dla własnego dachu, z realnymi odczytami z falownika.</p>
+    <div class="dash-card fade-card">
+      <div class="panel-head">
+        <span class="live-tag"><span class="live-dot" aria-hidden="true"></span>Przykładowe dane — instalacja demonstracyjna</span>
+        <div class="range-toggle" role="tablist" aria-label="Zakres danych panelu produkcji">
+          <button type="button" role="tab" aria-pressed="true" data-range="dzis">Dziś</button>
+          <button type="button" role="tab" aria-pressed="false" data-range="miesiac">Miesiąc</button>
+          <button type="button" role="tab" aria-pressed="false" data-range="rok">Rok</button>
+        </div>
+      </div>
+      <div class="dash-top">
+        <div class="dash-stat">
+          <span class="num tabular" id="dashTotal">0</span><span class="unit"> kWh</span>
+          <span class="lbl" id="dashLabel">Produkcja dziś</span>
+        </div>
+        <div class="dash-stat">
+          <span class="num tabular" id="dashSub" style="font-size:1.15rem;">—</span>
+          <span class="lbl" id="dashSubLabel">Prognoza i realizacja</span>
+        </div>
+      </div>
+      <div class="chart-wrap">
+        <svg id="chartSvg" viewBox="0 0 640 220" preserveAspectRatio="none" role="img" aria-label="Wykres produkcji energii w wybranym zakresie"></svg>
+      </div>
+      <p class="panel-note">Falownik demonstracyjny aktualizuje się co kilka sekund w prawdziwej instalacji — tutaj pokazujemy stały zestaw przykładowych odczytów, żeby dało się bezpiecznie kliknąć w każdy zakres bez czekania na realną pogodę.</p>
+    </div>
+  </div>
+</section>
+
+<section class="dobor" id="dobor-mocy">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Dobór mocy z rachunku</span>
+    <h2 class="center" style="text-align:center;">Ile mocy potrzebujesz? Zacznij od rachunku za prąd</h2>
+    <p class="lead center" style="text-align:center;margin-bottom:2.2rem;">Przesuń suwak na swoją miesięczną kwotę za prąd — zobaczysz orientacyjną moc instalacji i roczną produkcję. To punkt wyjścia do rozmowy, nie oferta.</p>
+    <div class="dobor-card fade-card">
+      <div class="dobor-slider">
+        <label for="rachunekSlider">Miesięczny rachunek za prąd</label>
+        <input type="range" id="rachunekSlider" min="150" max="900" step="10" value="400" aria-describedby="dobor-disclaimer">
+        <div class="dobor-scale"><span>150 zł</span><span>900 zł</span></div>
+        <div class="dobor-value"><span id="rachunekValue" class="tabular">400</span> zł / mc</div>
+      </div>
+      <div class="dobor-result" id="doborResult">
+        <div class="row"><span>Orientacyjna moc instalacji</span><span class="v tabular" id="mocWynik">3,5 kWp</span></div>
+        <div class="row"><span>Szacowana produkcja roczna</span><span class="v tabular" id="produkcjaWynik">3 500 kWh</span></div>
+        <p class="dobor-disclaimer" id="dobor-disclaimer"><span aria-hidden="true">⚠️</span><span>To szacunek wstępny, nie oferta. Liczymy go przy stawce 1,05 zł/kWh i typowym uzysku 1000 kWh z 1 kWp rocznie — u Ciebie obie te liczby będą inne. Realna moc zależy od autokonsumpcji, kierunku i kąta dachu oraz Twojej taryfy; dokładne wyliczenie robimy dopiero po audycie dachu i na podstawie faktur.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="serwis" id="serwis">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Serwis zdalny i monitoring alarmowy</span>
+    <h2 class="center" style="text-align:center;">Zanim zadzwonisz, my już wiemy</h2>
+    <p class="lead center" style="text-align:center;margin-bottom:2.2rem;">System porównuje produkcję z prognozą pogody na bieżąco. Spadek poza normę wysyła alarm do naszego panelu serwisowego — zanim zauważysz cokolwiek na swoim rachunku.</p>
+    <div class="serwis-track">
+      <div class="serwis-step fade-card">
+        <span class="t">00:00</span>
+        <div><h3>Falownik notuje spadek produkcji</h3><p>Odczyt spada wyraźnie poniżej prognozy pogodowej na dany dzień — system oznacza to jako anomalię, nie czeka na koniec doby.</p></div>
+      </div>
+      <div class="serwis-step fade-card">
+        <span class="t">+15 min</span>
+        <div>
+          <h3>Zdalna diagnostyka logów falownika</h3>
+          <p>Alarm trafia do naszego panelu serwisowego. Technik sprawdza logi zdalnie — sporo usterek (błąd komunikacji, chwilowy spadek napięcia sieci) da się rozpoznać i czasem zresetować bez wyjazdu.</p>
+          <figure class="serwis-photo">
+            <img src="https://images.pexels.com/photos/38171183/pexels-photo-38171183.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Wnętrze falownika fotowoltaicznego z bliska, listwy zaciskowe i elektronika sterująca">
+            <figcaption>Diagnostyka zdalna — sprawdzamy logi falownika, zanim ktokolwiek wyjedzie w teren</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="serwis-step fade-card">
+        <span class="t">+2 godz.</span>
+        <div><h3>Dzwonimy pierwsi</h3><p>Jeśli diagnostyka zdalna nie rozwiąże problemu, dzwonimy do Ciebie z informacją, co się dzieje i kiedy przyjedziemy — zanim sam to zgłosisz.</p></div>
+      </div>
+      <div class="serwis-step fade-card">
+        <span class="t">do 48 godz.</span>
+        <div>
+          <h3>Wizyta serwisanta na dachu</h3>
+          <p>Tylko wtedy, gdy zdalna diagnostyka tego wymaga — np. przy uszkodzeniu fizycznym optymalizatora lub złączu na macierzy paneli.</p>
+          <figure class="serwis-photo">
+            <img src="https://images.pexels.com/photos/19895911/pexels-photo-19895911.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Widok z drona na technika idącego po macierzy paneli fotowoltaicznych na dachu">
+            <figcaption>Serwisant w terenie — wizyta tylko wtedy, gdy zdalna diagnostyka tego wymaga</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="instalacja">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Co wchodzi w instalację</span>
+    <h2 class="center" style="text-align:center;">Falownik, optymalizatory, magazyn — czym się różnią</h2>
+    <p class="lead center" style="text-align:center;margin-bottom:2.2rem;">Po ludzku, bez katalogowego żargonu — i kiedy który element realnie się opłaca.</p>
+    <div class="komponenty-grid">
+      <div class="komponent-card fade-card">
+        <span class="ico" aria-hidden="true">⚡</span>
+        <h3>Falownik</h3>
+        <p>Serce systemu — zamienia prąd stały z paneli na prąd zmienny, którego używa dom. To w nim żyje monitoring: stąd panel produkcji bierze wszystkie dane.</p>
+        <span class="fit">W każdej instalacji — bez niego panele nie działają</span>
+      </div>
+      <div class="komponent-card fade-card">
+        <span class="ico" aria-hidden="true">🔧</span>
+        <h3>Optymalizatory mocy</h3>
+        <p>Każdy panel pracuje niezależnie od pozostałych — cień z komina czy anteny na jednym panelu nie ciągnie w dół produkcji całej macierzy.</p>
+        <span class="fit">Opłacają się przy skomplikowanym dachu lub częściowym zacienieniu</span>
+      </div>
+      <div class="komponent-card fade-card">
+        <span class="ico" aria-hidden="true">🔋</span>
+        <h3>Magazyn energii</h3>
+        <p>Gromadzi nadwyżkę z dnia zamiast oddawać ją do sieci po cenie hurtowej — zużywasz ją wieczorem, gdy panele już nie produkują.</p>
+        <span class="fit">Opłaca się, gdy dużo prądu zużywasz po zmroku</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="banner">
+  <div class="banner-wrap">
+    <img src="https://images.pexels.com/photos/7211069/pexels-photo-7211069.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Widok z góry na równą macierz paneli fotowoltaicznych na dachu domu">
+    <div class="banner-overlay">
+      <div class="banner-text">
+        <h2>Precyzja montażu widoczna z góry</h2>
+        <p>Równe rzędy, dokręcone konstrukcje, poprowadzone okablowanie — to, co widać na zdjęciu z drona, sprawdzamy przy każdym odbiorze instalacji.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dotacje" id="dotacje">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Dotacje Mój Prąd i Czyste Powietrze</span>
+    <h2 class="center" style="text-align:center;">Gdzie kończy się nasza rola</h2>
+    <p class="lead center" style="text-align:center;margin-bottom:2.2rem;">Bez sloganu „załatwimy dotację” — konkretnie, punkt po punkcie, co robimy sami i gdzie decyzja zależy wyłącznie od operatora programu.</p>
+    <div class="dotacje-matrix fade-card">
+      <div class="dotacje-row"><div>Temat</div><div>Robimy</div><div>Nie obiecujemy</div></div>
+      <div class="dotacje-row"><div class="topic">Dokumentacja Mój Prąd</div><div class="yes">Specyfikacja z protokołu odbioru — numery seryjne, moc, data uruchomienia</div><div class="no">Że wniosek zostanie przyjęty — to każdorazowo ocena operatora</div></div>
+      <div class="dotacje-row"><div class="topic">Czyste Powietrze (z pompą ciepła)</div><div class="yes">Karta produktu pompy ciepła i potwierdzenie montażu wg wymogów programu</div><div class="no">Konkretnej daty wypłaty — zależy od liczby wniosków w kolejce regionu</div></div>
+      <div class="dotacje-row"><div class="topic">Podpis i dane wnioskodawcy</div><div class="yes">Odpowiedzi na pytania operatora o naszą część dokumentacji</div><div class="no">Złożenia wniosku w Twoim imieniu — dane właściciela nieruchomości podajesz sam</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="opinie">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Opinie</span>
+    <h2 class="center" style="text-align:center;">Co mówią klienci o panelu i serwisie zdalnym</h2>
+    <div class="opinie-grid">
+      <div class="opinia-card fade-card">
+        <span class="kwp">Instalacja 7,2 kWp</span>
+        <p>Panel pokazał spadek produkcji w środę, zanim ja to w ogóle zauważyłem — zadzwonili sami następnego dnia z pytaniem, czy mogę wpuścić serwisanta.</p>
+        <div class="who">Michał, Kraków</div>
+      </div>
+      <div class="opinia-card fade-card">
+        <span class="kwp">Instalacja 5,4 kWp</span>
+        <p>Suwak na stronie pokazał mi orientacyjną moc, zanim jeszcze umówiłem audyt — dzięki temu wiedziałem, o czym w ogóle rozmawiam podczas pierwszej wizyty.</p>
+        <div class="who">Agnieszka, Kraków</div>
+      </div>
+      <div class="opinia-card fade-card">
+        <span class="kwp">Instalacja 8,0 kWp + magazyn</span>
+        <p>Doceniam, że panel od razu pokazuje dane w kWh, a nie w złotówkach — nikt mi nie próbował sprzedać oszczędności, których jeszcze nie widziałem na własne oczy.</p>
+        <div class="who">Tomasz, Kraków</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Pytania i odpowiedzi</span>
+    <h2 class="center" style="text-align:center;">Najczęściej pytacie o panel i serwis</h2>
+    <div class="faq-list">
+      <details class="faq-card" open>
+        <summary>Czy widzę panel produkcji od razu po podpisaniu umowy, czy dopiero po montażu?</summary>
+        <p>Dopiero po montażu i uruchomieniu instalacji — panel łączy się z realnym falownikiem, więc wcześniej nie ma z czego pokazywać danych. Na tej stronie widzisz działający mechanizm na przykładowej instalacji, żebyś wiedział, czego się spodziewać.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Co się dzieje przy realnej awarii falownika?</summary>
+        <p>System wykrywa spadek produkcji poza normę i wysyła alarm do naszego panelu serwisowego. Jeśli zdalna diagnostyka logów nie rozwiąże problemu, dzwonimy pierwsi i umawiamy wizytę — zwykle w ciągu 48 godzin.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Czy magazyn energii się opłaca?</summary>
+        <p>Sprawdzamy to na Twoich danych z panelu, nie na ogólnej regule — jeśli krzywa zużycia pokazuje wysoki pobór po zmroku, magazyn realnie ogranicza to, co oddajesz do sieci po cenie net-billingu. Przy płaskiej krzywej, gdzie większość prądu zużywasz w dzień, magazyn dokłada koszt bez proporcjonalnej korzyści.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Ile realnie trwa zwrot z instalacji monitorowanej zdalnie?</summary>
+        <p>Sam monitoring nie zmienia fizyki zwrotu — ten nadal zależy od autokonsumpcji, wielkości instalacji i taryfy. Zmienia za to czas reakcji na usterki: instalacja, która stoi bezczynnie tydzień z powodu niezauważonej awarii, traci realną produkcję, której monitoring pozwala uniknąć.</p>
+      </details>
+      <details class="faq-card">
+        <summary>Co jeśli internet w domu padnie — czy tracę monitoring?</summary>
+        <p>Falownik loguje dane lokalnie i wysyła je do panelu, gdy tylko połączenie wróci — krótka przerwa w internecie nie oznacza utraty danych, tylko opóźnienie w ich wyświetleniu.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Kontakt</span>
+    <h2 class="center" style="text-align:center;">Umów bezpłatny audyt dachu</h2>
+    <p class="lead center" style="text-align:center;margin-bottom:2.2rem;">Obejrzymy dach, dobierzemy moc do realnego zużycia i pokażemy Ci panel na przykładzie zbliżonym do Twojego domu.</p>
+    <div class="kontakt-grid">
+      <div class="kontakt-col">
+        <div class="contact-card">
+          <h3>Zadzwoń bezpośrednio</h3>
+          <p>Telefon działa w godzinach pracy biura w mieście Kraków — poza nimi zostaw wiadomość w formularzu, oddzwaniamy następnego dnia roboczego.</p>
+          <a href="tel:500 123 456" class="btn btn-primary">📞 500 123 456</a>
+          <div class="contact-info">
+            <div><b>E-mail</b>kontakt@solvea.pl</div>
+            <div><b>Adres</b>ul. Przykładowa 12, Kraków</div>
+            <div><b>Pon–Pt</b>8:00 – 17:00</div>
+            <div><b>Sobota</b>9:00 – 13:00</div>
+          </div>
+        </div>
+        <div class="form-card">
+          <form id="kontaktForm">
+            <div class="form-group">
+              <label for="imie">Imię i nazwisko</label>
+              <input type="text" id="imie" name="imie" required>
+            </div>
+            <div class="form-group">
+              <label for="kontaktEmail">Telefon lub e-mail</label>
+              <input type="text" id="kontaktEmail" name="kontakt" required>
+            </div>
+            <div class="form-group">
+              <label for="wiadomosc">Orientacyjne zużycie prądu lub opis dachu</label>
+              <textarea id="wiadomosc" name="wiadomosc" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Umów audyt dachu</button>
+            <p class="form-status" id="formStatus">Dziękujemy! Odezwiemy się w ciągu 24 godzin roboczych, żeby ustalić termin audytu.</p>
+          </form>
+        </div>
+      </div>
+      <div class="map-panel">
+        <iframe src="https://www.google.com/maps?q=ul. Przykładowa 12, Kraków&output=embed" title="Mapa dojazdu do Solvea w mieście Kraków" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Solvea</div>
+  <p>Solvea montuje instalacje fotowoltaiczne i czuwa nad nimi zdalnie długo po odbiorze — panel produkcji i alarmy z falownika trafiają do naszego biura w mieście Kraków, a serwisant wyjeżdża w teren tylko wtedy, gdy zdalna diagnostyka tego wymaga.</p>
+  <div class="footer-links">
+    <a href="#panel">Panel na żywo</a>
+    <a href="#serwis">Serwis zdalny</a>
+    <a href="#faq">FAQ</a>
+    <a href="tel:500 123 456">500 123 456</a>
+    <a href="mailto:kontakt@solvea.pl">kontakt@solvea.pl</a>
+  </div>
+  <div class="footer-bottom">© <span id="year"></span> Solvea — monitoring i serwis instalacji fotowoltaicznych, Kraków.</div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---------- NAV: hamburger, dropdown poza .wrap (ZASADY.md 6.4) ----------
+  var navToggle = document.getElementById('navToggle');
+  var navLinksMobile = document.getElementById('navLinksMobile');
+  navToggle.addEventListener('click', function(){
+    var isOpen = navLinksMobile.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  navLinksMobile.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      navLinksMobile.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // ---------- FORMULARZ ----------
+  document.getElementById('kontaktForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('formStatus').style.display = 'block';
+    this.reset();
+  });
+
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---------- FADE-IN kart przy scrollu, stopniowany ----------
+  var fadeTargets = document.querySelectorAll('.fade-card');
+  if ('IntersectionObserver' in window && !prefersReducedMotion) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          var el = entry.target;
+          var siblings = Array.prototype.filter.call(el.parentElement.children, function(c){ return c.classList.contains('fade-card'); });
+          var delay = siblings.indexOf(el) * 80;
+          setTimeout(function(){ el.classList.add('visible'); }, delay);
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.12 });
+    fadeTargets.forEach(function(el){ io.observe(el); });
+  } else {
+    fadeTargets.forEach(function(el){ el.classList.add('visible'); });
+  }
+
+  // ---------- LICZNIKI (hero-badge + trust strip) ----------
+  function animateCounter(el){
+    var target = parseFloat(el.getAttribute('data-counter'));
+    var suffix = el.getAttribute('data-suffix') || '';
+    if (prefersReducedMotion) { el.textContent = target.toLocaleString('pl-PL') + suffix; return; }
+    var start = 0;
+    var duration = 1200;
+    var startTime = null;
+    function step(ts){
+      if (!startTime) startTime = ts;
+      var progress = Math.min((ts - startTime) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var current = Math.round(start + (target - start) * eased);
+      el.textContent = current.toLocaleString('pl-PL') + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var counters = document.querySelectorAll('[data-counter]');
+  if ('IntersectionObserver' in window) {
+    var counterIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) { animateCounter(entry.target); counterIO.unobserve(entry.target); }
+      });
+    }, { threshold: 0.4 });
+    counters.forEach(function(el){ counterIO.observe(el); });
+  } else {
+    counters.forEach(animateCounter);
+  }
+
+  // ---------- PANEL PRODUKCJI — wykres SVG natywny, zero bibliotek ----------
+  var CHART_DATA = {
+    dzis:   { total: 18.5, unit: 'kWh', label: 'Produkcja dziś', sub: '19,2 kWh', subLabel: 'Prognoza na dziś · realizacja 96%',
+              labels: ['7','9','11','13','15','17','19'], values: [0.3,1.7,3.6,5.0,4.4,2.7,0.8] },
+    miesiac:{ total: 512, unit: 'kWh', label: 'Produkcja w tym miesiącu', sub: '17,1 kWh', subLabel: 'Średnia dzienna',
+              labels: ['Tydz 1','Tydz 2','Tydz 3','Tydz 4'], values: [118,142,135,117] },
+    rok:    { total: 6380, unit: 'kWh', label: 'Produkcja w tym roku', sub: '532 kWh', subLabel: 'Średnia miesięczna',
+              labels: ['Sty','Lut','Mar','Kwi','Maj','Cze','Lip','Sie','Wrz','Paź','Lis','Gru'],
+              values: [130,240,430,620,860,950,980,900,600,380,170,120] }
+  };
+
+  var chartSvg = document.getElementById('chartSvg');
+  var dashTotal = document.getElementById('dashTotal');
+  var dashLabel = document.getElementById('dashLabel');
+  var dashSub = document.getElementById('dashSub');
+  var dashSubLabel = document.getElementById('dashSubLabel');
+  var VB_W = 640, VB_H = 220, PAD_BOTTOM = 24, PAD_TOP = 6;
+
+  function renderChart(key){
+    var d = CHART_DATA[key];
+    var max = Math.max.apply(null, d.values);
+    var n = d.values.length;
+    var gap = 8;
+    var barW = (VB_W - gap * (n + 1)) / n;
+    var svgns = 'http://www.w3.org/2000/svg';
+    while (chartSvg.firstChild) chartSvg.removeChild(chartSvg.firstChild);
+    d.values.forEach(function(v, i){
+      var h = Math.max(4, (v / max) * (VB_H - PAD_BOTTOM - PAD_TOP));
+      var x = gap + i * (barW + gap);
+      var y = VB_H - PAD_BOTTOM - h;
+      var rect = document.createElementNS(svgns, 'rect');
+      rect.setAttribute('class', 'chart-bar');
+      rect.setAttribute('x', x);
+      rect.setAttribute('y', y);
+      rect.setAttribute('width', barW);
+      rect.setAttribute('height', h);
+      rect.setAttribute('rx', 3);
+      rect.setAttribute('fill', 'var(--accent)');
+      rect.setAttribute('opacity', 0.9);
+      chartSvg.appendChild(rect);
+      var label = document.createElementNS(svgns, 'text');
+      label.setAttribute('class', 'chart-label');
+      label.setAttribute('x', x + barW / 2);
+      label.setAttribute('y', VB_H - 6);
+      label.setAttribute('text-anchor', 'middle');
+      label.textContent = d.labels[i];
+      chartSvg.appendChild(label);
+    });
+
+    var totalFormatted = d.total.toLocaleString('pl-PL', { maximumFractionDigits: 1 });
+    dashTotal.textContent = totalFormatted;
+    dashLabel.textContent = d.label;
+    dashSub.textContent = d.sub;
+    dashSubLabel.textContent = d.subLabel;
+    if (!prefersReducedMotion){
+      dashTotal.classList.add('flash');
+      setTimeout(function(){ dashTotal.classList.remove('flash'); }, 700);
+    }
+  }
+
+  document.querySelectorAll('.range-toggle button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.range-toggle button').forEach(function(b){ b.setAttribute('aria-pressed', 'false'); });
+      btn.setAttribute('aria-pressed', 'true');
+      renderChart(btn.getAttribute('data-range'));
+    });
+  });
+  renderChart('dzis');
+
+  // ---------- DOBÓR MOCY Z RACHUNKU ----------
+  var PRICE_PER_KWH = 1.05; // zł/kWh, orientacyjna stawka taryfy — wyłącznie do szacunku wstępnego
+  var rachunekSlider = document.getElementById('rachunekSlider');
+  var rachunekValue = document.getElementById('rachunekValue');
+  var mocWynik = document.getElementById('mocWynik');
+  var produkcjaWynik = document.getElementById('produkcjaWynik');
+  var doborResult = document.getElementById('doborResult');
+
+  function updateDobor(){
+    var rachunek = parseFloat(rachunekSlider.value);
+    rachunekValue.textContent = rachunek.toLocaleString('pl-PL');
+    var monthlyKwh = rachunek / PRICE_PER_KWH;
+    var yearlyKwh = monthlyKwh * 12;
+    var kwp = Math.max(1, Math.round((yearlyKwh * 0.8 / 1000) * 2) / 2);
+    var produkcja = Math.round(kwp * 1000);
+    mocWynik.textContent = kwp.toLocaleString('pl-PL', { minimumFractionDigits: kwp % 1 === 0 ? 0 : 1 }) + ' kWp';
+    produkcjaWynik.textContent = produkcja.toLocaleString('pl-PL') + ' kWh';
+    if (!prefersReducedMotion){
+      doborResult.classList.add('flash');
+      setTimeout(function(){ doborResult.classList.remove('flash'); }, 500);
+    }
+  }
+  rachunekSlider.addEventListener('input', updateDobor);
+  updateDobor();
+</script>
+
+</body>
+</html>

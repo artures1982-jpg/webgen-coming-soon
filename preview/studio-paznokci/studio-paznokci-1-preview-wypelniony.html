@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BlushBar — Studio paznokci Kraków | tel. 500 123 456</title>
+<meta name="description" content="BlushBar — studio paznokci w mieście Kraków. Manicure, pedicure, stylizacje żelowe. Przejrzysty cennik, umów wizytę: 500 123 456">
+<meta name="keywords" content="Studio paznokci Kraków, manicure Kraków">
+<link rel="canonical" href="https://blushbar-krakow.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="BlushBar — Studio paznokci Kraków">
+<meta property="og:description" content="BlushBar — studio paznokci w mieście Kraków. Umów wizytę: 500 123 456">
+<meta property="og:url" content="https://blushbar-krakow.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"BlushBar","telephone":"500 123 456","email":"kontakt@blushbar.pl","description":"BlushBar — Studio paznokci w mieście Kraków","address":{"@type":"PostalAddress","addressLocality":"Kraków","addressCountry":"PL"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#c9718c;
+    --accent-dark:#8a3f5a;
+    --bg:#faf3ee;
+    --surface:#f3e4de;
+    --text:#2b211f;
+    --muted:#7a6b66;
+    --head:'Playfair Display', serif;
+    --body:'Mulish', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3,h4{font-family:var(--head);line-height:1.2;font-weight:700;}
+  section{padding:5.5rem 1.5rem;}
+  .wrap{max-width:1120px;margin:0 auto;}
+  .eyebrow{display:inline-block;font-family:var(--body);font-weight:700;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:.7rem;}
+  h2{font-size:clamp(1.8rem,3.2vw,2.5rem);margin-bottom:1rem;color:var(--text);}
+  .lead{color:var(--muted);font-size:1.03rem;max-width:600px;}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.95rem 1.9rem;border-radius:2rem;font-weight:700;font-family:var(--body);font-size:.98rem;border:1.5px solid transparent;cursor:pointer;transition:transform .15s ease, background .2s ease;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--accent);color:var(--bg);}
+  .btn-primary:hover{background:var(--accent-dark);}
+  .btn-outline{border-color:var(--accent);color:var(--accent-dark);background:transparent;}
+  .btn-outline:hover{background:var(--accent);color:var(--bg);}
+
+  header.nav{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;}
+  .nav-side{display:flex;gap:1.6rem;align-items:center;flex:1;}
+  .nav-side.right{justify-content:flex-end;}
+  .nav-links a{font-weight:600;font-size:.88rem;color:var(--text);}
+  .nav-links a:hover{color:var(--accent-dark);}
+  .nav-links{display:flex;gap:1.6rem;}
+  .logo{font-family:var(--head);font-weight:700;font-size:1.35rem;color:var(--text);white-space:nowrap;padding:0 1rem;}
+  .logo span{color:var(--accent);}
+  .nav-actions{display:flex;align-items:center;gap:1rem;}
+  .nav-phone-link{font-size:.85rem;font-weight:600;color:var(--muted);white-space:nowrap;display:flex;align-items:center;}
+  .nav-phone-link:hover{color:var(--accent-dark);}
+  .nav-phone-link .icon{display:none;font-size:1.15rem;}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;}
+  .nav-toggle span{width:22px;height:2px;background:var(--text);}
+
+  .hero .wrap{display:grid;grid-template-columns:1fr 1.05fr;gap:3.5rem;align-items:center;}
+  .hero-copy h1{font-size:clamp(2.1rem,4vw,3rem);margin-bottom:1.2rem;}
+  .hero-copy p{color:var(--muted);font-size:1.06rem;max-width:480px;margin-bottom:1.8rem;}
+  .hero-photo-wrap{position:relative;padding-bottom:2.2rem;}
+  .hero-photo{width:100%;height:auto;aspect-ratio:4/3.6;object-fit:cover;border-radius:1.4rem;box-shadow:0 26px 50px color-mix(in srgb, var(--text) 18%, transparent);}
+  .booking-card{
+    position:absolute;left:1.4rem;right:2.4rem;bottom:0;background:var(--bg);border-radius:1rem;
+    padding:1rem 1.3rem;box-shadow:0 14px 30px color-mix(in srgb, var(--text) 16%, transparent);
+    display:flex;align-items:center;gap:.8rem;
+  }
+  .booking-card .icon{font-size:1.4rem;flex-shrink:0;}
+  .booking-card b{display:block;font-size:.88rem;}
+  .booking-card a{font-size:.82rem;color:var(--accent-dark);font-weight:700;}
+
+  .cennik-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 3rem;margin-top:2.6rem;}
+  .cennik-row{display:flex;align-items:baseline;gap:.6rem;padding:1.1rem 0;border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);}
+  .cennik-row .name{font-family:var(--head);font-weight:600;font-size:1.02rem;flex-shrink:0;}
+  .cennik-row .name small{display:block;font-family:var(--body);font-weight:400;font-size:.8rem;color:var(--muted);margin-top:.15rem;}
+  .cennik-row .dots{flex:1;border-bottom:2px dotted color-mix(in srgb, var(--text) 25%, transparent);margin-bottom:.35rem;}
+  .cennik-row .price{font-family:var(--head);font-weight:700;color:var(--accent-dark);flex-shrink:0;white-space:nowrap;}
+
+  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.6rem;}
+  .gallery-item{border-radius:1rem;overflow:hidden;background:var(--surface);}
+  .gallery-item img{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;transition:transform .3s ease;}
+  .gallery-item:hover img{transform:scale(1.05);}
+  .gallery-item .cap{padding:.8rem 1rem;font-size:.85rem;color:var(--muted);}
+
+  .about{background:var(--surface);}
+  .about .wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:3.5rem;align-items:center;}
+  .about-photo{width:100%;height:auto;aspect-ratio:4/4.6;object-fit:cover;border-radius:1.4rem;box-shadow:0 20px 40px color-mix(in srgb, var(--text) 16%, transparent);}
+  .about-copy p{margin-bottom:1.2rem;}
+  .medallions{display:flex;gap:1.6rem;margin-top:1.8rem;flex-wrap:wrap;}
+  .medallion{text-align:center;}
+  .medallion .circle{
+    width:74px;height:74px;border-radius:50%;background:var(--bg);border:2px solid var(--accent);
+    display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:700;
+    font-size:1.15rem;color:var(--accent-dark);margin:0 auto .6rem;
+  }
+  .medallion span{font-size:.8rem;color:var(--muted);display:block;max-width:100px;}
+
+  .quotes{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2.8rem;}
+  .quote-block blockquote{font-family:var(--head);font-style:italic;font-size:1.25rem;line-height:1.5;color:var(--text);margin-bottom:1rem;}
+  .quote-block cite{font-style:normal;font-size:.86rem;color:var(--muted);}
+
+  .why-list{max-width:720px;margin-top:2.6rem;}
+  .why-row{display:flex;align-items:center;gap:1.3rem;padding:1.4rem 0;border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);}
+  .why-row:last-child{border-bottom:none;}
+  .why-row .icon{font-size:1.5rem;flex-shrink:0;width:44px;text-align:center;}
+  .why-row h3{font-size:1.02rem;margin-bottom:.25rem;}
+  .why-row p{font-size:.9rem;color:var(--muted);}
+
+  .faq-list{max-width:800px;margin:2.6rem auto 0;display:flex;flex-direction:column;gap:.7rem;}
+  details{background:var(--surface);border-radius:1rem;padding:1.1rem 1.4rem;}
+  details summary{cursor:pointer;font-weight:700;font-family:var(--head);font-size:1rem;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{content:"+";font-size:1.4rem;color:var(--accent);flex-shrink:0;}
+  details[open] summary::after{content:"–";}
+  details p{color:var(--muted);margin-top:.8rem;font-size:.92rem;}
+
+  .contact{background:var(--surface);}
+  .booking-banner{
+    background:var(--bg);border-radius:1.4rem;padding:2.4rem 2rem;text-align:center;margin-top:2.6rem;
+    border:1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  }
+  .booking-banner h3{font-size:1.4rem;margin-bottom:.6rem;}
+  .booking-banner p{color:var(--muted);margin-bottom:1.4rem;}
+  .contact-strip{display:flex;flex-wrap:wrap;justify-content:center;gap:1.8rem;margin-top:2rem;font-size:.92rem;}
+  .contact-strip b{display:block;color:var(--muted);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;margin-bottom:.2rem;}
+  .map-embed{width:100%;height:280px;border-radius:1.2rem;overflow:hidden;border:1px solid color-mix(in srgb, var(--text) 10%, transparent);margin-top:2rem;}
+
+  footer{padding:3rem 1.5rem 2rem;text-align:center;}
+  .footer-logo{font-family:var(--head);font-weight:700;font-size:1.2rem;margin-bottom:.6rem;}
+  footer p{font-size:.88rem;color:var(--muted);max-width:440px;margin:0 auto 1.2rem;}
+  .footer-links{display:flex;gap:1.4rem;justify-content:center;flex-wrap:wrap;font-size:.86rem;margin-bottom:1.2rem;}
+  .footer-links a:hover{color:var(--accent-dark);}
+  .footer-bottom{font-size:.78rem;color:var(--muted);}
+
+  @media (max-width:960px){
+    .hero .wrap{grid-template-columns:1fr;}
+    .cennik-grid{grid-template-columns:1fr;}
+    .gallery-grid{grid-template-columns:repeat(2,1fr);}
+    .about .wrap{grid-template-columns:1fr;}
+    .about-photo{max-width:420px;margin:0 auto;}
+    .quotes{grid-template-columns:1fr;}
+  }
+  @media (max-width:700px){
+    .nav .wrap{padding:1rem;}
+    .nav-side.left, .nav-links{display:none;}
+    .nav-side.right{flex:0;}
+    .logo{padding-left:0;padding-right:.6rem;}
+    .nav-toggle{display:flex;flex-shrink:0;}
+    .nav-phone-link .txt{display:none;}
+    .nav-phone-link .icon{display:inline;flex-shrink:0;}
+    .nav-actions{gap:.6rem;flex-wrap:nowrap;}
+    .nav-actions .btn-primary{padding:.6rem .95rem;font-size:.8rem;white-space:nowrap;flex-shrink:0;}
+    .mobile-menu{position:absolute;top:100%;left:0;right:0;background:var(--bg);flex-direction:column;align-items:flex-start;padding:1.2rem 1.5rem;border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);display:none;gap:1rem;}
+    .mobile-menu.open{display:flex;}
+    header.nav{position:sticky;}
+    section{padding:3.5rem 1.2rem;}
+    .gallery-grid{grid-template-columns:1fr;}
+    .hero-photo-wrap{padding-bottom:2.6rem;}
+    .booking-card{left:.8rem;right:.8rem;padding:.8rem 1rem;}
+  }
+  @media (max-width:480px){
+    .nav .wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+    .nav .wrap::-webkit-scrollbar{display:none;}
+    .logo{font-size:1.1rem;padding-right:.4rem;}
+    .nav-actions{gap:.4rem;}
+    .nav-actions .btn-primary{padding:.55rem .75rem;font-size:.74rem;}
+    .cennik-row{flex-wrap:wrap;}
+    .cennik-row .dots{order:3;flex-basis:100%;height:0;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <div class="nav-side left">
+      <nav class="nav-links">
+        <a href="#cennik">Cennik</a>
+        <a href="#galeria">Galeria</a>
+      </nav>
+    </div>
+    <a href="#" class="logo">BlushBar<span>.</span></a>
+    <div class="nav-side right">
+      <nav class="nav-links">
+        <a href="#o-nas">O nas</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="tel:500 123 456" class="nav-phone-link" aria-label="Zadzwoń: 500 123 456"><span class="txt">500 123 456</span><span class="icon" aria-hidden="true">📞</span></a>
+        <a href="#kontakt" class="btn btn-primary">Umów wizytę</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu nawigacji">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <nav class="mobile-menu" id="mobileMenu">
+    <a href="#cennik">Cennik</a>
+    <a href="#galeria">Galeria</a>
+    <a href="#o-nas">O nas</a>
+    <a href="#faq">FAQ</a>
+    <a href="tel:500 123 456">500 123 456</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow">Studio paznokci — Kraków</span>
+      <h1>BlushBar — stylizacje paznokci, którym możesz zaufać</h1>
+      <p>Manicure, pedicure i stylizacje żelowe w mieście Kraków — sterylne narzędzia, sprawdzone produkty i przejrzysty cennik bez niespodzianek na koniec wizyty.</p>
+      <a href="#kontakt" class="btn btn-primary">Umów wizytę</a>
+    </div>
+    <div class="hero-photo-wrap">
+      <img class="hero-photo" src="https://images.pexels.com/photos/15202934/pexels-photo-15202934.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Stylistka wykonująca manicure klientce w studiu paznokci" width="940" height="650" fetchpriority="high">
+      <div class="booking-card">
+        <span class="icon">📅</span>
+        <div>
+          <b>Rezerwacja zajmuje dosłownie chwilę</b>
+          <a href="#kontakt">Sprawdź wolne terminy →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cennik" style="background:var(--surface);">
+  <div class="wrap">
+    <span class="eyebrow">Cennik</span>
+    <h2>Przejrzyste ceny — Kraków</h2>
+    <p class="lead">Cena, którą widzisz tutaj, to cena, którą zapłacisz — bez dopłat za "dodatkowy czas" na koniec wizyty.</p>
+    <div class="cennik-grid">
+      <div class="cennik-row"><span class="name">Manicure klasyczny<small>ok. 45 min</small></span><span class="dots"></span><span class="price">80 zł</span></div>
+      <div class="cennik-row"><span class="name">Manicure hybrydowy<small>ok. 60 min</small></span><span class="dots"></span><span class="price">110 zł</span></div>
+      <div class="cennik-row"><span class="name">Przedłużanie żelem<small>ok. 120 min</small></span><span class="dots"></span><span class="price">180 zł</span></div>
+      <div class="cennik-row"><span class="name">Uzupełnienie żelu<small>ok. 90 min</small></span><span class="dots"></span><span class="price">140 zł</span></div>
+      <div class="cennik-row"><span class="name">Pedicure klasyczny<small>ok. 50 min</small></span><span class="dots"></span><span class="price">100 zł</span></div>
+      <div class="cennik-row"><span class="name">Pedicure hybrydowy<small>ok. 70 min</small></span><span class="dots"></span><span class="price">130 zł</span></div>
+      <div class="cennik-row"><span class="name">Zdobienia / nail art<small>za paznokieć, od</small></span><span class="dots"></span><span class="price">5 zł</span></div>
+      <div class="cennik-row"><span class="name">Zabieg parafinowy<small>ok. 20 min</small></span><span class="dots"></span><span class="price">40 zł</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="galeria">
+  <div class="wrap">
+    <span class="eyebrow">Portfolio</span>
+    <h2>Nasze stylizacje</h2>
+    <p class="lead">Wybrane realizacje — zobacz, jak dbamy o detal.</p>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="https://images.pexels.com/photos/6941115/pexels-photo-6941115.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Stylizacja nude, minimalistyczny manicure" width="940" height="650" loading="lazy">
+        <div class="cap">Nude minimal</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.pexels.com/photos/34871595/pexels-photo-34871595.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Stylizacja czerwono-biało-złota z wzorem falistym" width="940" height="650" loading="lazy">
+        <div class="cap">Czerwień i złoto</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.pexels.com/photos/35491156/pexels-photo-35491156.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Stylizacja brokatowa nude ze zdobieniem kwiatowym" width="940" height="650" loading="lazy">
+        <div class="cap">Brokat i kwiaty</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="o-nas">
+  <div class="wrap">
+    <img class="about-photo" src="https://images.pexels.com/photos/7755452/pexels-photo-7755452.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Stanowisko pracy w studiu paznokci — przybory i rośliny" width="940" height="650" loading="lazy">
+    <div class="about-copy">
+      <span class="eyebrow">O nas</span>
+      <h2>Studio, w którym o Twoje dłonie dba fachowiec</h2>
+      <p>BlushBar to studio paznokci działające w mieście Kraków, gdzie każda wizyta zaczyna się od dokładnej dezynfekcji narzędzi i kończy stylizacją, która trzyma się tak długo, jak obiecujemy.</p>
+      <p>Pracujemy na sprawdzonych markach produktów i stale się dokształcamy — świat nail artu zmienia się szybko, a my nadążamy.</p>
+      <div class="medallions">
+        <div class="medallion"><div class="circle">6 lat</div><span>doświadczenia w branży</span></div>
+        <div class="medallion"><div class="circle">1400+</div><span>zadowolonych klientek</span></div>
+        <div class="medallion"><div class="circle">3000+</div><span>wykonanych stylizacji</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="opinie">
+  <div class="wrap">
+    <span class="eyebrow" style="text-align:center;display:block;">Opinie</span>
+    <h2 style="text-align:center;">Co mówią klientki</h2>
+    <div class="quotes">
+      <div class="quote-block">
+        <blockquote>„Wreszcie miejsce, gdzie hybryda trzyma się bez odrostu przez trzy tygodnie. Do tego naprawdę czysto i sterylnie."</blockquote>
+        <cite>— Karolina, Kraków</cite>
+      </div>
+      <div class="quote-block">
+        <blockquote>„Cennik zgadza się z tym, co widziałam na stronie — żadnych dopłat na koniec. Umawiam się tu regularnie od pół roku."</blockquote>
+        <cite>— Natalia, Kraków</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="dlaczego-my" style="background:var(--surface);">
+  <div class="wrap">
+    <span class="eyebrow">Dlaczego my</span>
+    <h2>Dlaczego klientki wybierają BlushBar</h2>
+    <div class="why-list">
+      <div class="why-row">
+        <span class="icon">💅</span>
+        <div><h3>Doświadczona stylistka</h3><p>Wieloletnia praktyka i regularne szkolenia z nowych technik.</p></div>
+      </div>
+      <div class="why-row">
+        <span class="icon">✨</span>
+        <div><h3>Wysokiej jakości produkty</h3><p>Sprawdzone marki żeli i hybryd — trwałość, o którą nie musisz się martwić.</p></div>
+      </div>
+      <div class="why-row">
+        <span class="icon">🧴</span>
+        <div><h3>Higiena i sterylizacja narzędzi</h3><p>Każde narzędzie dezynfekowane zgodnie z normami sanitarnymi.</p></div>
+      </div>
+      <div class="why-row">
+        <span class="icon">💳</span>
+        <div><h3>Przejrzysty cennik</h3><p>Cena podana przed wizytą to cena, którą płacisz na koniec.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <span class="eyebrow">Pytania i odpowiedzi</span>
+    <h2>Najczęściej pytacie</h2>
+    <div class="faq-list">
+      <details open>
+        <summary>Jak długo trzyma się manicure hybrydowy?</summary>
+        <p>Przy prawidłowej pielęgnacji hybryda trzyma się zwykle 3 tygodnie bez odrostu i odpryskiwania.</p>
+      </details>
+      <details>
+        <summary>Czy mogę odwołać lub przełożyć wizytę?</summary>
+        <p>Tak, prosimy tylko o informację co najmniej 24 godziny wcześniej — zadzwoń pod 500 123 456.</p>
+      </details>
+      <details>
+        <summary>Czy narzędzia są dezynfekowane między klientkami?</summary>
+        <p>Tak, każde narzędzie przechodzi pełną dezynfekcję i sterylizację zgodnie z normami sanitarnymi przed każdą wizytą.</p>
+      </details>
+      <details>
+        <summary>Czy przyjmujecie dzieci na manicure?</summary>
+        <p>Tak, wykonujemy delikatny manicure pielęgnacyjny dla dzieci — zapytaj telefonicznie o dostępne terminy.</p>
+      </details>
+      <details>
+        <summary>Czy trzeba się umawiać wcześniej?</summary>
+        <p>Zdecydowanie polecamy rezerwację z wyprzedzeniem — w weekendy i przed świętami terminy szybko się zapełniają.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="kontakt">
+  <div class="wrap">
+    <span class="eyebrow" style="text-align:center;display:block;">Kontakt</span>
+    <h2 style="text-align:center;">Umów wizytę</h2>
+    <div class="booking-banner">
+      <h3>Zadzwoń i wybierz dogodny termin</h3>
+      <p>Odbieramy telefony w godzinach otwarcia — poza nimi zostaw wiadomość, oddzwonimy.</p>
+      <a href="tel:500 123 456" class="btn btn-primary">📞 500 123 456</a>
+    </div>
+    <div class="contact-strip">
+      <span><b>E-mail</b> kontakt@blushbar.pl</span>
+      <span><b>Adres</b> ul. Przykładowa 12, Kraków</span>
+      <span><b>Pon–Pt</b> 9:00 - 19:00</span>
+      <span><b>Sobota</b> 9:00 - 15:00</span>
+    </div>
+    <iframe class="map-embed" src="https://www.google.com/maps?q=ul. Przykładowa 12, Kraków&output=embed" title="Mapa dojazdu do BlushBar w mieście Kraków" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;"></iframe>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">BlushBar</div>
+  <p>Studio paznokci w mieście Kraków — manicure, pedicure i stylizacje żelowe w przyjaznej atmosferze.</p>
+  <div class="footer-links">
+    <a href="#cennik">Cennik</a>
+    <a href="#galeria">Galeria</a>
+    <a href="tel:500 123 456">500 123 456</a>
+    <a href="mailto:kontakt@blushbar.pl">kontakt@blushbar.pl</a>
+  </div>
+  <div class="footer-bottom">© <span id="year"></span> BlushBar — Studio paznokci Kraków.</div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const navToggle = document.getElementById('navToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  navToggle.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  });
+</script>
+
+</body>
+</html>
