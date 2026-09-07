@@ -102,6 +102,17 @@ nav.scrolled {
   -webkit-backdrop-filter: blur(16px);
   border-color: var(--border);
 }
+/* Nad jasną sekcją .flip-cta nav przełącza się na jasny wariant zamiast twardego
+   ciemnego paska na pastelowym tle — patrz IntersectionObserver w bloku JS niżej. */
+nav.on-light {
+  background: rgba(255,255,255,0.74);
+  border-color: rgba(10,13,22,0.08);
+}
+nav.on-light .logo-wordmark .w { color: #0A0D16; }
+nav.on-light .logo-wordmark .tld { color: rgba(10,13,22,0.35); -webkit-text-fill-color: rgba(10,13,22,0.35); }
+nav.on-light .nav-links a { color: #454C5E; }
+nav.on-light .nav-links a:hover { color: #0A0D16; background: rgba(10,13,22,0.06); }
+nav.on-light .badge { color: #0A8F63; border-color: rgba(10,143,99,0.32); }
 nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 
 .logo { display: flex; align-items: center; gap: 11px; text-decoration: none; flex-shrink: 0; }
@@ -791,9 +802,20 @@ footer .wrap { display: flex; align-items: center; justify-content: space-betwee
 (function() {
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  var navEl = document.getElementById('nav');
   window.addEventListener('scroll', function() {
-    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+    navEl.classList.toggle('scrolled', window.scrollY > 40);
   }, { passive: true });
+
+  var flipCta = document.querySelector('.flip-cta');
+  if (flipCta && 'IntersectionObserver' in window) {
+    var navIO = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        navEl.classList.toggle('on-light', entry.isIntersecting);
+      });
+    }, { rootMargin: '-72px 0px -85% 0px', threshold: 0 });
+    navIO.observe(flipCta);
+  }
 
   window.handleSubmit = function() {
     var inp = document.getElementById('emailInput');
