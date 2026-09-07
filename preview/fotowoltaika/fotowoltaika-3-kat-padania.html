@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{NAZWA_STRONY}} — fotowoltaika, {{MIASTO}} | Kąt padania słońca</title>
+<meta name="description" content="{{NAZWA_STRONY}} — instalacje fotowoltaiczne. Zobacz w interaktywnym module, jak słońce pada na dach o różnych porach dnia i przy różnej orientacji połaci. Uczciwie o dachach wschód-zachód i północ. Tel. {{TELEFON}}">
+<meta name="keywords" content="fotowoltaika {{MIASTO}}, panele fotowoltaiczne {{MIASTO}}, orientacja dachu fotowoltaika, dach wschód zachód panele, dotacje Mój Prąd {{MIASTO}}">
+<link rel="canonical" href="https://{{SLUG}}.webgen.pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{NAZWA_STRONY}} — fotowoltaika, {{MIASTO}}. Zobacz kąt padania słońca">
+<meta property="og:description" content="Interaktywny rysunek pokazuje, jak Twój dach łapie słońce o różnych porach dnia. Uczciwie o połaciach wschód-zachód i północ. Tel. {{TELEFON}}">
+<meta property="og:url" content="https://{{SLUG}}.webgen.pl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","name":"{{NAZWA_STRONY}}","telephone":"{{TELEFON}}","email":"{{EMAIL}}","description":"{{NAZWA_STRONY}} montuje instalacje fotowoltaiczne — projektuje układ paneli pod kątem padania słońca na konkretny dach, uczciwie o dachach wschód-zachód i północ, wsparcie przy dotacjach Mój Prąd i Czyste Powietrze.","address":{"@type":"PostalAddress","streetAddress":"{{ADRES}}","addressLocality":"{{MIASTO}}","addressCountry":"PL"},"areaServed":"PL","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"17:00"}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Hind:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* PALETA — dwubiegunowa: zimna, głęboka noc (indygo-czerń) kontra gorący biegun światła
+     (nasycony pomarańcz zachodu). Sprawdzone grepem po całym templates/pilot/*.html przed
+     napisaniem tego pliku — żaden z 6 hexów nie koliduje z żadnym innym wariantem w bibliotece,
+     w tym błękit fotowoltaika-1 ani grafitowo-limonkowy motyw fotowoltaika-2. Ciemna baza = inny reżim
+     kontrastu niż fotowoltaika-1 — --muted dobrany tak, by dawać ~6.5:1 na --bg.
+     TYPOGRAFIA: Fjalla One (kanciasty, mocny display, czytelny też jako pełne zdanie h1 — nie
+     tylko krótkie logo) + Hind (czytelny humanistyczny sans). Obie nieużyte nigdzie w systemie
+     (zweryfikowane grepem).
+     MOTION-BASELINE wariantu 2+, wzmocniony jako "petarda": ciągły ambientowy promień światła w
+     tle hero, shimmer na primary CTA, moduł słońca reaguje ruchem na każdą interakcję (pulsujący
+     odczyt mocy, płynne przejście barwy nieba), stopniowany fade-in kart przy scrollu. WSZYSTKO
+     wyłączone/zredukowane pod prefers-reduced-motion — moduł słońca zostaje w pełni używalny,
+     tylko bez animowanych przejść, i startuje w pozycji południa. */
+  :root{
+    --accent:#ff6a3d;
+    --accent-dark:#c8431a;
+    --bg:#0b0e1f;
+    --surface:#141a34;
+    --text:#f6f2ea;
+    --muted:#9aa0c0;
+    --head:'Fjalla One', sans-serif;
+    --body:'Hind', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:5.5rem;}
+  body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.62;-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3{font-family:var(--head);font-weight:400;letter-spacing:.01em;line-height:1.12;}
+  h1{font-size:clamp(2.1rem,4.6vw,3.4rem);}
+  h2{font-size:clamp(1.7rem,3.2vw,2.4rem);}
+  h3{font-size:1.25rem;}
+  em{font-style:normal;color:var(--accent);}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 1.5rem;}
+  .eyebrow{display:inline-block;font-family:var(--body);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:.78rem;color:var(--accent);margin-bottom:.9rem;}
+  .lead{color:var(--muted);font-size:1.08rem;max-width:56ch;}
+  section{padding:5.5rem 0;position:relative;}
+  .center{text-align:center;}
+
+  /* ---- botones ---- */
+  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.95rem 1.7rem;border-radius:999px;font-family:var(--body);font-weight:700;font-size:.98rem;transition:transform .2s ease, box-shadow .3s ease;white-space:nowrap;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--accent);color:var(--bg);position:relative;overflow:hidden;box-shadow:0 10px 30px color-mix(in srgb, var(--accent) 35%, transparent);}
+  .btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg, transparent 35%, color-mix(in srgb, var(--text) 55%, transparent) 50%, transparent 65%);background-size:220% 100%;animation:shimmer 2.8s linear infinite;pointer-events:none;}
+  @keyframes shimmer{0%{background-position:180% 0;}100%{background-position:-80% 0;}}
+  .btn-outline{background:transparent;border:1.5px solid color-mix(in srgb, var(--text) 30%, transparent);color:var(--text);}
+  .btn-outline:hover{border-color:var(--accent);}
+
+  /* ---- nav ---- */
+  .nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--bg) 80%, transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;padding-top:.9rem;padding-bottom:.9rem;}
+  .logo{display:flex;align-items:center;gap:.6rem;min-width:0;}
+  .logo-mark{width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--text) 60%, var(--accent)), var(--accent) 70%);box-shadow:0 0 16px color-mix(in srgb, var(--accent) 55%, transparent);flex:none;}
+  .logo-name{font-family:var(--head);font-size:1.28rem;display:inline-block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:38vw;}
+  .nav-links-desktop{display:flex;align-items:center;gap:1.6rem;font-size:.95rem;}
+  .nav-links-desktop a{color:var(--muted);transition:color .2s ease;}
+  .nav-links-desktop a:hover{color:var(--text);}
+  .nav-actions{display:flex;align-items:center;gap:.8rem;}
+  .nav-phone{display:flex;align-items:center;gap:.4rem;padding:.6rem 1rem;border-radius:999px;border:1px solid color-mix(in srgb, var(--text) 20%, transparent);font-weight:600;font-size:.92rem;}
+  .nav-phone .icon{display:none;}
+  .nav-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;border-radius:50%;border:1px solid color-mix(in srgb, var(--text) 20%, transparent);background:transparent;cursor:pointer;}
+  .nav-toggle span{display:block;width:18px;height:2px;background:var(--text);margin:0 auto;}
+  .nav-links-mobile{display:none;flex-direction:column;gap:.2rem;background:var(--bg);border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);padding:1rem 1.5rem 1.5rem;}
+  .nav-links-mobile.open{display:flex;}
+  .nav-links-mobile a{padding:.7rem 0;color:var(--muted);border-bottom:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+  .nav-links-mobile a.mobile-cta{color:var(--accent);font-weight:700;}
+
+  @media (max-width:960px){
+    .nav-links-desktop{display:none;}
+    .nav-actions > .btn{display:none;}
+    .nav-toggle{display:flex;}
+  }
+  @media (max-width:480px){
+    .nav-phone{width:42px;height:42px;padding:0;justify-content:center;border-radius:50%;}
+    .nav-phone .txt{display:none;}
+    .nav-phone .icon{display:inline;}
+  }
+
+  /* ---- hero ---- */
+  .hero{padding-top:4rem;padding-bottom:0;overflow:hidden;}
+  .hero-stage{position:relative;min-height:88vh;display:flex;align-items:center;overflow:hidden;}
+  .hero-photo-bg{position:absolute;inset:0;z-index:0;}
+  .hero-photo-bg img{width:100%;height:100%;object-fit:cover;}
+  .hero-photo-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg, color-mix(in srgb, var(--bg) 88%, transparent) 20%, color-mix(in srgb, var(--bg) 55%, transparent) 55%, color-mix(in srgb, var(--accent-dark) 45%, transparent) 100%);}
+  .hero-raysweep{position:absolute;top:-25%;left:-30%;width:38%;height:150%;background:linear-gradient(100deg, transparent, color-mix(in srgb, var(--accent) 42%, transparent), transparent);transform:rotate(9deg);mix-blend-mode:screen;pointer-events:none;animation:raySweep 9s ease-in-out infinite;}
+  @keyframes raySweep{0%{transform:translateX(-10%) rotate(9deg);}50%{transform:translateX(260%) rotate(9deg);}100%{transform:translateX(-10%) rotate(9deg);}}
+  .hero-copy{position:relative;z-index:1;max-width:640px;padding:3rem 0;}
+  .hero-copy .lead{color:color-mix(in srgb, var(--text) 78%, transparent);max-width:52ch;margin:1.2rem 0 1.8rem;}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:1.6rem;}
+  .hero-note{display:flex;align-items:flex-start;gap:.6rem;color:color-mix(in srgb, var(--text) 70%, transparent);font-size:.94rem;max-width:44ch;}
+
+  .hero-stats{padding:2.4rem 0 3.4rem;}
+  .hero-stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;}
+  .hero-stat{background:var(--surface);border:1px solid color-mix(in srgb, var(--text) 8%, transparent);border-radius:18px;padding:1.4rem 1.2rem;text-align:center;}
+  .hero-stat .num{display:block;font-family:var(--head);font-size:1.7rem;color:var(--accent);font-variant-numeric:tabular-nums;}
+  .hero-stat .lbl{display:block;font-size:.86rem;color:var(--muted);margin-top:.35rem;}
+
+  @media (max-width:700px){
+    .hero-stage{min-height:auto;padding:2.4rem 0 3rem;}
+    .hero-stats-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---- moduł słońca ---- */
+  .sun-section{background:var(--surface);}
+  .sun-wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:3rem;align-items:center;}
+  .sun-controls{margin-top:1.8rem;display:flex;flex-direction:column;gap:1.6rem;}
+  .control-group label,.control-label{display:block;font-weight:700;margin-bottom:.6rem;font-size:.98rem;}
+  .control-group strong{color:var(--accent);font-variant-numeric:tabular-nums;}
+  input[type="range"]{width:100%;height:6px;border-radius:999px;background:linear-gradient(90deg, var(--accent-dark), var(--accent));appearance:none;-webkit-appearance:none;cursor:pointer;}
+  input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:var(--text);border:4px solid var(--accent);box-shadow:0 0 14px color-mix(in srgb, var(--accent) 60%, transparent);cursor:pointer;}
+  input[type="range"]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:var(--text);border:4px solid var(--accent);box-shadow:0 0 14px color-mix(in srgb, var(--accent) 60%, transparent);cursor:pointer;}
+  .hour-ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);margin-top:.5rem;}
+  .orientation-toggle{display:flex;gap:.6rem;flex-wrap:wrap;}
+  .orient-btn{padding:.65rem 1.1rem;border-radius:999px;border:1.5px solid color-mix(in srgb, var(--text) 22%, transparent);background:transparent;color:var(--text);font-family:var(--body);font-weight:600;font-size:.92rem;cursor:pointer;transition:border-color .2s ease, box-shadow .3s ease, background .2s ease;}
+  .orient-btn.active{border-color:var(--accent);background:color-mix(in srgb, var(--accent) 16%, transparent);box-shadow:0 0 18px color-mix(in srgb, var(--accent) 40%, transparent);}
+  .sun-readout{margin-top:1.6rem;font-size:1.02rem;color:var(--text);min-height:3.2em;}
+  .sun-power{margin-top:1rem;display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap;}
+  .sun-power .num{font-family:var(--head);font-size:2.2rem;color:var(--accent);font-variant-numeric:tabular-nums;transition:transform .2s ease;}
+  .sun-power .unit{font-weight:700;font-size:.92rem;}
+  .sun-power .disclaimer{font-size:.78rem;color:var(--muted);width:100%;}
+  .sun-power.flash .num{animation:powerFlash .5s ease;}
+  @keyframes powerFlash{0%{transform:scale(1.18);text-shadow:0 0 20px color-mix(in srgb, var(--accent) 70%, transparent);}100%{transform:scale(1);text-shadow:none;}}
+
+  .sun-stage{position:relative;border-radius:26px;overflow:hidden;border:1px solid color-mix(in srgb, var(--text) 10%, transparent);transition:background .6s ease;background:linear-gradient(180deg, color-mix(in srgb, var(--text) 45%, var(--accent)) 0%, color-mix(in srgb, var(--accent) 78%, var(--bg)) 100%);}
+  .sun-svg{display:block;width:100%;height:auto;}
+  .ground{fill:color-mix(in srgb, var(--bg) 70%, black);}
+  .ground-shadow{fill:color-mix(in srgb, var(--bg) 65%, black);opacity:.55;transition:rx .25s ease, cx .25s ease;}
+  .house-wall{fill:color-mix(in srgb, var(--surface) 70%, var(--bg));stroke:color-mix(in srgb, var(--text) 20%, transparent);stroke-width:1;}
+  .pitch{fill:var(--surface);stroke:color-mix(in srgb, var(--text) 26%, transparent);stroke-width:1;}
+  .pitch-grid{fill:url(#panelGrid);pointer-events:none;}
+  .pitch-overlay{fill:var(--accent);opacity:0;pointer-events:none;transition:opacity .4s ease;}
+  .sun-glow{filter:blur(7px);opacity:.5;}
+  .sun-disc{stroke:color-mix(in srgb, var(--text) 45%, transparent);stroke-width:1;}
+
+  @media (max-width:900px){
+    .sun-wrap{grid-template-columns:1fr;gap:2rem;}
+  }
+
+  /* ---- banner pełnoszerokościowy (transycja) ---- */
+  .banner-photo{position:relative;height:min(52vw,340px);min-height:220px;overflow:hidden;}
+  .banner-photo img{width:100%;height:100%;object-fit:cover;}
+  .banner-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg, color-mix(in srgb, var(--bg) 85%, transparent) 0%, transparent 55%);}
+  .banner-caption{position:absolute;left:0;right:0;bottom:1.2rem;text-align:center;font-size:.86rem;color:color-mix(in srgb, var(--text) 82%, transparent);padding:0 1.5rem;}
+
+  /* ---- karty ogólne / fade-in ---- */
+  .fade-in{opacity:0;transform:translateY(20px);transition:opacity .6s ease, transform .6s ease;}
+  .fade-in.visible{opacity:1;transform:none;}
+  .card{background:var(--surface);border:1px solid color-mix(in srgb, var(--text) 8%, transparent);border-radius:20px;padding:1.8rem;transition:box-shadow .3s ease, transform .3s ease;}
+  .card:hover{box-shadow:0 0 32px color-mix(in srgb, var(--accent) 30%, transparent);transform:translateY(-3px);}
+
+  /* ---- mit sekcja ---- */
+  .mit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.4rem;}
+  .mit-card .ico{font-size:1.8rem;margin-bottom:.8rem;display:block;}
+  .mit-card.honest{border-color:color-mix(in srgb, var(--accent) 35%, transparent);}
+  .mit-card p{color:var(--muted);font-size:.95rem;margin-top:.6rem;}
+  @media (max-width:820px){ .mit-grid{grid-template-columns:1fr;} }
+
+  /* ---- uzysk sekcja ---- */
+  .uzysk-photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-top:2.4rem;}
+  .uzysk-photo-card{border-radius:20px;overflow:hidden;background:var(--surface);border:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+  .uzysk-photo-card img{width:100%;height:230px;object-fit:cover;aspect-ratio:4/2.6;height:auto;}
+  .uzysk-photo-card .txt{padding:1.4rem 1.5rem 1.6rem;}
+  .uzysk-photo-card p{color:var(--muted);font-size:.94rem;margin-top:.5rem;}
+  .uzysk-extra{margin-top:1.8rem;display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+  .uzysk-extra-item{display:flex;gap:.9rem;align-items:flex-start;padding:1.1rem 1.3rem;background:color-mix(in srgb, var(--text) 4%, transparent);border-radius:16px;}
+  .uzysk-extra-item .ico{font-size:1.4rem;flex:none;}
+  .uzysk-extra-item p{color:var(--muted);font-size:.9rem;margin-top:.25rem;}
+  @media (max-width:760px){ .uzysk-photo-grid,.uzysk-extra{grid-template-columns:1fr;} }
+
+  /* ---- realizacje ---- */
+  .realizacje-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-top:2.4rem;}
+  .realizacja-card{border-radius:20px;overflow:hidden;position:relative;background:var(--surface);border:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+  .realizacja-card img{width:100%;aspect-ratio:4/3;height:auto;object-fit:cover;}
+  .realizacja-card .cap{padding:1.2rem 1.4rem 1.4rem;}
+  .realizacja-card .cap span{display:block;color:var(--muted);font-size:.88rem;margin-top:.35rem;}
+  @media (max-width:760px){ .realizacje-grid{grid-template-columns:1fr;} }
+
+  /* ---- dotacje ---- */
+  .dotacje-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-top:2.4rem;}
+  .dotacja-card h3{margin-bottom:.9rem;}
+  .dotacja-card ul{display:flex;flex-direction:column;gap:.6rem;}
+  .dotacja-card li{font-size:.94rem;color:var(--muted);padding-left:1.4rem;position:relative;}
+  .dotacja-card li.yes::before{content:'✓';position:absolute;left:0;color:var(--accent);font-weight:700;}
+  .dotacja-card li.no::before{content:'✕';position:absolute;left:0;color:color-mix(in srgb, var(--muted) 80%, transparent);font-weight:700;}
+  @media (max-width:760px){ .dotacje-grid{grid-template-columns:1fr;} }
+
+  /* ---- opinie ---- */
+  .opinie-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.4rem;}
+  .opinia-card .stars{color:var(--accent);letter-spacing:.15em;margin-bottom:.8rem;}
+  .opinia-card p{font-size:.96rem;}
+  .opinia-card .who{margin-top:1rem;font-size:.86rem;color:var(--muted);font-weight:600;}
+  @media (max-width:900px){ .opinie-grid{grid-template-columns:1fr;} }
+
+  /* ---- faq ---- */
+  .faq-list{margin-top:2.2rem;display:flex;flex-direction:column;gap:.8rem;}
+  .faq-item{background:var(--surface);border:1px solid color-mix(in srgb, var(--text) 8%, transparent);border-radius:16px;overflow:hidden;}
+  .faq-q{width:100%;text-align:left;padding:1.2rem 1.4rem;background:none;border:0;color:var(--text);font-family:var(--body);font-weight:700;font-size:1rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;cursor:pointer;}
+  .faq-q .plus{transition:transform .25s ease;color:var(--accent);font-size:1.3rem;}
+  .faq-item.open .faq-q .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+  .faq-a p{padding:0 1.4rem 1.3rem;color:var(--muted);font-size:.95rem;}
+  .faq-item.open .faq-a{max-height:280px;}
+
+  /* ---- kontakt ---- */
+  .kontakt-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2.4rem;}
+  .kontakt-col{display:flex;flex-direction:column;gap:1.4rem;min-width:0;}
+  .contact-card,.form-card{background:var(--surface);border:1px solid color-mix(in srgb, var(--text) 8%, transparent);border-radius:20px;padding:1.8rem;}
+  .contact-card p{color:var(--muted);margin:.7rem 0 1.2rem;}
+  .contact-info{margin-top:1.2rem;display:flex;flex-direction:column;gap:.5rem;font-size:.92rem;}
+  .contact-info b{display:inline-block;width:5.5rem;color:var(--muted);font-weight:600;}
+  .form-group{margin-bottom:1rem;}
+  .form-group label{display:block;font-size:.88rem;font-weight:600;margin-bottom:.4rem;color:var(--muted);}
+  .form-group input,.form-group textarea{width:100%;padding:.8rem 1rem;border-radius:12px;border:1px solid color-mix(in srgb, var(--text) 18%, transparent);background:color-mix(in srgb, var(--text) 4%, transparent);color:var(--text);font-family:var(--body);font-size:.96rem;}
+  .form-group textarea{min-height:110px;resize:vertical;}
+  .form-status{display:none;margin-top:1rem;color:var(--accent);font-weight:600;font-size:.92rem;}
+  .map-panel{border-radius:20px;overflow:hidden;border:1px solid color-mix(in srgb, var(--text) 8%, transparent);min-height:320px;min-width:0;}
+  .map-panel iframe{width:100%;height:100%;min-height:320px;border:0;}
+  @media (max-width:860px){ .kontakt-grid{grid-template-columns:1fr;} }
+
+  footer{padding:3.4rem 0 2.2rem;text-align:center;border-top:1px solid color-mix(in srgb, var(--text) 8%, transparent);}
+  .footer-logo{font-family:var(--head);font-size:1.3rem;margin-bottom:.8rem;}
+  footer p{color:var(--muted);max-width:60ch;margin:0 auto 1.4rem;font-size:.94rem;}
+  .footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1.2rem;margin-bottom:1.4rem;font-size:.92rem;}
+  .footer-links a{color:var(--muted);}
+  .footer-links a:hover{color:var(--accent);}
+  .footer-bottom{font-size:.82rem;color:color-mix(in srgb, var(--muted) 80%, transparent);}
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-raysweep{animation:none;opacity:.35;}
+    .btn-primary::after{animation:none;display:none;}
+    .sun-power.flash .num{animation:none;}
+    .fade-in{transition:none;opacity:1;transform:none;}
+    .sun-stage,.pitch-overlay,.ground-shadow{transition:none;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo">
+      <span class="logo-mark" aria-hidden="true"></span>
+      <span class="logo-name">{{NAZWA_STRONY}}</span>
+    </a>
+    <nav class="nav-links-desktop">
+      <a href="#modul-slonca">Moduł słońca</a>
+      <a href="#mit">Mit o południu</a>
+      <a href="#realizacje">Realizacje</a>
+      <a href="#dotacje">Dotacje</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="tel:{{TELEFON}}" class="nav-phone" aria-label="Zadzwoń: {{TELEFON}}"><span class="txt">📞 {{TELEFON}}</span><span class="icon" aria-hidden="true">📞</span></a>
+      <a href="#modul-slonca" class="btn btn-primary">Sprawdź kąt dachu</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu nawigacji" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-links-mobile" id="navLinksMobile">
+    <a href="#modul-slonca" class="mobile-cta">Sprawdź kąt swojego dachu</a>
+    <a href="#modul-slonca">Moduł słońca</a>
+    <a href="#mit">Mit o południu</a>
+    <a href="#realizacje">Realizacje</a>
+    <a href="#dotacje">Dotacje</a>
+    <a href="#faq">FAQ</a>
+    <a href="tel:{{TELEFON}}">📞 {{TELEFON}}</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-stage">
+    <div class="hero-photo-bg" aria-hidden="true">
+      <img src="https://images.pexels.com/photos/9800003/pexels-photo-9800003.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" width="940" height="650">
+      <div class="hero-raysweep"></div>
+    </div>
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="eyebrow">{{NAZWA_STRONY}} — fotowoltaika, {{MIASTO}}</span>
+        <h1>Zanim policzymy zwrot, pokażemy Ci, jak Twój dach <em>łapie słońce</em></h1>
+        <p class="lead">Branża uprościła sprawę do jednego zdania: „musi być południe, inaczej się nie opłaca”. To nie jest prawda — liczy się kąt padania światła przez całą dobę, a wschód-zachód bywa lepszy dla Twojego rachunku niż się wydaje. Przesuń porę dnia w module niżej i zobacz to na własne oczy.</p>
+        <div class="hero-ctas">
+          <a href="#modul-slonca" class="btn btn-primary">Sprawdź kąt swojego dachu</a>
+          <a href="#faq" class="btn btn-outline">Zobacz uczciwe FAQ</a>
+        </div>
+        <div class="hero-note">
+          <span aria-hidden="true">📍</span>
+          <span>Pracownię mamy w mieście {{MIASTO}} — pomiar kąta padania i montaż robimy wszędzie tam, gdzie stoi dach, w całym regionie.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="wrap hero-stats-grid">
+      <div class="hero-stat fade-in"><span class="num">8 lat</span><span class="lbl">liczymy kąt padania słońca na dachach klientów</span></div>
+      <div class="hero-stat fade-in"><span class="num">300+</span><span class="lbl">przeanalizowanych ustawień dachu przed ofertą</span></div>
+      <div class="hero-stat fade-in"><span class="num">3 połacie</span><span class="lbl">wschód, południe, zachód — liczymy każdą osobno</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="modul-slonca" class="sun-section">
+  <div class="wrap sun-wrap">
+    <div class="sun-intro">
+      <span class="eyebrow">Moduł słońca — symulacja poglądowa</span>
+      <h2>Przesuń porę dnia i zobacz, jak pracuje Twój dach</h2>
+      <p class="lead">To rysunek fizyki, nie oferta handlowa. Zmień godzinę i ustawienie połaci — zobaczysz, kiedy dach zaczyna łapać światło, kiedy ma szczyt mocy i jak długo trwa jego „dzień pracy”. Liczba mocy poniżej jest przykładowa i poglądowa — realny wynik zależy od Twojego dachu, zacienienia i zużycia.</p>
+      <div class="sun-controls">
+        <div class="control-group">
+          <label for="hourRange">Pora dnia: <strong id="hourLabel">13:00</strong></label>
+          <input type="range" id="hourRange" min="4" max="21" step="0.5" value="13" aria-describedby="sunReadoutText">
+          <div class="hour-ticks" aria-hidden="true"><span>4:00</span><span>12:30</span><span>21:00</span></div>
+        </div>
+        <div class="control-group">
+          <span class="control-label">Ustawienie połaci dachu</span>
+          <div class="orientation-toggle" role="group" aria-label="Wybór orientacji dachu">
+            <button type="button" class="orient-btn active" data-orientation="poludnie" aria-pressed="true">Południe</button>
+            <button type="button" class="orient-btn" data-orientation="wschod-zachod" aria-pressed="false">Wschód–zachód</button>
+            <button type="button" class="orient-btn" data-orientation="polnoc" aria-pressed="false">Północ</button>
+          </div>
+        </div>
+      </div>
+      <p class="sun-readout" id="sunReadoutText" aria-live="polite">Ustaw godzinę i orientację, żeby zobaczyć symulację.</p>
+      <div class="sun-power" id="sunPowerBox">
+        <span class="num" id="sunPowerNum">7,2</span>
+        <span class="unit">kW chwilowo</span>
+        <span class="disclaimer">Symulacja poglądowa na przykładowej instalacji 7,2 kWp — nie pomiar i nie obietnica.</span>
+      </div>
+    </div>
+    <div class="sun-stage" id="sunStage">
+      <svg viewBox="0 0 400 220" class="sun-svg" role="img" aria-label="Rysunek domu z dwuspadowym dachem i słońcem poruszającym się po niebie w zależności od wybranej pory dnia">
+        <defs>
+          <pattern id="panelGrid" width="9" height="9" patternUnits="userSpaceOnUse">
+            <path d="M0 0 L9 0 M0 0 L0 9" stroke="color-mix(in srgb, var(--text) 25%, transparent)" stroke-width="0.6"></path>
+          </pattern>
+        </defs>
+        <ellipse class="ground-shadow" id="houseShadow" cx="200" cy="203" rx="40" ry="7"></ellipse>
+        <rect class="ground" x="0" y="198" width="400" height="22"></rect>
+        <rect class="house-wall" x="150" y="140" width="100" height="58"></rect>
+        <polygon class="pitch pitch-east" points="150,140 200,86 200,140"></polygon>
+        <polygon class="pitch pitch-west" points="200,140 200,86 250,140"></polygon>
+        <polygon class="pitch-grid" points="150,140 200,86 200,140"></polygon>
+        <polygon class="pitch-grid" points="200,140 200,86 250,140"></polygon>
+        <polygon class="pitch-overlay" id="pitchEastOverlay" points="150,140 200,86 200,140"></polygon>
+        <polygon class="pitch-overlay" id="pitchWestOverlay" points="200,140 200,86 250,140"></polygon>
+        <circle class="sun-glow" id="sunGlow" cx="70" cy="150" r="24"></circle>
+        <circle class="sun-disc" id="sunDisc" cx="70" cy="150" r="11"></circle>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<div class="banner-photo">
+  <img src="https://images.pexels.com/photos/6729427/pexels-photo-6729427.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Wschód słońca nad panelami fotowoltaicznymi we mgle, zdjęcie ilustracyjne farmy fotowoltaicznej" width="940" height="650">
+  <span class="banner-caption">Zdjęcie ilustracyjne (farma fotowoltaiczna) — dzień zaczyna się od wschodu niezależnie od tego, jak ustawiona jest Twoja połać.</span>
+</div>
+
+<section id="mit">
+  <div class="wrap">
+    <span class="eyebrow">Prostujemy mit</span>
+    <h2>Południe nie jest jedynym dobrym kierunkiem</h2>
+    <p class="lead">Wielu sprzedawców kończy rozmowę na „dach musi być na południe”. To skrót myślowy, który odstrasza właścicieli domów z dachami wschód-zachód — a czasem taki dach jest dla ich rachunku lepszy, bo produkuje dłużej w ciągu dnia, kiedy ktoś jest w domu.</p>
+    <div class="mit-grid">
+      <div class="card mit-card fade-in">
+        <span class="ico" aria-hidden="true">🏠</span>
+        <h3>Południe</h3>
+        <p>Najwyższy pojedynczy szczyt mocy w samo południe, ale krótsza „doba pracy” dachu — poza szczytem produkcja szybko spada.</p>
+      </div>
+      <div class="card mit-card fade-in">
+        <span class="ico" aria-hidden="true">🌤️</span>
+        <h3>Wschód–zachód</h3>
+        <p>Niższy szczyt, za to dwa razy dłuższa doba produkcji — rano i po południu, czyli często dokładnie wtedy, gdy dom zużywa najwięcej prądu.</p>
+      </div>
+      <div class="card mit-card fade-in honest">
+        <span class="ico" aria-hidden="true">🌑</span>
+        <h3>Północ</h3>
+        <p>Tu mówimy uczciwie: taka połać zwykle się nie opłaca. Jeśli dach ma też inną, lepszą stronę — montujemy tam, a północną zostawiamy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="uzysk" style="background:var(--surface);">
+  <div class="wrap">
+    <span class="eyebrow">Poza kątem dachu</span>
+    <h2>Co jeszcze potrafi obciąć uzysk</h2>
+    <p class="lead">Dobry kąt padania to dopiero połowa równania. Drugą połowę psują rzeczy, o których sprzedawcy rzadko wspominają — pokazujemy je uczciwie, zanim podpiszesz umowę.</p>
+    <div class="uzysk-photo-grid">
+      <div class="uzysk-photo-card fade-in">
+        <img src="https://images.pexels.com/photos/14614266/pexels-photo-14614266.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Technicy myjący panele fotowoltaiczne na dachu" width="940" height="650">
+        <div class="txt">
+          <h3>Zabrudzenie</h3>
+          <p>Pyłek, kurz i ptasie odchody potrafią obciąć uzysk nawet o kilkanaście procent. Dlatego przegląd, który proponujemy, obejmuje realne czyszczenie, nie tylko odczyt licznika.</p>
+        </div>
+      </div>
+      <div class="uzysk-photo-card fade-in">
+        <img src="https://images.pexels.com/photos/411011/sun-energy-solar-electricity-411011.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Monochromatyczne makro zdjęcie ogniwa fotowoltaicznego, widoczna faktura" width="940" height="650">
+        <div class="txt">
+          <h3>Gorące ogniwo pracuje słabiej</h3>
+          <p>Ogniwo traci sprawność, gdy się mocno nagrzewa — dlatego montujemy panele z odstępem od pokrycia dachu, żeby ciepłe letnie popołudnie nie zjadało Twojej produkcji.</p>
+        </div>
+      </div>
+    </div>
+    <div class="uzysk-extra">
+      <div class="uzysk-extra-item fade-in">
+        <span class="ico" aria-hidden="true">🌳</span>
+        <div>
+          <h3 style="font-size:1.05rem;">Zacienienie</h3>
+          <p>Komin, antena, sąsiedni budynek albo drzewo — nawet mały cień na jednym panelu potrafi ograniczyć cały łańcuch. Sprawdzamy to na etapie audytu, nie po montażu.</p>
+        </div>
+      </div>
+      <div class="uzysk-extra-item fade-in">
+        <span class="ico" aria-hidden="true">❄️</span>
+        <div>
+          <h3 style="font-size:1.05rem;">Śnieg</h3>
+          <p>Zimą produkcja spada, ale skośny dach zwykle sam się oczyszcza szybciej niż płaski — to jeden z niewielu plusów stromej połaci.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="realizacje">
+  <div class="wrap">
+    <span class="eyebrow">Prawdziwe dachy</span>
+    <h2>Realizacje z prawdziwym kątem, nie z wizualizacji</h2>
+    <p class="lead">Każdy dach ma swoje przeszkody — kominy, lukarny, nietypowe połacie. Pokazujemy realne montaże, nie renderingi z katalogu.</p>
+    <div class="realizacje-grid">
+      <div class="realizacja-card fade-in">
+        <img src="https://images.pexels.com/photos/38021376/pexels-photo-38021376.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Panele fotowoltaiczne zamontowane na czerwonej dachówce z kominami, realna zabudowa" width="940" height="650">
+        <div class="cap"><h3>Dachówka i kominy</h3><span>Montaż zaplanowany wokół realnych przeszkód na połaci, nie na czystym papierze.</span></div>
+      </div>
+      <div class="realizacja-card fade-in">
+        <img src="https://images.pexels.com/photos/11455626/pexels-photo-11455626.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Panele fotowoltaiczne w ciepłym świetle zachodzącego słońca, mocna przekątna kadru" width="940" height="650">
+        <div class="cap"><h3>Ostre popołudniowe słońce</h3><span>Ta sama fizyka, którą pokazuje moduł wyżej — niski kąt, długi cień, wciąż realna produkcja.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="dotacje" style="background:var(--surface);">
+  <div class="wrap">
+    <span class="eyebrow">Dotacje</span>
+    <h2>Mój Prąd i Czyste Powietrze — bez obietnic bez pokrycia</h2>
+    <p class="lead">Pomagamy złożyć wniosek i kompletujemy dokumentację techniczną. Nie obiecujemy tego, na co nie mamy wpływu.</p>
+    <div class="dotacje-grid">
+      <div class="card dotacja-card fade-in">
+        <h3>Mój Prąd</h3>
+        <ul>
+          <li class="yes">Przygotowujemy dokumentację techniczną instalacji pod wniosek</li>
+          <li class="yes">Doradzamy, jak połączyć dofinansowanie z magazynem energii, jeśli się opłaca</li>
+          <li class="no">Nie gwarantujemy przyznania ani terminu wypłaty — decyduje operator programu</li>
+        </ul>
+      </div>
+      <div class="card dotacja-card fade-in">
+        <h3>Czyste Powietrze</h3>
+        <ul>
+          <li class="yes">Wskazujemy, kiedy instalacja PV kwalifikuje się razem z pompą ciepła</li>
+          <li class="yes">Pomagamy skompletować dokumenty do wniosku w gminnym punkcie konsultacyjnym</li>
+          <li class="no">Nie składamy wniosku „za klienta bez jego udziału” — część kroków wymaga Twojego podpisu</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="opinie">
+  <div class="wrap">
+    <span class="eyebrow">Opinie klientów</span>
+    <h2>Też mieli wątpliwości co do kąta dachu</h2>
+    <div class="opinie-grid">
+      <div class="card opinia-card fade-in">
+        <div class="stars" aria-hidden="true">★★★★★</div>
+        <p>Miałem dach wschód-zachód i byłem przekonany, że to się nie opłaca. Pokazali mi na symulacji, że dach pracuje od rana do wieczora — u sąsiada z połacią południową dzień produkcji jest krótszy.</p>
+        <div class="who">Wojciech, {{MIASTO}} — instalacja 6,2 kWp</div>
+      </div>
+      <div class="card opinia-card fade-in">
+        <div class="stars" aria-hidden="true">★★★★★</div>
+        <p>Doceniam, że przy północnej części dachu usłyszałam wprost „tu się nie opłaca” zamiast naciągania oferty. Panele stanęły tylko na dobrej połaci.</p>
+        <div class="who">Ewa, {{MIASTO}} — instalacja 4,8 kWp</div>
+      </div>
+      <div class="card opinia-card fade-in">
+        <div class="stars" aria-hidden="true">★★★★★</div>
+        <p>Pierwszy raz ktoś tłumaczył mi zabrudzenie i cień od komina, a nie tylko liczbę paneli. Wycena była zgodna z tym, co realnie zapłaciłem.</p>
+        <div class="who">Karol, {{MIASTO}} — instalacja 8,1 kWp</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="background:var(--surface);">
+  <div class="wrap">
+    <span class="eyebrow">FAQ</span>
+    <h2>Pytania, które słyszymy najczęściej</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q"><span>Czy dach wschód-zachód w ogóle się opłaca?</span><span class="plus" aria-hidden="true">+</span></button>
+        <div class="faq-a"><p>Zwykle tak — produkuje dłużej w ciągu dnia niż połać wyłącznie południowa, choć ma niższy szczyt mocy. Dla domów, w których ktoś jest obecny rano i wieczorem, bywa to korzystniejsze dla autokonsumpcji. Dokładny wynik zależy od kąta połaci i zacienienia — sprawdzamy to na audycie.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Co z dachem skierowanym na północ?</span><span class="plus" aria-hidden="true">+</span></button>
+        <div class="faq-a"><p>Mówimy uczciwie: sama połać północna zwykle nie ma sensu ekonomicznego. Jeśli dom ma też inną, lepiej ustawioną część dachu, montujemy tam, a północną zostawiamy wolną.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Ile realnie zabiera zacienienie i zabrudzenie?</span><span class="plus" aria-hidden="true">+</span></button>
+        <div class="faq-a"><p>Zależy od skali — pojedynczy cień od komina na części dnia to zwykle kilka procent rocznego uzysku, ale przy niekorzystnym ułożeniu może dotknąć całego łańcucha paneli. Zabrudzenie bez czyszczenia potrafi kosztować kilkanaście procent w skali roku. Dlatego audyt i regularny przegląd mają znaczenie.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Czy dotacje są pewne?</span><span class="plus" aria-hidden="true">+</span></button>
+        <div class="faq-a"><p>Nie — o przyznaniu i terminie wypłaty decyduje operator programu, nie my. Przygotowujemy dokumentację technicznie poprawnie i doradzamy, co się łączy z czym, ale nie obiecujemy wyniku, na który nie mamy wpływu.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Skąd biorą się liczby w module słońca powyżej?</span><span class="plus" aria-hidden="true">+</span></button>
+        <div class="faq-a"><p>To symulacja poglądowa na przykładowej instalacji 7,2 kWp — pokazuje mechanizm fizyczny (kąt, godzinę, orientację), nie realny pomiar Twojego dachu. Dokładne liczby dla Twojego domu podajemy dopiero po audycie.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Co się dzieje zimą, gdy panele przysypie śnieg?</span><span class="plus" aria-hidden="true">+</span></button>
+        <div class="faq-a"><p>Produkcja spada niemal do zera na czas zalegania śniegu, ale strome połacie zwykle oczyszczają się same w ciągu kilku dni. To normalny, sezonowy spadek — nie awaria instalacji.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center;">Kontakt</span>
+    <h2 class="center" style="text-align:center;">Sprawdźmy razem kąt Twojego dachu</h2>
+    <p class="lead center" style="text-align:center;margin:0 auto;">Napisz, w którą stronę patrzy Twoja połać dachu — powiemy uczciwie, czy i jak bardzo się opłaca.</p>
+    <div class="kontakt-grid">
+      <div class="kontakt-col">
+        <div class="contact-card">
+          <h3>Zadzwoń albo napisz</h3>
+          <p>Najwięcej pytań o ustawienie dachu odbieramy telefonicznie — dzwoń w godzinach pracy biura w mieście {{MIASTO}}. Po godzinach zostaw wiadomość, oddzwaniamy z samego rana.</p>
+          <a href="tel:{{TELEFON}}" class="btn btn-primary">📞 {{TELEFON}}</a>
+          <div class="contact-info">
+            <div><b>E-mail</b>{{EMAIL}}</div>
+            <div><b>Adres</b>{{ADRES}}, {{MIASTO}}</div>
+            <div><b>Pon–Pt</b>{{GODZINY_PON_PT}}</div>
+            <div><b>Sobota</b>{{GODZINY_SOB}}</div>
+          </div>
+        </div>
+        <div class="form-card">
+          <form id="kontaktForm">
+            <div class="form-group">
+              <label for="imie">Imię i nazwisko</label>
+              <input type="text" id="imie" name="imie" required>
+            </div>
+            <div class="form-group">
+              <label for="kontaktEmail">Telefon lub e-mail</label>
+              <input type="text" id="kontaktEmail" name="kontakt" required>
+            </div>
+            <div class="form-group">
+              <label for="wiadomosc">Kierunek połaci dachu i orientacyjna wielkość rachunku</label>
+              <textarea id="wiadomosc" name="wiadomosc" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Wyślij zapytanie o audyt</button>
+            <p class="form-status" id="formStatus">Dziękujemy! Odezwiemy się w ciągu 24 godzin roboczych.</p>
+          </form>
+        </div>
+      </div>
+      <div class="map-panel">
+        <iframe src="https://www.google.com/maps?q={{ADRES}}, {{MIASTO}}&output=embed" title="Mapa dojazdu do {{NAZWA_STRONY}} w mieście {{MIASTO}}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">{{NAZWA_STRONY}}</div>
+  <p>{{NAZWA_STRONY}} projektuje układ paneli pod kątem, pod jakim słońce realnie pada na Twój dach. Pracownię znajdziesz w mieście {{MIASTO}}, a montażowe ekipy jeżdżą po całym regionie.</p>
+  <div class="footer-links">
+    <a href="#modul-slonca">Moduł słońca</a>
+    <a href="#mit">Mit o południu</a>
+    <a href="#faq">FAQ</a>
+    <a href="tel:{{TELEFON}}">{{TELEFON}}</a>
+    <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+  </div>
+  <div class="footer-bottom">© <span id="year"></span> {{NAZWA_STRONY}} — fotowoltaika, {{MIASTO}}.</div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  var navToggle = document.getElementById('navToggle');
+  var navLinksMobile = document.getElementById('navLinksMobile');
+  navToggle.addEventListener('click', function(){
+    var isOpen = navLinksMobile.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  navLinksMobile.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      navLinksMobile.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.getElementById('kontaktForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('formStatus').style.display = 'block';
+    this.reset();
+  });
+
+  // FAQ akordeon
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    var btn = item.querySelector('.faq-q');
+    btn.addEventListener('click', function(){
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(el){ el.classList.remove('open'); });
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+
+  // Fade-in stopniowany przy scrollu (motion-baseline, wyłączony pod prefers-reduced-motion w CSS)
+  var fadeTargets = document.querySelectorAll('.fade-in');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          var el = entry.target;
+          var siblings = Array.prototype.filter.call(el.parentElement.children, function(c){ return c.classList.contains('fade-in'); });
+          var delay = siblings.indexOf(el) * 70;
+          setTimeout(function(){ el.classList.add('visible'); }, delay);
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.15 });
+    fadeTargets.forEach(function(el){ io.observe(el); });
+  } else {
+    fadeTargets.forEach(function(el){ el.classList.add('visible'); });
+  }
+
+  // ---- Moduł słońca ----
+  (function(){
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function hexToRgb(hex){
+      hex = (hex || '').trim().replace('#','');
+      if (hex.length === 3) hex = hex.split('').map(function(c){ return c+c; }).join('');
+      var num = parseInt(hex, 16);
+      return [ (num>>16)&255, (num>>8)&255, num&255 ];
+    }
+    function mix(a, b, p){
+      p = Math.max(0, Math.min(1, p));
+      return [0,1,2].map(function(i){ return Math.round(a[i] + (b[i]-a[i])*p); });
+    }
+    function rgbStr(c){ return 'rgb(' + c[0] + ',' + c[1] + ',' + c[2] + ')'; }
+
+    var cs = getComputedStyle(document.documentElement);
+    var accentRGB = hexToRgb(cs.getPropertyValue('--accent'));
+    var bgRGB = hexToRgb(cs.getPropertyValue('--bg'));
+    var textRGB = hexToRgb(cs.getPropertyValue('--text'));
+
+    var hourRange = document.getElementById('hourRange');
+    var hourLabel = document.getElementById('hourLabel');
+    var orientBtns = document.querySelectorAll('.orient-btn');
+    var stage = document.getElementById('sunStage');
+    var sunDisc = document.getElementById('sunDisc');
+    var sunGlow = document.getElementById('sunGlow');
+    var pitchEast = document.getElementById('pitchEastOverlay');
+    var pitchWest = document.getElementById('pitchWestOverlay');
+    var shadow = document.getElementById('houseShadow');
+    var readoutText = document.getElementById('sunReadoutText');
+    var powerNum = document.getElementById('sunPowerNum');
+    var powerBox = document.getElementById('sunPowerBox');
+
+    if (!hourRange) return;
+
+    var orientation = 'poludnie';
+
+    function formatHour(h){
+      var hh = Math.floor(h);
+      var mm = Math.round((h - hh) * 60);
+      if (mm === 60) { hh += 1; mm = 0; }
+      return (hh < 10 ? '0' : '') + hh + ':' + (mm === 0 ? '00' : mm);
+    }
+
+    function render(){
+      var hour = parseFloat(hourRange.value);
+      hourLabel.textContent = formatHour(hour);
+      var t = Math.max(0, Math.min(1, (hour - 4) / 17));
+      var sunHeight = Math.sin(Math.PI * t);
+
+      var cx = 40 + t * 320;
+      var cy = 188 - sunHeight * 148;
+      sunDisc.setAttribute('cx', cx); sunDisc.setAttribute('cy', cy);
+      sunGlow.setAttribute('cx', cx); sunGlow.setAttribute('cy', cy);
+
+      // Skala jasności nieba: południe (wysoki sunHeight) ma być NAJMOCNIEJSZYM, najbardziej
+      // świetlistym kadrem — nie świt/zmierzch. accentMix rośnie z sunHeight (więcej nasyconego
+      // pomarańczu w pełnym słońcu), brightMix dokłada rozjaśnienie w stronę --text tylko przy
+      // wysokim słońcu. Świt/zmierzch mają stały, niższy poziom ciepła (baza 0.25/0.35) — obecny,
+      // ale wyraźnie słabszy niż szczyt w południe, więc nigdy nie konkurują o rolę najmocniejszego
+      // kadru doby.
+      var accentMixTop = 0.25 + 0.45 * sunHeight;
+      var brightMixTop = sunHeight * 0.5;
+      var topBase = mix(bgRGB, accentRGB, accentMixTop);
+      var top = mix(topBase, textRGB, brightMixTop);
+      var accentMixBottom = 0.35 + 0.45 * sunHeight;
+      var brightMixBottom = sunHeight * 0.25;
+      var bottomBase = mix(bgRGB, accentRGB, accentMixBottom);
+      var bottom = mix(bottomBase, textRGB, brightMixBottom);
+      stage.style.background = 'linear-gradient(180deg, ' + rgbStr(top) + ' 0%, ' + rgbStr(bottom) + ' 100%)';
+
+      // Tarcza słońca musi zostać widoczna nawet gdy niebo w południe jest jasne (patrz skala
+      // wyżej) — mieszamy z --text dużo słabiej niż wcześniej (rdzeń zostaje nasycony, nie ginie
+      // w jasnym tle), obrys i poświata odwracają kontrast względem sunHeight: ciemny obrys na
+      // jasnym niebie w południe, jasny obrys na ciemnym niebie o świcie/zmierzchu.
+      var sunColor = mix(accentRGB, textRGB, sunHeight * 0.2);
+      var outlineColor = mix(textRGB, bgRGB, sunHeight);
+      sunDisc.style.fill = rgbStr(sunColor);
+      sunDisc.style.stroke = rgbStr(outlineColor);
+      sunDisc.style.strokeWidth = (1.5 + sunHeight * 1.8).toFixed(2);
+      sunGlow.style.fill = rgbStr(sunColor);
+      sunGlow.setAttribute('r', (20 + sunHeight * 15).toFixed(1));
+      sunGlow.style.opacity = (0.4 + sunHeight * 0.35).toFixed(2);
+
+      var eastLight, westLight, summary;
+      if (orientation === 'poludnie') {
+        // Południe ma WŁASNY czynnik azymutu, nie samą wysokość słońca — inaczej krzywa południowa
+        // i suma wschód-zachód spadają do zera w tych samych momentach i nigdy się nie mijają.
+        // southFactor = 0.2 + 0.8*sunHeight zawęża szczyt do samego południa (przy sunHeight=1
+        // daje 1.0 — pełna moc znamionowa; przy niskim słońcu ok. rana/wieczora spada dużo szybciej
+        // niż sama krzywa wysokości słońca).
+        var southFactor = 0.2 + 0.8 * sunHeight;
+        eastLight = westLight = sunHeight * southFactor;
+        summary = 'Godzina ' + formatHour(hour) + ' — cała połać łapie słońce razem, szczyt mocy wypada w samo południe. Krótsza, ale mocna doba produkcji.';
+      } else if (orientation === 'wschod-zachod') {
+        // Jedna gładka krzywa sumy wschód+zachód: sunHeight * (0.85 + 0.30*cos(2π t)) — łagodne
+        // wypłaszczenie w południe (cos=-1 → czynnik 0.55), NIE zapadnięcie poniżej porannych
+        // wartości (wcześniejsza wersja z dwoma wąskimi "garbami" miała dołek w południe niższy
+        // niż o 6:30 — fizycznie niemożliwe, bo łączne nasłonecznienie w południe jest największe
+        // w dobie). Szczyt sumy wypada ok. 8:30-9:00, ok. 61% szczytu południa (7,2 kWp) — w
+        // realnym przedziale dla instalacji wschód-zachód. Podział na połacie (eastLight/westLight)
+        // to ta sama suma rozłożona płynnie: w pełni wschodnia rano, w pełni zachodnia wieczorem,
+        // po połowie dokładnie w południe.
+        var ewFactor = 0.85 + 0.30 * Math.cos(2 * Math.PI * t);
+        var ewTotalFraction = Math.max(0, sunHeight * ewFactor);
+        var splitEast = (1 - Math.sin((t - 0.5) * Math.PI)) / 2;
+        eastLight = ewTotalFraction * splitEast;
+        westLight = ewTotalFraction * (1 - splitEast);
+        if (eastLight > westLight + 0.05) {
+          summary = 'Godzina ' + formatHour(hour) + ' — wschodnia połać już pracuje, zachodnia dopiero się budzi. Szczyt niższy niż na południe, ale doba produkcji dłuższa.';
+        } else if (westLight > eastLight + 0.05) {
+          summary = 'Godzina ' + formatHour(hour) + ' — zachodnia połać przejmuje słońce po południu. Dach wschód-zachód nie jest gorszy, tylko inaczej rozłożony w czasie.';
+        } else {
+          summary = 'Godzina ' + formatHour(hour) + ' — obie połacie pracują razem, ale każda wyraźnie słabiej niż połać południowa w tym samym momencie. Ten dach nadrabia nie szczytem, tylko długością dnia pracy.';
+        }
+      } else {
+        eastLight = westLight = sunHeight * 0.12;
+        summary = 'Godzina ' + formatHour(hour) + ' — połać północna prawie nie widzi bezpośredniego słońca. Przy takim ustawieniu zwykle uczciwie odradzamy montaż na tej stronie dachu.';
+      }
+
+      // Słońce pod horyzontem: odczyt mocy pokazuje 0,0 kW, więc opis nie może mówić o pracy połaci.
+      if (sunHeight < 0.02) {
+        summary = 'Godzina ' + formatHour(hour) + ' — słońce jest pod horyzontem, instalacja nie produkuje nic. ' +
+          (t < 0.5 ? 'Dzień pracy dachu jeszcze się nie zaczął.' : 'Dzień pracy dachu właśnie się skończył.');
+      }
+
+      pitchEast.style.opacity = (eastLight * 0.85).toFixed(2);
+      pitchWest.style.opacity = (westLight * 0.85).toFixed(2);
+      readoutText.textContent = summary;
+
+      var installedKwp = 7.2;
+      // Dla wschód-zachód eastLight+westLight to już gotowa suma (ewTotalFraction, szczyt ok.
+      // 0,61 wobec 1,0 dla południa) — bez dodatkowego dzielnika. Dla południa/północy obie połacie
+      // mają tę samą wartość, więc suma/2 zwraca po prostu tę wartość.
+      var totalLight = orientation === 'wschod-zachod' ? (eastLight + westLight) : (eastLight + westLight) / 2;
+      var power = Math.max(0, installedKwp * totalLight);
+      powerNum.textContent = power.toFixed(1).replace('.', ',');
+
+      var dir = t < 0.5 ? 1 : -1;
+      var shadowLen = 8 + (1 - sunHeight) * 70;
+      shadow.setAttribute('rx', shadowLen.toFixed(1));
+      shadow.setAttribute('cx', (200 + dir * shadowLen * 0.55).toFixed(1));
+    }
+
+    function flashPower(){
+      if (reduceMotion) return;
+      powerBox.classList.remove('flash');
+      void powerBox.offsetWidth;
+      powerBox.classList.add('flash');
+    }
+
+    hourRange.addEventListener('input', function(){ render(); flashPower(); });
+
+    orientBtns.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        orientBtns.forEach(function(b){ b.setAttribute('aria-pressed', 'false'); b.classList.remove('active'); });
+        btn.setAttribute('aria-pressed', 'true');
+        btn.classList.add('active');
+        orientation = btn.getAttribute('data-orientation');
+        render();
+        flashPower();
+      });
+    });
+
+    if (reduceMotion) { hourRange.value = 13; }
+    render();
+  })();
+</script>
+
+</body>
+</html>

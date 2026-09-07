@@ -31,6 +31,13 @@ const FOTO = {
   falownik_wnetrze: 'https://images.pexels.com/photos/38171183/pexels-photo-38171183.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // wnętrze falownika, listwy i elektronika z bliska
   technik_na_macierzy: 'https://images.pexels.com/photos/19895911/pexels-photo-19895911.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // z drona: technik idący po macierzy paneli
   macierz_z_gory: 'https://images.pexels.com/photos/7211069/pexels-photo-7211069.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',   // top-down równa macierz paneli na dachu
+  // --- wariant 3 „petarda" (pula rozłączna z wariantami 1 i 2) ---
+  panel_refleks: 'https://images.pexels.com/photos/9800003/pexels-photo-9800003.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',      // ciemna tafla panelu z ostrym refleksem słońca
+  zachod_geometria: 'https://images.pexels.com/photos/11455626/pexels-photo-11455626.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // panele w ciepłym świetle zachodu, mocna przekątna
+  swit_mgla: 'https://images.pexels.com/photos/6729427/pexels-photo-6729427.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',          // wschód słońca nad panelami we mgle, złota poświata
+  dachy_dachowka: 'https://images.pexels.com/photos/38021376/pexels-photo-38021376.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',   // panele na czerwonej dachówce z kominami, realna zabudowa
+  mycie_paneli: 'https://images.pexels.com/photos/14614266/pexels-photo-14614266.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',     // technicy myjący panele na dachu
+  ogniwo_makro: 'https://images.pexels.com/photos/411011/sun-energy-solar-electricity-411011.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // monochromatyczne makro ogniwa, faktura
 };
 
 const VARIANTS = [
@@ -197,6 +204,96 @@ Na mobile panel ma iść POD zdjęcie, nie na nie.
 LAYOUT — bespoke. Panel monitoringu, oś serwisu zdalnego i sekcja porównania falownik /
 optymalizatory / magazyn to naturalnie unikalne dla tej branży elementy — zaprojektuj je od zera.
 Nie przenoś siatki sekcji z fotowoltaika-1.`,
+  },
+  {
+    id: 'fotowoltaika-3-kat-padania',
+    tier: 'pro',
+    name: 'Kąt padania',
+    visual: `STYL: "PETARDA" branży fotowoltaicznej. Wariant ma być najodważniejszy wizualnie
+w całej bibliotece i wolno mu złamać konwencję wyciszonego premium — dokładnie tak, jak zrobiły to
+auta-z-ameryki-3 i fotograf-slubny-3. To jest definicja tego wariantu, nie przeoczenie.
+
+TEMAT PRZEWODNI: ŚWIATŁO. Nie "energia", nie "eko", nie "oszczędności" — fizyczne światło padające
+pod kątem na płaszczyznę. Cała strona ma być zbudowana wokół tego, że przez dobę światło się
+przesuwa, zmienia temperaturę barwną i pada pod innym kątem, a od tego zależy wszystko.
+
+MECHANIZM NIE DO ZAPOMNIENIA (sedno wariantu): SŁOŃCE, KTÓRE PRZECHODZI PO NIEBIE.
+Zbuduj przestrzenną, a NIE analityczną symulację:
+- Stylizowany dom z dwuspadowym dachem, narysowany w SVG albo czystym CSS (żadnych bibliotek,
+  żadnych zdjęć w tym module — to ma być rysunek).
+- Kontrolka pory dnia (suwak godziny 4:00–21:00 ALBO przeciąganie samego słońca po łuku).
+  Słońce realnie wędruje po łuku, a jego pozycja steruje: kątem i długością cienia domu,
+  jasnością każdej połaci dachu, temperaturą barwną całej sceny.
+- Druga kontrolka: ORIENTACJA POŁACI (południe / wschód-zachód / północ). Zmienia to, która
+  połać się rozświetla i o której godzinie.
+- Odczyt liczbowy jest JEDEN i drugorzędny (np. bieżąca moc chwilowa w kW) — komunikat ma być
+  WIDZIALNY, nie wykresowy: człowiek ma ZOBACZYĆ, że dach wschód-zachód nie jest katastrofą,
+  tylko ma niższy szczyt i szerszą dobę, co bywa LEPSZE dla autokonsumpcji.
+
+TO OSTATNIE JEST OSIĄ UCZCIWOŚCIOWĄ CAŁEGO WARIANTU: branża upraszcza do "musi być południe,
+inaczej się nie opłaca" i na tym traci klientów z dachami wschód-zachód. Tekst ma to prostować
+wprost. Dach północny — mów uczciwie, że zwykle się nie opłaca, i nie próbuj tego sprzedać.
+
+ZAKAZ POWTÓRZENIA — CZYTAJ UWAŻNIE, TO NAJWIĘKSZE RYZYKO TEGO WARIANTU:
+1. NIE buduj osi chronologicznej "godzina po godzinie" z lepką (sticky) szyną godzin. Zrobił to
+   fotograf-slubny-3 dla całego ślubu, a w TEJ SAMEJ BRANŻY zrobił to fotowoltaika-2 dla serwisu
+   zdalnego. Dwa razy to samo w jednej branży dyskwalifikuje wariant.
+2. NIE buduj panelu z przełącznikiem zakresu i wykresem słupkowym — to jest mechanizm
+   fotowoltaika-2. Twój moduł jest przestrzenny i rysunkowy, nie dashboardowy.
+3. NIE kopiuj mechanizmu "trasy" z auta-z-ameryki-3 ani siatki sekcji z fotowoltaika-1 i -2.
+
+PALETA — DWUBIEGUNOWA, i to jest jej uzasadnienie: zimna noc kontra gorące słońce. Baza to głęboka,
+chłodna noc (granat/indygo/fiolet-czerń — ale NIE grafitowa zieleń #12140f wariantu 2 i NIE błękit
+#3d6b91 wariantu 1), akcent to gorący biegun światła. UWAGA: żółć i złoto są w bibliotece mocno
+zajęte (elektryk-1, fryzjer-barber-2, salon-fryzjerski-2, studio-paznokci-5, nieruchomosci-1
+mosiądz, remonty-4 musztarda) — jeśli idziesz w ciepły biegun, celuj raczej w intensywny pomarańcz
+zachodu albo róż-koral świtu niż w kolejne złoto. Zweryfikuj grepem
+(grep -rhoE "#[0-9a-fA-F]{3,6}" templates/pilot/*.html) i uzasadnij wybór w raporcie.
+Ciemna baza = inny reżim kontrastu, sprawdź --muted na obu tłach.
+TYPOGRAFIA: nieużyta nigdzie w systemie (zweryfikuj grepem) i inna niż Titillium Web/PT Sans
+(wariant 1) oraz Chakra Petch/Mukta (wariant 2). Petarda znosi wyrazisty, duży krój nagłówkowy.
+
+RUCH — najmocniejszy w branży, ale sterowany intencją użytkownika, nie samoistny. Poza modułem
+słońca: rozświetlanie sekcji przy wejściu w widok, refleks przesuwający się po taflach paneli,
+liczby doliczające się przy wejściu. Wszystko wyłączane pod prefers-reduced-motion —
+w tym module słońca ruch redukuj do statycznej pozycji południa, nie zostawiaj martwej kontrolki.
+
+ZDJĘCIA (curl 200, obejrzane, pula ROZŁĄCZNA z wariantami 1 i 2 — użyj TYCH DOKŁADNYCH URL
+ze stałej FOTO). Zdjęcia niosą tu kolor i światło, więc traktuj je jako materiał, nie ozdobę:
+- Ciemna tafla panelu z ostrym refleksem słońca (hero, światło jako bohater):
+  https://images.pexels.com/photos/9800003/pexels-photo-9800003.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Panele w ciepłym świetle zachodu, mocna przekątna (gorący biegun):
+  https://images.pexels.com/photos/11455626/pexels-photo-11455626.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Wschód słońca nad panelami we mgle (baner pełnoszerokościowy, zimny biegun przechodzący w ciepły):
+  https://images.pexels.com/photos/6729427/pexels-photo-6729427.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+  UWAGA: to farma w polu, nie dom — NIE podpisuj go jako naszej realizacji.
+- Panele na czerwonej dachówce z kominami, realna zabudowa (sekcja o prawdziwych dachach):
+  https://images.pexels.com/photos/38021376/pexels-photo-38021376.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Technicy myjący panele na dachu (utrzymanie, spadek uzysku od zabrudzenia):
+  https://images.pexels.com/photos/14614266/pexels-photo-14614266.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+- Monochromatyczne makro ogniwa (faktura, sekcja techniczna):
+  https://images.pexels.com/photos/411011/sun-energy-solar-electricity-411011.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+Jeśli potrzebujesz więcej — NIE zgaduj ID Pexels, zostaw "<!-- PHOTO NEEDED: opis -->" i wypisz
+w raporcie.
+
+TREŚĆ — sekcje: nav, hero (światło jako bohater, obietnica: pokażemy Ci, jak Twój dach łapie
+słońce), MODUŁ SŁOŃCA, sekcja prostująca mit "tylko południe" (uczciwie o wschód-zachód i o
+północy), co jeszcze zabiera uzysk (zacienienie od komina i drzew, zabrudzenie, śnieg, temperatura
+paneli latem — po ludzku), realizacje na realnych dachach, dotacje (Mój Prąd, Czyste Powietrze —
+co robimy, czego nie obiecujemy), opinie ({{MIASTO}} + moc instalacji, NIGDY zaszyte miasta ani
+nazwy firm — to był realny błąd wariantu 1 tej branży), FAQ, kontakt z mapą.
+Gramatyka {{MIASTO}} wg ZASADY.md sekcja 2 — czytaj CAŁE zdania, grep tego nie łapie.
+
+OGRANICZENIE UCZCIWOŚCIOWE OBOWIĄZUJE TAK SAMO JAK W WARIANTACH 1 I 2, petarda go nie znosi:
+zero "gwarantowanego zwrotu w X lat", zero "rachunek spadnie do zera", zero "dotacja pewna".
+Każda liczba pokazana przez moduł słońca musi być jawnie opisana jako symulacja poglądowa.
+
+REGUŁA 6.8 z ZASADY.md i REJESTR-BLEDOW.md: to już trzeci powtórzony błąd tego typu w projekcie.
+Karta/tekst na zdjęciu — zrzut na 360 i 390px, obejrzany. Moduł słońca musi być użyteczny palcem
+na telefonie: suwak, nie drag po łuku, jeśli drag nie działa pewnie na dotyku.
+
+LAYOUT — bespoke od zera. Petarda ma prawo do nietypowej siatki, dużych pustych przestrzeni
+i pełnoekranowych scen. Wykorzystaj to.`,
   },
 ];
 
