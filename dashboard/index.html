@@ -9,12 +9,12 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#F2F3F5;--s1:#FFFFFF;--s2:#F8F9FA;--s3:#EDEEF1;
-  --text:#14161C;--muted:#6B7280;--subtle:rgba(20,22,28,.4);
-  --border:rgba(20,22,28,.08);--border2:rgba(20,22,28,.16);
-  --green:#3D4EBF;--green2:#2E3A94;--blue:#2F5FD1;--purple:#6B5FC9;
+  --bg:#080A12;--s1:rgba(255,255,255,.04);--s2:rgba(255,255,255,.06);--s3:rgba(255,255,255,.08);
+  --text:#F3F6FC;--muted:#8E97AC;--subtle:rgba(255,255,255,.4);
+  --border:rgba(255,255,255,.10);--border2:rgba(255,255,255,.22);
+  --green:#00E5A0;--green2:#00B386;--blue:#2F5FD1;--purple:#6B5FC9;
   --red:#D14D5F;--amber:#C9861A;--good:#1B8F6B;
-  --grad:linear-gradient(135deg,#3D4EBF,#7B85C9);
+  --grad:linear-gradient(135deg,#00E5A0,#2E7CFF);
   --brand-grad:linear-gradient(135deg,#00E5A0,#0066FF,#7B4FFF);
   --head:'Bricolage Grotesque',sans-serif;
   --mono:'JetBrains Mono',monospace;
@@ -23,7 +23,7 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
 
 /* NAV */
 .nav{position:fixed;top:0;left:0;right:0;height:64px;z-index:200;
-  background:rgba(255,255,255,.85);backdrop-filter:blur(24px);
+  background:rgba(8,10,18,.85);backdrop-filter:blur(24px);
   border-bottom:1px solid var(--border);
   display:flex;align-items:center;padding:0 32px;gap:16px}
 .nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0}
@@ -36,7 +36,7 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
 .nav-spacer{flex:1}
 .nav-user{display:flex;align-items:center;gap:10px;cursor:pointer;
   padding:6px 12px;border-radius:8px;transition:background .18s}
-.nav-user:hover{background:rgba(20,22,28,.07)}
+.nav-user:hover{background:rgba(255,255,255,.07)}
 .nav-avatar{width:32px;height:32px;border-radius:50%;background:var(--brand-grad);
   display:flex;align-items:center;justify-content:center;
   font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
@@ -49,7 +49,7 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
   width:38px;height:38px;border-radius:9px;cursor:pointer;
   color:var(--muted);transition:all .18s;text-decoration:none;font-size:18px;
   border:1px solid transparent}
-.nav-msg-btn:hover{background:rgba(20,22,28,.08);border-color:var(--border2);color:var(--text)}
+.nav-msg-btn:hover{background:rgba(255,255,255,.08);border-color:var(--border2);color:var(--text)}
 .nav-badge{position:absolute;top:4px;right:4px;background:#D14D5F;color:#fff;
   font-size:10px;font-weight:700;font-family:var(--mono);min-width:16px;height:16px;
   border-radius:8px;display:none;align-items:center;justify-content:center;
@@ -70,7 +70,7 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
 .nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;
   border-radius:9px;cursor:pointer;transition:all .18s;
   color:var(--muted);font-size:14px;font-weight:500;text-decoration:none}
-.nav-item:hover{background:rgba(20,22,28,.06);color:var(--text)}
+.nav-item:hover{background:rgba(255,255,255,.06);color:var(--text)}
 .nav-item.active{background:rgba(76,111,255,.08);color:var(--text);
   border:1px solid rgba(76,111,255,.15)}
 .nav-item .ni-icon{font-size:15px;width:20px;text-align:center;flex-shrink:0}
