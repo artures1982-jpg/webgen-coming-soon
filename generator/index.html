@@ -1031,7 +1031,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
     <div id="sidebar-plan-pill" style="display:none;margin-top:auto;padding:10px 14px;background:rgba(0,229,160,.07);border:1px solid rgba(0,229,160,.18);border-radius:9px">
       <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green);opacity:.7;margin-bottom:4px">Wybrany plan</div>
       <div style="display:flex;align-items:baseline;gap:6px">
-        <span id="cp-plan-name" style="font-size:13px;font-weight:700;color:var(--text)">Free</span>
+        <span id="cp-plan-name" style="font-size:13px;font-weight:700;color:var(--text)">Start</span>
         <span id="cp-total-price" style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--green)">Bezpłatny</span>
       </div>
     </div>
@@ -1215,7 +1215,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
           <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green)">// Galeria Startowa</div>
           <div class="gallery-style-filter" id="gallery-style-filter">
             <button class="gs-filter-btn active" onclick="filterGalleryTier('all', this)">Wszystkie</button>
-            <button class="gs-filter-btn" onclick="filterGalleryTier('free', this)">Free</button>
+            <button class="gs-filter-btn" onclick="filterGalleryTier('free', this)">Start</button>
             <button class="gs-filter-btn" onclick="filterGalleryTier('pro', this)">Pro</button>
             <button class="gs-filter-btn" onclick="filterGalleryTier('promax', this)">Pro Max</button>
           </div>
@@ -1667,7 +1667,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
         <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)">Wybrany plan</div>
         <div style="position:relative;background:var(--s2);border:1.5px solid var(--green);border-radius:10px;padding:16px 18px;display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap">
           <div>
-            <div id="p6-summary-name" style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px">Free</div>
+            <div id="p6-summary-name" style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px">Start</div>
             <div id="p6-summary-features" style="font-size:11px;color:var(--muted);line-height:1.7"></div>
           </div>
           <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
@@ -1681,7 +1681,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
       <div style="background:var(--s2);border:1px solid var(--border2);border-radius:10px;padding:16px 18px;margin-bottom:20px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
           <span style="font-size:13px;color:var(--muted)">Wybrany plan:</span>
-          <span style="font-size:14px;font-weight:700;color:var(--text)" id="s6-plan-name">Free</span>
+          <span style="font-size:14px;font-weight:700;color:var(--text)" id="s6-plan-name">Start</span>
         </div>
         <div id="s6-addons-list" style="margin-bottom:8px"></div>
         <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:10px">
@@ -1756,8 +1756,9 @@ const state = {
   templateId: '',
   templateTier: '',
   plan: 'free',
-  planName: 'Free',
+  planName: 'Start',
   planPrice: '0',
+  templateIndustry: null,
   addons: {},
   generatedHTML: '',
   slug: '',
@@ -1942,7 +1943,7 @@ function selectBranzaTile(btn, name) {
 var TEMPLATES_MANIFEST = [];
 var galleryTierFilter = 'all';
 var galleryManifestLoaded = false;
-var TIER_LABEL = { free: 'FREE', pro: 'PRO', promax: 'PRO MAX' };
+var TIER_LABEL = { free: 'START', pro: 'PRO', promax: 'PRO MAX' };
 // Kafelki brancy w generatorze uzywaja etykiet czlowieka (state.branza), manifest.json
 // uzywa slugow biblioteki szablonow (templates/pilot/). Mapowanie tylko na potrzeby
 // galerii — reszta kodu (Pexels, payload wysylki) nadal czyta state.branza jak dawniej.
@@ -1989,7 +1990,7 @@ function renderGallery() {
   var empty = document.getElementById('gallery-empty');
   if (!grid) return;
 
-  var industry = BRANZA_TO_INDUSTRY[state.branza] || state.branza;
+  var industry = state.templateIndustry || BRANZA_TO_INDUSTRY[state.branza] || state.branza;
   var items = TEMPLATES_MANIFEST.filter(function (t) { return t.industry === industry; });
   if (galleryTierFilter !== 'all') items = items.filter(function (t) { return t.tier === galleryTierFilter; });
 
@@ -2005,7 +2006,7 @@ function renderGallery() {
     var thumb = t.thumb ? '<img src="' + t.thumb + '" alt="" loading="lazy">' : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="10" r="1.7"/><path d="M21 16l-5.5-5.5L9 17"/></svg>';
     return '<div class="gallery-card' + (isSel ? ' selected' : '') + '" onclick="selectTemplate(\'' + t.id + '\',\'' + t.tier + '\')">'
       + '<div class="gc-thumb">' + thumb
-      + '<span class="gc-tier-badge ' + t.tier + '">' + (TIER_LABEL[t.tier] || 'FREE') + '</span>'
+      + '<span class="gc-tier-badge ' + t.tier + '">' + (TIER_LABEL[t.tier] || 'START') + '</span>'
       + '</div>'
       + '<div class="gc-info">'
       + '<div class="gc-style">' + (t.title || t.id) + '</div>'
@@ -2022,7 +2023,7 @@ function selectTemplate(id, tier) {
   state.templateId = id;
   state.templateTier = tier;
   var TEMPLATE_TIER_PLAN = {
-    free:   ['Free', 0],
+    free:   ['Start', 0],
     pro:    ['Pro', PLAN_BASE_PRICE.pro],
     promax: ['Pro Max', PLAN_BASE_PRICE.promax]
   };
@@ -2037,6 +2038,29 @@ function selectTemplate(id, tier) {
       : 'Ten szablon wymaga planu Pro (299 zł/mies.) — wybierając go, ustawiasz sobie ten plan. Możesz też przejrzeć darmowe szablony powyżej.';
   }
   renderGallery();
+}
+
+// Deep-link z /galeria/ ("Aktywuj ten szablon →/generator/?template=<id>") — panel-1
+// (branża + galeria) jest ukryty do czasu rejestracji/logowania (panel-0), więc wybór
+// z URL nie da się zastosować od razu na starcie strony: zapamiętujemy go i stosujemy
+// dopiero w onAuthenticated()->setStep(1), gdy panel-1 faktycznie staje się widoczny.
+var PENDING_TEMPLATE_ID = new URLSearchParams(window.location.search).get('template') || null;
+
+function applyPendingTemplateSelection() {
+  if (!PENDING_TEMPLATE_ID) return;
+  var id = PENDING_TEMPLATE_ID;
+  PENDING_TEMPLATE_ID = null; // tylko raz — kolejne wejścia na panel-1 nie nadpisują wyboru usera
+  loadTemplatesManifest().then(function () {
+    var entry = TEMPLATES_MANIFEST.filter(function (t) { return t.id === id; })[0];
+    if (!entry) return;
+    state.branza = entry.label;
+    state.templateIndustry = entry.industry;
+    document.querySelectorAll('.branza-tile').forEach(function (b) {
+      if (b.textContent.trim() === entry.label) b.classList.add('selected');
+    });
+    showGalleryForBranza();
+    selectTemplate(entry.id, entry.tier);
+  });
 }
 
 function toggleBranzaOther() {
@@ -2612,7 +2636,7 @@ async function goToCheckout() {
   if (!email || !email.includes('@')) { alert('Wpisz poprawny email'); return; }
   
   if (state.plan === 'free') {
-    alert('Plan Free nie wymaga płatności — Twoja strona zostanie aktywowana automatycznie. Pierwsze 6 miesięcy za darmo, potem 149 zł/mies. (możesz zrezygnować w każdej chwili).');
+    alert('Plan Start nie wymaga płatności — Twoja strona zostanie aktywowana automatycznie. Pierwsze 6 miesięcy za darmo, potem 149 zł/mies. (możesz zrezygnować w każdej chwili).');
     closeCheckout();
     return;
   }
@@ -2641,7 +2665,7 @@ document.getElementById('checkout-modal').addEventListener('click', function(e) 
 });
 
 // Init
-selectPlan(document.querySelector('.plan-card.selected'), 'free', 'Free', '0');
+selectPlan(document.querySelector('.plan-card.selected'), 'free', 'Start', '0');
 
 // ─── VISUAL LAYOUT ZONES ─────────────────────────────────────────
 var _zones = { hero: null, img1: null, img2: null };
@@ -2971,9 +2995,10 @@ function onAuthenticated(user) {
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () { setStep(1); });
+    document.addEventListener('DOMContentLoaded', function () { setStep(1); applyPendingTemplateSelection(); });
   } else {
     setStep(1);
+    applyPendingTemplateSelection();
   }
 }
 

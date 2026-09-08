@@ -222,7 +222,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
     <div class="eyebrow">// webgen.pl</div>
     <h1>Polityka Prywatności</h1>
     <p class="subtitle">Jak przetwarzamy i chronimy Twoje dane osobowe</p>
-    <p class="meta">Wersja: 1.0 · Data wejścia w życie: 21 marca 2026 r.</p>
+    <p class="meta">Wersja: 1.1 · Data wejścia w życie: 21 marca 2026 r. · Ostatnia aktualizacja: 8 września 2026 r.</p>
   </header>
 
   <h2>Informacje o Administratorze</h2>
@@ -245,7 +245,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
   <h2>Jakie dane zbieramy i w jakim celu</h2>
 
   <h3>Rejestracja i korzystanie z Usług</h3>
-  <p>Adres e-mail, hasło (szyfrowane bcrypt), nazwa firmy, branża, miasto, numer telefonu (opcjonalnie), treść wprowadzona do generatora AI.</p>
+  <p>Adres e-mail oraz dane logowania i sesji — obsługiwane przez naszego dostawcę uwierzytelniania Clerk (patrz „Odbiorcy danych i przekazywanie do państw trzecich”) — a także nazwa firmy, branża, miasto, numer telefonu (opcjonalnie), przesłane pliki (np. logo) oraz treść wprowadzona do generatora AI.</p>
   <p><em>Cel:</em> świadczenie usługi. <em>Okres przechowywania:</em> czas trwania umowy + 5 lat (obowiązki podatkowe).</p>
 
   <h3>Płatności</h3>
@@ -278,11 +278,13 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
   <table>
     <thead><tr><th>Dostawca</th><th>Cel</th><th>Kraj / Zabezpieczenie</th></tr></thead>
     <tbody>
+      <tr><td>Clerk, Inc.</td><td>Uwierzytelnianie i zarządzanie kontem (logowanie, rejestracja, sesje, hasła)</td><td>USA — Standardowe Klauzule Umowne UE</td></tr>
       <tr><td>Stripe, Inc.</td><td>Obsługa płatności</td><td>USA — Standardowe Klauzule Umowne UE</td></tr>
       <tr><td>Vercel, Inc.</td><td>Hosting i infrastruktura</td><td>USA — SKU UE</td></tr>
       <tr><td>Resend</td><td>Wysyłka e-mail transakcyjnych</td><td>USA — SKU UE</td></tr>
       <tr><td>Google LLC</td><td>Analytics GA4 (za zgodą)</td><td>USA — SKU UE</td></tr>
-      <tr><td>Anthropic, PBC</td><td>Model AI — generowanie treści stron</td><td>USA — SKU UE</td></tr>
+      <tr><td>Meta Platforms, Inc.</td><td>Meta Pixel — pomiar i personalizacja reklam (za zgodą)</td><td>USA — SKU UE</td></tr>
+      <tr><td>Anthropic, PBC</td><td>Model AI — personalizacja treści szablonu (plany Pro/Pro Max)</td><td>USA — SKU UE</td></tr>
     </tbody>
   </table>
 
@@ -298,7 +300,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
   <h2>Bezpieczeństwo danych</h2>
   <ul>
     <li>Szyfrowanie komunikacji TLS/HTTPS</li>
-    <li>Hasła użytkowników szyfrowane funkcją bcrypt</li>
+    <li>Logowanie i hasła obsługiwane przez wyspecjalizowanego dostawcę uwierzytelniania (Clerk) — webgen.pl nie przechowuje haseł użytkowników samodzielnie</li>
     <li>Dostęp do danych ograniczony zasadą minimalnych uprawnień</li>
     <li>Regularne tworzenie kopii zapasowych</li>
     <li>Procedury reagowania na incydenty bezpieczeństwa (art. 33–34 RODO)</li>

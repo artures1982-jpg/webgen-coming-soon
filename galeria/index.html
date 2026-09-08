@@ -233,7 +233,7 @@ footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify
       </div>
       <div class="pmodal-actions">
         <a href="#" id="pm-newtab" target="_blank" rel="noopener">Pełny ekran ↗</a>
-        <a href="/generator/" class="pmodal-cta">Aktywuj ten szablon →</a>
+        <a href="/generator/" id="pm-activate" class="pmodal-cta">Aktywuj ten szablon →</a>
         <button class="pmodal-close" id="pm-close" aria-label="Zamknij">✕</button>
       </div>
     </div>
@@ -348,6 +348,17 @@ function previewFile(branza, num, tytul, titled) {
   return path + '-preview-wypelniony';
 }
 
+// Ten sam schemat sluga co previewFile (branza-num-tytul), ALE bez sufiksu pliku —
+// to jest id z templates/manifest.json, którego generator/index.html używa do
+// odnalezienia dokładnie tego wariantu przez ?template= (patrz "Aktywuj ten szablon").
+function templateManifestId(branza, num, tytul) {
+  var slugTitle = tytul.toLowerCase()
+    .replace(/ą/g,'a').replace(/ć/g,'c').replace(/ę/g,'e').replace(/ł/g,'l')
+    .replace(/ń/g,'n').replace(/ó/g,'o').replace(/ś/g,'s').replace(/ź/g,'z').replace(/ż/g,'z')
+    .replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+  return branza + '-' + num + '-' + slugTitle;
+}
+
 // Kategorie nadrzędne — drzewo filtra (kategoria główna -> branże jako podkategorie)
 var CATEGORIES = [
   { id:"dom", nazwa:"Dom i naprawy", branze:["hydraulik","elektryk","remonty","fotowoltaika"] },
@@ -367,7 +378,7 @@ function categoryCount(cat) {
 // Plan/tier (Free/Pro/Pro Max) — filtr niezależny od kategorii, sterowany też
 // parametrem URL ?plan=, żeby CTA z cennika mogły linkować prosto do przefiltrowanej galerii.
 var TIER_ORDER = ['free', 'pro', 'promax'];
-var TIER_FILTER_LABEL = { free: 'Free', pro: 'Pro', promax: 'Pro Max' };
+var TIER_FILTER_LABEL = { free: 'Start', pro: 'Pro', promax: 'Pro Max' };
 function tierCount(tier) {
   var n = 0;
   BRANZE.forEach(function (b) { b.warianty.forEach(function (w) { if (w[3] === tier) n++; }); });
@@ -564,7 +575,7 @@ while (remaining) {
   });
 }
 
-var TIER_LABEL = { free: 'Free', pro: 'Pro', promax: 'Max' };
+var TIER_LABEL = { free: 'Start', pro: 'Pro', promax: 'Max' };
 
 interleaved.forEach(function (entry) {
   var b = entry.b, w = entry.w;
@@ -585,7 +596,7 @@ interleaved.forEach(function (entry) {
     '<div class="card-btn">Podgląd →</div>' +
     '</div>';
   card.addEventListener('click', function () {
-    openPreview(b.nazwa, tytul, file);
+    openPreview(b.nazwa, tytul, file, templateManifestId(b.slug, num, tytul));
   });
   gallery.appendChild(card);
   allCards.push(card);
@@ -597,12 +608,14 @@ var pmFrame = document.getElementById('pm-frame');
 var pmBranza = document.getElementById('pm-branza');
 var pmTitle = document.getElementById('pm-title');
 var pmNewtab = document.getElementById('pm-newtab');
+var pmActivate = document.getElementById('pm-activate');
 
-function openPreview(branzaNazwa, tytul, file) {
+function openPreview(branzaNazwa, tytul, file, templateId) {
   pmBranza.textContent = branzaNazwa;
   pmTitle.textContent = tytul;
   pmFrame.src = file;
   pmNewtab.href = file;
+  pmActivate.href = '/generator/?template=' + encodeURIComponent(templateId);
   pmodal.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
