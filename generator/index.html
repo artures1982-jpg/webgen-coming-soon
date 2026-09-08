@@ -2612,7 +2612,7 @@ async function goToCheckout() {
   if (!email || !email.includes('@')) { alert('Wpisz poprawny email'); return; }
   
   if (state.plan === 'free') {
-    alert('Plan Free nie wymaga płatności — Twoja strona zostanie aktywowana automatycznie.');
+    alert('Plan Free nie wymaga płatności — Twoja strona zostanie aktywowana automatycznie. Pierwsze 6 miesięcy za darmo, potem 149 zł/mies. (możesz zrezygnować w każdej chwili).');
     closeCheckout();
     return;
   }

@@ -212,6 +212,7 @@ footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify
 
 <div class="filters" id="filters"></div>
 <div class="subfilters" id="subfilters" hidden></div>
+<div class="subfilters" id="tier-filters"></div>
 <div class="count-row" id="count-row"></div>
 <div class="gallery" id="gallery"></div>
 <div class="pagination" id="pagination"></div>
@@ -363,16 +364,34 @@ function categoryCount(cat) {
   return n;
 }
 
+// Plan/tier (Free/Pro/Pro Max) — filtr niezależny od kategorii, sterowany też
+// parametrem URL ?plan=, żeby CTA z cennika mogły linkować prosto do przefiltrowanej galerii.
+var TIER_ORDER = ['free', 'pro', 'promax'];
+var TIER_FILTER_LABEL = { free: 'Free', pro: 'Pro', promax: 'Pro Max' };
+function tierCount(tier) {
+  var n = 0;
+  BRANZE.forEach(function (b) { b.warianty.forEach(function (w) { if (w[3] === tier) n++; }); });
+  return n;
+}
+
 var gallery = document.getElementById('gallery');
 var filters = document.getElementById('filters');
 var subfilters = document.getElementById('subfilters');
+var tierFilters = document.getElementById('tier-filters');
 var countRow = document.getElementById('count-row');
 var pagination = document.getElementById('pagination');
 var allCards = [];
 var activeCat = 'all';
 var activeSub = null;
+var activeTier = null;
 var PAGE_SIZE = 12;
 var page = 1;
+
+// ?plan=pro|promax|free w URL wstępnie ustawia filtr planu (linkowane z /cennik/ i /start/).
+(function () {
+  var planParam = (new URLSearchParams(window.location.search).get('plan') || '').toLowerCase();
+  if (TIER_ORDER.indexOf(planParam) !== -1) activeTier = planParam;
+})();
 
 var totalCount = 0;
 BRANZE.forEach(function (b) { totalCount += b.warianty.length; });
@@ -444,6 +463,25 @@ function selectSub(slug) {
   applyFilter();
 }
 
+function renderTierFilters() {
+  tierFilters.innerHTML = '';
+  var allChip = buildChip('Wszystkie plany', totalCount, activeTier === null, 'sub');
+  allChip.addEventListener('click', function () { selectTier(null); });
+  tierFilters.appendChild(allChip);
+  TIER_ORDER.forEach(function (tier) {
+    var chip = buildChip(TIER_FILTER_LABEL[tier], tierCount(tier), activeTier === tier, 'sub');
+    chip.addEventListener('click', function () { selectTier(tier); });
+    tierFilters.appendChild(chip);
+  });
+}
+
+function selectTier(tier) {
+  activeTier = (activeTier === tier) ? null : tier;
+  page = 1;
+  renderTierFilters();
+  applyFilter();
+}
+
 function goToPage(n) {
   page = n;
   applyFilter();
@@ -456,7 +494,9 @@ function applyFilter() {
     branzeToShow = activeSub ? [activeSub] : categoryOf(activeCat).branze;
   }
   var matching = allCards.filter(function (card) {
-    return !branzeToShow || branzeToShow.indexOf(card.dataset.branza) !== -1;
+    if (branzeToShow && branzeToShow.indexOf(card.dataset.branza) === -1) return false;
+    if (activeTier && card.dataset.tier !== activeTier) return false;
+    return true;
   });
 
   var totalPages = Math.max(1, Math.ceil(matching.length / PAGE_SIZE));
@@ -506,6 +546,7 @@ function renderPagination(totalPages) {
 
 renderMainFilters();
 renderSubFilters();
+renderTierFilters();
 applyFilter();
 
 // Karty przemieszane round-robin między branżami (po jednej z każdej na rundę),
@@ -533,6 +574,7 @@ interleaved.forEach(function (entry) {
   var card = document.createElement('div');
   card.className = 'card';
   card.dataset.branza = b.slug;
+  card.dataset.tier = tier;
   card.innerHTML =
     '<span class="tier-badge ' + tier + '">' + TIER_LABEL[tier] + '</span>' +
     '<div class="card-thumb-wrap"><img class="card-thumb" src="' + thumb + '" alt="" loading="lazy"></div>' +

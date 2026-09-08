@@ -206,6 +206,51 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;padding:0 48px;d
 h1{font-size:clamp(44px,6.5vw,88px);font-weight:800;line-height:.95;letter-spacing:-.035em;color:var(--text);margin-bottom:24px;animation:fadeUp .6s .1s ease both}
 h1 .grad-text{background:var(--grad);background-size:220% 220%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 7s ease-in-out infinite}
 @keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+/* ===== BUILD BG — strona przeglądarki w tle, sekcje budują się na przemian
+   z lewej/prawej w takt scrolla całej strony, kończy poświatą przy kontakcie ===== */
+.build-bg{position:fixed;inset:0;z-index:-1;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity .4s ease}
+.build-card{position:relative;width:min(520px,80vw);border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);box-shadow:0 30px 90px rgba(0,0,0,.5);overflow:hidden;transition:box-shadow .8s ease}
+.build-card-top{height:3px;background:var(--grad)}
+.build-chrome{display:flex;align-items:center;gap:7px;padding:11px 16px;border-bottom:1px solid rgba(255,255,255,.06)}
+.build-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.15)}
+.build-url{margin-left:6px;font-family:var(--mono);font-size:10px;color:var(--muted);background:rgba(255,255,255,.04);border-radius:6px;padding:3px 9px;letter-spacing:.02em}
+.build-card-body{padding:20px 22px 26px;display:flex;flex-direction:column;gap:13px}
+.build-block{border-radius:6px;background:rgba(255,255,255,.1);opacity:0;will-change:transform,opacity}
+.build-navbar{height:12px;width:44%}
+.build-line{height:9px}
+.build-line-1{width:70%}
+.build-line-2{width:46%}
+.build-hero-wrap{position:relative}
+.build-hero-img{height:90px;width:100%;background:var(--grad);will-change:transform,opacity,filter}
+.build-hero-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;opacity:0;will-change:opacity,transform}
+.build-hero-title{font-family:var(--head);font-weight:800;font-size:15px;color:#05100d;letter-spacing:-.02em}
+.build-hero-sub{font-family:var(--mono);font-size:9px;color:rgba(5,16,13,.75);margin-top:3px}
+.build-row{display:flex;gap:8px}
+.build-chip{height:32px;flex:1}
+.build-footer{height:10px;width:28%;align-self:flex-end}
+.build-cta{margin-top:16px;text-align:center;opacity:0;pointer-events:none;will-change:opacity,transform}
+.build-cta.show{pointer-events:auto}
+.build-cta p{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:10px}
+.build-cta a{display:inline-block;background:var(--grad);color:#05100d;font-size:12px;font-weight:700;padding:9px 18px;border-radius:8px;text-decoration:none}
+.build-badge{position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(11,14,22,.85);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:7px 13px;font-family:var(--mono);text-align:center;opacity:0;box-shadow:0 10px 30px rgba(0,0,0,.35);will-change:transform,opacity}
+.build-badge strong{font-size:16px;font-weight:800;line-height:1.1}
+.build-badge span{font-size:8px;color:var(--muted);letter-spacing:.06em;margin-top:2px}
+.build-badge-branze{top:4%;left:-4%;border-color:rgba(46,124,255,.3)}
+.build-badge-branze strong{color:var(--blue)}
+.build-badge-warianty{top:12%;right:-6%;border-color:rgba(0,229,160,.3)}
+.build-badge-warianty strong{color:var(--green)}
+.build-badge-speed{bottom:8%;right:0;border-color:rgba(123,79,255,.3)}
+.build-badge-speed strong{color:var(--purple)}
+.build-card.complete{box-shadow:0 0 70px 6px rgba(0,229,160,.22),0 0 130px 40px rgba(46,124,255,.14)}
+@media(max-width:700px){
+.build-card{width:82vw}
+.build-badge{padding:5px 9px}
+.build-badge strong{font-size:13px}
+.build-badge-branze{left:0}
+.build-badge-warianty{right:0}
+}
+@media(prefers-reduced-motion:reduce){.build-bg{display:none}}
 .hero-sub{font-size:clamp(16px,2vw,20px);color:var(--muted);font-weight:400;line-height:1.6;max-width:600px;margin:0 auto 40px;animation:fadeUp .6s .2s ease both}
 .hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:48px;animation:fadeUp .6s .3s ease both}
 .btn-primary{position:relative;overflow:hidden;background:var(--grad);color:var(--oncta);padding:15px 32px;border-radius:10px;text-decoration:none;font-weight:700;font-size:16px;transition:box-shadow .2s,transform .1s,filter .2s;display:inline-flex;align-items:center;gap:8px;letter-spacing:-.01em}
@@ -249,7 +294,7 @@ h1 .grad-text{background:var(--grad);background-size:220% 220%;-webkit-backgroun
 .hs-time{font-family:var(--mono);font-size:11px;color:var(--green);margin-top:16px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);padding:4px 10px;border-radius:4px;display:inline-block}
 
 /* ===== FOR WHO ===== */
-.forwho{background:var(--s1);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.forwho{background:var(--s1);border:1px solid var(--border);border-radius:28px;max-width:1360px;margin:14vh auto}
 .forwho-inner{max-width:1200px;margin:0 auto;padding:100px 48px}
 .industries-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
 .ind{background:var(--s2);border:1px solid var(--border);border-radius:14px;padding:28px 26px;display:flex;align-items:flex-start;gap:16px;transition:all .25s;cursor:default}
@@ -296,7 +341,7 @@ h1 .grad-text{background:var(--grad);background-size:220% 220%;-webkit-backgroun
 .plan.max .plan-btn.primary:hover{background:#06070c;filter:none}
 
 /* ===== WHY WEBGEN ===== */
-.why{background:var(--s1);border-top:1px solid var(--border)}
+.why{background:var(--s1);border:1px solid var(--border);border-radius:28px;max-width:1360px;margin:14vh auto}
 .why-inner{max-width:1100px;margin:0 auto;padding:100px 48px}
 .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);margin-top:56px}
 .why-item{background:var(--s1);padding:44px 40px;transition:background .2s}
@@ -333,7 +378,7 @@ h1 .grad-text{background:var(--grad);background-size:220% 220%;-webkit-backgroun
 .faq-a-inner{padding:0 28px 22px;font-size:14px;color:var(--muted);line-height:1.75}
 
 /* ===== CTA BOTTOM ===== */
-.cta-bottom{background:var(--s2);border-top:1px solid var(--border);padding:100px 48px;text-align:center;position:relative;overflow:hidden}
+.cta-bottom{background:var(--s2);border:1px solid var(--border);border-radius:28px;max-width:1360px;margin:14vh auto 32vh;padding:100px 48px;text-align:center;position:relative;overflow:hidden}
 .cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(0,229,160,.16),transparent 70%);pointer-events:none}
 .cta-bottom h2{font-size:clamp(36px,5vw,64px);font-weight:800;letter-spacing:-.03em;color:var(--text);margin-bottom:16px;position:relative}
 .cta-bottom p{font-size:18px;color:var(--muted);margin-bottom:36px;position:relative}
@@ -364,7 +409,7 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:56px 48px
 .fb-badge{font-family:var(--mono);font-size:10px;color:var(--muted);background:rgba(255,255,255,.04);border:1px solid var(--border);padding:4px 10px;border-radius:4px}
 
 /* ===== GALLERY BRIDGE ===== */
-.gallery-bridge{background:var(--s1);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:40px 0 56px}
+.gallery-bridge{background:var(--s1);border:1px solid var(--border);border-radius:28px;max-width:1360px;margin:14vh auto;padding:40px 0 56px;overflow:hidden}
 .gallery-bridge-inner{max-width:1100px;margin:0 auto;padding:0 48px;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap}
 .gb-title{font-size:clamp(20px,2.6vw,28px);font-weight:800;letter-spacing:-.02em;color:var(--text);margin-bottom:8px;max-width:560px}
 .gb-desc{font-size:14px;color:var(--muted);line-height:1.6;max-width:520px}
@@ -1040,6 +1085,44 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
   <a href="/generator/" class="wg-nav-drawer-cta">Zacznij za darmo →</a>
 </div>
 
+<!-- BUILD BG — strona przeglądarki w tle (z-index pod treścią), sekcje budują się
+     na przemian z lewej/prawej w takt przewijania całej strony, kończy poświatą przy
+     sekcji kontaktowej. Widoczne przez sekcje z półprzezroczystym tłem (patrz niżej). -->
+<div class="build-bg" id="build-bg" aria-hidden="true">
+  <div class="build-card">
+    <div class="build-card-top"></div>
+    <div class="build-chrome">
+      <span class="build-dot"></span><span class="build-dot"></span><span class="build-dot"></span>
+      <span class="build-url">webgen.pl/twoja-firma</span>
+    </div>
+    <div class="build-card-body">
+      <div class="build-block from-left build-navbar"></div>
+      <div class="build-block from-right build-line build-line-1"></div>
+      <div class="build-block from-right build-line build-line-2"></div>
+      <div class="build-hero-wrap">
+        <div class="build-block from-left build-hero-img"></div>
+        <div class="build-hero-text" id="build-hero-text">
+          <div class="build-hero-title">Twoja-firma.pl</div>
+          <div class="build-hero-sub">Gotowe. Online w kilka minut.</div>
+        </div>
+      </div>
+      <div class="build-row">
+        <div class="build-block from-right build-chip"></div>
+        <div class="build-block from-right build-chip"></div>
+        <div class="build-block from-right build-chip"></div>
+      </div>
+      <div class="build-block from-left build-footer"></div>
+    </div>
+    <div class="build-badge build-badge-branze"><strong>12</strong><span>BRANŻ</span></div>
+    <div class="build-badge build-badge-warianty"><strong>53</strong><span>WARIANTY</span></div>
+    <div class="build-badge build-badge-speed"><strong>90+</strong><span>PAGESPEED</span></div>
+    <div class="build-cta" id="build-cta">
+      <p>Właśnie zobaczyłeś, jak to działa — a to tylko jedna z 53 gotowych stron.</p>
+      <a href="/galeria/">Zobacz galerię →</a>
+    </div>
+  </div>
+</div>
+
 <!-- HERO -->
 <section class="hero">
   <div class="hero-mesh">
@@ -1274,7 +1357,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
           <div class="pf"><span class="pf-check yes">✓</span>Aktualizacje treści na życzenie (mailowo)</div>
           <div class="pf"><span class="pf-check yes">✓</span>Dodatki: domena, social media, statystyki</div>
         </div>
-        <a class="plan-btn primary" href="/generator/">Pro 299 zł/mies.</a>
+        <a class="plan-btn primary" href="/galeria/?plan=pro">Pro 299 zł/mies.</a>
       </div>
       <!-- PRO MAX -->
       <div class="plan max">
@@ -1290,7 +1373,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
           <div class="pf"><span class="pf-check yes">✓</span>Priorytetowa obsługa zmian</div>
           <div class="pf"><span class="pf-check yes">✓</span>Własna domena w cenie</div>
         </div>
-        <a class="plan-btn primary" href="/generator/">Pro Max 499 zł/mies.</a>
+        <a class="plan-btn primary" href="/galeria/?plan=promax">Pro Max 499 zł/mies.</a>
       </div>
     </div>
   </div>
@@ -1299,7 +1382,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 
 
 <!-- ══ PORÓWNANIE PLANÓW ════════════════════════════════════════════════ -->
-<section class="section" id="porownanie" style="background:var(--bg)">
+<section class="section" id="porownanie" style="background:var(--bg);border:1px solid var(--border);border-radius:28px;max-width:1360px;margin:14vh auto">
   <div style="max-width:1100px;margin:0 auto">
     <div class="sec-eyebrow">Porównanie</div>
     <h2 class="sec-title">Który plan <span class="grad">dla Ciebie?</span></h2>
@@ -1372,7 +1455,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 </section>
 
 <!-- FAQ -->
-<section class="section" id="faq" style="background:var(--s1);border-top:1px solid var(--border)">
+<section class="section" id="faq" style="background:var(--s1);border:1px solid var(--border);border-radius:28px;max-width:1360px;margin:14vh auto">
   <div class="faq-inner">
     <div class="sec-eyebrow">FAQ</div>
     <h2 class="sec-title">Pytania i<br><span class="grad">odpowiedzi</span></h2>
@@ -1846,6 +1929,87 @@ function ctaSubmit(e) {
   }, { rootMargin: '0px 0px -70% 0px' });
 
   sections.forEach(function(s){ observer.observe(s); });
+})();
+
+// Build BG — "strona się buduje" w takt przewijania CAŁEJ strony. Prawdziwy
+// scroll-scrubbing: pozycja/obrót/opacity każdego klocka to BEZPOŚREDNIA funkcja
+// pozycji scrolla (interpolacja w update(), zero CSS transition) — więc klocki
+// wjeżdżają w zarys przeglądarki w takt scrolla, zamiast doskakiwać po przekroczeniu
+// progu. 100% scrolla = poświata przy sekcji kontaktowej.
+(function(){
+  var bg = document.getElementById('build-bg');
+  var hero = document.querySelector('.hero');
+  if (!bg || !hero) return;
+  var card = bg.querySelector('.build-card');
+  var blocks = [].slice.call(bg.querySelectorAll('.build-block'));
+  var badges = [].slice.call(bg.querySelectorAll('.build-badge'));
+  var ticking = false;
+
+  // [start, end] progresu scrolla, w którym dany klocek/dymek wjeżdża na miejsce.
+  var BLOCK_RANGES = [
+    [0.00, 0.06],  // navbar — z lewej
+    [0.05, 0.14],  // linia 1 — z prawej
+    [0.11, 0.20],  // linia 2 — z prawej
+    [0.18, 0.30],  // hero-img — z lewej
+    [0.27, 0.36],  // chip 1 — z prawej
+    [0.31, 0.40],  // chip 2 — z prawej
+    [0.35, 0.44],  // chip 3 — z prawej
+    [0.42, 0.52]   // stopka — z lewej
+  ];
+  var BADGE_RANGES = [[0.50, 0.62], [0.58, 0.70], [0.66, 0.78]];
+  var HERO_TEXT_RANGE = [0.80, 0.90];
+  var CTA_RANGE = [0.88, 0.97];
+  var heroText = document.getElementById('build-hero-text');
+  var cta = document.getElementById('build-cta');
+  var DIST = 60, ANGLE = 4;
+
+  function lerp(range, progress){
+    return Math.min(1, Math.max(0, (progress - range[0]) / (range[1] - range[0])));
+  }
+  function ease(t){ return 1 - Math.pow(1 - t, 3); } // easeOutCubic — przyspiesza na starcie, ląduje miękko
+
+  function update(){
+    ticking = false;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var progress = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+
+    // Widoczne dopiero po zjechaniu poniżej hero (żeby nie kolidować z nagłówkiem).
+    var heroFade = hero.offsetHeight - 80;
+    bg.style.opacity = heroFade > 0 ? Math.min(1, Math.max(0, (window.scrollY - heroFade) / 160)) : 1;
+
+    blocks.forEach(function(el, i){
+      var t = ease(lerp(BLOCK_RANGES[i], progress));
+      var dir = el.classList.contains('from-left') ? -1 : 1;
+      var x = dir * DIST * (1 - t);
+      var rot = dir * ANGLE * (1 - t);
+      el.style.opacity = t;
+      el.style.transform = 'translateX(' + x.toFixed(1) + 'px) rotate(' + rot.toFixed(2) + 'deg)';
+      if (el.classList.contains('build-hero-img')) {
+        el.style.filter = 'blur(' + (6 * (1 - t)).toFixed(1) + 'px) saturate(' + (1 + 0.3 * t).toFixed(2) + ')';
+        el.style.opacity = 0.9 * t;
+      }
+    });
+    badges.forEach(function(el, i){
+      var t = ease(lerp(BADGE_RANGES[i], progress));
+      el.style.opacity = t;
+      el.style.transform = 'translateY(' + (10 * (1 - t)).toFixed(1) + 'px) scale(' + (0.9 + 0.1 * t).toFixed(2) + ')';
+    });
+    if (heroText) {
+      var ht = ease(lerp(HERO_TEXT_RANGE, progress));
+      heroText.style.opacity = ht;
+      heroText.style.transform = 'translateY(' + (6 * (1 - ht)).toFixed(1) + 'px)';
+    }
+    if (cta) {
+      var ct = ease(lerp(CTA_RANGE, progress));
+      cta.style.opacity = ct;
+      cta.style.transform = 'translateY(' + (8 * (1 - ct)).toFixed(1) + 'px)';
+      cta.classList.toggle('show', ct > 0.6);
+    }
+    card.classList.toggle('complete', progress > 0.85);
+  }
+  function onScroll(){ if (!ticking) { requestAnimationFrame(update); ticking = true; } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  update();
 })();
 </script>
 
