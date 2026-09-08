@@ -363,12 +363,18 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:56px 48px
 @media(max-width:700px){.gallery-bridge{padding:32px 0 40px}.gallery-bridge-inner{padding:0 20px;flex-direction:column;align-items:flex-start}}
 
 /* Taśma miniatur — dowód wizualny zamiast obietnicy tekstem, bez auto-rotacji ze
-   strzałkami/kropkami (banner blindness); przewija się sama, zatrzymuje na hover. */
+   strzałkami/kropkami (banner blindness); przewija się sama, zatrzymuje na hover.
+   flex-wrap:nowrap jawnie, żeby to zawsze był jeden rząd (karuzela), nigdy siatka. */
 .gb-marquee{overflow:hidden;margin-bottom:36px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-.gb-marquee-track{display:flex;gap:14px;width:max-content;animation:gbMarquee 42s linear infinite}
+.gb-marquee-track{display:flex;flex-wrap:nowrap;gap:14px;width:max-content;animation:gbMarquee 42s linear infinite}
 .gb-marquee:hover .gb-marquee-track{animation-play-state:paused}
 .gb-marquee-track img{height:130px;width:auto;border-radius:10px;border:1px solid var(--border2);flex-shrink:0;object-fit:cover;object-position:top center}
 @keyframes gbMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:700px){
+  .gb-marquee{margin-bottom:28px}
+  .gb-marquee-track{gap:10px;animation-duration:26s}
+  .gb-marquee-track img{height:84px;border-radius:8px}
+}
 @media(prefers-reduced-motion:reduce){.gb-marquee-track{animation:none}}
 
 
