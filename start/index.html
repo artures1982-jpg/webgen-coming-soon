@@ -138,6 +138,14 @@
             "@type": "Answer",
             "text": "Prawdopodobnie tak. Galeria Startowa obejmuje 12 branż: hydraulik, elektryk, remonty, fryzjer/barber, salon fryzjerski, studio paznokci, medycyna estetyczna, stomatolog, nieruchomości, import aut z Ameryki, fotograf ślubny i fotowoltaika — łącznie 53 warianty wizualne do wyboru."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "Czy moje dane i dane klientów z formularza kontaktowego są bezpieczne?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tak. Dane przetwarzamy zgodnie z RODO — szczegóły w Polityce Prywatności. Strony są zabezpieczone przez Cloudflare WAF i działają na HTTPS, a formularze kontaktowe wymagają wyraźnej zgody na przetwarzanie danych."
+          }
         }
       ]
     }
@@ -1003,13 +1011,14 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
     <div class="wg-nav-logo-mark">W</div>
     <div class="wg-nav-logo-name">web<span>gen</span></div>
   </a>
-  <ul class="wg-nav-links">
+  <ul class="wg-nav-links" id="wg-nav-scrollspy">
 
-    <li><a href="/start/#jak-dziala" class="active">Jak działa</a></li>
+    <li><a href="/start/#jak-dziala" data-spy="jak-dziala">Jak działa</a></li>
+    <li><a href="/start/#dla-kogo" data-spy="dla-kogo">Dla kogo</a></li>
     <li><a href="/galeria/">Galeria</a></li>
     <li><a href="/cennik/">Cennik</a></li>
     <li><a href="/generator/">Generator</a></li>
-    <li><a href="/start/#faq" class="active">FAQ</a></li>
+    <li><a href="/start/#faq" data-spy="faq">FAQ</a></li>
   </ul>
   <div class="wg-nav-right">
     <a href="/login/" class="wg-nav-login">Logowanie</a>
@@ -1020,11 +1029,12 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 
 <div class="wg-nav-drawer" id="wg-drawer">
 
-  <a href="/start/#jak-dziala" class="active">Jak działa</a>
+  <a href="/start/#jak-dziala">Jak działa</a>
+  <a href="/start/#dla-kogo">Dla kogo</a>
   <a href="/galeria/">Galeria</a>
   <a href="/cennik/">Cennik</a>
   <a href="/generator/">Generator</a>
-  <a href="/start/#faq" class="active">FAQ</a>
+  <a href="/start/#faq">FAQ</a>
   <a href="/login/" class="wg-nav-login" style="color:#8E97AC">Logowanie</a>
   <a href="/generator/" class="wg-nav-drawer-cta">Zacznij za darmo →</a>
 </div>
@@ -1166,7 +1176,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
   <div class="forwho-inner">
     <div class="sec-eyebrow">Dla kogo</div>
     <h2 class="sec-title">Dla firm usługowych<br>które <span class="grad">tracą zlecenia</span> bez strony</h2>
-    <p class="sec-sub">2,5 miliona polskich firm usługowych nie ma profesjonalnej strony. To Twoi klienci szukają "hydraulik [twoja dzielnica]" i trafiają do konkurencji.</p>
+    <p class="sec-sub">32,5% firm w Polsce nie ma własnej strony internetowej (dane GUS). Jeśli jesteś jedną z nich — to Twoi klienci szukają "hydraulik [twoja dzielnica]" i trafiają do konkurencji.</p>
     <div class="industries-grid">
       <div class="ind"><div class="ind-icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 1-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 1 5.4-5.4l-2.3 2.3-2-2 2.3-2.3z"/></svg></div><div><div class="ind-title">Instalacje i energia</div><div class="ind-desc">Hydraulik, elektryk, fotowoltaika</div></div></div>
       <div class="ind"><div class="ind-icon"><svg viewBox="0 0 24 24"><path d="M3 21h18M6 21V9l6-5 6 5v12M10 21v-6h4v6"/></svg></div><div><div class="ind-title">Remonty i budowa</div><div class="ind-desc">Firmy remontowo-budowlane</div></div></div>
@@ -1187,6 +1197,36 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
       <p class="gb-desc">Zaprojektujemy stronę od zera, dopasowaną wyłącznie do Twojej firmy — zamiast gotowego wariantu z Galerii Startowej. Zostaw kontakt, odezwiemy się i ustalimy szczegóły.</p>
     </div>
     <a href="#kontakt" class="btn-secondary">Zamów projekt indywidualny →</a>
+  </div>
+</section>
+
+<!-- WHY WEBGEN -->
+<section class="why">
+  <div class="why-inner">
+    <div class="sec-eyebrow">Dlaczego Webgen</div>
+    <h2 class="sec-title">Zanim zobaczysz<br>cennik, <span class="grad">kilka faktów</span></h2>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="wi-icon"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7v8l9-12h-7z"/></svg></div>
+        <div class="wi-title">PageSpeed 90+ gwarantowany</div>
+        <div class="wi-desc">Każdy szablon w Galerii Startowej jest zoptymalizowany pod szybkość ładowania — nie musisz o to dbać sam.</div>
+      </div>
+      <div class="why-item">
+        <div class="wi-icon"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6l8-3z"/></svg></div>
+        <div class="wi-title">Bezpieczeństwo bez konfiguracji</div>
+        <div class="wi-desc">Cloudflare WAF i HTTPS działają od pierwszego dnia. Zero wtyczek do łatania, zero ataków do samodzielnego odpierania.</div>
+      </div>
+      <div class="why-item">
+        <div class="wi-icon"><svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.4-2"/></svg></div>
+        <div class="wi-title">Bez umowy długoterminowej</div>
+        <div class="wi-desc">Płacisz miesięcznie, rezygnujesz kiedy chcesz. Przy rezygnacji pobierasz kod HTML swojej strony — zostaje Twój.</div>
+      </div>
+      <div class="why-item">
+        <div class="wi-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16v12H5.2L4 17.2z"/></svg></div>
+        <div class="wi-title">Zmiany bez czekania na agencję</div>
+        <div class="wi-desc">W planie Pro wystarczy email z opisem zmiany — aktualizujemy stronę w ciągu godziny, bez faktury za każdą poprawkę.</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1360,6 +1400,10 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
         <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Czy jest szablon dla mojej branży?<span class="faq-arrow">+</span></div>
         <div class="faq-a"><div class="faq-a-inner">Prawdopodobnie tak. Galeria Startowa obejmuje 12 branż: hydraulik, elektryk, remonty, fryzjer/barber, salon fryzjerski, studio paznokci, medycyna estetyczna, stomatolog, nieruchomości, import aut z Ameryki, fotograf ślubny i fotowoltaika — łącznie 53 warianty wizualne do wyboru.</div></div>
       </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Czy moje dane i dane klientów z formularza kontaktowego są bezpieczne?<span class="faq-arrow">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Tak. Dane przetwarzamy zgodnie z RODO — szczegóły w <a href="/polityka-prywatnosci/" style="color:var(--green)">Polityce Prywatności</a>. Strony są zabezpieczone przez Cloudflare WAF i działają na HTTPS, a formularze kontaktowe wymagają wyraźnej zgody na przetwarzanie danych.</div></div>
+      </div>
     </div>
   </div>
 </section>
@@ -1403,11 +1447,11 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
   <div style="margin-bottom:14px">
     <p style="font-size:13px;color:var(--muted);margin-bottom:12px;font-family:var(--mono)">Lub wybierz plan od razu:</p>
     <div class="cta-form" style="gap:10px">
-      <a href="/generator/"
+      <a href="/galeria/"
          style="background:linear-gradient(120deg,#00E5A0,#2E7CFF 55%,#7B4FFF);color:#05100d;padding:13px 24px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;display:inline-block">Start — od 0 zł →</a>
-      <a href="/generator/"
+      <a href="/galeria/"
          style="background:rgba(255,255,255,.06);color:#F3F6FC;padding:13px 24px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.16);display:inline-block">Pro — 299 zł →</a>
-      <a href="/generator/"
+      <a href="/galeria/"
          style="background:rgba(255,255,255,.06);color:#F3F6FC;padding:13px 24px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.16);display:inline-block">Pro Max — 499 zł →</a>
     </div>
   </div>
@@ -1778,6 +1822,25 @@ function ctaSubmit(e) {
       btn.textContent = '☰';
     }
   });
+})();
+
+// Scroll-spy — podświetla link w nav odpowiadający sekcji aktualnie widocznej
+// na ekranie, zamiast statycznego "active" wpisanego na sztywno w dwóch linkach
+// naraz (co nie odzwierciedlało realnej pozycji scrolla).
+(function(){
+  var links = document.querySelectorAll('#wg-nav-scrollspy a[data-spy]');
+  if (!links.length) return;
+  var sections = [].map.call(links, function(a){ return document.getElementById(a.dataset.spy); }).filter(Boolean);
+  if (!sections.length) return;
+
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (!entry.isIntersecting) return;
+      links.forEach(function(a){ a.classList.toggle('active', a.dataset.spy === entry.target.id); });
+    });
+  }, { rootMargin: '0px 0px -70% 0px' });
+
+  sections.forEach(function(s){ observer.observe(s); });
 })();
 </script>
 
