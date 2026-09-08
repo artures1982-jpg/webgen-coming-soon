@@ -1,10 +1,12 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const { verifyRequest } = require("../lib/clerk-verify");
 
-// Model Free/Pro (Faza 5 przebudowy cennika) — jeden płatny plan zamiast START/PRO/PREMIUM.
+// Model Free/Pro/Pro Max — plan wynika z wyboru szablonu w kroku 1 generatora.
 const PRICES = {
   pro:                        process.env.STRIPE_PRICE_PRO,
   pro_yearly:                 process.env.STRIPE_PRICE_PRO_YEARLY,
+  promax:                     process.env.STRIPE_PRICE_PROMAX,
+  promax_yearly:              process.env.STRIPE_PRICE_PROMAX_YEARLY,
 };
 
 // 7 dodatków à la carte nad planem Pro. SEO i formularz/rezerwacje są teraz wbudowane w Pro,
