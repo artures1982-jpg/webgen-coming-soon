@@ -945,16 +945,20 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 .gc-thumb{
   aspect-ratio:4/3;background:linear-gradient(135deg,rgba(0,229,160,.08),rgba(47,95,209,.08));
   display:flex;align-items:center;justify-content:center;font-size:34px;position:relative;
+  overflow:hidden;
 }
+.gc-thumb img{ width:100%;height:100%;object-fit:cover;object-position:top center }
 .gc-tier-badge{
   position:absolute;top:8px;right:8px;font-family:var(--mono);font-size:9px;font-weight:800;
-  padding:3px 9px;border-radius:8px;letter-spacing:.05em;
+  padding:3px 9px;border-radius:8px;letter-spacing:.05em;background:rgba(8,10,18,.85);
+  border:1px solid rgba(255,255,255,.14);
 }
-.gc-tier-badge.free{ background:rgba(0,229,160,.15);color:var(--green) }
-.gc-tier-badge.pro{ background:rgba(107,95,201,.18);color:#6B5FC9 }
+.gc-tier-badge.free{ color:var(--green);border-color:rgba(0,229,160,.4) }
+.gc-tier-badge.pro{ color:#9186E0;border-color:rgba(107,95,201,.5) }
+.gc-tier-badge.promax{ background:linear-gradient(135deg,#7B4FFF,#2E7CFF);color:#fff;border-color:transparent }
 .gc-info{ padding:10px 12px 12px }
 .gc-style{ font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px }
-.gc-industry{ font-size:11px;color:var(--muted) }
+.gc-industry{ font-size:11px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden }
 .gc-select-hint{ font-size:10px;color:var(--green);margin-top:6px;font-weight:700;opacity:0;transition:opacity .15s }
 .gallery-card:hover .gc-select-hint,.gallery-card.selected .gc-select-hint{ opacity:1 }
 /* ────────────────────────────────────────────────────────────── */
@@ -1012,16 +1016,12 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
           <div class="step-num">3</div>
           <div class="step-label">Social media</div>
         </div>
-        <div class="step" data-step="4">
-          <div class="step-num">4</div>
-          <div class="step-label">Wybierz plan</div>
-        </div>
         <div class="step" data-step="5">
-          <div class="step-num">5</div>
+          <div class="step-num">4</div>
           <div class="step-label">Dodatki</div>
         </div>
         <div class="step" data-step="6">
-          <div class="step-num">6</div>
+          <div class="step-num">5</div>
           <div class="step-label">Podgląd i aktywacja</div>
         </div>
       </div>
@@ -1113,7 +1113,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 
     <div class="step-panel" id="panel-1">
       <div class="sp-header">
-        <div class="sp-eyebrow">// Krok 1 z 6</div>
+        <div class="sp-eyebrow">// Krok 1 z 5</div>
         <h1 class="sp-title">Jaka branża<br>i gdzie działasz?</h1>
         <p class="sp-sub">Wybierz branżę — AI dobierze odpowiednie kolory, fonty i treści.</p>
       </div>
@@ -1214,10 +1214,10 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px">
           <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green)">// Galeria Startowa</div>
           <div class="gallery-style-filter" id="gallery-style-filter">
-            <button class="gs-filter-btn active" onclick="filterGalleryStyle('all', this)">Wszystkie</button>
-            <button class="gs-filter-btn" onclick="filterGalleryStyle('classic', this)">Klasyczny</button>
-            <button class="gs-filter-btn" onclick="filterGalleryStyle('modern', this)">Nowoczesny</button>
-            <button class="gs-filter-btn" onclick="filterGalleryStyle('elegant', this)">Elegancki</button>
+            <button class="gs-filter-btn active" onclick="filterGalleryTier('all', this)">Wszystkie</button>
+            <button class="gs-filter-btn" onclick="filterGalleryTier('free', this)">Free</button>
+            <button class="gs-filter-btn" onclick="filterGalleryTier('pro', this)">Pro</button>
+            <button class="gs-filter-btn" onclick="filterGalleryTier('promax', this)">Pro Max</button>
           </div>
         </div>
         <div class="gallery-grid" id="gallery-grid"></div>
@@ -1246,7 +1246,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
     <!-- STEP 2: DANE FIRMY -->
     <div class="step-panel" id="panel-2">
       <div class="sp-header">
-        <div class="sp-eyebrow">// Krok 2 z 6</div>
+        <div class="sp-eyebrow">// Krok 2 z 5</div>
         <h1 class="sp-title">Dane strony<br>i kontakt</h1>
         <p class="sp-sub">Nazwę strony zobaczą klienci w Google. Dane firmowe trafią do stopki i faktur.</p>
       </div>
@@ -1339,6 +1339,27 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
             <div id="lua-empty"><div class="lua-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="10" r="1.7"/><path d="M21 16l-5.5-5.5L9 17"/></svg></div><div class="lua-text">Kliknij lub przeciągnij logo</div><div class="lua-hint">PNG lub JPG · maks. 2 MB</div></div>
             <div id="lua-filled" style="display:none"><img id="lua-preview" class="lua-preview" src="" alt="Logo"><div class="lua-hint" style="color:var(--green)">✓ Logo wczytane — kliknij aby zmienić</div></div>
             <input type="file" id="f-logo" accept="image/png,image/jpeg,image/webp" onchange="handleLogoUpload(this)" style="display:none">
+          </div>
+        </div>
+
+        <!-- HERO PHOTO — tylko dla planów Pro / Pro Max (widoczność ustawia selectPlan,
+             wywoływane przy wyborze szablonu w kroku 1) -->
+        <div class="field" id="hero-section" style="display:none">
+          <label>Zdjęcie hero <span style="font-family:var(--mono);font-size:10px;color:var(--green);margin-left:6px">PRO</span></label>
+          <button type="button" onclick="openPexels('hero')" class="btn-pexels" id="btn-pexels-hero">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg> Wybierz zdjęcie hero z Pexels
+          </button>
+          <div class="logo-upload-area" id="hero-upload-area" onclick="document.getElementById('f-hero').click()">
+            <div id="hero-empty">
+              <div class="lua-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="10" r="1.7"/><path d="M21 16l-5.5-5.5L9 17"/></svg></div>
+              <div class="lua-text">Lub kliknij żeby wgrać własne zdjęcie</div>
+              <div class="lua-hint">PNG lub JPG · maks. 5 MB · 16:9</div>
+            </div>
+            <div id="hero-filled" style="display:none">
+              <img id="hero-preview" class="lua-preview" src="" alt="Hero" style="max-height:80px;max-width:220px">
+              <div class="lua-hint" style="color:var(--green)">✓ Zdjęcie hero wczytane</div>
+            </div>
+            <input type="file" id="f-hero" accept="image/png,image/jpeg,image/webp" onchange="handleHeroUpload(this)" style="display:none">
           </div>
         </div>
 
@@ -1454,7 +1475,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
     <!-- STEP 3: SOCIAL -->
     <div class="step-panel" id="panel-3">
       <div class="sp-header">
-        <div class="sp-eyebrow">// Krok 3 z 6</div>
+        <div class="sp-eyebrow">// Krok 3 z 5</div>
         <h1 class="sp-title">Social media<br>i rezerwacje</h1>
         <p class="sp-sub">Wszystkie opcjonalne — wpisz te które masz.</p>
       </div>
@@ -1509,87 +1530,28 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
       </div>
     </div>
 
-    <!-- STEP 4: PLAN -->
-    <div class="step-panel" id="panel-4">
-      <div class="sp-header">
-        <div class="sp-eyebrow">// Krok 4 z 6</div>
-        <h1 class="sp-title">Wybierz plan</h1>
-        <p class="sp-sub">Możesz zmienić w każdej chwili. Aktywacja po wygenerowaniu strony.</p>
-      </div>
-
-      <!-- BILLING TOGGLE -->
-      <div style="display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:24px;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.12);border-radius:10px;padding:4px;width:fit-content;margin-left:auto;margin-right:auto">
-        <button id="bill-month" onclick="switchBilling('month')"
-          style="background:rgba(0,229,160,.15);border:1.5px solid var(--green);color:var(--green);padding:8px 20px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--head);transition:all .2s">
-          Miesięcznie
-        </button>
-        <button id="bill-year" onclick="switchBilling('year')"
-          style="background:transparent;border:none;color:var(--muted);padding:8px 20px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--head);transition:all .2s">
-          Rocznie <span style="background:rgba(0,229,160,.15);color:var(--green);font-size:10px;padding:2px 6px;border-radius:4px;margin-left:4px">-17%</span>
-        </button>
-      </div>
-
-      <div class="plan-grid">
-        <div class="plan-card featured-card selected" onclick="selectPlan(this,'free','Free','0')">
-          <div class="pc-name">Free</div>
-          <div class="pc-price">0 <sub>zł/mies.</sub></div>
-          <div class="pc-desc">Przeglądaj i aktywuj gotowy szablon — bez karty</div>
-          <div class="pc-features">
-            <div class="pcf"><span class="pcf-check">✓</span>Pełna Galeria Startowa szablonów</div>
-            <div class="pcf"><span class="pcf-check">✓</span>Hosting na subdomenie webgen.pl</div>
-            <div class="pcf" style="opacity:.4"><span>–</span> Szablony Pro + personalizacja AI</div>
-            <div class="pcf" style="opacity:.4"><span>–</span> Lokalne SEO + formularz kontaktowy</div>
-          </div>
-        </div>
-        <div class="plan-card" onclick="selectPlan(this,'pro','Pro','399')">
-          <div class="plan-badge">DLA ROSNĄCEJ FIRMY</div>
-          <div class="pc-name">Pro</div>
-          <div class="pc-price" id="pro-price-display">399 <sub>zł/mies.</sub></div>
-          <div class="pc-desc">Szablony Pro + AI dopasowuje treść, zdjęcia i kolory</div>
-          <div class="pc-features">
-            <div class="pcf"><span class="pcf-check">✓</span>Wszystko z Free</div>
-            <div class="pcf"><span class="pcf-check">✓</span>Dostęp do szablonów Pro</div>
-            <div class="pcf"><span class="pcf-check">✓</span>Pełna personalizacja AI</div>
-            <div class="pcf"><span class="pcf-check">✓</span>Lokalne SEO + formularz kontaktowy</div>
-            <div class="pcf"><span class="pcf-check">✓</span>Aktualizacje treści na życzenie</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- HERO PHOTO — tylko dla planu Pro -->
-      <div id="hero-section" style="display:none;margin-top:28px">
-        <div class="field">
-          <label>Zdjęcie hero <span style="font-family:var(--mono);font-size:10px;color:var(--green);margin-left:6px">PRO</span></label>
-          <button type="button" onclick="openPexels('hero')" class="btn-pexels" id="btn-pexels-hero">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg> Wybierz zdjęcie hero z Pexels
-          </button>
-          <div class="logo-upload-area" id="hero-upload-area" onclick="document.getElementById('f-hero').click()">
-            <div id="hero-empty">
-              <div class="lua-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="10" r="1.7"/><path d="M21 16l-5.5-5.5L9 17"/></svg></div>
-              <div class="lua-text">Lub kliknij żeby wgrać własne zdjęcie</div>
-              <div class="lua-hint">PNG lub JPG · maks. 5 MB · 16:9</div>
-            </div>
-            <div id="hero-filled" style="display:none">
-              <img id="hero-preview" class="lua-preview" src="" alt="Hero" style="max-height:80px;max-width:220px">
-              <div class="lua-hint" style="color:var(--green)">✓ Zdjęcie hero wczytane</div>
-            </div>
-            <input type="file" id="f-hero" accept="image/png,image/jpeg,image/webp" onchange="handleHeroUpload(this)" style="display:none">
-          </div>
-        </div>
-      </div>
-
-      <div class="nav-btns">
-        <button class="btn-prev" onclick="prevStep(4)">← Wróć</button>
-        <button class="btn-next" onclick="nextStep(4)">Dalej →</button>
-      </div>
-    </div>
-
-    <!-- STEP 5: ADDONY -->
+    <!-- STEP 4: ADDONY -->
     <div class="step-panel" id="panel-5">
       <div class="sp-header">
-        <div class="sp-eyebrow">// Krok 5 z 6</div>
+        <div class="sp-eyebrow">// Krok 4 z 5</div>
         <h1 class="sp-title">Chcesz coś<br>dodać?</h1>
         <p class="sp-sub">Miesięczne możesz anulować w każdej chwili. Jednorazowe — aktywujemy w ciągu 48h.</p>
+      </div>
+
+      <!-- BILLING TOGGLE — dotyczy ceny planu (ustawionego wyborem szablonu w kroku 1),
+           nie dodatków poniżej -->
+      <div id="plan-billing-row" style="display:none;margin-bottom:24px">
+        <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:10px">// Rozliczanie planu <span id="plan-billing-name" style="color:var(--muted);text-transform:none;letter-spacing:normal"></span></div>
+        <div style="display:flex;align-items:center;gap:0;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.12);border-radius:10px;padding:4px;width:fit-content">
+          <button id="bill-month" onclick="switchBilling('month')"
+            style="background:rgba(0,229,160,.15);border:1.5px solid var(--green);color:var(--green);padding:8px 20px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--head);transition:all .2s">
+            Miesięcznie
+          </button>
+          <button id="bill-year" onclick="switchBilling('year')"
+            style="background:transparent;border:none;color:var(--muted);padding:8px 20px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--head);transition:all .2s">
+            Rocznie <span style="background:rgba(0,229,160,.15);color:var(--green);font-size:10px;padding:2px 6px;border-radius:4px;margin-left:4px">-17%</span>
+          </button>
+        </div>
       </div>
 
       <!-- MIESIĘCZNE -->
@@ -1688,9 +1650,9 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 
         <div class="step-panel" id="panel-6">
       <div class="sp-header">
-        <div class="sp-eyebrow">// Krok 6 z 6</div>
-        <h1 class="sp-title">Wybierz plan<br><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">i uruchom stronę</span></h1>
-        <p class="sp-sub">Zacznij za darmo — 3 miesiące bez opłat. Możesz zmienić plan w każdej chwili.</p>
+        <div class="sp-eyebrow">// Krok 5 z 5</div>
+        <h1 class="sp-title">Podsumowanie<br><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">i uruchomienie strony</span></h1>
+        <p class="sp-sub">Zacznij za darmo — 3 miesiące bez opłat. Plan zmienisz wybierając inny szablon w kroku 1, albo w każdej chwili później.</p>
       </div>
 
       <!-- Podsumowanie konfiguracji -->
@@ -1699,45 +1661,21 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
         <div style="font-family:var(--mono);font-size:11px;color:var(--green)" id="s6-addons-sum"></div>
       </div>
 
-      <!-- Plany w 2 kolumnach -->
-      <div style="display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:20px">
-
-        <!-- MANAGED -->
-        <div>
-          <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)">Wybierz plan</div>
-
-          <div class="plan6-card" id="p6-free" onclick="selectPlan6('free','Free',0)"
-            style="position:relative;background:var(--s2);border:1.5px solid var(--green);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;transition:all .2s">
-            <div class="p6-badge" style="position:absolute;top:-9px;right:10px;background:var(--green);color:var(--oncta);font-size:9px;font-weight:800;padding:2px 9px;border-radius:10px;font-family:var(--mono)">WYBRANY</div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-              <div style="font-size:14px;font-weight:700;color:var(--text)">Free</div>
-              <div style="font-family:var(--mono);font-size:17px;font-weight:700;color:var(--green)">0 zł<span style="font-size:11px;color:var(--muted)">/mies.</span></div>
-            </div>
-            <div style="font-size:11px;color:var(--muted);line-height:1.6">
-              <span style="color:var(--green)">✓</span> Pełna Galeria Startowa<br>
-              <span style="color:var(--green)">✓</span> Hosting na subdomenie webgen.pl
-            </div>
+      <!-- Wybrany plan — tylko podgląd (ustalony wyborem szablonu w kroku 1), zmiana odsyła
+           tam zamiast dublować wybór osobnym UI -->
+      <div style="margin-bottom:20px">
+        <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)">Wybrany plan</div>
+        <div style="position:relative;background:var(--s2);border:1.5px solid var(--green);border-radius:10px;padding:16px 18px;display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap">
+          <div>
+            <div id="p6-summary-name" style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px">Free</div>
+            <div id="p6-summary-features" style="font-size:11px;color:var(--muted);line-height:1.7"></div>
           </div>
-
-          <div class="plan6-card" id="p6-pro" onclick="selectPlan6('pro','Pro',399)"
-            style="position:relative;background:var(--s2);border:1.5px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all .2s">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-              <div style="font-size:14px;font-weight:700;color:var(--text)">Pro</div>
-              <div style="font-family:var(--mono);font-size:17px;font-weight:700;color:var(--text)">399 zł<span style="font-size:11px;color:var(--muted)">/mies.</span></div>
-            </div>
-            <div style="font-size:11px;color:var(--muted);line-height:1.6">
-              <span style="color:var(--green)">✓</span> Szablony Pro + personalizacja AI<br>
-              <span style="color:var(--green)">✓</span> Lokalne SEO + formularz kontaktowy<br>
-              <span style="color:var(--green)">✓</span> Aktualizacje treści na życzenie
-            </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+            <div id="p6-summary-price" style="font-family:var(--mono);font-size:19px;font-weight:700;color:var(--green);white-space:nowrap">0 zł/mies.</div>
+            <span onclick="goToStep(1)" style="font-size:12px;color:var(--green);cursor:pointer;text-decoration:underline;white-space:nowrap">Zmień szablon ←</span>
           </div>
         </div>
-
-        <!-- Plany -->
-        
       </div>
-
-
 
             <!-- Podsumowanie płatności -->
       <div style="background:var(--s2);border:1px solid var(--border2);border-radius:10px;padding:16px 18px;margin-bottom:20px">
@@ -1836,8 +1774,14 @@ const TIPS = {
   1: 'Wypełnij jak najwięcej pól — AI wygeneruje lepszą treść.',
   2: 'Godziny otwarcia i lata doświadczenia zwiększają konwersję o 40%.',
   3: 'Firmy z social media mają 2× więcej kontaktów z klientami.',
-  4: 'Plan Pro to 10× taniej niż agencja webowa.',
+  5: 'Plan Pro to 10× taniej niż agencja webowa.',
 };
+
+// Krok 4 ("Wybierz plan") został usunięty — wybór szablonu w kroku 1 USTAWIA plan
+// (selectTemplate → selectPlan), więc panel-4 już nie istnieje. Numeracja paneli w kodzie
+// (panel-1,2,3,5,6) zostaje jak była, żeby nie przepisywać wszystkich odwołań do niej —
+// STEP_DISPLAY tłumaczy to tylko na widoczną dla klienta liczbę kroków 1–5.
+const STEP_DISPLAY = { 1: 1, 2: 2, 3: 3, 5: 4, 6: 5 };
 
 // ─── NAVIGATION ───
 function goToStep(n) {
@@ -1847,11 +1791,15 @@ function goToStep(n) {
 
 function nextStep(from) {
   if (!validateStep(from)) return;
-  setStep(from + 1);
+  var to = from + 1;
+  if (to === 4) to = 5; // pomiń usunięty krok 4
+  setStep(to);
 }
 
 function prevStep(from) {
-  setStep(from - 1);
+  var to = from - 1;
+  if (to === 4) to = 3; // pomiń usunięty krok 4
+  setStep(to);
 }
 
 function setStep(n) {
@@ -1859,21 +1807,21 @@ function setStep(n) {
   document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
   document.getElementById('generating').classList.remove('active');
   document.getElementById('preview-panel').classList.remove('active');
-  
+
   if (n >= 1 && n <= 6) {
     document.getElementById(`panel-${n}`).classList.add('active');
     if (n === 6 && typeof initStep6 === 'function') initStep6();
   }
-  
+
   state.currentStep = n;
-  
+
   // update sidebar steps
   document.querySelectorAll('.step').forEach(s => {
     const sn = parseInt(s.dataset.step);
     s.classList.remove('active','done');
     if (sn === n) s.classList.add('active');
     else if (sn < n) { s.classList.add('done'); s.querySelector('.step-num').textContent = ''; }
-    else s.querySelector('.step-num').textContent = sn;
+    else s.querySelector('.step-num').textContent = STEP_DISPLAY[sn] || sn;
   });
 
   // update tip
@@ -1992,8 +1940,23 @@ function selectBranzaTile(btn, name) {
 
 // ─── GALERIA STARTOWA (Faza 2) ───
 var TEMPLATES_MANIFEST = [];
-var galleryStyleFilter = 'all';
+var galleryTierFilter = 'all';
 var galleryManifestLoaded = false;
+var TIER_LABEL = { free: 'FREE', pro: 'PRO', promax: 'PRO MAX' };
+// Kafelki brancy w generatorze uzywaja etykiet czlowieka (state.branza), manifest.json
+// uzywa slugow biblioteki szablonow (templates/pilot/). Mapowanie tylko na potrzeby
+// galerii — reszta kodu (Pexels, payload wysylki) nadal czyta state.branza jak dawniej.
+// Brakujace tu brance (9 z 16 kafelkow) nie maja jeszcze zadnego szablonu w bibliotece —
+// showGalleryForBranza pokaze wtedy uczciwy komunikat "w przygotowaniu", nie pusta galerie.
+var BRANZA_TO_INDUSTRY = {
+  'Hydraulik': 'hydraulik',
+  'Elektryk': 'elektryk',
+  'Firma remontowo-budowlana': 'remonty',
+  'Fryzjer / Barber': 'fryzjer-barber',
+  'Agencja nieruchomości': 'nieruchomosci',
+  'Stomatologia': 'stomatolog',
+  'Fotograf': 'fotograf-slubny'
+};
 
 function loadTemplatesManifest() {
   if (galleryManifestLoaded) return Promise.resolve();
@@ -2007,11 +1970,15 @@ function showGalleryForBranza() {
   var section = document.getElementById('gallery-section');
   if (!section || !state.branza) return;
   section.style.display = 'block';
+  state.templateId = null;
+  state.templateTier = null;
+  var note = document.getElementById('gallery-pro-note');
+  if (note) note.style.display = 'none';
   loadTemplatesManifest().then(renderGallery);
 }
 
-function filterGalleryStyle(style, btn) {
-  galleryStyleFilter = style;
+function filterGalleryTier(tier, btn) {
+  galleryTierFilter = tier;
   document.querySelectorAll('.gs-filter-btn').forEach(function (b) { b.classList.remove('active'); });
   if (btn) btn.classList.add('active');
   renderGallery();
@@ -2022,8 +1989,9 @@ function renderGallery() {
   var empty = document.getElementById('gallery-empty');
   if (!grid) return;
 
-  var items = TEMPLATES_MANIFEST.filter(function (t) { return t.industry === state.branza; });
-  if (galleryStyleFilter !== 'all') items = items.filter(function (t) { return t.style === galleryStyleFilter; });
+  var industry = BRANZA_TO_INDUSTRY[state.branza] || state.branza;
+  var items = TEMPLATES_MANIFEST.filter(function (t) { return t.industry === industry; });
+  if (galleryTierFilter !== 'all') items = items.filter(function (t) { return t.tier === galleryTierFilter; });
 
   if (items.length === 0) {
     grid.innerHTML = '';
@@ -2034,23 +2002,40 @@ function renderGallery() {
 
   grid.innerHTML = items.map(function (t) {
     var isSel = state.templateId === t.id;
+    var thumb = t.thumb ? '<img src="' + t.thumb + '" alt="" loading="lazy">' : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="10" r="1.7"/><path d="M21 16l-5.5-5.5L9 17"/></svg>';
     return '<div class="gallery-card' + (isSel ? ' selected' : '') + '" onclick="selectTemplate(\'' + t.id + '\',\'' + t.tier + '\')">'
-      + '<div class="gc-thumb">' + (t.icon || '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="10" r="1.7"/><path d="M21 16l-5.5-5.5L9 17"/></svg>')
-      + '<span class="gc-tier-badge ' + t.tier + '">' + (t.tier === 'pro' ? 'PRO' : 'FREE') + '</span>'
+      + '<div class="gc-thumb">' + thumb
+      + '<span class="gc-tier-badge ' + t.tier + '">' + (TIER_LABEL[t.tier] || 'FREE') + '</span>'
       + '</div>'
       + '<div class="gc-info">'
-      + '<div class="gc-style">' + (t.styleName || t.style) + '</div>'
-      + '<div class="gc-industry">' + (t.label || t.industry) + '</div>'
+      + '<div class="gc-style">' + (t.title || t.id) + '</div>'
+      + '<div class="gc-industry">' + (t.tagline || t.label || t.industry) + '</div>'
       + '<div class="gc-select-hint">' + (isSel ? '✓ Wybrany' : 'Wybierz →') + '</div>'
       + '</div></div>';
   }).join('');
 }
 
+// Wybór szablonu USTAWIA plan (Free/Pro/Pro Max) — to jedna decyzja, nie dwie. Wcześniej
+// istniał osobny krok "Wybierz plan", w którym dało się wybrać plan niezgodny z tierem
+// szablonu wybranego tutaj; usunięty, żeby ta niezgodność nie mogła w ogóle powstać.
 function selectTemplate(id, tier) {
   state.templateId = id;
   state.templateTier = tier;
+  var TEMPLATE_TIER_PLAN = {
+    free:   ['Free', 0],
+    pro:    ['Pro', PLAN_BASE_PRICE.pro],
+    promax: ['Pro Max', PLAN_BASE_PRICE.promax]
+  };
+  var planInfo = TEMPLATE_TIER_PLAN[tier] || TEMPLATE_TIER_PLAN.free;
+  selectPlan(null, tier, planInfo[0], planInfo[1]);
+
   var note = document.getElementById('gallery-pro-note');
-  if (note) note.style.display = (tier === 'pro') ? 'block' : 'none';
+  if (note) {
+    note.style.display = (tier === 'pro' || tier === 'promax') ? 'block' : 'none';
+    note.textContent = tier === 'promax'
+      ? 'Ten szablon wymaga planu Pro Max (499 zł/mies.) — wybierając go, ustawiasz sobie ten plan. Możesz też przejrzeć darmowe szablony powyżej.'
+      : 'Ten szablon wymaga planu Pro (299 zł/mies.) — wybierając go, ustawiasz sobie ten plan. Możesz też przejrzeć darmowe szablony powyżej.';
+  }
   renderGallery();
 }
 
@@ -2123,13 +2108,17 @@ function updateAddonSummary() {
 
 // ─── PLAN ───
 // Limity zdjec per plan (sync z generate.js) — model Free/Pro (Faza 5)
-const PLAN_PHOTO_LIMITS = { free: 3, pro: 12 };
+const PLAN_PHOTO_LIMITS = { free: 3, pro: 12, promax: 12 };
 
+
+// Bazowe ceny miesięczne planów — jedno miejsce, z którego liczona jest cena roczna (-17%,
+// czyli 10 miesięcy rozłożone na 12), żeby nie powielać liczb w kilku miejscach jak dotąd.
+const PLAN_BASE_PRICE = { pro: 299, promax: 499 };
 
 function switchBilling(mode) {
   var btnMonth = document.getElementById('bill-month');
   var btnYear  = document.getElementById('bill-year');
-  var proEl    = document.getElementById('pro-price-display');
+  if (!btnMonth || !btnYear) { state.billing = mode; return; }
 
   if (mode === 'year') {
     btnMonth.style.background = 'transparent';
@@ -2138,7 +2127,6 @@ function switchBilling(mode) {
     btnYear.style.background = 'rgba(0,229,160,.15)';
     btnYear.style.border = '1.5px solid var(--green)';
     btnYear.style.color = 'var(--green)';
-    if (proEl) proEl.innerHTML = '332 <sub>zł/mies. <span style="font-size:10px;opacity:.6">rocznie</span></sub>';
   } else {
     btnMonth.style.background = 'rgba(0,229,160,.15)';
     btnMonth.style.border = '1.5px solid var(--green)';
@@ -2146,28 +2134,52 @@ function switchBilling(mode) {
     btnYear.style.background = 'transparent';
     btnYear.style.border = 'none';
     btnYear.style.color = 'var(--muted)';
-    if (proEl) proEl.innerHTML = '399 <sub>zł/mies.</sub>';
   }
   state.billing = mode;
+  // Odśwież wszystkie miejsca pokazujące cenę planu (plakietka w pasku bocznym,
+  // podsumowanie w krokach Dodatki/Podgląd) z nowym rozliczaniem.
+  refreshPlanPriceDisplays();
   updateAddonSummary();
 }
+
+// Odświeża wszystkie miejsca pokazujące cenę wybranego planu — wywoływane po wyborze
+// szablonu (selectPlan) i po zmianie rozliczania (switchBilling), żeby nie liczyć
+// tej samej rzeczy w kilku miejscach osobno.
+function refreshPlanPriceDisplays() {
+  var isYearly = state.billing === 'year';
+  var base = parseInt(state.planPrice) || 0;
+  var effective = (isYearly && base > 0) ? Math.round(base * 10 / 12) : base;
+  var suffix = isYearly && base > 0 ? ' zł/mies. (rocznie)' : ' zł/mies.';
+  var display = base === 0 ? 'Bezpłatny' : (effective + suffix);
+
+  var cpt = document.getElementById('cp-total-price'); if (cpt) cpt.textContent = display;
+  var bp  = document.getElementById('btn-price'); if (bp) bp.textContent = effective;
+  var asp = document.getElementById('as-plan-price'); if (asp) asp.textContent = base === 0 ? 'bezpłatny' : (effective + suffix);
+  if (typeof selectPlan6 === 'function' && state.currentStep === 6) selectPlan6(state.plan, state.planName, effective);
+}
+
 function selectPlan(card, id, name, price) {
   document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
-  card.classList.add('selected');
+  if (card) card.classList.add('selected');
   state.plan = id;
   state.planName = name;
   state.planPrice = price;
   document.getElementById('cp-plan-name').textContent = name;
   var pill = document.getElementById('sidebar-plan-pill');
-  if (pill && state.currentStep >= 4) pill.style.display = 'block';
-  var _cpt=document.getElementById('cp-total-price'); if(_cpt) _cpt.textContent=price==='0'?'Bezpłatny':price+' zł/mies.';
-  var _bpEl=document.getElementById('btn-price'); if(_bpEl) _bpEl.textContent = price;
-  var _yr=state.billing==='year'; var _dp=_yr?Math.round((parseInt(price)||0)*10/12):(parseInt(price)||0); document.getElementById('as-plan-price').textContent=price==='0'?'bezpłatny':(_dp+(_yr?' zł/mies. (rocznie)':' zł/mies.'));
+  if (pill) pill.style.display = 'block';
+
+  // Rozliczanie roczne/miesięczne ma sens tylko dla planów płatnych
+  var billingRow = document.getElementById('plan-billing-row');
+  if (billingRow) billingRow.style.display = price > 0 ? 'block' : 'none';
+  var billingNameEl = document.getElementById('plan-billing-name');
+  if (billingNameEl) billingNameEl.textContent = name;
+
+  refreshPlanPriceDisplays();
   updateAddonSummary();
 
-  // Pokaż/ukryj hero upload dla planu Pro
+  // Pokaż/ukryj pole zdjęcia hero dla planów Pro i Pro Max
   const heroSection = document.getElementById('hero-section');
-  if (heroSection) heroSection.style.display = id === 'pro' ? 'block' : 'none';
+  if (heroSection) heroSection.style.display = (id === 'pro' || id === 'promax') ? 'block' : 'none';
 
   // Zaktualizuj info o limicie zdjec galerii (jeśli sekcja widoczna)
   const limit = PLAN_PHOTO_LIMITS[id] || 3;
@@ -2811,33 +2823,29 @@ selectPexelsPhoto = function(url) {
 })();
 
 
-// ─── WYBÓR PLANU (krok 6) ───────────────────────────
+// ─── PODSUMOWANIE PLANU (krok 6) ───────────────────────
+// Krok 6 nie wybiera planu od nowa — to robi krok 4. Tu tylko pokazujemy jego wynik
+// (read-only) + link "Zmień plan ←" wracający do kroku 4. Wcześniej było tu drugie,
+// niezależne UI wyboru planu z własnymi cenami — dokładnie ten sam wzorzec, który
+// spowodował rozjazd cen (399 vs 299 zł) naprawiony w tej samej turze zmian.
+var PLAN_SUMMARY_FEATURES = {
+  free:   ['Pełna Galeria Startowa', 'Hosting na subdomenie webgen.pl'],
+  pro:    ['Szablony Pro + personalizacja AI', 'Lokalne SEO + formularz kontaktowy', 'Aktualizacje treści na życzenie'],
+  promax: ['Wszystko z Pro', 'Rozszerzona personalizacja AI', 'Priorytetowa obsługa zmian — odpowiedź w 4h']
+};
+
+// `price` tutaj to cena DO WYŚWIETLENIA (już z uwzględnieniem rozliczania rocznego/mies.) —
+// celowo NIE nadpisuje state.planPrice, który zawsze trzyma bazową cenę miesięczną ustawioną
+// przy wyborze szablonu w kroku 1. Nadpisywanie go tu psuło przeliczenie przy każdej kolejnej
+// zmianie rozliczania (rabat nakładałby się sam na siebie).
 function selectPlan6(id, name, price) {
-  // Usuń selected ze wszystkich kart
-  document.querySelectorAll('.plan6-card').forEach(function(card) {
-    card.style.border = '1.5px solid var(--border)';
-    // Usuń badge WYBRANY jeśli jest
-    var badge = card.querySelector('.p6-badge');
-    if (badge) badge.remove();
-  });
-
-  // Podświetl wybraną kartę
-  var card = document.getElementById('p6-' + id);
-  if (card) {
-    card.style.border = '1.5px solid var(--green)';
-    // Dodaj badge
-    var badge = document.createElement('div');
-    badge.className = 'p6-badge';
-    badge.textContent = 'WYBRANY';
-    badge.style.cssText = 'position:absolute;top:-10px;right:12px;background:var(--green);color:var(--oncta);font-size:10px;font-weight:800;padding:3px 10px;border-radius:10px;font-family:var(--mono);letter-spacing:.06em';
-    card.style.position = 'relative';
-    card.appendChild(badge);
-  }
-
-  // Zaktualizuj state
-  state.plan = id;
-  state.planName = name;
-  state.planPrice = String(price);
+  var features = PLAN_SUMMARY_FEATURES[id] || PLAN_SUMMARY_FEATURES.free;
+  var el_summaryName  = document.getElementById('p6-summary-name');
+  var el_summaryFeats = document.getElementById('p6-summary-features');
+  var el_summaryPrice = document.getElementById('p6-summary-price');
+  if (el_summaryName)  el_summaryName.textContent = name;
+  if (el_summaryFeats) el_summaryFeats.innerHTML = features.map(function(f){ return '<span style="color:var(--green)">✓</span> ' + f; }).join('<br>');
+  if (el_summaryPrice) el_summaryPrice.textContent = (price === 0 ? 'Bezpłatny' : price + ' zł/mies.' + (state.billing === 'year' && price > 0 ? ' (rocznie)' : ''));
 
   // Przelicz summary
   var planPrice = price;
@@ -2876,8 +2884,11 @@ function initStep6() {
   var addonCount = Object.keys(state.addons).length;
   if (addonsEl) addonsEl.textContent = addonCount > 0 ? addonCount + ' dodatek(ów) wybranych' : 'Brak dodatków';
 
-  // Odśwież wybór planu (domyślnie Free)
-  var _p6price = parseInt(state.planPrice); if (isNaN(_p6price)) _p6price = 0;
+  // Odśwież wybór planu (domyślnie Free) — cena tu to cena bazowa przeliczona przez
+  // rozliczanie roczne/miesięczne, spójnie z refreshPlanPriceDisplays()
+  var _p6base = parseInt(state.planPrice); if (isNaN(_p6base)) _p6base = 0;
+  var _p6yearly = state.billing === 'year' && _p6base > 0;
+  var _p6price = _p6yearly ? Math.round(_p6base * 10 / 12) : _p6base;
   selectPlan6(state.plan, state.planName, _p6price);
 }
 // ──────────────────────────────────────────────────────

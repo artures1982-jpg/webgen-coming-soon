@@ -1,1 +1,479 @@
-[]
+[
+  {
+    "id": "hydraulik-1-zaufany-fachowiec",
+    "industry": "hydraulik",
+    "label": "Hydraulik",
+    "title": "Zaufany fachowiec",
+    "tagline": "Cennik i gwarancja widoczne od razu — bez dzwonienia po wycenę.",
+    "tier": "free",
+    "thumb": "/galeria/thumbs/hydraulik-1.webp"
+  },
+  {
+    "id": "hydraulik-2-szybka-interwencja",
+    "industry": "hydraulik",
+    "label": "Hydraulik",
+    "title": "Szybka interwencja",
+    "tagline": "Awaria o 3 w nocy? Numer alarmowy większy niż cokolwiek innego na stronie.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/hydraulik-2.webp"
+  },
+  {
+    "id": "hydraulik-3-nowoczesny-cyfrowy",
+    "industry": "hydraulik",
+    "label": "Hydraulik",
+    "title": "Nowoczesny cyfrowy",
+    "tagline": "Zamiast dzwonić — wypełniasz formularz wyceny i czekasz na odpowiedź, nie na kolejkę.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/hydraulik-3.webp"
+  },
+  {
+    "id": "hydraulik-4-rodzinna-firma",
+    "industry": "hydraulik",
+    "label": "Hydraulik",
+    "title": "Rodzinna firma",
+    "tagline": "Poznajesz właściciela firmy, zanim jeszcze zadzwonisz.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/hydraulik-4.webp"
+  },
+  {
+    "id": "hydraulik-5-premium-korporacyjny",
+    "industry": "hydraulik",
+    "label": "Hydraulik",
+    "title": "Premium korporacyjny",
+    "tagline": "Studia przypadków z liczbami — dla klientów, którzy podpisują umowy, nie SMS-y.",
+    "tier": "promax",
+    "thumb": "/galeria/thumbs/hydraulik-5.webp"
+  },
+  {
+    "id": "hydraulik-6-minimalistyczny",
+    "industry": "hydraulik",
+    "label": "Hydraulik",
+    "title": "Minimalistyczny",
+    "tagline": "Cała oferta na jednym ekranie — ładuje się, zanim zdążysz mrugnąć.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/hydraulik-6.webp"
+  },
+  {
+    "id": "elektryk-1-zaufany-fachowiec",
+    "industry": "elektryk",
+    "label": "Elektryk",
+    "title": "Zaufany fachowiec",
+    "tagline": "Zdjęcia z realnych zleceń zamiast pustych obietnic „fachowiec z doświadczeniem”.",
+    "tier": "free",
+    "thumb": "/galeria/thumbs/elektryk-1.webp"
+  },
+  {
+    "id": "elektryk-2-szybka-interwencja",
+    "industry": "elektryk",
+    "label": "Elektryk",
+    "title": "Szybka interwencja",
+    "tagline": "Zwarcie, brak prądu, iskrzenie — wybierasz zagrożenie i trafiasz prosto do numeru alarmowego.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/elektryk-2.webp"
+  },
+  {
+    "id": "elektryk-3-nowoczesny-cyfrowy",
+    "industry": "elektryk",
+    "label": "Elektryk",
+    "title": "Nowoczesny cyfrowy",
+    "tagline": "Zero rozmów telefonicznych — wycenę zgłaszasz formularzem w mniej niż minutę.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/elektryk-3.webp"
+  },
+  {
+    "id": "elektryk-4-rodzinna-firma",
+    "industry": "elektryk",
+    "label": "Elektryk",
+    "title": "Rodzinna firma",
+    "tagline": "Rzemiosło przejęte po rodzicu — historia firmy, zanim zobaczysz cennik.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/elektryk-4.webp"
+  },
+  {
+    "id": "elektryk-5-premium-korporacyjny",
+    "industry": "elektryk",
+    "label": "Elektryk",
+    "title": "Premium korporacyjny",
+    "tagline": "Proces krok po kroku i lista firm, które już podpisały umowę.",
+    "tier": "promax",
+    "thumb": "/galeria/thumbs/elektryk-5.webp"
+  },
+  {
+    "id": "remonty-1-zaufany-fachowiec",
+    "industry": "remonty",
+    "label": "Remonty",
+    "title": "Zaufany fachowiec",
+    "tagline": "Cennik liczony za metr kwadratowy, nie „wycena indywidualna”.",
+    "tier": "free",
+    "thumb": "/galeria/thumbs/remonty-1.webp"
+  },
+  {
+    "id": "remonty-2-szybki-start",
+    "industry": "remonty",
+    "label": "Remonty",
+    "title": "Szybki start",
+    "tagline": "Pasek na żywo pokazuje, kiedy ekipa naprawdę może zacząć.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/remonty-2.webp"
+  },
+  {
+    "id": "remonty-3-kalkulator-online",
+    "industry": "remonty",
+    "label": "Remonty",
+    "title": "Kalkulator online",
+    "tagline": "Wpisujesz metraż i zakres — kalkulator liczy orientacyjny koszt remontu od razu.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/remonty-3.webp"
+  },
+  {
+    "id": "remonty-4-rodzinna-firma",
+    "industry": "remonty",
+    "label": "Remonty",
+    "title": "Rodzinna firma",
+    "tagline": "Ta sama ekipa od lat — poznajesz twarze, zanim wejdą do Twojego domu.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/remonty-4.webp"
+  },
+  {
+    "id": "remonty-5-premium",
+    "industry": "remonty",
+    "label": "Remonty",
+    "title": "Premium",
+    "tagline": "Formularz zapytania pod klienta biznesowego — dewelopera, zarządcę, inwestora.",
+    "tier": "promax",
+    "thumb": "/galeria/thumbs/remonty-5.webp"
+  },
+  {
+    "id": "fryzjer-barber-1-zaufany-fachowiec",
+    "industry": "fryzjer-barber",
+    "label": "Fryzjer / Barber",
+    "title": "Zaufany fachowiec",
+    "tagline": "Cennik i portfolio prawdziwych fryzur — widzisz efekt, zanim usiądziesz na fotelu.",
+    "tier": "free",
+    "thumb": "/galeria/thumbs/fryzjer-barber-1.webp"
+  },
+  {
+    "id": "fryzjer-barber-2-bez-kolejki",
+    "industry": "fryzjer-barber",
+    "label": "Fryzjer / Barber",
+    "title": "Bez kolejki",
+    "tagline": "Widzisz na żywo, ile miejsc zostało dziś bez zapisu.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/fryzjer-barber-2.webp"
+  },
+  {
+    "id": "fryzjer-barber-3-nowoczesny-cyfrowy",
+    "industry": "fryzjer-barber",
+    "label": "Fryzjer / Barber",
+    "title": "Nowoczesny cyfrowy",
+    "tagline": "Rezerwacja w 60 sekund — od otwarcia strony do potwierdzonego terminu.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/fryzjer-barber-3.webp"
+  },
+  {
+    "id": "fryzjer-barber-4-rodzinna-firma",
+    "industry": "fryzjer-barber",
+    "label": "Fryzjer / Barber",
+    "title": "Rodzinna firma",
+    "tagline": "Trzy pokolenia tej samej rodziny przy tym samym fotelu.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/fryzjer-barber-4.webp"
+  },
+  {
+    "id": "fryzjer-barber-5-premium",
+    "industry": "fryzjer-barber",
+    "label": "Fryzjer / Barber",
+    "title": "Premium",
+    "tagline": "Barber na firmowy event albo stały kontrakt z hotelem — to też ich klient.",
+    "tier": "promax",
+    "thumb": "/galeria/thumbs/fryzjer-barber-5.webp"
+  },
+  {
+    "id": "salon-fryzjerski-1-zaufany-fachowiec",
+    "industry": "salon-fryzjerski",
+    "label": "Salon fryzjerski",
+    "title": "Zaufany fachowiec",
+    "tagline": "Cennik damski i męski w jednej, czytelnej siatce usług.",
+    "tier": "free",
+    "thumb": "/galeria/thumbs/salon-fryzjerski-1.webp"
+  },
+  {
+    "id": "salon-fryzjerski-2-dzis-wolny-termin",
+    "industry": "salon-fryzjerski",
+    "label": "Salon fryzjerski",
+    "title": "Dziś wolny termin",
+    "tagline": "Terminy wieczorne i weekendowe — dla tych, co pracują do 17.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/salon-fryzjerski-2.webp"
+  },
+  {
+    "id": "salon-fryzjerski-3-wybierz-stylistke",
+    "industry": "salon-fryzjerski",
+    "label": "Salon fryzjerski",
+    "title": "Wybierz stylistkę",
+    "tagline": "Najpierw wybierasz konkretną stylistkę, dopiero potem jej wolny termin.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/salon-fryzjerski-3.webp"
+  },
+  {
+    "id": "salon-fryzjerski-4-rodzinna-firma",
+    "industry": "salon-fryzjerski",
+    "label": "Salon fryzjerski",
+    "title": "Rodzinna firma",
+    "tagline": "Salon prowadzony przez matkę i córkę — dwa pokolenia pod jednym dachem.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/salon-fryzjerski-4.webp"
+  },
+  {
+    "id": "salon-fryzjerski-5-premium",
+    "industry": "salon-fryzjerski",
+    "label": "Salon fryzjerski",
+    "title": "Premium",
+    "tagline": "Prywatny gabinet, nie salon z ulicy — umawiasz się przez zapytanie, nie w locie.",
+    "tier": "promax",
+    "thumb": "/galeria/thumbs/salon-fryzjerski-5.webp"
+  },
+  {
+    "id": "studio-paznokci-1-zaufany-fachowiec",
+    "industry": "studio-paznokci",
+    "label": "Studio paznokci",
+    "title": "Zaufany fachowiec",
+    "tagline": "Cennik na pierwszym ekranie i galeria prawdziwych wzorów, nie stockowe dłonie.",
+    "tier": "free",
+    "thumb": "/galeria/thumbs/studio-paznokci-1.webp"
+  },
+  {
+    "id": "studio-paznokci-2-express",
+    "industry": "studio-paznokci",
+    "label": "Studio paznokci",
+    "title": "Express",
+    "tagline": "Wolne okienko za 20 minut? Sprawdzasz od razu, nie czekasz na odpowiedź w wiadomości.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/studio-paznokci-2.webp"
+  },
+  {
+    "id": "studio-paznokci-3-nowoczesny-cyfrowy",
+    "industry": "studio-paznokci",
+    "label": "Studio paznokci",
+    "title": "Nowoczesny cyfrowy",
+    "tagline": "Rezerwujesz termin jednym kliknięciem, bez przechodzenia na inną stronę.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/studio-paznokci-3.webp"
+  },
+  {
+    "id": "studio-paznokci-4-rodzinna-firma",
+    "industry": "studio-paznokci",
+    "label": "Studio paznokci",
+    "title": "Rodzinna firma",
+    "tagline": "Znasz jej prace z Instagrama — tu poznajesz też cennik i wolne terminy.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/studio-paznokci-4.webp"
+  },
+  {
+    "id": "studio-paznokci-5-premium",
+    "industry": "studio-paznokci",
+    "label": "Studio paznokci",
+    "title": "Premium",
+    "tagline": "Portfolio jak z magazynu, nie z folderu zdjęć w telefonie.",
+    "tier": "promax",
+    "thumb": "/galeria/thumbs/studio-paznokci-5.webp"
+  },
+  {
+    "id": "medycyna-estetyczna-1-zaufany-lekarz",
+    "industry": "medycyna-estetyczna",
+    "label": "Medycyna estetyczna",
+    "title": "Zaufany lekarz",
+    "tagline": "Cennik bez gwiazdek i „zależy od zabiegu” — kwoty podane wprost.",
+    "tier": "free",
+    "thumb": "/galeria/thumbs/medycyna-estetyczna-1.webp"
+  },
+  {
+    "id": "medycyna-estetyczna-2-elastyczne-terminy",
+    "industry": "medycyna-estetyczna",
+    "label": "Medycyna estetyczna",
+    "title": "Elastyczne terminy",
+    "tagline": "Umawiasz się, kiedy Tobie pasuje — nie kiedy akurat jest okienko.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/medycyna-estetyczna-2.webp"
+  },
+  {
+    "id": "medycyna-estetyczna-3-dobierz-zabieg",
+    "industry": "medycyna-estetyczna",
+    "label": "Medycyna estetyczna",
+    "title": "Dobierz zabieg",
+    "tagline": "Zaznaczasz, co Cię trapi — strona podpowiada, o czym porozmawiać na konsultacji.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/medycyna-estetyczna-3.webp"
+  },
+  {
+    "id": "medycyna-estetyczna-4-kameralny-gabinet",
+    "industry": "medycyna-estetyczna",
+    "label": "Medycyna estetyczna",
+    "title": "Kameralny gabinet",
+    "tagline": "Dwie stałe lekarki, nie przypadkowa osoba z grafiku sieciówki.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/medycyna-estetyczna-4.webp"
+  },
+  {
+    "id": "medycyna-estetyczna-5-program-indywidualny",
+    "industry": "medycyna-estetyczna",
+    "label": "Medycyna estetyczna",
+    "title": "Program indywidualny",
+    "tagline": "Program opieki rozłożony na miesiące, nie pojedynczy zabieg pod promocję.",
+    "tier": "promax",
+    "thumb": "/galeria/thumbs/medycyna-estetyczna-5.webp"
+  },
+  {
+    "id": "stomatolog-1-uczciwy-plan-leczenia",
+    "industry": "stomatolog",
+    "label": "Stomatolog",
+    "title": "Uczciwy plan leczenia",
+    "tagline": "Plan leczenia na piśmie — co konieczne, co zalecane, co opcjonalne, z cenami.",
+    "tier": "free",
+    "thumb": "/galeria/thumbs/stomatolog-1.webp"
+  },
+  {
+    "id": "stomatolog-2-lekarz-prowadzacy",
+    "industry": "stomatolog",
+    "label": "Stomatolog",
+    "title": "Lekarz prowadzący",
+    "tagline": "Jeden lekarz koordynuje cały wieloetapowy plan — nie gubisz się między specjalistami.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/stomatolog-2.webp"
+  },
+  {
+    "id": "stomatolog-3-pokoj-bez-strachu",
+    "industry": "stomatolog",
+    "label": "Stomatolog",
+    "title": "Pokój bez strachu",
+    "tagline": "Klikasz i widzisz krok po kroku, jak wygląda wizyta — łącznie z sygnałem stop.",
+    "tier": "promax",
+    "thumb": "/galeria/thumbs/stomatolog-3.webp"
+  },
+  {
+    "id": "nieruchomosci-1-zaufany-posrednik",
+    "industry": "nieruchomosci",
+    "label": "Nieruchomości",
+    "title": "Zaufany pośrednik",
+    "tagline": "Aktualne oferty widoczne od razu na stronie, nie tylko „zadzwoń po listę”.",
+    "tier": "free",
+    "thumb": "/galeria/thumbs/nieruchomosci-1.webp"
+  },
+  {
+    "id": "nieruchomosci-2-sprzedaz-w-twoim-terminie",
+    "industry": "nieruchomosci",
+    "label": "Nieruchomości",
+    "title": "Sprzedaż w Twoim terminie",
+    "tagline": "Tempo sprzedaży policzone z realnej bazy kupujących, nie z marketingowego sloganu.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/nieruchomosci-2.webp"
+  },
+  {
+    "id": "nieruchomosci-3-kalkulator-wyceny",
+    "industry": "nieruchomosci",
+    "label": "Nieruchomości",
+    "title": "Kalkulator wyceny",
+    "tagline": "Wpisujesz parametry mieszkania — kalkulator od razu szacuje jego wartość rynkową.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/nieruchomosci-3.webp"
+  },
+  {
+    "id": "nieruchomosci-4-kameralne-biuro",
+    "industry": "nieruchomosci",
+    "label": "Nieruchomości",
+    "title": "Kameralne biuro",
+    "tagline": "Ta sama osoba prowadzi Cię od pierwszej wyceny aż po podpis u notariusza.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/nieruchomosci-4.webp"
+  },
+  {
+    "id": "nieruchomosci-5-segment-premium",
+    "industry": "nieruchomosci",
+    "label": "Nieruchomości",
+    "title": "Segment premium",
+    "tagline": "Oferty, których nie znajdziesz w żadnym portalu — sprzedaż w pełnej dyskrecji.",
+    "tier": "promax",
+    "thumb": "/galeria/thumbs/nieruchomosci-5.webp"
+  },
+  {
+    "id": "auta-z-ameryki-1-zaufany-importer",
+    "industry": "auta-z-ameryki",
+    "label": "Auta z Ameryki",
+    "title": "Zaufany importer",
+    "tagline": "Pełny rachunek kosztów, zanim jeszcze wystartuje licytacja.",
+    "tier": "free",
+    "thumb": "/galeria/thumbs/auta-z-ameryki-1.webp"
+  },
+  {
+    "id": "auta-z-ameryki-2-kalkulator-sprowadzenia",
+    "industry": "auta-z-ameryki",
+    "label": "Auta z Ameryki",
+    "title": "Kalkulator sprowadzenia",
+    "tagline": "Wpisujesz cenę z licytacji — kalkulator liczy, ile zapłacisz w Polsce z cłem i akcyzą.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/auta-z-ameryki-2.webp"
+  },
+  {
+    "id": "auta-z-ameryki-3-auto-na-zamowienie",
+    "industry": "auta-z-ameryki",
+    "label": "Auta z Ameryki",
+    "title": "Auto na zamówienie",
+    "tagline": "Zamawiasz konkretny model — oni znajdą go na aukcji i przywiozą pod dom.",
+    "tier": "promax",
+    "thumb": "/galeria/thumbs/auta-z-ameryki-3.webp"
+  },
+  {
+    "id": "fotograf-slubny-1-zaufany-fotograf",
+    "industry": "fotograf-slubny",
+    "label": "Fotograf ślubny",
+    "title": "Zaufany fotograf",
+    "tagline": "Cała stykówka z jednego wesela — dowód, nie wyselekcjonowane 10 najlepszych kadrów.",
+    "tier": "free",
+    "thumb": "/galeria/thumbs/fotograf-slubny-1.webp"
+  },
+  {
+    "id": "fotograf-slubny-2-wolne-terminy",
+    "industry": "fotograf-slubny",
+    "label": "Fotograf ślubny",
+    "title": "Wolne terminy",
+    "tagline": "Klikasz datę ślubu w kalendarzu i od razu widzisz, czy fotograf ma jeszcze wolny termin.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/fotograf-slubny-2.webp"
+  },
+  {
+    "id": "fotograf-slubny-3-historia-jednego-dnia",
+    "industry": "fotograf-slubny",
+    "label": "Fotograf ślubny",
+    "title": "Historia jednego dnia",
+    "tagline": "Jeden ślub, opowiedziany godzina po godzinie — od przygotowań po pierwszy taniec.",
+    "tier": "promax",
+    "thumb": "/galeria/thumbs/fotograf-slubny-3.webp"
+  },
+  {
+    "id": "fotowoltaika-1-uczciwe-wyliczenie",
+    "industry": "fotowoltaika",
+    "label": "Fotowoltaika",
+    "title": "Uczciwe wyliczenie",
+    "tagline": "Wyliczenie z Twoich własnych faktur za prąd, nie ze średniej krajowej.",
+    "tier": "free",
+    "thumb": "/galeria/thumbs/fotowoltaika-1.webp"
+  },
+  {
+    "id": "fotowoltaika-2-instalacja-na-zywo",
+    "industry": "fotowoltaika",
+    "label": "Fotowoltaika",
+    "title": "Instalacja na żywo",
+    "tagline": "Podgląd produkcji instalacji na żywo — zanim jeszcze podpiszesz umowę.",
+    "tier": "pro",
+    "thumb": "/galeria/thumbs/fotowoltaika-2.webp"
+  },
+  {
+    "id": "fotowoltaika-3-kat-padania",
+    "industry": "fotowoltaika",
+    "label": "Fotowoltaika",
+    "title": "Kąt padania",
+    "tagline": "Przesuwasz suwak godziny i widzisz, ile prądu da twój dach o każdej porze dnia.",
+    "tier": "promax",
+    "thumb": "/galeria/thumbs/fotowoltaika-3.webp"
+  }
+]
