@@ -1,8 +1,11 @@
 // /api/pexels.js — Pexels photo search proxy
 // FIX: usunięto locale=pl-PL, zwraca oryginalna strukture src Pexels
 
+const ALLOWED_ORIGINS = ['https://webgen.pl', 'https://www.webgen.pl'];
+
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const reqOrigin = req.headers.origin;
+  res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGINS.includes(reqOrigin) ? reqOrigin : ALLOWED_ORIGINS[1]);
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();

@@ -1,8 +1,11 @@
 // api/notify-client.js — Edge Runtime
 export const config = { runtime: 'edge' };
 
+var ALLOWED_ORIGINS = ['https://webgen.pl', 'https://www.webgen.pl'];
+
 export default async function handler(req) {
-  var corsHeaders = { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' };
+  var reqOrigin = req.headers.get('origin');
+  var corsHeaders = { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': ALLOWED_ORIGINS.indexOf(reqOrigin) !== -1 ? reqOrigin : ALLOWED_ORIGINS[1] };
   if (req.method !== 'POST') {
     return new Response(JSON.stringify({ error: 'Method not allowed' }), { status: 405, headers: corsHeaders });
   }
