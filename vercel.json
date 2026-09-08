@@ -77,6 +77,10 @@
     {
       "source": "/galeria",
       "destination": "/galeria/index.html"
+    },
+    {
+      "source": "/success",
+      "destination": "/success/index.html"
     }
   ],
   "redirects": [

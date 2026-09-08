@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Płatność zaakceptowana — webgen.pl</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080A12;--s1:#10141F;--s2:#161B29;
+  --green:#00E5A0;--red:#FF6B6B;
+  --text:#F3F6FC;--muted:#8E97AC;
+  --border:rgba(255,255,255,.10);
+  --head:'Bricolage Grotesque',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--head);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;-webkit-font-smoothing:antialiased}
+.card{max-width:460px;width:100%;background:var(--s1);border:1px solid var(--border);border-radius:18px;padding:40px 34px;text-align:center}
+.logo{font-size:16px;font-weight:800;margin-bottom:24px}
+.logo span{color:var(--green)}
+.spinner{width:34px;height:34px;border-radius:50%;border:3px solid var(--border);border-top-color:var(--green);margin:0 auto 20px;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+h1{font-size:22px;font-weight:800;margin-bottom:10px;letter-spacing:-.01em}
+p{color:var(--muted);font-size:14px;line-height:1.65;margin-bottom:8px}
+.url-box{margin:20px 0;padding:14px 16px;background:var(--s2);border:1px solid var(--border);border-radius:10px;word-break:break-all}
+.url-box a{color:var(--green);font-weight:700;font-size:15px;text-decoration:none}
+.url-box a:hover{text-decoration:underline}
+.btn{display:inline-block;margin-top:8px;background:var(--green);color:#05100d;text-decoration:none;font-weight:700;font-size:14px;padding:12px 26px;border-radius:9px}
+.btn:hover{filter:brightness(1.08)}
+.err{color:var(--red)}
+.eyebrow{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:10px;opacity:.8}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">web<span>gen</span></div>
+  <div id="content">
+    <div class="spinner"></div>
+    <h1>Aktywuję Twoją stronę…</h1>
+    <p>To zajmie kilka sekund.</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  var contentEl = document.getElementById('content');
+  var params = new URLSearchParams(window.location.search);
+  var sessionId = params.get('session_id');
+
+  function showError(msg) {
+    contentEl.innerHTML =
+      '<div class="eyebrow">Płatność przyjęta</div>' +
+      '<h1 class="err">Nie udało się dokończyć aktywacji</h1>' +
+      '<p>' + msg + '</p>' +
+      '<p>Płatność przeszła poprawnie — napisz do nas, dokończymy aktywację ręcznie.</p>' +
+      '<a class="btn" href="mailto:hello@webgen.pl">Napisz na hello@webgen.pl →</a>';
+  }
+
+  function showSuccess(url) {
+    contentEl.innerHTML =
+      '<div class="eyebrow">Płatność zaakceptowana</div>' +
+      '<h1>Strona aktywna 🎉</h1>' +
+      '<p>Twoja strona działa pod adresem:</p>' +
+      '<div class="url-box"><a href="' + url + '" target="_blank" rel="noopener">' + url + ' →</a></div>' +
+      '<a class="btn" href="/dashboard/">Przejdź do panelu klienta →</a>';
+  }
+
+  if (!sessionId) {
+    showError('Brak potwierdzenia sesji płatności w adresie strony.');
+    return;
+  }
+
+  var raw = null;
+  try { raw = localStorage.getItem('wg_generated'); } catch (e) {}
+  if (!raw) {
+    showError('Nie znaleziono wygenerowanej strony w tej przeglądarce (localStorage). Jeśli otworzyłeś ten link na innym urządzeniu niż generator, wróć na to, na którym tworzyłeś stronę.');
+    return;
+  }
+
+  var payload;
+  try { payload = JSON.parse(raw); } catch (e) {
+    showError('Zapisane dane wygenerowanej strony są uszkodzone.');
+    return;
+  }
+
+  fetch('/api/deploy', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      slug: payload.slug,
+      html: payload.html,
+      plan: payload.plan || 'pro',
+      email: payload.email || ''
+    })
+  })
+    .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+    .then(function (r) {
+      if (!r.ok || !r.data.success) throw new Error((r.data && r.data.error) || 'Nieznany błąd aktywacji');
+      try { localStorage.removeItem('wg_generated'); } catch (e) {}
+      showSuccess(r.data.url);
+    })
+    .catch(function (err) {
+      showError(err.message);
+    });
+})();
+</script>
+</body>
+</html>

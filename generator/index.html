@@ -2638,10 +2638,9 @@ function closeCheckout() {
 async function goToCheckout() {
   const email = document.getElementById('checkout-email').value.trim();
   if (!email || !email.includes('@')) { alert('Wpisz poprawny email'); return; }
-  
+
   if (state.plan === 'free') {
-    alert('Plan Start nie wymaga płatności — Twoja strona zostanie aktywowana automatycznie. Pierwsze 6 miesięcy za darmo, potem 149 zł/mies. (możesz zrezygnować w każdej chwili).');
-    closeCheckout();
+    await activateFreeSite(email);
     return;
   }
   
@@ -2660,6 +2659,45 @@ async function goToCheckout() {
     }
   } catch (err) {
     alert('Błąd checkout: ' + err.message);
+  }
+}
+
+// Aktywacja planu Start (bez płatności) — realnie wystawia stronę pod slug.webgen.pl
+// przez /api/deploy, zamiast tylko pokazywać alert "aktywowano" i nic nie robić.
+async function activateFreeSite(email) {
+  var modalBody = document.querySelector('#checkout-modal .modal');
+  var btn = document.querySelector('#checkout-modal .btn-checkout');
+  var slug = window._generatedSlug || state.slug || 'moja-firma';
+  var html = window._generatedHTML || state.generatedHTML || '';
+
+  if (!html) {
+    alert('Brak wygenerowanej strony do aktywacji — wróć do kroku generowania.');
+    return;
+  }
+
+  if (btn) { btn.disabled = true; btn.textContent = 'Aktywuję stronę…'; }
+
+  try {
+    const res = await fetch('/api/deploy', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug: slug, html: html, plan: 'free', email: email })
+    });
+    const data = await res.json();
+    if (!res.ok || !data.success) throw new Error(data.error || 'Nie udało się aktywować strony');
+
+    localStorage.removeItem('wg_generated');
+    if (modalBody) {
+      modalBody.innerHTML =
+        '<h3>Strona aktywna 🎉</h3>' +
+        '<p>Twoja strona działa pod adresem:</p>' +
+        '<p style="margin:14px 0"><a href="' + data.url + '" target="_blank" rel="noopener" style="color:var(--green);font-weight:700;font-size:16px">' + data.url + ' →</a></p>' +
+        '<p class="modal-note">Pierwsze 6 miesięcy za darmo, potem 149 zł/mies. — rezygnacja w każdej chwili z panelu klienta.</p>' +
+        '<button class="btn-checkout" onclick="closeCheckout()">Zamknij</button>';
+    }
+  } catch (err) {
+    if (btn) { btn.disabled = false; btn.textContent = 'Przejdź do płatności →'; }
+    alert('Błąd aktywacji: ' + err.message + ' — spróbuj ponownie albo napisz na hello@webgen.pl');
   }
 }
 
