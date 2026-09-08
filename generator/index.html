@@ -962,6 +962,10 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 .gc-select-hint{ font-size:10px;color:var(--green);margin-top:6px;font-weight:700;opacity:0;transition:opacity .15s }
 .gallery-card:hover .gc-select-hint,.gallery-card.selected .gc-select-hint{ opacity:1 }
 /* ────────────────────────────────────────────────────────────── */
+
+/* Natywny link "Sign in"/"Sign up" w stopce widgetu Clerk (panel-0) jest martwy —
+   patrz komentarz w mountAuthWidget(). Ukryty, zastąpiony własnym linkiem JS. */
+#panel-0-auth .cl-footerAction{ display:none!important }
 </style>
 </head>
 <body>
@@ -1045,7 +1049,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
       <div class="sp-header" style="text-align:center">
         <div class="sp-eyebrow">// Krok 1 z 7</div>
         <h1 class="sp-title">Utwórz darmowe<br><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">konto webgen</span></h1>
-        <p class="sp-sub">Pierwsze 3 miesiące gratis. Wybierz typ konta.</p>
+        <p class="sp-sub">Pierwsze 6 miesięcy gratis. Wybierz typ konta.</p>
       </div>
 
       <div id="panel-0-details" style="text-align:left">
@@ -1652,7 +1656,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
       <div class="sp-header">
         <div class="sp-eyebrow">// Krok 5 z 5</div>
         <h1 class="sp-title">Podsumowanie<br><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">i uruchomienie strony</span></h1>
-        <p class="sp-sub">Zacznij za darmo — 3 miesiące bez opłat. Plan zmienisz wybierając inny szablon w kroku 1, albo w każdej chwili później.</p>
+        <p class="sp-sub">Zacznij za darmo — 6 miesięcy bez opłat. Plan zmienisz wybierając inny szablon w kroku 1, albo w każdej chwili później.</p>
       </div>
 
       <!-- Podsumowanie konfiguracji -->
@@ -2970,14 +2974,31 @@ function mountAuthWidget(kind) {
   if (detailsEl) detailsEl.style.display = 'none';
   if (!authEl) return;
   authEl.style.display = 'block';
+  authEl.innerHTML = '';
+
+  // Clerk w routing:'virtual' renderuje własny link "Sign in"/"Sign up" w stopce
+  // widgetu, ale ten link robi REALNĄ nawigację pod signInUrl/signUpUrl — bez
+  // wskazania prawdziwej strony (a tu nie chcemy wychodzić z panelu-0, gdzie
+  // już są zebrane dane typu konta/firmy) klik na niego był martwy (#, nic się
+  // nie działo). Własny link niżej (poza mountowanym elementem, żeby nie zostal
+  // wyczyszczony przy kolejnym innerHTML='') realnie przełącza widget przez JS;
+  // natywny link Clerka jest ukryty przez CSS (.cl-footerAction, patrz <style>).
+  var widgetEl = document.createElement('div');
+  authEl.appendChild(widgetEl);
+  var switchEl = document.createElement('p');
+  switchEl.style.cssText = 'text-align:center;margin-top:16px;font-size:13px;color:var(--muted)';
+  switchEl.innerHTML = kind === 'signIn'
+    ? 'Nie masz konta? <a href="#" onclick="mountAuthWidget(\'signUp\');return false;" style="color:var(--green);text-decoration:none;font-weight:600">Zarejestruj się</a>'
+    : 'Masz już konto? <a href="#" onclick="mountAuthWidget(\'signIn\');return false;" style="color:var(--green);text-decoration:none;font-weight:600">Zaloguj się</a>';
+  authEl.appendChild(switchEl);
+
   window.getClerk().then(function (Clerk) {
-    authEl.innerHTML = '';
     var opts = { routing: 'virtual', appearance: CLERK_WIDGET_APPEARANCE };
-    if (kind === 'signIn') { opts.signUpUrl = '#'; Clerk.mountSignIn(authEl, opts); }
-    else { opts.signInUrl = '#'; Clerk.mountSignUp(authEl, opts); }
+    if (kind === 'signIn') Clerk.mountSignIn(widgetEl, opts);
+    else Clerk.mountSignUp(widgetEl, opts);
   }).catch(function (err) {
     console.error('Clerk mount error:', err);
-    authEl.innerHTML = '<div style="text-align:center;color:var(--muted);font-size:13px">Nie udało się załadować logowania. Odśwież stronę.</div>';
+    widgetEl.innerHTML = '<div style="text-align:center;color:var(--muted);font-size:13px">Nie udało się załadować logowania. Odśwież stronę.</div>';
   });
 }
 
