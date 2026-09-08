@@ -33,6 +33,7 @@
   --brand-grad:linear-gradient(135deg,#00E5A0,#0066FF,#7B4FFF);
 }
 html{scroll-behavior:smooth}
+svg{width:1em;height:1em;display:inline-block;vertical-align:-2px;flex-shrink:0}
 body{font-family:var(--head);background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
 
 /* NAV */
@@ -890,7 +891,15 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
   background:rgba(0,229,160,.08);
   box-shadow:0 0 0 3px rgba(0,229,160,.12);
 }
-.bt-icon{ font-size:28px;line-height:1 }
+.bt-icon{ font-size:28px;line-height:1;color:var(--muted) }
+.bt-icon svg,.account-type-icon svg,.addon-icon-wrap svg,.lua-icon svg,.img-zone-icon svg{width:1em;height:1em;display:block}
+.branza-tile:hover .bt-icon,.branza-tile.selected .bt-icon{color:var(--green)}
+.account-type-icon{color:var(--muted)}
+.account-type-card.selected .account-type-icon{color:var(--green)}
+.addon-icon-wrap{color:var(--muted)}
+.addon-item.selected .addon-icon-wrap{color:var(--green)}
+.lua-icon,.img-zone-icon{color:var(--muted)}
+.btn-zone-pexels svg,.wg-nav-msg svg{width:1em;height:1em;display:inline-block;vertical-align:-3px;margin-right:2px}
 .bt-name{ font-size:12px;font-weight:700;color:var(--text);line-height:1.3 }
 .branza-tile.selected .bt-name{ color:var(--green) }
 
@@ -1044,12 +1053,12 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
       <!-- TYP KONTA -->
       <div class="account-type-grid">
         <div class="account-type-card" id="type-individual" onclick="selectAccountType('individual')">
-          <div class="account-type-icon">👤</div>
+          <div class="account-type-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></div>
           <div class="account-type-name">Klient indywidualny</div>
           <div class="account-type-desc">Działalność nierejestrowana, freelancer, osoba prywatna</div>
         </div>
         <div class="account-type-card" id="type-firma" onclick="selectAccountType('firma')">
-          <div class="account-type-icon">🏢</div>
+          <div class="account-type-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1"/><rect x="9" y="17" width="6" height="4"/><line x1="8" y1="7" x2="10" y2="7"/><line x1="14" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="10" y2="11"/><line x1="14" y1="11" x2="16" y2="11"/></svg></div>
           <div class="account-type-name">Klient firmowy</div>
           <div class="account-type-desc">Jednoosobowa działalność, spółka, firma z NIP</div>
         </div>
@@ -1073,7 +1082,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
           </div>
         </div>
         <div style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5">
-          💡 Dane trafią do stopki strony i profilu konta. Możesz uzupełnić później w ustawieniach.
+          Dane trafią do stopki strony i profilu konta. Możesz uzupełnić później w ustawieniach.
         </div>
       </div>
 
@@ -1113,70 +1122,70 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
       <div class="branza-grid" id="branza-grid">
 
         <button class="branza-tile" onclick="selectBranzaTile(this,'Hydraulik')">
-          <span class="bt-icon">🚧</span>
+          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-3.2 4.4-6 8-6 11.5A6 6 0 0 0 18 14.5C18 11 15.2 7.4 12 3z"/></svg></span>
           <span class="bt-name">Hydraulik</span>
         </button>
         <button class="branza-tile" onclick="selectBranzaTile(this,'Elektryk')">
-          <span class="bt-icon">⚡</span>
+          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg></span>
           <span class="bt-name">Elektryk</span>
         </button>
         <button class="branza-tile" onclick="selectBranzaTile(this,'Firma remontowo-budowlana')">
-          <span class="bt-icon">🏗️</span>
+          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 3.5l6 6-2.5 2.5-6-6z"/><path d="M12.5 5.5 3 15l3 3 8.5-8.5"/><path d="M3 21l3-3"/></svg></span>
           <span class="bt-name">Remonty & budowa</span>
         </button>
         <button class="branza-tile" onclick="selectBranzaTile(this,'Wykończenia wnętrz')">
-          <span class="bt-icon">🪟</span>
+          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="11" height="5" rx="1"/><line x1="8" y1="9" x2="8" y2="14"/><rect x="6" y="14" width="4" height="6" rx="1"/></svg></span>
           <span class="bt-name">Wykończenia wnętrz</span>
         </button>
 
         <button class="branza-tile" onclick="selectBranzaTile(this,'Mechanik samochodowy')">
-          <span class="bt-icon">🔧</span>
+          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 1 1-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2-2z"/></svg></span>
           <span class="bt-name">Mechanik</span>
         </button>
         <button class="branza-tile" onclick="selectBranzaTile(this,'Sprzątanie')">
-          <span class="bt-icon">🧹</span>
+          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="20" y1="4" x2="10" y2="14"/><path d="M10 14l-6 8 2 1 6-7"/><line x1="6" y1="22" x2="9" y2="16"/><line x1="10" y1="21" x2="12" y2="15"/></svg></span>
           <span class="bt-name">Sprzątanie</span>
         </button>
         <button class="branza-tile" onclick="selectBranzaTile(this,'Ogrodnik / Pielęgnacja zieleni')">
-          <span class="bt-icon">🌿</span>
+          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21c0-9.5 4.5-16 15-17-1 10.5-7.5 15.5-15 17z"/><path d="M8.5 16C11.5 12.5 14 10 18.5 6.5"/></svg></span>
           <span class="bt-name">Ogrodnik</span>
         </button>
         <button class="branza-tile" onclick="selectBranzaTile(this,'Stomatologia')">
-          <span class="bt-icon">🦷</span>
+          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4c2 0 2.5 1.3 5 1.3S15 4 17 4c1.7 0 2.5 1.8 2 4-.5 2-1 3-1.5 6.5-.4 2.7-1 3.5-1.5 3.5S15 16 14 14.5c-.6-.9-1-1.2-2-1.2s-1.4.3-2 1.2C9 16 8.5 18 8 18s-1.1-.8-1.5-3.5C6 11 5.5 10 5 8c-.5-2.2.3-4 2-4Z"/></svg></span>
           <span class="bt-name">Stomatolog</span>
         </button>
 
         <button class="branza-tile" onclick="selectBranzaTile(this,'Kosmetyczka / Salon kosmetyczny')">
-          <span class="bt-icon">💎</span>
+          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l4-6h8l4 6-10 12z"/><path d="M4 9h16"/><path d="M9.5 3l2.5 6-2 12"/><path d="M14.5 3l-2.5 6 2 12"/></svg></span>
           <span class="bt-name">Salon kosmetyczny</span>
         </button>
         <button class="branza-tile" onclick="selectBranzaTile(this,'Fryzjer / Barber')">
-          <span class="bt-icon">✂️</span>
+          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.3"/><circle cx="6" cy="18" r="2.3"/><line x1="7.8" y1="7.4" x2="20" y2="19"/><line x1="7.8" y1="16.6" x2="20" y2="5"/></svg></span>
           <span class="bt-name">Fryzjer / Barber</span>
         </button>
         <button class="branza-tile" onclick="selectBranzaTile(this,'Fizjoterapia / Rehabilitacja')">
-          <span class="bt-icon">🦴</span>
+          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></span>
           <span class="bt-name">Fizjoterapia</span>
         </button>
         <button class="branza-tile" onclick="selectBranzaTile(this,'Restauracja')">
-          <span class="bt-icon">🍽️</span>
+          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v7a2 2 0 0 0 4 0V2"/><line x1="8" y1="2" x2="8" y2="22"/><path d="M17 2c0 3-2 4-2 7s2 3 2 3v10"/></svg></span>
           <span class="bt-name">Restauracja</span>
         </button>
 
         <button class="branza-tile" onclick="selectBranzaTile(this,'Kawiarnia / Cukiernia')">
-          <span class="bt-icon">☕</span>
+          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 9h2a2 2 0 0 1 0 4h-2"/></svg></span>
           <span class="bt-name">Kawiarnia</span>
         </button>
         <button class="branza-tile" onclick="selectBranzaTile(this,'Trener personalny / Siłownia')">
-          <span class="bt-icon">💪</span>
+          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="12" x2="18" y2="12"/><rect x="2.5" y="9" width="3" height="6" rx="1"/><rect x="18.5" y="9" width="3" height="6" rx="1"/><rect x="6" y="7" width="2.3" height="10" rx="1"/><rect x="15.7" y="7" width="2.3" height="10" rx="1"/></svg></span>
           <span class="bt-name">Trener / Siłownia</span>
         </button>
         <button class="branza-tile" onclick="selectBranzaTile(this,'Fotograf')">
-          <span class="bt-icon">📷</span>
+          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
           <span class="bt-name">Fotograf</span>
         </button>
         <button class="branza-tile" onclick="selectBranzaTile(this,'Agencja nieruchomości')">
-          <span class="bt-icon">🏠</span>
+          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11 12 4l8 7"/><path d="M6 10v10h12V10"/><path d="M10 20v-6h4v6"/></svg></span>
           <span class="bt-name">Nieruchomości</span>
         </button>
 
@@ -1185,7 +1194,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
       <!-- INNA BRANŻA -->
       <div class="branza-other-wrap" id="branza-other-wrap">
         <button class="branza-other-toggle" id="branza-other-toggle" onclick="toggleBranzaOther()">
-          <span style="font-size:18px">➕</span>
+          <span style="font-size:18px">+</span>
           <span>Nie ma mojej branży?</span>
         </button>
         <div class="branza-other-panel" id="branza-other-panel" style="display:none">
@@ -1245,7 +1254,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
       <div class="form-grid">
         <!-- ── BLOK 1: NAZWA STRONY (marka) ──────────────────── -->
         <div style="background:rgba(0,229,160,.05);border:1px solid rgba(0,229,160,.15);border-radius:12px;padding:18px 20px;margin-bottom:4px">
-          <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:12px">🌐 Nazwa strony (marka)</div>
+          <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:12px">Nazwa strony (marka)</div>
           <div class="field" style="margin-bottom:0">
             <label>Nazwa wyświetlana na stronie <span class="req">*</span></label>
             <input type="text" id="f-nazwa-strony" oninput="updateLivePreview()" placeholder="np. Hydraulik Warszawa 24/7 lub Pan Hydraulik"
@@ -1292,13 +1301,13 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
         <!-- ── BLOK 3: DANE FIRMOWE (prawne) ──────────────────── -->
         <details style="margin-bottom:4px">
           <summary style="cursor:pointer;user-select:none;padding:14px 18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:10px;font-size:13px;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:8px;list-style:none">
-            <span style="font-size:15px">🏢</span>
+            <span style="font-size:15px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1"/><rect x="9" y="17" width="6" height="4"/><line x1="8" y1="7" x2="10" y2="7"/><line x1="14" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="10" y2="11"/><line x1="14" y1="11" x2="16" y2="11"/></svg></span>
             Dane firmowe — pełna nazwa, NIP, adres rejestrowy
             <span style="margin-left:auto;font-size:11px;font-family:var(--mono);color:rgba(142,151,172,.5)">opcjonalnie</span>
           </summary>
           <div style="padding:16px 18px 4px;border:1px solid rgba(255,255,255,.12);border-top:none;border-radius:0 0 10px 10px;background:rgba(255,255,255,.02)">
             <div style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.55;padding:10px 12px;background:rgba(0,229,160,.05);border-radius:7px;border-left:3px solid rgba(0,229,160,.3)">
-              💡 Te dane trafiają wyłącznie do <strong style="color:var(--text)">stopki strony i danych Schema.org</strong> (legalName). Klienci B2B często sprawdzają NIP przed zamówieniem.
+              Te dane trafiają wyłącznie do <strong style="color:var(--text)">stopki strony i danych Schema.org</strong> (legalName). Klienci B2B często sprawdzają NIP przed zamówieniem.
             </div>
             <div class="form-grid cols2" style="margin-bottom:12px">
               <div class="field">
@@ -1327,7 +1336,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
         <div class="field">
           <label>Logo firmy <span class="opt">opcjonalnie — PNG / JPG</span></label>
           <div class="logo-upload-area" id="logo-upload-area" onclick="document.getElementById('f-logo').click()">
-            <div id="lua-empty"><div class="lua-icon">🖼️</div><div class="lua-text">Kliknij lub przeciągnij logo</div><div class="lua-hint">PNG lub JPG · maks. 2 MB</div></div>
+            <div id="lua-empty"><div class="lua-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="10" r="1.7"/><path d="M21 16l-5.5-5.5L9 17"/></svg></div><div class="lua-text">Kliknij lub przeciągnij logo</div><div class="lua-hint">PNG lub JPG · maks. 2 MB</div></div>
             <div id="lua-filled" style="display:none"><img id="lua-preview" class="lua-preview" src="" alt="Logo"><div class="lua-hint" style="color:var(--green)">✓ Logo wczytane — kliknij aby zmienić</div></div>
             <input type="file" id="f-logo" accept="image/png,image/jpeg,image/webp" onchange="handleLogoUpload(this)" style="display:none">
           </div>
@@ -1361,14 +1370,14 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
               <div style="margin-bottom:8px">
                 <div class="img-zone" id="zone-hero" style="height:120px;border-radius:8px" onclick="document.getElementById('inp-hero').click()">
                   <img class="zone-preview" id="prev-hero" src="" alt="" style="display:none">
-                  <div class="img-zone-overlay"><span>✏️ Zmień</span></div>
-                  <div class="img-zone-icon">🖼️</div>
+                  <div class="img-zone-overlay"><span>Zmień</span></div>
+                  <div class="img-zone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="10" r="1.7"/><path d="M21 16l-5.5-5.5L9 17"/></svg></div>
                   <div class="img-zone-label">Zdjęcie główne — Hero<br><span style="font-size:9px;color:rgba(142,151,172,.5)">pełna szerokość · pierwsze wrażenie</span></div>
                   <div class="img-zone-hint">Kliknij = dysk</div>
                   <input type="file" id="inp-hero" accept="image/*" style="display:none" onchange="handleZoneUpload(this,'hero')">
                 </div>
                 <div class="img-zone-btns">
-                  <button class="btn-zone-pexels" onclick="openPexelsZone('hero')">📸 Dodaj z Pexels</button>
+                  <button class="btn-zone-pexels" onclick="openPexelsZone('hero')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg> Dodaj z Pexels</button>
                   <button class="btn-zone-clear" id="clear-hero" onclick="clearZone('hero')">✕ Usuń</button>
                 </div>
               </div>
@@ -1399,22 +1408,22 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
                   <div>
                     <div class="img-zone" id="zone-img1" style="height:80px;border-radius:6px" onclick="document.getElementById('inp-img1').click()">
                       <img class="zone-preview" id="prev-img1" src="" alt="" style="display:none">
-                      <div class="img-zone-overlay"><span>✏️</span></div>
-                      <div class="img-zone-icon" style="font-size:16px">📷</div>
+                      <div class="img-zone-overlay"><span>Zmień</span></div>
+                      <div class="img-zone-icon" style="font-size:16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="10" r="1.7"/><path d="M21 16l-5.5-5.5L9 17"/></svg></div>
                       <div class="img-zone-label" style="font-size:10px">Realizacja 1</div>
                       <input type="file" id="inp-img1" accept="image/*" style="display:none" onchange="handleZoneUpload(this,'img1')">
                     </div>
-                    <div class="img-zone-btns"><button class="btn-zone-pexels" onclick="openPexelsZone('img1')">📸 Pexels</button><button class="btn-zone-clear" id="clear-img1" onclick="clearZone('img1')">✕</button></div>
+                    <div class="img-zone-btns"><button class="btn-zone-pexels" onclick="openPexelsZone('img1')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg> Pexels</button><button class="btn-zone-clear" id="clear-img1" onclick="clearZone('img1')">✕</button></div>
                   </div>
                   <div>
                     <div class="img-zone" id="zone-img2" style="height:80px;border-radius:6px" onclick="document.getElementById('inp-img2').click()">
                       <img class="zone-preview" id="prev-img2" src="" alt="" style="display:none">
-                      <div class="img-zone-overlay"><span>✏️</span></div>
-                      <div class="img-zone-icon" style="font-size:16px">📷</div>
+                      <div class="img-zone-overlay"><span>Zmień</span></div>
+                      <div class="img-zone-icon" style="font-size:16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="10" r="1.7"/><path d="M21 16l-5.5-5.5L9 17"/></svg></div>
                       <div class="img-zone-label" style="font-size:10px">Realizacja 2</div>
                       <input type="file" id="inp-img2" accept="image/*" style="display:none" onchange="handleZoneUpload(this,'img2')">
                     </div>
-                    <div class="img-zone-btns"><button class="btn-zone-pexels" onclick="openPexelsZone('img2')">📸 Pexels</button><button class="btn-zone-clear" id="clear-img2" onclick="clearZone('img2')">✕</button></div>
+                    <div class="img-zone-btns"><button class="btn-zone-pexels" onclick="openPexelsZone('img2')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg> Pexels</button><button class="btn-zone-clear" id="clear-img2" onclick="clearZone('img2')">✕</button></div>
                   </div>
                 </div>
               </div>
@@ -1430,7 +1439,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
               </div>
             </div>
           </div>
-          <div style="font-size:11px;color:var(--muted);margin-top:4px">💡 Kliknij pole = plik z dysku · przycisk Pexels = wyszukiwarka zdjęć</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">Kliknij pole = plik z dysku · przycisk Pexels = wyszukiwarka zdjęć</div>
         </div>
 
 
@@ -1552,11 +1561,11 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
         <div class="field">
           <label>Zdjęcie hero <span style="font-family:var(--mono);font-size:10px;color:var(--green);margin-left:6px">PRO</span></label>
           <button type="button" onclick="openPexels('hero')" class="btn-pexels" id="btn-pexels-hero">
-            🖼️ Wybierz zdjęcie hero z Pexels
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg> Wybierz zdjęcie hero z Pexels
           </button>
           <div class="logo-upload-area" id="hero-upload-area" onclick="document.getElementById('f-hero').click()">
             <div id="hero-empty">
-              <div class="lua-icon">🖼️</div>
+              <div class="lua-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="10" r="1.7"/><path d="M21 16l-5.5-5.5L9 17"/></svg></div>
               <div class="lua-text">Lub kliknij żeby wgrać własne zdjęcie</div>
               <div class="lua-hint">PNG lub JPG · maks. 5 MB · 16:9</div>
             </div>
@@ -1589,7 +1598,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 
         <div class="addon-item" onclick="toggleAddon(this,'social_media','Integracja Social Media',79,'month')">
           <div class="addon-check">✓</div>
-          <div class="addon-icon-wrap">📱</div>
+          <div class="addon-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg></div>
           <div class="addon-info">
             <div class="addon-name">Integracja Social Media</div>
             <div class="addon-desc">Live feed z Instagram/Facebook wpięty w Twoją stronę</div>
@@ -1599,7 +1608,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 
         <div class="addon-item" onclick="toggleAddon(this,'statystyki','Statystyki odwiedzin',49,'month')">
           <div class="addon-check">✓</div>
-          <div class="addon-icon-wrap">📊</div>
+          <div class="addon-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="21" x2="19" y2="21"/><rect x="6" y="13" width="3" height="8"/><rect x="10.5" y="9" width="3" height="12"/><rect x="15" y="5" width="3" height="16"/></svg></div>
           <div class="addon-info">
             <div class="addon-name">Statystyki odwiedzin</div>
             <div class="addon-desc">Panel z ruchem na stronie, źródłami i konwersjami</div>
@@ -1609,7 +1618,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 
         <div class="addon-item" onclick="toggleAddon(this,'priorytetowe_wsparcie','Priorytetowe wsparcie',99,'month')">
           <div class="addon-check">✓</div>
-          <div class="addon-icon-wrap">🚀</div>
+          <div class="addon-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c3 2 5 6 5 10 0 2-1 4-2 5l-3 3-3-3c-1-1-2-3-2-5 0-4 2-8 5-10z"/><circle cx="12" cy="10" r="1.7"/><path d="M9 16l-3 5 5-1"/><path d="M15 16l3 5-5-1"/></svg></div>
           <div class="addon-info">
             <div class="addon-name">Priorytetowe wsparcie</div>
             <div class="addon-desc">Odpowiedź w 4h, dedykowany czat, szybsze aktualizacje</div>
@@ -1619,7 +1628,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 
         <div class="addon-item" onclick="toggleAddon(this,'google_business','Google Business Profile',149,'month')">
           <div class="addon-check">✓</div>
-          <div class="addon-icon-wrap">📍</div>
+          <div class="addon-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.6 7-12a7 7 0 0 0-14 0c0 5.4 7 12 7 12z"/><circle cx="12" cy="9" r="2.3"/></svg></div>
           <div class="addon-info">
             <div class="addon-name">Google Business Profile</div>
             <div class="addon-desc">Założymy i zoptymalizujemy profil w Mapach Google — zdjęcia, opisy, opinie</div>
@@ -1634,7 +1643,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 
         <div class="addon-item" onclick="toggleAddon(this,'wlasna_domena','Własna domena',199,'once')">
           <div class="addon-check">✓</div>
-          <div class="addon-icon-wrap">🌍</div>
+          <div class="addon-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3c2.8 2.6 4.5 6 4.5 9s-1.7 6.4-4.5 9c-2.8-2.6-4.5-6-4.5-9s1.7-6.4 4.5-9z"/></svg></div>
           <div class="addon-info">
             <div class="addon-name">Własna domena</div>
             <div class="addon-desc">Podpięcie Twojej domeny + konfiguracja DNS i SSL</div>
@@ -1644,7 +1653,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 
         <div class="addon-item" onclick="toggleAddon(this,'dodatkowe_podstrony','Dodatkowe podstrony',149,'once')">
           <div class="addon-check">✓</div>
-          <div class="addon-icon-wrap">📄</div>
+          <div class="addon-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="15" y2="16"/></svg></div>
           <div class="addon-info">
             <div class="addon-name">Dodatkowe podstrony</div>
             <div class="addon-desc">3 osobne podstrony ofertowe (np. per usługa lub lokalizacja)</div>
@@ -1654,7 +1663,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 
         <div class="addon-item" onclick="toggleAddon(this,'sesja_ai','Sesja zdjęciowa AI',99,'once')">
           <div class="addon-check">✓</div>
-          <div class="addon-icon-wrap">📸</div>
+          <div class="addon-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg></div>
           <div class="addon-info">
             <div class="addon-name">Sesja zdjęciowa AI</div>
             <div class="addon-desc">Zdjęcia AI dopasowane do branży i klimatu firmy</div>
@@ -1752,7 +1761,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
           onmouseover="this.style.background='#00B386'"
           onmouseout="this.style.background='var(--green)'">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="width:18px;height:18px"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-          ⚡ Generuj 3 warianty strony
+          Generuj 3 warianty strony
         </button>
       </div>
     </div>
@@ -1764,7 +1773,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
     <div class="preview-panel" id="preview-panel">
       <div class="sp-header">
         <div class="sp-eyebrow">// Gotowe!</div>
-        <h1 class="sp-title">Twoja strona<br>jest gotowa 🎉</h1>
+        <h1 class="sp-title">Twoja strona<br>jest gotowa</h1>
         <p class="sp-sub">Sprawdź podgląd poniżej. Możesz ją aktywować lub pobrać.</p>
       </div>
       <div class="preview-toolbar">
@@ -2026,7 +2035,7 @@ function renderGallery() {
   grid.innerHTML = items.map(function (t) {
     var isSel = state.templateId === t.id;
     return '<div class="gallery-card' + (isSel ? ' selected' : '') + '" onclick="selectTemplate(\'' + t.id + '\',\'' + t.tier + '\')">'
-      + '<div class="gc-thumb">' + (t.icon || '🖼️')
+      + '<div class="gc-thumb">' + (t.icon || '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="10" r="1.7"/><path d="M21 16l-5.5-5.5L9 17"/></svg>')
       + '<span class="gc-tier-badge ' + t.tier + '">' + (t.tier === 'pro' ? 'PRO' : 'FREE') + '</span>'
       + '</div>'
       + '<div class="gc-info">'
@@ -3002,7 +3011,7 @@ function onAuthenticated(user) {
         msgBtn.href  = '/dashboard/#messages';
         msgBtn.title = 'Wiadomości';
         msgBtn.id    = 'wg-nav-msg-btn';
-        msgBtn.innerHTML = '💬<span class="wg-nav-msg-badge" id="wg-nav-msg-badge"></span>';
+        msgBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 1 3.5 6.6L4 20l1.4-3.5A7.96 7.96 0 0 1 4 12z"/></svg><span class="wg-nav-msg-badge" id="wg-nav-msg-badge"></span>';
         navRight.insertBefore(msgBtn, userEl);
         // Sprawdz nieprzeczytane
         try {
@@ -3246,7 +3255,7 @@ function goToActivation() {
   <div class="gen-progress-bar"><div class="gen-progress-fill" id="gen-progress-fill"></div></div>
   <div class="gen-live-msg" id="gen-live-msg">Inicjalizuję generator AI…</div>
   <div class="gen-live-sub" id="gen-live-sub">Przygotowuję dane firmy</div>
-  <div class="gen-stay">⚡ Nie odświeżaj strony — <strong>AI tworzy 3 warianty</strong> Twojej strony</div>
+  <div class="gen-stay">Nie odświeżaj strony — <strong>AI tworzy 3 warianty</strong> Twojej strony</div>
 </div>
 
 <!-- ── VARIANT POPUP ─────────────────────────────────────── -->
@@ -3257,9 +3266,9 @@ function goToActivation() {
       <div class="vp-title">Przewijaj każdy wariant i wybierz najlepszy</div>
     </div>
     <div class="vp-tabs">
-      <button class="vp-tab active" id="vptab-classic" onclick="switchVariantTab('classic',this)">🏛 Klasyczny</button>
-      <button class="vp-tab" id="vptab-modern" onclick="switchVariantTab('modern',this)">🚀 Nowoczesny</button>
-      <button class="vp-tab" id="vptab-elegant" onclick="switchVariantTab('elegant',this)">✨ Elegancki</button>
+      <button class="vp-tab active" id="vptab-classic" onclick="switchVariantTab('classic',this)">Klasyczny</button>
+      <button class="vp-tab" id="vptab-modern" onclick="switchVariantTab('modern',this)">Nowoczesny</button>
+      <button class="vp-tab" id="vptab-elegant" onclick="switchVariantTab('elegant',this)">Elegancki</button>
     </div>
   </div>
   <div class="vp-body">
@@ -3293,7 +3302,7 @@ function goToActivation() {
   <div style="background:#0F1420;border:1px solid rgba(255,255,255,.14);border-radius:18px;width:min(1100px,96vw);max-height:92vh;display:flex;flex-direction:column;overflow:hidden">
 
     <div style="padding:18px 24px 14px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:12px">
-      <span style="font-size:20px">📸</span>
+      <span style="font-size:20px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
       <h3 style="flex:1;font-size:17px;font-weight:800;margin:0">Wybierz zdjęcie — <span style="color:#00E5A0">Pexels</span></h3>
       <button onclick="closePexels()" style="background:none;border:none;color:#8E97AC;font-size:22px;cursor:pointer;line-height:1;padding:4px 8px;border-radius:6px">✕</button>
     </div>
