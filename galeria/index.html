@@ -73,6 +73,13 @@ h1{font-size:clamp(34px,4.6vw,54px);font-weight:800;line-height:1.05;letter-spac
 h1 span{background:var(--grad);background-size:220% 220%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 7s ease-in-out infinite}
 .hero-sub{font-size:16px;color:var(--muted);max-width:520px;margin:0 auto;line-height:1.65;animation:fadeUp .5s .1s ease both}
 
+/* ── CUSTOM PROJECT CTA ── */
+.custom-cta{text-align:center;max-width:640px;margin:64px auto 0;padding:44px 24px;border-top:1px solid var(--border)}
+.custom-cta-title{font-size:clamp(22px,3vw,28px);font-weight:800;letter-spacing:-.02em;color:var(--text);margin:6px 0 10px}
+.custom-cta .hero-sub{margin-bottom:22px}
+.custom-cta-btn{display:inline-block;background:var(--grad);color:var(--oncta);padding:13px 26px;border-radius:10px;font-family:var(--head);font-weight:700;font-size:15px;text-decoration:none;transition:filter .18s}
+.custom-cta-btn:hover{filter:brightness(1.08)}
+
 /* ── FILTERS ── */
 .filters{max-width:1200px;margin:36px auto 8px;padding:0 24px;display:flex;justify-content:center}
 .cat-select{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--text);background-color:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:12px;padding:12px 42px 12px 20px;cursor:pointer;letter-spacing:.01em;appearance:none;-webkit-appearance:none;-moz-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'><path d='M1 1l4.5 4.5L10 1' stroke='%238E97AC' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");background-repeat:no-repeat;background-position:right 16px center;background-size:11px 7px;transition:all .18s;min-width:260px;text-align:center;text-align-last:center}
@@ -201,6 +208,13 @@ footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify
 <div class="subfilters" id="subfilters" hidden></div>
 <div class="count-row" id="count-row"></div>
 <div class="gallery" id="gallery"></div>
+
+<section class="custom-cta">
+  <div class="hero-eyebrow">Nie widzisz tu swojej strony?</div>
+  <h2 class="custom-cta-title">Albo nie pasuje Ci żaden z szablonów?</h2>
+  <p class="hero-sub">Zaprojektujemy dla Ciebie stronę od zera, dopasowaną wyłącznie do Twojej firmy.</p>
+  <a href="/start/#kontakt" class="custom-cta-btn">Zamów projekt indywidualny →</a>
+</section>
 
 <div class="pmodal" id="pmodal">
   <div class="pmodal-box">
