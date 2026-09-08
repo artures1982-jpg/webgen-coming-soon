@@ -101,7 +101,13 @@ h1 span{background:var(--grad);background-size:220% 220%;-webkit-background-clip
 .count-row{max-width:1200px;margin:22px auto 0;padding:0 24px;font-family:var(--mono);font-size:12px;color:var(--muted)}
 
 /* ── GRID ── */
-.gallery{max-width:1200px;margin:0 auto;padding:20px 24px 100px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.gallery{max-width:1200px;margin:0 auto;padding:20px 24px 40px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;scroll-margin-top:80px}
+.pagination{max-width:1200px;margin:0 auto;padding:0 24px 100px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+.page-btn{background:var(--s2);border:1.5px solid var(--border);color:var(--muted);width:36px;height:36px;border-radius:8px;font-family:var(--mono);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.page-btn:hover:not(:disabled){border-color:var(--border2);color:var(--text)}
+.page-btn.active{background:var(--green);border-color:var(--green);color:var(--oncta);font-weight:700}
+.page-btn:disabled{opacity:.35;cursor:not-allowed}
+.page-btn.nav{width:auto;padding:0 14px}
 .card{position:relative;background:var(--s2);border:1px solid var(--border);border-radius:14px;display:flex;flex-direction:column;transition:border-color .22s,transform .18s,box-shadow .22s,background .22s;cursor:pointer}
 .tier-badge{position:absolute;top:-11px;right:-11px;z-index:2;width:40px;height:40px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.01em;text-transform:uppercase;line-height:1;box-shadow:3px 4px 0 rgba(0,0,0,.28),2px 3px 8px rgba(0,0,0,.4),0 1px 0 rgba(255,255,255,.12) inset}
 .tier-badge.free{background:rgba(18,21,32,.95);border:1px solid rgba(255,255,255,.32);color:#F3F6FC}
@@ -208,6 +214,7 @@ footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify
 <div class="subfilters" id="subfilters" hidden></div>
 <div class="count-row" id="count-row"></div>
 <div class="gallery" id="gallery"></div>
+<div class="pagination" id="pagination"></div>
 
 <section class="custom-cta">
   <div class="hero-eyebrow">Nie widzisz tu swojej strony?</div>
@@ -360,9 +367,12 @@ var gallery = document.getElementById('gallery');
 var filters = document.getElementById('filters');
 var subfilters = document.getElementById('subfilters');
 var countRow = document.getElementById('count-row');
+var pagination = document.getElementById('pagination');
 var allCards = [];
 var activeCat = 'all';
 var activeSub = null;
+var PAGE_SIZE = 12;
+var page = 1;
 
 var totalCount = 0;
 BRANZE.forEach(function (b) { totalCount += b.warianty.length; });
@@ -421,6 +431,7 @@ function renderSubFilters() {
 function selectCategory(catId) {
   activeCat = catId;
   activeSub = null;
+  page = 1;
   renderMainFilters();
   renderSubFilters();
   applyFilter();
@@ -428,8 +439,15 @@ function selectCategory(catId) {
 
 function selectSub(slug) {
   activeSub = (activeSub === slug) ? null : slug;
+  page = 1;
   renderSubFilters();
   applyFilter();
+}
+
+function goToPage(n) {
+  page = n;
+  applyFilter();
+  gallery.scrollIntoView({ block: 'start', behavior: 'smooth' });
 }
 
 function applyFilter() {
@@ -437,13 +455,53 @@ function applyFilter() {
   if (activeCat !== 'all') {
     branzeToShow = activeSub ? [activeSub] : categoryOf(activeCat).branze;
   }
-  var visible = 0;
-  allCards.forEach(function (card) {
-    var show = !branzeToShow || branzeToShow.indexOf(card.dataset.branza) !== -1;
-    card.classList.toggle('hide', !show);
-    if (show) visible++;
+  var matching = allCards.filter(function (card) {
+    return !branzeToShow || branzeToShow.indexOf(card.dataset.branza) !== -1;
   });
-  countRow.textContent = visible + ' / ' + totalCount + ' szablonów';
+
+  var totalPages = Math.max(1, Math.ceil(matching.length / PAGE_SIZE));
+  if (page > totalPages) page = totalPages;
+  var start = (page - 1) * PAGE_SIZE;
+  var end = start + PAGE_SIZE;
+  var pageItems = matching.slice(start, end);
+
+  allCards.forEach(function (card) { card.classList.add('hide'); });
+  pageItems.forEach(function (card) { card.classList.remove('hide'); });
+
+  countRow.textContent = matching.length === 0
+    ? '0 / ' + totalCount + ' szablonów'
+    : (start + 1) + '–' + Math.min(end, matching.length) + ' z ' + matching.length + ' szablonów';
+
+  renderPagination(totalPages);
+}
+
+function renderPagination(totalPages) {
+  pagination.innerHTML = '';
+  if (totalPages <= 1) return;
+
+  var prev = document.createElement('button');
+  prev.className = 'page-btn nav';
+  prev.textContent = '← Poprzednia';
+  prev.disabled = page === 1;
+  prev.addEventListener('click', function () { goToPage(page - 1); });
+  pagination.appendChild(prev);
+
+  for (var i = 1; i <= totalPages; i++) {
+    (function (n) {
+      var btn = document.createElement('button');
+      btn.className = 'page-btn' + (n === page ? ' active' : '');
+      btn.textContent = n;
+      btn.addEventListener('click', function () { goToPage(n); });
+      pagination.appendChild(btn);
+    })(i);
+  }
+
+  var next = document.createElement('button');
+  next.className = 'page-btn nav';
+  next.textContent = 'Następna →';
+  next.disabled = page === totalPages;
+  next.addEventListener('click', function () { goToPage(page + 1); });
+  pagination.appendChild(next);
 }
 
 renderMainFilters();
