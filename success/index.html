@@ -94,13 +94,15 @@ p{color:var(--muted);font-size:14px;line-height:1.65;margin-bottom:8px}
       slug: payload.slug,
       html: payload.html,
       plan: payload.plan || 'pro',
-      email: payload.email || ''
+      email: payload.email || '',
+      session_id: sessionId
     })
   })
     .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
     .then(function (r) {
       if (!r.ok || !r.data.success) throw new Error((r.data && r.data.error) || 'Nieznany błąd aktywacji');
-      try { localStorage.removeItem('wg_generated'); } catch (e) {}
+      // Celowo NIE czyścimy wg_generated — /dashboard/ czyta ten sam klucz, żeby
+      // pokazać klientowi jego stronę (brak bazy danych — jedyne źródło prawdy).
       showSuccess(r.data.url);
     })
     .catch(function (err) {

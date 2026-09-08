@@ -2685,7 +2685,10 @@ async function activateFreeSite(email) {
     const data = await res.json();
     if (!res.ok || !data.success) throw new Error(data.error || 'Nie udało się aktywować strony');
 
-    localStorage.removeItem('wg_generated');
+    // Celowo NIE czyścimy wg_generated — /dashboard/ czyta ten sam klucz, żeby
+    // pokazać klientowi jego stronę. Wyczyszczenie tu zostawiało dashboard bez
+    // żadnego śladu strony zaraz po aktywacji (brak bazy danych — to jedyne
+    // źródło prawdy po stronie klienta).
     if (modalBody) {
       modalBody.innerHTML =
         '<h3>Strona aktywna 🎉</h3>' +

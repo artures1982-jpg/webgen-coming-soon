@@ -3,17 +3,35 @@
  * Vercel Serverless Function
  *
  * Flow:
- *   1. Przyjmuje { slug, html, plan, email }
- *   2. Zapisuje HTML do Vercel Blob (storage)
- *   3. Dodaje subdomenę slug.webgen.pl do projektu przez Vercel API
- *   4. Zwraca { url, subdomain, status }
+ *   1. Przyjmuje { slug, html, plan, email, session_id }
+ *   2. Dla planów płatnych (pro/promax) weryfikuje session_id w Stripe — bez
+ *      tego endpoint był otwarty: dowolny POST z plan:'promax' aktywował
+ *      płatny serwis za darmo, /success/ tylko ufał obecności session_id
+ *      w URL, nigdy go nie sprawdzając.
+ *   3. Zapisuje HTML do Vercel Blob (storage)
+ *   4. Dodaje subdomenę slug.webgen.pl do projektu przez Vercel API
+ *   5. Zwraca { url, subdomain, status }
  *
  * Wymagane env vars:
  *   VERCEL_TOKEN, VERCEL_PROJECT_ID, VERCEL_TEAM_ID
  *   BLOB_READ_WRITE_TOKEN (Vercel Blob — dodaj w dashboard)
+ *   STRIPE_SECRET_KEY (weryfikacja płatności dla planów pro/promax)
  */
 
 const { put } = require('@vercel/blob');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+// Sprawdza w Stripe, że session_id to realna, opłacona sesja Checkout dla
+// tego konkretnego sluga — nie tylko "jakiś" session_id wklejony w URL.
+async function verifyPaidSession(sessionId, slug) {
+  const session = await stripe.checkout.sessions.retrieve(sessionId);
+  const paid = session.status === 'complete'
+    && (session.payment_status === 'paid' || session.payment_status === 'no_payment_required');
+  if (!paid) throw new Error('Płatność nie została potwierdzona przez Stripe');
+  if (session.metadata && session.metadata.firma_slug && session.metadata.firma_slug !== slug) {
+    throw new Error('Slug nie zgadza się z opłaconą sesją');
+  }
+}
 
 const VERCEL_API   = 'https://api.vercel.com';
 const TOKEN        = process.env.VERCEL_TOKEN;
@@ -74,10 +92,21 @@ module.exports = async (req, res) => {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { slug, html, plan, email } = req.body;
+  const { slug, html, plan, email, session_id } = req.body;
 
   if (!slug || !html) {
     return res.status(400).json({ error: 'Wymagane: slug, html' });
+  }
+
+  if (plan && plan !== 'free') {
+    if (!session_id) {
+      return res.status(402).json({ error: 'Brak potwierdzenia płatności (session_id)' });
+    }
+    try {
+      await verifyPaidSession(session_id, slug);
+    } catch (err) {
+      return res.status(402).json({ error: err.message });
+    }
   }
 
   const subdomain = `${slug}.webgen.pl`;
