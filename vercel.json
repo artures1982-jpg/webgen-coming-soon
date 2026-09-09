@@ -71,10 +71,6 @@
       "destination": "/rejestracja/index.html"
     },
     {
-      "source": "/start",
-      "destination": "/start/index.html"
-    },
-    {
       "source": "/galeria",
       "destination": "/galeria/index.html"
     },
@@ -87,6 +83,16 @@
     {
       "source": "/prywatnosc",
       "destination": "/polityka-prywatnosci/",
+      "permanent": true
+    },
+    {
+      "source": "/start",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/start/",
+      "destination": "/",
       "permanent": true
     }
   ]
