@@ -386,7 +386,7 @@ table.tbl tr:hover td{background:rgba(255,255,255,.03)}
         <div class="stat g">
           <div class="stat-label">MRR</div>
           <div class="stat-val" style="color:var(--green)" id="kpi-mrr">&#x2026; zł</div>
-          <div class="stat-delta"><span class="up">↑ +18%</span> vs zeszły mies.</div>
+          <div class="stat-delta"><span class="neu">—</span> brak danych z zeszłego miesiąca</div>
         </div>
         <div class="stat b">
           <div class="stat-label">Klienci</div>
@@ -608,14 +608,14 @@ table.tbl tr:hover td{background:rgba(255,255,255,.03)}
          ═════════════════════════ -->
     <div class="panel" id="panel-revenue">
       <div class="ph">
-        <div class="ph-left"><div class="ph-title">Przychody</div><div class="ph-sub">Stripe · tryb testowy</div></div>
+        <div class="ph-left"><div class="ph-title">Przychody</div><div class="ph-sub">Stripe · tryb live</div></div>
       </div>
 
       <div class="stats" style="grid-template-columns:repeat(4,1fr)">
-        <div class="stat g"><div class="stat-label">MRR</div><div class="stat-val" style="color:var(--green)" id="kpi-mrr">&#x2026; zł</div><div class="stat-delta"><span class="up">↑ +18%</span></div></div>
-        <div class="stat b"><div class="stat-label">ARR (prognoza)</div><div class="stat-val">35 856 zł</div><div class="stat-delta"><span class="neu">×12</span></div></div>
-        <div class="stat p"><div class="stat-label">Avg. sub. wartość</div><div class="stat-val">399 zł</div><div class="stat-delta"><span class="neu">per klient</span></div></div>
-        <div class="stat y"><div class="stat-label">Churn (mies.)</div><div class="stat-val" style="color:var(--green)">0%</div><div class="stat-delta"><span class="up">0 odejść</span></div></div>
+        <div class="stat g"><div class="stat-label">MRR</div><div class="stat-val" style="color:var(--green)" id="kpi-mrr">&#x2026; zł</div><div class="stat-delta"><span class="neu">—</span></div></div>
+        <div class="stat b"><div class="stat-label">ARR (prognoza)</div><div class="stat-val" id="kpi-arr">&#x2026; zł</div><div class="stat-delta"><span class="neu">×12 MRR</span></div></div>
+        <div class="stat p"><div class="stat-label">Avg. sub. wartość</div><div class="stat-val" id="kpi-avg-sub">&#x2026;</div><div class="stat-delta"><span class="neu">per klient</span></div></div>
+        <div class="stat y"><div class="stat-label">Churn (mies.)</div><div class="stat-val" id="kpi-churn">&#x2026;</div><div class="stat-delta"><span class="neu">brak danych</span></div></div>
       </div>
 
       <div class="g2">
@@ -1310,7 +1310,7 @@ async function loadStripeAdminData() {
   var EM=['studiofinezja@gmail.com','marek@hydraulik.pl','wild@fryzury.pl','nowak@elektryk.pl','natu@salon.pl'];
   var TARGET=4000;
   function S(id,v){var e=document.getElementById(id);if(e)e.textContent=v;}
-  ['kpi-mrr','kpi-klienci','kpi-sites','kpi-tasks','kpi-outreach','mrr-big','mrr-pct'].forEach(function(i){S(i,'\u2026');});
+  ['kpi-mrr','kpi-arr','kpi-avg-sub','kpi-klienci','kpi-sites','kpi-tasks','kpi-outreach','mrr-big','mrr-pct'].forEach(function(i){S(i,'\u2026');});
   var mrr=0,active=0,sites=0,errs=0;
   for(var i=0;i<EM.length;i++){
     try{
@@ -1321,10 +1321,14 @@ async function loadStripeAdminData() {
       if(d.subscription){var st=d.subscription.status;if(st==='active'||st==='trialing'){active++;mrr+=Math.round((d.subscription.plan_amount||0)/100);}}
     }catch(e){errs++;}
   }
-  if(errs===EM.length){['kpi-mrr','kpi-klienci','kpi-sites','kpi-tasks','kpi-outreach','mrr-big'].forEach(function(i){S(i,'err');});return;}
+  if(errs===EM.length){['kpi-mrr','kpi-arr','kpi-avg-sub','kpi-klienci','kpi-sites','kpi-tasks','kpi-outreach','mrr-big'].forEach(function(i){S(i,'err');});return;}
   var ms=mrr>0?mrr.toLocaleString('pl-PL')+' z\u0142':'0 z\u0142';
   S('kpi-mrr',ms); S('mrr-big',mrr>0?mrr.toLocaleString('pl-PL'):'0');
   S('mrr-pct',TARGET>0?Math.round(mrr/TARGET*100)+'%':'--');
+  // ARR i \u015brednia warto\u015b\u0107 subskrypcji liczone z tego samego MRR \u2014 realne dane,
+  // nie zahardkodowane liczby jak wcze\u015bniej (35 856 z\u0142 / 399 z\u0142 niezale\u017cnie od stanu).
+  S('kpi-arr', mrr>0?(mrr*12).toLocaleString('pl-PL')+' z\u0142':'0 z\u0142');
+  S('kpi-avg-sub', active>0?Math.round(mrr/active).toLocaleString('pl-PL')+' z\u0142':'\u2014');
   var cn=active>0?active:EM.length; var sn=sites>0?sites:EM.length;
   S('kpi-klienci',cn); S('kpi-sites',sn); S('kpi-outreach',25);
   S('sb-clients-badge',cn); S('sb-sites-badge',sn);
