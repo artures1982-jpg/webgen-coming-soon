@@ -1,0 +1,68 @@
+[
+  {
+    "id": "ciepla-terakota",
+    "name": "Ciepła terakota",
+    "dark": false,
+    "accent": "#C1502E",
+    "accentDark": "#8C371E",
+    "bg": "#FBF3EA",
+    "surface": "#F3E4D3",
+    "text": "#2B1E14",
+    "muted": "#7A6A5A"
+  },
+  {
+    "id": "glowa-lesna-zielen",
+    "name": "Głęboka leśna zieleń",
+    "dark": false,
+    "accent": "#1F6B4A",
+    "accentDark": "#13432E",
+    "bg": "#F5F7F3",
+    "surface": "#E6EBE1",
+    "text": "#1B2420",
+    "muted": "#5C6B60"
+  },
+  {
+    "id": "chlodny-indygo",
+    "name": "Chłodny indygo",
+    "dark": false,
+    "accent": "#2F4CD1",
+    "accentDark": "#1F35A0",
+    "bg": "#F2F4FB",
+    "surface": "#E1E6F5",
+    "text": "#171A2E",
+    "muted": "#5C6180"
+  },
+  {
+    "id": "winna-glebia",
+    "name": "Winna głębia",
+    "dark": false,
+    "accent": "#8C2F52",
+    "accentDark": "#631F39",
+    "bg": "#FBF1F3",
+    "surface": "#F0DCE2",
+    "text": "#2B1620",
+    "muted": "#7A5A63"
+  },
+  {
+    "id": "morski-petrol",
+    "name": "Morski petrol",
+    "dark": false,
+    "accent": "#0E6E6E",
+    "accentDark": "#0A4D4D",
+    "bg": "#EFF7F6",
+    "surface": "#DCEEEC",
+    "text": "#142523",
+    "muted": "#4F6B68"
+  },
+  {
+    "id": "nocny-luksus",
+    "name": "Nocny luksus",
+    "dark": true,
+    "accent": "#D4A73A",
+    "accentDark": "#A8822A",
+    "bg": "#14161C",
+    "surface": "#1E212A",
+    "text": "#F3EFE6",
+    "muted": "#9A96A0"
+  }
+]

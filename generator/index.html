@@ -1065,6 +1065,19 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
           </div>
         </div>
 
+        <!-- ── BLOK PALETA: KOLORY MARKI ──────────────────── -->
+        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:18px 20px;margin-bottom:4px">
+          <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:4px">Paleta kolorów marki</div>
+          <p class="field-hint" style="margin:0 0 14px">Domyślne kolory szablonu są już dobrane pod branżę — możesz je zmienić. Kliknij paletę, żeby zobaczyć efekt na żywo.</p>
+          <div id="palette-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin-bottom:14px">
+            <div style="grid-column:1/-1;font-size:12px;color:var(--muted);font-family:var(--mono)">Ładowanie palet…</div>
+          </div>
+          <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.14);position:relative;height:340px;background:#0b0d12">
+            <iframe id="palette-preview-iframe" style="width:100%;height:100%;border:0" sandbox="allow-same-origin"></iframe>
+            <div id="palette-preview-loading" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:var(--muted);background:#0b0d12">Ładowanie podglądu…</div>
+          </div>
+        </div>
+
         <!-- ── BLOK 2: DANE KONTAKTOWE ──────────────────────────── -->
         <div class="form-grid cols2">
           <div class="field">
@@ -1961,6 +1974,7 @@ function collectFirmaData() {
     maps:         document.getElementById('f-maps').value.trim(),
     google_ocena: document.getElementById('f-google-ocena').value.trim(),
     google_opinie:document.getElementById('f-google-opinie').value.trim(),
+    paletteId:    state.paletteId || null,
     kolor1:       null,
     kolor2:       null,
     layout:       null,
@@ -1997,6 +2011,88 @@ function fillTemplate(html, firma) {
   var result = html;
   Object.keys(map).forEach(function (token) { result = result.split(token).join(map[token]); });
   return result;
+}
+
+// ─── PALETA KOLORÓW MARKI (opcjonalna nakładka na 6 zmiennych koloru) ───
+var PALETTES = [];
+var palettesLoaded = false;
+function loadPalettes() {
+  if (palettesLoaded) return Promise.resolve();
+  return fetch('/templates/palettes.json')
+    .then(function (res) { return res.ok ? res.json() : []; })
+    .then(function (data) { PALETTES = Array.isArray(data) ? data : []; palettesLoaded = true; })
+    .catch(function () { PALETTES = []; palettesLoaded = true; });
+}
+
+// Wstrzykuje <style> z nadpisaniem :root tuż przed </head> — późniejsza reguła wygrywa w
+// kaskadzie, więc nie trzeba parsować/edytować oryginalnego bloku :root szablonu. Brak
+// paletteId = szablon zostaje przy swoich domyślnych, zaprojektowanych dla niego kolorach.
+// Ta sama logika (żeby wynik był identyczny) żyje po stronie serwera w api/personalize.js.
+function applyPalette(html, paletteId) {
+  if (!paletteId) return html;
+  var p = PALETTES.filter(function (x) { return x.id === paletteId; })[0];
+  if (!p) return html;
+  var css = '<style>:root{--accent:' + p.accent + ';--accent-dark:' + p.accentDark
+    + ';--bg:' + p.bg + ';--surface:' + p.surface + ';--text:' + p.text
+    + ';--muted:' + p.muted + '}</style>';
+  if (html.indexOf('</head>') !== -1) return html.replace('</head>', css + '</head>');
+  return css + html;
+}
+
+// Uruchamiane przy wejściu na krok 2: pobiera raz surowy plik wybranego szablonu i renderuje
+// kafle 6 palet + żywy podgląd w iframe. Bez kliknięcia palety podgląd pokazuje domyślne
+// kolory szablonu (paletteId === null) — picker to opcjonalna nakładka, nie wymuszona zmiana.
+function initPalettePreview() {
+  var grid = document.getElementById('palette-grid');
+  if (!grid) return;
+  Promise.all([loadPalettes(), loadTemplatesManifest(), fetchRawTemplateForPreview()]).then(function () {
+    renderPaletteGrid();
+    updatePalettePreview();
+  });
+}
+
+function fetchRawTemplateForPreview() {
+  if (state.rawTemplateHtml) return Promise.resolve();
+  var tpl = TEMPLATES_MANIFEST.filter(function (t) { return t.id === state.templateId; })[0];
+  if (!tpl) return Promise.resolve();
+  return fetch('/templates/pilot/' + tpl.id + '.html')
+    .then(function (res) { return res.ok ? res.text() : ''; })
+    .then(function (html) { state.rawTemplateHtml = html; })
+    .catch(function () { state.rawTemplateHtml = ''; });
+}
+
+function renderPaletteGrid() {
+  var grid = document.getElementById('palette-grid');
+  if (!grid) return;
+  var items = [{ id: '', name: 'Domyślne kolory szablonu', accent: null }].concat(PALETTES);
+  grid.innerHTML = items.map(function (p) {
+    var active = (state.paletteId || '') === p.id;
+    var swatch = p.accent
+      ? '<div style="display:flex;height:20px;border-radius:5px;overflow:hidden;margin-bottom:6px">'
+        + '<div style="flex:1;background:' + p.bg + '"></div>'
+        + '<div style="flex:1;background:' + p.accent + '"></div>'
+        + '<div style="flex:1;background:' + p.accentDark + '"></div></div>'
+      : '<div style="height:20px;border-radius:5px;margin-bottom:6px;border:1px dashed rgba(255,255,255,.25)"></div>';
+    return '<div onclick="selectPalette(\'' + p.id + '\')" style="cursor:pointer;border-radius:8px;padding:8px;border:1.5px solid '
+      + (active ? 'var(--green)' : 'rgba(255,255,255,.12)') + ';background:' + (active ? 'rgba(0,229,160,.08)' : 'rgba(255,255,255,.03)') + '">'
+      + swatch
+      + '<div style="font-size:10px;font-weight:600;color:' + (active ? 'var(--text)' : 'var(--muted)') + '">' + p.name + '</div>'
+      + '</div>';
+  }).join('');
+}
+
+function selectPalette(id) {
+  state.paletteId = id || null;
+  renderPaletteGrid();
+  updatePalettePreview();
+}
+
+function updatePalettePreview() {
+  var iframe = document.getElementById('palette-preview-iframe');
+  var loading = document.getElementById('palette-preview-loading');
+  if (!iframe || !state.rawTemplateHtml) return;
+  iframe.srcdoc = applyPalette(fillTemplate(state.rawTemplateHtml, collectFirmaData()), state.paletteId);
+  if (loading) loading.style.display = 'none';
 }
 
 function getAccountEmail() {
@@ -2061,11 +2157,11 @@ async function startFromTemplate(firma, _gfs, _clearAll, _fillEl) {
 
   if (state.templateTier === 'free') {
     try {
-      var res = await fetch('/templates/' + tpl.file);
+      var res = await fetch('/templates/pilot/' + tpl.id + '.html');
       if (!res.ok) throw new Error('Nie udało się pobrać pliku szablonu (' + res.status + ')');
       var raw = await res.text();
       if (_fillEl) { _fillEl.style.transition = 'width .3s'; _fillEl.style.width = '100%'; }
-      finishGenerationFromTemplate(fillTemplate(raw, firma), _gfs, _clearAll);
+      finishGenerationFromTemplate(applyPalette(fillTemplate(raw, firma), firma.paletteId), _gfs, _clearAll);
     } catch (err) {
       if (_clearAll) _clearAll();
       if (_gfs) _gfs.classList.remove('active');
@@ -3399,7 +3495,7 @@ function updateLivePreview() {
 var _origSetStepForPreview = setStep;
 setStep = function(n) {
   _origSetStepForPreview(n);
-  if (n === 2) setTimeout(updateLivePreview, 80);
+  if (n === 2) { setTimeout(updateLivePreview, 80); initPalettePreview(); }
 };
 // ─────────────────────────────────────────────────────────────────
 </script>
