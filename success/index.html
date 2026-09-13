@@ -12,14 +12,16 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#080A12;--s1:#10141F;--s2:#161B29;
-  --green:#00E5A0;--red:#FF6B6B;
+  --green:#00E5A0;--blue:#2E7CFF;--purple:#7B4FFF;--red:#FF6B6B;
   --text:#F3F6FC;--muted:#8E97AC;
   --border:rgba(255,255,255,.10);
+  --brand-grad:linear-gradient(135deg,#00E5A0,#0066FF,#7B4FFF);
   --head:'Bricolage Grotesque',sans-serif;
   --mono:'JetBrains Mono',monospace;
 }
-body{background:var(--bg);color:var(--text);font-family:var(--head);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;-webkit-font-smoothing:antialiased}
-.card{max-width:460px;width:100%;background:var(--s1);border:1px solid var(--border);border-radius:18px;padding:40px 34px;text-align:center}
+body{background:var(--bg);color:var(--text);font-family:var(--head);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.card{position:relative;max-width:460px;width:100%;background:var(--s1);border:1px solid var(--border);border-radius:18px;padding:40px 34px;text-align:center;z-index:1;transition:box-shadow .4s ease}
+.card.celebrate{box-shadow:0 0 0 1px rgba(0,229,160,.2),0 30px 90px -20px rgba(0,229,160,.35)}
 .logo{font-size:16px;font-weight:800;margin-bottom:24px}
 .logo span{color:var(--green)}
 .spinner{width:34px;height:34px;border-radius:50%;border:3px solid var(--border);border-top-color:var(--green);margin:0 auto 20px;animation:spin .8s linear infinite}
@@ -33,10 +35,24 @@ p{color:var(--muted);font-size:14px;line-height:1.65;margin-bottom:8px}
 .btn:hover{filter:brightness(1.08)}
 .err{color:var(--red)}
 .eyebrow{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:10px;opacity:.8}
+
+/* ── CELEBRACJA (tylko showSuccess) ── */
+.checkmark-wrap{width:64px;height:64px;margin:0 auto 18px;border-radius:50%;background:var(--brand-grad);display:flex;align-items:center;justify-content:center;animation:popIn .5s cubic-bezier(.25,1.4,.5,1) both}
+.checkmark-wrap svg{width:30px;height:30px;stroke:#05100d;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;animation:drawCheck .4s ease .3s forwards}
+@keyframes popIn{0%{transform:scale(0);opacity:0}70%{transform:scale(1.12);opacity:1}100%{transform:scale(1)}}
+@keyframes drawCheck{to{stroke-dashoffset:0}}
+.confetti{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.confetti-piece{position:absolute;top:-24px;width:8px;height:14px;opacity:.9;animation:confettiFall linear forwards}
+@keyframes confettiFall{to{transform:translateY(112vh) rotate(var(--rot));opacity:.4}}
+@media(prefers-reduced-motion:reduce){
+  .checkmark-wrap,.checkmark-wrap svg,.confetti-piece{animation:none!important}
+  .checkmark-wrap svg{stroke-dashoffset:0}
+}
 </style>
 </head>
 <body>
-<div class="card">
+<div class="confetti" id="confetti" aria-hidden="true"></div>
+<div class="card" id="card">
   <div class="logo">web<span>gen</span></div>
   <div id="content">
     <div class="spinner"></div>
@@ -60,13 +76,40 @@ p{color:var(--muted);font-size:14px;line-height:1.65;margin-bottom:8px}
       '<a class="btn" href="mailto:hello@webgen.pl">Napisz na hello@webgen.pl →</a>';
   }
 
+  function spawnConfetti() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var host = document.getElementById('confetti');
+    if (!host) return;
+    var colors = ['#00E5A0', '#2E7CFF', '#7B4FFF'];
+    for (var i = 0; i < 60; i++) {
+      var p = document.createElement('div');
+      p.className = 'confetti-piece';
+      var left = Math.random() * 100;
+      var delay = Math.random() * 0.4;
+      var duration = 2.2 + Math.random() * 1.6;
+      var rot = (Math.random() > 0.5 ? 1 : -1) * (360 + Math.random() * 360);
+      p.style.left = left + 'vw';
+      p.style.background = colors[i % colors.length];
+      p.style.borderRadius = (i % 3 === 0) ? '50%' : '2px';
+      p.style.animationDelay = delay + 's';
+      p.style.animationDuration = duration + 's';
+      p.style.setProperty('--rot', rot + 'deg');
+      host.appendChild(p);
+    }
+    setTimeout(function () { host.innerHTML = ''; }, 4200);
+  }
+
   function showSuccess(url) {
+    var cardEl = document.getElementById('card');
+    if (cardEl) cardEl.classList.add('celebrate');
     contentEl.innerHTML =
+      '<div class="checkmark-wrap"><svg viewBox="0 0 24 24"><path d="M4 12l5 6L20 6"/></svg></div>' +
       '<div class="eyebrow">Płatność zaakceptowana</div>' +
       '<h1>Strona aktywna 🎉</h1>' +
       '<p>Twoja strona działa pod adresem:</p>' +
       '<div class="url-box"><a href="' + url + '" target="_blank" rel="noopener">' + url + ' →</a></div>' +
       '<a class="btn" href="/dashboard/">Przejdź do panelu klienta →</a>';
+    spawnConfetti();
   }
 
   if (!sessionId) {
