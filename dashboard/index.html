@@ -908,7 +908,6 @@ function renderWebsitePage() {
     // Działania
     html += '<div class="btn-row" style="margin-bottom:24px">'
       + '<a href="' + subUrl + '" target="_blank" class="btn btn-primary">🌐 Otwórz stronę</a>'
-      + '<a href="/generator/" class="btn btn-outline">⚡ Edytuj w generatorze</a>'
       + (generated.html ? '<button onclick="downloadGeneratedHTML()" class="btn btn-outline">⬇ Pobierz HTML</button>' : '')
       + '</div>';
 
@@ -939,8 +938,8 @@ function renderWebsitePage() {
     var subUrl2 = 'https://' + firma.slug + '.webgen.pl';
     container.innerHTML = '<div class="site-url-box"><div class="site-url-label">Twoja strona</div>'
       + '<a href="' + subUrl2 + '" target="_blank" class="site-url">' + subUrl2 + ' ↗</a></div>'
-      + '<div class="btn-row"><a href="' + subUrl2 + '" target="_blank" class="btn btn-primary">🌐 Otwórz stronę</a>'
-      + '<a href="/generator/" class="btn btn-outline">⚡ Edytuj</a></div>';
+      + '<div class="btn-row" style="margin-bottom:24px"><a href="' + subUrl2 + '" target="_blank" class="btn btn-primary">🌐 Otwórz stronę</a></div>'
+      + buildUpdateForm(firma.slug);
     return;
   }
 
