@@ -990,6 +990,51 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
   .compare-table td,.compare-table th{padding:12px 14px;font-size:12px;white-space:nowrap}
 }
 
+/* ── SEKCJA "Zero ukrytych opłat" (między #cennik i #porownanie) ──
+   .wc-plan powtarza wygląd .plan (karty cennika) ale BEZ mechaniki
+   grid-template-rows:subgrid/grid-row:span 4 — ta sekcja nie jest
+   3-kolumnową siatką z przyciskami, więc subgrid tu by tylko psuł layout. */
+.wc-badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
+.wc-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.22);border-radius:12px;padding:12px 18px;font-family:var(--mono);font-size:12.5px;font-weight:700;color:var(--text)}
+.wc-badge svg{width:18px;height:18px;stroke:var(--green);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.wc-plans-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:56px 0}
+.wc-plan{background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:36px 32px}
+.wc-plan-price-alt{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:6px}
+.wc-plan.max{background:var(--brand-grad);border:none;color:var(--oncta);position:relative;overflow:hidden}
+.wc-plan.max::after{content:'';position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-18deg);animation:ctaShine 5s ease-in-out infinite 1s}
+.wc-plan.max .plan-name,.wc-plan.max .wc-plan-price-alt{color:rgba(6,7,12,.65)}
+.wc-plan.max .plan-price,.wc-plan.max .plan-price sub{color:#06070c}
+.wc-plan.max .pf{color:#06070c}
+.wc-plan.max .pf-check.yes{background:rgba(6,7,12,.14);color:#06070c}
+.wc-plan.max .plan-divider{background:rgba(6,7,12,.15)}
+.wc-note{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:center;max-width:640px;margin:0 auto 8px}
+.wc-note strong{color:var(--green)}
+.wc-flow{display:flex;justify-content:space-between;gap:8px;position:relative;margin:64px 0 8px}
+.wc-flow::before{content:'';position:absolute;top:19px;left:6%;right:6%;height:2px;background:linear-gradient(90deg,var(--border2),var(--border2) 66%,rgba(0,229,160,.35))}
+.wc-node{flex:1;text-align:center;position:relative}
+.wc-dot{width:40px;height:40px;border-radius:50%;background:var(--s2);border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;position:relative;z-index:1}
+.wc-dot svg{width:18px;height:18px;stroke:var(--muted);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.wc-node.active .wc-dot{background:rgba(0,229,160,.12);border-color:var(--green);box-shadow:0 0 0 4px rgba(0,229,160,.1),0 0 24px rgba(0,229,160,.25);animation:wcPulse 2.4s ease-in-out infinite}
+.wc-node.active .wc-dot svg{stroke:var(--green)}
+@keyframes wcPulse{0%,100%{box-shadow:0 0 0 4px rgba(0,229,160,.1),0 0 24px rgba(0,229,160,.25)}50%{box-shadow:0 0 0 7px rgba(0,229,160,.05),0 0 30px rgba(0,229,160,.35)}}
+.wc-node-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;letter-spacing:-.01em}
+.wc-node-desc{font-size:12.5px;color:var(--muted);line-height:1.5;max-width:180px;margin:0 auto}
+.wc-node.active .wc-node-title{color:var(--green)}
+.wc-tag{display:inline-block;font-family:var(--mono);font-size:10px;color:var(--green);background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.25);border-radius:20px;padding:2px 10px;margin-top:8px}
+.wc-cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:48px}
+@media(max-width:960px){.wc-plans-grid{grid-template-columns:1fr}}
+@media(max-width:700px){
+  .wc-flow{flex-direction:column;gap:28px;align-items:flex-start}
+  .wc-flow::before{display:none}
+  .wc-node{display:flex;align-items:center;gap:16px;text-align:left;width:100%}
+  .wc-dot{margin:0}
+  .wc-node-desc{max-width:none}
+  .wc-badges{flex-direction:column;align-items:stretch}
+  .wc-cta-row{flex-direction:column;align-items:stretch}
+  .wc-cta-row .btn-primary,.wc-cta-row .btn-secondary{justify-content:center}
+}
+@media(prefers-reduced-motion:reduce){.wc-node.active .wc-dot{animation:none}}
+
 /* ── MOTION SAFETY ── */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -1266,7 +1311,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
           <div class="pf"><span class="pf-check yes">✓</span>Lokalne SEO wbudowane</div>
           <div class="pf"><span class="pf-check yes">✓</span>Formularz kontaktowy / rezerwacje</div>
           <div class="pf"><span class="pf-check yes">✓</span>Aktualizacje treści na życzenie (mailowo)</div>
-          <div class="pf"><span class="pf-check yes">✓</span>Dodatki: domena, social media, statystyki</div>
+          <div class="pf"><span class="pf-check yes">✓</span>Własna domena, SSL i statystyki w cenie</div>
         </div>
         <a class="plan-btn primary" href="/galeria/?plan=pro">Pro 299 zł/mies.</a>
       </div>
@@ -1290,7 +1335,88 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
   </div>
 </section>
 
+<!-- ══ ZERO UKRYTYCH OPŁAT — most między cennikiem a porównaniem konkurencyjnym ══ -->
+<section class="why" id="w-cenie">
+  <div class="why-inner">
 
+    <div class="wc-badges">
+      <span class="wc-badge">
+        <svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        Zero ukrytych opłat
+      </span>
+      <span class="wc-badge">
+        <svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>
+        Cena z planu = cena na fakturze
+      </span>
+      <span class="wc-badge">
+        <svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.4-2"/></svg>
+        Rezygnujesz kiedy chcesz — zabierasz kod ze sobą
+      </span>
+    </div>
+
+    <div style="text-align:center;max-width:720px;margin:0 auto 8px">
+      <div class="sec-eyebrow" style="justify-content:center">Przejrzystość cen</div>
+      <h2 class="sec-title">Płacisz dokładnie to,<br>co widzisz na <span class="grad">tej stronie</span>.</h2>
+      <p class="sec-sub" style="margin:0 auto">Jedna kwota miesięcznie (albo raz w roku, taniej). Bez telefonów "w sprawie dopłaty", bez pozycji odkrywanych po aktywacji. To, co jest w planie — jest w cenie.</p>
+    </div>
+
+    <div class="wc-plans-grid">
+      <div class="wc-plan">
+        <div class="plan-name">Pro — w cenie 299 zł/mies.</div>
+        <div class="plan-price">299 <sub>zł/mies.</sub></div>
+        <div class="wc-plan-price-alt">lub 2990 zł/rok — 2 miesiące gratis</div>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="pf"><span class="pf-check yes">✓</span>Własna domena + SSL</div>
+          <div class="pf"><span class="pf-check yes">✓</span>Hosting i szybkość zoptymalizowana</div>
+          <div class="pf"><span class="pf-check yes">✓</span>Statystyki odwiedzin</div>
+          <div class="pf"><span class="pf-check yes">✓</span>Lokalne SEO wbudowane</div>
+          <div class="pf"><span class="pf-check yes">✓</span>Personalizacja AI — treść, zdjęcia, kolory</div>
+          <div class="pf"><span class="pf-check yes">✓</span>Formularz kontaktowy / rezerwacje</div>
+          <div class="pf"><span class="pf-check yes">✓</span>Aktualizacje treści mailem (do 1h)</div>
+        </div>
+      </div>
+      <div class="wc-plan max">
+        <div class="plan-name">Pro Max — w cenie 499 zł/mies.</div>
+        <div class="plan-price">499 <sub>zł/mies.</sub></div>
+        <div class="wc-plan-price-alt">lub 4990 zł/rok — 2 miesiące gratis</div>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="pf"><span class="pf-check yes">✓</span>Wszystko z planu Pro</div>
+          <div class="pf"><span class="pf-check yes">✓</span>Rozszerzona personalizacja AI</div>
+          <div class="pf"><span class="pf-check yes">✓</span>Priorytetowa obsługa zmian — do 4h</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="wc-note">Wersja mobilna działa <strong>w każdym planie</strong>, włącznie z darmowym Start — to nie jest dodatek Pro, to podstawa każdego szablonu w Galerii Startowej.</p>
+
+    <div class="wc-flow">
+      <div class="wc-node">
+        <div class="wc-dot"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div>
+        <div class="wc-node-title">Wybierasz szablon</div>
+        <div class="wc-node-desc">Galeria Startowa, gotowe warianty do kliknięcia</div>
+      </div>
+      <div class="wc-node">
+        <div class="wc-dot"><svg viewBox="0 0 24 24"><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z"/></svg></div>
+        <div class="wc-node-title">AI personalizuje i aktywuje</div>
+        <div class="wc-node-desc">Treść, zdjęcia i kolory pod Twoją firmę — automatycznie</div>
+      </div>
+      <div class="wc-node active">
+        <div class="wc-dot"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
+        <div class="wc-node-title">Opiekujemy się mailem</div>
+        <div class="wc-node-desc">Zmiana treści? Piszesz — nie czekasz na agencję</div>
+        <span class="wc-tag">tu jest człowiek</span>
+      </div>
+    </div>
+
+    <div class="wc-cta-row">
+      <a href="/galeria/" class="btn-primary">Zobacz Galerię Szablonów →</a>
+      <a href="#kontakt" class="btn-secondary">Porozmawiajmy o stronie →</a>
+    </div>
+
+  </div>
+</section>
 
 <!-- ══ PORÓWNANIE PLANÓW ════════════════════════════════════════════════ -->
 <section class="section" id="porownanie" style="background:var(--bg);border:1px solid var(--border);border-radius:28px;max-width:1360px;margin:14vh auto">
