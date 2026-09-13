@@ -2668,6 +2668,8 @@ async function activateFreeSite(email) {
   var btn = document.querySelector('#checkout-modal .btn-checkout');
   var slug = window._generatedSlug || state.slug || 'moja-firma';
   var html = window._generatedHTML || state.generatedHTML || '';
+  var fEmailEl = document.getElementById('f-email');
+  var contactEmail = fEmailEl ? fEmailEl.value.trim() : '';
 
   if (!html) {
     alert('Brak wygenerowanej strony do aktywacji — wróć do kroku generowania.');
@@ -2680,7 +2682,7 @@ async function activateFreeSite(email) {
     const res = await fetch('/api/deploy', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ slug: slug, html: html, plan: 'free', email: email })
+      body: JSON.stringify({ slug: slug, html: html, plan: 'free', email: email, contact_email: contactEmail })
     });
     const data = await res.json();
     if (!res.ok || !data.success) throw new Error(data.error || 'Nie udało się aktywować strony');
@@ -3304,11 +3306,14 @@ function goToActivation() {
   var slug = (window._generatedSlug || 'moja-firma');
   var html = window._generatedHTML || '';
   var email = (state && state.email) || '';
-  
+  var fEmailEl = document.getElementById('f-email');
+  var contactEmail = fEmailEl ? fEmailEl.value.trim() : '';
+
   // Zapisz dane strony do localStorage
   localStorage.setItem('wg_generated', JSON.stringify({
     slug: slug,
     html: html,
+    contact_email: contactEmail,
     email: email,
     created: new Date().toISOString(),
     plan: (state && state.plan) || 'free',

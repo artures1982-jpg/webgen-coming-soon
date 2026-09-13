@@ -38,6 +38,24 @@ const TOKEN        = process.env.VERCEL_TOKEN;
 const PROJECT_ID   = process.env.VERCEL_PROJECT_ID;
 const TEAM_ID      = process.env.VERCEL_TEAM_ID;
 
+// ── Wstrzykuje meta tagi, po których /api/contact-form rozpoznaje, dokąd
+//    odesłać wiadomość z formularza na wdrożonej stronie. Robimy to tutaj
+//    (nie w generatorze/AI), żeby działało niezależnie od ścieżki (token-fill
+//    dla Start, personalizacja AI dla Pro) — AI nie zawsze wiernie zachowuje
+//    dosłowne tokeny w HTML, a to musi być niezawodne w 100% przypadków.
+function escapeAttr(s) {
+  return String(s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+}
+
+function injectContactMeta(html, slug, contactEmail) {
+  var tags = '<meta name="webgen-slug" content="' + escapeAttr(slug) + '">';
+  if (contactEmail) {
+    tags += '\n<meta name="webgen-contact-email" content="' + escapeAttr(contactEmail) + '">';
+  }
+  if (html.indexOf('</head>') === -1) return html; // malformed HTML — nie blokuj deployu
+  return html.replace('</head>', tags + '\n</head>');
+}
+
 // ── Zapisuje HTML do Vercel Blob ─────────────────────────────────────────────
 async function saveToBlob(slug, html) {
   const blob = await put(`sites/${slug}/index.html`, html, {
@@ -95,11 +113,13 @@ module.exports = async (req, res) => {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { slug, html, plan, email, session_id } = req.body;
+  const { slug, html, plan, email, contact_email, session_id } = req.body;
 
   if (!slug || !html) {
     return res.status(400).json({ error: 'Wymagane: slug, html' });
   }
+
+  const finalHtml = injectContactMeta(html, slug, contact_email);
 
   if (plan && plan !== 'free') {
     if (!session_id) {
@@ -116,7 +136,7 @@ module.exports = async (req, res) => {
 
   try {
     // 1. Zapisz HTML do Blob
-    const blobUrl = await saveToBlob(slug, html);
+    const blobUrl = await saveToBlob(slug, finalHtml);
     console.log(`[deploy] Blob saved: ${blobUrl}`);
 
     // 2. Dodaj subdomenę do projektu Vercel

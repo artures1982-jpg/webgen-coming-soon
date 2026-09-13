@@ -789,12 +789,33 @@
     }
   });
 
-  /* ---------- FORMULARZ — potwierdzenie po wysłaniu (bez realnego backendu w tym pliku) ---------- */
+  /* ---------- FORMULARZ — realnie wysyła przez /api/contact-form ---------- */
   var kontaktForm = document.getElementById('kontaktForm');
   var formNote = document.getElementById('formNote');
   kontaktForm.addEventListener('submit', function(e){
     e.preventDefault();
-    formNote.textContent = 'Dziękuję! Wiadomość dotarła — odpowiadam tego samego dnia, także wieczorem.';
+    var _btn = kontaktForm.querySelector('[type="submit"]');
+    if (_btn) { _btn.disabled = true; _btn.dataset.origText = _btn.textContent; _btn.textContent = 'Wysyłanie…'; }
+    var _fd = new FormData(kontaktForm);
+    var _fields = {};
+    _fd.forEach(function(v,k){ _fields[k] = v; });
+    var _slugMeta = document.querySelector('meta[name="webgen-slug"]');
+    var _slug = _slugMeta ? _slugMeta.content : '';
+    fetch('https://webgen.pl/api/contact-form', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug: _slug, fields: _fields })
+    }).then(function(r){ return r.json(); }).then(function(data){
+      if (_btn) { _btn.disabled = false; _btn.textContent = _btn.dataset.origText; }
+      if (data && data.ok) {
+        formNote.textContent = 'Dziękuję! Wiadomość dotarła — odpowiadam tego samego dnia, także wieczorem.';
+      } else {
+        alert('Nie udało się wysłać wiadomości. Zadzwoń: {{TELEFON}}');
+      }
+    }).catch(function(){
+      if (_btn) { _btn.disabled = false; _btn.textContent = _btn.dataset.origText; }
+      alert('Nie udało się wysłać wiadomości. Zadzwoń: {{TELEFON}}');
+    });
   });
 
   /* ---------- REVEAL — stopniowany fade-in przy scrollu (IntersectionObserver). Elementy są
