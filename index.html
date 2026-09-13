@@ -179,24 +179,20 @@
 html{scroll-behavior:smooth}
 body{font-family:var(--head);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
-/* ===== NOISE TEXTURE ===== */
-body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");opacity:.5;pointer-events:none;z-index:0}
-
 /* ===== NAV (tag-selector: padding fallback dla #wg-nav, patrz .wg-nav niżej) ===== */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;padding:0 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,10,18,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
 
+/* ===== TŁO CAŁEJ STRONY (jak w /galeria/) ===== */
+.page-glow{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.page-glow::before{content:'';position:absolute;top:-10%;left:50%;transform:translateX(-50%);width:900px;height:520px;background:radial-gradient(ellipse,rgba(0,229,160,.14),transparent 70%)}
+.mesh-blob{position:absolute;border-radius:50%;filter:blur(120px);opacity:.15}
+.mb1{width:420px;height:420px;background:var(--green);top:-90px;left:-110px;animation:drift1 16s ease-in-out infinite alternate}
+.mb2{width:380px;height:380px;background:var(--purple);top:8%;right:-130px;animation:drift2 18s ease-in-out infinite alternate}
+@keyframes drift1{to{transform:translate(50px,40px)}}
+@keyframes drift2{to{transform:translate(-40px,-30px)}}
+
 /* ===== HERO ===== */
 .hero{min-height:100vh;padding-top:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-left:24px;padding-right:24px;position:relative;overflow:hidden}
-
-/* mesh gradient background */
-.hero-mesh{position:absolute;inset:0;z-index:0;overflow:hidden}
-.mesh-blob{position:absolute;border-radius:50%;filter:blur(120px);opacity:.28}
-.mb1{width:600px;height:600px;background:var(--green);top:-100px;left:-100px;animation:drift1 12s ease-in-out infinite alternate}
-.mb2{width:500px;height:500px;background:var(--blue);bottom:-100px;right:-100px;animation:drift2 14s ease-in-out infinite alternate}
-.mb3{width:400px;height:400px;background:var(--purple);top:50%;left:50%;transform:translate(-50%,-50%);animation:drift3 10s ease-in-out infinite alternate}
-@keyframes drift1{to{transform:translate(80px,60px)}}
-@keyframes drift2{to{transform:translate(-60px,-80px)}}
-@keyframes drift3{to{transform:translate(-50%,-50%) scale(1.3)}}
 
 .hero-inner{position:relative;z-index:1;max-width:860px}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.22);border-radius:20px;padding:6px 16px;font-family:var(--mono);font-size:12px;color:var(--green);margin-bottom:32px;animation:fadeUp .6s ease both}
@@ -206,50 +202,6 @@ h1{font-size:clamp(44px,6.5vw,88px);font-weight:800;line-height:.95;letter-spaci
 h1 .grad-text{background:var(--grad);background-size:220% 220%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 7s ease-in-out infinite}
 @keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 
-/* ===== BUILD BG — strona przeglądarki w tle, sekcje budują się na przemian
-   z lewej/prawej w takt scrolla całej strony, kończy poświatą przy kontakcie ===== */
-.build-bg{position:fixed;inset:0;z-index:-1;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity .4s ease}
-.build-card{position:relative;width:min(520px,80vw);border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);box-shadow:0 30px 90px rgba(0,0,0,.5);overflow:hidden;transition:box-shadow .8s ease}
-.build-card-top{height:3px;background:var(--grad)}
-.build-chrome{display:flex;align-items:center;gap:7px;padding:11px 16px;border-bottom:1px solid rgba(255,255,255,.06)}
-.build-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.15)}
-.build-url{margin-left:6px;font-family:var(--mono);font-size:10px;color:var(--muted);background:rgba(255,255,255,.04);border-radius:6px;padding:3px 9px;letter-spacing:.02em}
-.build-card-body{padding:20px 22px 26px;display:flex;flex-direction:column;gap:13px}
-.build-block{border-radius:6px;background:rgba(255,255,255,.1);opacity:0;will-change:transform,opacity}
-.build-navbar{height:12px;width:44%}
-.build-line{height:9px}
-.build-line-1{width:70%}
-.build-line-2{width:46%}
-.build-hero-wrap{position:relative}
-.build-hero-img{height:90px;width:100%;background:var(--grad);will-change:transform,opacity,filter}
-.build-hero-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;opacity:0;will-change:opacity,transform}
-.build-hero-title{font-family:var(--head);font-weight:800;font-size:15px;color:#05100d;letter-spacing:-.02em}
-.build-hero-sub{font-family:var(--mono);font-size:9px;color:rgba(5,16,13,.75);margin-top:3px}
-.build-row{display:flex;gap:8px}
-.build-chip{height:32px;flex:1}
-.build-footer{height:10px;width:28%;align-self:flex-end}
-.build-cta{margin-top:16px;text-align:center;opacity:0;pointer-events:none;will-change:opacity,transform}
-.build-cta.show{pointer-events:auto}
-.build-cta p{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:10px}
-.build-cta a{display:inline-block;background:var(--grad);color:#05100d;font-size:12px;font-weight:700;padding:9px 18px;border-radius:8px;text-decoration:none}
-.build-badge{position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(11,14,22,.85);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:7px 13px;font-family:var(--mono);text-align:center;opacity:0;box-shadow:0 10px 30px rgba(0,0,0,.35);will-change:transform,opacity}
-.build-badge strong{font-size:16px;font-weight:800;line-height:1.1}
-.build-badge span{font-size:8px;color:var(--muted);letter-spacing:.06em;margin-top:2px}
-.build-badge-branze{top:4%;left:-4%;border-color:rgba(46,124,255,.3)}
-.build-badge-branze strong{color:var(--blue)}
-.build-badge-warianty{top:12%;right:-6%;border-color:rgba(0,229,160,.3)}
-.build-badge-warianty strong{color:var(--green)}
-.build-badge-speed{bottom:8%;right:0;border-color:rgba(123,79,255,.3)}
-.build-badge-speed strong{color:var(--purple)}
-.build-card.complete{box-shadow:0 0 70px 6px rgba(0,229,160,.22),0 0 130px 40px rgba(46,124,255,.14)}
-@media(max-width:700px){
-.build-card{width:82vw}
-.build-badge{padding:5px 9px}
-.build-badge strong{font-size:13px}
-.build-badge-branze{left:0}
-.build-badge-warianty{right:0}
-}
-@media(prefers-reduced-motion:reduce){.build-bg{display:none}}
 .hero-sub{font-size:clamp(16px,2vw,20px);color:var(--muted);font-weight:400;line-height:1.6;max-width:600px;margin:0 auto 40px;animation:fadeUp .6s .2s ease both}
 .hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:48px;animation:fadeUp .6s .3s ease both}
 .btn-primary{position:relative;overflow:hidden;background:var(--grad);color:var(--oncta);padding:15px 32px;border-radius:10px;text-decoration:none;font-weight:700;font-size:16px;transition:box-shadow .2s,transform .1s,filter .2s;display:inline-flex;align-items:center;gap:8px;letter-spacing:-.01em}
@@ -1048,6 +1000,11 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 <body>
 <script src="/shared/clerk.js"></script>
 
+<div class="page-glow">
+  <div class="mesh-blob mb1"></div>
+  <div class="mesh-blob mb2"></div>
+</div>
+
 <!-- NAV -->
 <nav class="wg-nav" id="wg-nav">
   <a href="/" class="wg-nav-logo">
@@ -1082,51 +1039,8 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
   <a href="/generator/" class="wg-nav-drawer-cta">Zacznij za darmo →</a>
 </div>
 
-<!-- BUILD BG — strona przeglądarki w tle (z-index pod treścią), sekcje budują się
-     na przemian z lewej/prawej w takt przewijania całej strony, kończy poświatą przy
-     sekcji kontaktowej. Widoczne przez sekcje z półprzezroczystym tłem (patrz niżej). -->
-<div class="build-bg" id="build-bg" aria-hidden="true">
-  <div class="build-card">
-    <div class="build-card-top"></div>
-    <div class="build-chrome">
-      <span class="build-dot"></span><span class="build-dot"></span><span class="build-dot"></span>
-      <span class="build-url">webgen.pl/twoja-firma</span>
-    </div>
-    <div class="build-card-body">
-      <div class="build-block from-left build-navbar"></div>
-      <div class="build-block from-right build-line build-line-1"></div>
-      <div class="build-block from-right build-line build-line-2"></div>
-      <div class="build-hero-wrap">
-        <div class="build-block from-left build-hero-img"></div>
-        <div class="build-hero-text" id="build-hero-text">
-          <div class="build-hero-title">Twoja-firma.pl</div>
-          <div class="build-hero-sub">Gotowe. Online w kilka minut.</div>
-        </div>
-      </div>
-      <div class="build-row">
-        <div class="build-block from-right build-chip"></div>
-        <div class="build-block from-right build-chip"></div>
-        <div class="build-block from-right build-chip"></div>
-      </div>
-      <div class="build-block from-left build-footer"></div>
-    </div>
-    <div class="build-badge build-badge-branze"><strong>12</strong><span>BRANŻ</span></div>
-    <div class="build-badge build-badge-warianty"><strong>53</strong><span>WARIANTY</span></div>
-    <div class="build-badge build-badge-speed"><strong>90+</strong><span>PAGESPEED</span></div>
-    <div class="build-cta" id="build-cta">
-      <p>Właśnie zobaczyłeś, jak to działa — a to tylko jedna z 53 gotowych stron.</p>
-      <a href="/galeria/">Zobacz galerię →</a>
-    </div>
-  </div>
-</div>
-
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-mesh">
-    <div class="mesh-blob mb1"></div>
-    <div class="mesh-blob mb2"></div>
-    <div class="mesh-blob mb3"></div>
-  </div>
   <div class="hero-inner">
     <div class="hero-badge">
       <span class="hero-badge-dot"></span>
@@ -1925,87 +1839,6 @@ function ctaSubmit(e) {
   }, { rootMargin: '0px 0px -70% 0px' });
 
   sections.forEach(function(s){ observer.observe(s); });
-})();
-
-// Build BG — "strona się buduje" w takt przewijania CAŁEJ strony. Prawdziwy
-// scroll-scrubbing: pozycja/obrót/opacity każdego klocka to BEZPOŚREDNIA funkcja
-// pozycji scrolla (interpolacja w update(), zero CSS transition) — więc klocki
-// wjeżdżają w zarys przeglądarki w takt scrolla, zamiast doskakiwać po przekroczeniu
-// progu. 100% scrolla = poświata przy sekcji kontaktowej.
-(function(){
-  var bg = document.getElementById('build-bg');
-  var hero = document.querySelector('.hero');
-  if (!bg || !hero) return;
-  var card = bg.querySelector('.build-card');
-  var blocks = [].slice.call(bg.querySelectorAll('.build-block'));
-  var badges = [].slice.call(bg.querySelectorAll('.build-badge'));
-  var ticking = false;
-
-  // [start, end] progresu scrolla, w którym dany klocek/dymek wjeżdża na miejsce.
-  var BLOCK_RANGES = [
-    [0.00, 0.06],  // navbar — z lewej
-    [0.05, 0.14],  // linia 1 — z prawej
-    [0.11, 0.20],  // linia 2 — z prawej
-    [0.18, 0.30],  // hero-img — z lewej
-    [0.27, 0.36],  // chip 1 — z prawej
-    [0.31, 0.40],  // chip 2 — z prawej
-    [0.35, 0.44],  // chip 3 — z prawej
-    [0.42, 0.52]   // stopka — z lewej
-  ];
-  var BADGE_RANGES = [[0.50, 0.62], [0.58, 0.70], [0.66, 0.78]];
-  var HERO_TEXT_RANGE = [0.80, 0.90];
-  var CTA_RANGE = [0.88, 0.97];
-  var heroText = document.getElementById('build-hero-text');
-  var cta = document.getElementById('build-cta');
-  var DIST = 60, ANGLE = 4;
-
-  function lerp(range, progress){
-    return Math.min(1, Math.max(0, (progress - range[0]) / (range[1] - range[0])));
-  }
-  function ease(t){ return 1 - Math.pow(1 - t, 3); } // easeOutCubic — przyspiesza na starcie, ląduje miękko
-
-  function update(){
-    ticking = false;
-    var max = document.documentElement.scrollHeight - window.innerHeight;
-    var progress = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
-
-    // Widoczne dopiero po zjechaniu poniżej hero (żeby nie kolidować z nagłówkiem).
-    var heroFade = hero.offsetHeight - 80;
-    bg.style.opacity = heroFade > 0 ? Math.min(1, Math.max(0, (window.scrollY - heroFade) / 160)) : 1;
-
-    blocks.forEach(function(el, i){
-      var t = ease(lerp(BLOCK_RANGES[i], progress));
-      var dir = el.classList.contains('from-left') ? -1 : 1;
-      var x = dir * DIST * (1 - t);
-      var rot = dir * ANGLE * (1 - t);
-      el.style.opacity = t;
-      el.style.transform = 'translateX(' + x.toFixed(1) + 'px) rotate(' + rot.toFixed(2) + 'deg)';
-      if (el.classList.contains('build-hero-img')) {
-        el.style.filter = 'blur(' + (6 * (1 - t)).toFixed(1) + 'px) saturate(' + (1 + 0.3 * t).toFixed(2) + ')';
-        el.style.opacity = 0.9 * t;
-      }
-    });
-    badges.forEach(function(el, i){
-      var t = ease(lerp(BADGE_RANGES[i], progress));
-      el.style.opacity = t;
-      el.style.transform = 'translateY(' + (10 * (1 - t)).toFixed(1) + 'px) scale(' + (0.9 + 0.1 * t).toFixed(2) + ')';
-    });
-    if (heroText) {
-      var ht = ease(lerp(HERO_TEXT_RANGE, progress));
-      heroText.style.opacity = ht;
-      heroText.style.transform = 'translateY(' + (6 * (1 - ht)).toFixed(1) + 'px)';
-    }
-    if (cta) {
-      var ct = ease(lerp(CTA_RANGE, progress));
-      cta.style.opacity = ct;
-      cta.style.transform = 'translateY(' + (8 * (1 - ct)).toFixed(1) + 'px)';
-      cta.classList.toggle('show', ct > 0.6);
-    }
-    card.classList.toggle('complete', progress > 0.85);
-  }
-  function onScroll(){ if (!ticking) { requestAnimationFrame(update); ticking = true; } }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  update();
 })();
 </script>
 
