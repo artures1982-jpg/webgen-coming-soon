@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import legal from "@/styles/legal.module.css";
 import styles from "./page.module.css";
 
 // Faza 0 migracji — dowód koncepcji: ta strona wybrana celowo jako pierwsza
@@ -14,18 +15,18 @@ export const metadata: Metadata = {
 
 export default function PolitykaPrywatnosciPage() {
   return (
-    <div className={styles.container}>
-      <header className={styles.header}>
-        <div className={styles.eyebrow}>{"// webgen.pl"}</div>
+    <div className={legal.container}>
+      <header className={legal.header}>
+        <div className={legal.eyebrow}>{"// webgen.pl"}</div>
         <h1>Polityka Prywatności</h1>
-        <p className={styles.subtitle}>Jak przetwarzamy i chronimy Twoje dane osobowe</p>
-        <p className={styles.meta}>
+        <p className={legal.subtitle}>Jak przetwarzamy i chronimy Twoje dane osobowe</p>
+        <p className={legal.meta}>
           Wersja: 1.1 · Data wejścia w życie: 21 marca 2026 r. · Ostatnia aktualizacja: 8 września
           2026 r.
         </p>
       </header>
 
-      <h2>Informacje o Administratorze</h2>
+      <h2 className={styles.h2WithMark}>Informacje o Administratorze</h2>
       <p>
         Administratorem Twoich danych osobowych jest <strong>Webgen Artur Sapożnikow</strong>,
         jednoosobowa działalność gospodarcza wpisana do Centralnej Ewidencji i Informacji o
@@ -42,7 +43,7 @@ export default function PolitykaPrywatnosciPage() {
         Kontakt ogólny: <a href="mailto:hello@webgen.pl">hello@webgen.pl</a>
       </div>
 
-      <h2>Podstawy prawne przetwarzania</h2>
+      <h2 className={styles.h2WithMark}>Podstawy prawne przetwarzania</h2>
       <p>
         Przetwarzamy dane wyłącznie na podstawie co najmniej jednej z poniższych podstaw prawnych
         zgodnie z RODO:
@@ -65,7 +66,7 @@ export default function PolitykaPrywatnosciPage() {
         </li>
       </ul>
 
-      <h2>Jakie dane zbieramy i w jakim celu</h2>
+      <h2 className={styles.h2WithMark}>Jakie dane zbieramy i w jakim celu</h2>
 
       <h3>Rejestracja i korzystanie z Usług</h3>
       <p>
@@ -104,7 +105,7 @@ export default function PolitykaPrywatnosciPage() {
         anonimizowane. <em>Okres:</em> 14 miesięcy.
       </p>
 
-      <h2>Twoje prawa</h2>
+      <h2 className={styles.h2WithMark}>Twoje prawa</h2>
       <p>Przysługują Ci następujące prawa — zrealizujemy je w ciągu 30 dni:</p>
       <ul>
         <li>
@@ -140,8 +141,8 @@ export default function PolitykaPrywatnosciPage() {
         Kontakt: <a href="mailto:privacy@webgen.pl">privacy@webgen.pl</a>
       </p>
 
-      <h2>Odbiorcy danych i przekazywanie do państw trzecich</h2>
-      <div className={styles.tableWrap}>
+      <h2 className={styles.h2WithMark}>Odbiorcy danych i przekazywanie do państw trzecich</h2>
+      <div className={legal.tableWrap}>
         <table>
           <thead>
             <tr>
@@ -190,7 +191,7 @@ export default function PolitykaPrywatnosciPage() {
         </table>
       </div>
 
-      <h2>Pliki cookie</h2>
+      <h2 className={styles.h2WithMark}>Pliki cookie</h2>
       <p>Używamy trzech kategorii plików cookie:</p>
       <ul>
         <li>
@@ -212,7 +213,7 @@ export default function PolitykaPrywatnosciPage() {
         strony.
       </p>
 
-      <h2>Bezpieczeństwo danych</h2>
+      <h2 className={styles.h2WithMark}>Bezpieczeństwo danych</h2>
       <ul>
         <li>Szyfrowanie komunikacji TLS/HTTPS</li>
         <li>
@@ -224,8 +225,8 @@ export default function PolitykaPrywatnosciPage() {
         <li>Procedury reagowania na incydenty bezpieczeństwa (art. 33–34 RODO)</li>
       </ul>
 
-      <h2>Okresy przechowywania danych</h2>
-      <div className={styles.tableWrap}>
+      <h2 className={styles.h2WithMark}>Okresy przechowywania danych</h2>
+      <div className={legal.tableWrap}>
         <table>
           <thead>
             <tr>
@@ -258,19 +259,19 @@ export default function PolitykaPrywatnosciPage() {
         </table>
       </div>
 
-      <h2>Dzieci</h2>
+      <h2 className={styles.h2WithMark}>Dzieci</h2>
       <p>
         Usługa skierowana jest do podmiotów prowadzących działalność gospodarczą. Nie zbieramy
         świadomie danych osób poniżej 18. roku życia.
       </p>
 
-      <h2>Zmiany Polityki Prywatności</h2>
+      <h2 className={styles.h2WithMark}>Zmiany Polityki Prywatności</h2>
       <p>
         O istotnych zmianach informujemy e-mailem z co najmniej 14-dniowym wyprzedzeniem.
         Kontynuowanie korzystania z Usług po wejściu zmian w życie oznacza ich akceptację.
       </p>
 
-      <h2>Kontakt</h2>
+      <h2 className={styles.h2WithMark}>Kontakt</h2>
       <div className={styles.contactBox}>
         W sprawach dotyczących danych osobowych:
         <br />
@@ -280,14 +281,14 @@ export default function PolitykaPrywatnosciPage() {
         Odpowiadamy w ciągu 72 godzin. Wnioski z art. 15–22 RODO realizujemy w terminie 1 miesiąca.
       </div>
 
-      <div className={styles.warning}>
+      <div className={legal.warning}>
         Dokument sporządzony zgodnie z RODO (UE) 2016/679, ustawą z dnia 10 maja 2018 r. o
         ochronie danych osobowych oraz ustawą z dnia 18 lipca 2002 r. o świadczeniu usług drogą
         elektroniczną. Dokument ma charakter informacyjny — zalecana weryfikacja przez radcę
         prawnego.
       </div>
 
-      <footer className={styles.footer}>
+      <footer className={legal.footer}>
         <p>© 2026 webgen.pl</p>
         <p style={{ marginTop: 8 }}>
           <Link href="/">Strona główna</Link>

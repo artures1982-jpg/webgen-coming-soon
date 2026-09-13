@@ -1,0 +1,153 @@
+/* Wspólne style dla stron prawnych (polityka-prywatnosci, regulamin) — wydzielone
+   po zauważeniu, że page.module.css dla obu byłby niemal identyczny. Każda strona
+   dokłada własny wariant nagłówka h2 (polityka ma pseudo-element "§", regulamin ma
+   "§ N." jako literalny tekst) i własny kolor "wyróżnionego boksu" we własnym
+   page.module.css — to jedyne, co się różni. */
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 64px 24px 80px; /* 64px top = wysokość fixed .wgNav */
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 64px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(76, 111, 255, 0.15);
+}
+
+.eyebrow {
+  font-family: var(--font-mono), "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: #00e5a0;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.container h1 {
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: #8e97ac;
+  font-size: 15px;
+}
+
+.meta {
+  font-family: var(--font-mono), "JetBrains Mono", monospace;
+  font-size: 11px;
+  color: #8e97ac;
+  margin-top: 10px;
+}
+
+.container h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #f3f6fc;
+  margin: 28px 0 10px;
+}
+
+.container p {
+  color: #c7cedc;
+  margin-bottom: 14px;
+  font-size: 15px;
+}
+
+.container ul,
+.container ol {
+  padding-left: 22px;
+  margin-bottom: 14px;
+}
+
+.container li {
+  color: #c7cedc;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.container li strong {
+  color: #f3f6fc;
+}
+
+.tableWrap {
+  overflow-x: auto;
+  margin: 20px 0 28px;
+}
+
+.tableWrap table {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: collapse;
+  font-size: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.tableWrap th {
+  background: rgba(255, 255, 255, 0.04);
+  color: #8e97ac;
+  font-family: var(--font-mono), "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.tableWrap td {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: #c7cedc;
+}
+
+.tableWrap tr:last-child td {
+  border-bottom: none;
+}
+
+.tableWrap tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.warning {
+  background: rgba(209, 77, 95, 0.08);
+  border: 1px solid rgba(209, 77, 95, 0.22);
+  border-radius: 8px;
+  padding: 14px 18px;
+  font-size: 13px;
+  color: #d14d5f;
+  margin: 20px 0;
+  font-style: italic;
+}
+
+.footer {
+  margin-top: 80px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(0, 229, 160, 0.12);
+  text-align: center;
+  color: #8e97ac;
+  font-size: 13px;
+}
+
+.footer a {
+  color: #8e97ac;
+  text-decoration: none;
+  margin: 0 8px;
+}
+
+.footer a:hover {
+  color: #00e5a0;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 40px 16px;
+  }
+}
