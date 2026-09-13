@@ -270,7 +270,12 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
 /* MOBILE */
 @media(max-width:900px){
   .layout{grid-template-columns:1fr}
-  .sidebar{display:none}
+  .sidebar{position:static;height:auto;flex-direction:row;align-items:center;
+    overflow-x:auto;overflow-y:hidden;border-right:none;
+    border-bottom:1px solid var(--border);padding:10px 12px;
+    -webkit-overflow-scrolling:touch}
+  .sidebar-label,.sidebar-help{display:none}
+  .sidebar .nav-item{flex-shrink:0;white-space:nowrap;padding:8px 12px}
   .main{padding:24px 16px}
   .stats-grid{grid-template-columns:1fr 1fr}
   .qa-grid{grid-template-columns:1fr 1fr}
@@ -327,7 +332,8 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
     <a class="nav-item" data-page="account" onclick="showPage('account')">
       <span class="ni-icon">⚙️</span> Ustawienia
     </a>
-    <div class="sidebar-label" style="margin-top:auto">Pomoc</div>
+    <div class="sidebar-help" style="margin-top:auto">
+    <div class="sidebar-label">Pomoc</div>
     <a class="nav-item" href="mailto:hello@webgen.pl">
       <span class="ni-icon">✉️</span> Kontakt z nami
     </a>
@@ -337,6 +343,7 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
     <a class="nav-item" href="/generator/">
       <span class="ni-icon">⚡</span> Generator stron
     </a>
+    </div>
   </aside>
 
   <main class="main" id="main-content">
@@ -368,10 +375,10 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:va
 
       <!-- Quick actions -->
       <div class="qa-grid">
-        <a class="qa-card" href="/generator/" target="_blank">
+        <a class="qa-card" href="/galeria/" target="_blank">
           <span class="qa-icon">⚡</span>
-          <span class="qa-label">Generator</span>
-          <span class="qa-sub">Edytuj lub wygeneruj nową stronę</span>
+          <span class="qa-label">Szablony</span>
+          <span class="qa-sub">Przeglądaj galerię i wybierz szablon</span>
         </a>
         <a class="qa-card" id="qa-visit-site" href="#" onclick="visitSite(event)">
           <span class="qa-icon">🌐</span>
