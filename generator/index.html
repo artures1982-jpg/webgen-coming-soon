@@ -26,6 +26,7 @@
   --text:#F3F6FC;--muted:#8E97AC;
   --border:rgba(255,255,255,.10);--border2:rgba(255,255,255,.22);
   --red:#D14D5F;
+  --oncta:#05100d;
   --head:'Bricolage Grotesque',sans-serif;
   --mono:'JetBrains Mono',monospace;
   --grad:linear-gradient(135deg,#00E5A0,#2E7CFF);
@@ -1841,7 +1842,7 @@ function validateStep(step) {
     if (!document.getElementById('f-miasto').value.trim()) { alert('Wpisz miasto'); return false; }
   }
   if (step === 2) {
-    if (!document.getElementById('f-nazwa-strony').value.trim()) { alert('Wpisz nazwę firmy'); return false; }
+    if (!document.getElementById('f-nazwa-strony').value.trim()) { alert('Wpisz nazwę strony'); return false; }
     if (!document.getElementById('f-telefon').value.trim()) { alert('Wpisz telefon'); return false; }
     if (!document.getElementById('f-email').value.trim()) { alert('Wpisz email'); return false; }
   }
@@ -2074,9 +2075,11 @@ function applyPendingTemplateSelection() {
 function showDeepLinkedTemplateSummary(entry) {
   var branzaGrid = document.getElementById('branza-grid');
   var gallerySection = document.getElementById('gallery-section');
+  var branzaOther = document.getElementById('branza-other-wrap');
   if (!branzaGrid || !gallerySection || document.getElementById('deep-link-summary')) return;
   branzaGrid.style.display = 'none';
   gallerySection.style.display = 'none';
+  if (branzaOther) branzaOther.style.display = 'none';
 
   var summary = document.createElement('div');
   summary.id = 'deep-link-summary';
@@ -2097,10 +2100,16 @@ function revertDeepLinkedSelection() {
   if (summary) summary.parentNode.removeChild(summary);
   var branzaGrid = document.getElementById('branza-grid');
   if (branzaGrid) branzaGrid.style.display = '';
+  var branzaOther = document.getElementById('branza-other-wrap');
+  if (branzaOther) branzaOther.style.display = '';
   document.querySelectorAll('.branza-tile').forEach(function (b) { b.classList.remove('selected'); });
   state.templateId = null;
   state.templateTier = null;
   state.branza = '';
+  // Szablon "ustawiał" plan (patrz selectTemplate) — bez tego resetu zostawałby
+  // "zawieszony" plan/cena z porzuconego wyboru (np. Pro Max), mimo że user nie
+  // wybrał jeszcze żadnego nowego, płatnego szablonu.
+  selectPlan(null, 'free', 'Start', 0);
 }
 
 function toggleBranzaOther() {
