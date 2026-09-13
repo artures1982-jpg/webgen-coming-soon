@@ -1,0 +1,25 @@
+/* Style unikalne dla tej strony — wspólne (container/header/tabele/warning/footer)
+   są w src/styles/legal.module.css. Regulamin, w odróżnieniu od polityki-prywatności,
+   ma "§ N." wpisane jako literalny tekst w treści nagłówków — bez pseudo-elementu. */
+
+.h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #00e5a0;
+  margin: 48px 0 16px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.h2:first-of-type {
+  border-top: none;
+  margin-top: 0;
+}
+
+.highlight {
+  background: rgba(76, 111, 255, 0.06);
+  border: 1px solid rgba(76, 111, 255, 0.15);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 20px 0;
+}
