@@ -140,8 +140,6 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
 .field textarea{resize:vertical;min-height:80px}
 .field-hint{font-size:12px;color:var(--muted);margin-top:2px}
 
-/* BRANŻA SELECTOR */
-.branza-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .branza-icon{font-size:22px}
 .branza-name{font-size:13px;font-weight:700;color:var(--text)}
 .branza-desc{font-size:11px;color:var(--muted)}
@@ -237,7 +235,6 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
   .app{grid-template-columns:1fr}
   .sidebar{display:none}
   .main{padding:32px 20px}
-  .branza-grid,.plan-grid{grid-template-columns:1fr 1fr}
   .form-grid.cols2{grid-template-columns:1fr}
 }
 
@@ -443,8 +440,6 @@ input[type=text]:focus,input[type=email]:focus,input[type=tel]:focus,textarea:fo
 }
 input::placeholder,textarea::placeholder{color:rgba(142,151,172,.5)}
 
-/* Branża grid — lepsze karty */
-.branza-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
 .branza-card{
   background:rgba(255,255,255,.04);
   border:1.5px solid rgba(255,255,255,.09);
@@ -860,104 +855,15 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 /* ────────────────────────────────────────────────── */
 
 
-/* ── BRANŻE KAFELKI ─────────────────────────────────────────── */
-.branza-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-  margin-bottom:20px;
-}
-@media(max-width:600px){
-  .branza-grid{ grid-template-columns:repeat(2,1fr); gap:8px; }
-}
-.branza-tile{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:8px;padding:16px 10px;
-  background:rgba(255,255,255,.05);
-  border:1.5px solid rgba(255,255,255,.12);
-  border-radius:12px;cursor:pointer;
-  transition:all .18s;text-align:center;
-  font-family:var(--head);
-}
-.branza-tile:hover{
-  border-color:rgba(0,229,160,.4);
-  background:rgba(0,229,160,.06);
-}
-.branza-tile.selected{
-  border-color:var(--green);
-  background:rgba(0,229,160,.08);
-  box-shadow:0 0 0 3px rgba(0,229,160,.12);
-}
-.bt-icon{ font-size:28px;line-height:1;color:var(--muted) }
-.bt-icon svg,.account-type-icon svg,.addon-icon-wrap svg,.lua-icon svg,.img-zone-icon svg{width:1em;height:1em;display:block}
-.branza-tile:hover .bt-icon,.branza-tile.selected .bt-icon{color:var(--green)}
+/* ── IKONY WSPÓLNE (bt-icon/branża-grid/galeria usunięte razem z wyborem
+   szablonu w generatorze — zostaje tylko to, co nadal używane gdzie indziej) ── */
+.account-type-icon svg,.addon-icon-wrap svg,.lua-icon svg,.img-zone-icon svg{width:1em;height:1em;display:block}
 .account-type-icon{color:var(--muted)}
 .account-type-card.selected .account-type-icon{color:var(--green)}
 .addon-icon-wrap{color:var(--muted)}
 .addon-item.selected .addon-icon-wrap{color:var(--green)}
 .lua-icon,.img-zone-icon{color:var(--muted)}
 .btn-zone-pexels svg,.wg-nav-msg svg{width:1em;height:1em;display:inline-block;vertical-align:-3px;margin-right:2px}
-.bt-name{ font-size:12px;font-weight:700;color:var(--text);line-height:1.3 }
-.branza-tile.selected .bt-name{ color:var(--green) }
-
-.branza-other-wrap{ margin-top:4px }
-.branza-other-toggle{
-  display:flex;align-items:center;gap:10px;
-  width:100%;padding:12px 16px;
-  background:transparent;
-  border:1.5px dashed rgba(255,255,255,.16);
-  border-radius:10px;cursor:pointer;
-  font-family:var(--head);font-size:13px;font-weight:600;color:var(--muted);
-  transition:all .18s;
-}
-.branza-other-toggle:hover{ border-color:rgba(0,229,160,.3);color:var(--green) }
-.branza-other-toggle.active{ border-color:rgba(0,229,160,.3);color:var(--green) }
-.branza-other-panel{
-  margin-top:12px;padding:16px;
-  background:rgba(0,229,160,.05);
-  border:1px solid rgba(0,229,160,.12);
-  border-radius:10px;
-}
-
-/* GALERIA STARTOWA (Faza 2) */
-.gallery-style-filter{ display:flex;gap:6px;flex-wrap:wrap }
-.gs-filter-btn{
-  background:transparent;border:1.5px solid rgba(255,255,255,.14);color:var(--muted);
-  padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;
-  font-family:var(--head);transition:all .18s;
-}
-.gs-filter-btn:hover{ border-color:rgba(0,229,160,.35);color:var(--green) }
-.gs-filter-btn.active{ border-color:var(--green);color:var(--green);background:rgba(0,229,160,.08) }
-
-.gallery-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;
-}
-.gallery-card{
-  background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.12);
-  border-radius:12px;overflow:hidden;cursor:pointer;transition:all .18s;
-  display:flex;flex-direction:column;
-}
-.gallery-card:hover{ border-color:rgba(0,229,160,.4) }
-.gallery-card.selected{ border-color:var(--green);box-shadow:0 0 0 3px rgba(0,229,160,.12) }
-.gc-thumb{
-  aspect-ratio:4/3;background:linear-gradient(135deg,rgba(0,229,160,.08),rgba(47,95,209,.08));
-  display:flex;align-items:center;justify-content:center;font-size:34px;position:relative;
-  overflow:hidden;
-}
-.gc-thumb img{ width:100%;height:100%;object-fit:cover;object-position:top center }
-.gc-tier-badge{
-  position:absolute;top:8px;right:8px;font-family:var(--mono);font-size:9px;font-weight:800;
-  padding:3px 9px;border-radius:8px;letter-spacing:.05em;background:rgba(8,10,18,.85);
-  border:1px solid rgba(255,255,255,.14);
-}
-.gc-tier-badge.free{ color:var(--green);border-color:rgba(0,229,160,.4) }
-.gc-tier-badge.pro{ color:#9186E0;border-color:rgba(107,95,201,.5) }
-.gc-tier-badge.promax{ background:linear-gradient(135deg,#7B4FFF,#2E7CFF);color:#fff;border-color:transparent }
-.gc-info{ padding:10px 12px 12px }
-.gc-style{ font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px }
-.gc-industry{ font-size:11px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden }
-.gc-select-hint{ font-size:10px;color:var(--green);margin-top:6px;font-weight:700;opacity:0;transition:opacity .15s }
-.gallery-card:hover .gc-select-hint,.gallery-card.selected .gc-select-hint{ opacity:1 }
 /* ────────────────────────────────────────────────────────────── */
 
 /* Natywny link "Sign in"/"Sign up" w stopce widgetu Clerk (panel-0) jest martwy —
@@ -1119,114 +1025,9 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
         <p class="sp-sub" id="panel1-sub">Wybierz branżę — AI dobierze odpowiednie kolory, fonty i treści.</p>
       </div>
 
-      <!-- BRANŻE — kafelki -->
-      <div class="branza-grid" id="branza-grid">
-
-        <button class="branza-tile" onclick="selectBranzaTile(this,'Hydraulik')">
-          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-3.2 4.4-6 8-6 11.5A6 6 0 0 0 18 14.5C18 11 15.2 7.4 12 3z"/></svg></span>
-          <span class="bt-name">Hydraulik</span>
-        </button>
-        <button class="branza-tile" onclick="selectBranzaTile(this,'Elektryk')">
-          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg></span>
-          <span class="bt-name">Elektryk</span>
-        </button>
-        <button class="branza-tile" onclick="selectBranzaTile(this,'Firma remontowo-budowlana')">
-          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 3.5l6 6-2.5 2.5-6-6z"/><path d="M12.5 5.5 3 15l3 3 8.5-8.5"/><path d="M3 21l3-3"/></svg></span>
-          <span class="bt-name">Remonty & budowa</span>
-        </button>
-        <button class="branza-tile" onclick="selectBranzaTile(this,'Wykończenia wnętrz')">
-          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="11" height="5" rx="1"/><line x1="8" y1="9" x2="8" y2="14"/><rect x="6" y="14" width="4" height="6" rx="1"/></svg></span>
-          <span class="bt-name">Wykończenia wnętrz</span>
-        </button>
-
-        <button class="branza-tile" onclick="selectBranzaTile(this,'Mechanik samochodowy')">
-          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 1 1-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2-2z"/></svg></span>
-          <span class="bt-name">Mechanik</span>
-        </button>
-        <button class="branza-tile" onclick="selectBranzaTile(this,'Sprzątanie')">
-          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="20" y1="4" x2="10" y2="14"/><path d="M10 14l-6 8 2 1 6-7"/><line x1="6" y1="22" x2="9" y2="16"/><line x1="10" y1="21" x2="12" y2="15"/></svg></span>
-          <span class="bt-name">Sprzątanie</span>
-        </button>
-        <button class="branza-tile" onclick="selectBranzaTile(this,'Ogrodnik / Pielęgnacja zieleni')">
-          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21c0-9.5 4.5-16 15-17-1 10.5-7.5 15.5-15 17z"/><path d="M8.5 16C11.5 12.5 14 10 18.5 6.5"/></svg></span>
-          <span class="bt-name">Ogrodnik</span>
-        </button>
-        <button class="branza-tile" onclick="selectBranzaTile(this,'Stomatologia')">
-          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4c2 0 2.5 1.3 5 1.3S15 4 17 4c1.7 0 2.5 1.8 2 4-.5 2-1 3-1.5 6.5-.4 2.7-1 3.5-1.5 3.5S15 16 14 14.5c-.6-.9-1-1.2-2-1.2s-1.4.3-2 1.2C9 16 8.5 18 8 18s-1.1-.8-1.5-3.5C6 11 5.5 10 5 8c-.5-2.2.3-4 2-4Z"/></svg></span>
-          <span class="bt-name">Stomatolog</span>
-        </button>
-
-        <button class="branza-tile" onclick="selectBranzaTile(this,'Kosmetyczka / Salon kosmetyczny')">
-          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l4-6h8l4 6-10 12z"/><path d="M4 9h16"/><path d="M9.5 3l2.5 6-2 12"/><path d="M14.5 3l-2.5 6 2 12"/></svg></span>
-          <span class="bt-name">Salon kosmetyczny</span>
-        </button>
-        <button class="branza-tile" onclick="selectBranzaTile(this,'Fryzjer / Barber')">
-          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.3"/><circle cx="6" cy="18" r="2.3"/><line x1="7.8" y1="7.4" x2="20" y2="19"/><line x1="7.8" y1="16.6" x2="20" y2="5"/></svg></span>
-          <span class="bt-name">Fryzjer / Barber</span>
-        </button>
-        <button class="branza-tile" onclick="selectBranzaTile(this,'Fizjoterapia / Rehabilitacja')">
-          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></span>
-          <span class="bt-name">Fizjoterapia</span>
-        </button>
-        <button class="branza-tile" onclick="selectBranzaTile(this,'Restauracja')">
-          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v7a2 2 0 0 0 4 0V2"/><line x1="8" y1="2" x2="8" y2="22"/><path d="M17 2c0 3-2 4-2 7s2 3 2 3v10"/></svg></span>
-          <span class="bt-name">Restauracja</span>
-        </button>
-
-        <button class="branza-tile" onclick="selectBranzaTile(this,'Kawiarnia / Cukiernia')">
-          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 9h2a2 2 0 0 1 0 4h-2"/></svg></span>
-          <span class="bt-name">Kawiarnia</span>
-        </button>
-        <button class="branza-tile" onclick="selectBranzaTile(this,'Trener personalny / Siłownia')">
-          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="12" x2="18" y2="12"/><rect x="2.5" y="9" width="3" height="6" rx="1"/><rect x="18.5" y="9" width="3" height="6" rx="1"/><rect x="6" y="7" width="2.3" height="10" rx="1"/><rect x="15.7" y="7" width="2.3" height="10" rx="1"/></svg></span>
-          <span class="bt-name">Trener / Siłownia</span>
-        </button>
-        <button class="branza-tile" onclick="selectBranzaTile(this,'Fotograf')">
-          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
-          <span class="bt-name">Fotograf</span>
-        </button>
-        <button class="branza-tile" onclick="selectBranzaTile(this,'Agencja nieruchomości')">
-          <span class="bt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11 12 4l8 7"/><path d="M6 10v10h12V10"/><path d="M10 20v-6h4v6"/></svg></span>
-          <span class="bt-name">Nieruchomości</span>
-        </button>
-
-      </div>
-
-      <!-- INNA BRANŻA -->
-      <div class="branza-other-wrap" id="branza-other-wrap">
-        <button class="branza-other-toggle" id="branza-other-toggle" onclick="toggleBranzaOther()">
-          <span style="font-size:18px">+</span>
-          <span>Nie ma mojej branży?</span>
-        </button>
-        <div class="branza-other-panel" id="branza-other-panel" style="display:none">
-          <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:10px;opacity:.8">// Opisz czym się zajmujesz</div>
-          <p style="font-size:13px;color:var(--muted);margin:0 0 12px;line-height:1.6">Każda firma jest wyjątkowa. Napisz kilka słów o tym, co robisz — AI dobierze odpowiedni styl, treści i słowa kluczowe specjalnie dla Ciebie.</p>
-          <textarea id="f-branza-opis" rows="3"
-            style="width:100%;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.14);border-radius:10px;padding:12px 14px;font-size:14px;color:var(--text);font-family:var(--body);resize:vertical;outline:none;transition:border-color .2s;box-sizing:border-box"
-            placeholder="np. Prowadzę warsztat tapicerski, specjalizuję się w renowacji mebli i tapicerce samochodowej."
-            oninput="selectBranzaFromOther(this.value)"
-            onfocus="this.style.borderColor='var(--green)'"
-            onblur="this.style.borderColor='rgba(255,255,255,.14)'"></textarea>
-        </div>
-      </div>
-
-      <!-- GALERIA STARTOWA -->
-      <div class="gallery-section" id="gallery-section" style="display:none;margin-top:28px">
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px">
-          <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green)">// Galeria Startowa</div>
-          <div class="gallery-style-filter" id="gallery-style-filter">
-            <button class="gs-filter-btn active" onclick="filterGalleryTier('all', this)">Wszystkie</button>
-            <button class="gs-filter-btn" onclick="filterGalleryTier('free', this)">Start</button>
-            <button class="gs-filter-btn" onclick="filterGalleryTier('pro', this)">Pro</button>
-            <button class="gs-filter-btn" onclick="filterGalleryTier('promax', this)">Pro Max</button>
-          </div>
-        </div>
-        <div class="gallery-grid" id="gallery-grid"></div>
-        <div id="gallery-empty" style="display:none;text-align:center;padding:30px 10px;color:var(--muted);font-size:13px">Szablony dla tej branży są jeszcze w przygotowaniu — wróć niedługo.</div>
-        <div id="gallery-pro-note" style="display:none;margin-top:14px;padding:12px 16px;background:rgba(107,95,201,.1);border:1px solid rgba(107,95,201,.3);border-radius:10px;font-size:12px;color:#6B5FC9">
-          Ten szablon jest dostępny w planie Pro — wybór planu zrobisz w kroku 4. Możesz też przejrzeć darmowe szablony powyżej.
-        </div>
-      </div>
+      <!-- Wybrany szablon — zawsze przychodzi z /galeria/, wypełniane przez
+           renderTemplateSummary() w applyPendingTemplateSelection() -->
+      <div id="template-summary-slot"></div>
 
       <div class="form-grid cols2" style="margin-top:28px">
         <div class="field">
@@ -1834,9 +1635,9 @@ function setStep(n) {
 // ─── VALIDATION ───
 function validateStep(step) {
   if (step === 1) {
-    var _opis = document.getElementById('f-branza-opis');
-    if (!state.branza && (!_opis || !_opis.value.trim())) { alert('Wybierz branżę lub opisz czym się zajmujesz'); return false; }
-    if (!state.branza && _opis && _opis.value.trim()) state.branza = _opis.value.trim();
+    // state.branza jest zawsze ustawiona przez applyPendingTemplateSelection() —
+    // szablon (i jego branża) jest wybierany wyłącznie w /galeria/, generator już
+    // nie ma własnego formularza "opisz swoją branżę".
     if (!document.getElementById('f-miasto').value.trim()) { alert('Wpisz miasto'); return false; }
   }
   if (step === 2) {
@@ -1927,39 +1728,13 @@ async function handleHeroUpload(input) {
   document.getElementById('hero-upload-area').classList.add('has-file');
 }
 
-// ─── BRANŻA ───
-
-function selectBranzaTile(btn, name) {
-  document.querySelectorAll('.branza-tile').forEach(function(b){ b.classList.remove('selected'); });
-  btn.classList.add('selected');
-  state.branza = name;
-  // Schowaj "inna branża" jeśli wybrano kafelek
-  var panel = document.getElementById('branza-other-panel');
-  var toggle = document.getElementById('branza-other-toggle');
-  if (panel) panel.style.display = 'none';
-  if (toggle) toggle.classList.remove('active');
-  showGalleryForBranza();
-}
-
-// ─── GALERIA STARTOWA (Faza 2) ───
+// ─── GALERIA STARTOWA — wybór szablonu dzieje się teraz wyłącznie w /galeria/ (patrz
+// project_generator_scope_brand_fit) — generator już nie ma własnej siatki branż/galerii,
+// tylko odczytuje manifest, żeby dociągnąć dane wybranego wcześniej szablonu (miniaturka,
+// nazwa, tier) do karty podsumowania w panelu 1. ───
 var TEMPLATES_MANIFEST = [];
-var galleryTierFilter = 'all';
 var galleryManifestLoaded = false;
 var TIER_LABEL = { free: 'START', pro: 'PRO', promax: 'PRO MAX' };
-// Kafelki brancy w generatorze uzywaja etykiet czlowieka (state.branza), manifest.json
-// uzywa slugow biblioteki szablonow (templates/pilot/). Mapowanie tylko na potrzeby
-// galerii — reszta kodu (Pexels, payload wysylki) nadal czyta state.branza jak dawniej.
-// Brakujace tu brance (9 z 16 kafelkow) nie maja jeszcze zadnego szablonu w bibliotece —
-// showGalleryForBranza pokaze wtedy uczciwy komunikat "w przygotowaniu", nie pusta galerie.
-var BRANZA_TO_INDUSTRY = {
-  'Hydraulik': 'hydraulik',
-  'Elektryk': 'elektryk',
-  'Firma remontowo-budowlana': 'remonty',
-  'Fryzjer / Barber': 'fryzjer-barber',
-  'Agencja nieruchomości': 'nieruchomosci',
-  'Stomatologia': 'stomatolog',
-  'Fotograf': 'fotograf-slubny'
-};
 
 function loadTemplatesManifest() {
   if (galleryManifestLoaded) return Promise.resolve();
@@ -1969,58 +1744,7 @@ function loadTemplatesManifest() {
     .catch(function () { TEMPLATES_MANIFEST = []; galleryManifestLoaded = true; });
 }
 
-function showGalleryForBranza() {
-  var section = document.getElementById('gallery-section');
-  if (!section || !state.branza) return;
-  section.style.display = 'block';
-  state.templateId = null;
-  state.templateTier = null;
-  var note = document.getElementById('gallery-pro-note');
-  if (note) note.style.display = 'none';
-  loadTemplatesManifest().then(renderGallery);
-}
-
-function filterGalleryTier(tier, btn) {
-  galleryTierFilter = tier;
-  document.querySelectorAll('.gs-filter-btn').forEach(function (b) { b.classList.remove('active'); });
-  if (btn) btn.classList.add('active');
-  renderGallery();
-}
-
-function renderGallery() {
-  var grid = document.getElementById('gallery-grid');
-  var empty = document.getElementById('gallery-empty');
-  if (!grid) return;
-
-  var industry = state.templateIndustry || BRANZA_TO_INDUSTRY[state.branza] || state.branza;
-  var items = TEMPLATES_MANIFEST.filter(function (t) { return t.industry === industry; });
-  if (galleryTierFilter !== 'all') items = items.filter(function (t) { return t.tier === galleryTierFilter; });
-
-  if (items.length === 0) {
-    grid.innerHTML = '';
-    if (empty) empty.style.display = 'block';
-    return;
-  }
-  if (empty) empty.style.display = 'none';
-
-  grid.innerHTML = items.map(function (t) {
-    var isSel = state.templateId === t.id;
-    var thumb = t.thumb ? '<img src="' + t.thumb + '" alt="" loading="lazy">' : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="10" r="1.7"/><path d="M21 16l-5.5-5.5L9 17"/></svg>';
-    return '<div class="gallery-card' + (isSel ? ' selected' : '') + '" onclick="selectTemplate(\'' + t.id + '\',\'' + t.tier + '\')">'
-      + '<div class="gc-thumb">' + thumb
-      + '<span class="gc-tier-badge ' + t.tier + '">' + (TIER_LABEL[t.tier] || 'START') + '</span>'
-      + '</div>'
-      + '<div class="gc-info">'
-      + '<div class="gc-style">' + (t.title || t.id) + '</div>'
-      + '<div class="gc-industry">' + (t.tagline || t.label || t.industry) + '</div>'
-      + '<div class="gc-select-hint">' + (isSel ? '✓ Wybrany' : 'Wybierz →') + '</div>'
-      + '</div></div>';
-  }).join('');
-}
-
-// Wybór szablonu USTAWIA plan (Free/Pro/Pro Max) — to jedna decyzja, nie dwie. Wcześniej
-// istniał osobny krok "Wybierz plan", w którym dało się wybrać plan niezgodny z tierem
-// szablonu wybranego tutaj; usunięty, żeby ta niezgodność nie mogła w ogóle powstać.
+// Wybór szablonu USTAWIA plan (Free/Pro/Pro Max) — to jedna decyzja, nie dwie.
 function selectTemplate(id, tier) {
   state.templateId = id;
   state.templateTier = tier;
@@ -2031,114 +1755,48 @@ function selectTemplate(id, tier) {
   };
   var planInfo = TEMPLATE_TIER_PLAN[tier] || TEMPLATE_TIER_PLAN.free;
   selectPlan(null, tier, planInfo[0], planInfo[1]);
-
-  var note = document.getElementById('gallery-pro-note');
-  if (note) {
-    note.style.display = (tier === 'pro' || tier === 'promax') ? 'block' : 'none';
-    note.textContent = tier === 'promax'
-      ? 'Ten szablon wymaga planu Pro Max (499 zł/mies.) — wybierając go, ustawiasz sobie ten plan. Możesz też przejrzeć darmowe szablony powyżej.'
-      : 'Ten szablon wymaga planu Pro (299 zł/mies.) — wybierając go, ustawiasz sobie ten plan. Możesz też przejrzeć darmowe szablony powyżej.';
-  }
-  renderGallery();
 }
 
-// Deep-link z /galeria/ ("Aktywuj ten szablon →/generator/?template=<id>") — panel-1
-// (branża + galeria) jest ukryty do czasu rejestracji/logowania (panel-0), więc wybór
-// z URL nie da się zastosować od razu na starcie strony: zapamiętujemy go i stosujemy
-// dopiero w onAuthenticated()->setStep(1), gdy panel-1 faktycznie staje się widoczny.
+// Wybór szablonu dzieje się wyłącznie w /galeria/ (project_generator_scope_brand_fit,
+// zatwierdzone 2026-09-07, dokończone dziś) — generator zawsze oczekuje przyjścia z
+// "Aktywuj ten szablon →/generator/?template=<id>". Panel-1 jest ukryty do czasu
+// rejestracji/logowania (panel-0), więc id z URL zapamiętujemy i stosujemy dopiero
+// w onAuthenticated()->setStep(1), gdy panel-1 faktycznie staje się widoczny.
 var PENDING_TEMPLATE_ID = new URLSearchParams(window.location.search).get('template') || null;
 
 function applyPendingTemplateSelection() {
-  if (!PENDING_TEMPLATE_ID) return;
   var id = PENDING_TEMPLATE_ID;
   PENDING_TEMPLATE_ID = null; // tylko raz — kolejne wejścia na panel-1 nie nadpisują wyboru usera
   loadTemplatesManifest().then(function () {
     var entry = TEMPLATES_MANIFEST.filter(function (t) { return t.id === id; })[0];
-    if (!entry) return;
+    if (!entry) { window.location.href = '/galeria/'; return; }
     state.branza = entry.label;
     state.templateIndustry = entry.industry;
-    document.querySelectorAll('.branza-tile').forEach(function (b) {
-      if (b.textContent.trim() === entry.label) b.classList.add('selected');
-    });
-    showGalleryForBranza();
     selectTemplate(entry.id, entry.tier);
-    showDeepLinkedTemplateSummary(entry);
+    renderTemplateSummary(entry);
   });
 }
 
-// Ukrywa siatkę branż i galerię (decyzja już podjęta w /galeria/, pokazywanie
-// jej od nowa to zbędne powtórzenie) i zastępuje kompaktowym podsumowaniem
-// z opcją zmiany. Miasto/dzielnica i "Dalej →" zostają widoczne bez zmian —
-// to jedyna informacja z panelu 1, której Galeria jeszcze nie zebrała.
-var PANEL1_DEFAULT_TITLE = 'Jaka branża<br>i gdzie działasz?';
-var PANEL1_DEFAULT_SUB = 'Wybierz branżę — AI dobierze odpowiednie kolory, fonty i treści.';
-
-function showDeepLinkedTemplateSummary(entry) {
-  var branzaGrid = document.getElementById('branza-grid');
-  var gallerySection = document.getElementById('gallery-section');
-  var branzaOther = document.getElementById('branza-other-wrap');
-  if (!branzaGrid || !gallerySection || document.getElementById('deep-link-summary')) return;
-  branzaGrid.style.display = 'none';
-  gallerySection.style.display = 'none';
-  if (branzaOther) branzaOther.style.display = 'none';
-
+// Karta "wybrany szablon" w panelu 1 — jedyna reprezentacja wyboru w generatorze.
+// "Zmień" wraca do /galeria/ zamiast cofać do wyboru na miejscu — generator już nie ma
+// własnej siatki branż/galerii, którą można by odkryć z powrotem.
+function renderTemplateSummary(entry) {
+  var slot = document.getElementById('template-summary-slot');
+  if (!slot) return;
   var titleEl = document.getElementById('panel1-title');
   var subEl = document.getElementById('panel1-sub');
   if (titleEl) titleEl.innerHTML = 'Prawie gotowe!';
   if (subEl) subEl.textContent = 'Zostało tylko miasto i dzielnica — reszta jest już ustawiona.';
 
-  var summary = document.createElement('div');
-  summary.id = 'deep-link-summary';
-  summary.style.cssText = 'display:flex;align-items:center;gap:14px;background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.25);border-radius:12px;padding:14px 16px;margin-bottom:8px';
-  summary.innerHTML =
-    (entry.thumb ? '<img src="' + entry.thumb + '" alt="" style="width:64px;height:44px;object-fit:cover;border-radius:6px;flex-shrink:0">' : '')
+  slot.innerHTML =
+    '<div style="display:flex;align-items:center;gap:14px;background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.25);border-radius:12px;padding:14px 16px">'
+    + (entry.thumb ? '<img src="' + entry.thumb + '" alt="" style="width:64px;height:44px;object-fit:cover;border-radius:6px;flex-shrink:0">' : '')
     + '<div style="flex:1;min-width:0">'
-    + '<div style="font-size:13px;font-weight:700;color:var(--text)">Wybrany szablon: ' + (entry.title || entry.id) + '</div>'
+    + '<div style="font-size:13px;font-weight:700;color:var(--text)">Wybrany szablon: ' + (entry.title || entry.id) + ' <span style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.06em;color:var(--muted)">' + (TIER_LABEL[entry.tier] || 'START') + '</span></div>'
     + '<div style="font-size:12px;color:var(--muted)">' + (entry.label || entry.industry || '') + '</div>'
     + '</div>'
-    + '<button type="button" onclick="revertDeepLinkedSelection()" style="background:none;border:none;color:var(--green);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">Zmień</button>';
-  branzaGrid.parentNode.insertBefore(summary, branzaGrid);
-}
-
-// "Zmień" w podsumowaniu — cofa do pełnego, ręcznego wyboru branży/szablonu.
-function revertDeepLinkedSelection() {
-  var summary = document.getElementById('deep-link-summary');
-  if (summary) summary.parentNode.removeChild(summary);
-  var branzaGrid = document.getElementById('branza-grid');
-  if (branzaGrid) branzaGrid.style.display = '';
-  var branzaOther = document.getElementById('branza-other-wrap');
-  if (branzaOther) branzaOther.style.display = '';
-  document.querySelectorAll('.branza-tile').forEach(function (b) { b.classList.remove('selected'); });
-  var titleEl = document.getElementById('panel1-title');
-  var subEl = document.getElementById('panel1-sub');
-  if (titleEl) titleEl.innerHTML = PANEL1_DEFAULT_TITLE;
-  if (subEl) subEl.textContent = PANEL1_DEFAULT_SUB;
-  state.templateId = null;
-  state.templateTier = null;
-  state.branza = '';
-  // Szablon "ustawiał" plan (patrz selectTemplate) — bez tego resetu zostawałby
-  // "zawieszony" plan/cena z porzuconego wyboru (np. Pro Max), mimo że user nie
-  // wybrał jeszcze żadnego nowego, płatnego szablonu.
-  selectPlan(null, 'free', 'Start', 0);
-}
-
-function toggleBranzaOther() {
-  var panel = document.getElementById('branza-other-panel');
-  var toggle = document.getElementById('branza-other-toggle');
-  if (!panel) return;
-  var open = panel.style.display !== 'none';
-  panel.style.display = open ? 'none' : 'block';
-  toggle.classList.toggle('active', !open);
-  if (!open) {
-    // Odznacz kafelki
-    document.querySelectorAll('.branza-tile').forEach(function(b){ b.classList.remove('selected'); });
-    setTimeout(function(){ var ta=document.getElementById('f-branza-opis'); if(ta) ta.focus(); }, 100);
-  }
-}
-
-function selectBranzaFromOther(val) {
-  state.branza = val.trim() ? val.trim() : '';
-  showGalleryForBranza();
+    + '<a href="/galeria/" style="color:var(--green);font-size:12px;font-weight:700;white-space:nowrap;text-decoration:none">Zmień</a>'
+    + '</div>';
 }
 // ─── ADDONY ─── 7 dodatków à la carte nad planem Pro (Faza 5) — id zgodne z ADDON_PRICES
 // w api/create-checkout.js. seo_dzielnice/seo_miasto/wersja_jezykowa zniknęły (SEO w Pro).
@@ -3097,6 +2755,14 @@ function mountAuthWidget(kind) {
 
 function onAuthenticated(user) {
   if (state.email) return; // już obsłużone
+
+  // Generator zakłada, że szablon jest już wybrany w /galeria/ (patrz
+  // applyPendingTemplateSelection) — bez ?template= w URL nie ma czego tu robić.
+  if (!PENDING_TEMPLATE_ID) {
+    window.location.href = '/galeria/';
+    return;
+  }
+
   state.email = user.primaryEmailAddress ? user.primaryEmailAddress.emailAddress : '';
   var meta = user.unsafeMetadata || {};
   state.accountType = meta.accountType || _accountType;
