@@ -171,8 +171,12 @@ body.wg-logged-in .wg-nav-user{ display:flex!important }
 body.wg-logged-in .wg-nav-drawer .wg-nav-login{ display:none!important }
 body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 @media(max-width:900px){
-  .wg-nav-user{ display:none }
-  body.wg-logged-in .wg-nav-user{ display:flex!important }
+  /* Chip avatar+email i ikonka wiadomości wstrzykiwane PRZED hamburgerem w
+     .wg-nav-right (flex-shrink:0, bez zawijania) potrafiły wypchnąć #wg-hamburger
+     poza ekran u zalogowanego klienta. Tożsamość jest i tak w drawerze
+     (.wg-drawer-user), więc obie chowamy na mobile. */
+  .wg-nav-user{ display:none!important }
+  .wg-nav-msg{ display:none!important }
 }
 /* ─────────────────────────────────────────── */
 

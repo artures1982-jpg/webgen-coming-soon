@@ -973,8 +973,13 @@ body.wg-logged-in .wg-nav-user{ display:flex!important }
 body.wg-logged-in .wg-nav-drawer .wg-nav-login{ display:none!important }
 body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 @media(max-width:900px){
-  .wg-nav-user{ display:none }
-  body.wg-logged-in .wg-nav-user{ display:flex!important }
+  /* Na mobile chip z avatarem+emailem i ikonka wiadomości (wstrzykiwane PRZED
+     hamburgerem w .wg-nav-right, który ma flex-shrink:0 i się nie zawija) potrafiły
+     wypchnąć #wg-hamburger poza widoczny ekran — zalogowany klient nie miał jak
+     otworzyć menu. Tożsamość i dostęp do panelu i tak są w drawerze (.wg-drawer-user,
+     wstrzykiwany przy otwarciu), więc obie chowamy na mobile bez utraty funkcji. */
+  .wg-nav-user{ display:none!important }
+  .wg-nav-msg{ display:none!important }
 }
 /* ─────────────────────────────────────────── */
 
