@@ -991,24 +991,12 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 }
 
 /* ── SEKCJA "Zero ukrytych opłat" (między #cennik i #porownanie) ──
-   .wc-plan powtarza wygląd .plan (karty cennika) ale BEZ mechaniki
-   grid-template-rows:subgrid/grid-row:span 4 — ta sekcja nie jest
-   3-kolumnową siatką z przyciskami, więc subgrid tu by tylko psuł layout. */
+   Świadomie BEZ powtórki kart planów (te są tuż wyżej, w #cennik) —
+   tabela niżej pokazuje wąski wycinek "co normalnie jest osobną fakturą",
+   nie duplikuje pełnej listy funkcji z kart cenowych. */
 .wc-badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
 .wc-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.22);border-radius:12px;padding:12px 18px;font-family:var(--mono);font-size:12.5px;font-weight:700;color:var(--text)}
 .wc-badge svg{width:18px;height:18px;stroke:var(--green);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
-.wc-plans-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:56px 0}
-.wc-plan{background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:36px 32px}
-.wc-plan-price-alt{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:6px}
-.wc-plan.max{background:var(--brand-grad);border:none;color:var(--oncta);position:relative;overflow:hidden}
-.wc-plan.max::after{content:'';position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-18deg);animation:ctaShine 5s ease-in-out infinite 1s}
-.wc-plan.max .plan-name,.wc-plan.max .wc-plan-price-alt{color:rgba(6,7,12,.65)}
-.wc-plan.max .plan-price,.wc-plan.max .plan-price sub{color:#06070c}
-.wc-plan.max .pf{color:#06070c}
-.wc-plan.max .pf-check.yes{background:rgba(6,7,12,.14);color:#06070c}
-.wc-plan.max .plan-divider{background:rgba(6,7,12,.15)}
-.wc-note{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:center;max-width:640px;margin:0 auto 8px}
-.wc-note strong{color:var(--green)}
 .wc-flow{display:flex;justify-content:space-between;gap:8px;position:relative;margin:64px 0 8px}
 .wc-flow::before{content:'';position:absolute;top:19px;left:6%;right:6%;height:2px;background:linear-gradient(90deg,var(--border2),var(--border2) 66%,rgba(0,229,160,.35))}
 .wc-node{flex:1;text-align:center;position:relative}
@@ -1022,7 +1010,6 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 .wc-node.active .wc-node-title{color:var(--green)}
 .wc-tag{display:inline-block;font-family:var(--mono);font-size:10px;color:var(--green);background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.25);border-radius:20px;padding:2px 10px;margin-top:8px}
 .wc-cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:48px}
-@media(max-width:960px){.wc-plans-grid{grid-template-columns:1fr}}
 @media(max-width:700px){
   .wc-flow{flex-direction:column;gap:28px;align-items:flex-start}
   .wc-flow::before{display:none}
@@ -1360,36 +1347,56 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
       <p class="sec-sub" style="margin:0 auto">Jedna kwota miesięcznie (albo raz w roku, taniej). Bez telefonów "w sprawie dopłaty", bez pozycji odkrywanych po aktywacji. To, co jest w planie — jest w cenie.</p>
     </div>
 
-    <div class="wc-plans-grid">
-      <div class="wc-plan">
-        <div class="plan-name">Pro — w cenie 299 zł/mies.</div>
-        <div class="plan-price">299 <sub>zł/mies.</sub></div>
-        <div class="wc-plan-price-alt">lub 2990 zł/rok — 2 miesiące gratis</div>
-        <div class="plan-divider"></div>
-        <div class="plan-features">
-          <div class="pf"><span class="pf-check yes">✓</span>Własna domena + SSL</div>
-          <div class="pf"><span class="pf-check yes">✓</span>Hosting i szybkość zoptymalizowana</div>
-          <div class="pf"><span class="pf-check yes">✓</span>Statystyki odwiedzin</div>
-          <div class="pf"><span class="pf-check yes">✓</span>Lokalne SEO wbudowane</div>
-          <div class="pf"><span class="pf-check yes">✓</span>Personalizacja AI — treść, zdjęcia, kolory</div>
-          <div class="pf"><span class="pf-check yes">✓</span>Formularz kontaktowy / rezerwacje</div>
-          <div class="pf"><span class="pf-check yes">✓</span>Aktualizacje treści mailem (do 1h)</div>
-        </div>
-      </div>
-      <div class="wc-plan max">
-        <div class="plan-name">Pro Max — w cenie 499 zł/mies.</div>
-        <div class="plan-price">499 <sub>zł/mies.</sub></div>
-        <div class="wc-plan-price-alt">lub 4990 zł/rok — 2 miesiące gratis</div>
-        <div class="plan-divider"></div>
-        <div class="plan-features">
-          <div class="pf"><span class="pf-check yes">✓</span>Wszystko z planu Pro</div>
-          <div class="pf"><span class="pf-check yes">✓</span>Rozszerzona personalizacja AI</div>
-          <div class="pf"><span class="pf-check yes">✓</span>Priorytetowa obsługa zmian — do 4h</div>
-        </div>
-      </div>
+    <div class="compare-table-desktop" style="border-radius:14px;border:1px solid var(--border);overflow:hidden;margin:48px 0">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Co normalnie jest osobną fakturą</th>
+            <th>Start</th>
+            <th class="highlight">Pro</th>
+            <th>Pro Max</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Hosting i szybki serwer</td>
+            <td class="yes">✓</td>
+            <td class="yes highlight">✓</td>
+            <td class="yes">✓</td>
+          </tr>
+          <tr>
+            <td>Certyfikat SSL / HTTPS</td>
+            <td class="yes">✓</td>
+            <td class="yes highlight">✓</td>
+            <td class="yes">✓</td>
+          </tr>
+          <tr>
+            <td>Wersja mobilna</td>
+            <td class="yes">✓</td>
+            <td class="yes highlight">✓</td>
+            <td class="yes">✓</td>
+          </tr>
+          <tr>
+            <td>Własna domena — rejestracja i podpięcie</td>
+            <td class="no">—</td>
+            <td class="yes highlight">✓ w cenie</td>
+            <td class="yes">✓ w cenie</td>
+          </tr>
+          <tr>
+            <td>Statystyki i analityka</td>
+            <td class="no">—</td>
+            <td class="yes highlight">✓ w cenie</td>
+            <td class="yes">✓ w cenie</td>
+          </tr>
+          <tr>
+            <td>Zmiana treści po starcie</td>
+            <td class="no">—</td>
+            <td class="yes highlight">mailem, do 1h</td>
+            <td class="yes">priorytetowo, do 4h</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-
-    <p class="wc-note">Wersja mobilna działa <strong>w każdym planie</strong>, włącznie z darmowym Start — to nie jest dodatek Pro, to podstawa każdego szablonu w Galerii Startowej.</p>
 
     <div class="wc-flow">
       <div class="wc-node">
