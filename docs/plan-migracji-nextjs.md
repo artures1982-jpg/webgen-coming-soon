@@ -132,6 +132,34 @@ stosujecie przy wariantach szablonów).
 **Kryterium przejścia do Fazy 1:** działający `npm run dev`, potwierdzone zachowanie template
 literals, jedna strona renderuje się identycznie na preview URL-u co dzisiejszy statyczny plik.
 
+**STATUS: ZAKOŃCZONE 14.09.2026, wszystkie kryteria spełnione.** Kod w branchu
+`nextjs-migration-faza0`, katalog `next-app/` (nie dotyka `main` ani `preview/hydraulik-pilot`).
+Konkretne wyniki:
+
+- **Zakaz template literals NIE dotyczy Next.js.** Route Handler z dokładnie wzorcem
+  `Bearer ${KEY}` (ten sam, który crashował stary Edge/esbuild bundler w `api/*.js`) buduje się i
+  działa czysto. To rozstrzyga otwarte ryzyko #6 z sekcji 4 — zakaz zostaje tylko w istniejących
+  `api/*.js`, nowe Route Handlery w Next.js nie muszą go przestrzegać.
+- `cleanUrls`/`trailingSlash` z `vercel.json` **nie mają odpowiednika do ustawienia** — App
+  Router routuje bez rozszerzeń plików i bez końcowego slasha domyślnie, za darmo.
+- Headers/CSP i redirecty (`/prywatnosc`, `/start`) odtworzone 1:1 w `next.config.ts`,
+  zweryfikowane na żywym deployu (nie tylko lokalnie) — identyczne nagłówki na realnym URL-u.
+- `polityka-prywatnosci/` zmigrowana: treść 1:1, style w CSS Modules, fonty przez `next/font`
+  (samohostowane, zero `<link>` do `fonts.googleapis.com` — od razu realizuje korzyść z sekcji 3,
+  wiersz 5). Zweryfikowana wizualnie w Chrome, pixel-bliska oryginałowi.
+- **Zbudowany jeden współdzielony `<Nav>`** (React state zamiast ręcznej manipulacji DOM) — od
+  razu z komentarzem-lekcją dla Fazy 3, żeby przyszły chip auth nie powtórzył dzisiejszego buga
+  (commit `9ffc84d`) opisanego w sekcji 3, wiersz 7.
+- **Gotcha znaleziona przy deployu, nie w kodzie**: nowy projekt Vercel utworzony z
+  `rootDirectory: next-app` w monorepo dostał `framework: null` (auto-detekcja patrzyła na
+  `package.json` w korzeniu repo — statyczny deploy, bez `next`) — deployment budował się
+  poprawnie, ale serwował 404 na każdej stronie mimo poprawnego build outputu. Fix: jawny
+  `next-app/vercel.json` z `{"framework": "nextjs"}`. **Do zapamiętania na Fazę 1+**: przy każdym
+  kolejnym etapie migracji w tym monorepo (jeśli struktura katalogów się utrzyma) trzeba od razu
+  dodawać ten jawny `vercel.json`, nie polegać na auto-detekcji.
+- Deploy na osobnym, nowym projekcie Vercel (`webgen-nextjs-faza0`, zupełnie oddzielnym od
+  produkcyjnego projektu) — zero ryzyka dla żywej strony.
+
 ### Faza 1 — Strony statyczne niskiego ryzyka
 
 `start/`, `cennik/`, `polityka-prywatnosci/`, `regulamin/`, `robots.txt`/`sitemap.xml` — treść bez
