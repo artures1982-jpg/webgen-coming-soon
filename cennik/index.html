@@ -71,14 +71,13 @@ body{font-family:var(--head);background:var(--bg);color:var(--text);-webkit-font
 
 /* HERO */
 .hero{position:relative;padding:92px 24px 80px;text-align:center;overflow:hidden}
-.hero-mesh{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
-.mesh-blob{position:absolute;border-radius:50%;filter:blur(120px);opacity:.22}
-.mb1{width:480px;height:480px;background:var(--green);top:-180px;left:-140px;animation:drift1 12s ease-in-out infinite alternate}
-.mb2{width:420px;height:420px;background:var(--purple);top:-120px;right:-160px;animation:drift2 14s ease-in-out infinite alternate}
-.mb3{width:360px;height:360px;background:var(--blue);bottom:-180px;left:38%;animation:drift3 10s ease-in-out infinite alternate}
-@keyframes drift1{to{transform:translate(60px,50px)}}
-@keyframes drift2{to{transform:translate(-50px,-60px)}}
-@keyframes drift3{to{transform:translate(-40px,40px) scale(1.15)}}
+.page-glow{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.page-glow::before{content:'';position:absolute;top:-10%;left:50%;transform:translateX(-50%);width:900px;height:520px;background:radial-gradient(ellipse,rgba(0,229,160,.14),transparent 70%)}
+.mesh-blob{position:absolute;border-radius:50%;filter:blur(120px);opacity:.15}
+.mb1{width:420px;height:420px;background:var(--green);top:-90px;left:-110px;animation:drift1 16s ease-in-out infinite alternate}
+.mb2{width:380px;height:380px;background:var(--purple);top:8%;right:-130px;animation:drift2 18s ease-in-out infinite alternate}
+@keyframes drift1{to{transform:translate(50px,40px)}}
+@keyframes drift2{to{transform:translate(-40px,-30px)}}
 .hero-inner{position:relative;z-index:1;max-width:720px;margin:0 auto}
 .hero-eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:8px}
 .hero-eyebrow::before{content:"//";color:var(--muted)}
@@ -318,6 +317,11 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 <body>
 <script src="/shared/clerk.js"></script>
 
+<div class="page-glow">
+  <div class="mesh-blob mb1"></div>
+  <div class="mesh-blob mb2"></div>
+</div>
+
 <nav class="wg-nav" id="wg-nav">
   <a href="/" class="wg-nav-logo">
     <div class="wg-nav-logo-mark">W</div>
@@ -350,11 +354,6 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 </div>
 
 <section class="hero">
-  <div class="hero-mesh">
-    <div class="mesh-blob mb1"></div>
-    <div class="mesh-blob mb2"></div>
-    <div class="mesh-blob mb3"></div>
-  </div>
   <div class="hero-inner">
     <p class="hero-eyebrow">Cennik</p>
     <h1>Prosty cennik,<br><span class="grad-text">bez ukrytych kosztów.</span></h1>
