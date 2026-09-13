@@ -1,0 +1,29 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+}
+
+body {
+  font-family: var(--font-head), "Bricolage Grotesque", sans-serif;
+  background: #080a12;
+  color: #f3f6fc;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: #00e5a0;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
