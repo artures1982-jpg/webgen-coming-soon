@@ -2063,7 +2063,44 @@ function applyPendingTemplateSelection() {
     });
     showGalleryForBranza();
     selectTemplate(entry.id, entry.tier);
+    showDeepLinkedTemplateSummary(entry);
   });
+}
+
+// Ukrywa siatkę branż i galerię (decyzja już podjęta w /galeria/, pokazywanie
+// jej od nowa to zbędne powtórzenie) i zastępuje kompaktowym podsumowaniem
+// z opcją zmiany. Miasto/dzielnica i "Dalej →" zostają widoczne bez zmian —
+// to jedyna informacja z panelu 1, której Galeria jeszcze nie zebrała.
+function showDeepLinkedTemplateSummary(entry) {
+  var branzaGrid = document.getElementById('branza-grid');
+  var gallerySection = document.getElementById('gallery-section');
+  if (!branzaGrid || !gallerySection || document.getElementById('deep-link-summary')) return;
+  branzaGrid.style.display = 'none';
+  gallerySection.style.display = 'none';
+
+  var summary = document.createElement('div');
+  summary.id = 'deep-link-summary';
+  summary.style.cssText = 'display:flex;align-items:center;gap:14px;background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.25);border-radius:12px;padding:14px 16px;margin-bottom:8px';
+  summary.innerHTML =
+    (entry.thumb ? '<img src="' + entry.thumb + '" alt="" style="width:64px;height:44px;object-fit:cover;border-radius:6px;flex-shrink:0">' : '')
+    + '<div style="flex:1;min-width:0">'
+    + '<div style="font-size:13px;font-weight:700;color:var(--text)">Wybrany szablon: ' + (entry.title || entry.id) + '</div>'
+    + '<div style="font-size:12px;color:var(--muted)">' + (entry.label || entry.industry || '') + '</div>'
+    + '</div>'
+    + '<button type="button" onclick="revertDeepLinkedSelection()" style="background:none;border:none;color:var(--green);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">Zmień →</button>';
+  branzaGrid.parentNode.insertBefore(summary, branzaGrid);
+}
+
+// "Zmień →" w podsumowaniu — cofa do pełnego, ręcznego wyboru branży/szablonu.
+function revertDeepLinkedSelection() {
+  var summary = document.getElementById('deep-link-summary');
+  if (summary) summary.parentNode.removeChild(summary);
+  var branzaGrid = document.getElementById('branza-grid');
+  if (branzaGrid) branzaGrid.style.display = '';
+  document.querySelectorAll('.branza-tile').forEach(function (b) { b.classList.remove('selected'); });
+  state.templateId = null;
+  state.templateTier = null;
+  state.branza = '';
 }
 
 function toggleBranzaOther() {
