@@ -913,7 +913,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
       <div class="steps">
         <div class="step active" data-step="1" onclick="goToStep(1)">
           <div class="step-num">1</div>
-          <div class="step-label">Branża i lokalizacja</div>
+          <div class="step-label">Szablon i lokalizacja</div>
         </div>
         <div class="step" data-step="2">
           <div class="step-num">2</div>
@@ -1021,8 +1021,8 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
     <div class="step-panel" id="panel-1">
       <div class="sp-header">
         <div class="sp-eyebrow">// Krok 1 z 5</div>
-        <h1 class="sp-title" id="panel1-title">Jaka branża<br>i gdzie działasz?</h1>
-        <p class="sp-sub" id="panel1-sub">Wybierz branżę — AI dobierze odpowiednie kolory, fonty i treści.</p>
+        <h1 class="sp-title" id="panel1-title">Prawie gotowe!</h1>
+        <p class="sp-sub" id="panel1-sub">Zostało tylko miasto i dzielnica — reszta jest już ustawiona.</p>
       </div>
 
       <!-- Wybrany szablon — zawsze przychodzi z /galeria/, wypełniane przez
@@ -1759,10 +1759,17 @@ function selectTemplate(id, tier) {
 
 // Wybór szablonu dzieje się wyłącznie w /galeria/ (project_generator_scope_brand_fit,
 // zatwierdzone 2026-09-07, dokończone dziś) — generator zawsze oczekuje przyjścia z
-// "Aktywuj ten szablon →/generator/?template=<id>". Panel-1 jest ukryty do czasu
-// rejestracji/logowania (panel-0), więc id z URL zapamiętujemy i stosujemy dopiero
-// w onAuthenticated()->setStep(1), gdy panel-1 faktycznie staje się widoczny.
+// "Aktywuj ten szablon →/generator/?template=<id>".
 var PENDING_TEMPLATE_ID = new URLSearchParams(window.location.search).get('template') || null;
+
+// Odsyłamy na /galeria/ TU, na starcie strony — nie w onAuthenticated(). QA znalazło
+// realny bug: sprawdzanie tego dopiero po zalogowaniu działo się PO tym, jak panel-0
+// (typ konta, NIP, adres firmy) był już wypełniony, więc te dane nigdy nie trafiały
+// do Clerk metadata — ginęły bezpowrotnie przy przekierowaniu. Sprawdzenie tutaj,
+// zanim ktokolwiek zdąży cokolwiek wypełnić, eliminuje to całkowicie.
+if (!PENDING_TEMPLATE_ID) {
+  window.location.href = '/galeria/';
+}
 
 function applyPendingTemplateSelection() {
   var id = PENDING_TEMPLATE_ID;
@@ -2755,13 +2762,8 @@ function mountAuthWidget(kind) {
 
 function onAuthenticated(user) {
   if (state.email) return; // już obsłużone
-
-  // Generator zakłada, że szablon jest już wybrany w /galeria/ (patrz
-  // applyPendingTemplateSelection) — bez ?template= w URL nie ma czego tu robić.
-  if (!PENDING_TEMPLATE_ID) {
-    window.location.href = '/galeria/';
-    return;
-  }
+  // Brak ?template= jest już obsłużony wcześniej, na starcie strony (patrz redirect
+  // tuż przy deklaracji PENDING_TEMPLATE_ID) — tutaj ta zmienna jest zawsze prawdziwa.
 
   state.email = user.primaryEmailAddress ? user.primaryEmailAddress.emailAddress : '';
   var meta = user.unsafeMetadata || {};
