@@ -287,7 +287,12 @@ table.tbl tr:hover td{background:rgba(255,255,255,.03)}
 
 /* ── RESPONSIVE ── */
 @media(max-width:1200px){.stats{grid-template-columns:repeat(3,1fr)}.g3{grid-template-columns:1fr 1fr}.kanban{grid-template-columns:1fr 1fr}}
-@media(max-width:900px){.g2,.g12,.g21{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.kanban{grid-template-columns:1fr}}
+@media(max-width:900px){.g2,.g12,.g21{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.kanban{grid-template-columns:1fr}
+  .sidebar{width:var(--sw)}.main{margin-left:var(--sw)}
+  .sidebar .sb-logo-text,.sidebar .sb-logo-badge,.sidebar .nav-label,.sidebar .nav-badge,.sidebar .sb-user-info,.sidebar .sb-section,.sb-toggle{display:none}
+  .topbar{padding:0 12px}.tb-crumb{display:none}.tb-status{display:none}
+  .content{padding:16px}
+}
 
 
 /* ── NAV WEBGEN ──────────────────────────────── */
