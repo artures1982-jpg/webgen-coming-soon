@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Webgen — cennik. Start za darmo przez pierwsze 6 miesięcy, Pro od 299 zł/mies. z pełną personalizacją AI, Pro Max od 499 zł/mies. Bez umów długoterminowych.">
+<meta name="description" content="Webgen — cennik. Start za darmo przez pierwsze 6 miesięcy, Pro od 299 zł/mies. z domeną, SSL i statystykami w cenie. Zero dopłat za podstawy, bez umów długoterminowych.">
 <link rel="canonical" href="https://www.webgen.pl/cennik/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.webgen.pl/cennik/">
 <meta property="og:site_name" content="Webgen">
 <meta property="og:title" content="Cennik Webgen — Start za darmo, Pro od 299 zł/mies.">
-<meta property="og:description" content="Start: darmowa Galeria Startowa przez 6 miesięcy. Pro (299 zł/mies.) i Pro Max (499 zł/mies.) dodają personalizację AI, lokalne SEO, formularz kontaktowy i priorytetową obsługę zmian.">
+<meta property="og:description" content="Start: darmowa Galeria Startowa przez 6 miesięcy. Pro (299 zł/mies.) i Pro Max (499 zł/mies.) dodają personalizację AI, domenę, SSL i statystyki w cenie oraz obsługę zmian mailowo.">
 <meta property="og:image" content="https://www.webgen.pl/og-image.png">
 <meta property="og:locale" content="pl_PL">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Cennik Webgen — Start za darmo, Pro od 299 zł/mies.">
-<meta name="twitter:description" content="Przeglądaj gotowe szablony za darmo przez 6 miesięcy, albo odblokuj personalizację AI z planem Pro lub Pro Max.">
+<meta name="twitter:description" content="Przeglądaj gotowe szablony za darmo przez 6 miesięcy, albo odblokuj personalizację AI, domenę i statystyki w cenie planu Pro lub Pro Max.">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -26,8 +26,8 @@
   "isPartOf": {"@id": "https://www.webgen.pl/#website"},
   "offers": [
     {"@type":"Offer","name":"Start","price":"0","priceCurrency":"PLN","description":"Darmowo przez pierwsze 6 miesięcy, potem 149 zł/mies. Pełna Galeria Startowa, wybór i aktywacja szablonu, hosting na subdomenie webgen.pl"},
-    {"@type":"Offer","name":"Pro","price":"299","priceCurrency":"PLN","priceSpecification":{"@type":"UnitPriceSpecification","price":"299","priceCurrency":"PLN","unitCode":"MON"}},
-    {"@type":"Offer","name":"Pro Max","price":"499","priceCurrency":"PLN","priceSpecification":{"@type":"UnitPriceSpecification","price":"499","priceCurrency":"PLN","unitCode":"MON"}}
+    {"@type":"Offer","name":"Pro","price":"299","priceCurrency":"PLN","description":"Personalizacja AI, własna domena z SSL i statystyki w cenie abonamentu. Dostępna też płatność roczna: 2990 zł (2 miesiące gratis).","priceSpecification":{"@type":"UnitPriceSpecification","price":"299","priceCurrency":"PLN","unitCode":"MON"}},
+    {"@type":"Offer","name":"Pro Max","price":"499","priceCurrency":"PLN","description":"Wszystko z Pro plus rozszerzona personalizacja i priorytetowa obsługa zmian. Dostępna też płatność roczna: 4990 zł (2 miesiące gratis).","priceSpecification":{"@type":"UnitPriceSpecification","price":"499","priceCurrency":"PLN","unitCode":"MON"}}
   ]
 }
 </script>
@@ -96,6 +96,10 @@ h1 .grad-text{background:var(--grad);background-size:220% 220%;-webkit-backgroun
 .plan-name{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
 .plan-price{font-size:clamp(34px,4vw,48px);font-weight:800;color:var(--text);letter-spacing:-.03em;line-height:1}
 .plan-price sub{font-size:15px;font-weight:400;color:var(--muted);letter-spacing:0}
+.plan-price-alt{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-top:8px}
+.plan-price-alt strong{color:var(--green);font-weight:700}
+.plan.max .plan-price-alt{color:rgba(6,7,12,.6)}
+.plan.max .plan-price-alt strong{color:#06070c}
 .plan-desc{font-size:13px;color:var(--muted);margin-top:10px;line-height:1.6;min-height:40px}
 .plan-header{margin-bottom:24px}
 .plan-divider{height:1px;background:var(--border);margin-bottom:24px}
@@ -354,7 +358,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
   <div class="hero-inner">
     <p class="hero-eyebrow">Cennik</p>
     <h1>Prosty cennik,<br><span class="grad-text">bez ukrytych kosztów.</span></h1>
-    <p class="hero-sub">Przeglądaj i aktywuj szablon za darmo przez pierwsze 6 miesięcy, albo odblokuj personalizację AI z planem Pro lub Pro Max. Rezygnacja w każdej chwili, bez umów.</p>
+    <p class="hero-sub">Przeglądaj i aktywuj szablon za darmo przez pierwsze 6 miesięcy, albo odblokuj personalizację AI z planem Pro lub Pro Max — z domeną, SSL i statystykami w cenie, bez dopłat za podstawy. Rezygnacja w każdej chwili, bez umów.</p>
   </div>
 </section>
 
@@ -386,16 +390,19 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
         <div class="plan-header">
           <div class="plan-name">Pro</div>
           <div class="plan-price">299 <sub>zł/mies.</sub></div>
-          <p class="plan-desc">Szablony Pro + AI dopasowuje treść, zdjęcia i kolory pod Twoją firmę.</p>
+          <div class="plan-price-alt">lub <strong>2990 zł/rok</strong> — 2 miesiące gratis</div>
+          <p class="plan-desc">Wybierasz szablon Pro, a AI i nasz zespół zajmują się resztą — treścią, zdjęciami, domeną i utrzymaniem.</p>
         </div>
         <div class="plan-divider"></div>
         <div class="plan-features">
           <div class="pf"><span class="pf-check yes">✓</span>Wszystko ze Start</div>
           <div class="pf"><span class="pf-check yes">✓</span>Dostęp do szablonów Pro</div>
           <div class="pf"><span class="pf-check yes">✓</span>Pełna personalizacja AI (treść, zdjęcia, kolory)</div>
+          <div class="pf"><span class="pf-check yes">✓</span>Własna domena + SSL w cenie — rejestrujemy i podpinamy za Ciebie</div>
+          <div class="pf"><span class="pf-check yes">✓</span>Statystyki i analityka w cenie, bez osobnego abonamentu</div>
           <div class="pf"><span class="pf-check yes">✓</span>Lokalne SEO wbudowane</div>
           <div class="pf"><span class="pf-check yes">✓</span>Formularz kontaktowy / rezerwacje</div>
-          <div class="pf"><span class="pf-check yes">✓</span>Aktualizacje treści na życzenie (mailowo)</div>
+          <div class="pf"><span class="pf-check yes">✓</span>Zmiana treści na życzenie — wysyłasz maila, my wdrażamy</div>
         </div>
         <a href="/galeria/?plan=pro" class="plan-btn primary">Pro 299 zł/mies. →</a>
       </div>
@@ -404,7 +411,8 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
         <div class="plan-header">
           <div class="plan-name">Pro Max</div>
           <div class="plan-price">499 <sub>zł/mies.</sub></div>
-          <p class="plan-desc">Najszerszy pakiet — maksymalna personalizacja dla firm, które traktują stronę poważnie.</p>
+          <div class="plan-price-alt">lub <strong>4990 zł/rok</strong> — 2 miesiące gratis</div>
+          <p class="plan-desc">Najszerszy pakiet — maksymalna personalizacja i priorytetowa opieka dla firm, które traktują stronę poważnie.</p>
         </div>
         <div class="plan-divider"></div>
         <div class="plan-features">
@@ -422,25 +430,12 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 <!-- ADD-ONY — 7 dodatków à la carte nad planem Pro (Faza 5) -->
 <section class="addons-section">
   <div class="addons-inner">
-    <div class="addons-title">Dodatki do planu Pro</div>
-    <p class="addons-sub">Dokupywane pojedynczo, działają w ramach aktywnego planu Pro.</p>
+    <div class="addons-title">Dodatki, które realnie zwiększają sprzedaż</div>
+    <p class="addons-sub">Podstawy — domena, SSL, statystyki — są już w cenie Pro. Dodatki poniżej to opcje, które pomagają zdobywać nowych klientów, nie kolejna dopłata za technikalia.</p>
     <div class="addons-grid">
       <div class="addon reveal">
         <div class="addon-left">
           <div class="addon-icon">01</div>
-          <div>
-            <div class="addon-name">Własna domena</div>
-            <div class="addon-desc">Podpięcie Twojej domeny + konfiguracja DNS i SSL</div>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
-          <div class="addon-price">199 zł</div>
-          <span class="addon-buy" onclick="buyAddon('wlasna_domena','Własna domena',199,'once')">Kup →</span>
-        </div>
-      </div>
-      <div class="addon reveal">
-        <div class="addon-left">
-          <div class="addon-icon">02</div>
           <div>
             <div class="addon-name">Integracja Social Media</div>
             <div class="addon-desc">Live feed z Instagram/Facebook wpięty w Twoją stronę</div>
@@ -453,20 +448,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
       </div>
       <div class="addon reveal">
         <div class="addon-left">
-          <div class="addon-icon">03</div>
-          <div>
-            <div class="addon-name">Statystyki odwiedzin</div>
-            <div class="addon-desc">Panel z ruchem na stronie, źródłami i konwersjami</div>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
-          <div class="addon-price">49 zł/mies</div>
-          <span class="addon-buy" onclick="buyAddon('statystyki','Statystyki odwiedzin',49,'month')">Kup →</span>
-        </div>
-      </div>
-      <div class="addon reveal">
-        <div class="addon-left">
-          <div class="addon-icon">04</div>
+          <div class="addon-icon">02</div>
           <div>
             <div class="addon-name">Dodatkowe podstrony</div>
             <div class="addon-desc">3 osobne podstrony ofertowe (np. per usługa lub lokalizacja)</div>
@@ -479,7 +461,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
       </div>
       <div class="addon reveal">
         <div class="addon-left">
-          <div class="addon-icon">05</div>
+          <div class="addon-icon">03</div>
           <div>
             <div class="addon-name">Sesja zdjęciowa AI</div>
             <div class="addon-desc">Zdjęcia AI dopasowane do branży i klimatu firmy</div>
@@ -492,10 +474,10 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
       </div>
       <div class="addon reveal">
         <div class="addon-left">
-          <div class="addon-icon">06</div>
+          <div class="addon-icon">04</div>
           <div>
             <div class="addon-name">Google Business Profile</div>
-            <div class="addon-desc">Założymy i zoptymalizujemy profil w Mapach Google</div>
+            <div class="addon-desc">Zdominuj lokalne Mapy Google i zbieraj opinie, które przyciągają klientów</div>
           </div>
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
@@ -505,7 +487,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
       </div>
       <div class="addon reveal">
         <div class="addon-left">
-          <div class="addon-icon">07</div>
+          <div class="addon-icon">05</div>
           <div>
             <div class="addon-name">Priorytetowe wsparcie</div>
             <div class="addon-desc">Odpowiedź w 4h, dedykowany czat, szybsze aktualizacje</div>
@@ -549,11 +531,15 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
     </div>
     <div class="faq-item reveal">
       <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Czy muszę mieć własną domenę?<span class="faq-arrow">+</span></div>
-      <div class="faq-a"><p>Nie. Strona domyślnie działa na subdomenie *.webgen.pl — własną domenę możesz dokupić jako dodatek w planie Pro.</p></div>
+      <div class="faq-a"><p>Nie. Strona domyślnie działa na subdomenie *.webgen.pl. W planach Pro i Pro Max własną domenę (np. .pl) rejestrujemy, podpinamy i konfigurujemy z SSL w cenie abonamentu — bez dodatkowej opłaty za podstawy.</p></div>
     </div>
     <div class="faq-item reveal">
       <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Jak zmienić treść strony po aktywacji?<span class="faq-arrow">+</span></div>
       <div class="faq-a"><p>W planie Pro wystarczy wysłać email — np. "zmień numer telefonu na...".</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Czy mogę płacić rocznie?<span class="faq-arrow">+</span></div>
+      <div class="faq-a"><p>Tak. Płatność roczna w planach Pro (2990 zł) i Pro Max (4990 zł) to koszt równy 10 miesiącom — 2 miesiące dostajesz gratis. Opcję rozliczenia wybierasz w generatorze przy aktywacji planu.</p></div>
     </div>
     <div class="faq-item reveal">
       <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Czy Webgen działa w całej Polsce, czy tylko w dużych miastach?<span class="faq-arrow">+</span></div>
