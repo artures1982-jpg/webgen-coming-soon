@@ -2013,15 +2013,20 @@ function fillTemplate(html, firma) {
   return result;
 }
 
-// ─── PALETA KOLORÓW MARKI (opcjonalna nakładka na 6 zmiennych koloru) ───
-var PALETTES = [];
+// ─── PALETA KOLORÓW MARKI (opcjonalna nakładka na 6 zmiennych koloru, dobrana per branża) ───
+var PALETTES_BY_INDUSTRY = {};
+var PALETTES = []; // spłaszczone — do wyszukiwania po id (applyPalette)
 var palettesLoaded = false;
 function loadPalettes() {
   if (palettesLoaded) return Promise.resolve();
   return fetch('/templates/palettes.json')
-    .then(function (res) { return res.ok ? res.json() : []; })
-    .then(function (data) { PALETTES = Array.isArray(data) ? data : []; palettesLoaded = true; })
-    .catch(function () { PALETTES = []; palettesLoaded = true; });
+    .then(function (res) { return res.ok ? res.json() : {}; })
+    .then(function (data) {
+      PALETTES_BY_INDUSTRY = (data && typeof data === 'object' && !Array.isArray(data)) ? data : {};
+      PALETTES = Object.keys(PALETTES_BY_INDUSTRY).reduce(function (acc, k) { return acc.concat(PALETTES_BY_INDUSTRY[k]); }, []);
+      palettesLoaded = true;
+    })
+    .catch(function () { PALETTES_BY_INDUSTRY = {}; PALETTES = []; palettesLoaded = true; });
 }
 
 // Wstrzykuje <style> z nadpisaniem :root tuż przed </head> — późniejsza reguła wygrywa w
@@ -2064,7 +2069,9 @@ function fetchRawTemplateForPreview() {
 function renderPaletteGrid() {
   var grid = document.getElementById('palette-grid');
   if (!grid) return;
-  var items = [{ id: '', name: 'Domyślne kolory szablonu', accent: null }].concat(PALETTES);
+  var tpl = TEMPLATES_MANIFEST.filter(function (t) { return t.id === state.templateId; })[0];
+  var industryPalettes = (tpl && PALETTES_BY_INDUSTRY[tpl.industry]) || [];
+  var items = [{ id: '', name: 'Domyślne kolory szablonu', accent: null }].concat(industryPalettes);
   grid.innerHTML = items.map(function (p) {
     var active = (state.paletteId || '') === p.id;
     var swatch = p.accent

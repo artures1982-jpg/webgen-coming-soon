@@ -1,68 +1,74 @@
-[
-  {
-    "id": "ciepla-terakota",
-    "name": "Ciepła terakota",
-    "dark": false,
-    "accent": "#C1502E",
-    "accentDark": "#8C371E",
-    "bg": "#FBF3EA",
-    "surface": "#F3E4D3",
-    "text": "#2B1E14",
-    "muted": "#7A6A5A"
-  },
-  {
-    "id": "glowa-lesna-zielen",
-    "name": "Głęboka leśna zieleń",
-    "dark": false,
-    "accent": "#1F6B4A",
-    "accentDark": "#13432E",
-    "bg": "#F5F7F3",
-    "surface": "#E6EBE1",
-    "text": "#1B2420",
-    "muted": "#5C6B60"
-  },
-  {
-    "id": "chlodny-indygo",
-    "name": "Chłodny indygo",
-    "dark": false,
-    "accent": "#2F4CD1",
-    "accentDark": "#1F35A0",
-    "bg": "#F2F4FB",
-    "surface": "#E1E6F5",
-    "text": "#171A2E",
-    "muted": "#5C6180"
-  },
-  {
-    "id": "winna-glebia",
-    "name": "Winna głębia",
-    "dark": false,
-    "accent": "#8C2F52",
-    "accentDark": "#631F39",
-    "bg": "#FBF1F3",
-    "surface": "#F0DCE2",
-    "text": "#2B1620",
-    "muted": "#7A5A63"
-  },
-  {
-    "id": "morski-petrol",
-    "name": "Morski petrol",
-    "dark": false,
-    "accent": "#0E6E6E",
-    "accentDark": "#0A4D4D",
-    "bg": "#EFF7F6",
-    "surface": "#DCEEEC",
-    "text": "#142523",
-    "muted": "#4F6B68"
-  },
-  {
-    "id": "nocny-luksus",
-    "name": "Nocny luksus",
-    "dark": true,
-    "accent": "#D4A73A",
-    "accentDark": "#A8822A",
-    "bg": "#14161C",
-    "surface": "#1E212A",
-    "text": "#F3EFE6",
-    "muted": "#9A96A0"
-  }
-]
+{
+  "hydraulik": [
+    {"id":"hydraulik-miedz-rzemieslnika","name":"Miedź rzemieślnika","dark":false,"accent":"#B5651D","accentDark":"#7A430E","bg":"#F6F1EA","surface":"#EAE0D2","text":"#26201A","muted":"#6E6459"},
+    {"id":"hydraulik-woda-i-stal","name":"Woda i stal","dark":false,"accent":"#1C6E8C","accentDark":"#124A5E","bg":"#EFF5F7","surface":"#DCE9ED","text":"#182428","muted":"#57696E"},
+    {"id":"hydraulik-granatowy-warsztat","name":"Granatowy warsztat","dark":false,"accent":"#2A4D69","accentDark":"#182E3D","bg":"#F2F4F6","surface":"#E1E7EB","text":"#1A2228","muted":"#5A6773"},
+    {"id":"hydraulik-noc-w-kotlowni","name":"Noc w kotłowni","dark":true,"accent":"#E0A458","accentDark":"#B37D34","bg":"#151A1E","surface":"#1F262B","text":"#F1EDE4","muted":"#96A0A6"}
+  ],
+  "elektryk": [
+    {"id":"elektryk-iskra-miedzi","name":"Iskra miedzi","dark":false,"accent":"#D97B1F","accentDark":"#8F4E10","bg":"#FBF3E4","surface":"#F1E3C7","text":"#241C10","muted":"#786B52"},
+    {"id":"elektryk-woltaz-blekitu","name":"Woltaż błękitu","dark":false,"accent":"#2660C4","accentDark":"#173E82","bg":"#EEF3FC","surface":"#DCE6F7","text":"#161C2C","muted":"#576078"},
+    {"id":"elektryk-slonecznik-energii","name":"Słonecznik energii","dark":false,"accent":"#C99A1E","accentDark":"#8A6710","bg":"#FBF8EC","surface":"#F2EBCB","text":"#26210F","muted":"#7A7256"},
+    {"id":"elektryk-grafit-i-neon","name":"Grafit i neon","dark":true,"accent":"#C7E23A","accentDark":"#93A824","bg":"#14171A","surface":"#1E2226","text":"#F2F5E9","muted":"#9AA090"}
+  ],
+  "fryzjer-barber": [
+    {"id":"fryzjer-barber-burgund-klasyczny","name":"Burgund klasyczny","dark":false,"accent":"#8C2A38","accentDark":"#5A1620","bg":"#F3EDE4","surface":"#E7DCC9","text":"#2A211B","muted":"#726256"},
+    {"id":"fryzjer-barber-granat-i-stal","name":"Granat i stal","dark":false,"accent":"#274156","accentDark":"#152736","bg":"#F0EFEA","surface":"#E1DFD3","text":"#201E1B","muted":"#66625A"},
+    {"id":"fryzjer-barber-skora-i-tyton","name":"Skóra i tytoń","dark":false,"accent":"#7A5230","accentDark":"#4E341E","bg":"#F5EFE3","surface":"#E9DEC9","text":"#251E14","muted":"#756A57"},
+    {"id":"fryzjer-barber-czarny-fotel","name":"Czarny fotel","dark":true,"accent":"#B23A48","accentDark":"#7C2530","bg":"#141313","surface":"#201E1B","text":"#F0E9DD","muted":"#948A7C"}
+  ],
+  "salon-fryzjerski": [
+    {"id":"salon-fryzjerski-roz-pudrowy","name":"Róż pudrowy","dark":false,"accent":"#C15B7A","accentDark":"#8A3A54","bg":"#FBF1F0","surface":"#F3DEE0","text":"#2B1E20","muted":"#7C6165"},
+    {"id":"salon-fryzjerski-szmaragdowy","name":"Szmaragdowy","dark":false,"accent":"#1E7A5F","accentDark":"#124F3D","bg":"#F0F7F3","surface":"#DCEDE3","text":"#16241E","muted":"#57706A"},
+    {"id":"salon-fryzjerski-lawendowy","name":"Lawendowy","dark":false,"accent":"#7A5FA6","accentDark":"#4F3B72","bg":"#F5F1FA","surface":"#E7DEF2","text":"#241E2E","muted":"#6C637C"},
+    {"id":"salon-fryzjerski-zloty-wieczor","name":"Złoty wieczór","dark":true,"accent":"#D4AF37","accentDark":"#A6842A","bg":"#17121A","surface":"#231C29","text":"#F3EDE0","muted":"#9C8FA0"}
+  ],
+  "studio-paznokci": [
+    {"id":"studio-paznokci-koralowy","name":"Koralowy","dark":false,"accent":"#E0654A","accentDark":"#A5432E","bg":"#FBF0EA","surface":"#F5DED4","text":"#2B1D17","muted":"#7E6459"},
+    {"id":"studio-paznokci-lila","name":"Lila","dark":false,"accent":"#9E6FC1","accentDark":"#6B4589","bg":"#F7F1FA","surface":"#EBDEF3","text":"#251E2C","muted":"#726782"},
+    {"id":"studio-paznokci-mietowy","name":"Miętowy","dark":false,"accent":"#2FA893","accentDark":"#1E6F60","bg":"#EFFAF6","surface":"#DBF0E7","text":"#152722","muted":"#557067"},
+    {"id":"studio-paznokci-czarny-glam","name":"Czarny glam","dark":true,"accent":"#E8558A","accentDark":"#B23764","bg":"#161014","surface":"#221A20","text":"#F5EAE9","muted":"#A08C93"}
+  ],
+  "medycyna-estetyczna": [
+    {"id":"medycyna-estetyczna-szalwia-klinika","name":"Szałwia kliniki","dark":false,"accent":"#5C8270","accentDark":"#3A5A4A","bg":"#F5F8F5","surface":"#E5EDE6","text":"#1D2620","muted":"#5F6E63"},
+    {"id":"medycyna-estetyczna-perlowy-blekit","name":"Perłowy błękit","dark":false,"accent":"#5D7A99","accentDark":"#3B5470","bg":"#F4F6F9","surface":"#E3E9F0","text":"#1C2530","muted":"#5C6B7C"},
+    {"id":"medycyna-estetyczna-nude-satyna","name":"Nude satyna","dark":false,"accent":"#B08268","accentDark":"#7A5744","bg":"#FAF5F0","surface":"#F0E3D8","text":"#271F1A","muted":"#7B6E62"},
+    {"id":"medycyna-estetyczna-noc-i-rose-gold","name":"Noc i rose gold","dark":true,"accent":"#D08C7A","accentDark":"#A5644F","bg":"#171416","surface":"#231F22","text":"#F1E9E6","muted":"#9C8D8B"}
+  ],
+  "remonty": [
+    {"id":"remonty-cegla-i-beton","name":"Cegła i beton","dark":false,"accent":"#B5523A","accentDark":"#7C331F","bg":"#F2EFEA","surface":"#E4DDD2","text":"#231F1B","muted":"#6C645A"},
+    {"id":"remonty-oliwka-robocza","name":"Oliwka robocza","dark":false,"accent":"#6E7241","accentDark":"#494C29","bg":"#F3F2EA","surface":"#E5E3D3","text":"#1F211A","muted":"#666A53"},
+    {"id":"remonty-piaskowiec","name":"Piaskowiec","dark":false,"accent":"#A9855A","accentDark":"#755C3D","bg":"#F7F2E9","surface":"#EBE0CB","text":"#241F16","muted":"#75695A"},
+    {"id":"remonty-stal-nocna","name":"Stal nocna","dark":true,"accent":"#E07A3E","accentDark":"#A6541F","bg":"#151615","surface":"#212220","text":"#EFEEE8","muted":"#9A9A90"}
+  ],
+  "nieruchomosci": [
+    {"id":"nieruchomosci-piasek-i-zloto","name":"Piasek i złoto","dark":false,"accent":"#B08D4E","accentDark":"#7C602F","bg":"#F8F3E7","surface":"#EFE4CC","text":"#221F17","muted":"#786D5B"},
+    {"id":"nieruchomosci-szafir-stonowany","name":"Szafir stonowany","dark":false,"accent":"#3E5C7A","accentDark":"#263C52","bg":"#F3F5F7","surface":"#E2E7EC","text":"#1B222B","muted":"#5A6675"},
+    {"id":"nieruchomosci-szalwiowa-elegancja","name":"Szałwiowa elegancja","dark":false,"accent":"#5E7859","accentDark":"#3C4E39","bg":"#F5F6F1","surface":"#E5E9DE","text":"#1E2419","muted":"#63705C"},
+    {"id":"nieruchomosci-nocna-rezydencja","name":"Nocna rezydencja","dark":true,"accent":"#C9A24A","accentDark":"#9A7A32","bg":"#12161F","surface":"#1C222E","text":"#EFEDE6","muted":"#909AAB"}
+  ],
+  "stomatolog": [
+    {"id":"stomatolog-mietowa-swiezosc","name":"Miętowa świeżość","dark":false,"accent":"#2E9A8B","accentDark":"#1D6459","bg":"#F0FAF8","surface":"#DCF0EC","text":"#152724","muted":"#57706B"},
+    {"id":"stomatolog-blekit-spokoju","name":"Błękit spokoju","dark":false,"accent":"#4E7FB0","accentDark":"#33547A","bg":"#EFF5FA","surface":"#DDE9F3","text":"#182430","muted":"#57697C"},
+    {"id":"stomatolog-piaskowa-cieplo","name":"Piaskowe ciepło","dark":false,"accent":"#C08A5C","accentDark":"#87603D","bg":"#FAF4EA","surface":"#EFE2CC","text":"#26201A","muted":"#7C6F5D"},
+    {"id":"stomatolog-granat-nocny","name":"Granat nocny","dark":true,"accent":"#5FA0C9","accentDark":"#3D7699","bg":"#121820","surface":"#1C242F","text":"#EAEFF3","muted":"#8A97A6"}
+  ],
+  "fotograf-slubny": [
+    {"id":"fotograf-slubny-zlota-godzina","name":"Złota godzina","dark":false,"accent":"#C79A4B","accentDark":"#8E6B2F","bg":"#FAF5EA","surface":"#F0E3C8","text":"#251F14","muted":"#7B6F58"},
+    {"id":"fotograf-slubny-pudrowy-roz","name":"Pudrowy róż","dark":false,"accent":"#C87E8A","accentDark":"#8F515C","bg":"#FBF2F1","surface":"#F2DEE0","text":"#291E20","muted":"#7E6265"},
+    {"id":"fotograf-slubny-eukaliptus","name":"Eukaliptus","dark":false,"accent":"#5E7C63","accentDark":"#3C5240","bg":"#F4F6F1","surface":"#E5EAE0","text":"#1E241F","muted":"#647065"},
+    {"id":"fotograf-slubny-wieczorna-suknia","name":"Wieczorna suknia","dark":true,"accent":"#B58A52","accentDark":"#7C5C34","bg":"#181220","surface":"#241C2C","text":"#F1E9E8","muted":"#9C8FA0"}
+  ],
+  "fotowoltaika": [
+    {"id":"fotowoltaika-swieza-zielen","name":"Świeża zieleń","dark":false,"accent":"#3F9142","accentDark":"#28632A","bg":"#F1F8EF","surface":"#DFEEDB","text":"#182B18","muted":"#59705A"},
+    {"id":"fotowoltaika-niebo-technologii","name":"Niebo technologii","dark":false,"accent":"#2E86C1","accentDark":"#1D5A85","bg":"#EEF6FB","surface":"#DBEBF5","text":"#152530","muted":"#546878"},
+    {"id":"fotowoltaika-sloneczny-zapal","name":"Słoneczny zapał","dark":false,"accent":"#E08E2B","accentDark":"#A3651A","bg":"#FBF5E9","surface":"#F1E3C4","text":"#271F12","muted":"#7C6E52"},
+    {"id":"fotowoltaika-noc-i-energia","name":"Noc i energia","dark":true,"accent":"#4FD1A5","accentDark":"#2E9975","bg":"#121714","surface":"#1C231E","text":"#E9F2E5","muted":"#8FA089"}
+  ],
+  "auta-z-ameryki": [
+    {"id":"auta-z-ameryki-czerwony-v8","name":"Czerwony V8","dark":false,"accent":"#B23A2E","accentDark":"#7C271F","bg":"#F3F0EA","surface":"#E6DED2","text":"#211D19","muted":"#6B6259"},
+    {"id":"auta-z-ameryki-stalowy-chrom","name":"Stalowy chrom","dark":false,"accent":"#4A6478","accentDark":"#2E4152","bg":"#F1F3F4","surface":"#E1E5E8","text":"#1B2126","muted":"#5B6570"},
+    {"id":"auta-z-ameryki-khaki-terenowe","name":"Khaki terenowe","dark":false,"accent":"#9C8248","accentDark":"#6B5730","bg":"#F5F1E6","surface":"#EAE0C8","text":"#221F16","muted":"#726753"},
+    {"id":"auta-z-ameryki-garaz-nocny","name":"Garaż nocny","dark":true,"accent":"#D14B3A","accentDark":"#9C3327","bg":"#131313","surface":"#1F1E1E","text":"#EFECE6","muted":"#9A9590"}
+  ]
+}
