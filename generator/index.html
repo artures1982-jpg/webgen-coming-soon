@@ -142,9 +142,6 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
 
 /* BRANŻA SELECTOR */
 .branza-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.branza-btn{background:var(--s2);border:1.5px solid var(--border);border-radius:10px;padding:16px 14px;cursor:pointer;transition:all .2s;text-align:left;display:flex;flex-direction:column;gap:6px}
-.branza-btn:hover{border-color:var(--border2)}
-.branza-btn.selected{border-color:var(--green);background:rgba(0,229,160,.06)}
 .branza-icon{font-size:22px}
 .branza-name{font-size:13px;font-weight:700;color:var(--text)}
 .branza-desc{font-size:11px;color:var(--muted)}
@@ -1047,7 +1044,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
     <!-- STEP 1: BRANŻA -->
     <div class="step-panel active" id="panel-0">
       <div class="sp-header" style="text-align:center">
-        <div class="sp-eyebrow">// Krok 1 z 7</div>
+        <div class="sp-eyebrow">// Rejestracja</div>
         <h1 class="sp-title">Utwórz darmowe<br><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">konto webgen</span></h1>
         <p class="sp-sub">Pierwsze 6 miesięcy gratis. Wybierz typ konta.</p>
       </div>
@@ -1118,8 +1115,8 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
     <div class="step-panel" id="panel-1">
       <div class="sp-header">
         <div class="sp-eyebrow">// Krok 1 z 5</div>
-        <h1 class="sp-title">Jaka branża<br>i gdzie działasz?</h1>
-        <p class="sp-sub">Wybierz branżę — AI dobierze odpowiednie kolory, fonty i treści.</p>
+        <h1 class="sp-title" id="panel1-title">Jaka branża<br>i gdzie działasz?</h1>
+        <p class="sp-sub" id="panel1-sub">Wybierz branżę — AI dobierze odpowiednie kolory, fonty i treści.</p>
       </div>
 
       <!-- BRANŻE — kafelki -->
@@ -1288,13 +1285,13 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
             <input type="text" id="f-godz-pon-pt" placeholder="8:00–18:00">
           </div>
           <div class="field">
-            <label>Godziny Sobota <span class="opt">opcjonalnie</span></label>
+            <label>Godziny Sob <span class="opt">opcjonalnie</span></label>
             <input type="text" id="f-godz-sob" placeholder="9:00–14:00">
           </div>
         </div>
         <div class="form-grid cols2">
           <div class="field">
-            <label>Lat doświadczenia <span class="opt">opcjonalnie</span></label>
+            <label>Lata doświadczenia <span class="opt">opcjonalnie</span></label>
             <input type="number" id="f-lata" oninput="updateLivePreview()" placeholder="np. 10" min="1" max="50">
           </div>
           <div class="field">
@@ -1780,6 +1777,7 @@ const TIPS = {
   2: 'Godziny otwarcia i lata doświadczenia zwiększają konwersję o 40%.',
   3: 'Firmy z social media mają 2× więcej kontaktów z klientami.',
   5: 'Plan Pro to 10× taniej niż agencja webowa.',
+  6: 'Generowanie trwa około minuty — zostaw kartę otwartą, zaraz zobaczysz efekt.',
 };
 
 // Krok 4 ("Wybierz plan") został usunięty — wybór szablonu w kroku 1 USTAWIA plan
@@ -2072,6 +2070,9 @@ function applyPendingTemplateSelection() {
 // jej od nowa to zbędne powtórzenie) i zastępuje kompaktowym podsumowaniem
 // z opcją zmiany. Miasto/dzielnica i "Dalej →" zostają widoczne bez zmian —
 // to jedyna informacja z panelu 1, której Galeria jeszcze nie zebrała.
+var PANEL1_DEFAULT_TITLE = 'Jaka branża<br>i gdzie działasz?';
+var PANEL1_DEFAULT_SUB = 'Wybierz branżę — AI dobierze odpowiednie kolory, fonty i treści.';
+
 function showDeepLinkedTemplateSummary(entry) {
   var branzaGrid = document.getElementById('branza-grid');
   var gallerySection = document.getElementById('gallery-section');
@@ -2080,6 +2081,11 @@ function showDeepLinkedTemplateSummary(entry) {
   branzaGrid.style.display = 'none';
   gallerySection.style.display = 'none';
   if (branzaOther) branzaOther.style.display = 'none';
+
+  var titleEl = document.getElementById('panel1-title');
+  var subEl = document.getElementById('panel1-sub');
+  if (titleEl) titleEl.innerHTML = 'Prawie gotowe!';
+  if (subEl) subEl.textContent = 'Zostało tylko miasto i dzielnica — reszta jest już ustawiona.';
 
   var summary = document.createElement('div');
   summary.id = 'deep-link-summary';
@@ -2090,11 +2096,11 @@ function showDeepLinkedTemplateSummary(entry) {
     + '<div style="font-size:13px;font-weight:700;color:var(--text)">Wybrany szablon: ' + (entry.title || entry.id) + '</div>'
     + '<div style="font-size:12px;color:var(--muted)">' + (entry.label || entry.industry || '') + '</div>'
     + '</div>'
-    + '<button type="button" onclick="revertDeepLinkedSelection()" style="background:none;border:none;color:var(--green);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">Zmień →</button>';
+    + '<button type="button" onclick="revertDeepLinkedSelection()" style="background:none;border:none;color:var(--green);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">Zmień</button>';
   branzaGrid.parentNode.insertBefore(summary, branzaGrid);
 }
 
-// "Zmień →" w podsumowaniu — cofa do pełnego, ręcznego wyboru branży/szablonu.
+// "Zmień" w podsumowaniu — cofa do pełnego, ręcznego wyboru branży/szablonu.
 function revertDeepLinkedSelection() {
   var summary = document.getElementById('deep-link-summary');
   if (summary) summary.parentNode.removeChild(summary);
@@ -2103,6 +2109,10 @@ function revertDeepLinkedSelection() {
   var branzaOther = document.getElementById('branza-other-wrap');
   if (branzaOther) branzaOther.style.display = '';
   document.querySelectorAll('.branza-tile').forEach(function (b) { b.classList.remove('selected'); });
+  var titleEl = document.getElementById('panel1-title');
+  var subEl = document.getElementById('panel1-sub');
+  if (titleEl) titleEl.innerHTML = PANEL1_DEFAULT_TITLE;
+  if (subEl) subEl.textContent = PANEL1_DEFAULT_SUB;
   state.templateId = null;
   state.templateTier = null;
   state.branza = '';
@@ -2130,12 +2140,6 @@ function selectBranzaFromOther(val) {
   state.branza = val.trim() ? val.trim() : '';
   showGalleryForBranza();
 }
-function selectBranza(btn, name) {
-  document.querySelectorAll('.branza-btn').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
-  state.branza = name;
-}
-
 // ─── ADDONY ─── 7 dodatków à la carte nad planem Pro (Faza 5) — id zgodne z ADDON_PRICES
 // w api/create-checkout.js. seo_dzielnice/seo_miasto/wersja_jezykowa zniknęły (SEO w Pro).
 const ADDONS_CONFIG = {
@@ -2473,17 +2477,17 @@ async function startGenerate() {
   var _msgs = state.templateId
     ? (state.templateTier === 'pro'
         ? [
-            ['Analizuję Twoje dane…', firma.branza+' w '+firma.miasto],
+            ['Analizuję Twoje dane…', firma.branza+' · '+firma.miasto],
             ['Personalizuję wybrany szablon…', 'Treść, zdjęcia i kolory dopasowane do Ciebie'],
             ['Optymalizuję SEO…', 'Meta tagi, Schema.org, nagłówki'],
             ['Prawie gotowe!', 'Zaraz zobaczysz swoją stronę…'],
           ]
         : [
-            ['Wypełniam szablon Twoimi danymi…', firma.branza+' w '+firma.miasto],
+            ['Wypełniam szablon Twoimi danymi…', firma.branza+' · '+firma.miasto],
             ['Prawie gotowe!', 'Zaraz zobaczysz swoją stronę…'],
           ])
     : [
-        ['Analizuję branżę…', firma.branza+' w '+firma.miasto],
+        ['Analizuję branżę…', firma.branza+' · '+firma.miasto],
         ['Piszę treści SEO…', 'Nagłówki, opisy usług, meta tagi'],
         ['Generuję styl Klasyczny…', 'Ciepły, lokalny, profesjonalny'],
         ['Generuję styl Nowoczesny…', 'Dark mode, neon, glassmorphism'],
@@ -2980,14 +2984,15 @@ function selectPlan6(id, name, price) {
   if (el_name)  el_name.textContent = name;
   if (el_list)  el_list.innerHTML = addonLines || '<span style="color:rgba(142,151,172,.4)">Brak dodatków</span>';
 
-  if (false) { // free removed
-  } else {
-    var total = planPrice + addonsMonth;
-    var suffix = addonsOnce > 0 ? ' + ' + addonsOnce + ' zł jednorazowo' : '';
-    if (el_total) el_total.textContent = total + ' zł/mies.' + suffix;
-    if (el_note)  el_note.textContent = '';
-    document.getElementById('btn-start-gen').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="width:18px;height:18px"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> Generuj i aktywuj stronę';
-  }
+  var total = planPrice + addonsMonth;
+  var suffix = addonsOnce > 0 ? ' + ' + addonsOnce + ' zł jednorazowo' : '';
+  if (el_total) el_total.textContent = total + ' zł/mies.' + suffix;
+  if (el_note)  el_note.textContent = '';
+  // Bez wybranego szablonu z Galerii dostaje się 3 warianty do wyboru, nie
+  // natychmiastową aktywację — przycisk musi to odzwierciedlać, inaczej obiecuje
+  // coś, co się jeszcze nie dzieje po kliknięciu.
+  var _genBtnLabel = state.templateId ? 'Generuj i aktywuj stronę' : 'Generuj 3 warianty strony';
+  document.getElementById('btn-start-gen').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="width:18px;height:18px"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> ' + _genBtnLabel;
 }
 
 function initStep6() {
@@ -3746,10 +3751,6 @@ function selectBranzaFromDropdown(select) {
   updateLivePreview();
 }
 
-// Zachowaj stary selectBranza jako alias (używany gdzie indziej)
-function selectBranza(btn, val) {
-  state.branza = val;
-}
 // ─────────────────────────────────────────────────────────────────
 </script>
 </body>
