@@ -29,7 +29,8 @@ p{color:#C7CEDC;margin-bottom:14px;font-size:15px}
 ul,ol{padding-left:22px;margin-bottom:14px}
 li{color:#C7CEDC;font-size:15px;margin-bottom:8px}
 li strong{color:#F3F6FC}
-table{width:100%;border-collapse:collapse;margin:20px 0 28px;font-size:14px;border:1px solid rgba(255,255,255,.08);border-radius:10px;overflow:hidden}
+.table-wrap{overflow-x:auto;margin:20px 0 28px}
+table{width:100%;min-width:480px;border-collapse:collapse;font-size:14px;border:1px solid rgba(255,255,255,.08);border-radius:10px;overflow:hidden}
 th{background:rgba(255,255,255,.04);color:#8E97AC;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:12px 16px;text-align:left;border-bottom:1px solid rgba(255,255,255,.12)}
 td{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.06);color:#C7CEDC}
 tr:last-child td{border-bottom:none}
@@ -276,7 +277,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
   <p>Kontakt: <a href="mailto:privacy@webgen.pl">privacy@webgen.pl</a></p>
 
   <h2>Odbiorcy danych i przekazywanie do państw trzecich</h2>
-  <table>
+  <div class="table-wrap"><table>
     <thead><tr><th>Dostawca</th><th>Cel</th><th>Kraj / Zabezpieczenie</th></tr></thead>
     <tbody>
       <tr><td>Clerk, Inc.</td><td>Uwierzytelnianie i zarządzanie kontem (logowanie, rejestracja, sesje, hasła)</td><td>USA — Standardowe Klauzule Umowne UE</td></tr>
@@ -287,7 +288,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
       <tr><td>Meta Platforms, Inc.</td><td>Meta Pixel — pomiar i personalizacja reklam (za zgodą)</td><td>USA — SKU UE</td></tr>
       <tr><td>Anthropic, PBC</td><td>Model AI — personalizacja treści szablonu (plany Pro/Pro Max)</td><td>USA — SKU UE</td></tr>
     </tbody>
-  </table>
+  </table></div>
 
   <h2>Pliki cookie</h2>
   <p>Używamy trzech kategorii plików cookie:</p>
@@ -308,7 +309,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
   </ul>
 
   <h2>Okresy przechowywania danych</h2>
-  <table>
+  <div class="table-wrap"><table>
     <thead><tr><th>Kategoria</th><th>Okres</th></tr></thead>
     <tbody>
       <tr><td>Dane konta użytkownika</td><td>Czas trwania umowy + 5 lat</td></tr>
@@ -317,7 +318,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
       <tr><td>Logi serwera i dane analityczne</td><td>14 miesięcy</td></tr>
       <tr><td>Dane marketingowe / newsletter</td><td>Do wycofania zgody</td></tr>
     </tbody>
-  </table>
+  </table></div>
 
   <h2>Dzieci</h2>
   <p>Usługa skierowana jest do podmiotów prowadzących działalność gospodarczą. Nie zbieramy świadomie danych osób poniżej 18. roku życia.</p>
