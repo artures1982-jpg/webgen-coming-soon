@@ -984,7 +984,11 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 .wg-nav-msg-badge.show{display:flex}
 
 
-/* compare table mobile scroll */
+/* compare-table-desktop: overflow:hidden na desktopie (przycina rogi tabeli pod
+   zaokrąglony border), overflow-x:auto na mobile (przewijalna w bok zamiast
+   ucinania kolumn). Musi być regułą CSS, nie inline style na elemencie — inline
+   ma wyższą specyficzność niż media query i nadpisywałby scroll na mobile. */
+.compare-table-desktop{overflow:hidden}
 @media(max-width:768px){
   .compare-table-desktop{overflow-x:auto;-webkit-overflow-scrolling:touch}
   .compare-table td,.compare-table th{padding:12px 14px;font-size:12px;white-space:nowrap}
@@ -1000,7 +1004,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
 .wc-flow{display:flex;justify-content:space-between;gap:8px;position:relative;margin:64px 0 8px}
 .wc-flow::before{content:'';position:absolute;top:19px;left:6%;right:6%;height:2px;background:linear-gradient(90deg,var(--border2),var(--border2) 66%,rgba(0,229,160,.35))}
 .wc-node{flex:1;text-align:center;position:relative}
-.wc-dot{width:40px;height:40px;border-radius:50%;background:var(--s2);border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;position:relative;z-index:1}
+.wc-dot{width:40px;height:40px;flex-shrink:0;border-radius:50%;background:var(--s2);border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;position:relative;z-index:1}
 .wc-dot svg{width:18px;height:18px;stroke:var(--muted);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .wc-node.active .wc-dot{background:rgba(0,229,160,.12);border-color:var(--green);box-shadow:0 0 0 4px rgba(0,229,160,.1),0 0 24px rgba(0,229,160,.25);animation:wcPulse 2.4s ease-in-out infinite}
 .wc-node.active .wc-dot svg{stroke:var(--green)}
@@ -1347,7 +1351,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
       <p class="sec-sub" style="margin:0 auto">Jedna kwota miesięcznie (albo raz w roku, taniej). Bez telefonów "w sprawie dopłaty", bez pozycji odkrywanych po aktywacji. To, co jest w planie — jest w cenie.</p>
     </div>
 
-    <div class="compare-table-desktop" style="border-radius:14px;border:1px solid var(--border);overflow:hidden;margin:48px 0">
+    <div class="compare-table-desktop" style="border-radius:14px;border:1px solid var(--border);margin:48px 0">
       <table class="compare-table">
         <thead>
           <tr>
@@ -1433,7 +1437,7 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
     <p class="sec-sub" style="margin-bottom:40px">Start to ta sama Galeria Startowa szablonów, bez personalizacji AI, darmowa przez pierwsze 6 miesięcy. Pro i Pro Max dodają personalizację AI i szerszy zakres zmian.</p>
 
     <!-- DESKTOP: tabela -->
-    <div class="compare-table-desktop" style="border-radius:14px;border:1px solid var(--border);overflow:hidden">
+    <div class="compare-table-desktop" style="border-radius:14px;border:1px solid var(--border)">
       <table class="compare-table" style="width:100%;border-collapse:collapse;font-size:14px">
         <thead>
           <tr>
