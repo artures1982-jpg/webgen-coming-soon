@@ -85,8 +85,46 @@ export default async function handler(req) {
       var errText = await r.text();
       return new Response(JSON.stringify({ error: 'Resend error: ' + errText.slice(0, 200) }), { status: 502, headers: headers });
     }
-    return new Response(JSON.stringify({ ok: true }), { status: 200, headers: headers });
   } catch (e) {
     return new Response(JSON.stringify({ error: String(e.message || e) }), { status: 500, headers: headers });
   }
+
+  // Potwierdzenie do zgłaszającego się — zadaje pytania kwalifikujące (branża,
+  // czy ma już stronę, czego potrzebuje), żeby odpowiedź (reply_to hello@webgen.pl)
+  // od razu dała kontekst zamiast czekać biernie na start produkcji. Celowo
+  // best-effort: błąd tej wysyłki NIE psuje odpowiedzi klientowi — lead i tak
+  // jest już bezpiecznie zapisany w mailu wyżej.
+  try {
+    var confirmHtml = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>'
+      + '<body style="font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a;line-height:1.6">'
+      + '<h2 style="font-size:20px;margin:0 0 12px">Dzięki za zgłoszenie! \u{1F44B}</h2>'
+      + '<p style="margin:0 0 16px">Zapisaliśmy Twój email — damy Ci znać, jak tylko wystartujemy z pełną aktywacją stron.</p>'
+      + '<p style="margin:0 0 16px">Zanim to nastąpi, chcielibyśmy lepiej zrozumieć czego potrzebujesz. Odpowiedz na tego maila i napisz:</p>'
+      + '<ul style="margin:0 0 16px;padding-left:20px">'
+      + '<li style="margin-bottom:6px">W jakiej branży działasz? (np. hydraulik, elektryk, fryzjer, stomatolog...)</li>'
+      + '<li style="margin-bottom:6px">Masz już jakąś stronę, czy zaczynasz od zera?</li>'
+      + '<li style="margin-bottom:6px">Czego szukasz najbardziej — szybkiej gotowej strony, czy pełnej personalizacji treści i zdjęć przez AI?</li>'
+      + '</ul>'
+      + '<p style="margin:0 0 16px">Im więcej nam powiesz, tym lepiej dobierzemy dla Ciebie szablon i plan, gdy ruszymy.</p>'
+      + '<p style="margin:0 0 4px">W międzyczasie możesz przejrzeć nasze gotowe warianty szablonów:</p>'
+      + '<p style="margin:0 0 20px"><a href="https://www.webgen.pl/galeria/" style="color:#00A876;font-weight:600">www.webgen.pl/galeria →</a></p>'
+      + '<p style="margin:0;color:#8892AA;font-size:13px">Do usłyszenia,<br>zespół Webgen</p>'
+      + '</body></html>';
+
+    await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: 'Bearer ' + RESEND_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from: 'webgen <hello@webgen.pl>',
+        to: [email],
+        subject: 'Dzięki za zgłoszenie — powiedz nam czego szukasz',
+        html: confirmHtml,
+        reply_to: 'hello@webgen.pl',
+      }),
+    });
+  } catch (e) {
+    // cichy fallback — lead już bezpiecznie trafił do hello@webgen.pl wyżej
+  }
+
+  return new Response(JSON.stringify({ ok: true }), { status: 200, headers: headers });
 }
