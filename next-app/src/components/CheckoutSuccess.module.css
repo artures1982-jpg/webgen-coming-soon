@@ -1,0 +1,94 @@
+.page {
+  --bg: #080a12;
+  --s2: #161b29;
+  --green: #00e5a0;
+  --danger: #ff6b6b;
+  --text: #f3f6fc;
+  --muted: #8e97ac;
+  --border: rgba(255, 255, 255, 0.1);
+  --border2: rgba(255, 255, 255, 0.2);
+  --head: var(--font-head, "Bricolage Grotesque"), sans-serif;
+  --mono: var(--font-mono, "JetBrains Mono"), monospace;
+  --oncta: #05100d;
+
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 20px;
+  background: var(--bg);
+}
+
+.card {
+  background: var(--s2);
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  padding: 36px 32px;
+  max-width: 440px;
+  width: 100%;
+  text-align: center;
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 10px;
+}
+
+.title {
+  font-family: var(--head);
+  font-size: 22px;
+  color: var(--text);
+  margin: 0 0 12px;
+}
+
+.hint {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0 0 20px;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 3px solid var(--border);
+  border-top-color: var(--green);
+  margin: 0 auto 20px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.link {
+  display: inline-block;
+  background: var(--green);
+  color: var(--oncta);
+  font-family: var(--head);
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+.error {
+  color: var(--danger);
+  font-size: 13px;
+  margin-top: 16px;
+}
+
+.dashboardLink {
+  display: block;
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 13px;
+}

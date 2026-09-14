@@ -37,10 +37,13 @@ export default function CheckoutModal({ onClose }: { onClose: () => void }) {
     }
     setSubmitting(true);
     try {
+      const token = await getToken();
+      const headers: Record<string, string> = { "Content-Type": "application/json" };
+      if (token) headers["Authorization"] = "Bearer " + token;
       const res = await fetch("/api/deploy", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug: gen.slug, html: gen.generatedHTML, plan: "free", email: accountEmail, contact_email: form.email }),
+        headers,
+        body: JSON.stringify({ slug: gen.slug, html: gen.generatedHTML, contact_email: form.email }),
       });
       const data = await res.json();
       if (!res.ok || !data.success) throw new Error(data.error || "Nie udało się aktywować strony");
@@ -82,6 +85,10 @@ export default function CheckoutModal({ onClose }: { onClose: () => void }) {
       await activateFreeSite(email);
       return;
     }
+    if (!gen.generatedHTML) {
+      alert("Brak wygenerowanej strony do aktywacji — wróć do kroku generowania.");
+      return;
+    }
     setSubmitting(true);
     try {
       const token = await getToken();
@@ -90,7 +97,13 @@ export default function CheckoutModal({ onClose }: { onClose: () => void }) {
       const res = await fetch("/api/create-checkout", {
         method: "POST",
         headers,
-        body: JSON.stringify({ plan: gen.plan, billing: gen.billing, firma_slug: gen.slug }),
+        body: JSON.stringify({
+          plan: gen.plan,
+          billing: gen.billing,
+          firma_slug: gen.slug,
+          html: gen.generatedHTML,
+          contact_email: form.email,
+        }),
       });
       const data = await res.json();
       if (data.checkout_url) {

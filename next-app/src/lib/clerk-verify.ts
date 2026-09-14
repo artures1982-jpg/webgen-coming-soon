@@ -4,7 +4,10 @@
 import { verifyToken, createClerkClient } from "@clerk/backend";
 
 const CLERK_SECRET_KEY = process.env.CLERK_SECRET_KEY;
-const clerkClient = CLERK_SECRET_KEY ? createClerkClient({ secretKey: CLERK_SECRET_KEY }) : null;
+// Eksportowany — reużywany przez deploy-site.ts i webhook Stripe do zapisu
+// unsafeMetadata (slug/URL aktywnej strony) na koncie klienta, bez tworzenia
+// drugiej instancji tego samego klienta.
+export const clerkClient = CLERK_SECRET_KEY ? createClerkClient({ secretKey: CLERK_SECRET_KEY }) : null;
 
 export type ClerkSession = { userId: string; email: string };
 

@@ -3,6 +3,8 @@
 // świadomej decyzji o kluczach Stripe (test mode) w tym projekcie.
 import Stripe from "stripe";
 import { verifyRequest } from "@/lib/clerk-verify";
+import { isSlugTaken, saveToBlob } from "@/lib/deploy-site";
+import { getAppUrl } from "@/lib/app-url";
 
 // Leniwa inicjalizacja — Stripe SDK rzuca błąd już przy konstrukcji bez klucza, co
 // wywalało `next build` (zbieranie metadanych route'a importuje moduł bez uruchamiania
@@ -42,7 +44,21 @@ export async function POST(req: Request) {
   const email = session.email;
 
   const body = await req.json().catch(() => ({}));
-  const { plan, billing, addons, firma_slug } = body;
+  const { plan, billing, addons, firma_slug, html, contact_email } = body;
+
+  // Aktywacja nowej strony (nie: dokupienie dodatku do już istniejącej) — jedyny
+  // przypadek, w którym trzeba zapisać HTML do wdrożenia po opłaceniu i sprawdzić
+  // czy nazwa strony nie jest już zajęta. Bramkowane obecnością `html`, nie samego
+  // `plan`, bo panel klienta też wysyła `plan` przy zmianie planu bez nowej strony.
+  const isNewSiteActivation = !!plan && !!firma_slug && !!html;
+  if (isNewSiteActivation) {
+    if (await isSlugTaken(firma_slug)) {
+      return Response.json(
+        { error: "Ta nazwa strony jest już zajęta — zmień nazwę w kroku 2." },
+        { status: 409 }
+      );
+    }
+  }
 
   const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
   let hasRecurring = false;
@@ -75,6 +91,15 @@ export async function POST(req: Request) {
   }
 
   try {
+    // Zapis HTML pod tymczasową ścieżkę PRZED utworzeniem sesji Stripe — webhook
+    // checkout.session.completed (patrz api/webhooks/stripe/route.ts) odbiera go
+    // stamtąd, bo w momencie płatności klient dawno opuścił tę stronę i jego stan
+    // Reacta (gen.generatedHTML) już nie istnieje.
+    if (isNewSiteActivation) {
+      await saveToBlob("pending", firma_slug, html);
+    }
+
+    const appUrl = getAppUrl(req);
     const mode: Stripe.Checkout.SessionCreateParams.Mode = hasRecurring ? "subscription" : "payment";
     const checkoutSession = await getStripe().checkout.sessions.create({
       mode,
@@ -83,11 +108,14 @@ export async function POST(req: Request) {
       customer_email: email,
       metadata: {
         firma_slug: firma_slug || "",
+        plan: plan || "",
         billing: billing || "month",
         addons: Array.isArray(addons) ? addons.join(",") : "",
+        clerk_user_id: session.userId,
+        contact_email: contact_email || "",
       },
-      success_url: "https://webgen.pl/success?session_id={CHECKOUT_SESSION_ID}",
-      cancel_url: "https://webgen.pl/generator/",
+      success_url: appUrl + "/checkout/success?session_id={CHECKOUT_SESSION_ID}",
+      cancel_url: appUrl + "/generator/",
     });
     return Response.json({ checkout_url: checkoutSession.url });
   } catch (err) {

@@ -50,7 +50,7 @@ export default function DashboardShell() {
       return null;
     }
   });
-  const [generated] = useState<GeneratedSite | null>(() => {
+  const [localGenerated] = useState<GeneratedSite | null>(() => {
     if (typeof window === "undefined") return null;
     try {
       return JSON.parse(localStorage.getItem("wg_generated") || "null");
@@ -58,6 +58,21 @@ export default function DashboardShell() {
       return null;
     }
   });
+  // localStorage istnieje tylko na tej samej domenie/przeglądarce, w której klient
+  // wygenerował stronę — na innym urządzeniu (albo po aktywacji płatnego planu,
+  // gdzie deploy robi teraz webhook Stripe zamiast klienta, patrz
+  // api/webhooks/stripe/route.ts) tego klucza po prostu nie ma. Fallback na
+  // unsafeMetadata Clerk (jedyne trwałe, wielo-urządzeniowe źródło slug/URL) —
+  // niepełny (bez html/danych firmowych, WebsitePage już to obsługuje jako
+  // opcjonalne pola), ale wystarczający żeby link do strony w ogóle się pokazał.
+  // Musi być liczone przy KAŻDYM renderze (nie lazy useState) — user.unsafeMetadata
+  // z Clerka jest dostępne dopiero po isLoaded, czyli nie na pierwszym renderze.
+  const clerkMeta = user?.unsafeMetadata as { firma_slug?: string; site_url?: string; site_plan?: string; site_activated_at?: string } | undefined;
+  const generated: GeneratedSite | null =
+    localGenerated ||
+    (clerkMeta?.firma_slug
+      ? { slug: clerkMeta.firma_slug, plan: clerkMeta.site_plan, created: clerkMeta.site_activated_at }
+      : null);
 
   useEffect(() => {
     if (isLoaded && !isSignedIn) {

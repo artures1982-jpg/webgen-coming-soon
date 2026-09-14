@@ -34,8 +34,17 @@ const nextConfig: NextConfig = {
             // Bez tego wpisu przeglądarka cicho blokuje fetch (CSP), obserwowane
             // jako "Failed to fetch" bez czytelnego komunikatu — złapane przy
             // weryfikacji Fazy 4.
+            // https://*.clerk.accounts.dev — Frontend API domena KAŻDEJ instancji
+            // Development Clerka (nie tylko naszej) — bez tego przeglądarka blokuje
+            // sam skrypt Clerka na testowym kluczu (ClerkRuntimeError
+            // failed_to_load_clerk_js), złapane przy testach end-to-end na kluczu
+            // pk_test_ z instancji dev webgen.
+            // frame-src — bez tego niewidoczny Cloudflare Turnstile (bot-check przy
+            // rejestracji Clerka) renderuje się w iframe, które CSP cicho blokuje
+            // (brak frame-src = domyślnie default-src 'self'), więc formularz wisi
+            // w nieskończoność bez żadnego błędu JS — złapane przy testach e2e.
             value:
-              "default-src 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com https://fonts.googleapis.com https://clerk.webgen.pl https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.stripe.com https://api.anthropic.com https://resend.com https://api.pexels.com https://clerk.webgen.pl https://www.webgen.pl; img-src 'self' data: https:; worker-src 'self' blob:; object-src 'none'; base-uri 'self';",
+              "default-src 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com https://fonts.googleapis.com https://clerk.webgen.pl https://*.clerk.accounts.dev https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.stripe.com https://api.anthropic.com https://resend.com https://api.pexels.com https://clerk.webgen.pl https://*.clerk.accounts.dev https://www.webgen.pl; img-src 'self' data: https:; frame-src https://challenges.cloudflare.com https://clerk.webgen.pl https://*.clerk.accounts.dev https://js.stripe.com; worker-src 'self' blob:; object-src 'none'; base-uri 'self';",
           },
         ],
       },
