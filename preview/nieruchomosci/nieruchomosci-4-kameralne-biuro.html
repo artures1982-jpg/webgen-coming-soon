@@ -200,6 +200,18 @@
     html{scroll-behavior:auto;}
     .compare-panel,.uslugi-row,.opinia-row{transition:none;opacity:1;transform:none;}
   }
+
+  .wa-fab{
+    position:fixed;right:1.2rem;bottom:1.2rem;z-index:70;
+    width:56px;height:56px;border-radius:50%;
+    background:var(--accent);color:var(--bg);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.7rem;
+    box-shadow:0 10px 24px rgba(0,0,0,.28);
+  }
+  .wa-fab:hover{filter:brightness(1.06);}
+  @media (max-width:640px){
+    .wa-fab{right:1rem;bottom:1rem;width:50px;height:50px;font-size:1.5rem;}
+  }
 </style>
 </head>
 <body>
@@ -239,6 +251,7 @@
     <div class="hero-copy">
       <span class="eyebrow">Kameralne biuro nieruchomości — {{MIASTO}}</span>
       <h1>Od pierwszego spotkania do notariusza — ta sama osoba</h1>
+<p class="wg-opis" style="margin-top:.75rem;max-width:640px;color:var(--muted);font-size:1.05rem;line-height:1.6">{{OPIS}}</p>
       <p class="lead">{{NAZWA_STRONY}} prowadzi niewielki, stały zespół — dwie pośredniczki, które same rozmawiają z Tobą od pierwszej wyceny aż po podpis aktu notarialnego. Żadnego przekazywania sprawy „komuś wolnemu" w połowie procesu — osoba, którą poznajesz na pierwszym spotkaniu, zna każdy kolejny etap sprzedaży Twojej nieruchomości w mieście {{MIASTO}}.</p>
       <div class="hero-cta-row">
         <a href="#kontakt" class="btn btn-primary">Umów spotkanie</a>
@@ -408,6 +421,13 @@
     <a href="#zespol">Nasz zespół</a>
     <a href="tel:{{TELEFON}}">{{TELEFON}}</a>
     <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+  
+    <!--IF:FACEBOOK--><a href="{{FACEBOOK}}" aria-label="Facebook" target="_blank" rel="noopener">📘 Facebook</a><!--ENDIF-->
+    <!--IF:INSTAGRAM--><a href="{{INSTAGRAM}}" aria-label="Instagram" target="_blank" rel="noopener">📷 Instagram</a><!--ENDIF-->
+    <!--IF:TIKTOK--><a href="{{TIKTOK}}" aria-label="TikTok" target="_blank" rel="noopener">🎵 TikTok</a><!--ENDIF-->
+    <!--IF:MAPS--><a href="{{MAPS}}" aria-label="Google Maps" target="_blank" rel="noopener">🗺️ Dojazd</a><!--ENDIF-->
+    <!--IF:BOOKSY--><a href="{{BOOKSY}}" aria-label="Booksy" target="_blank" rel="noopener">📅 Rezerwacja</a><!--ENDIF-->
+    <!--IF:GOOGLE_OCENA--><span>⭐ {{GOOGLE_OCENA}}{{GOOGLE_OPINIE_SUFFIX}}</span><!--ENDIF-->
   </div>
   <div class="footer-bottom">© <span id="year"></span> {{NAZWA_STRONY}} — biuro nieruchomości {{MIASTO}}.</div>
 </footer>
@@ -447,6 +467,9 @@
     fadeTargets.forEach(function(el){ el.classList.add('visible'); });
   }
 </script>
+
+
+<!--IF:WHATSAPP--><a class="wa-fab" href="{{WHATSAPP_WA_LINK}}" target="_blank" rel="noopener" aria-label="Napisz na WhatsApp">💬</a><!--ENDIF-->
 
 </body>
 </html>

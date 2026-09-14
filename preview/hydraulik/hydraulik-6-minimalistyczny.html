@@ -128,6 +128,24 @@
     section{padding:3rem 1.2rem;}
     .anchor-row{gap:1.4rem;}
   }
+
+  .foot-social a{
+    width:34px;height:34px;border-radius:50%;border:1px solid color-mix(in srgb, var(--text) 18%, transparent);
+    color:var(--text);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem;
+  }
+  .foot-social a:hover{border-color:var(--accent);color:var(--accent);}
+  .wa-fab{
+    position:fixed;right:1.2rem;bottom:1.2rem;z-index:70;
+    width:56px;height:56px;border-radius:50%;
+    background:var(--accent);color:var(--bg);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.7rem;
+    box-shadow:0 10px 24px rgba(0,0,0,.28);
+  }
+  .wa-fab:hover{filter:brightness(1.06);}
+  @media (max-width:640px){
+    .wa-fab{right:1rem;bottom:1rem;width:50px;height:50px;font-size:1.5rem;}
+  }
 </style>
 </head>
 <body>
@@ -151,6 +169,7 @@
   <div class="wrap">
     <div class="hero-icon" role="img" aria-label="Klucz hydrauliczny">🔧</div>
     <h1>{{NAZWA_STRONY}} — Hydraulik {{MIASTO}}</h1>
+<p class="wg-opis" style="margin-top:.75rem;max-width:640px;color:var(--muted);font-size:1.05rem;line-height:1.6">{{OPIS}}</p>
     <p class="lead">Szybka pomoc hydrauliczna w mieście {{MIASTO}} — zadzwoń, a umówimy termin jeszcze dziś.</p>
     <a href="tel:{{TELEFON}}" class="btn btn-primary">📞 Zadzwoń: {{TELEFON}}</a>
   </div>
@@ -222,18 +241,50 @@
 </section>
 
 <footer>
+  <div class="foot-social" style="display:flex;gap:.7rem;justify-content:center;margin-bottom:.9rem;">
+    <!--IF:FACEBOOK--><a href="{{FACEBOOK}}" aria-label="Facebook" target="_blank" rel="noopener">📘</a><!--ENDIF-->
+    <!--IF:INSTAGRAM--><a href="{{INSTAGRAM}}" aria-label="Instagram" target="_blank" rel="noopener">📷</a><!--ENDIF-->
+    <!--IF:TIKTOK--><a href="{{TIKTOK}}" aria-label="TikTok" target="_blank" rel="noopener">🎵</a><!--ENDIF-->
+    <!--IF:MAPS--><a href="{{MAPS}}" aria-label="Google Maps" target="_blank" rel="noopener">🗺️</a><!--ENDIF-->
+    <!--IF:BOOKSY--><a href="{{BOOKSY}}" aria-label="Booksy" target="_blank" rel="noopener">📅</a><!--ENDIF-->
+  </div>
+  <!--IF:GOOGLE_OCENA--><p style="font-size:.85rem;margin-bottom:.6rem;color:var(--muted);">⭐ {{GOOGLE_OCENA}}{{GOOGLE_OPINIE_SUFFIX}}</p><!--ENDIF-->
+  
   <p>© <span id="year"></span> {{NAZWA_STRONY}} — Hydraulik {{MIASTO}}. <a href="tel:{{TELEFON}}">{{TELEFON}}</a></p>
 </footer>
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  const form = document.getElementById('contactForm');
   form.addEventListener('submit', function(e){
     e.preventDefault();
-    form.innerHTML = '<p style="font-weight:700;color:var(--accent);">Dziękujemy! Wiadomość została przygotowana do wysyłki. W pilnych sprawach zadzwoń: <a href="tel:{{TELEFON}}">{{TELEFON}}</a>.</p>';
+    var _btn = form.querySelector('[type="submit"]');
+    if (_btn) { _btn.disabled = true; _btn.dataset.origText = _btn.textContent; _btn.textContent = 'Wysyłanie…'; }
+    var _fd = new FormData(form);
+    var _fields = {};
+    _fd.forEach(function(v,k){ _fields[k] = v; });
+    var _slugMeta = document.querySelector('meta[name="webgen-slug"]');
+    var _slug = _slugMeta ? _slugMeta.content : '';
+    fetch('https://webgen.pl/api/contact-form', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug: _slug, fields: _fields })
+    }).then(function(r){ return r.json(); }).then(function(data){
+      if (data && data.ok) {
+        form.innerHTML = '<p style="font-weight:700;color:var(--accent);">Dziękujemy! Wiadomość została przygotowana do wysyłki. W pilnych sprawach zadzwoń: <a href="tel:{{TELEFON}}">{{TELEFON}}</a>.</p>';
+      } else {
+        if (_btn) { _btn.disabled = false; _btn.textContent = _btn.dataset.origText; }
+        alert('Nie udało się wysłać wiadomości. Zadzwoń: {{TELEFON}}');
+      }
+    }).catch(function(){
+      if (_btn) { _btn.disabled = false; _btn.textContent = _btn.dataset.origText; }
+      alert('Nie udało się wysłać wiadomości. Zadzwoń: {{TELEFON}}');
+    });
   });
 </script>
+
+
+<!--IF:WHATSAPP--><a class="wa-fab" href="{{WHATSAPP_WA_LINK}}" target="_blank" rel="noopener" aria-label="Napisz na WhatsApp">💬</a><!--ENDIF-->
 
 </body>
 </html>

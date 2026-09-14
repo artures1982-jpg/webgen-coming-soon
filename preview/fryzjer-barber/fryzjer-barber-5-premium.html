@@ -130,6 +130,23 @@
   .footer-logo{font-family:var(--head);font-weight:700;font-size:1.05rem;letter-spacing:.04em;margin-bottom:.5rem;}
   .footer-line{font-size:.84rem;color:var(--muted);max-width:520px;margin:0 auto .9rem;}
   .footer-bottom{font-size:.74rem;color:var(--muted);letter-spacing:.04em;}
+  .foot-social a{
+    width:34px;height:34px;border-radius:50%;border:1px solid color-mix(in srgb, var(--text) 18%, transparent);
+    color:var(--text);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem;
+  }
+  .foot-social a:hover{border-color:var(--accent);color:var(--accent);}
+  .wa-fab{
+    position:fixed;right:1.2rem;bottom:1.2rem;z-index:70;
+    width:56px;height:56px;border-radius:50%;
+    background:var(--accent-dark);color:var(--bg);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.7rem;
+    box-shadow:0 10px 24px rgba(0,0,0,.28);
+  }
+  .wa-fab:hover{filter:brightness(1.1);}
+  @media (max-width:640px){
+    .wa-fab{right:1rem;bottom:1rem;width:50px;height:50px;font-size:1.5rem;}
+  }
 
   @media (prefers-reduced-motion: reduce){
     .case-row,.trust-badge{transition:none;opacity:1;transform:none;}
@@ -200,8 +217,10 @@
     <div class="hero-copy">
       <span class="eyebrow">Grooming premium — {{MIASTO}}</span>
       <h1>{{NAZWA_STRONY}} — obsługa fryzjerska i barberska dla hoteli, firm i wydarzeń w mieście {{MIASTO}}</h1>
+<p class="wg-opis" style="margin-top:.75rem;max-width:640px;color:var(--muted);font-size:1.05rem;line-height:1.6">{{OPIS}}</p>
       <p>Zespół barberów on-site na eventy firmowe, stałe umowy grooming dla hoteli i apartamentów oraz przygotowanie drużyny pana młodego przed ślubem — poziom obsługi, który zauważą dział HR i concierge, zanim jeszcze spytają o cenę.</p>
       <a href="#kontakt" class="btn btn-solid">Zapytaj o termin</a>
+      <!--IF:BOOKSY--><a href="{{BOOKSY}}" class="btn btn-outline" target="_blank" rel="noopener">📅 Zarezerwuj w Booksy</a><!--ENDIF-->
     </div>
     <div class="hero-photo-frame">
       <img class="hero-photo" src="https://images.pexels.com/photos/5812313/pexels-photo-5812313.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Barber pracujący precyzyjnie nad klientem w eleganckim, nowoczesnym wnętrzu" width="940" height="650">
@@ -351,6 +370,13 @@
 <footer>
   <div class="footer-logo">{{NAZWA_STRONY}}</div>
   <p class="footer-line">Grooming na miejscu — konferencje, hotele, śluby i sesje wizerunkowe na terenie miasta {{MIASTO}}.</p>
+  <div class="foot-social" style="display:flex;gap:.7rem;justify-content:center;margin:.9rem 0;">
+    <!--IF:FACEBOOK--><a href="{{FACEBOOK}}" aria-label="Facebook" target="_blank" rel="noopener">📘</a><!--ENDIF-->
+    <!--IF:INSTAGRAM--><a href="{{INSTAGRAM}}" aria-label="Instagram" target="_blank" rel="noopener">📷</a><!--ENDIF-->
+    <!--IF:MAPS--><a href="{{MAPS}}" aria-label="Google Maps" target="_blank" rel="noopener">🗺️</a><!--ENDIF-->
+    <!--IF:BOOKSY--><a href="{{BOOKSY}}" aria-label="Booksy" target="_blank" rel="noopener">📅</a><!--ENDIF-->
+  </div>
+  <!--IF:GOOGLE_OCENA--><p style="font-size:.85rem;margin-bottom:.6rem;color:var(--muted);">⭐ {{GOOGLE_OCENA}}{{GOOGLE_OPINIE_SUFFIX}}</p><!--ENDIF-->
   <div class="footer-bottom">© <span id="year"></span> {{NAZWA_STRONY}}</div>
 </footer>
 
@@ -371,12 +397,34 @@
   }, { threshold: 0.2 });
   document.querySelectorAll('.case-row, .trust-badge').forEach(el => io.observe(el));
 
-  const form = document.getElementById('quoteForm');
   form.addEventListener('submit', function(e){
     e.preventDefault();
-    form.innerHTML = '<p style="font-weight:600;color:var(--accent-dark);">Wiadomość dotarła. Odezwiemy się najpóźniej następnego dnia roboczego z propozycją terminu rozmowy. W sprawach pilnych: <a href="tel:{{TELEFON}}">{{TELEFON}}</a>.</p>';
+    var _btn = form.querySelector('[type="submit"]');
+    if (_btn) { _btn.disabled = true; _btn.dataset.origText = _btn.textContent; _btn.textContent = 'Wysyłanie…'; }
+    var _fd = new FormData(form);
+    var _fields = {};
+    _fd.forEach(function(v,k){ _fields[k] = v; });
+    var _slugMeta = document.querySelector('meta[name="webgen-slug"]');
+    var _slug = _slugMeta ? _slugMeta.content : '';
+    fetch('https://webgen.pl/api/contact-form', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug: _slug, fields: _fields })
+    }).then(function(r){ return r.json(); }).then(function(data){
+      if (data && data.ok) {
+        form.innerHTML = '<p style="font-weight:600;color:var(--accent-dark);">Wiadomość dotarła. Odezwiemy się najpóźniej następnego dnia roboczego z propozycją terminu rozmowy. W sprawach pilnych: <a href="tel:{{TELEFON}}">{{TELEFON}}</a>.</p>';
+      } else {
+        if (_btn) { _btn.disabled = false; _btn.textContent = _btn.dataset.origText; }
+        alert('Nie udało się wysłać wiadomości. Zadzwoń: {{TELEFON}}');
+      }
+    }).catch(function(){
+      if (_btn) { _btn.disabled = false; _btn.textContent = _btn.dataset.origText; }
+      alert('Nie udało się wysłać wiadomości. Zadzwoń: {{TELEFON}}');
+    });
   });
 </script>
+
+<!--IF:WHATSAPP--><a class="wa-fab" href="{{WHATSAPP_WA_LINK}}" target="_blank" rel="noopener" aria-label="Napisz na WhatsApp">💬</a><!--ENDIF-->
 
 </body>
 </html>

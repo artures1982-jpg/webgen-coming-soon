@@ -158,6 +158,23 @@
   .footer-links a:hover{color:var(--accent);}
   .footer-hours li{margin-bottom:.5rem;font-size:.9rem;color:var(--muted);}
   .footer-bottom{max-width:1180px;margin:0 auto;font-size:.8rem;color:var(--muted);text-align:center;border-top:1px solid color-mix(in srgb, var(--text) 15%, transparent);padding-top:1.4rem;}
+  .foot-social a{
+    width:34px;height:34px;border-radius:50%;border:1px solid color-mix(in srgb, var(--text) 18%, transparent);
+    color:var(--text);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem;
+  }
+  .foot-social a:hover{border-color:var(--accent);color:var(--accent);}
+  .wa-fab{
+    position:fixed;right:1.2rem;bottom:1.2rem;z-index:70;
+    width:56px;height:56px;border-radius:50%;
+    background:var(--accent);color:var(--bg);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.7rem;
+    box-shadow:0 10px 24px rgba(0,0,0,.28);
+  }
+  .wa-fab:hover{filter:brightness(1.06);}
+  @media (max-width:640px){
+    .wa-fab{right:1rem;bottom:1rem;width:50px;height:50px;font-size:1.5rem;}
+  }
 
   @media (max-width:960px){
     .cennik-cols{grid-template-columns:1fr;}
@@ -231,10 +248,13 @@
   <div class="hero-inner">
     <span class="hero-eyebrow">📍 Barbershop — {{MIASTO}}</span>
     <h1>{{NAZWA_STRONY}} — <em>strzyżenie i broda</em> na poziomie, do którego wracasz</h1>
+<p class="wg-opis" style="margin-top:.75rem;max-width:640px;color:var(--muted);font-size:1.05rem;line-height:1.6">{{OPIS}}</p>
     <p>Klasyczne cięcie nożyczkami, precyzyjny fade, golenie brzytwą. Przejrzysty cennik, umówiony termin i fotel, w którym nie trzeba się spieszyć.</p>
     <div class="hero-ctas">
       <a href="#kontakt" class="btn btn-primary">Umów wizytę</a>
       <a href="#cennik" class="link">Zobacz cennik</a>
+    
+      <!--IF:BOOKSY--><a href="{{BOOKSY}}" class="btn btn-outline" target="_blank" rel="noopener">📅 Zarezerwuj w Booksy</a><!--ENDIF-->
     </div>
   </div>
 </section>
@@ -418,6 +438,14 @@
     <div>
       <div class="footer-logo"><span class="logo-badge" id="footerBadge">{{NAZWA_STRONY}}</span>{{NAZWA_STRONY}}</div>
       <p>Barbershop w mieście {{MIASTO}} i okolicy. Strzyżenie, broda i golenie brzytwą — z uwagą na detal przy każdej wizycie.</p>
+      <div class="foot-social" style="display:flex;gap:.7rem;margin-top:1rem;">
+        <!--IF:FACEBOOK--><a href="{{FACEBOOK}}" aria-label="Facebook" target="_blank" rel="noopener">📘</a><!--ENDIF-->
+        <!--IF:INSTAGRAM--><a href="{{INSTAGRAM}}" aria-label="Instagram" target="_blank" rel="noopener">📷</a><!--ENDIF-->
+        <!--IF:TIKTOK--><a href="{{TIKTOK}}" aria-label="TikTok" target="_blank" rel="noopener">🎵</a><!--ENDIF-->
+        <!--IF:MAPS--><a href="{{MAPS}}" aria-label="Google Maps" target="_blank" rel="noopener">🗺️</a><!--ENDIF-->
+        <!--IF:BOOKSY--><a href="{{BOOKSY}}" aria-label="Booksy" target="_blank" rel="noopener">📅</a><!--ENDIF-->
+      </div>
+      <!--IF:GOOGLE_OCENA--><p style="margin-top:.5rem;font-size:.85rem;color:var(--muted);">⭐ {{GOOGLE_OCENA}}{{GOOGLE_OPINIE_SUFFIX}}</p><!--ENDIF-->
     </div>
     <div>
       <h4>Nawigacja</h4>
@@ -464,12 +492,34 @@
     });
   });
 
-  const form = document.getElementById('contactForm');
   form.addEventListener('submit', function(e){
     e.preventDefault();
-    form.innerHTML = '<p style="font-weight:700;color:var(--bg);">Dziękujemy! Wiadomość dotarła do nas — potwierdzimy termin telefonicznie lub mailowo. W pilnych sprawach zadzwoń od razu: <a href="tel:{{TELEFON}}" style="color:var(--bg);text-decoration:underline;">{{TELEFON}}</a>.</p>';
+    var _btn = form.querySelector('[type="submit"]');
+    if (_btn) { _btn.disabled = true; _btn.dataset.origText = _btn.textContent; _btn.textContent = 'Wysyłanie…'; }
+    var _fd = new FormData(form);
+    var _fields = {};
+    _fd.forEach(function(v,k){ _fields[k] = v; });
+    var _slugMeta = document.querySelector('meta[name="webgen-slug"]');
+    var _slug = _slugMeta ? _slugMeta.content : '';
+    fetch('https://webgen.pl/api/contact-form', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug: _slug, fields: _fields })
+    }).then(function(r){ return r.json(); }).then(function(data){
+      if (data && data.ok) {
+        form.innerHTML = '<p style="font-weight:700;color:var(--bg);">Dziękujemy! Wiadomość dotarła do nas — potwierdzimy termin telefonicznie lub mailowo. W pilnych sprawach zadzwoń od razu: <a href="tel:{{TELEFON}}" style="color:var(--bg);text-decoration:underline;">{{TELEFON}}</a>.</p>';
+      } else {
+        if (_btn) { _btn.disabled = false; _btn.textContent = _btn.dataset.origText; }
+        alert('Nie udało się wysłać wiadomości. Zadzwoń: {{TELEFON}}');
+      }
+    }).catch(function(){
+      if (_btn) { _btn.disabled = false; _btn.textContent = _btn.dataset.origText; }
+      alert('Nie udało się wysłać wiadomości. Zadzwoń: {{TELEFON}}');
+    });
   });
 </script>
+
+<!--IF:WHATSAPP--><a class="wa-fab" href="{{WHATSAPP_WA_LINK}}" target="_blank" rel="noopener" aria-label="Napisz na WhatsApp">💬</a><!--ENDIF-->
 
 </body>
 </html>

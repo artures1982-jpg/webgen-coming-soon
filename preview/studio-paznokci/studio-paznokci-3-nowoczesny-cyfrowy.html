@@ -182,6 +182,24 @@
     .nav-actions .btn-primary{padding:.6rem .8rem;gap:0;}
     .slot-grid{grid-template-columns:repeat(3,1fr);}
   }
+
+  .foot-social a{
+    width:34px;height:34px;border-radius:50%;border:1px solid color-mix(in srgb, var(--text) 18%, transparent);
+    color:var(--text);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem;
+  }
+  .foot-social a:hover{border-color:var(--accent);color:var(--accent);}
+  .wa-fab{
+    position:fixed;right:1.2rem;bottom:1.2rem;z-index:70;
+    width:56px;height:56px;border-radius:50%;
+    background:var(--accent);color:var(--bg);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.7rem;
+    box-shadow:0 10px 24px rgba(0,0,0,.28);
+  }
+  .wa-fab:hover{filter:brightness(1.06);}
+  @media (max-width:640px){
+    .wa-fab{right:1rem;bottom:1rem;width:50px;height:50px;font-size:1.5rem;}
+  }
 </style>
 </head>
 <body>
@@ -214,8 +232,10 @@
     <div class="hero-text">
       <span class="eyebrow">Studio paznokci {{MIASTO}} — rezerwacja online</span>
       <h1>Umów wizytę <em>w 60 sekund</em>, bez telefonu</h1>
+<p class="wg-opis" style="margin-top:.75rem;max-width:640px;color:var(--muted);font-size:1.05rem;line-height:1.6">{{OPIS}}</p>
       <p>Zobacz dostępne terminy od razu, wybierz zabieg i godzinę, dostaniesz potwierdzenie w chwilę — bez czekania na oddzwonienie.</p>
       <a href="#kontakt" class="btn btn-primary"><span aria-hidden="true">📅</span> Rezerwuj online</a>
+      <!--IF:BOOKSY--><a href="{{BOOKSY}}" class="btn btn-outline" target="_blank" rel="noopener" style="margin-left:.7rem;">📅 Zarezerwuj w Booksy</a><!--ENDIF-->
     </div>
     <div class="hero-widget-wrap">
       <img class="hero-photo" src="https://images.pexels.com/photos/34971922/pexels-photo-34971922.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="940" height="650" alt="Stylizacja paznokci w odcieniach turkusu — {{NAZWA_STRONY}} w mieście {{MIASTO}}" loading="eager">
@@ -379,6 +399,15 @@
 </section>
 
 <footer>
+  <div class="foot-social" style="display:flex;gap:.7rem;justify-content:center;margin-bottom:.9rem;">
+    <!--IF:FACEBOOK--><a href="{{FACEBOOK}}" aria-label="Facebook" target="_blank" rel="noopener">📘</a><!--ENDIF-->
+    <!--IF:INSTAGRAM--><a href="{{INSTAGRAM}}" aria-label="Instagram" target="_blank" rel="noopener">📷</a><!--ENDIF-->
+    <!--IF:TIKTOK--><a href="{{TIKTOK}}" aria-label="TikTok" target="_blank" rel="noopener">🎵</a><!--ENDIF-->
+    <!--IF:MAPS--><a href="{{MAPS}}" aria-label="Google Maps" target="_blank" rel="noopener">🗺️</a><!--ENDIF-->
+    <!--IF:BOOKSY--><a href="{{BOOKSY}}" aria-label="Booksy" target="_blank" rel="noopener">📅</a><!--ENDIF-->
+  </div>
+  <!--IF:GOOGLE_OCENA--><p style="font-size:.85rem;margin-bottom:.6rem;color:var(--muted);">⭐ {{GOOGLE_OCENA}}{{GOOGLE_OPINIE_SUFFIX}}</p><!--ENDIF-->
+  
   <p>© <span id="year"></span> {{NAZWA_STRONY}} — Studio paznokci {{MIASTO}}. <a href="tel:{{TELEFON}}">{{TELEFON}}</a> · <a href="mailto:{{EMAIL}}">{{EMAIL}}</a></p>
   <span class="footer-badge">🟢 Rezerwacja online czynna 24/7</span>
 </footer>
@@ -414,6 +443,9 @@
   }, { threshold: 0.5 });
   document.querySelectorAll('.step-connector').forEach(el => lineIo.observe(el));
 </script>
+
+
+<!--IF:WHATSAPP--><a class="wa-fab" href="{{WHATSAPP_WA_LINK}}" target="_blank" rel="noopener" aria-label="Napisz na WhatsApp">💬</a><!--ENDIF-->
 
 </body>
 </html>

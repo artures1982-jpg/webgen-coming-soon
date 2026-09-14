@@ -289,6 +289,23 @@
   footer ul li a{font-size:.9rem;color:var(--muted);}
   footer ul li a:hover{color:var(--text);}
   .foot-bottom{border-top:1px solid color-mix(in srgb, var(--text) 12%, transparent);padding-top:1.4rem;font-size:.8rem;color:var(--muted);display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem;}
+  .foot-social a{
+    width:34px;height:34px;border-radius:50%;border:1px solid color-mix(in srgb, var(--text) 18%, transparent);
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem;text-decoration:none;
+  }
+  .foot-social a:hover{border-color:var(--accent);}
+
+  .wa-fab{
+    position:fixed;right:1.2rem;bottom:1.2rem;z-index:70;
+    width:56px;height:56px;border-radius:50%;
+    background:var(--accent);color:var(--bg);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.7rem;
+    box-shadow:0 10px 24px rgba(0,0,0,.28);
+  }
+  .wa-fab:hover{background:var(--accent-dark);}
+  @media (max-width:640px){
+    .wa-fab{right:1rem;bottom:1rem;width:50px;height:50px;font-size:1.5rem;}
+  }
   @media (max-width:760px){.foot-grid{grid-template-columns:1fr;gap:1.8rem;}}
 </style>
 </head>
@@ -328,10 +345,12 @@
     <div class="hero-copy">
       <span class="eyebrow">Program kompleksowego leczenia — {{MIASTO}}</span>
       <h1>Jeden lekarz <em>prowadzący</em> zna Twój plan od pierwszej konsultacji do ostatniego etapu.</h1>
+<p class="wg-opis" style="margin-top:.75rem;max-width:640px;color:var(--muted);font-size:1.05rem;line-height:1.6">{{OPIS}}</p>
       <p class="lead">W złożonych przypadkach — pełna odbudowa uzębienia, wieloetapowa implantologia, ortodoncja dorosłych połączona z protetyką — zwykle to pacjent koordynuje chaos między specjalistami. Tu tę rolę przejmuje jeden lekarz prowadzący, obecny na każdym etapie.</p>
       <div class="hero-ctas">
         <a href="#kontakt" class="btn btn-primary">Umów konsultację programu</a>
         <a href="#program" class="btn btn-outline">Zobacz jak wygląda program</a>
+        <!--IF:BOOKSY--><a href="{{BOOKSY}}" class="btn btn-outline" target="_blank" rel="noopener">📅 Zarezerwuj wizytę online</a><!--ENDIF-->
       </div>
       <div class="hero-stats">
         <div class="hero-stat"><b>18 lat</b><span>praktyki lekarza prowadzącego</span></div>
@@ -574,6 +593,13 @@
       <div>
         <span class="foot-logo">{{NAZWA_STRONY}}</span>
         <p>Program dla złożonych, wieloetapowych przypadków — jeden lekarz prowadzący, gabinet na terenie miasta {{MIASTO}}.</p>
+        <div class="foot-social" style="display:flex;gap:.7rem;margin-top:1rem;">
+          <!--IF:FACEBOOK--><a href="{{FACEBOOK}}" aria-label="Facebook" target="_blank" rel="noopener">📘</a><!--ENDIF-->
+          <!--IF:INSTAGRAM--><a href="{{INSTAGRAM}}" aria-label="Instagram" target="_blank" rel="noopener">📷</a><!--ENDIF-->
+          <!--IF:MAPS--><a href="{{MAPS}}" aria-label="Google Maps" target="_blank" rel="noopener">🗺️</a><!--ENDIF-->
+          <!--IF:BOOKSY--><a href="{{BOOKSY}}" aria-label="Booksy" target="_blank" rel="noopener">📅</a><!--ENDIF-->
+        </div>
+        <!--IF:GOOGLE_OCENA--><p style="margin-top:.5rem;font-size:.85rem;color:var(--muted);">⭐ {{GOOGLE_OCENA}}{{GOOGLE_OPINIE_SUFFIX}}</p><!--ENDIF-->
       </div>
       <div>
         <h4>Program</h4>
@@ -668,6 +694,8 @@
     }
   })();
 </script>
+
+<!--IF:WHATSAPP--><a class="wa-fab" href="{{WHATSAPP_WA_LINK}}" target="_blank" rel="noopener" aria-label="Napisz na WhatsApp">💬</a><!--ENDIF-->
 
 </body>
 </html>

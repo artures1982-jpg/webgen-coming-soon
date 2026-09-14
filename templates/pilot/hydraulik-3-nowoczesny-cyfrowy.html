@@ -195,10 +195,22 @@
   .footer-social{display:flex;gap:.8rem;}
   .footer-social a{
     width:36px;height:36px;border-radius:50%;border:1px solid color-mix(in srgb, var(--text) 18%, transparent);
-    display:flex;align-items:center;justify-content:center;font-size:.9rem;
+    display:flex;align-items:center;justify-content:center;font-size:1.1rem;text-decoration:none;
   }
   .footer-social a:hover{border-color:var(--accent);color:var(--accent);}
   .footer-bottom{max-width:1160px;margin:1.8rem auto 0;font-size:.78rem;color:color-mix(in srgb, var(--text) 40%, transparent);text-align:center;border-top:1px solid color-mix(in srgb, var(--text) 8%, transparent);padding-top:1.4rem;}
+
+  .wa-fab{
+    position:fixed;right:1.2rem;bottom:1.2rem;z-index:70;
+    width:56px;height:56px;border-radius:50%;
+    background:var(--accent);color:var(--bg);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.7rem;
+    box-shadow:0 10px 24px rgba(0,0,0,.28);
+  }
+  .wa-fab:hover{background:var(--accent-dark);}
+  @media (max-width:640px){
+    .wa-fab{right:1rem;bottom:1rem;width:50px;height:50px;font-size:1.5rem;}
+  }
 
   @media (max-width:960px){
     .hero-grid{grid-template-columns:1fr;}
@@ -250,6 +262,7 @@
     <div class="hero-copy">
       <span class="eyebrow">Hydraulik {{MIASTO}} — online</span>
       <h1>{{NAZWA_STRONY}} — <span class="grad-text">wycena hydraulika</span> bez czekania na telefon</h1>
+<p class="wg-opis" style="margin-top:.75rem;max-width:640px;color:var(--muted);font-size:1.05rem;line-height:1.6">{{OPIS}}</p>
       <p>Zgłoś usterkę online, a wycenę i termin dojazdu dostaniesz zwykle w ciągu 15 minut. Bez kolejki telefonicznej, bez czekania na oddzwonienie.</p>
       <div class="hero-badges">
         <span>⚡ Wycena w ~15 min</span>
@@ -457,9 +470,13 @@
       <div class="footer-logo">{{NAZWA_STRONY}}</div>
       <p>Hydraulik {{MIASTO}} dostępny online — zgłoszenie, wycena i umówienie terminu bez kolejki telefonicznej.</p>
       <div class="footer-social" style="margin-top:1.2rem;">
-        <a href="#" aria-label="Facebook">f</a>
-        <a href="#" aria-label="Instagram">ig</a>
+        <!--IF:FACEBOOK--><a href="{{FACEBOOK}}" aria-label="Facebook" target="_blank" rel="noopener">📘</a><!--ENDIF-->
+        <!--IF:INSTAGRAM--><a href="{{INSTAGRAM}}" aria-label="Instagram" target="_blank" rel="noopener">📷</a><!--ENDIF-->
+        <!--IF:TIKTOK--><a href="{{TIKTOK}}" aria-label="TikTok" target="_blank" rel="noopener">🎵</a><!--ENDIF-->
+        <!--IF:MAPS--><a href="{{MAPS}}" aria-label="Google Maps" target="_blank" rel="noopener">🗺️</a><!--ENDIF-->
+        <!--IF:BOOKSY--><a href="{{BOOKSY}}" aria-label="Booksy" target="_blank" rel="noopener">📅</a><!--ENDIF-->
       </div>
+      <!--IF:GOOGLE_OCENA--><p class="footer-rating" style="margin-top:.6rem;font-size:.9rem;color:var(--muted);">⭐ {{GOOGLE_OCENA}}{{GOOGLE_OPINIE_SUFFIX}}</p><!--ENDIF-->
     </div>
     <div>
       <h4>Nawigacja</h4>
@@ -527,6 +544,8 @@
     });
   });
 </script>
+
+<!--IF:WHATSAPP--><a class="wa-fab" href="{{WHATSAPP_WA_LINK}}" target="_blank" rel="noopener" aria-label="Napisz na WhatsApp">💬</a><!--ENDIF-->
 
 </body>
 </html>

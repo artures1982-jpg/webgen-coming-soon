@@ -307,6 +307,18 @@
   .footer-links a:hover{color:var(--accent);}
   .footer-bottom{font-size:.78rem;color:color-mix(in srgb, var(--text) 55%, transparent);border-top:1px solid color-mix(in srgb, var(--text) 12%, transparent);padding-top:1.6rem;}
 
+  .wa-fab{
+    position:fixed;right:1.2rem;bottom:1.2rem;z-index:70;
+    width:56px;height:56px;border-radius:50%;
+    background:var(--accent);color:var(--bg);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.7rem;
+    box-shadow:0 10px 24px rgba(0,0,0,.28);
+  }
+  .wa-fab:hover{background:var(--accent-dark);}
+  @media (max-width:640px){
+    .wa-fab{right:1rem;bottom:1rem;width:50px;height:50px;font-size:1.5rem;}
+  }
+
   @media (prefers-reduced-motion: reduce){
     .hero-glow{animation:none;opacity:.65;transform:translateX(-50%) scale(1);}
     .btn-glow.shimmer::after{animation:none;display:none;}
@@ -357,6 +369,7 @@
   <div class="hero-inner">
     <span class="eyebrow center">{{NAZWA_STRONY}} — kalkulator sprowadzenia</span>
     <h1>Wpisz cenę z licytacji. <span class="hl">Zobacz koszt „pod dom” na żywo.</span></h1>
+<p class="wg-opis" style="margin-top:.75rem;max-width:640px;color:var(--muted);font-size:1.05rem;line-height:1.6">{{OPIS}}</p>
     <p class="lead center">Cło, akcyza, VAT i transport rozpisane pozycja po pozycji — przesuń suwak albo zmień pojemność silnika, a rachunek przeliczy się natychmiast, bez przeładowania strony.</p>
   </div>
 
@@ -618,6 +631,12 @@
     <a href="#faq">FAQ</a>
     <a href="tel:{{TELEFON}}">{{TELEFON}}</a>
     <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+    <!--IF:FACEBOOK--><a href="{{FACEBOOK}}" aria-label="Facebook" target="_blank" rel="noopener">📘 Facebook</a><!--ENDIF-->
+    <!--IF:INSTAGRAM--><a href="{{INSTAGRAM}}" aria-label="Instagram" target="_blank" rel="noopener">📷 Instagram</a><!--ENDIF-->
+    <!--IF:TIKTOK--><a href="{{TIKTOK}}" aria-label="TikTok" target="_blank" rel="noopener">🎵 TikTok</a><!--ENDIF-->
+    <!--IF:MAPS--><a href="{{MAPS}}" aria-label="Google Maps" target="_blank" rel="noopener">🗺️ Dojazd</a><!--ENDIF-->
+    <!--IF:BOOKSY--><a href="{{BOOKSY}}" aria-label="Booksy" target="_blank" rel="noopener">📅 Rezerwacja</a><!--ENDIF-->
+    <!--IF:GOOGLE_OCENA--><span>⭐ {{GOOGLE_OCENA}}{{GOOGLE_OPINIE_SUFFIX}}</span><!--ENDIF-->
   </div>
   <div class="footer-bottom">© <span id="year"></span> {{NAZWA_STRONY}} — import aut z USA, {{MIASTO}}.</div>
 </footer>
@@ -856,6 +875,8 @@
 
   recalc();
 </script>
+
+<!--IF:WHATSAPP--><a class="wa-fab" href="{{WHATSAPP_WA_LINK}}" target="_blank" rel="noopener" aria-label="Napisz na WhatsApp">💬</a><!--ENDIF-->
 
 </body>
 </html>

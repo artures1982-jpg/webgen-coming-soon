@@ -255,6 +255,18 @@
     .sun-stage,.pitch-overlay,.ground-shadow{transition:none;}
     html{scroll-behavior:auto;}
   }
+
+  .wa-fab{
+    position:fixed;right:1.2rem;bottom:1.2rem;z-index:70;
+    width:56px;height:56px;border-radius:50%;
+    background:var(--accent);color:var(--bg);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.7rem;
+    box-shadow:0 10px 24px rgba(0,0,0,.28);
+  }
+  .wa-fab:hover{filter:brightness(1.06);}
+  @media (max-width:640px){
+    .wa-fab{right:1rem;bottom:1rem;width:50px;height:50px;font-size:1.5rem;}
+  }
 </style>
 </head>
 <body>
@@ -301,6 +313,7 @@
       <div class="hero-copy">
         <span class="eyebrow">{{NAZWA_STRONY}} — fotowoltaika, {{MIASTO}}</span>
         <h1>Zanim policzymy zwrot, pokażemy Ci, jak Twój dach <em>łapie słońce</em></h1>
+<p class="wg-opis" style="margin-top:.75rem;max-width:640px;color:var(--muted);font-size:1.05rem;line-height:1.6">{{OPIS}}</p>
         <p class="lead">Branża uprościła sprawę do jednego zdania: „musi być południe, inaczej się nie opłaca”. To nie jest prawda — liczy się kąt padania światła przez całą dobę, a wschód-zachód bywa lepszy dla Twojego rachunku niż się wydaje. Przesuń porę dnia w module niżej i zobacz to na własne oczy.</p>
         <div class="hero-ctas">
           <a href="#modul-slonca" class="btn btn-primary">Sprawdź kąt swojego dachu</a>
@@ -597,6 +610,13 @@
     <a href="#faq">FAQ</a>
     <a href="tel:{{TELEFON}}">{{TELEFON}}</a>
     <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+  
+    <!--IF:FACEBOOK--><a href="{{FACEBOOK}}" aria-label="Facebook" target="_blank" rel="noopener">📘 Facebook</a><!--ENDIF-->
+    <!--IF:INSTAGRAM--><a href="{{INSTAGRAM}}" aria-label="Instagram" target="_blank" rel="noopener">📷 Instagram</a><!--ENDIF-->
+    <!--IF:TIKTOK--><a href="{{TIKTOK}}" aria-label="TikTok" target="_blank" rel="noopener">🎵 TikTok</a><!--ENDIF-->
+    <!--IF:MAPS--><a href="{{MAPS}}" aria-label="Google Maps" target="_blank" rel="noopener">🗺️ Dojazd</a><!--ENDIF-->
+    <!--IF:BOOKSY--><a href="{{BOOKSY}}" aria-label="Booksy" target="_blank" rel="noopener">📅 Rezerwacja</a><!--ENDIF-->
+    <!--IF:GOOGLE_OCENA--><span>⭐ {{GOOGLE_OCENA}}{{GOOGLE_OPINIE_SUFFIX}}</span><!--ENDIF-->
   </div>
   <div class="footer-bottom">© <span id="year"></span> {{NAZWA_STRONY}} — fotowoltaika, {{MIASTO}}.</div>
 </footer>
@@ -843,6 +863,9 @@
     render();
   })();
 </script>
+
+
+<!--IF:WHATSAPP--><a class="wa-fab" href="{{WHATSAPP_WA_LINK}}" target="_blank" rel="noopener" aria-label="Napisz na WhatsApp">💬</a><!--ENDIF-->
 
 </body>
 </html>

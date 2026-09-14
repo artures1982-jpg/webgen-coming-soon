@@ -245,6 +245,18 @@
     .timeline-num{width:39px;height:39px;font-size:.92rem;}
     .kontakt-tab{left:1.2rem;}
   }
+
+  .wa-fab{
+    position:fixed;right:1.2rem;bottom:1.2rem;z-index:70;
+    width:56px;height:56px;border-radius:50%;
+    background:var(--accent);color:var(--bg);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.7rem;
+    box-shadow:0 10px 24px rgba(0,0,0,.28);
+  }
+  .wa-fab:hover{filter:brightness(1.06);}
+  @media (max-width:640px){
+    .wa-fab{right:1rem;bottom:1rem;width:50px;height:50px;font-size:1.5rem;}
+  }
 </style>
 </head>
 <body>
@@ -280,9 +292,11 @@
     <div class="hero-copy">
       <span class="eyebrow">Program indywidualny — {{MIASTO}}</span>
       <h1>Program opieki rozpisany na miesiące i lata — od pierwszej konsultacji do ostatniej wizyty prowadzi go ten sam lekarz.</h1>
+<p class="wg-opis" style="margin-top:.75rem;max-width:640px;color:var(--muted);font-size:1.05rem;line-height:1.6">{{OPIS}}</p>
       <p>{{NAZWA_STRONY}} przyjmuje do programu ograniczoną liczbę pacjentów. Zamiast pojedynczych wizyt „kiedy akurat jest wolny termin” — jeden lekarz prowadzący, priorytetowy dostęp do kalendarza i regularny przegląd planu. To nie obietnica lepszego efektu niż w zwykłym gabinecie — to obietnica uwagi i ciągłości.</p>
       <div class="hero-cta-row">
         <a href="#kontakt" class="btn btn-primary">Wyślij zgłoszenie do programu</a>
+      <!--IF:BOOKSY--><a href="{{BOOKSY}}" class="btn btn-outline" target="_blank" rel="noopener">📅 Zarezerwuj w Booksy</a><!--ENDIF-->
         <a href="#proces" class="btn btn-outline">Zobacz, jak wygląda program</a>
       </div>
       <p class="hero-note">Zgłoszenia rozpatrujemy indywidualnie — liczba miejsc w programie jest ograniczona.</p>
@@ -511,6 +525,13 @@
     <a href="#kontakt">Zgłoszenie</a>
     <a href="tel:{{TELEFON}}">{{TELEFON}}</a>
     <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+  
+    <!--IF:FACEBOOK--><a href="{{FACEBOOK}}" aria-label="Facebook" target="_blank" rel="noopener">📘 Facebook</a><!--ENDIF-->
+    <!--IF:INSTAGRAM--><a href="{{INSTAGRAM}}" aria-label="Instagram" target="_blank" rel="noopener">📷 Instagram</a><!--ENDIF-->
+    <!--IF:TIKTOK--><a href="{{TIKTOK}}" aria-label="TikTok" target="_blank" rel="noopener">🎵 TikTok</a><!--ENDIF-->
+    <!--IF:MAPS--><a href="{{MAPS}}" aria-label="Google Maps" target="_blank" rel="noopener">🗺️ Dojazd</a><!--ENDIF-->
+    <!--IF:BOOKSY--><a href="{{BOOKSY}}" aria-label="Booksy" target="_blank" rel="noopener">📅 Rezerwacja</a><!--ENDIF-->
+    <!--IF:GOOGLE_OCENA--><span>⭐ {{GOOGLE_OCENA}}{{GOOGLE_OPINIE_SUFFIX}}</span><!--ENDIF-->
   </div>
   <div class="footer-bottom">© <span id="year"></span> {{NAZWA_STRONY}} — Medycyna estetyczna {{MIASTO}}.</div>
 </footer>
@@ -551,12 +572,35 @@
     fadeTargets.forEach(el => el.classList.add('visible'));
   }
 
-  const form = document.getElementById('quoteForm');
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    form.innerHTML = '<p style="font-weight:600;color:var(--accent);">Zgłoszenie dotarło. Odezwiemy się, żeby zaproponować termin konsultacji kwalifikacyjnej. W pilnych sprawach: <a href="tel:{{TELEFON}}" style="color:var(--text);text-decoration:underline;">{{TELEFON}}</a>.</p>';
+    var _btn = form.querySelector('[type="submit"]');
+    if (_btn) { _btn.disabled = true; _btn.dataset.origText = _btn.textContent; _btn.textContent = 'Wysyłanie…'; }
+    var _fd = new FormData(form);
+    var _fields = {};
+    _fd.forEach(function(v,k){ _fields[k] = v; });
+    var _slugMeta = document.querySelector('meta[name="webgen-slug"]');
+    var _slug = _slugMeta ? _slugMeta.content : '';
+    fetch('https://webgen.pl/api/contact-form', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug: _slug, fields: _fields })
+    }).then((r) => r.json()).then((data) => {
+      if (data && data.ok) {
+        form.innerHTML = '<p style="font-weight:600;color:var(--accent);">Zgłoszenie dotarło. Odezwiemy się, żeby zaproponować termin konsultacji kwalifikacyjnej. W pilnych sprawach: <a href="tel:{{TELEFON}}" style="color:var(--text);text-decoration:underline;">{{TELEFON}}</a>.</p>';
+      } else {
+        if (_btn) { _btn.disabled = false; _btn.textContent = _btn.dataset.origText; }
+        alert('Nie udało się wysłać wiadomości. Zadzwoń: {{TELEFON}}');
+      }
+    }).catch(() => {
+      if (_btn) { _btn.disabled = false; _btn.textContent = _btn.dataset.origText; }
+      alert('Nie udało się wysłać wiadomości. Zadzwoń: {{TELEFON}}');
+    });
   });
 </script>
+
+
+<!--IF:WHATSAPP--><a class="wa-fab" href="{{WHATSAPP_WA_LINK}}" target="_blank" rel="noopener" aria-label="Napisz na WhatsApp">💬</a><!--ENDIF-->
 
 </body>
 </html>

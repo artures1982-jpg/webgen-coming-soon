@@ -234,6 +234,18 @@
     .factor-card, .gwarancja-card, .opinia-card{opacity:1!important;transform:none!important;transition:none!important;}
     html{scroll-behavior:auto;}
   }
+
+  .wa-fab{
+    position:fixed;right:1.2rem;bottom:1.2rem;z-index:70;
+    width:56px;height:56px;border-radius:50%;
+    background:var(--accent);color:var(--bg);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.7rem;
+    box-shadow:0 10px 24px rgba(0,0,0,.28);
+  }
+  .wa-fab:hover{filter:brightness(1.06);}
+  @media (max-width:640px){
+    .wa-fab{right:1rem;bottom:1rem;width:50px;height:50px;font-size:1.5rem;}
+  }
 </style>
 </head>
 <body>
@@ -275,6 +287,7 @@
     <div class="hero-copy">
       <span class="eyebrow">{{NAZWA_STRONY}} — fotowoltaika i pompy ciepła</span>
       <h1>Oszczędności liczymy na <em>Twoich fakturach</em>, nie na średniej krajowej</h1>
+<p class="wg-opis" style="margin-top:.75rem;max-width:640px;color:var(--muted);font-size:1.05rem;line-height:1.6">{{OPIS}}</p>
       <p class="lead">Sprzedawcy fotowoltaiki lubią pokazywać zwrot w 5 lat. Realny wynik zależy od tego, ile prądu zużywasz w ciągu dnia, gdy instalacja produkuje — czyli od autokonsumpcji, a nie od tabelki ze średnią z internetu. Zanim złożymy ofertę, prosimy o Twoje faktury za prąd i liczymy na nich.</p>
       <div class="hero-ctas">
         <a href="#kontakt" class="btn btn-primary">Wyślij faktury i policz oszczędności</a>
@@ -524,6 +537,13 @@
     <a href="#faq">FAQ</a>
     <a href="tel:{{TELEFON}}">{{TELEFON}}</a>
     <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+  
+    <!--IF:FACEBOOK--><a href="{{FACEBOOK}}" aria-label="Facebook" target="_blank" rel="noopener">📘 Facebook</a><!--ENDIF-->
+    <!--IF:INSTAGRAM--><a href="{{INSTAGRAM}}" aria-label="Instagram" target="_blank" rel="noopener">📷 Instagram</a><!--ENDIF-->
+    <!--IF:TIKTOK--><a href="{{TIKTOK}}" aria-label="TikTok" target="_blank" rel="noopener">🎵 TikTok</a><!--ENDIF-->
+    <!--IF:MAPS--><a href="{{MAPS}}" aria-label="Google Maps" target="_blank" rel="noopener">🗺️ Dojazd</a><!--ENDIF-->
+    <!--IF:BOOKSY--><a href="{{BOOKSY}}" aria-label="Booksy" target="_blank" rel="noopener">📅 Rezerwacja</a><!--ENDIF-->
+    <!--IF:GOOGLE_OCENA--><span>⭐ {{GOOGLE_OCENA}}{{GOOGLE_OPINIE_SUFFIX}}</span><!--ENDIF-->
   </div>
   <div class="footer-bottom">© <span id="year"></span> {{NAZWA_STRONY}} — fotowoltaika i pompy ciepła, {{MIASTO}}.</div>
 </footer>
@@ -546,8 +566,30 @@
 
   document.getElementById('kontaktForm').addEventListener('submit', function(e){
     e.preventDefault();
-    document.getElementById('formStatus').style.display = 'block';
-    this.reset();
+    var _form = this;
+    var _btn = _form.querySelector('[type="submit"]');
+    if (_btn) { _btn.disabled = true; _btn.dataset.origText = _btn.textContent; _btn.textContent = 'Wysyłanie…'; }
+    var _fd = new FormData(_form);
+    var _fields = {};
+    _fd.forEach(function(v,k){ _fields[k] = v; });
+    var _slugMeta = document.querySelector('meta[name="webgen-slug"]');
+    var _slug = _slugMeta ? _slugMeta.content : '';
+    fetch('https://webgen.pl/api/contact-form', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug: _slug, fields: _fields })
+    }).then(function(r){ return r.json(); }).then(function(data){
+      if (_btn) { _btn.disabled = false; _btn.textContent = _btn.dataset.origText; }
+      if (data && data.ok) {
+        document.getElementById('formStatus').style.display = 'block';
+        _form.reset();
+      } else {
+        alert('Nie udało się wysłać wiadomości. Zadzwoń: {{TELEFON}}');
+      }
+    }).catch(function(){
+      if (_btn) { _btn.disabled = false; _btn.textContent = _btn.dataset.origText; }
+      alert('Nie udało się wysłać wiadomości. Zadzwoń: {{TELEFON}}');
+    });
   });
 
   // Jedyny ruch w tym wariancie: jednorazowy, stopniowany fade-in przy scrollu
@@ -570,6 +612,9 @@
     fadeTargets.forEach(function(el){ el.classList.add('visible'); });
   }
 </script>
+
+
+<!--IF:WHATSAPP--><a class="wa-fab" href="{{WHATSAPP_WA_LINK}}" target="_blank" rel="noopener" aria-label="Napisz na WhatsApp">💬</a><!--ENDIF-->
 
 </body>
 </html>

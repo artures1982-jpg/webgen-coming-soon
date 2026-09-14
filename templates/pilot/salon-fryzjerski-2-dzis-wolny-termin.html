@@ -42,6 +42,8 @@
   h2{font-size:clamp(1.8rem,3.2vw,2.5rem);margin-bottom:1rem;color:var(--text);}
   .lead{color:var(--muted);font-size:1.05rem;max-width:620px;}
   .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.95rem 1.9rem;font-weight:700;font-family:var(--body);font-size:.98rem;border:2px solid transparent;cursor:pointer;transition:transform .15s ease, background .2s ease;border-radius:999px;}
+  .btn-outline{background:transparent;color:var(--bg);border-color:color-mix(in srgb, var(--bg) 55%, transparent);}
+  .btn-outline:hover{border-color:var(--bg);background:color-mix(in srgb, var(--bg) 12%, transparent);}
   .btn:hover{transform:translateY(-2px);}
   .btn-primary{background:var(--accent);color:var(--text);}
   .btn-primary:hover{background:var(--accent-dark);color:var(--bg);}
@@ -147,6 +149,24 @@
     .btn-glow::before{animation:none;display:none;}
     .zaj-card, .fade-in{opacity:1;transform:none;transition:none;}
   }
+
+  .foot-social a{
+    width:34px;height:34px;border-radius:50%;border:1px solid color-mix(in srgb, var(--text) 18%, transparent);
+    color:var(--text);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem;
+  }
+  .foot-social a:hover{border-color:var(--accent);color:var(--accent);}
+  .wa-fab{
+    position:fixed;right:1.2rem;bottom:1.2rem;z-index:70;
+    width:56px;height:56px;border-radius:50%;
+    background:var(--accent);color:var(--text);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.7rem;
+    box-shadow:0 10px 24px rgba(0,0,0,.28);
+  }
+  .wa-fab:hover{filter:brightness(1.06);}
+  @media (max-width:640px){
+    .wa-fab{right:1rem;bottom:1rem;width:50px;height:50px;font-size:1.5rem;}
+  }
 </style>
 </head>
 <body>
@@ -181,8 +201,10 @@
   <div class="hero-inner">
     <span class="eyebrow">{{NAZWA_STRONY}} — {{MIASTO}}</span>
     <h1>Pracujesz do 17? <span class="hl">My działamy do 20 — i w soboty.</span></h1>
+<p class="wg-opis" style="margin-top:.75rem;max-width:640px;color:var(--muted);font-size:1.05rem;line-height:1.6">{{OPIS}}</p>
     <p>Wieczorne i weekendowe terminy dla ludzi, którzy nie mają czasu na wizytę fryzjera w środku dnia roboczego. Sprawdź, co jest wolne dziś.</p>
     <a href="#kontakt" class="btn btn-primary btn-glow"><span>Sprawdź wolne terminy</span></a>
+    <!--IF:BOOKSY--><a href="{{BOOKSY}}" class="btn btn-outline" target="_blank" rel="noopener">📅 Zarezerwuj w Booksy</a><!--ENDIF-->
   </div>
 </section>
 
@@ -275,6 +297,15 @@
 </section>
 
 <footer>
+  <div class="foot-social" style="display:flex;gap:.7rem;justify-content:center;margin-bottom:.9rem;">
+    <!--IF:FACEBOOK--><a href="{{FACEBOOK}}" aria-label="Facebook" target="_blank" rel="noopener">📘</a><!--ENDIF-->
+    <!--IF:INSTAGRAM--><a href="{{INSTAGRAM}}" aria-label="Instagram" target="_blank" rel="noopener">📷</a><!--ENDIF-->
+    <!--IF:TIKTOK--><a href="{{TIKTOK}}" aria-label="TikTok" target="_blank" rel="noopener">🎵</a><!--ENDIF-->
+    <!--IF:MAPS--><a href="{{MAPS}}" aria-label="Google Maps" target="_blank" rel="noopener">🗺️</a><!--ENDIF-->
+    <!--IF:BOOKSY--><a href="{{BOOKSY}}" aria-label="Booksy" target="_blank" rel="noopener">📅</a><!--ENDIF-->
+  </div>
+  <!--IF:GOOGLE_OCENA--><p style="font-size:.85rem;margin-bottom:.6rem;color:var(--muted);">⭐ {{GOOGLE_OCENA}}{{GOOGLE_OPINIE_SUFFIX}}</p><!--ENDIF-->
+  
   <p>© {{NAZWA_STRONY}} — wszystkie prawa zastrzeżone.</p>
 </footer>
 
@@ -298,6 +329,9 @@
   }, {threshold:.2});
   document.querySelectorAll('.zaj-card, .fade-in').forEach(function(el){ observer.observe(el); });
 </script>
+
+
+<!--IF:WHATSAPP--><a class="wa-fab" href="{{WHATSAPP_WA_LINK}}" target="_blank" rel="noopener" aria-label="Napisz na WhatsApp">💬</a><!--ENDIF-->
 
 </body>
 </html>

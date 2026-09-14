@@ -198,6 +198,23 @@
   .footer-links li{margin-bottom:.6rem;font-size:.9rem;}
   .footer-links a:hover{color:var(--accent);}
   .footer-bottom{max-width:1180px;margin:1.5rem auto 0;font-size:.8rem;color:color-mix(in srgb, white 50%, transparent);text-align:center;}
+  .foot-social a{
+    width:34px;height:34px;border-radius:50%;border:1px solid color-mix(in srgb, white 25%, transparent);
+    color:var(--bg);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem;
+  }
+  .foot-social a:hover{border-color:var(--accent);color:var(--accent);}
+  .wa-fab{
+    position:fixed;right:1.2rem;bottom:1.2rem;z-index:70;
+    width:56px;height:56px;border-radius:50%;
+    background:var(--accent);color:var(--bg);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.7rem;
+    box-shadow:0 10px 24px rgba(0,0,0,.28);
+  }
+  .wa-fab:hover{filter:brightness(1.06);}
+  @media (max-width:640px){
+    .wa-fab{right:1rem;bottom:1rem;width:50px;height:50px;font-size:1.5rem;}
+  }
 
   @media (max-width:960px){
     .services-grid{grid-template-columns:repeat(2,1fr);}
@@ -258,6 +275,7 @@
   <div class="hero-inner">
     <span class="pin">📍 {{MIASTO}} i okolice</span>
     <h1>{{NAZWA_STRONY}} — <em>Hydraulik</em> w mieście {{MIASTO}}, na którym można polegać</h1>
+<p class="wg-opis" style="margin-top:.75rem;max-width:640px;color:var(--muted);font-size:1.05rem;line-height:1.6">{{OPIS}}</p>
     <p>Awarie, instalacje, przeglądy i montaże. Szybki dojazd, uczciwa wycena i gwarancja na każdą wykonaną usługę — dzień i noc, 7 dni w tygodniu.</p>
     <div class="hero-ctas">
       <a href="tel:{{TELEFON}}" class="btn btn-primary">📞 Zadzwoń: {{TELEFON}}</a>
@@ -523,6 +541,14 @@
     <div>
       <div class="footer-logo">{{NAZWA_STRONY}}</div>
       <p>Profesjonalne usługi hydrauliczne w mieście {{MIASTO}} i okolicy. Awarie, instalacje, przeglądy i montaże — szybko, uczciwie i z gwarancją.</p>
+      <div class="foot-social" style="display:flex;gap:.7rem;margin-top:1rem;">
+        <!--IF:FACEBOOK--><a href="{{FACEBOOK}}" aria-label="Facebook" target="_blank" rel="noopener">📘</a><!--ENDIF-->
+        <!--IF:INSTAGRAM--><a href="{{INSTAGRAM}}" aria-label="Instagram" target="_blank" rel="noopener">📷</a><!--ENDIF-->
+        <!--IF:TIKTOK--><a href="{{TIKTOK}}" aria-label="TikTok" target="_blank" rel="noopener">🎵</a><!--ENDIF-->
+        <!--IF:MAPS--><a href="{{MAPS}}" aria-label="Google Maps" target="_blank" rel="noopener">🗺️</a><!--ENDIF-->
+        <!--IF:BOOKSY--><a href="{{BOOKSY}}" aria-label="Booksy" target="_blank" rel="noopener">📅</a><!--ENDIF-->
+      </div>
+      <!--IF:GOOGLE_OCENA--><p style="margin-top:.5rem;font-size:.85rem;color:var(--muted);">⭐ {{GOOGLE_OCENA}}{{GOOGLE_OPINIE_SUFFIX}}</p><!--ENDIF-->
     </div>
     <div>
       <h4>Nawigacja</h4>
@@ -588,6 +614,8 @@
     });
   });
 </script>
+
+<!--IF:WHATSAPP--><a class="wa-fab" href="{{WHATSAPP_WA_LINK}}" target="_blank" rel="noopener" aria-label="Napisz na WhatsApp">💬</a><!--ENDIF-->
 
 </body>
 </html>

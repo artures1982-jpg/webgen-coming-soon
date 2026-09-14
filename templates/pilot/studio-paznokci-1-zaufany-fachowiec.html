@@ -176,6 +176,18 @@
     .cennik-row{flex-wrap:wrap;}
     .cennik-row .dots{order:3;flex-basis:100%;height:0;}
   }
+
+  .wa-fab{
+    position:fixed;right:1.2rem;bottom:1.2rem;z-index:70;
+    width:56px;height:56px;border-radius:50%;
+    background:var(--accent);color:var(--bg);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.7rem;
+    box-shadow:0 10px 24px rgba(0,0,0,.28);
+  }
+  .wa-fab:hover{filter:brightness(1.06);}
+  @media (max-width:640px){
+    .wa-fab{right:1rem;bottom:1rem;width:50px;height:50px;font-size:1.5rem;}
+  }
 </style>
 </head>
 <body>
@@ -217,8 +229,10 @@
     <div class="hero-copy">
       <span class="eyebrow">Studio paznokci — {{MIASTO}}</span>
       <h1>{{NAZWA_STRONY}} — stylizacje paznokci, którym możesz zaufać</h1>
+<p class="wg-opis" style="margin-top:.75rem;max-width:640px;color:var(--muted);font-size:1.05rem;line-height:1.6">{{OPIS}}</p>
       <p>Manicure, pedicure i stylizacje żelowe w mieście {{MIASTO}} — sterylne narzędzia, sprawdzone produkty i przejrzysty cennik bez niespodzianek na koniec wizyty.</p>
       <a href="#kontakt" class="btn btn-primary">Umów wizytę</a>
+      <!--IF:BOOKSY--><a href="{{BOOKSY}}" class="btn btn-outline" target="_blank" rel="noopener" style="margin-left:.7rem;">📅 Zarezerwuj w Booksy</a><!--ENDIF-->
     </div>
     <div class="hero-photo-wrap">
       <img class="hero-photo" src="https://images.pexels.com/photos/15202934/pexels-photo-15202934.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Stylistka wykonująca manicure klientce w studiu paznokci" width="940" height="650" fetchpriority="high">
@@ -388,6 +402,13 @@
     <a href="#galeria">Galeria</a>
     <a href="tel:{{TELEFON}}">{{TELEFON}}</a>
     <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+  
+    <!--IF:FACEBOOK--><a href="{{FACEBOOK}}" aria-label="Facebook" target="_blank" rel="noopener">📘 Facebook</a><!--ENDIF-->
+    <!--IF:INSTAGRAM--><a href="{{INSTAGRAM}}" aria-label="Instagram" target="_blank" rel="noopener">📷 Instagram</a><!--ENDIF-->
+    <!--IF:TIKTOK--><a href="{{TIKTOK}}" aria-label="TikTok" target="_blank" rel="noopener">🎵 TikTok</a><!--ENDIF-->
+    <!--IF:MAPS--><a href="{{MAPS}}" aria-label="Google Maps" target="_blank" rel="noopener">🗺️ Dojazd</a><!--ENDIF-->
+    <!--IF:BOOKSY--><a href="{{BOOKSY}}" aria-label="Booksy" target="_blank" rel="noopener">📅 Rezerwacja</a><!--ENDIF-->
+    <!--IF:GOOGLE_OCENA--><span>⭐ {{GOOGLE_OCENA}}{{GOOGLE_OPINIE_SUFFIX}}</span><!--ENDIF-->
   </div>
   <div class="footer-bottom">© <span id="year"></span> {{NAZWA_STRONY}} — Studio paznokci {{MIASTO}}.</div>
 </footer>
@@ -404,6 +425,9 @@
     a.addEventListener('click', () => mobileMenu.classList.remove('open'));
   });
 </script>
+
+
+<!--IF:WHATSAPP--><a class="wa-fab" href="{{WHATSAPP_WA_LINK}}" target="_blank" rel="noopener" aria-label="Napisz na WhatsApp">💬</a><!--ENDIF-->
 
 </body>
 </html>

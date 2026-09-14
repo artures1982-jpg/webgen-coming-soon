@@ -149,6 +149,18 @@
     .nav-actions > .btn{display:none;}
     .nav-links-mobile .mobile-cta{color:var(--accent-dark);}
   }
+
+  .wa-fab{
+    position:fixed;right:1.2rem;bottom:1.2rem;z-index:70;
+    width:56px;height:56px;border-radius:50%;
+    background:var(--accent);color:var(--bg);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.7rem;
+    box-shadow:0 10px 24px rgba(0,0,0,.28);
+  }
+  .wa-fab:hover{filter:brightness(1.06);}
+  @media (max-width:640px){
+    .wa-fab{right:1rem;bottom:1rem;width:50px;height:50px;font-size:1.5rem;}
+  }
 </style>
 </head>
 <body>
@@ -190,8 +202,10 @@
     <div>
       <span class="eyebrow">{{NAZWA_STRONY}} — {{MIASTO}}</span>
       <h1>Salon, w którym <em>on i ona</em> czują się tak samo dobrze</h1>
+<p class="wg-opis" style="margin-top:.75rem;max-width:640px;color:var(--muted);font-size:1.05rem;line-height:1.6">{{OPIS}}</p>
       <p>Strzyżenie, koloryzacja i stylizacja — dla kobiet i mężczyzn w jednym miejscu, u tego samego zespołu, na tym samym wysokim poziomie.</p>
       <a href="#kontakt" class="btn btn-primary">Umów wizytę</a>
+      <!--IF:BOOKSY--><a href="{{BOOKSY}}" class="btn btn-outline" target="_blank" rel="noopener">📅 Zarezerwuj w Booksy</a><!--ENDIF-->
     </div>
   </div>
 </section>
@@ -337,7 +351,14 @@
       <a href="#uslugi">Cennik</a>
       <a href="#galeria">Metamorfozy</a>
       <a href="#kontakt">Kontakt</a>
-    </div>
+    
+    <!--IF:FACEBOOK--><a href="{{FACEBOOK}}" aria-label="Facebook" target="_blank" rel="noopener">📘 Facebook</a><!--ENDIF-->
+    <!--IF:INSTAGRAM--><a href="{{INSTAGRAM}}" aria-label="Instagram" target="_blank" rel="noopener">📷 Instagram</a><!--ENDIF-->
+    <!--IF:TIKTOK--><a href="{{TIKTOK}}" aria-label="TikTok" target="_blank" rel="noopener">🎵 TikTok</a><!--ENDIF-->
+    <!--IF:MAPS--><a href="{{MAPS}}" aria-label="Google Maps" target="_blank" rel="noopener">🗺️ Dojazd</a><!--ENDIF-->
+    <!--IF:BOOKSY--><a href="{{BOOKSY}}" aria-label="Booksy" target="_blank" rel="noopener">📅 Rezerwacja</a><!--ENDIF-->
+    <!--IF:GOOGLE_OCENA--><span>⭐ {{GOOGLE_OCENA}}{{GOOGLE_OPINIE_SUFFIX}}</span><!--ENDIF-->
+  </div>
   </div>
   <div class="footer-bottom wrap">© {{NAZWA_STRONY}} — wszystkie prawa zastrzeżone.</div>
 </footer>
@@ -355,6 +376,9 @@
     });
   });
 </script>
+
+
+<!--IF:WHATSAPP--><a class="wa-fab" href="{{WHATSAPP_WA_LINK}}" target="_blank" rel="noopener" aria-label="Napisz na WhatsApp">💬</a><!--ENDIF-->
 
 </body>
 </html>

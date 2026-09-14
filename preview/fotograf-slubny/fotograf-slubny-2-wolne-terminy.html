@@ -312,6 +312,18 @@
   .footer-links a{font-size:.88rem;color:color-mix(in srgb, var(--bg) 78%, transparent);}
   .footer-tagline{margin-top:1.2rem;font-size:.92rem;color:color-mix(in srgb, var(--bg) 82%, transparent);max-width:560px;}
   .footer-bottom{margin-top:1.6rem;font-size:.8rem;color:color-mix(in srgb, var(--bg) 55%, transparent);}
+
+  .wa-fab{
+    position:fixed;right:1.2rem;bottom:1.2rem;z-index:70;
+    width:56px;height:56px;border-radius:50%;
+    background:var(--accent);color:var(--surface);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.7rem;
+    box-shadow:0 10px 24px rgba(0,0,0,.28);
+  }
+  .wa-fab:hover{filter:brightness(1.06);}
+  @media (max-width:640px){
+    .wa-fab{right:1rem;bottom:1rem;width:50px;height:50px;font-size:1.5rem;}
+  }
 </style>
 </head>
 <body>
@@ -353,6 +365,7 @@
     <div class="hero-copy">
       <p class="eyebrow">Fotografia ślubna na sezon 2027 — {{MIASTO}}</p>
       <h1>Sprawdźcie od razu, czy Wasza sobota jest jeszcze wolna</h1>
+<p class="wg-opis" style="margin-top:.75rem;max-width:640px;color:var(--muted);font-size:1.05rem;line-height:1.6">{{OPIS}}</p>
       <p class="lead">Bez wysyłania maila i czekania na odpowiedź trzy dni. Poniżej widzicie realny kalendarz sezonu — kliknięcie w wolną datę wstawia ją prosto do formularza zapytania.</p>
       <div class="hero-actions">
         <a href="#dostepnosc" class="btn btn-primary">Sprawdź wolne soboty</a>
@@ -653,7 +666,14 @@
         <a href="#cennik">Cennik</a>
         <a href="#faq">FAQ</a>
         <a href="#kontakt">Kontakt</a>
-      </nav>
+      
+    <!--IF:FACEBOOK--><a href="{{FACEBOOK}}" aria-label="Facebook" target="_blank" rel="noopener">📘 Facebook</a><!--ENDIF-->
+    <!--IF:INSTAGRAM--><a href="{{INSTAGRAM}}" aria-label="Instagram" target="_blank" rel="noopener">📷 Instagram</a><!--ENDIF-->
+    <!--IF:TIKTOK--><a href="{{TIKTOK}}" aria-label="TikTok" target="_blank" rel="noopener">🎵 TikTok</a><!--ENDIF-->
+    <!--IF:MAPS--><a href="{{MAPS}}" aria-label="Google Maps" target="_blank" rel="noopener">🗺️ Dojazd</a><!--ENDIF-->
+    <!--IF:BOOKSY--><a href="{{BOOKSY}}" aria-label="Booksy" target="_blank" rel="noopener">📅 Rezerwacja</a><!--ENDIF-->
+    <!--IF:GOOGLE_OCENA--><span>⭐ {{GOOGLE_OCENA}}{{GOOGLE_OPINIE_SUFFIX}}</span><!--ENDIF-->
+  </nav>
     </div>
     <p class="footer-tagline">Kalendarz wyżej pokazuje realną dostępność sobót w sezonie 2027 — sprawdźcie swoją datę, zanim napiszecie, żeby wiedzieć, na czym stoicie.</p>
     <p class="footer-bottom">{{NAZWA_STRONY}}, {{ADRES}}, {{MIASTO}} · {{TELEFON}} · {{EMAIL}}</p>
@@ -789,12 +809,33 @@
     }
   });
 
-  /* ---------- FORMULARZ — potwierdzenie po wysłaniu (bez realnego backendu w tym pliku) ---------- */
+  /* ---------- FORMULARZ — realnie wysyła przez /api/contact-form ---------- */
   var kontaktForm = document.getElementById('kontaktForm');
   var formNote = document.getElementById('formNote');
   kontaktForm.addEventListener('submit', function(e){
     e.preventDefault();
-    formNote.textContent = 'Dziękuję! Wiadomość dotarła — odpowiadam tego samego dnia, także wieczorem.';
+    var _btn = kontaktForm.querySelector('[type="submit"]');
+    if (_btn) { _btn.disabled = true; _btn.dataset.origText = _btn.textContent; _btn.textContent = 'Wysyłanie…'; }
+    var _fd = new FormData(kontaktForm);
+    var _fields = {};
+    _fd.forEach(function(v,k){ _fields[k] = v; });
+    var _slugMeta = document.querySelector('meta[name="webgen-slug"]');
+    var _slug = _slugMeta ? _slugMeta.content : '';
+    fetch('https://webgen.pl/api/contact-form', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug: _slug, fields: _fields })
+    }).then(function(r){ return r.json(); }).then(function(data){
+      if (_btn) { _btn.disabled = false; _btn.textContent = _btn.dataset.origText; }
+      if (data && data.ok) {
+        formNote.textContent = 'Dziękuję! Wiadomość dotarła — odpowiadam tego samego dnia, także wieczorem.';
+      } else {
+        alert('Nie udało się wysłać wiadomości. Zadzwoń: {{TELEFON}}');
+      }
+    }).catch(function(){
+      if (_btn) { _btn.disabled = false; _btn.textContent = _btn.dataset.origText; }
+      alert('Nie udało się wysłać wiadomości. Zadzwoń: {{TELEFON}}');
+    });
   });
 
   /* ---------- REVEAL — stopniowany fade-in przy scrollu (IntersectionObserver). Elementy są
@@ -818,6 +859,9 @@
     revealEls.forEach(function(el){ io.observe(el); });
   }
 </script>
+
+
+<!--IF:WHATSAPP--><a class="wa-fab" href="{{WHATSAPP_WA_LINK}}" target="_blank" rel="noopener" aria-label="Napisz na WhatsApp">💬</a><!--ENDIF-->
 
 </body>
 </html>

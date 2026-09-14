@@ -48,6 +48,9 @@
   .btn:hover{transform:translateY(-2px);}
   .btn-primary{background:var(--accent);color:var(--surface);}
   .btn-primary:hover{background:var(--accent-dark);}
+  .btn-outline{background:transparent;color:var(--text);border-color:color-mix(in srgb, var(--text) 25%, transparent);}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:1rem;margin:1.4rem 0;}
 
   /* --- Nav: two-row, non-sticky (scrolls away), no CTA pill in header --- */
   header.nav{background:var(--surface);}
@@ -81,6 +84,32 @@
   }
   .fab-call.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
   .fab-call:hover{background:var(--accent-dark);}
+
+  .foot-social a{
+    width:34px;height:34px;border-radius:50%;border:1px solid color-mix(in srgb, var(--text) 18%, transparent);
+    color:var(--text);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem;
+  }
+  .foot-social a:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* Lewy-dolny róg (nie prawy) — .fab-call (telefon) już zajmuje prawy-dolny róg w
+     tym pliku, jedynym z 53 z istniejącym floating buttonem. Tak jak .fab-call, ujawnia
+     się dopiero po zjechaniu hero — inaczej na krótkich viewportach nakłada się na
+     CTA/cytat w hero (znalezione przez qa-szablonow, screenshot 390px). */
+  .wa-fab{
+    position:fixed;left:1.2rem;bottom:1.2rem;z-index:60;
+    width:56px;height:56px;border-radius:50%;
+    background:var(--accent);color:var(--surface);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.7rem;
+    box-shadow:0 10px 24px color-mix(in srgb, var(--text) 26%, transparent);
+    opacity:0;transform:translateY(16px) scale(.9);pointer-events:none;
+    transition:opacity .35s ease, transform .35s ease, background .2s ease;
+  }
+  .wa-fab.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+  .wa-fab:hover{background:var(--accent-dark);}
+  @media (max-width:640px){
+    .wa-fab{left:1rem;bottom:1rem;width:50px;height:50px;font-size:1.5rem;}
+  }
 
   /* --- Hero: full-bleed split, text left / edge-to-edge photo right, no card/frame/blob --- */
   .hero{padding:0;background:var(--bg);}
@@ -150,7 +179,7 @@
   @media (prefers-reduced-motion: reduce){
     .milestone,.cennik-row{transition:none;opacity:1;transform:none;}
     .btn:hover{transform:none;}
-    .fab-call{transition:none;}
+    .fab-call,.wa-fab{transition:none;}
   }
 
   @media (max-width:900px){
@@ -214,6 +243,7 @@
 </header>
 
 <a href="tel:{{TELEFON}}" class="fab-call" id="fabCall" aria-label="Zadzwoń: {{TELEFON}}">📞</a>
+<!--IF:WHATSAPP--><a class="wa-fab" href="{{WHATSAPP_WA_LINK}}" target="_blank" rel="noopener" aria-label="Napisz na WhatsApp">💬</a><!--ENDIF-->
 
 <section class="hero">
   <div class="hero-flex">
@@ -221,9 +251,13 @@
       <div class="inner">
         <span class="eyebrow">Bez recepcji, bez grafiku na cały etat — {{MIASTO}}</span>
         <h1>{{NAZWA_STRONY}}: zawsze ta sama para rąk, ten sam telefon</h1>
+<p class="wg-opis" style="margin-top:.75rem;max-width:640px;color:var(--muted);font-size:1.05rem;line-height:1.6">{{OPIS}}</p>
         <p>Nie zatrudniam dodatkowych stylistek i nie umawiam klientek „na kogo wypadnie” — każdą wizytę, od pierwszego telefonu po polerowanie na koniec, prowadzę osobiście.</p>
         <p class="signoff">— {{NAZWA_STRONY}}</p>
-        <a href="tel:{{TELEFON}}" class="btn btn-primary">📞 Zadzwoń: {{TELEFON}}</a>
+        <div class="hero-ctas">
+          <a href="tel:{{TELEFON}}" class="btn btn-primary">📞 Zadzwoń: {{TELEFON}}</a>
+          <!--IF:BOOKSY--><a href="{{BOOKSY}}" class="btn btn-outline" target="_blank" rel="noopener">📅 Zarezerwuj wizytę online</a><!--ENDIF-->
+        </div>
       </div>
     </div>
     <div class="hero-photo-col">
@@ -341,6 +375,13 @@
 </section>
 
 <footer>
+  <div class="foot-social" style="display:flex;gap:.7rem;justify-content:center;margin-bottom:.9rem;">
+    <!--IF:FACEBOOK--><a href="{{FACEBOOK}}" aria-label="Facebook" target="_blank" rel="noopener">📘</a><!--ENDIF-->
+    <!--IF:INSTAGRAM--><a href="{{INSTAGRAM}}" aria-label="Instagram" target="_blank" rel="noopener">📷</a><!--ENDIF-->
+    <!--IF:TIKTOK--><a href="{{TIKTOK}}" aria-label="TikTok" target="_blank" rel="noopener">🎵</a><!--ENDIF-->
+    <!--IF:MAPS--><a href="{{MAPS}}" aria-label="Google Maps" target="_blank" rel="noopener">🗺️</a><!--ENDIF-->
+  </div>
+  <!--IF:GOOGLE_OCENA--><p style="font-size:.85rem;margin-bottom:.6rem;color:var(--muted);">⭐ {{GOOGLE_OCENA}}{{GOOGLE_OPINIE_SUFFIX}}</p><!--ENDIF-->
   <p>© <span id="year"></span> {{NAZWA_STRONY}} — Studio paznokci {{MIASTO}}. <a href="tel:{{TELEFON}}">{{TELEFON}}</a> · <a href="mailto:{{EMAIL}}">{{EMAIL}}</a></p>
 </footer>
 
@@ -361,12 +402,17 @@
   }, { threshold: 0.2 });
   document.querySelectorAll('.milestone, .cennik-row').forEach(el => io.observe(el));
 
-  // Floating call button appears once the hero has scrolled out of view.
+  // Floating call/WhatsApp buttons appear once the hero has scrolled out of view
+  // (na krótkich viewportach hero zajmuje cały fold — bez tego FAB nakłada się na CTA).
   const hero = document.querySelector('.hero');
   const fab = document.getElementById('fabCall');
-  if (hero && fab) {
+  const waFab = document.querySelector('.wa-fab');
+  if (hero && (fab || waFab)) {
     const heroIo = new IntersectionObserver((entries) => {
-      entries.forEach(e => fab.classList.toggle('show', !e.isIntersecting));
+      entries.forEach(e => {
+        if (fab) fab.classList.toggle('show', !e.isIntersecting);
+        if (waFab) waFab.classList.toggle('show', !e.isIntersecting);
+      });
     }, { threshold: 0 });
     heroIo.observe(hero);
   }

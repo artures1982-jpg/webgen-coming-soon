@@ -46,6 +46,8 @@
 
   .btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:.5rem;padding:1rem 2rem;border-radius:2rem;font-weight:700;font-family:var(--body);font-size:1rem;border:1.5px solid transparent;cursor:pointer;}
   .btn-primary{background:var(--accent);color:var(--bg);}
+  .btn-outline{background:transparent;color:var(--text);border-color:color-mix(in srgb, var(--text) 25%, transparent);}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent);}
   .btn-primary::before{
     content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
     background:linear-gradient(120deg, transparent, color-mix(in srgb, white 55%, transparent), transparent);
@@ -168,6 +170,24 @@
     .nav-actions .btn-primary .cta-text{display:none;}
     .nav-actions .btn-primary{padding:.6rem .8rem;gap:0;}
   }
+
+  .foot-social a{
+    width:34px;height:34px;border-radius:50%;border:1px solid color-mix(in srgb, var(--text) 18%, transparent);
+    color:var(--text);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem;
+  }
+  .foot-social a:hover{border-color:var(--accent);color:var(--accent);}
+  .wa-fab{
+    position:fixed;right:1.2rem;bottom:1.2rem;z-index:70;
+    width:56px;height:56px;border-radius:50%;
+    background:var(--accent);color:var(--bg);text-decoration:none;
+    display:flex;align-items:center;justify-content:center;font-size:1.7rem;
+    box-shadow:0 10px 24px rgba(0,0,0,.28);
+  }
+  .wa-fab:hover{filter:brightness(1.06);}
+  @media (max-width:640px){
+    .wa-fab{right:1rem;bottom:1rem;width:50px;height:50px;font-size:1.5rem;}
+  }
 </style>
 </head>
 <body>
@@ -202,8 +222,10 @@
   <div class="hero-inner">
     <span class="eyebrow">Studio paznokci {{MIASTO}} — express</span>
     <h1>Paznokcie na <em>już</em>, nie na jutro</h1>
+<p class="wg-opis" style="margin-top:.75rem;max-width:640px;color:var(--muted);font-size:1.05rem;line-height:1.6">{{OPIS}}</p>
     <p>Wydarzenie dziś wieczorem? Wpadka przed spotkaniem? Ekspresowe zabiegi od 15 minut — zapisy na ostatnią chwilę, bez czekania tygodniami na termin.</p>
     <a href="tel:{{TELEFON}}" class="btn btn-primary">📞 Zadzwoń: {{TELEFON}}</a>
+    <!--IF:BOOKSY--><a href="{{BOOKSY}}" class="btn btn-outline" target="_blank" rel="noopener">📅 Zarezerwuj w Booksy</a><!--ENDIF-->
   </div>
 </section>
 
@@ -291,6 +313,15 @@
 </section>
 
 <footer>
+  <div class="foot-social" style="display:flex;gap:.7rem;justify-content:center;margin-bottom:.9rem;">
+    <!--IF:FACEBOOK--><a href="{{FACEBOOK}}" aria-label="Facebook" target="_blank" rel="noopener">📘</a><!--ENDIF-->
+    <!--IF:INSTAGRAM--><a href="{{INSTAGRAM}}" aria-label="Instagram" target="_blank" rel="noopener">📷</a><!--ENDIF-->
+    <!--IF:TIKTOK--><a href="{{TIKTOK}}" aria-label="TikTok" target="_blank" rel="noopener">🎵</a><!--ENDIF-->
+    <!--IF:MAPS--><a href="{{MAPS}}" aria-label="Google Maps" target="_blank" rel="noopener">🗺️</a><!--ENDIF-->
+    <!--IF:BOOKSY--><a href="{{BOOKSY}}" aria-label="Booksy" target="_blank" rel="noopener">📅</a><!--ENDIF-->
+  </div>
+  <!--IF:GOOGLE_OCENA--><p style="font-size:.85rem;margin-bottom:.6rem;color:var(--muted);">⭐ {{GOOGLE_OCENA}}{{GOOGLE_OPINIE_SUFFIX}}</p><!--ENDIF-->
+  
   <p>© <span id="year"></span> {{NAZWA_STRONY}} — Studio paznokci {{MIASTO}}. <a href="tel:{{TELEFON}}">{{TELEFON}}</a> · <a href="mailto:{{EMAIL}}">{{EMAIL}}</a></p>
 </footer>
 
@@ -311,6 +342,9 @@
   }, { threshold: 0.2 });
   document.querySelectorAll('.zabieg-card, .usp-item').forEach(el => io.observe(el));
 </script>
+
+
+<!--IF:WHATSAPP--><a class="wa-fab" href="{{WHATSAPP_WA_LINK}}" target="_blank" rel="noopener" aria-label="Napisz na WhatsApp">💬</a><!--ENDIF-->
 
 </body>
 </html>
