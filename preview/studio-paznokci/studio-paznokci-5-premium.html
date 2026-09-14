@@ -490,10 +490,30 @@
     updateParallax();
   }
 
-  const form = document.getElementById('quoteForm');
   form.addEventListener('submit', function(e){
     e.preventDefault();
-    form.innerHTML = '<p style="font-weight:600;color:var(--accent-dark);">Zapytanie dotarło do nas. Odpowiemy w ciągu 2 dni roboczych z propozycją terminu i wstępnym zakresem współpracy — do usłyszenia.</p>';
+    var _btn = form.querySelector('[type="submit"]');
+    if (_btn) { _btn.disabled = true; _btn.dataset.origText = _btn.textContent; _btn.textContent = 'Wysyłanie…'; }
+    var _fd = new FormData(form);
+    var _fields = {};
+    _fd.forEach(function(v,k){ _fields[k] = v; });
+    var _slugMeta = document.querySelector('meta[name="webgen-slug"]');
+    var _slug = _slugMeta ? _slugMeta.content : '';
+    fetch('https://webgen.pl/api/contact-form', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug: _slug, fields: _fields })
+    }).then(function(r){ return r.json(); }).then(function(data){
+      if (data && data.ok) {
+        form.innerHTML = '<p style="font-weight:600;color:var(--accent-dark);">Zapytanie dotarło do nas. Odpowiemy w ciągu 2 dni roboczych z propozycją terminu i wstępnym zakresem współpracy — do usłyszenia.</p>';
+      } else {
+        if (_btn) { _btn.disabled = false; _btn.textContent = _btn.dataset.origText; }
+        alert('Nie udało się wysłać wiadomości. Zadzwoń: {{TELEFON}}');
+      }
+    }).catch(function(){
+      if (_btn) { _btn.disabled = false; _btn.textContent = _btn.dataset.origText; }
+      alert('Nie udało się wysłać wiadomości. Zadzwoń: {{TELEFON}}');
+    });
   });
 </script>
 

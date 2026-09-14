@@ -622,8 +622,30 @@
 
   document.getElementById('kontaktForm').addEventListener('submit', function(e){
     e.preventDefault();
-    document.getElementById('formStatus').style.display = 'block';
-    this.reset();
+    var _form = this;
+    var _btn = _form.querySelector('[type="submit"]');
+    if (_btn) { _btn.disabled = true; _btn.dataset.origText = _btn.textContent; _btn.textContent = 'Wysyłanie…'; }
+    var _fd = new FormData(_form);
+    var _fields = {};
+    _fd.forEach(function(v,k){ _fields[k] = v; });
+    var _slugMeta = document.querySelector('meta[name="webgen-slug"]');
+    var _slug = _slugMeta ? _slugMeta.content : '';
+    fetch('https://webgen.pl/api/contact-form', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug: _slug, fields: _fields })
+    }).then(function(r){ return r.json(); }).then(function(data){
+      if (_btn) { _btn.disabled = false; _btn.textContent = _btn.dataset.origText; }
+      if (data && data.ok) {
+        document.getElementById('formStatus').style.display = 'block';
+        _form.reset();
+      } else {
+        alert('Nie udało się wysłać wiadomości. Zadzwoń: {{TELEFON}}');
+      }
+    }).catch(function(){
+      if (_btn) { _btn.disabled = false; _btn.textContent = _btn.dataset.origText; }
+      alert('Nie udało się wysłać wiadomości. Zadzwoń: {{TELEFON}}');
+    });
   });
 
   // FAQ akordeon

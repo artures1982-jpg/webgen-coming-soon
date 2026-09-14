@@ -664,8 +664,29 @@
     if(form && confirm){
       form.addEventListener('submit', function(e){
         e.preventDefault();
-        confirm.classList.add('show');
-        form.reset();
+        var _btn = form.querySelector('[type="submit"]');
+        if (_btn) { _btn.disabled = true; _btn.dataset.origText = _btn.textContent; _btn.textContent = 'Wysyłanie…'; }
+        var _fd = new FormData(form);
+        var _fields = {};
+        _fd.forEach(function(v,k){ _fields[k] = v; });
+        var _slugMeta = document.querySelector('meta[name="webgen-slug"]');
+        var _slug = _slugMeta ? _slugMeta.content : '';
+        fetch('https://webgen.pl/api/contact-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ slug: _slug, fields: _fields })
+        }).then(function(r){ return r.json(); }).then(function(data){
+          if (_btn) { _btn.disabled = false; _btn.textContent = _btn.dataset.origText; }
+          if (data && data.ok) {
+            confirm.classList.add('show');
+            form.reset();
+          } else {
+            alert('Nie udało się wysłać wiadomości. Zadzwoń: {{TELEFON}}');
+          }
+        }).catch(function(){
+          if (_btn) { _btn.disabled = false; _btn.textContent = _btn.dataset.origText; }
+          alert('Nie udało się wysłać wiadomości. Zadzwoń: {{TELEFON}}');
+        });
       });
     }
 
