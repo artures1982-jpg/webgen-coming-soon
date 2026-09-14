@@ -40,7 +40,52 @@ export type Firma = {
   godz_pon_pt?: string;
   godz_sob?: string;
   paletteId?: string | null;
+  opis?: string;
+  lata?: string;
+  realizacje?: string;
+  uslugi_lista?: string[];
+  facebook?: string;
+  instagram?: string;
+  tiktok?: string;
+  whatsapp?: string;
+  booksy?: string;
+  maps?: string;
+  google_ocena?: string;
+  google_opinie?: string;
+  hero_base64?: string;
+  heroUrl?: string;
 };
+
+// Klucze bloków warunkowych <!--IF:KLUCZ-->...<!--ENDIF--> — blok znika całkowicie
+// (razem ze znacznikami), gdy odpowiadające pole firma jest puste, więc martwy
+// link social nigdy nie trafia do wygenerowanego HTML (bez potrzeby JS-a chowającego
+// go przez CSS). Wywoływane PRZED zwykłym podstawianiem tokenów — {{TOKENY}} wewnątrz
+// zachowanego bloku podstawiają się w normalnym przebiegu fillTemplate() niżej.
+// Wartość może być jednym polem, albo listą pól gdzie WYSTARCZY, że którekolwiek
+// jest niepuste (np. HERO_IMG: klient mógł wybrać zdjęcie przez wgranie pliku
+// [hero_base64] albo przez Pexels [heroUrl] — oba trafiają do tego samego bloku).
+const CONDITIONAL_FIELDS: Record<string, keyof Firma | (keyof Firma)[]> = {
+  FACEBOOK: "facebook",
+  INSTAGRAM: "instagram",
+  TIKTOK: "tiktok",
+  WHATSAPP: "whatsapp",
+  BOOKSY: "booksy",
+  MAPS: "maps",
+  GOOGLE_OCENA: "google_ocena",
+  HERO_IMG: ["hero_base64", "heroUrl"],
+};
+
+function stripConditionals(html: string, firma: Firma): string {
+  let result = html;
+  Object.keys(CONDITIONAL_FIELDS).forEach((key) => {
+    const fields = CONDITIONAL_FIELDS[key];
+    const keys = Array.isArray(fields) ? fields : [fields];
+    const filled = keys.some((k) => !!firma[k]);
+    const re = new RegExp("<!--IF:" + key + "-->([\\s\\S]*?)<!--ENDIF-->", "g");
+    result = result.replace(re, filled ? "$1" : "");
+  });
+  return result;
+}
 
 export function slugifyName(name: string | undefined | null): string {
   return (
@@ -68,8 +113,29 @@ export function fillTemplate(html: string, firma: Firma): string {
     "{{GODZINY_PON_PT}}": firma.godz_pon_pt || "8:00–18:00",
     "{{GODZINY_SOB}}": firma.godz_sob || "9:00–14:00",
     "{{SLUG}}": slugifyName(firma.nazwa_strony || firma.nazwa),
+    "{{OPIS}}": firma.opis || "",
+    "{{FACEBOOK}}": firma.facebook || "",
+    "{{INSTAGRAM}}": firma.instagram || "",
+    "{{TIKTOK}}": firma.tiktok || "",
+    "{{MAPS}}": firma.maps || "",
+    "{{BOOKSY}}": firma.booksy || "",
+    "{{GOOGLE_OCENA}}": firma.google_ocena || "",
+    "{{GOOGLE_OPINIE}}": firma.google_opinie || "",
+    // liczba opinii jest opcjonalna NAWET gdy ocena jest podana — osobny warunkowy
+    // blok tylko dla niej byłby zagnieżdżony wewnątrz <!--IF:GOOGLE_OCENA-->, a
+    // stripConditionals() nie obsługuje zagnieżdżania różnych kluczy; prościej
+    // policzyć gotowy sufiks tu, niż komplikować mechanizm dla jednego przypadku.
+    "{{GOOGLE_OPINIE_SUFFIX}}": firma.google_opinie ? " (" + firma.google_opinie + " opinii)" : "",
+    // wa.me wymaga pełnego numeru z kierunkowym — pole zbiera numer "bez +48"
+    // (patrz placeholder w SocialStep.tsx), więc doklejamy prefiks tu.
+    "{{WHATSAPP_WA_LINK}}": firma.whatsapp ? "https://wa.me/48" + firma.whatsapp.replace(/\D/g, "") : "",
+    // base64 (wgrane z dysku LUB wygenerowane przez AI dla Pro Max) ma pierwszeństwo
+    // przed URL-em z Pexels — zgodne z tym, co HeroUpload.tsx sam robi wewnętrznie
+    // przy wgraniu pliku (czyści heroUrl), więc to nie nowa reguła, tylko ta sama
+    // preferencja zastosowana też tutaj.
+    "{{HERO_IMG}}": firma.hero_base64 || firma.heroUrl || "",
   };
-  let result = html;
+  let result = stripConditionals(html, firma);
   Object.keys(map).forEach((token) => {
     result = result.split(token).join(map[token]);
   });

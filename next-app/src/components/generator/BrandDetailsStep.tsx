@@ -3,6 +3,8 @@
 import { useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useGenerator } from "./GeneratorContext";
+import { useEnhanceOpis } from "@/hooks/useEnhanceOpis";
+import { useGenerateHeroImage } from "@/hooks/useGenerateHeroImage";
 import PaletteSection from "./PaletteSection";
 import LogoUpload from "./LogoUpload";
 import HeroUpload from "./HeroUpload";
@@ -53,6 +55,9 @@ export default function BrandDetailsStep({ active }: { active: boolean }) {
   }
 
   const isPro = gen.plan === "pro" || gen.plan === "promax";
+  const { enhancing: opisEnhancing } = useEnhanceOpis();
+  const { generating: heroGenerating } = useGenerateHeroImage();
+  const isProMax = gen.plan === "promax";
 
   return (
     <div className={`${styles["step-panel"]} ${active ? styles.active : ""}`}>
@@ -256,11 +261,29 @@ export default function BrandDetailsStep({ active }: { active: boolean }) {
             onChange={(e) => patchForm({ opis: e.target.value })}
             placeholder="np. Jesteśmy ekipą remontową z Mokotowa..."
           />
-          <div className={styles["field-hint"]}>Jeśli zostawisz puste — AI sam napisze opis na podstawie branży i lokalizacji.</div>
+          {isPro && opisEnhancing && <div className={styles["field-hint"]}>✨ AI dopracowuje opis na podstawie Twoich danych…</div>}
+          {isPro && !opisEnhancing && gen.opisEnhanced && (
+            <div className={styles["field-hint"]}>AI dociosał ten opis pod Twoją firmę — możesz go swobodnie zmienić.</div>
+          )}
+          {(!isPro || (!opisEnhancing && !gen.opisEnhanced)) && (
+            <div className={styles["field-hint"]}>Jeśli zostawisz puste — na stronie nie pojawi się dodatkowy opis.</div>
+          )}
         </div>
 
         <LogoUpload />
-        {isPro && <HeroUpload />}
+        {isPro && (
+          <>
+            <HeroUpload />
+            {isProMax && heroGenerating && (
+              <div className={styles["field-hint"]}>✨ AI generuje zdjęcie hero na podstawie Twoich danych…</div>
+            )}
+            {isProMax && !heroGenerating && gen.heroImageGenerated && (
+              <div className={styles["field-hint"]}>
+                Zdjęcie hero wygenerowane przez AI — możesz wybrać inne z Pexels albo wgrać własne, jeśli wolisz.
+              </div>
+            )}
+          </>
+        )}
 
         <div className={styles.field}>
           <label>

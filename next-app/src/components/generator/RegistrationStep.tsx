@@ -31,7 +31,7 @@ const CLERK_APPEARANCE = {
   },
 };
 
-export default function RegistrationStep() {
+export default function RegistrationStep({ templateId }: { templateId: string }) {
   const { gen, patchGen } = useGenerator();
   const [rodo, setRodo] = useState(false);
   const [nazwaFirma, setNazwaFirma] = useState("");
@@ -48,12 +48,21 @@ export default function RegistrationStep() {
   }
 
   if (gen.authMode !== "gate") {
+    // Bez forceRedirectUrl Clerk po weryfikacji wraca do swojego domyślnego adresu
+    // (obserwowane: "/") zamiast do tego kroku generatora — klient traci wybrany
+    // szablon. Wracamy dokładnie tam, skąd wszedł, z tym samym ?template=.
+    // UWAGA: gen.templateId jeszcze NIE istnieje na tym etapie (ustawia je dopiero
+    // selectTemplate() w GeneratorShell, warunkowane isSignedIn — a tu user jeszcze
+    // nie jest zalogowany) — stąd templateId z propsa (już zweryfikowany server-side
+    // w page.tsx), nie ze stanu gen. Złapane empirycznie: bez tego redirect leciał
+    // na "/generator?template=" (puste) → własny redirect strony na /galeria/.
+    const backToGenerator = "/generator?template=" + encodeURIComponent(templateId);
     return (
       <div className={`${styles["step-panel"]} ${styles.active}`} style={{ maxWidth: 440, margin: "0 auto" }}>
         {gen.authMode === "signIn" ? (
-          <SignIn routing="hash" appearance={CLERK_APPEARANCE} />
+          <SignIn routing="hash" appearance={CLERK_APPEARANCE} forceRedirectUrl={backToGenerator} />
         ) : (
-          <SignUp routing="hash" appearance={CLERK_APPEARANCE} />
+          <SignUp routing="hash" appearance={CLERK_APPEARANCE} forceRedirectUrl={backToGenerator} />
         )}
         <p style={{ textAlign: "center", marginTop: 16, fontSize: 13, color: "var(--muted)" }}>
           {gen.authMode === "signIn" ? (

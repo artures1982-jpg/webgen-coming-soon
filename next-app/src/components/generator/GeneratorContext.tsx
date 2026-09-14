@@ -31,6 +31,9 @@ export type GenState = {
   authMode: "gate" | "signIn" | "signUp";
   pendingProfileFirma: { nazwa_firma: string; nip: string; adres_firma: string } | null;
   metadataSaved: boolean;
+  opisEnhanced: boolean;
+  assistantOptOut: boolean;
+  heroImageGenerated: boolean;
 };
 
 const INITIAL_GEN_STATE: GenState = {
@@ -53,6 +56,9 @@ const INITIAL_GEN_STATE: GenState = {
   authMode: "gate",
   pendingProfileFirma: null,
   metadataSaved: false,
+  opisEnhanced: false,
+  assistantOptOut: false,
+  heroImageGenerated: false,
 };
 
 // target: 'hero' (zdjęcie hero — Pro/Pro Max) albo 'zone_hero'|'zone_img1'|'zone_img2'

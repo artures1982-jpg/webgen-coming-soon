@@ -17,6 +17,7 @@ import { isProEmail } from "@/lib/entitlement";
 import { applyPalette, fillTemplate, flattenPalettes, slugifyName } from "@/lib/template-fill";
 import type { Firma, ManifestEntry, PalettesByIndustry } from "@/lib/template-fill";
 import { TEMPLATES_BASE } from "@/lib/templates-base";
+import { enhanceOpis } from "@/lib/enhance-opis";
 
 export async function OPTIONS(req: Request) {
   return optionsResponse(req);
@@ -79,7 +80,23 @@ export async function POST(req: Request) {
     palettesByIndustry = {};
   }
 
-  const html = applyPalette(fillTemplate(rawHtml, firma), firma.paletteId, flattenPalettes(palettesByIndustry));
+  // Dociosanie opisu przez AI TU (nie tylko w kroku 2 generatora) — dla nowego
+  // klienta kupującego Pro po raz pierwszy checkout jest dopiero w kroku 5, więc
+  // /api/enhance-opis (wołane z kroku 2) odrzuca go 402-ką, zanim jeszcze zapłaci.
+  // Ten endpoint wie już na pewno, że klient ma aktywny Pro (przeszedł isPro wyżej)
+  // — więc to jedyne miejsce gwarantujące AI-opis na finalnej stronie każdemu
+  // płacącemu klientowi, niezależnie czy krok 2 zdążył to zrobić wcześniej.
+  const opisAI = await enhanceOpis({
+    branza: firma.branza,
+    miasto: firma.miasto,
+    opisDraft: firma.opis,
+    lata: firma.lata,
+    realizacje: firma.realizacje,
+    uslugiLista: firma.uslugi_lista,
+  });
+  const firmaZOpisem = { ...firma, opis: opisAI };
+
+  const html = applyPalette(fillTemplate(rawHtml, firmaZOpisem), firma.paletteId, flattenPalettes(palettesByIndustry));
 
   return Response.json(
     {

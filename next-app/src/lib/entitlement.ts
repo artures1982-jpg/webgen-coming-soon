@@ -4,6 +4,10 @@
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
 const STRIPE_PRICE_PRO = process.env.STRIPE_PRICE_PRO;
 const STRIPE_PRICE_PRO_YEARLY = process.env.STRIPE_PRICE_PRO_YEARLY;
+const STRIPE_PRICE_PROMAX = process.env.STRIPE_PRICE_PROMAX;
+const STRIPE_PRICE_PROMAX_YEARLY = process.env.STRIPE_PRICE_PROMAX_YEARLY;
+const PAID_PRICE_IDS = [STRIPE_PRICE_PRO, STRIPE_PRICE_PRO_YEARLY, STRIPE_PRICE_PROMAX, STRIPE_PRICE_PROMAX_YEARLY];
+const PROMAX_PRICE_IDS = [STRIPE_PRICE_PROMAX, STRIPE_PRICE_PROMAX_YEARLY];
 
 type StripePrice = { id: string };
 type StripeItem = { price?: StripePrice };
@@ -21,7 +25,7 @@ async function stripeGet<T>(pathname: string): Promise<T> {
   return res.json();
 }
 
-export async function isProEmail(email: string): Promise<boolean> {
+async function hasActiveSubscriptionWithPrice(email: string, allowedPriceIds: (string | undefined)[]): Promise<boolean> {
   if (!STRIPE_SECRET_KEY || !email) return false;
   try {
     const customers = await stripeGet<StripeListResponse<StripeCustomer>>(
@@ -45,14 +49,24 @@ export async function isProEmail(email: string): Promise<boolean> {
       const items = (sub.items && sub.items.data) || [];
       for (const item of items) {
         const priceId = item.price && item.price.id;
-        if (priceId && (priceId === STRIPE_PRICE_PRO || priceId === STRIPE_PRICE_PRO_YEARLY)) {
+        if (priceId && allowedPriceIds.includes(priceId)) {
           return true;
         }
       }
     }
     return false;
   } catch (err) {
-    console.error("isProEmail error:", err);
+    console.error("entitlement check error:", err);
     return false;
   }
+}
+
+export async function isProEmail(email: string): Promise<boolean> {
+  return hasActiveSubscriptionWithPrice(email, PAID_PRICE_IDS);
+}
+
+// Węższa bramka niż isProEmail — WYŁĄCZNIE Pro Max, nie zwykły Pro. Do funkcji
+// zastrzeżonych dla najwyższego planu (np. generowanie zdjęcia hero przez AI).
+export async function isProMaxEmail(email: string): Promise<boolean> {
+  return hasActiveSubscriptionWithPrice(email, PROMAX_PRICE_IDS);
 }

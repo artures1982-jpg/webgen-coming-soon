@@ -10,6 +10,7 @@ import Sidebar from "./Sidebar";
 import RegistrationStep from "./RegistrationStep";
 import TemplateLocationStep from "./TemplateLocationStep";
 import BrandDetailsStep from "./BrandDetailsStep";
+import AssistantStep from "./AssistantStep";
 import SocialStep from "./SocialStep";
 import AddonsStep from "./AddonsStep";
 import SummaryStep from "./SummaryStep";
@@ -99,17 +100,20 @@ function Inner({ templateId }: { templateId: string }) {
   if (!isLoaded) return null;
 
   const showRegistration = !isSignedIn;
+  const isPro = gen.plan === "pro" || gen.plan === "promax";
+  const useAssistant = isPro && !gen.assistantOptOut;
 
   return (
     <div className={styles.root}>
       <div className={styles.app}>
         <Sidebar visible={!showRegistration} />
         <main className={styles.main}>
-          {showRegistration && <RegistrationStep />}
+          {showRegistration && <RegistrationStep templateId={templateId} />}
           {!showRegistration && gen.phase === "form" && (
             <>
-              <TemplateLocationStep active={gen.currentStep === 1} />
-              <BrandDetailsStep active={gen.currentStep === 2} />
+              {useAssistant && gen.currentStep <= 2 && <AssistantStep />}
+              {!useAssistant && <TemplateLocationStep active={gen.currentStep === 1} />}
+              {!useAssistant && <BrandDetailsStep active={gen.currentStep === 2} />}
               <SocialStep active={gen.currentStep === 3} />
               <AddonsStep active={gen.currentStep === 4} />
               <SummaryStep active={gen.currentStep === 5} onGenerate={handleGenerate} />
