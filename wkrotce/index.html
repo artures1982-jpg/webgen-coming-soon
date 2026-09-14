@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Już wkrótce — Webgen</title>
+<meta name="description" content="Aktywacja szablonów Webgen wystartuje wkrótce. Zostaw adres email, a poinformujemy Cię jako pierwszego.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://www.webgen.pl/wkrotce/">
+<style>
+  :root {
+    --bg:       #080A12;
+    --surface:  rgba(255,255,255,0.04);
+    --border:   rgba(255,255,255,0.10);
+    --green:    #00E5A0;
+    --blue:     #2E7CFF;
+    --purple:   #7B4FFF;
+    --text:     #F3F6FC;
+    --muted:    #8E97AC;
+    --display:  'Bricolage Grotesque', sans-serif;
+    --mono:     'JetBrains Mono', monospace;
+    --grad:     linear-gradient(120deg, var(--green), var(--blue) 55%, var(--purple));
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: var(--display);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 20px;
+  }
+  .card {
+    max-width: 560px;
+    width: 100%;
+    text-align: center;
+  }
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 800;
+    font-size: 20px;
+    margin-bottom: 36px;
+    text-decoration: none;
+    color: var(--text);
+  }
+  .logo-mark {
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    background: var(--grad);
+    display: flex; align-items: center; justify-content: center;
+    color: #05100d; font-weight: 800; font-size: 15px;
+  }
+  .logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 14px;
+  }
+  h1 {
+    font-size: clamp(28px, 5vw, 38px);
+    line-height: 1.15;
+    margin: 0 0 16px;
+  }
+  h1 span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  p.sub {
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0 0 32px;
+  }
+  form { max-width: 440px; margin: 0 auto; }
+  .row { display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+  input[type="email"] {
+    flex: 1;
+    min-width: 200px;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 15px;
+    color: var(--text);
+    font-family: inherit;
+    outline: none;
+    transition: border-color .2s;
+  }
+  input[type="email"]:focus { border-color: var(--green); }
+  button {
+    background: var(--grad);
+    color: #05100d;
+    border: none;
+    padding: 14px 26px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+  }
+  button:disabled { opacity: .6; cursor: default; }
+  label.rodo {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    text-align: left;
+    margin: 0 0 6px;
+  }
+  label.rodo input {
+    width: 16px; height: 16px; min-width: 16px; margin-top: 2px;
+    accent-color: var(--green); cursor: pointer;
+  }
+  label.rodo span { font-size: 12px; color: var(--muted); line-height: 1.55; }
+  label.rodo a { color: var(--green); text-decoration: none; }
+  #msg {
+    display: none;
+    margin-top: 14px;
+    padding: 12px 18px;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .back {
+    display: inline-block;
+    margin-top: 28px;
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .back:hover { color: var(--text); }
+</style>
+</head>
+<body>
+  <div class="card">
+    <a href="/galeria/" class="logo">
+      <span class="logo-mark">W</span>
+      web<span>gen</span>
+    </a>
+
+    <div class="eyebrow">// Aktywacja szablonu</div>
+    <h1>Ta funkcja jest jeszcze<br><span>w przygotowaniu</span></h1>
+    <p class="sub">Galerię szablonów już możesz przeglądać, ale samodzielna aktywacja i personalizacja strony wystartuje dopiero z pełnym uruchomieniem produkcji. Zostaw email, a napiszemy Ci jako pierwszemu, gdy będzie gotowa.</p>
+
+    <form id="f" onsubmit="submitForm(event)">
+      <div class="row">
+        <input type="email" id="email" required placeholder="twoj@email.pl">
+        <button type="submit">Powiadom mnie →</button>
+      </div>
+      <label class="rodo">
+        <input type="checkbox" id="rodo" required>
+        <span>Zapoznałem/am się z <a href="/polityka-prywatnosci/" target="_blank">Polityką Prywatności</a> i wyrażam zgodę na kontakt w tej sprawie.</span>
+      </label>
+      <div id="msg"></div>
+    </form>
+
+    <a href="/galeria/" class="back">← Wróć do galerii szablonów</a>
+  </div>
+
+<script>
+function submitForm(e) {
+  e.preventDefault();
+  var email = document.getElementById('email').value.trim();
+  var rodo = document.getElementById('rodo').checked;
+  var msg = document.getElementById('msg');
+  var btn = e.target.querySelector('button[type="submit"]');
+  if (btn) btn.disabled = true;
+
+  fetch('/api/contact', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({email: email, source: 'galeria-generator-wkrotce', rodo: rodo})
+  }).then(function(res) {
+    return res.json().then(function(data) { return {ok: res.ok, data: data}; });
+  }).then(function(r) {
+    if (!r.ok) throw new Error((r.data && r.data.error) || 'Nieznany błąd');
+    msg.style.display = 'block';
+    msg.style.background = 'rgba(0,229,160,.1)';
+    msg.style.border = '1px solid rgba(0,229,160,.25)';
+    msg.style.color = '#00E5A0';
+    msg.textContent = '✓ Dziękujemy! Napiszemy na ' + email + ', gdy tylko wystartujemy.';
+    document.getElementById('email').value = '';
+    document.getElementById('rodo').checked = false;
+  }).catch(function() {
+    msg.style.display = 'block';
+    msg.style.background = 'rgba(255,107,107,.1)';
+    msg.style.border = '1px solid rgba(255,107,107,.25)';
+    msg.style.color = '#FF6B6B';
+    msg.textContent = 'Nie udało się wysłać. Napisz bezpośrednio: hello@webgen.pl';
+  }).then(function() {
+    if (btn) btn.disabled = false;
+  });
+}
+</script>
+</body>
+</html>

@@ -77,11 +77,20 @@
     {
       "source": "/success",
       "destination": "/success/index.html"
+    },
+    {
+      "source": "/wkrotce",
+      "destination": "/wkrotce/index.html"
     }
   ],
   "redirects": [
     {
-      "source": "/((?!api/).+)",
+      "source": "/generator",
+      "destination": "/wkrotce",
+      "permanent": false
+    },
+    {
+      "source": "/((?!api/|galeria|wkrotce).+)",
       "destination": "/",
       "permanent": false
     }
