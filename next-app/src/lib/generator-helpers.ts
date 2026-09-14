@@ -4,20 +4,20 @@
 
 export type Addon = { id: string; name: string; price: number; type: "month" | "once" };
 
-// 7 dodatków à la carte nad planem Pro — id musi się zgadzać z ADDON_PRICES w
-// src/app/api/create-checkout/route.ts.
+// Dodatki à la carte nad planem Pro — id musi się zgadzać z ADDON_PRICES w
+// src/app/api/create-checkout/route.ts. Własna domena/SSL i statystyki NIE są tu —
+// są wbundlowane w cenę Pro/Pro Max (patrz PLAN_SUMMARY_FEATURES.pro), sprzedawanie
+// ich osobno byłoby podwójnym pobraniem opłaty za to samo (usunięte 2026-09-15).
 export const ADDONS_CONFIG: Record<string, Omit<Addon, "id">> = {
   social_media: { name: "Integracja Social Media", price: 79, type: "month" },
-  statystyki: { name: "Statystyki odwiedzin", price: 49, type: "month" },
   priorytetowe_wsparcie: { name: "Priorytetowe wsparcie", price: 99, type: "month" },
   google_business: { name: "Google Business Profile", price: 149, type: "month" },
-  wlasna_domena: { name: "Własna domena", price: 199, type: "once" },
   dodatkowe_podstrony: { name: "Dodatkowe podstrony", price: 149, type: "once" },
   sesja_ai: { name: "Sesja zdjęciowa AI", price: 99, type: "once" },
 };
 
-export const ADDONS_MONTHLY = ["social_media", "statystyki", "priorytetowe_wsparcie", "google_business"] as const;
-export const ADDONS_ONCE = ["wlasna_domena", "dodatkowe_podstrony", "sesja_ai"] as const;
+export const ADDONS_MONTHLY = ["social_media", "priorytetowe_wsparcie", "google_business"] as const;
+export const ADDONS_ONCE = ["dodatkowe_podstrony", "sesja_ai"] as const;
 
 // Bazowe ceny miesięczne planów — jedno miejsce, z którego liczona jest cena roczna
 // (-17%, czyli 10 miesięcy rozłożone na 12).

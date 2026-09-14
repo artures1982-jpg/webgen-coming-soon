@@ -21,11 +21,11 @@ const PRICES: Record<string, string | undefined> = {
   promax_yearly: process.env.STRIPE_PRICE_PROMAX_YEARLY,
 };
 
-// wlasna_domena/dodatkowe_podstrony/sesja_ai to setup jednorazowy; reszta miesięczna.
+// dodatkowe_podstrony/sesja_ai to setup jednorazowy; reszta miesięczna. wlasna_domena
+// i statystyki NIE są tu — wbundlowane w Pro/Pro Max, usunięte 2026-09-15 (patrz
+// generator-helpers.ts) żeby klient nie mógł zapłacić drugi raz za to, co ma w cenie.
 const ADDON_PRICES: Record<string, string | undefined> = {
-  wlasna_domena: process.env.STRIPE_PRICE_ADDON_DOMENA,
   social_media: process.env.STRIPE_PRICE_ADDON_SOCIAL_MEDIA,
-  statystyki: process.env.STRIPE_PRICE_ADDON_STATYSTYKI,
   dodatkowe_podstrony: process.env.STRIPE_PRICE_ADDON_PODSTRONY,
   sesja_ai: process.env.STRIPE_PRICE_ADDON_SESJA_AI,
   google_business: process.env.STRIPE_PRICE_ADDON_GBP,
@@ -33,7 +33,6 @@ const ADDON_PRICES: Record<string, string | undefined> = {
 };
 
 const ONE_TIME_ADDONS: Record<string, boolean> = {
-  wlasna_domena: true,
   dodatkowe_podstrony: true,
   sesja_ai: true,
 };

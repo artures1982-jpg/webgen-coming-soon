@@ -47,8 +47,8 @@ export default function OverviewPage({
       </span>
     );
     statusSub = "sub_" + (sub.id || "").slice(-8);
-    planText = planLabel(sub.plan_name, sub.plan_amount, sub.plan_currency);
-    planSub = formatAmount(sub.plan_amount, sub.plan_currency) + "/mies.";
+    planText = planLabel(sub.plan_name, sub.plan_amount, sub.plan_currency, sub.plan_interval);
+    planSub = formatAmount(sub.plan_amount, sub.plan_currency) + (sub.plan_interval === "year" ? "/rok" : "/mies.");
     renewalText = formatDate(sub.current_period_end);
     renewalSub = sub.cancel_at_period_end ? "⚠ Nie odnowi się" : "Automatyczne odnowienie";
     overviewSub = "Konto: " + (data?.customer?.email || email);

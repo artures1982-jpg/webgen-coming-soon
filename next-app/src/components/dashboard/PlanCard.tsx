@@ -10,7 +10,7 @@ export function PlanCard({ sub }: { sub: Subscription }) {
     <div className={`${styles["plan-card"]} ${styles["active-plan"]}`}>
       <div className={styles["plan-header"]}>
         <div>
-          <div className={styles["plan-name"]}>{planLabel(sub.plan_name, sub.plan_amount, sub.plan_currency)}</div>
+          <div className={styles["plan-name"]}>{planLabel(sub.plan_name, sub.plan_amount, sub.plan_currency, sub.plan_interval)}</div>
           <div style={{ fontSize: 12, color: "var(--muted)", marginTop: 4, fontFamily: "var(--mono)" }}>
             sub_{(sub.id || "").slice(-10)}
           </div>
@@ -18,7 +18,7 @@ export function PlanCard({ sub }: { sub: Subscription }) {
         <div style={{ textAlign: "right" }}>
           <div className={styles["plan-price"]}>
             {formatAmount(sub.plan_amount, sub.plan_currency)}
-            <span>/mies.</span>
+            <span>{sub.plan_interval === "year" ? "/rok" : "/mies."}</span>
           </div>
           <span className={`${styles["status-badge"]} ${styles[statusClass(sub.status)]}`} style={{ marginTop: 6, display: "inline-flex" }}>
             <span className={styles["status-dot"]}></span>

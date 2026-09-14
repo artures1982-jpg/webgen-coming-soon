@@ -1386,16 +1386,6 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
           <div><div class="addon-price-tag">+79 zł</div><span class="addon-price-type">miesięcznie</span></div>
         </div>
 
-        <div class="addon-item" onclick="toggleAddon(this,'statystyki','Statystyki odwiedzin',49,'month')">
-          <div class="addon-check">✓</div>
-          <div class="addon-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="21" x2="19" y2="21"/><rect x="6" y="13" width="3" height="8"/><rect x="10.5" y="9" width="3" height="12"/><rect x="15" y="5" width="3" height="16"/></svg></div>
-          <div class="addon-info">
-            <div class="addon-name">Statystyki odwiedzin</div>
-            <div class="addon-desc">Panel z ruchem na stronie, źródłami i konwersjami</div>
-          </div>
-          <div><div class="addon-price-tag">+49 zł</div><span class="addon-price-type">miesięcznie</span></div>
-        </div>
-
         <div class="addon-item" onclick="toggleAddon(this,'priorytetowe_wsparcie','Priorytetowe wsparcie',99,'month')">
           <div class="addon-check">✓</div>
           <div class="addon-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c3 2 5 6 5 10 0 2-1 4-2 5l-3 3-3-3c-1-1-2-3-2-5 0-4 2-8 5-10z"/><circle cx="12" cy="10" r="1.7"/><path d="M9 16l-3 5 5-1"/><path d="M15 16l3 5-5-1"/></svg></div>
@@ -1420,16 +1410,6 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
       <!-- JEDNORAZOWE -->
       <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:28px;margin-bottom:12px">// Jednorazowe (setup)</div>
       <div class="addon-list">
-
-        <div class="addon-item" onclick="toggleAddon(this,'wlasna_domena','Własna domena',199,'once')">
-          <div class="addon-check">✓</div>
-          <div class="addon-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3c2.8 2.6 4.5 6 4.5 9s-1.7 6.4-4.5 9c-2.8-2.6-4.5-6-4.5-9s1.7-6.4 4.5-9z"/></svg></div>
-          <div class="addon-info">
-            <div class="addon-name">Własna domena</div>
-            <div class="addon-desc">Podpięcie Twojej domeny + konfiguracja DNS i SSL</div>
-          </div>
-          <div><div class="addon-price-tag">199 zł</div><span class="addon-price-type">jednorazowo</span></div>
-        </div>
 
         <div class="addon-item" onclick="toggleAddon(this,'dodatkowe_podstrony','Dodatkowe podstrony',149,'once')">
           <div class="addon-check">✓</div>
@@ -1820,14 +1800,14 @@ function renderTemplateSummary(entry) {
     + '<a href="/galeria/" style="color:var(--green);font-size:12px;font-weight:700;white-space:nowrap;text-decoration:none">Zmień</a>'
     + '</div>';
 }
-// ─── ADDONY ─── 7 dodatków à la carte nad planem Pro (Faza 5) — id zgodne z ADDON_PRICES
+// ─── ADDONY ─── dodatki à la carte nad planem Pro (Faza 5) — id zgodne z ADDON_PRICES
 // w api/create-checkout.js. seo_dzielnice/seo_miasto/wersja_jezykowa zniknęły (SEO w Pro).
+// statystyki/wlasna_domena usunięte 2026-09-15 — wbundlowane w cenę Pro/Pro Max
+// (patrz PLAN_SUMMARY_FEATURES.pro niżej), sprzedawanie ich osobno było podwójną opłatą.
 const ADDONS_CONFIG = {
   social_media:          { name:'Integracja Social Media', price:79,  type:'month', stripe:'' },
-  statystyki:            { name:'Statystyki odwiedzin',    price:49,  type:'month', stripe:'' },
   priorytetowe_wsparcie: { name:'Priorytetowe wsparcie',  price:99,  type:'month', stripe:'' },
   google_business:       { name:'Google Business Profile', price:149, type:'month', stripe:'' },
-  wlasna_domena:         { name:'Własna domena',          price:199, type:'once',  stripe:'' },
   dodatkowe_podstrony:   { name:'Dodatkowe podstrony',    price:149, type:'once',  stripe:'' },
   sesja_ai:              { name:'Sesja zdjęciowa AI',     price:99,  type:'once',  stripe:'' },
 };

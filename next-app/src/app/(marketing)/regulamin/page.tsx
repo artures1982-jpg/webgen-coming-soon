@@ -149,9 +149,10 @@ export default function RegulaminPage() {
         miesięcznej). Wyboru okresu rozliczeniowego dokonuje się w procesie zakupu w Generatorze.
       </p>
       <p>
-        Do planu Pro dostępne są dodatki à la carte: własna domena, integracja social media,
-        statystyki odwiedzin, dodatkowe podstrony, sesja zdjęciowa AI, Google Business Profile,
-        priorytetowe wsparcie — aktualne ceny na <Link href="/cennik">webgen.pl/cennik</Link>.
+        Do planu Pro dostępne są dodatki à la carte: integracja social media, dodatkowe podstrony,
+        sesja zdjęciowa AI, Google Business Profile, priorytetowe wsparcie — aktualne ceny na{" "}
+        <Link href="/cennik">webgen.pl/cennik</Link>. Własna domena, SSL i statystyki odwiedzin są
+        wliczone w cenę planu Pro/Pro Max, nie są osobnym dodatkiem.
       </p>
       <p>Wszystkie ceny zawierają podatek VAT. Na wniosek Użytkownika wystawiamy fakturę VAT.</p>
 

@@ -9,12 +9,12 @@ const PRICES = {
   promax_yearly:              process.env.STRIPE_PRICE_PROMAX_YEARLY,
 };
 
-// 7 dodatków à la carte nad planem Pro. SEO i formularz/rezerwacje są teraz wbudowane w Pro,
+// Dodatki à la carte nad planem Pro. SEO i formularz/rezerwacje są teraz wbudowane w Pro,
 // więc seo_dzielnice/seo_miasto/wersja_jezykowa zniknęły stąd (patrz plan Fazy 5).
+// wlasna_domena i statystyki usunięte 2026-09-15 — wbundlowane w cenę Pro/Pro Max,
+// sprzedawanie ich jako dodatku było podwójnym pobraniem opłaty za to samo.
 const ADDON_PRICES = {
-  wlasna_domena:              process.env.STRIPE_PRICE_ADDON_DOMENA,
   social_media:               process.env.STRIPE_PRICE_ADDON_SOCIAL_MEDIA,
-  statystyki:                 process.env.STRIPE_PRICE_ADDON_STATYSTYKI,
   dodatkowe_podstrony:        process.env.STRIPE_PRICE_ADDON_PODSTRONY,
   sesja_ai:                   process.env.STRIPE_PRICE_ADDON_SESJA_AI,
   google_business:            process.env.STRIPE_PRICE_ADDON_GBP,
@@ -22,8 +22,8 @@ const ADDON_PRICES = {
 };
 
 // Dodatki jednorazowe (Stripe Checkout mode:'payment') vs cykliczne (mode:'subscription').
-// wlasna_domena i dodatkowe_podstrony i sesja_ai to setup jednorazowy; reszta miesięczna.
-const ONE_TIME_ADDONS = { wlasna_domena: true, dodatkowe_podstrony: true, sesja_ai: true };
+// dodatkowe_podstrony i sesja_ai to setup jednorazowy; reszta miesięczna.
+const ONE_TIME_ADDONS = { dodatkowe_podstrony: true, sesja_ai: true };
 
 module.exports = async function(req, res) {
   if (req.method !== "POST") return res.status(405).json({error:"Method not allowed"});

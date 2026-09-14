@@ -61,9 +61,14 @@ export function formatAmount(amount: number | null | undefined, currency?: strin
   return cur === "PLN" ? (amount / 100).toFixed(0) + " zł" : (amount / 100).toFixed(2) + " " + cur;
 }
 
-export function planLabel(name: string | null | undefined, amount: number | null | undefined, currency?: string): string {
+export function planLabel(
+  name: string | null | undefined,
+  amount: number | null | undefined,
+  currency?: string,
+  interval?: string | null
+): string {
   if (name && name.length > 2) return name;
-  if (amount) return formatAmount(amount, currency) + "/mies.";
+  if (amount) return formatAmount(amount, currency) + (interval === "year" ? "/rok" : "/mies.");
   return "Plan webgen";
 }
 
@@ -97,14 +102,14 @@ export type Addon = {
   active: boolean;
 };
 
-// 7 dodatków à la carte nad planem Pro (Faza 5) — id musi się zgadzać z ADDON_PRICES
-// w api/create-checkout.js / src/app/api/create-checkout/route.ts.
+// Dodatki à la carte nad planem Pro (Faza 5) — id musi się zgadzać z ADDON_PRICES
+// w api/create-checkout.js / src/app/api/create-checkout/route.ts. Własna domena/SSL
+// i statystyki NIE są tu — wbundlowane w cenę Pro/Pro Max (patrz cennik/index.html),
+// sprzedawanie ich jako dodatku było podwójnym pobraniem opłaty (usunięte 2026-09-15).
 export const ADDON_CATALOG: Addon[] = [
   { id: "priorytetowe_wsparcie", icon: "🚀", name: "Priorytetowe wsparcie", desc: "Odpowiedź w 30 min, dedykowany czat, szybsze aktualizacje", price: "+99 zł/mies.", active: false },
   { id: "google_business", icon: "📍", name: "Google Business Profile", desc: "Zakładamy i optymalizujemy profil w Google Maps z opiniami", price: "+149 zł/mies.", active: false },
   { id: "social_media", icon: "📱", name: "Integracja Social Media", desc: "Live feed z Instagram/Facebook wpięty w Twoją stronę", price: "+79 zł/mies.", active: false },
-  { id: "statystyki", icon: "📊", name: "Statystyki odwiedzin", desc: "Panel z ruchem na stronie, źródłami i konwersjami", price: "+49 zł/mies.", active: false },
-  { id: "wlasna_domena", icon: "🔗", name: "Własna domena", desc: "Podpięcie Twojej domeny + konfiguracja DNS i SSL", price: "199 zł", once: true, active: false },
   { id: "dodatkowe_podstrony", icon: "📄", name: "Dodatkowe podstrony", desc: "3 osobne podstrony ofertowe (np. per usługa lub lokalizacja)", price: "149 zł", once: true, active: false },
   { id: "sesja_ai", icon: "📸", name: "Sesja zdjęciowa AI", desc: "Zdjęcia AI dopasowane do branży i klimatu firmy", price: "99 zł", once: true, active: false },
 ];

@@ -157,10 +157,8 @@ function AddonItem({ id, selected, onToggle }: { id: string; selected: boolean; 
 
 const ADDON_DESC: Record<string, string> = {
   social_media: "Live feed z Instagram/Facebook wpięty w Twoją stronę",
-  statystyki: "Panel z ruchem na stronie, źródłami i konwersjami",
   priorytetowe_wsparcie: "Odpowiedź w 30 min, dedykowany czat, szybsze aktualizacje",
   google_business: "Założymy i zoptymalizujemy profil w Mapach Google — zdjęcia, opisy, opinie",
-  wlasna_domena: "Podpięcie Twojej domeny + konfiguracja DNS i SSL",
   dodatkowe_podstrony: "3 osobne podstrony ofertowe (np. per usługa lub lokalizacja)",
   sesja_ai: "Zdjęcia AI dopasowane do branży i klimatu firmy",
 };
@@ -170,14 +168,6 @@ const ADDON_ICONS: Record<string, ReactNode> = {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
       <rect x="7" y="2" width="10" height="20" rx="2" />
       <line x1="11" y1="18" x2="13" y2="18" />
-    </svg>
-  ),
-  statystyki: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="5" y1="21" x2="19" y2="21" />
-      <rect x="6" y="13" width="3" height="8" />
-      <rect x="10.5" y="9" width="3" height="12" />
-      <rect x="15" y="5" width="3" height="16" />
     </svg>
   ),
   priorytetowe_wsparcie: (
@@ -192,13 +182,6 @@ const ADDON_ICONS: Record<string, ReactNode> = {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 21s7-6.6 7-12a7 7 0 0 0-14 0c0 5.4 7 12 7 12z" />
       <circle cx="12" cy="9" r="2.3" />
-    </svg>
-  ),
-  wlasna_domena: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="9" />
-      <line x1="3" y1="12" x2="21" y2="12" />
-      <path d="M12 3c2.8 2.6 4.5 6 4.5 9s-1.7 6.4-4.5 9c-2.8-2.6-4.5-6-4.5-9s1.7-6.4 4.5-9z" />
     </svg>
   ),
   dodatkowe_podstrony: (
