@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
+import { ClerkProvider } from "@clerk/nextjs";
 import { Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
-import Nav from "@/components/Nav";
 import "./globals.css";
 
 // next/font: fonty samohostowane przez Next (zero requestu do fonts.googleapis.com,
@@ -22,13 +22,16 @@ export const metadata: Metadata = {
   title: "webgen.pl",
 };
 
+// Nav (pełna nawigacja marketingowa) przeniesiony do (marketing)/layout.tsx — strony
+// auth (login/rejestracja) w oryginale mają celowo minimalny, rozpraszający-mniej
+// top-bar (samo logo, bez linków/hamburgera), patrz (auth)/layout.tsx. ClerkProvider
+// zostaje tutaj, bo obie grupy tras go potrzebują.
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="pl" className={`${bricolage.variable} ${jetbrainsMono.variable}`}>
-      <body>
-        <Nav />
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="pl" className={`${bricolage.variable} ${jetbrainsMono.variable}`}>
+        <body>{children}</body>
+      </html>
+    </ClerkProvider>
   );
 }

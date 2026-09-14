@@ -179,11 +179,30 @@
   background: #00b386 !important;
 }
 
-/* Lekcja z dzisiejszego buga (docs/plan-migracji-nextjs.md, sekcja 3, wiersz 7):
-   .wgNavRight ma flex-shrink:0 i nie zawija się. Gdy Faza 3 doda chip zalogowanego
-   usera, MUSI albo chować się na mobile (jak dziś na statycznej stronie), albo
-   .wgNavRight musi dostać realną strategię na wąskim ekranie — nie wolno tego
-   pomijać "bo działało bez tego elementu". */
+.wgNavUser {
+  display: flex;
+  align-items: center;
+}
+
+.wgDrawerUser {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 229, 160, 0.25);
+  background: rgba(0, 229, 160, 0.06);
+  margin-bottom: 6px;
+}
+
+.wgDrawerUser a {
+  padding: 0 !important;
+}
+
+/* Lekcja z buga naprawionego 13.09 na statycznej stronie (docs/plan-migracji-nextjs.md,
+   sekcja 3, wiersz 7): .wgNavRight ma flex-shrink:0 i nie zawija się — chip zalogowanego
+   usera w górnym pasku MUSI się chować na mobile, inaczej wypycha hamburger poza ekran.
+   Tożsamość na telefonie żyje wyłącznie w .wgDrawerUser (drawer), nigdy w .wgNavUser. */
 @media (max-width: 900px) {
   .wgNavLinks {
     display: none;
@@ -192,6 +211,9 @@
     display: none;
   }
   .wgNavCta {
+    display: none;
+  }
+  .wgNavUser {
     display: none;
   }
   .wgNavHamburger {

@@ -1,0 +1,46 @@
+.heading {
+  text-align: center;
+  max-width: 440px;
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono), "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #00e5a0;
+  margin-bottom: 16px;
+  opacity: 0.85;
+}
+
+.heading h1 {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+
+.heading p {
+  font-size: 14px;
+  color: #8e97ac;
+  line-height: 1.6;
+}
+
+.gradText {
+  background: linear-gradient(135deg, #00e5a0, #2e7cff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.clerkSlot {
+  width: 100%;
+  max-width: 440px;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

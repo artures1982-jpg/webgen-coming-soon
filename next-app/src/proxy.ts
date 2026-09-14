@@ -1,35 +1,47 @@
-// Port 1:1 z middleware.js (był gołym Edge Middleware Vercela, nie Next.js) — routing
-// subdomen *.webgen.pl → HTML z Vercel Blob. Model API niemal identyczny: NextResponse
-// zamiast gołego Response, ale logika bez zmian.
+// Port 1:1 z middleware.js + Faza 3: dołożony clerkMiddleware. Kolejność w handlerze
+// jest świadoma: routing subdomen (*.webgen.pl → HTML klienta z Vercel Blob) NIE ma
+// nic wspólnego z Clerk i musi się wykonać PRZED jakąkolwiek logiką auth — to cudza
+// treść (strona klienta), nie trasa tej aplikacji do ochrony.
 //
-// Next.js 16 zmienił konwencję middleware.ts → proxy.ts (funkcja proxy zamiast
-// middleware) — middleware.ts jest teraz przestarzałe, patrz
-// node_modules/next/dist/docs/.../proxy.md. Domyślny runtime to teraz Node.js
-// (wcześniej tylko Edge), więc nie trzeba już nic ustawiać ręcznie.
+// Next.js 16 zmienił konwencję middleware.ts → proxy.ts — middleware.ts jest
+// przestarzałe, patrz node_modules/next/dist/docs/.../proxy.md.
+//
+// CLERK_SECRET_KEY nie jest jeszcze ustawiony w tym projekcie (testy odłożone). WAŻNE:
+// clerkMiddleware() rzuca twardy błąd na KAŻDYM requeście bez sekretnego klucza — nie
+// tylko na trasach chronionych. Ten matcher to "/(.*)"  (cała aplikacja), więc bez
+// poniższego warunku brak klucza wywalałby też już działające strony z Fazy 0-2
+// (cennik, regulamin, wszystkie API routes) w 500, nie tylko auth. Dopóki klucza nie
+// ma, eksportowana jest goła wersja (tylko routing subdomen, bez Clerk w ogóle) —
+// dokładnie zachowanie sprzed Fazy 3. Migracja się aktywuje sama, bez zmiany kodu,
+// w momencie gdy CLERK_SECRET_KEY zostanie dodany do środowiska.
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse, type NextRequest } from "next/server";
 
 export const config = {
   matcher: "/(.*)",
 };
 
-export default async function proxy(request: NextRequest) {
+// Faza 4 doda realne strony /dashboard i /admin — matcher już czeka na nie tutaj,
+// żeby ochrona tras była gotowa w momencie gdy strony powstaną, bez zapominania o niej.
+const isProtectedRoute = createRouteMatcher(["/dashboard(.*)", "/admin(.*)"]);
+
+async function handleSubdomainRouting(request: NextRequest): Promise<NextResponse | null> {
   const hostname = request.headers.get("host") || "";
 
-  // Przepuść główną domenę, vercel.app i localhost normalnie.
   if (
     hostname === "webgen.pl" ||
     hostname === "www.webgen.pl" ||
     hostname.includes("vercel.app") ||
     hostname.includes("localhost")
   ) {
-    return NextResponse.next();
+    return null;
   }
 
   const slug = hostname.replace(".webgen.pl", "");
-  if (!slug || slug === hostname) return NextResponse.next();
+  if (!slug || slug === hostname) return null;
 
   const BLOB_BASE = process.env.BLOB_BASE_URL;
-  if (!BLOB_BASE) return NextResponse.next();
+  if (!BLOB_BASE) return null;
 
   const blobUrl = BLOB_BASE + "/sites/" + slug + "/index.html";
 
@@ -54,9 +66,25 @@ export default async function proxy(request: NextRequest) {
       },
     });
   } catch {
-    return NextResponse.next();
+    return null;
   }
 }
+
+const withClerk = clerkMiddleware(async (auth, req) => {
+  const subdomainResponse = await handleSubdomainRouting(req);
+  if (subdomainResponse) return subdomainResponse;
+
+  if (isProtectedRoute(req)) {
+    await auth.protect();
+  }
+});
+
+const withoutClerk = async (req: NextRequest) => {
+  const subdomainResponse = await handleSubdomainRouting(req);
+  return subdomainResponse ?? NextResponse.next();
+};
+
+export default process.env.CLERK_SECRET_KEY ? withClerk : withoutClerk;
 
 function notFoundHTML() {
   return `<!DOCTYPE html>
