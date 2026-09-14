@@ -39,6 +39,18 @@ zmrużyć oczy, dwie różne struktury nadal wyglądają jak ta sama aplikacja p
   regularnie zwraca nietrafione zdjęcia pod sensownym alt-textem. Każda karta usługi/case study
   dostaje własne zdjęcie, nie jedno tło sekcji. Overlay 50–80% krycia, sprawdzone wizualnie.
   Sprawdź czy żadne zdjęcie nie powtarza się w innym wariancie tej samej branży.
+- **Wydajność zdjęć (ZASADY.md 4a) — realny błąd na 53/53 istniejących szablonach, znaleziony
+  2026-09-15**: nigdy nie kopiuj parametrów `w=`/`h=` zdjęcia hero do innych zdjęć w pliku (karty
+  usług, "o nas", galeria) — dobierz `w=`/`h=` do REALNEGO rozmiaru kontenera danej karty ×2
+  (retina), nie do rozmiaru hero. Kopiuj-wklej tych samych parametrów wszędzie kosztowało
+  50-250 KiB niepotrzebnie ściąganych na obrazek. Zweryfikuj deterministycznie:
+  `mcp__qa-szablony__sprawdz_szablon` → check `rozmiar_zdjec_vs_hero`.
+- **Ładowanie fontów i LCP (ZASADY.md 4b/4c)**: `<head>` musi mieć fonty Google przez wzorzec
+  `<link rel="preload" as="style" href="..." onload="this.onload=null;this.rel='stylesheet'">`
+  + `<noscript>` fallback (NIE zwykły `<link rel="stylesheet">` — blokuje renderowanie mimo
+  `display=swap`), oraz zdjęcie hero (jeśli jest `<img>`, nie CSS background) z odpowiadającym
+  `<link rel="preload" as="image" fetchpriority="high" href="...tożsamy URL co <img src>...">`
+  w `<head>`. Zweryfikuj checkami `fonty_preload` i `lcp_preload`.
 - **"Zero zdjęć" jako świadoma decyzja edytorialna NIE jest dopuszczalne, nawet w wariancie
   premium.** Realny błąd: `medycyna-estetyczna-5-program-indywidualny.html` został zbudowany
   celowo bez żadnej fotografii ("ekskluzywność niesie typografia i liczby, nie zdjęcia") —

@@ -207,6 +207,70 @@ Wyjątek: wariant 6 celowo nie ma mapy.
   Remonty (ID 3284980 renderował się poprawnie na stronie Pexela, ale jego CDN URL dawał 404 —
   obraz nie ładował się w karcie, tylko pokazywał alt-text).
 
+### 4a. Rozmiar pobierania zdjęcia MUSI odpowiadać realnemu rozmiarowi wyświetlania (dodane 2026-09-15)
+
+**Realny błąd, znaleziony na 53/53 istniejących szablonach** (audyt Lighthouse + przegląd kodu,
+2026-09-15): karty usług, zdjęcia w sekcji "o nas", galerie — regularnie kopiują dokładnie te same
+parametry `w=`/`h=` z URL-a zdjęcia hero (typowo `?...&h=650&w=940`), mimo że wyświetlają się w
+dużo mniejszym kontenerze (np. karta 372×180px). Skutek: przeglądarka ściąga 250+ KiB zdjęcia,
+żeby wyrenderować je w rozmiarze karty pocztówkowej — potwierdzone realnym Lighthouse
+(`image-delivery-insight`) na produkcyjnej domenie. 142 z 151 (94%) nie-hero zdjęć Pexels w całym
+systemie miało to dokładne 1:1 dopasowanie do rozmiaru hero swojego pliku — to nie incydent, to
+odruch budowniczego przy kopiowaniu struktury `<img>`.
+
+**Zasada:** `w=`/`h=` w URL Pexels + atrybuty HTML `width`/`height` każdego zdjęcia muszą
+odpowiadać REALNEMU rozmiarowi kontenera, w którym się wyświetla (przeczytaj CSS — fixed px,
+albo `aspect-ratio` + realna szerokość z grida/flexa, nie zgaduj), pomnożonemu ×2 (retina). Hero
+zostaje przy swoim własnym, pełnowymiarowym rozmiarze — to jedyne zdjęcie, które faktycznie
+potrzebuje 940×650 czy podobnego.
+
+**Pułapka przy naprawie masowej** (realnie wystąpiła, złapana przed commitem 2026-09-07): pierwsza
+próba tej poprawki przez regex przypadkiem wycięła atrybuty `alt=` z 7 obrazków. Edytuj cały `<img>`
+tag na raz (nie fragmenty atrybutów), policz `alt="` w pliku przed i po — musi się zgadzać.
+
+**Sprawdzenie:** `mcp__qa-szablony__sprawdz_szablon` → check `rozmiar_zdjec_vs_hero` — porównuje
+`w=`/`h=` każdego nie-hero zdjęcia Pexels z hero tego samego pliku (hero = pierwsze zdjęcie Pexels
+w dokumencie, nie dopasowanie do literalnego rozmiaru — nazwy klas hero są niespójne między
+szablonami). `fail`, jeśli jakieś nie-hero zdjęcie ma identyczne `w=`/`h=` jak hero.
+
+### 4b. Google Fonts przez `<link rel="stylesheet">` blokuje renderowanie (dodane 2026-09-15)
+
+Zwykły `<link href="https://fonts.googleapis.com/css2?...&display=swap" rel="stylesheet">` blokuje
+renderowanie strony, mimo że `display=swap` brzmi jakby to rozwiązywał — `display=swap` kontroluje
+TYLKO zachowanie tekstu (FOIT vs FOUT), nie sam moment pobrania/zablokowania. Potwierdzone
+Lighthouse (`render-blocking-insight`) na wszystkich 53 szablonach, 2026-09-07/2026-09-15.
+
+**Wymagany wzorzec** (jedyny dopuszczalny sposób ładowania Google Fonts w tym projekcie):
+```html
+<link rel="preload" as="style" href="URL" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="URL" rel="stylesheet"></noscript>
+```
+
+**Sprawdzenie:** check `fonty_preload` — `fail`, jeśli istnieje bare `<link rel="stylesheet">` na
+fonty BEZ odpowiadającego `<link rel="preload" as="style">` z tym samym URL-em (sam `<noscript>`
+fallback jest OK i nie liczy się jako błąd).
+
+### 4c. Zdjęcie hero (LCP-element) potrzebuje `<link rel="preload" as="image">` w `<head>` (dodane 2026-09-15)
+
+Gdy hero to `<img>` (nie CSS `background-image`), przeglądarka domyślnie odkrywa ten obrazek dopiero
+gdy parser HTML dotrze do `<body>` — mimo że to zwykle LCP-element całej strony. Potwierdzone
+Lighthouse (`lcp-discovery-insight`).
+
+**Wymagany wzorzec** w `<head>`, z DOKŁADNIE tym samym URL-em co `<img src="...">`:
+```html
+<link rel="preconnect" href="https://images.pexels.com">
+<link rel="preload" as="image" fetchpriority="high" href="...ten sam URL co <img src>...">
+```
+
+**Wyjątek:** hero jako CSS `background-image` (bez `<img>`) — w tym wypadku LCP jest zwykle
+elementem TEKSTOWYM (nagłówek/akapit w hero), nie zdjęciem; preload obrazka nic by nie dał,
+zweryfikowane realnym Lighthouse na 2 takich plikach 2026-09-15 (`elektryk-2`,
+`medycyna-estetyczna-3`) — element LCP w obu okazał się tekstem.
+
+**Sprawdzenie:** check `lcp_preload` — wykrywa hero po `<img>` z klasą zawierającą "hero"; pliki
+z inną nazwą klasy albo z CSS background wychodzą `n-a` (świadomie, lepiej nic nie stwierdzić niż
+zgadywać), nie `fail`.
+
 ### Naprawione: powtarzalność zdjęć między wariantami
 
 Zdjęcie **6419128** występowało w wariantach 1, 2, 3 i 5 — przy prezentacji wszystkich
@@ -537,6 +601,9 @@ Przejść **w przeglądarce**, na wersji wypełnionej, sekcja po sekcji:
 
 - [ ] Strona ładuje się w całości, brak błędów w konsoli
 - [ ] Wszystkie zdjęcia faktycznie widoczne (nie czarne prostokąty, nie 404)
+- [ ] Nie-hero zdjęcia Pexels NIE mają tych samych `w=`/`h=` co hero — sprawdź `rozmiar_zdjec_vs_hero` (sekcja 4a)
+- [ ] Google Fonts przez preload+onload+noscript, nie zwykły `<link rel="stylesheet">` (sekcja 4b)
+- [ ] Hero jako `<img>` ma `<link rel="preload" as="image">` w `<head>` z tym samym URL-em (sekcja 4c)
 - [ ] Overlay przepuszcza zdjęcie — tekst czytelny, fotografia rozpoznawalna
 - [ ] Embed mapy ładuje kafelki i pokazuje właściwe miasto *(poza wariantem 6)*
 - [ ] Nav: kotwice + telefon mieszczą się bez łamania i nachodzenia
