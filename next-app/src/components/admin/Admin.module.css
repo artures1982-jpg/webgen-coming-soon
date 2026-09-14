@@ -1,0 +1,222 @@
+/* Port CZĘŚCIOWY z admin/index.html — tylko klasy potrzebne dla żywej części panelu
+   (bramka logowania Clerk+allowlist, pasek górny, karty KPI Overview). Reszta
+   oryginalnego CSS (sidebar collapse, kanban, tabele, modale, toast, wykresy) NIE
+   jest tu portowana — odpowiadające im panele zostały świadomie pominięte jako
+   100% fasada/martwy kod (audyt Fazy 4, część 3: Outreach CRM, SEO Monitor,
+   Generator AI, Ustawienia, tabela klientów, tabela stron, logi deployów). */
+
+.root {
+  --bg: #080a12;
+  --bg1: rgba(255, 255, 255, 0.03);
+  --bg2: rgba(255, 255, 255, 0.05);
+  --bg3: rgba(255, 255, 255, 0.08);
+  --bg4: rgba(255, 255, 255, 0.14);
+  --green: #00e5a0;
+  --green2: #00b386;
+  --blue: #2f5fd1;
+  --purple: #6b5fc9;
+  --red: #d14d5f;
+  --yellow: #c9861a;
+  --white: #f3f6fc;
+  --muted: #8e97ac;
+  --border: rgba(255, 255, 255, 0.1);
+  --border2: rgba(255, 255, 255, 0.22);
+  --mono: "JetBrains Mono", monospace;
+  --head: "Bricolage Grotesque", sans-serif;
+  --grad: linear-gradient(135deg, #00e5a0, #0066ff, #6b5fc9);
+}
+.root {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--head);
+}
+
+/* TOPBAR */
+.topbar {
+  height: 60px;
+  border-bottom: 1px solid var(--border);
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(3, 5, 10, 0.92);
+  backdrop-filter: blur(16px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.tb-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.tb-logo-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background: var(--grad);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.tb-logo-text {
+  font-size: 16px;
+  font-weight: 700;
+}
+.tb-logo-badge {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 700;
+  background: rgba(209, 77, 95, 0.16);
+  color: var(--red);
+  border: 1px solid rgba(209, 77, 95, 0.28);
+  padding: 2px 7px;
+  border-radius: 10px;
+  letter-spacing: 0.06em;
+}
+.tb-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.tb-email {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+.tb-logout {
+  font-size: 12px;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 7px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  font-family: var(--head);
+  transition: all 0.18s;
+}
+.tb-logout:hover {
+  color: var(--white);
+  border-color: var(--red);
+}
+
+/* CONTENT */
+.content {
+  padding: 28px;
+}
+.ph-title {
+  font-size: clamp(20px, 2.5vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 3px;
+}
+.ph-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+/* STAT CARDS */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 260px));
+  gap: 14px;
+}
+.stat {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+}
+.stat::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+}
+.stat.g::before {
+  background: linear-gradient(90deg, var(--green), transparent);
+}
+.stat.b::before {
+  background: linear-gradient(90deg, var(--blue), transparent);
+}
+.stat-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.stat-val {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+@media (max-width: 900px) {
+  .stats {
+    grid-template-columns: 1fr;
+  }
+  .content {
+    padding: 16px;
+  }
+  .topbar {
+    padding: 0 16px;
+  }
+}
+
+/* LOGIN GATE */
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #03050a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--head);
+}
+.login-box {
+  background: #07090f;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 40px 44px;
+  width: 380px;
+  max-width: 95vw;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.7);
+}
+.login-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.login-error {
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  background: rgba(209, 77, 95, 0.1);
+  border: 1px solid rgba(209, 77, 95, 0.28);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--red);
+  font-family: var(--mono);
+}
+.login-footer {
+  margin-top: 16px;
+  font-size: 11px;
+  color: rgba(94, 107, 133, 0.4);
+  text-align: center;
+  font-family: var(--mono);
+}
