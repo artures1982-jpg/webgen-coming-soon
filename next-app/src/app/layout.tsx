@@ -26,9 +26,17 @@ export const metadata: Metadata = {
 // auth (login/rejestracja) w oryginale mają celowo minimalny, rozpraszający-mniej
 // top-bar (samo logo, bez linków/hamburgera), patrz (auth)/layout.tsx. ClerkProvider
 // zostaje tutaj, bo obie grupy tras go potrzebują.
+// Klucz PUBLICZNY Clerk (bezpieczny do embedowania w kliencie — to nie sekret) jest
+// wpisany wprost jako fallback, tym samym wzorcem co dziś w shared/clerk.js na
+// statycznej stronie. Ten projekt Vercel nie ma jeszcze ustawionej zmiennej
+// NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY (brak narzędzia do zarządzania env vars w tej
+// sesji) — bez fallbacku build/runtime na Vercelu nie miałby żadnego klucza.
+const CLERK_PUBLISHABLE_KEY =
+  process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "pk_live_Y2xlcmsud2ViZ2VuLnBsJA";
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <ClerkProvider>
+    <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY}>
       <html lang="pl" className={`${bricolage.variable} ${jetbrainsMono.variable}`}>
         <body>{children}</body>
       </html>
