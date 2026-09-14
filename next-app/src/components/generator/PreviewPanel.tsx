@@ -6,8 +6,8 @@ import styles from "./Generator.module.css";
 // Port 1:1 z #preview-panel w generator/index.html. Przycisk "← Zmień styl"
 // (showVariantPicker) z oryginału pominięty — wołał martwy #variant-popup, który
 // istnieje wyłącznie dla nieosiągalnej ścieżki 3 wariantów (patrz useGeneration.ts).
-// "Pobierz HTML" świadomie brak tu, tak jak w oryginale — dostępne dopiero z
-// panelu klienta po aktywacji.
+// "Pobierz HTML" świadomie usunięte z całego produktu (i tu, i w panelu klienta) —
+// Artur nie chce, żeby klienci mogli zabrać gotowy HTML poza webgen.pl.
 export default function PreviewPanel({ onActivate }: { onActivate: () => void }) {
   const { gen } = useGenerator();
 

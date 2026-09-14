@@ -4,8 +4,9 @@ import { useState } from "react";
 import type { GeneratedSite } from "@/lib/dashboard-helpers";
 import styles from "./Dashboard.module.css";
 
-// Port 1:1 z renderWebsitePage/buildFirmaData/buildUpdateForm/downloadGeneratedHTML/
-// sendUpdateRequest w dashboard/index.html.
+// Port 1:1 z renderWebsitePage/buildFirmaData/buildUpdateForm/sendUpdateRequest w
+// dashboard/index.html (bez downloadGeneratedHTML — świadomie usunięte, Artur nie
+// chce, żeby klienci mogli zabrać gotowy HTML poza webgen.pl).
 function PsItem({ score, label }: { score: string; label: string }) {
   return (
     <div className={styles["ps-item"]}>
@@ -125,18 +126,6 @@ function FirmaDataCard({ generated }: { generated: GeneratedSite }) {
   );
 }
 
-function downloadGeneratedHTML(generated: GeneratedSite) {
-  if (!generated.html) {
-    alert("Brak wygenerowanej strony.");
-    return;
-  }
-  const blob = new Blob([generated.html], { type: "text/html" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = (generated.slug || "strona") + ".html";
-  a.click();
-}
-
 export default function WebsitePage({
   active,
   generated,
@@ -225,11 +214,6 @@ export default function WebsitePage({
         <a href={subUrl} target="_blank" className={`${styles.btn} ${styles["btn-primary"]}`} rel="noreferrer">
           🌐 Otwórz stronę
         </a>
-        {generated.html && (
-          <button onClick={() => downloadGeneratedHTML(generated)} className={`${styles.btn} ${styles["btn-outline"]}`}>
-            ⬇ Pobierz HTML
-          </button>
-        )}
       </div>
 
       <div className={styles.card}>

@@ -915,7 +915,6 @@ function renderWebsitePage() {
     // Działania
     html += '<div class="btn-row" style="margin-bottom:24px">'
       + '<a href="' + subUrl + '" target="_blank" class="btn btn-primary">🌐 Otwórz stronę</a>'
-      + (generated.html ? '<button onclick="downloadGeneratedHTML()" class="btn btn-outline">⬇ Pobierz HTML</button>' : '')
       + '</div>';
 
     // PageSpeed (placeholder — w przyszłości API call)
@@ -1003,17 +1002,6 @@ function visitSite(e) {
   if (slug) { window.open('https://' + slug + '.webgen.pl', '_blank'); }
   else { showPage('website'); }
   if (e) e.preventDefault();
-}
-
-function downloadGeneratedHTML() {
-  var generated = null;
-  try { generated = JSON.parse(localStorage.getItem('wg_generated') || 'null'); } catch(e) {}
-  if (!generated || !generated.html) { alert('Brak wygenerowanej strony.'); return; }
-  var blob = new Blob([generated.html], {type:'text/html'});
-  var a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = (generated.slug || 'strona') + '.html';
-  a.click();
 }
 
 async function sendUpdateRequest(slug) {

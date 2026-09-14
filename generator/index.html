@@ -189,8 +189,6 @@ nav{height:60px;padding:0 40px;display:flex;align-items:center;justify-content:s
 .pt-label{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:4px}
 .pt-url{font-size:14px;color:var(--text);font-weight:600}
 .pt-btns{display:flex;gap:10px}
-.btn-download{background:transparent;border:1px solid var(--border2);color:var(--muted);padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--head);transition:all .2s}
-.btn-download:hover{color:var(--text);border-color:var(--text)}
 .btn-activate{background:var(--green);color:var(--oncta);padding:10px 24px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--head);border:none;transition:background .2s}
 .btn-activate:hover{background:var(--green2)}
 .preview-frame{width:100%;height:700px;border:1px solid var(--border);border-radius:12px;background:var(--s1)}
@@ -1540,7 +1538,6 @@ body.wg-logged-in .wg-nav-drawer a[href="/generator/"]{ display:none!important }
           <div class="pt-url" id="preview-url">preview.webgen.pl/twoja-firma</div>
         </div>
         <div class="pt-btns">
-          <!-- Pobierz HTML dostępny tylko z panelu klienta po aktywacji -->
           <button class="btn-activate" onclick="goToActivation()">Aktywuj stronę →</button>
         </div>
       </div>
@@ -2432,15 +2429,6 @@ function selectVariant(key) {
   if(!iframe)return;
   // srcdoc omija frame-src CSP calkowicie — jedyne pewne rozwiazanie
   iframe.srcdoc = state.generatedHTML;
-}
-
-// ─── DOWNLOAD ───
-function downloadHTML() {
-  const blob = new Blob([state.generatedHTML], { type: 'text/html' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `${state.slug || 'strona'}.html`;
-  a.click();
 }
 
 // ─── CHECKOUT ───
