@@ -90,7 +90,7 @@
       "permanent": false
     },
     {
-      "source": "/((?!api/|galeria|wkrotce).+)",
+      "source": "/((?!api/|galeria|wkrotce|templates/).+)",
       "destination": "/",
       "permanent": false
     }
