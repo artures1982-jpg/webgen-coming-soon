@@ -3,6 +3,7 @@ import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import Faq from "@/components/Faq";
 import AddonCheckout, { type Addon } from "@/components/AddonCheckout";
+import Footer from "@/components/Footer";
 import styles from "./page.module.css";
 
 // Faza 1 migracji — treść skopiowana 1:1 z cennik/index.html (stan 14.09). Checkout
@@ -297,13 +298,7 @@ export default function CennikPage() {
         </div>
       </div>
 
-      <footer className={styles.footer}>
-        <div className={styles.fCopy}>© 2026 Webgen · NIP 9521854979 · REGON 545358544</div>
-        <div className={styles.fLinks}>
-          <Link href="/">Strona główna</Link>
-          <a href="mailto:hello@webgen.pl">Kontakt</a>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

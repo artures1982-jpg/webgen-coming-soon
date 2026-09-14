@@ -1,0 +1,45 @@
+/* Wspólna stopka — wydzielona z cennik/page.module.css przy migracji galerii, żeby
+   nie tworzyć trzeciej ręcznie zsynchronizowanej kopii (ta sama lekcja co przy
+   <Nav> w Fazie 0 — dwie kopie tego samego bloku w cennik i galeria/index.html
+   już istniały w statycznym repo, zanim to zauważono). Kolory idą przez zmienne
+   CSS (--text/--muted/--mono/--border) zdefiniowane na .root każdej strony, które
+   używa tego komponentu — dziedziczą się przez DOM niezależnie od granic modułu. */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.fCopy {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.28);
+  font-family: var(--mono);
+}
+
+.fLinks {
+  display: flex;
+  gap: 20px;
+}
+
+.fLinks a {
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.fLinks a:hover {
+  color: var(--text);
+}
+
+@media (max-width: 720px) {
+  .footer {
+    padding: 24px 20px;
+    flex-direction: column;
+    text-align: center;
+  }
+}
