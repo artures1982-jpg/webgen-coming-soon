@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Show, UserButton } from "@clerk/nextjs";
 import styles from "./Nav.module.css";
@@ -27,6 +28,7 @@ const LINKS = [
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <>
@@ -41,7 +43,9 @@ export default function Nav() {
           <ul className={styles.wgNavLinks}>
             {LINKS.map((l) => (
               <li key={l.href}>
-                <Link href={l.href}>{l.label}</Link>
+                <Link href={l.href} className={pathname === l.href ? styles.active : ""}>
+                  {l.label}
+                </Link>
               </li>
             ))}
           </ul>
@@ -72,7 +76,7 @@ export default function Nav() {
 
       <div className={`${styles.wgNavDrawer} ${open ? styles.open : ""}`}>
         {LINKS.map((l) => (
-          <Link key={l.href} href={l.href} onClick={() => setOpen(false)}>
+          <Link key={l.href} href={l.href} className={pathname === l.href ? styles.active : ""} onClick={() => setOpen(false)}>
             {l.label}
           </Link>
         ))}

@@ -14,78 +14,9 @@
 import { corsHeaders, optionsResponse } from "@/lib/cors";
 import { verifyRequest } from "@/lib/clerk-verify";
 import { isProEmail } from "@/lib/entitlement";
-
-const TEMPLATES_BASE = process.env.TEMPLATES_BASE_URL || "https://webgen.pl";
-
-type ManifestEntry = { id: string; industry: string; tier: string };
-type Palette = {
-  id: string;
-  accent: string;
-  accentDark: string;
-  bg: string;
-  surface: string;
-  text: string;
-  muted: string;
-};
-type Firma = {
-  nazwa_strony?: string;
-  nazwa?: string;
-  branza?: string;
-  miasto?: string;
-  telefon?: string;
-  email?: string;
-  adres?: string;
-  godz_pon_pt?: string;
-  godz_sob?: string;
-  paletteId?: string | null;
-};
-
-function slugify(name: string) {
-  return (
-    (name || "firma")
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[̀-ͯ]/g, "")
-      .replace(/[^a-z0-9\s]/g, "")
-      .replace(/\s+/g, "-")
-      .trim()
-      .slice(0, 30) || "firma"
-  );
-}
-
-// Bliźniak fillTemplate() z generator/index.html — lista tokenów musi zostać
-// zsynchronizowana ręcznie przy zmianie.
-function fillTemplate(html: string, firma: Firma) {
-  const map: Record<string, string> = {
-    "{{NAZWA_STRONY}}": firma.nazwa_strony || firma.nazwa || firma.branza || "Firma",
-    "{{MIASTO}}": firma.miasto || "",
-    "{{TELEFON}}": firma.telefon || "",
-    "{{EMAIL}}": firma.email || "",
-    "{{ADRES}}": firma.adres || "",
-    "{{GODZINY_PON_PT}}": firma.godz_pon_pt || "8:00–18:00",
-    "{{GODZINY_SOB}}": firma.godz_sob || "9:00–14:00",
-    "{{SLUG}}": slugify(firma.nazwa_strony || firma.nazwa || ""),
-  };
-  let result = html;
-  Object.keys(map).forEach((token) => {
-    result = result.split(token).join(map[token]);
-  });
-  return result;
-}
-
-// Bliźniak applyPalette() z generator/index.html.
-function applyPalette(html: string, paletteId: string | null | undefined, palettesByIndustry: Record<string, Palette[]>) {
-  if (!paletteId) return html;
-  const all = Object.values(palettesByIndustry).flat();
-  const p = all.find((x) => x.id === paletteId);
-  if (!p) return html;
-  const css =
-    "<style>:root{--accent:" + p.accent + ";--accent-dark:" + p.accentDark +
-    ";--bg:" + p.bg + ";--surface:" + p.surface + ";--text:" + p.text +
-    ";--muted:" + p.muted + "}</style>";
-  if (html.indexOf("</head>") !== -1) return html.replace("</head>", css + "</head>");
-  return css + html;
-}
+import { applyPalette, fillTemplate, flattenPalettes, slugifyName } from "@/lib/template-fill";
+import type { Firma, ManifestEntry, PalettesByIndustry } from "@/lib/template-fill";
+import { TEMPLATES_BASE } from "@/lib/templates-base";
 
 export async function OPTIONS(req: Request) {
   return optionsResponse(req);
@@ -128,14 +59,19 @@ export async function POST(req: Request) {
 
   let rawHtml: string;
   try {
-    const tplRes = await fetch(TEMPLATES_BASE + "/templates/pilot/" + tpl.id + ".html");
+    // Bez ".html" — cleanUrls (vercel.json produkcji) 308-uje .html na czysty URL;
+    // ten skok przekierowania nie ma nagłówka CORS (nieistotne tu, serwer-serwer,
+    // ale to samo zapytanie z klienta w useRawTemplate.ts/useGeneration.ts musi
+    // trafić od razu w czysty URL, inaczej fetch() w przeglądarce dostaje "Failed
+    // to fetch" mimo że cel końcowy ma poprawny Access-Control-Allow-Origin.
+    const tplRes = await fetch(TEMPLATES_BASE + "/templates/pilot/" + tpl.id);
     if (!tplRes.ok) throw new Error("status " + tplRes.status);
     rawHtml = await tplRes.text();
   } catch {
     return Response.json({ error: "Nie udało się wczytać pliku szablonu" }, { status: 500, headers });
   }
 
-  let palettesByIndustry: Record<string, Palette[]> = {};
+  let palettesByIndustry: PalettesByIndustry = {};
   try {
     const palettesRes = await fetch(TEMPLATES_BASE + "/templates/palettes.json");
     palettesByIndustry = palettesRes.ok ? await palettesRes.json() : {};
@@ -143,13 +79,13 @@ export async function POST(req: Request) {
     palettesByIndustry = {};
   }
 
-  const html = applyPalette(fillTemplate(rawHtml, firma), firma.paletteId, palettesByIndustry);
+  const html = applyPalette(fillTemplate(rawHtml, firma), firma.paletteId, flattenPalettes(palettesByIndustry));
 
   return Response.json(
     {
       success: true,
       html,
-      slug: slugify(firma.nazwa_strony || firma.nazwa || ""),
+      slug: slugifyName(firma.nazwa_strony || firma.nazwa),
       templateId,
       chars: html.length,
     },

@@ -27,8 +27,15 @@ const nextConfig: NextConfig = {
           },
           {
             key: "Content-Security-Policy",
+            // connect-src rozszerzony o https://www.webgen.pl względem 1:1 kopii z
+            // korzenia repo — na statycznej stronie fetch('/templates/...') jest
+            // same-origin ('self' wystarcza), ale generator w next-app pobiera te
+            // pliki cross-origin z produkcji (patrz src/lib/templates-base.ts).
+            // Bez tego wpisu przeglądarka cicho blokuje fetch (CSP), obserwowane
+            // jako "Failed to fetch" bez czytelnego komunikatu — złapane przy
+            // weryfikacji Fazy 4.
             value:
-              "default-src 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com https://fonts.googleapis.com https://clerk.webgen.pl https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.stripe.com https://api.anthropic.com https://resend.com https://api.pexels.com https://clerk.webgen.pl; img-src 'self' data: https:; worker-src 'self' blob:; object-src 'none'; base-uri 'self';",
+              "default-src 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com https://fonts.googleapis.com https://clerk.webgen.pl https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.stripe.com https://api.anthropic.com https://resend.com https://api.pexels.com https://clerk.webgen.pl https://www.webgen.pl; img-src 'self' data: https:; worker-src 'self' blob:; object-src 'none'; base-uri 'self';",
           },
         ],
       },
