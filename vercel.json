@@ -81,14 +81,9 @@
   ],
   "redirects": [
     {
-      "source": "/prywatnosc",
-      "destination": "/polityka-prywatnosci/",
-      "permanent": true
-    },
-    {
-      "source": "/start",
+      "source": "/((?!api/).+)",
       "destination": "/",
-      "permanent": true
+      "permanent": false
     }
   ]
 }
