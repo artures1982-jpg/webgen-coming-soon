@@ -473,6 +473,7 @@ table.tbl tr:hover td{background:rgba(255,255,255,.03)}
               <button class="btn btn-outline btn-sm" style="justify-content:center" onclick="go('clients',document.querySelector('[onclick*=clients]'))">👥 Klienci</button>
               <button class="btn btn-outline btn-sm" style="justify-content:center" onclick="go('outreach',document.querySelector('[onclick*=outreach]'))">📣 Outreach</button>
               <button class="btn btn-green btn-sm" style="justify-content:center" onclick="showModal('deploy')">🚀 Deploy</button>
+              <button class="btn btn-outline btn-sm" style="justify-content:center;grid-column:1 / -1" onclick="showModal('replylead')">✉️ Odpowiedz leadowi</button>
             </div>
           </div>
         </div>
@@ -1000,7 +1001,43 @@ const modals = {
     body: 'Zaplanuj nową kampanię outreach dla wybranej ulicy / dzielnicy.',
     content: `<div class="field"><label>Ulica / dzielnica</label><input placeholder="np. ul. Modlińska, Białołęka"></div><div class="field"><label>Kanał</label><select><option>SMS + iMessage</option><option>IG DM</option><option>FB komentarze</option><option>Email</option></select></div><button class="btn btn-green" style="width:100%;margin-top:8px" onclick="closeModal();showToast('Fala outreach zaplanowana','📣')">Zaplanuj →</button>`
   },
+  // Jedyny modal w tym obiekcie, który realnie coś wysyła (reszta to demo/showToast) —
+  // hello@webgen.pl to dziś tylko przekierowanie na iCloud (bez realnej skrzynki do wysyłki),
+  // ale Resend ma już zweryfikowaną domenę do nadawania jako hello@webgen.pl (patrz
+  // api/contact.js — stąd realnie przychodzą powiadomienia o leadach), więc to obchodzi
+  // potrzebę konfiguracji osobnego konta pocztowego.
+  replylead: {
+    title: '✉️ Odpowiedz leadowi',
+    body: 'Wyślij wiadomość jako hello@webgen.pl — dotrze bezpośrednio na skrzynkę adresata.',
+    content: `<div class="field"><label>Email odbiorcy</label><input id="rl-to" type="email" placeholder="lead@przyklad.pl"></div><div class="field"><label>Temat</label><input id="rl-subject" type="text" placeholder="Re: zapytanie ze strony webgen.pl"></div><div class="field"><label>Treść</label><textarea id="rl-message" rows="6" placeholder="Cześć, dziękuję za kontakt..."></textarea></div><button class="btn btn-green" id="rl-send-btn" style="width:100%;margin-top:8px" onclick="sendReplyLead()">Wyślij →</button>`
+  },
 };
+
+async function sendReplyLead() {
+  var to = (document.getElementById('rl-to') || {}).value || '';
+  var subject = (document.getElementById('rl-subject') || {}).value || '';
+  var message = (document.getElementById('rl-message') || {}).value || '';
+  if (!to || !subject.trim() || !message.trim()) { alert('Uzupełnij wszystkie pola.'); return; }
+  var btn = document.getElementById('rl-send-btn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Wysyłanie…'; }
+  try {
+    var Clerk = await window.getClerk();
+    var token = Clerk.session ? await Clerk.session.getToken() : null;
+    var res = await fetch('/api/reply-lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ to: to, subject: subject, message: message }),
+    });
+    var data = await res.json();
+    if (!res.ok || !data.ok) throw new Error(data.error || 'Nie udało się wysłać wiadomości');
+    closeModal();
+    showToast('Wiadomość wysłana do ' + to, '✉️');
+  } catch (e) {
+    alert('Błąd: ' + (e.message || e));
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = 'Wyślij →'; }
+  }
+}
 function showModal(id) {
   const m = modals[id];
   if(!m) return;
