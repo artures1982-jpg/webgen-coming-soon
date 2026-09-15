@@ -1,14 +1,8 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
-import Script from "next/script";
+import CookieConsent from "@/components/CookieConsent";
 import "./globals.css";
-
-// Google tag (gtag.js) — usługa GA4 "Webgen" utworzona 2026-09-15, identyfikator
-// pomiaru G-N2TJE2MCE2. strategy="afterInteractive" (zalecane przez Next.js dla
-// analytics — ładuje się po hydracji, nie blokuje LCP/TTI jak plain <script> w
-// <head>). Ten sam tag co na statycznych stronach (index.html itd.).
-const GA_MEASUREMENT_ID = "G-N2TJE2MCE2";
 
 // next/font: fonty samohostowane przez Next (zero requestu do fonts.googleapis.com,
 // zero CLS) zamiast <link href="https://fonts.googleapis.com/..."> jak dziś na
@@ -47,15 +41,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <html lang="pl" className={`${bricolage.variable} ${jetbrainsMono.variable}`}>
         <body>
           {children}
-          <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} strategy="afterInteractive" />
-          <Script id="gtag-init" strategy="afterInteractive">
-            {`
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${GA_MEASUREMENT_ID}');
-            `}
-          </Script>
+          {/* GA4 ładuje się WYŁĄCZNIE po zgodzie na cookie analityczne — polityka
+              prywatności obiecuje dokładnie to, patrz CookieConsent.tsx. */}
+          <CookieConsent />
         </body>
       </html>
     </ClerkProvider>

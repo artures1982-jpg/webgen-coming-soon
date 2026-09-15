@@ -1,0 +1,380 @@
+/* Port z shared/cookie-consent.js (vanilla JS, statyczne strony) — ten sam wygląd,
+   ale jako CSS Module dla React. Patrz CookieConsent.tsx dla logiki. */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 7, 12, 0.85);
+  z-index: 9998;
+  backdrop-filter: blur(4px);
+}
+.overlayActive {
+  display: block;
+}
+
+.banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: #0f1420;
+  border-top: 1px solid rgba(0, 229, 160, 0.25);
+  box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.6);
+  animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: var(--font-head, sans-serif);
+}
+.bannerBefore {
+  content: "";
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, #00e5a0, #0066ff, #7b4fff);
+}
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.bannerInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.bannerIcon {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.bannerText {
+  flex: 1;
+  min-width: 280px;
+}
+.bannerText h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #f3f6fc;
+  margin-bottom: 4px;
+}
+.bannerText p {
+  font-size: 13px;
+  color: #8e97ac;
+  line-height: 1.5;
+  margin: 0;
+}
+.bannerText a {
+  color: #00e5a0;
+  text-decoration: none;
+}
+.bannerText a:hover {
+  text-decoration: underline;
+}
+
+.bannerActions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.btnAccept {
+  background: #00e5a0;
+  color: #fff;
+}
+.btnAccept:hover {
+  background: #00b386;
+  transform: translateY(-1px);
+}
+.btnReject {
+  background: transparent;
+  color: #8e97ac;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+.btnReject:hover {
+  color: #f3f6fc;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.btnSettings {
+  background: transparent;
+  color: #00e5a0;
+  border: 1px solid rgba(76, 111, 255, 0.3);
+}
+.btnSettings:hover {
+  background: rgba(76, 111, 255, 0.08);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-family: var(--font-head, sans-serif);
+}
+.modalActive {
+  display: flex;
+}
+
+.modalBox {
+  background: #0f1420;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  max-width: 560px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.8);
+}
+
+.modalHeader {
+  padding: 24px 24px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+}
+.modalHeader h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #f3f6fc;
+  margin-bottom: 6px;
+}
+.modalHeader p {
+  font-size: 13px;
+  color: #8e97ac;
+  line-height: 1.6;
+  margin: 0;
+}
+.modalHeader a {
+  color: #00e5a0;
+  text-decoration: none;
+}
+
+.modalClose {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.07);
+  border: none;
+  color: #8e97ac;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modalClose:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #f3f6fc;
+}
+
+.modalBody {
+  padding: 20px 24px;
+}
+
+.category {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.catHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.catInfo {
+  flex: 1;
+}
+.catTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: #f3f6fc;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 3px;
+}
+.catBadge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 20px;
+  letter-spacing: 0.04em;
+}
+.badgeRequired {
+  background: rgba(0, 229, 160, 0.12);
+  color: #00e5a0;
+  border: 1px solid rgba(76, 111, 255, 0.3);
+}
+.badgeOptional {
+  background: rgba(255, 255, 255, 0.07);
+  color: #8e97ac;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.catDesc {
+  font-size: 12px;
+  color: #8e97ac;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.toggle {
+  position: relative;
+  width: 46px;
+  height: 26px;
+  flex-shrink: 0;
+}
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+.toggleSlider {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 13px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.toggleSlider::before {
+  content: "";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background: #8e97ac;
+  border-radius: 50%;
+  transition: all 0.25s;
+}
+.toggle input:checked + .toggleSlider {
+  background: rgba(76, 111, 255, 0.2);
+  border-color: rgba(76, 111, 255, 0.5);
+}
+.toggle input:checked + .toggleSlider::before {
+  transform: translateX(20px);
+  background: #00e5a0;
+}
+.toggle input:disabled + .toggleSlider {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.toggle input:disabled:checked + .toggleSlider {
+  background: rgba(76, 111, 255, 0.15);
+  border-color: rgba(76, 111, 255, 0.3);
+}
+
+.modalFooter {
+  padding: 16px 24px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.btnSave {
+  background: #00e5a0;
+  color: #fff;
+  flex: 1;
+}
+.btnSave:hover {
+  background: #00b386;
+}
+.btnAcceptAll {
+  background: transparent;
+  color: #00e5a0;
+  border: 1px solid rgba(76, 111, 255, 0.3);
+  flex: 1;
+}
+.btnAcceptAll:hover {
+  background: rgba(76, 111, 255, 0.08);
+}
+.btnRejectAll {
+  background: transparent;
+  color: #8e97ac;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  width: 100%;
+}
+.btnRejectAll:hover {
+  color: #f3f6fc;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.settingsBtn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 9990;
+  background: #0f1420;
+  border: 1px solid rgba(0, 229, 160, 0.25);
+  color: #8e97ac;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  gap: 6px;
+  align-items: center;
+}
+.settingsBtnVisible {
+  display: flex;
+}
+.settingsBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #00e5a0;
+  border-color: rgba(76, 111, 255, 0.4);
+}
+
+@media (max-width: 600px) {
+  .bannerInner {
+    padding: 16px;
+    gap: 14px;
+  }
+  .bannerActions {
+    width: 100%;
+  }
+  .btn {
+    flex: 1;
+    text-align: center;
+  }
+  .modalBox {
+    border-radius: 12px 12px 0 0;
+    max-height: 85vh;
+  }
+  .modal {
+    align-items: flex-end;
+    padding: 0;
+  }
+}

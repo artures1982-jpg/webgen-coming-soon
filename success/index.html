@@ -50,14 +50,10 @@ p{color:var(--muted);font-size:14px;line-height:1.65;margin-bottom:8px}
   .checkmark-wrap svg{stroke-dashoffset:0}
 }
 </style>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-N2TJE2MCE2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-N2TJE2MCE2');
-</script>
+<!-- Google Analytics ladowany WARUNKOWO, dopiero po zgodzie na cookie analityczne
+     (baner cookie decyduje, patrz shared/cookie-consent.js) — polityka prywatnosci
+     obiecuje "GA4 wylacznie po zgodzie", ten skrypt to faktycznie egzekwuje. -->
+<script src="/shared/cookie-consent.js"></script>
 </head>
 <body>
 <div class="confetti" id="confetti" aria-hidden="true"></div>

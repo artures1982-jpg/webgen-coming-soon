@@ -53,14 +53,10 @@ body{display:flex;flex-direction:column;align-items:center;justify-content:cente
 #clerk-signup{width:100%;max-width:440px;min-height:400px;display:flex;align-items:center;justify-content:center}
 .loading-hint{font-family:var(--mono);font-size:13px;color:var(--muted)}
 </style>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-N2TJE2MCE2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-N2TJE2MCE2');
-</script>
+<!-- Google Analytics ladowany WARUNKOWO, dopiero po zgodzie na cookie analityczne
+     (baner cookie decyduje, patrz shared/cookie-consent.js) — polityka prywatnosci
+     obiecuje "GA4 wylacznie po zgodzie", ten skrypt to faktycznie egzekwuje. -->
+<script src="/shared/cookie-consent.js"></script>
 </head>
 <body>
 
