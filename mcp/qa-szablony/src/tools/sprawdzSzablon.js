@@ -9,6 +9,9 @@ import { checkZabezpieczenieLogo } from '../checks/logo.js';
 import { checkMapaEmbed } from '../checks/mapa.js';
 import { checkPrefersReducedMotion } from '../checks/motion.js';
 import { checkZdjeciaPexels } from '../checks/zdjecia.js';
+import { checkRozmiarZdjec } from '../checks/rozmiarZdjec.js';
+import { checkFontyPreload } from '../checks/fontyPreload.js';
+import { checkLcpPreload } from '../checks/lcpPreload.js';
 import { checkKolizjePaletyFontow } from '../checks/kolizje.js';
 import { checkDiffCssRodzenstwo } from '../checks/diffCss.js';
 import { checkMirrorSpojnosc } from '../checks/mirror.js';
@@ -31,6 +34,9 @@ export async function sprawdzSzablon(sciezka) {
     checkMapaEmbed(html, relPath),
     checkPrefersReducedMotion(html),
     await checkZdjeciaPexels(html, absPath),
+    checkRozmiarZdjec(html),
+    checkFontyPreload(html),
+    checkLcpPreload(html),
     checkKolizjePaletyFontow(html, absPath),
     checkDiffCssRodzenstwo(html, absPath),
     checkMirrorSpojnosc(absPath),

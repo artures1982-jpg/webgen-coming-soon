@@ -171,11 +171,36 @@ Format: **objaw → przyczyna → jak wykryć → status**.
 - **Status:** znalezione przez `qa-szablonow` w `stomatolog-3-pokoj-bez-strachu` (07.09.2026),
   naprawione od razu w tej samej sesji QA.
 
+## B-16 · Zdjęcia kart/about kopiują parametry `w=`/`h=` zdjęcia hero — 50-250 KiB niepotrzebnie ściągane, żadna kontrola tego nie sprawdzała
+
+- **Objaw:** karta usługi wyświetlana np. 372×180px ściąga to samo zdjęcie Pexels co pełnoekranowe
+  hero (940×650) — realnie potwierdzone Lighthouse (`image-delivery-insight`) na produkcji.
+- **Przyczyna:** przy budowie wariantu wygodnie skopiować cały `<img>` hero (z parametrami URL)
+  jako punkt startowy dla kolejnych zdjęć i zmienić tylko ID zdjęcia, nie `w=`/`h=`. Audyt 53
+  szablonów (2026-09-15) znalazł to w 142/151 (94%) nie-hero zdjęć Pexels w całym systemie —
+  systemowy błąd, nie incydent w jednym pliku.
+- **Jak wykryć:** `sprawdz_szablon` → check `rozmiar_zdjec_vs_hero` (dodany 2026-09-15) — porównuje
+  `w=`/`h=` każdego nie-hero zdjęcia Pexels z hero tego samego pliku (hero = pierwsze zdjęcie
+  Pexels w dokumencie). Zero-koszt, deterministyczny, nie wymaga oceny wzrokowej.
+- **Poprawny wzorzec:** dopasuj `w=`/`h=` w URL Pexels + atrybuty `width`/`height` do realnego
+  rozmiaru kontenera ×2 (retina) — przeczytaj rzeczywisty layout (grid/flex/aspect-ratio), nie
+  zgaduj. **Pułapka przy masowej naprawie:** pierwsza próba regexem w 2026-09-07 przypadkiem wycięła
+  `alt=` z 7 obrazków — edytuj cały `<img>` tag na raz, licz `alt="` przed/po, nigdy sed/regex na
+  fragmentach atrybutów.
+- **Powiązane, ta sama sesja audytu:** ten sam wzorzec "nikt nie sprawdzał" dotyczył ładowania
+  Google Fontów (render-blocking mimo `display=swap` — check `fonty_preload`) i brakującego
+  `<link rel="preload" as="image">` na hero (check `lcp_preload`) — obie dodane razem z
+  `rozmiar_zdjec_vs_hero` do `mcp/qa-szablony`, patrz ZASADY.md sekcje 4a/4b/4c.
+- **Status:** znalezione i naprawione na wszystkich 53 szablonach (2026-09-15) — 2 z 4 poprawek
+  (fonty, LCP-preload) rozniesione mechanicznie i wypchnięte na `main`+`nextjs-migration-faza0`
+  w tej samej sesji; rozmiar zdjęć kart naprawiony osobno (fork), redirect `.html`→bez rozszerzenia
+  wciąż odłożony.
+
 ---
 
 ## Jak korzystać
 
-**Przed budową wariantu:** przeczytaj B-01, B-02, B-03, B-06, B-07 (pułapki konstrukcyjne).
+**Przed budową wariantu:** przeczytaj B-01, B-02, B-03, B-06, B-07, B-16 (pułapki konstrukcyjne).
 **Przed przeglądem:** przeczytaj B-08, B-09, B-11, B-12, B-13 (to, co najczęściej przechodzi).
 **Gdy wariant ma mechanizm liczący:** przeczytaj B-14 — porównaj liczby ze zdaniami obok, pozycja po pozycji.
 **Gdy weryfikacja daje dziwny wynik:** sprawdź B-04 i B-05, zanim uznasz, że strona jest zepsuta.
