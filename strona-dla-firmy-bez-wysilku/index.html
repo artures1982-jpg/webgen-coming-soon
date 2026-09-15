@@ -128,14 +128,10 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;justify
   .reveal{opacity:1!important;transform:none!important}
 }
 </style>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-N2TJE2MCE2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-N2TJE2MCE2');
-</script>
+<!-- Google Analytics ladowany WARUNKOWO, dopiero po zgodzie na cookie analityczne
+     (baner cookie decyduje, patrz shared/cookie-consent.js) — polityka prywatnosci
+     obiecuje "GA4 wylacznie po zgodzie", ten skrypt to faktycznie egzekwuje. -->
+<script src="/shared/cookie-consent.js"></script>
 </head>
 <body>
 
