@@ -43,8 +43,10 @@ const nextConfig: NextConfig = {
             // rejestracji Clerka) renderuje się w iframe, które CSP cicho blokuje
             // (brak frame-src = domyślnie default-src 'self'), więc formularz wisi
             // w nieskończoność bez żadnego błędu JS — złapane przy testach e2e.
+            // https://www.googletagmanager.com (script) + google-analytics.com/
+            // analytics.google.com (connect) — gtag.js, patrz src/app/layout.tsx.
             value:
-              "default-src 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com https://fonts.googleapis.com https://clerk.webgen.pl https://*.clerk.accounts.dev https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.stripe.com https://api.anthropic.com https://resend.com https://api.pexels.com https://clerk.webgen.pl https://*.clerk.accounts.dev https://www.webgen.pl; img-src 'self' data: https:; frame-src https://challenges.cloudflare.com https://clerk.webgen.pl https://*.clerk.accounts.dev https://js.stripe.com; worker-src 'self' blob:; object-src 'none'; base-uri 'self';",
+              "default-src 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com https://fonts.googleapis.com https://clerk.webgen.pl https://*.clerk.accounts.dev https://challenges.cloudflare.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.stripe.com https://api.anthropic.com https://resend.com https://api.pexels.com https://clerk.webgen.pl https://*.clerk.accounts.dev https://www.webgen.pl https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https:; frame-src https://challenges.cloudflare.com https://clerk.webgen.pl https://*.clerk.accounts.dev https://js.stripe.com; worker-src 'self' blob:; object-src 'none'; base-uri 'self';",
           },
         ],
       },

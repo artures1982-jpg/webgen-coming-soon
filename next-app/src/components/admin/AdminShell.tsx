@@ -4,6 +4,7 @@ import { useState } from "react";
 import { SignIn, useClerk, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useAdminStripeData } from "@/hooks/useAdminStripeData";
+import { useAdminAnalyticsData } from "@/hooks/useAdminAnalyticsData";
 import { ADMIN_ALLOWED_EMAILS } from "@/lib/admin-allowlist";
 import styles from "./Admin.module.css";
 
@@ -118,6 +119,7 @@ function DeniedGate({ onRetry }: { onRetry: () => void }) {
 
 function AdminDashboard({ email, onLogout }: { email: string; onLogout: () => void }) {
   const { kpis, error, loaded } = useAdminStripeData();
+  const { summary, error: analyticsError, loaded: analyticsLoaded } = useAdminAnalyticsData();
   const [now] = useState(() => new Date().toLocaleDateString("pl-PL", { day: "numeric", month: "long", year: "numeric" }));
 
   return (
@@ -157,6 +159,32 @@ function AdminDashboard({ email, onLogout }: { email: string; onLogout: () => vo
             <div className={`${styles.stat} ${styles.b}`}>
               <div className={styles["stat-label"]}>Płacący klienci</div>
               <div className={styles["stat-val"]}>{!loaded ? "…" : kpis!.payingClients}</div>
+            </div>
+          </div>
+        )}
+
+        <div className={styles["ph-title"]} style={{ fontSize: 18, marginTop: 32 }}>
+          Ruch na webgen.pl
+        </div>
+        <div className={styles["ph-sub"]}>Google Analytics · ostatnie {summary?.rangeDays ?? 7} dni</div>
+
+        {analyticsError ? (
+          <div style={{ color: "var(--red)", fontFamily: "var(--mono)", fontSize: 13 }}>
+            ⚠ Błąd pobierania danych z Google Analytics.
+          </div>
+        ) : (
+          <div className={styles.stats}>
+            <div className={`${styles.stat} ${styles.g}`}>
+              <div className={styles["stat-label"]}>Użytkownicy</div>
+              <div className={styles["stat-val"]}>{!analyticsLoaded ? "…" : summary!.activeUsers}</div>
+            </div>
+            <div className={`${styles.stat} ${styles.b}`}>
+              <div className={styles["stat-label"]}>Sesje</div>
+              <div className={styles["stat-val"]}>{!analyticsLoaded ? "…" : summary!.sessions}</div>
+            </div>
+            <div className={`${styles.stat} ${styles.b}`}>
+              <div className={styles["stat-label"]}>Odsłony</div>
+              <div className={styles["stat-val"]}>{!analyticsLoaded ? "…" : summary!.screenPageViews}</div>
             </div>
           </div>
         )}
