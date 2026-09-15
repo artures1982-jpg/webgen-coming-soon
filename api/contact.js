@@ -132,6 +132,21 @@ export default async function handler(req) {
     // cichy fallback — lead już bezpiecznie trafił do hello@webgen.pl wyżej
   }
 
+  // Odpala Automation w Resend (harmonogram dzień 2/5/8 skonfigurowany w
+  // panelu Resend, krok Delay + Send Email — zero własnego crona/serwera).
+  // Nazwa eventu musi odpowiadać triggerowi ustawionemu w tej automatyzacji.
+  // Dopóki automatyzacja nie istnieje w panelu, ten request jest no-opem —
+  // bezpieczne do wdrożenia przed jej skonfigurowaniem.
+  try {
+    await fetch('https://api.resend.com/events/send', {
+      method: 'POST',
+      headers: { Authorization: 'Bearer ' + RESEND_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ event: 'webgen.waitlist_signup', email: email, payload: { source: source } }),
+    });
+  } catch (e) {
+    // cichy fallback — lead już bezpiecznie trafił do hello@webgen.pl wyżej
+  }
+
   // Potwierdzenie do zgłaszającego się — zadaje pytania kwalifikujące (branża,
   // czy ma już stronę, czego potrzebuje), żeby odpowiedź (reply_to hello@webgen.pl)
   // od razu dała kontekst zamiast czekać biernie na start produkcji. Celowo
