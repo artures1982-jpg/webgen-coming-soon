@@ -1,0 +1,107 @@
+.formRow {
+  display: flex;
+  max-width: 440px;
+}
+.formInput {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: none;
+  border-radius: 10px 0 0 10px;
+  padding: 15px 18px;
+  font-family: var(--font-mono, "JetBrains Mono"), monospace;
+  font-size: 13px;
+  color: #f3f6fc;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+.formInput::placeholder {
+  color: rgba(142, 151, 172, 0.6);
+}
+.formInput:focus {
+  border-color: rgba(0, 229, 160, 0.4);
+  background: rgba(0, 229, 160, 0.05);
+}
+.formInput.invalid {
+  border-color: rgba(255, 107, 107, 0.6);
+}
+.formBtn {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(120deg, #00e5a0, #2e7cff 55%, #7b4fff);
+  border: none;
+  border-radius: 0 10px 10px 0;
+  padding: 15px 26px;
+  font-family: var(--font-head, "Bricolage Grotesque"), sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #05100d;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    box-shadow 0.2s,
+    transform 0.1s,
+    filter 0.2s;
+  letter-spacing: -0.01em;
+}
+.formBtn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: skewX(-20deg);
+  animation: ctaShine 3.2s ease-in-out infinite;
+}
+@keyframes ctaShine {
+  0% {
+    left: -60%;
+  }
+  35% {
+    left: 130%;
+  }
+  100% {
+    left: 130%;
+  }
+}
+.formBtn:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 0 28px rgba(0, 229, 160, 0.3);
+}
+.formBtn:active {
+  transform: scale(0.98);
+}
+.formNote {
+  font-family: var(--font-mono, "JetBrains Mono"), monospace;
+  font-size: 11px;
+  color: #8e97ac;
+  margin-top: 14px;
+}
+.formNote a {
+  color: #8e97ac;
+  transition: color 0.2s;
+}
+.formNote a:hover {
+  color: #00e5a0;
+}
+.formSuccess {
+  font-family: var(--font-mono, "JetBrains Mono"), monospace;
+  font-size: 14px;
+  color: #29d18f;
+  padding: 14px 0;
+}
+
+@media (max-width: 720px) {
+  .formRow {
+    max-width: 100%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .formBtn::after {
+    animation: none !important;
+  }
+}
