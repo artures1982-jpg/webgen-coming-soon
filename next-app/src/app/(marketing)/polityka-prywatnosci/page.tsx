@@ -102,7 +102,8 @@ export default function PolitykaPrywatnosciPage() {
       <h3>Analityka</h3>
       <p>
         Google Analytics 4 — wyłącznie po udzieleniu zgody na pliki cookie analityczne. Dane
-        anonimizowane. <em>Okres:</em> 14 miesięcy.
+        anonimizowane. <em>Okres przechowywania:</em> dane zdarzeń 2 miesiące, dane użytkownika 14
+        miesięcy (licznik resetuje się przy każdej nowej aktywności).
       </p>
 
       <h2 className={styles.h2WithMark}>Twoje prawa</h2>
@@ -248,7 +249,15 @@ export default function PolitykaPrywatnosciPage() {
               <td>2 lata od ostatniego kontaktu</td>
             </tr>
             <tr>
-              <td>Logi serwera i dane analityczne</td>
+              <td>Logi serwera</td>
+              <td>14 miesięcy</td>
+            </tr>
+            <tr>
+              <td>Dane analityczne GA4 — zdarzenia</td>
+              <td>2 miesiące</td>
+            </tr>
+            <tr>
+              <td>Dane analityczne GA4 — dane użytkownika</td>
               <td>14 miesięcy</td>
             </tr>
             <tr>
