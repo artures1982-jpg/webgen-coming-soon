@@ -1,5 +1,8 @@
 .page {
   --bg: #080a12;
+  --s1: #10141f;
+  --s2: #161b29;
+  --s3: #1d2334;
   --surface: rgba(255, 255, 255, 0.04);
   --surface-h: rgba(255, 255, 255, 0.08);
   --border: rgba(255, 255, 255, 0.1);
@@ -190,6 +193,124 @@
   margin-bottom: 44px;
   max-width: 620px;
   text-wrap: balance;
+}
+
+/* ── STEPS ("jak działa") ── */
+.stepsSection {
+  padding: 90px 0;
+  border-bottom: 1px solid var(--border);
+}
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+.step {
+  padding: 28px 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  height: 100%;
+}
+.stepNum {
+  display: block;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--green);
+  letter-spacing: 0.08em;
+  margin-bottom: 16px;
+}
+.step h3 {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.step p {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+@media (max-width: 900px) {
+  .steps {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 560px) {
+  .steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── FAQ ── */
+.faqSection {
+  padding: 90px 24px;
+  border-bottom: 1px solid var(--border);
+}
+.faqInner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.faqTitle {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 28px;
+  text-align: center;
+  color: var(--text);
+}
+.secLabelCenter {
+  justify-content: center;
+}
+.secLabelCenter::after {
+  display: none;
+}
+
+/* ── KONTAKT ── */
+.kontaktSection {
+  padding: 90px 0;
+  border-bottom: 1px solid var(--border);
+}
+.kontaktInner {
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: center;
+}
+.kontaktDesc {
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--muted);
+  margin: 0 auto 26px;
+  max-width: 440px;
+}
+.kontaktInner .secLabel {
+  justify-content: center;
+}
+.kontaktInner .secLabel::after {
+  display: none;
+}
+.kontaktInner .secHead {
+  text-align: center;
+  margin: 0 auto 18px;
+}
+.kontaktEmail {
+  display: inline-block;
+  font-family: var(--head);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  padding: 14px 28px;
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.kontaktEmail:hover {
+  border-color: var(--green);
+  color: var(--green);
 }
 
 /* ── BENTO ── */

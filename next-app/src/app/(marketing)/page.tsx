@@ -4,6 +4,7 @@ import HeroVisual from "@/components/HeroVisual";
 import WaitlistForm from "@/components/WaitlistForm";
 import Reveal from "@/components/Reveal";
 import Footer from "@/components/Footer";
+import Faq from "@/components/Faq";
 import styles from "./page.module.css";
 
 // Treść skopiowana 1:1 z index.html (legacy, stan po e72227c/eac259e — "/start/
@@ -118,6 +119,56 @@ const BENTO_CARDS = [
   },
 ];
 
+const STEPS = [
+  {
+    n: "01",
+    title: "Wybierz szablon",
+    desc: "Przeglądaj Galerię Startową i znajdź wariant dopasowany do Twojej branży i stylu — hydraulik, fryzjer, stomatolog i 9 innych kategorii.",
+  },
+  {
+    n: "02",
+    title: "Wpisz dane firmy",
+    desc: "Nazwa, miasto, usługi, telefon — kilka pól w prostym formularzu. Żadnego kodu, żadnego developera.",
+  },
+  {
+    n: "03",
+    title: "Aktywuj stronę",
+    desc: "Jedno kliknięcie i strona żyje na subdomenie *.webgen.pl. SSL i hosting w cenie, gotowe w kilka minut.",
+  },
+  {
+    n: "04",
+    title: "Rozwijaj się",
+    desc: "Gdy będziesz gotowy na więcej — plan Pro dopasowuje treść, zdjęcia i kolory do Twojej firmy jednym kliknięciem AI.",
+  },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "Czym właściwie jest Webgen?",
+    a: "Biblioteką gotowych, zaprojektowanych stron dla polskich firm usługowych — hydraulików, elektryków, fryzjerów, stomatologów i innych. Wybierasz wariant dopasowany do branży, wpisujesz dane firmy i publikujesz — bez agencji i bez developera.",
+  },
+  {
+    q: "Czy muszę umieć programować?",
+    a: "Nie. Cały proces to formularz — nazwa firmy, miasto, usługi, dane kontaktowe. Szablon i publikacja dzieją się automatycznie.",
+  },
+  {
+    q: "Ile to kosztuje na start?",
+    a: "Nic. Plan Start jest darmowy przez pierwsze 6 miesięcy (potem 149 zł/mies.) i obejmuje pełną Galerię Startową oraz hosting na subdomenie *.webgen.pl.",
+  },
+  {
+    q: "Jak długo trwa uruchomienie strony?",
+    a: "Kilka minut — od wyboru szablonu do działającej strony pod własnym adresem *.webgen.pl.",
+  },
+  {
+    q: "Co jeśli nie znajdę szablonu dla mojej branży?",
+    a: "Napisz do nas (sekcja Kontakt niżej) — stale dodajemy nowe branże i warianty, a w niektórych przypadkach dobierzemy najbliższy pasujący szablon do dostosowania.",
+  },
+  {
+    q: "Czy mogę zmienić szablon później?",
+    a: "Tak, w dowolnym momencie możesz aktywować inny wariant z Galerii Startowej — Twoje dane firmy przenoszą się automatycznie.",
+  },
+];
+
 export default function Home() {
   return (
     <div className={styles.page}>
@@ -153,6 +204,24 @@ export default function Home() {
           {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
             <span key={i}>{item}</span>
           ))}
+        </div>
+      </section>
+
+      <section id="jak-dziala" className={styles.stepsSection}>
+        <div className={styles.wrap}>
+          <p className={styles.secLabel}>{"// jak działa"}</p>
+          <h2 className={styles.secHead}>Od wyboru szablonu do działającej strony — cztery kroki.</h2>
+          <div className={styles.steps}>
+            {STEPS.map((step, i) => (
+              <Reveal key={step.n} delay={i * 0.06}>
+                <div className={styles.step}>
+                  <span className={styles.stepNum}>{step.n}</span>
+                  <h3>{step.title}</h3>
+                  <p>{step.desc}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -317,6 +386,32 @@ export default function Home() {
               </div>
             </Reveal>
           </div>
+        </div>
+      </section>
+
+      <section id="faq" className={styles.faqSection}>
+        <div className={styles.faqInner}>
+          <p className={`${styles.secLabel} ${styles.secLabelCenter}`}>{"// faq"}</p>
+          <h2 className={styles.faqTitle}>Często zadawane pytania</h2>
+          <Faq items={FAQ_ITEMS} />
+        </div>
+      </section>
+
+      <section id="kontakt" className={styles.kontaktSection}>
+        <div className={styles.wrap}>
+          <Reveal>
+            <div className={styles.kontaktInner}>
+              <p className={styles.secLabel}>{"// kontakt"}</p>
+              <h2 className={styles.secHead}>Nie widzisz swojej branży? Masz pytanie?</h2>
+              <p className={styles.kontaktDesc}>
+                Napisz do nas — stale dodajemy nowe branże i warianty szablonów, a przy większych
+                pytaniach odpowiadamy osobiście, nie botem.
+              </p>
+              <a href="mailto:hello@webgen.pl" className={styles.kontaktEmail}>
+                hello@webgen.pl →
+              </a>
+            </div>
+          </Reveal>
         </div>
       </section>
 
