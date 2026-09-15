@@ -11,6 +11,32 @@ export const config = { runtime: 'edge' };
 var RESEND_KEY = process.env.RESEND_API_KEY;
 var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 var ORIGIN_RE = /^https:\/\/([a-z0-9-]+\.)?webgen\.pl$/i;
+var WAITLIST_SEGMENT_NAME = 'Webgen Waitlist';
+
+// Segmenty zastąpiły Audiences w API Resend (Audiences są deprecated) — patrz
+// https://resend.com/docs/api-reference/segments. Szukamy segmentu po nazwie
+// i tworzymy go przy pierwszym leadzie, żeby nie wymagać ręcznej konfiguracji
+// w panelu Resend ani nowej zmiennej środowiskowej.
+async function getOrCreateWaitlistSegmentId() {
+  var listRes = await fetch('https://api.resend.com/segments', {
+    headers: { Authorization: 'Bearer ' + RESEND_KEY },
+  });
+  if (listRes.ok) {
+    var listData = await listRes.json();
+    var existing = (listData.data || []).find(function (s) { return s.name === WAITLIST_SEGMENT_NAME; });
+    if (existing) return existing.id;
+  }
+  var createRes = await fetch('https://api.resend.com/segments', {
+    method: 'POST',
+    headers: { Authorization: 'Bearer ' + RESEND_KEY, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: WAITLIST_SEGMENT_NAME }),
+  });
+  if (createRes.ok) {
+    var createData = await createRes.json();
+    return createData.id;
+  }
+  return null;
+}
 
 function corsHeaders(origin) {
   var allow = ORIGIN_RE.test(origin || '') ? origin : 'https://www.webgen.pl';
@@ -87,6 +113,23 @@ export default async function handler(req) {
     }
   } catch (e) {
     return new Response(JSON.stringify({ error: String(e.message || e) }), { status: 500, headers: headers });
+  }
+
+  // Realny zapis leada do listy (segment Resend), żeby przyszła automatyczna
+  // sekwencja maili miała po kim wysyłać — do tej pory lead trafiał WYŁĄCZNIE
+  // jako pojedynczy mail do hello@webgen.pl, nigdzie nie było trwałej listy.
+  // Best-effort: błąd (np. duplikat e-maila) nie psuje odpowiedzi klientowi.
+  try {
+    var segmentId = await getOrCreateWaitlistSegmentId();
+    var contactPayload = { email: email, unsubscribed: false, properties: { source: source } };
+    if (segmentId) contactPayload.segments = [segmentId];
+    await fetch('https://api.resend.com/contacts', {
+      method: 'POST',
+      headers: { Authorization: 'Bearer ' + RESEND_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify(contactPayload),
+    });
+  } catch (e) {
+    // cichy fallback — lead już bezpiecznie trafił do hello@webgen.pl wyżej
   }
 
   // Potwierdzenie do zgłaszającego się — zadaje pytania kwalifikujące (branża,

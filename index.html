@@ -265,6 +265,12 @@ nav .wrap { display: flex; align-items: center; justify-content: space-between; 
   display: none; font-family: var(--mono); font-size: 14px;
   color: var(--good); padding: 14px 0;
 }
+.form-error {
+  display: none; font-family: var(--mono); font-size: 13px;
+  color: var(--danger); margin-top: 10px;
+}
+.form-btn[disabled] { opacity: .6; cursor: default; }
+.form-btn[disabled]::after { animation: none; }
 
 /* ── HERO VISUAL: layered mockup stack ── */
 .hero-visual { position: relative; height: 460px; }
@@ -627,8 +633,9 @@ footer .wrap { display: flex; align-items: center; justify-content: space-betwee
           <input type="email" id="emailInput" class="form-input" placeholder="twoj@email.pl" autocomplete="email">
           <button class="form-btn" onclick="handleSubmit()">Daj mi znać →</button>
         </div>
-        <p class="form-note">Zero spamu. Albo <a href="/galeria/">zobacz galerię szablonów już teraz →</a></p>
-        <p class="form-success" id="formSuccess">✓ Zapisano. Damy znać przy starcie.</p>
+        <p class="form-note">Zero spamu. Zapisując się, akceptujesz <a href="/polityka-prywatnosci/">politykę prywatności</a>. Albo <a href="/galeria/">zobacz galerię szablonów już teraz →</a></p>
+        <p class="form-error" id="formError"></p>
+        <p class="form-success" id="formSuccess">✓ Zapisano. Sprawdź skrzynkę — wysłaliśmy Ci maila z kilkoma pytaniami.</p>
       </div>
     </div>
 
@@ -825,16 +832,33 @@ footer .wrap { display: flex; align-items: center; justify-content: space-betwee
 
   window.handleSubmit = function() {
     var inp = document.getElementById('emailInput');
+    var btn = document.querySelector('.form-btn');
+    var errEl = document.getElementById('formError');
     var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    errEl.style.display = 'none';
     if (!re.test(inp.value.trim())) {
       inp.style.borderColor = 'rgba(255,107,107,0.6)';
       inp.focus();
       setTimeout(function() { inp.style.borderColor = ''; }, 1500);
       return;
     }
-    document.querySelector('.form-row').style.display = 'none';
-    document.querySelector('.form-note').style.display = 'none';
-    document.getElementById('formSuccess').style.display = 'block';
+    btn.disabled = true;
+    fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: inp.value.trim(), source: 'hero-waitlist', rodo: true })
+    }).then(function(r) {
+      return r.json().then(function(data) { return { ok: r.ok, data: data }; });
+    }).then(function(res) {
+      if (!res.ok) throw new Error(res.data && res.data.error ? res.data.error : 'Błąd zapisu');
+      document.querySelector('.form-row').style.display = 'none';
+      document.querySelector('.form-note').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    }).catch(function(e) {
+      btn.disabled = false;
+      errEl.textContent = 'Nie udało się zapisać — spróbuj ponownie albo napisz na hello@webgen.pl';
+      errEl.style.display = 'block';
+    });
   };
   document.getElementById('emailInput').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') window.handleSubmit();
