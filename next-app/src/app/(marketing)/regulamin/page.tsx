@@ -195,7 +195,26 @@ export default function RegulaminPage() {
         <li>Dekompilacji lub wstecznej inżynierii oprogramowania Serwisu</li>
       </ul>
 
-      <h2 className={styles.h2}>§ 8. Anulowanie subskrypcji</h2>
+      <h2 className={styles.h2}>§ 8. Newsletter</h2>
+      <ol>
+        <li>
+          Newsletter to bezpłatna, opcjonalna usługa informacyjna — e-maile o starcie pełnej
+          aktywacji stron, nowościach i materiałach edukacyjnych. Zapisanie się nie wiąże się z
+          żadną opłatą ani zobowiązaniem.
+        </li>
+        <li>
+          Zapisać można się przez formularz na stronie głównej Serwisu, podając adres e-mail i
+          akceptując niniejszy Regulamin oraz Politykę Prywatności.
+        </li>
+        <li>
+          Z Newslettera można zrezygnować w każdej chwili — klikając link rezygnacji w otrzymanej
+          wiadomości albo pisząc na <a href="mailto:hello@webgen.pl">hello@webgen.pl</a>.
+          Rezygnacja jest natychmiastowa i nie wymaga podania przyczyny.
+        </li>
+        <li>Zasady przetwarzania adresu e-mail podanego przy zapisie opisuje Polityka Prywatności.</li>
+      </ol>
+
+      <h2 className={styles.h2}>§ 9. Anulowanie subskrypcji</h2>
       <ol>
         <li>Umowa zawierana jest na czas nieokreślony z możliwością rozwiązania przez każdą ze stron.</li>
         <li>
@@ -210,7 +229,7 @@ export default function RegulaminPage() {
         </li>
       </ol>
 
-      <h2 className={styles.h2}>§ 9. Własność intelektualna</h2>
+      <h2 className={styles.h2}>§ 10. Własność intelektualna</h2>
       <ol>
         <li>Prawa do Serwisu (kod, design, znaki towarowe) należą do Operatora.</li>
         <li>
@@ -223,7 +242,7 @@ export default function RegulaminPage() {
         </li>
       </ol>
 
-      <h2 className={styles.h2}>§ 10. Odpowiedzialność i dostępność Serwisu</h2>
+      <h2 className={styles.h2}>§ 11. Odpowiedzialność i dostępność Serwisu</h2>
       <p>
         Operator dokłada starań, aby Serwis działał nieprzerwanie, jednak nie gwarantuje
         konkretnego poziomu dostępności (SLA) — infrastruktura hostingowa jest utrzymywana w
@@ -240,7 +259,7 @@ export default function RegulaminPage() {
         ograniczona jest do sumy opłat uiszczonych w ciągu 3 miesięcy poprzedzających zdarzenie.
       </p>
 
-      <h2 className={styles.h2}>§ 11. Reklamacje</h2>
+      <h2 className={styles.h2}>§ 12. Reklamacje</h2>
       <ol>
         <li>
           Reklamacje kieruj na <a href="mailto:hello@webgen.pl">hello@webgen.pl</a> z opisem
@@ -257,7 +276,7 @@ export default function RegulaminPage() {
         </li>
       </ol>
 
-      <h2 className={styles.h2}>§ 12. Postanowienia końcowe</h2>
+      <h2 className={styles.h2}>§ 13. Postanowienia końcowe</h2>
       <ol>
         <li>Regulamin podlega prawu polskiemu.</li>
         <li>

@@ -45,7 +45,8 @@ export default function WaitlistForm() {
         </button>
       </div>
       <p className={styles.formNote}>
-        Zero spamu. Albo{" "}
+        Zero spamu. Zapisując się, akceptujesz <a href="/regulamin">regulamin</a> i{" "}
+        <a href="/polityka-prywatnosci">politykę prywatności</a>. Albo{" "}
         <a href="/galeria">zobacz galerię szablonów już teraz →</a>
       </p>
     </div>
